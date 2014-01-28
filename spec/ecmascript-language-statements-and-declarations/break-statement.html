@@ -1,0 +1,65 @@
+<!doctype html>
+<es-clause title="TheStatement" anchor="sec-break-statement">
+  <h2>Syntax</h2>
+
+  <es-production name="BreakStatement">
+    <es-rhs>break ;</es-rhs>
+
+    <es-rhs><es-t>break</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+    here</es-gann><es-nt>NonResolvedIdentifier</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-break-statement-static-semantics-early-errors">
+    <es-production name="BreakStatement" class="inline">
+      <es-rhs>break ;</es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if this production is not nested, directly or indirectly (but not
+        crossing function boundaries), within an <es-nt>IterationStatement</es-nt> or a
+        <es-nt>SwitchStatement</es-nt>.</p>
+      </li>
+    </ul>
+
+    <es-production name="BreakStatement" class="inline">
+      <es-rhs><es-t>break</es-t> <es-nt>NonResolvedIdentifier</es-nt> <es-t>;</es-t></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if <a href="#sec-identifiers-and-identifier-names">StringValue</a>
+        (<es-nt>NonResolvedIdentifier</es-nt>)does not appear in the <es-nt>CurrentLabelSet</es-nt>
+        of an enclosing (but not crossing function boundaries) <es-nt>Statement</es-nt>.</p>
+      </li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-break-statement-runtime-semantics-evaluation">
+    <es-production name="BreakStatement" class="inline">
+      <es-rhs>break ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
+      break, [[value]]: empty, [[target]]: empty}.
+      </li>
+    </ol>
+
+    <es-production name="BreakStatement" class="inline">
+      <es-rhs><es-t>break</es-t> <es-nt>NonResolvedIdentifier</es-nt> <es-t>;</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>label</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a>
+      of <i>NonResolvedIdentifier</i>.
+      </li>
+
+      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
+      break, [[value]]: empty, [[target]]: <i>label</i> }.
+      </li>
+    </ol>
+  </es-clause>
+</es-clause>

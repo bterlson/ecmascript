@@ -1,0 +1,31 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: BindingInitialisation" anchor=
+"sec-try-statement-runtime-semantics-bindinginitialisation">
+  <p>With arguments <es-nt>value</es-nt> and <es-nt>environment</es-nt>.</p>
+
+  <es-note>
+    <p><b>undefined</b> is passed for <es-nt>environment</es-nt> to indicate that a <a href=
+    "#sec-putvalue">PutValue</a> operation should be used to assign the initialisation value. This
+    is the case for <code>var</code> statements formal parameter lists of non-strict functions. In
+    those cases a lexical binding is hosted and preinitialised prior to evaluation of its
+    initialiser.</p>
+  </es-note>
+
+  <p>See also: <a href=
+  "#sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</a> , <a href=
+  "#sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</a> , <a href=
+  "#sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</a> , <a href=
+  "#sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</a> .</p>
+
+  <p><es-production name="CatchParameter" class=
+  "inline"><es-rhs><es-nt>BindingPattern</es-nt></es-rhs></es-production></p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is not Object,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Return the result of performing BindingInitialisation for <i>BindingPattern</i> passing
+    <i>value</i> and <i>environment</i> as the arguments.</li>
+  </ol>
+</es-clause>

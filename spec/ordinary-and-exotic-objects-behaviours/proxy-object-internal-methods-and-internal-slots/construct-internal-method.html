@@ -1,0 +1,72 @@
+<!doctype html>
+<es-clause title="[[Construct]] Internal Method" anchor="sec-construct-internal-method">
+  <p>The [[Construct]] internal method of an exotic Proxy object <es-nt>O</es-nt> is called with a
+  single parameter <es-nt>argumentsList</es-nt> which is a possibly empty <a href=
+  "#sec-list-and-record-specification-type">List</a> of <a href=
+  "#sec-ecmascript-language-types">ECMAScript language values</a> . The following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
+    "<code>construct</code>").
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
+    </li>
+
+    <li>If <i>trap</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>If <i>target</i> does not have a [[Construct]] internal method, then throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Return the result of calling the [[Construct]] internal method of <i>target</i> with
+        argument <i>argumentsList</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>argArray</i> be the result of <a href=
+    "#sec-createarrayfromlist">CreateArrayFromList</a> (<i>argumentsList</i>).
+    </li>
+
+    <li>Let <i>newObj</i> be the result of calling <i>trap</i> with <i>handler</i> as the
+    <b>this</b> value and a new <a href="#sec-list-and-record-specification-type">List</a>
+    containing <i>target</i> and <i>argArray</i>.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>newObj</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>newObj</i>) is not Object,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Return <i>newObj</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>A Proxy exotic object only has a [[Construct]] internal method if the initial value of its
+    [[ProxyTarget]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> is
+    an object that has a [[Construct]] internal method.</p>
+  </es-note>
+
+  <es-note>
+    <p>[[Construct]]] for proxy objects enforces the following invariants:</p>
+
+    <ul>
+      <li>The result of [[Construct]] must be an Object.</li>
+    </ul>
+  </es-note>
+</es-clause>

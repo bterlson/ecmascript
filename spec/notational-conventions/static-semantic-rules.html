@@ -1,0 +1,50 @@
+<!doctype html>
+<es-clause title="Static Semantic Rules" anchor="sec-static-semantic-rules">
+  <p>Context-free grammars are not sufficiently powerful to express all the rules that define
+  whether a stream of input elements make up a valid ECMAScript script that may be evaluated. In
+  some situations additional rules are needed that may be expressed using either ECMAScript
+  algorithm conventions or prose requirements. Such rules are always associated with a production
+  of a grammar and are called the <i>static semantics</i> of the production.</p>
+
+  <p>Static Semantic Rules have names and typically are defined using an algorithm. Named Static
+  Semantic Rules are associated with grammar productions and a production that has multiple
+  alternative definitions will typically have for each alternative a distinct algorithm for each
+  applicable named static semantic rule.</p>
+
+  <p>Unless otherwise specified every grammar production alternative in this specification
+  implicitly has a definition for a static semantic rule named Contains which takes an argument
+  named <es-nt>symbol</es-nt> whose value is a terminal or nonterminal of the grammar that includes
+  the associated production. The default definition of Contains is:</p>
+
+  <ol class="proc">
+    <li>For each terminal and nonterminal grammar symbol, <i>sym</i>, in the definition of this
+    production do
+
+      <ol class="block">
+        <li>If <i>sym</i> is the same grammar symbol as <i>symbol</i>, return <b>true</b>.</li>
+
+        <li>If <i>sym</i> is a nonterminal, then
+
+          <ol class="block">
+            <li>Let contained be the result of Contains for <i>sym</i> with argument
+            <i>symbol</i>.</li>
+
+            <li>If <i>contained</i> is <b>true</b>, return <b>true</b>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <p>The above definition is explicitly over-ridden for specific productions.</p>
+
+  <p>A special kind of static semantic rule is an Early Error Rule. Early error rules define early
+  error conditions (see <a href="#sec-ecmascript-language-modules-and-scripts">clause 15</a> .2.3)
+  that are associate with specific grammar productions. Evaluation of most early error rules are
+  not explicitly invoked within the algorithms of this specification. A comforming implementation
+  must, prior to the first evaluation of a <es-nt>Script</es-nt>, validate all of the early error
+  rules of the productions used to parse that <es-nt>Script</es-nt>. If any of the early error
+  rules are violated the <es-nt>Script</es-nt> is invalid and cannot be evaluated.</p>
+</es-clause>

@@ -1,0 +1,63 @@
+<!doctype html>
+<es-clause title="ArrayCreate(length) Abstract Operation" anchor="sec-arraycreate">
+  <p>The abstract operation ArrayCreate with argument <es-nt>length</es-nt> (a positive integer or
+  <span class="value">undefined</span>) and optional argument <es-nt>proto</es-nt> is used to
+  specify the creation of new exotic Array objects. It performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If the <i>proto</i> argument was not passed, then let <i>proto</i> be the intrinsic object
+    %ArrayPrototype%.</li>
+
+    <li>Let <i>A</i> be a newly created <a href="#sec-array-exotic-objects">Array exotic object</a>
+    .
+    </li>
+
+    <li>Set <i>A</i>’s essential internal methods except for [[DefineOwnProperty]] to the default
+    ordinary object definitions specified in <a href=
+    "#sec-ordinary-object-internal-methods-and-internal-slots">9.1</a> .
+    </li>
+
+    <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in <a href=
+    "#sec-array-exotic-objects-defineownproperty-p-desc">9.4.2.1</a> .
+    </li>
+
+    <li>Set the [[Prototype]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>A</i> to <i>proto</i>.
+    </li>
+
+    <li>Set the [[Extensible]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>A</i> to <b>true</b>.
+    </li>
+
+    <li>If <i>length</i> is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Set the [[ArrayInitialisationState]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>A</i> to
+        <b>true</b>.
+        </li>
+      </ol>
+    </li>
+
+    <li>Else
+
+      <ol class="block">
+        <li>Set the [[ArrayInitialisationState]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>A</i> to
+        <b>false</b>.
+        </li>
+
+        <li>Let <i>length</i> be 0.</li>
+      </ol>
+    </li>
+
+    <li>If <i>length</i>&gt;2<sup>32</sup> -1, then throw a <b>RangeError</b> exception.</li>
+
+    <li>Call <a href="#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> with arguments
+    <i>A</i>, <code>"length"</code> and PropertyDescriptor{[[Value]]: <i>length</i>, [[Writable]]:
+    <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}.
+    </li>
+
+    <li>Return <i>A</i>.</li>
+  </ol>
+</es-clause>

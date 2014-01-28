@@ -1,0 +1,68 @@
+<!doctype html>
+<es-clause title="Strict Equality Comparison" anchor="sec-strict-equality-comparison">
+  <p>The comparison <es-nt>x</es-nt> === <es-nt>y</es-nt>, where <es-nt>x</es-nt> and
+  <es-nt>y</es-nt> are values, produces <b>true</b> or <b>false</b>. Such a comparison is performed
+  as follows:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is different from
+    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>), return <b>false</b>.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Undefined, return
+    <b>true</b>.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Null, return <b>
+      true</b>.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Number, then
+
+      <ol class="block">
+        <li>If <i>x</i> is <b>NaN</b>, return <b>false</b>.</li>
+
+        <li>If <i>y</i> is <b>NaN</b>, return <b>false</b>.</li>
+
+        <li>If <i>x</i> is the same Number value as <i>y</i>, return <b>true</b>.</li>
+
+        <li>If <i>x</i> is <b>+0</b> and <i>y</i> is <b>−0</b>, return <b>true</b>.</li>
+
+        <li>If <i>x</i> is <b>−0</b> and <i>y</i> is <b>+0</b>, return <b>true</b>.</li>
+
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is String, then
+
+      <ol class="block">
+        <li>If <i>x</i> and <i>y</i> are exactly the same sequence of characters (same length and
+        same characters in corresponding positions), return <b>true</b>.</li>
+
+        <li>Else, return <b>false</b>.</li>
+      </ol>
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Boolean, then
+
+      <ol class="block">
+        <li>If <i>x</i> and <i>y</i> are both <b>true</b> or both <b>false</b>, return
+        <b>true</b>.</li>
+
+        <li>Else, return <b>false</b>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>x</i> and <i>y</i> are the same Symbol value, return <b>true</b>.</li>
+
+    <li>If <i>x</i> and <i>y</i> are the same Object value, return <b>true</b>.</li>
+
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <es-note>
+    <p>This algorithm differs from <a href="#sec-samevalue">the SameValue Algorithm</a> (<a href=
+    "#sec-samevalue">7.2.3</a> ) in its treatment of signed zeroes and NaNs.</p>
+  </es-note>
+</es-clause>

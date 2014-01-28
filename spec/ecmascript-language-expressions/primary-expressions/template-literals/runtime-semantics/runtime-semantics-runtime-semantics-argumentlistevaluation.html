@@ -1,0 +1,51 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: ArgumentListEvaluation" anchor=
+"sec-runtime-semantics-runtime-semantics-argumentlistevaluation">
+  <p>See also: <a href=
+  "#sec-argument-lists-runtime-semantics-argumentlistevaluation">12.2.6.1</a></p>
+
+  <es-production name="TemplateLiteral" class="inline">
+    <es-rhs><es-nt>NoSubstitutionTemplate</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>siteObj</i> be the result of the abstract operation GetTemplateCallSite passing this
+    <i>TemplateLiteral</i> production as the argument.</li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the one
+    element which is <i>siteObj</i>.
+    </li>
+  </ol>
+
+  <es-production name="TemplateLiteral" class="inline">
+    <es-rhs><es-nt>TemplateHead</es-nt> <es-nt>Expression</es-nt>
+    <es-nt>TemplateSpans</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>siteObj</i> be the result of the abstract operation GetTemplateCallSite passing this
+    <i>TemplateLiteral</i> production as the argument.</li>
+
+    <li>Let <i>firstSub</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>firstSub</i>).
+    </li>
+
+    <li>Let <i>restSub</i> be SubstitutionEvaluation of <i>TemplateSpans</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>restSub</i>).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>restSub</i> is a <a href=
+      "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> whose first element is
+    <i>siteObj</i>, whose second elements is <i>firstSub</i>, and whose subsequent elements are the
+    elements of <i>restSub</i>, in order. <i>restSub</i> may contain no elements.
+    </li>
+  </ol>
+</es-clause>

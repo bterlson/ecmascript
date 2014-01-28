@@ -1,0 +1,160 @@
+<!doctype html>
+<es-clause title="Static Semantics: TemplateStrings" anchor="sec-static-semantics-templatestrings">
+  <p>With parameter <es-nt>raw</es-nt>.</p>
+
+  <es-production name="TemplateLiteral" class="inline">
+    <es-rhs><es-nt>NoSubstitutionTemplate</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>raw</i> is <b>false</b>, then
+
+      <ol class="block">
+        <li>Let <i>string</i> be the TV of <i>NoSubstitutionTemplate</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>string</i> be the TRV of <i>NoSubstitutionTemplate</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the single
+    element, <i>string</i>.
+    </li>
+  </ol>
+
+  <es-production name="TemplateLiteral" class="inline">
+    <es-rhs><es-nt>TemplateHead</es-nt> <es-nt>Expression</es-nt>
+    <es-nt>TemplateSpans</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>raw</i> is <b>false</b>, then
+
+      <ol class="block">
+        <li>Let <i>head</i> be the TV of <i>TemplateHead</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>head</i> be the TRV of <i>TemplateHead</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>tail</i> be TemplateStrings of <i>TemplateSpans</i> with argument <i>raw</i>.</li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing <i>head</i>
+    followed by the element, in order of <i>tail</i>.
+    </li>
+  </ol>
+
+  <es-production name="TemplateSpans" class="inline">
+    <es-rhs><es-nt>TemplateTail</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>raw</i> is <b>false</b>, then
+
+      <ol class="block">
+        <li>Let <i>tail</i> be the TV of <i>TemplateTail</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>tail</i> be the TRV of <i>TemplateTail</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the single
+    element, <i>tail</i>.
+    </li>
+  </ol>
+
+  <es-production name="TemplateSpans" class="inline">
+    <es-rhs><es-nt>TemplateMiddleList</es-nt> <es-nt>TemplateTail</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>middle</i> be TemplateStrings of <i>TemplateMiddleList</i> with argument
+    <i>raw</i>.</li>
+
+    <li>If <i>raw</i> is <b>false</b>, then
+
+      <ol class="block">
+        <li>Let <i>tail</i> be the TV of <i>TemplateTail</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>tail</i> be the TRV of <i>TemplateTail</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the
+    elements, in order, of <i>middle</i> followed by <i>tail</i>.
+    </li>
+  </ol>
+
+  <es-production name="TemplateMiddleList" class="inline">
+    <es-rhs><es-nt>TemplateMiddle</es-nt> <es-nt>Expression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>raw</i> is <b>false</b>, then
+
+      <ol class="block">
+        <li>Let <i>string</i> be the TV of <i>TemplateMiddle</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>string</i> be the TRV of <i>TemplateMiddle</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the single
+    element, <i>string</i>.
+    </li>
+  </ol>
+
+  <es-production name="TemplateMiddleList" class="inline">
+    <es-rhs><es-nt>TemplateMiddleList</es-nt> <es-nt>TemplateMiddle</es-nt>
+    <es-nt>Expression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>front</i> be TemplateStrings of <i>TemplateMiddleList</i> with argument
+    <i>raw</i>.</li>
+
+    <li>If <i>raw</i> is <b>false</b>, then
+
+      <ol class="block">
+        <li>Let <i>last</i> be the TV of <i>TemplateMiddle</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>last</i> be the TRV of <i>TemplateMiddle</i>.</li>
+      </ol>
+    </li>
+
+    <li>Append <i>last</i> as the last element of the <a href=
+    "#sec-list-and-record-specification-type">List</a> <i>front</i>.
+    </li>
+
+    <li>Return <i>front</i>.</li>
+  </ol>
+</es-clause>

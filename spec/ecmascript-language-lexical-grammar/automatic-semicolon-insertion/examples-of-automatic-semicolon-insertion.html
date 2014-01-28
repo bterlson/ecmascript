@@ -1,0 +1,94 @@
+<!doctype html>
+<es-clause title="Examples of Automatic Semicolon Insertion" anchor=
+"sec-examples-of-automatic-semicolon-insertion">
+  <p>The source</p>
+  <pre>
+{ 1 2 } 3
+</pre>
+
+  <p>is not a valid sentence in the ECMAScript grammar, even with the <a href=
+  "#sec-automatic-semicolon-insertion">automatic semicolon insertion</a> rules. In contrast, the
+  source</p>
+  <pre>
+{ 1<br>2 } 3
+</pre>
+
+  <p>is also not a valid ECMAScript sentence, but is transformed by <a href=
+  "#sec-automatic-semicolon-insertion">automatic semicolon insertion</a> into the following:</p>
+  <pre>
+{ 1<br>;2 ;} 3;
+</pre>
+
+  <p>which is a valid ECMAScript sentence.</p>
+
+  <p>The source</p>
+  <pre>
+for (a; b<br>)
+</pre>
+
+  <p>is not a valid ECMAScript sentence and is not altered by <a href=
+  "#sec-automatic-semicolon-insertion">automatic semicolon insertion</a> because the semicolon is
+  needed for the header of a <code>for</code> statement. Automatic semicolon insertion never
+  inserts one of the two semicolons in the header of a <code>for</code> statement.</p>
+
+  <p>The source</p>
+  <pre>
+return<br>a + b
+</pre>
+
+  <p>is transformed by <a href="#sec-automatic-semicolon-insertion">automatic semicolon
+  insertion</a> into the following:</p>
+  <pre>
+return;<br>a + b;
+</pre>
+
+  <es-note>
+    <p>The expression <code>a + b</code> is not treated as a value to be returned by the
+    <code>return</code> statement, because a <es-nt>LineTerminator</es-nt> separates it from the
+    token <code>return</code>.</p>
+  </es-note>
+
+  <p>The source</p>
+  <pre>
+a = b<br>++c
+</pre>
+
+  <p>is transformed by <a href="#sec-automatic-semicolon-insertion">automatic semicolon
+  insertion</a> into the following:</p>
+  <pre>
+a = b;<br>++c;
+</pre>
+
+  <es-note>
+    <p>The token <code>++</code> is not treated as a postfix operator applying to the variable
+    <code>b</code>, because a <es-nt>LineTerminator</es-nt> occurs between <code>b</code> and
+    <code>++</code>.</p>
+  </es-note>
+
+  <p>The source</p>
+  <pre>
+if (a &gt; b)<br>else c = d
+</pre>
+
+  <p>is not a valid ECMAScript sentence and is not altered by <a href=
+  "#sec-automatic-semicolon-insertion">automatic semicolon insertion</a> before the
+  <code>else</code> token, even though no production of the grammar applies at that point, because
+  an automatically inserted semicolon would then be parsed as an empty statement.</p>
+
+  <p>The source</p>
+  <pre>
+a = b + c<br>(d + e).print()
+</pre>
+
+  <p>is <i>not</i> transformed by <a href="#sec-automatic-semicolon-insertion">automatic semicolon
+  insertion</a> , because the parenthesised expression that begins the second line can be
+  interpreted as an argument list for a function call:</p>
+  <pre>
+a = b + c(d + e).print()
+</pre>
+
+  <p>In the circumstance that an assignment statement must begin with a left parenthesis, it is a
+  good idea for the programmer to provide an explicit semicolon at the end of the preceding
+  statement rather than to rely on <a href="#sec-automatic-semicolon-insertion">automatic semicolon
+  insertion</a> .</p>
+</es-clause>

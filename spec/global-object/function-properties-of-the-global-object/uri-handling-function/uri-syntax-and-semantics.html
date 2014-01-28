@@ -1,0 +1,82 @@
+<!doctype html>
+<es-clause title="URI Syntax and Semantics" anchor="sec-uri-syntax-and-semantics">
+  <p>A URI is composed of a sequence of components separated by component separators. The general
+  form is:</p>
+
+  <es-production name="Scheme" class="inline">
+    <es-rhs><es-nt>First</es-nt> / <es-nt>Second</es-nt> ; <es-nt>Third</es-nt> ?
+    <es-nt>Fourth</es-nt></es-rhs>
+  </es-production>
+
+  <p>where the italicised names represent components and “<code>:</code>”, “<code>/</code>”,
+  “<code>;</code>” and “<code>?</code>” are reserved characters used as separators. The
+  <code>encodeURI</code> and <code>decodeURI</code> functions are intended to work with complete
+  URIs; they assume that any reserved characters in the URI are intended to have special meaning
+  and so are not encoded. The <code>encodeURIComponent</code> and <code>decodeURIComponent</code>
+  functions are intended to work with the individual component parts of a URI; they assume that any
+  reserved characters represent text and so must be encoded so that they are not interpreted as
+  reserved characters when the component is part of a complete URI.</p>
+
+  <p>The following lexical grammar specifies the form of encoded URIs.</p>
+
+  <h2>Syntax</h2>
+
+  <es-production name="uri" type="numeric">
+    <es-rhs><es-nt optional>uriCharacters</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="uriCharacters" type="numeric">
+    <es-rhs><es-nt>uriCharacter</es-nt> <es-nt optional>uriCharacters</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="uriCharacter" type="numeric">
+    <es-rhs><es-nt>uriReserved</es-nt></es-rhs>
+
+    <es-rhs><es-nt>uriUnescaped</es-nt></es-rhs>
+
+    <es-rhs><es-nt>uriEscaped</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="uriReserved" type="numeric" oneof>
+    <es-rhs>; / ? : @ &amp; = + $ ,</es-rhs>
+  </es-production>
+
+  <es-production name="uriUnescaped" type="numeric">
+    <es-rhs><es-nt>uriAlpha</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DecimalDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>uriMark</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="uriEscaped" type="numeric">
+    <es-rhs>% <es-nt>HexDigit</es-nt> <es-nt>HexDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="uriAlpha" type="numeric" oneof>
+    <es-rhs>a b c d e f g h i j k l m n o p q r s t u v w x y z</es-rhs>
+
+    <es-rhs>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</es-rhs>
+  </es-production>
+
+  <es-production name="uriMark" type="numeric" oneof>
+    <es-rhs>- _ . ! ~ * ' ( )</es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>The above syntax is based upon RFC 2396 and does not reflect changes introduced by the more
+    recent RFC 3986.</p>
+  </es-note>
+
+  <p><b>Runtime Semantics</b></p>
+
+  <p>When a character to be included in a URI is not listed above or is not intended to have the
+  special meaning sometimes given to the reserved characters, that character must be encoded. The
+  character is transformed into its UTF-8 encoding, with surrogate pairs first converted from
+  UTF-16 to the corresponding code point value. (Note that for code units in the range [0,127] this
+  results in a single octet with the same value.) The resulting sequence of octets is then
+  transformed into a String with each octet represented by an escape sequence of the form
+  “<b>%</b>xx”.</p>
+  <link rel="import" href="uri-syntax-and-semantics\encode.html">
+  <link rel="import" href="uri-syntax-and-semantics\decode.html">
+</es-clause>

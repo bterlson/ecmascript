@@ -1,0 +1,30 @@
+<!doctype html>
+<es-clause title="Directive Prologues and the Use Strict Directive" anchor=
+"sec-directive-prologues-and-the-use-strict-directive">
+  <p>A Directive Prologue is the longest sequence of <es-nt>ExpressionStatement</es-nt> productions
+  occurring as the initial <es-nt>StatementListItem</es-nt> productions of a
+  <es-nt>FunctionBody</es-nt> or a <es-nt>ScriptBody</es-nt> and where each
+  <es-nt>ExpressionStatement</es-nt> in the sequence consists entirely of a
+  <es-nt>StringLiteral</es-nt> token followed by a semicolon. The semicolon may appear explicitly
+  or may be inserted by <a href="#sec-automatic-semicolon-insertion">automatic semicolon
+  insertion</a> . A Directive Prologue may be an empty sequence.</p>
+
+  <p>A Use Strict Directive is an <es-nt>ExpressionStatement</es-nt> in a Directive Prologue whose
+  <es-nt>StringLiteral</es-nt> is either the exact character sequences
+  <code>"use</code>&nbsp;<code>strict"</code> or <code>'use</code>&nbsp;<code>strict'</code>. A Use
+  Strict Directive may not contain an <es-nt>EscapeSequence</es-nt> or
+  <es-nt>LineContinuation</es-nt>.</p>
+
+  <p>A Directive Prologue may contain more than one Use Strict Directive. However, an
+  implementation may issue a warning if this occurs.</p>
+
+  <es-note>
+    <p>The <es-nt>ExpressionStatement</es-nt> productions of a Directive Prologue are evaluated
+    normally during evaluation of the containing production. Implementations may define
+    implementation specific meanings for <es-nt>ExpressionStatement</es-nt> productions which are
+    not a Use Strict Directive and which occur in a Directive Prologue. If an appropriate
+    notification mechanism exists, an implementation should issue a warning if it encounters in a
+    Directive Prologue an <es-nt>ExpressionStatement</es-nt> that is not a Use Strict Directive and
+    which does not have a meaning defined by the implementation.</p>
+  </es-note>
+</es-clause>

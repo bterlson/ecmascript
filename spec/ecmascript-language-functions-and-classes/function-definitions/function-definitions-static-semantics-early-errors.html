@@ -1,0 +1,86 @@
+<!doctype html>
+<es-clause title="Static Semantics: Early Errors" anchor=
+"sec-function-definitions-static-semantics-early-errors">
+  <p><es-production name="FunctionDeclaration" class="inline"><es-rhs>function
+  <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+  <es-nt>FunctionBody</es-nt> }</es-rhs></es-production><br>
+  and<br>
+  <es-production name="FunctionExpression" class="inline"><es-rhs>function
+  <es-nt optional>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+  <es-nt>FunctionBody</es-nt> }</es-rhs></es-production></p>
+
+  <ul>
+    <li>
+      <p>If the source code matching this production is <a href="#sec-strict-mode-code">strict
+      code</a> , the Early Error rules for <es-production name="StrictFormalParameters"
+      class=
+      "inline"><es-rhs><es-nt>FormalParameters</es-nt></es-rhs></es-production>
+      are applied.</p>
+    </li>
+  </ul>
+
+  <p>It is a Syntax Error if IsSimpleParameterList of <es-nt>FormalParameters</es-nt> is
+  <span class="value">false</span> and any element of the BoundNames of
+  <es-nt>FormalParameters</es-nt> also occurs in the VarDeclaredNames of
+  <es-nt>FunctionBody</es-nt>.</p>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if any element of the BoundNames of <es-nt>FormalParameters</es-nt>
+      also occurs in the LexicallyDeclaredNames of <es-nt>FunctionBody</es-nt>.</p>
+    </li>
+  </ul>
+
+  <es-note>
+    <p>The LexicallyDeclaredNames of a <es-nt>FunctionBody</es-nt> does not include identifiers
+    bound using var or function declarations. Simple parameter lists bind identifiers as
+    VarDeclaredNames. Parameter lists that contain destructuring patterns, default value
+    initialisers, or a rest parameter bind identifiers as LexicallyDeclaredNames.</p>
+  </es-note>
+
+  <es-production name="StrictFormalParameters" class="inline">
+    <es-rhs><es-nt>FormalParameters</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if BoundNames of <i>FormalParameters</i> contains any duplicate
+      elements.</p>
+    </li>
+  </ul>
+
+  <es-production name="FormalParameters" class="inline">
+    <es-rhs><es-nt>FormalParameterList</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if IsSimpleParameterList of <es-nt>FormalParameterList</es-nt> is
+      <span class="value">false</span> and BoundNames of <i>FormalParameterList</i> contains any
+      duplicate elements.</p>
+    </li>
+  </ul>
+
+  <es-note>
+    <p>Multiple occurrences of the same <es-nt>Identifier</es-nt> in a
+    <es-nt>FormalParamterList</es-nt> is only allowed for non-strict functions and generator
+    functions that have simple parameter lists.</p>
+  </es-note>
+
+  <es-production name="FunctionStatementList" class="inline">
+    <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if the LexicallyDeclaredNames of <es-nt>StatementList</es-nt>
+      contains any duplicate entries.</p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if any element of the LexicallyDeclaredNames of
+      <es-nt>StatementList</es-nt> also occurs in the VarDeclaredNames of
+      <es-nt>StatementList</es-nt>.</p>
+    </li>
+  </ul>
+</es-clause>

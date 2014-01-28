@@ -1,0 +1,162 @@
+<!doctype html>
+<es-clause title="Array.prototype.reduceRight ( callbackfn [ , initialValue ] )" anchor=
+"sec-array.prototype.reduceright">
+  <p><es-nt>callbackfn</es-nt> should be a function that takes four arguments.
+  <code>reduceRight</code> calls the callback, as a function, once for each element present in the
+  array, in descending order.</p>
+
+  <p><es-nt>callbackfn</es-nt> is called with four arguments: the <es-nt>previousValue</es-nt> (or
+  value from the previous call to <es-nt>callbackfn</es-nt>), the <es-nt>currentValue</es-nt>
+  (value of the current element), the <es-nt>currentIndex</es-nt>, and the object being traversed.
+  The first time the function is called, the <es-nt>previousValue</es-nt> and
+  <es-nt>currentValue</es-nt> can be one of two values. If an <es-nt>initialValue</es-nt> was
+  provided in the call to <code>reduceRight</code>, then <es-nt>previousValue</es-nt> will be equal
+  to <es-nt>initialValue</es-nt> and <es-nt>currentValue</es-nt> will be equal to the last value in
+  the array. If no <es-nt>initialValue</es-nt> was provided, then <es-nt>previousValue</es-nt> will
+  be equal to the last value in the array and <es-nt>currentValue</es-nt> will be equal to the
+  second-to-last value. It is a <b>TypeError</b> if the array contains no elements and
+  <es-nt>initialValue</es-nt> is not provided.</p>
+
+  <p><code>reduceRight</code> does not directly mutate the object on which it is called but the
+  object may be mutated by the calls to <es-nt>callbackfn</es-nt>.</p>
+
+  <p>The range of elements processed by <code>reduceRight</code> is set before the first call to
+  <es-nt>callbackfn</es-nt>. Elements that are appended to the array after the call to
+  <code>reduceRight</code> begins will not be visited by <es-nt>callbackfn</es-nt>. If existing
+  elements of the array are changed by <es-nt>callbackfn</es-nt>, their value as passed to
+  <es-nt>callbackfn</es-nt> will be the value at the time <code>reduceRight</code> visits them;
+  elements that are deleted after the call to <code>reduceRight</code> begins and before being
+  visited are not visited.</p>
+
+  <p>When the <code>reduceRight</code> method is called with one or two arguments, the following
+  steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
+      this</b> value as the argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+    </li>
+
+    <li>Let <i>lenValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <code>"length"</code>).
+    </li>
+
+    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenValue</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
+    </li>
+
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>callbackfn</i>) is <b>false</b>, throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>len</i> is 0 and <i>initialValue</i> is not present, throw a <b>TypeError</b>
+    exception.</li>
+
+    <li>Let <i>k</i> be <i>len</i>-1.</li>
+
+    <li>If <i>initialValue</i> is present, then
+
+      <ol class="block">
+        <li>Set <i>accumulator</i> to <i>initialValue</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else <i>initialValue</i> is not present,
+
+      <ol class="block">
+        <li>Let <i>kPresent</i> be <b>false</b>.</li>
+
+        <li>Repeat, while <i>kPresent</i> is <b>false</b> and <i>k</i> ≥ 0
+
+          <ol class="block">
+            <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
+            </li>
+
+            <li>Let <i>kPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
+            (<i>O</i>, <i>Pk</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kPresent</i>).
+            </li>
+
+            <li>If <i>kPresent</i> is <b>true</b>, then
+
+              <ol class="block">
+                <li>Let <i>accumulator</i> be the result of <a href="#sec-get-o-p">Get</a>
+                (<i>O</i>, <i>Pk</i>).
+                </li>
+
+                <li>
+                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>accumulator</i>).
+                </li>
+              </ol>
+            </li>
+
+            <li>Decrease <i>k</i> by 1.</li>
+          </ol>
+        </li>
+
+        <li>If <i>kPresent</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+      </ol>
+    </li>
+
+    <li>Repeat, while <i>k</i> ≥ 0
+
+      <ol class="block">
+        <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
+        </li>
+
+        <li>Let <i>kPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
+        (<i>O</i>, <i>Pk</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kPresent</i>).
+        </li>
+
+        <li>If <i>kPresent</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>kValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+            <i>Pk</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kValue</i>).
+            </li>
+
+            <li>Let <i>accumulator</i> be the result of calling the [[Call]] internal method of <i>
+              callbackfn</i> with <b>undefined</b> as <i>thisArgument</i> and a <a href=
+              "#sec-list-and-record-specification-type">List</a> containing <i>accumulator</i>,
+              <i>kValue</i>, <i>k</i>, and <i>O</i> as <i>argumentsList</i>.
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>accumulator</i>).
+            </li>
+          </ol>
+        </li>
+
+        <li>Decrease <i>k</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>accumulator</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>reduceRight</code> method is <b>1</b>.</p>
+
+  <es-note>
+    <p>The <code>reduceRight</code> function is intentionally generic; it does not require that its
+    this value be an Array object. Therefore it can be transferred to other kinds of objects for
+    use as a method. Whether the <code>reduceRight</code> function can be applied successfully to
+    an exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

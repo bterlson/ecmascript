@@ -1,0 +1,53 @@
+<!doctype html>
+<es-clause title="Static Semantics: Early Errors" anchor=
+"sec-method-definitions-static-semantics-early-errors">
+  <es-production name="MethodDefinition" class="inline">
+    <es-rhs><es-nt>PropertyName</es-nt> ( <es-nt>StrictFormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if any element of the BoundNames of
+      <es-nt>StrictFormalParameters</es-nt> also occurs in the VarDeclaredNames of
+      <es-nt>FunctionBody</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if any element of the BoundNames of
+      <es-nt>StrictFormalParameters</es-nt> also occurs in the LexicallyDeclaredNames of
+      <es-nt>FunctionBody</es-nt>.</p>
+    </li>
+  </ul>
+
+  <es-production name="MethodDefinition" class="inline">
+    <es-rhs>set <es-nt>PropertyName</es-nt> ( <es-nt>PropertySetParameterList</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if IsSimpleParameterList of <es-nt>PropertySetParameterList</es-nt>
+      is <span class="value">false</span> and any element of the BoundNames of
+      <es-nt>PropertySetParameterList</es-nt> also occurs in the VarDeclaredNames of
+      <es-nt>FunctionBody</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if IsSimpleParameterList of <es-nt>PropertySetParameterList</es-nt>
+      is <span class="value">false</span> and BoundNames of <i>PropertySetParameterList</i>
+      contains either <b>″eval″</b> or <b>″arguments″</b>.</p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if BoundNames of <i>PropertySetParameterList</i> contains any
+      duplicate elements.</p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if any element of the BoundNames of
+      <es-nt>PropertySetParameterList</es-nt> also occurs in the LexicallyDeclaredNames of
+      <es-nt>FunctionBody</es-nt>.</p>
+    </li>
+  </ul>
+</es-clause>

@@ -1,0 +1,38 @@
+<!doctype html>
+<es-clause title="Promise Objects" anchor="sec-promise-objects">
+  <p>A Promise is an object that that is used as a place holder for the eventual results of a
+  deferred (and possibly asynchromous) computation.</p>
+
+  <p>Any Promise object is in one of three mutually exclusive states: <i>fulfilled</i>,
+  <i>rejected</i>, and <i>pending</i>:</p>
+
+  <ul>
+    <li>
+      <p>A promise <code>p</code> is fulfilled if <code>p.then(f, r)</code> will immediately
+      enqueue a Task to call the function <code>f</code>.</p>
+    </li>
+
+    <li>
+      <p>A promise <code>p</code> is rejected if <code>p.then(f, r)</code> will immediately enqueue
+      a Task to call the function <code>r</code>.</p>
+    </li>
+
+    <li>
+      <p>A promise is pending if it is neither fulfilled nor rejected.</p>
+    </li>
+  </ul>
+
+  <p>A promise said to be <i>settled</i> if it is not pending, i.e. if it is either fulfilled or
+  rejected.</p>
+
+  <p>A promise is <i>resolved</i> if it is settled or if it has been "locked in" match the state of
+  another promise. trying to Attempting to resolve or reject a resolved promise has no effect. A
+  promise is <i>unresolved</i> if it is not resolved. A unresolved promise is always in the pending
+  state. A resolved promise may be pending, fullfiled, pending.</p>
+  <link rel="import" href="promise-objects\promise-abstract-operations.html">
+  <link rel="import" href="promise-objects\promise-tasks.html">
+  <link rel="import" href="promise-objects\promise-constructor.html">
+  <link rel="import" href="promise-objects\properties-of-the-promise-constructor.html">
+  <link rel="import" href="promise-objects\properties-of-the-promise-prototype-object.html">
+  <link rel="import" href="promise-objects\properties-of-promise-instances.html">
+</es-clause>

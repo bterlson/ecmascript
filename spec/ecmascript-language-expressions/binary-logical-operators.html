@@ -1,0 +1,30 @@
+<!doctype html>
+<es-clause title="Binary Logical Operators" anchor="sec-binary-logical-operators">
+  <h2>Syntax</h2>
+
+  <es-production name="LogicalANDExpression" params="In, Yield">
+    <es-rhs><es-nt params="?In, ?Yield">BitwiseORExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">LogicalANDExpression</es-nt> &amp;&amp; <es-nt params=
+    "?In, ?Yield">BitwiseORExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="LogicalORExpression" params="In, Yield">
+    <es-rhs><es-nt params="?In, ?Yield">LogicalANDExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">LogicalORExpression</es-nt> || <es-nt params=
+    "?In, ?Yield">LogicalANDExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>The value produced by a <code>&amp;&amp;</code> or <code>||</code> operator is not
+    necessarily of type Boolean. The value produced will always be the value of one of the two
+    operand expressions.</p>
+  </es-note>
+  <link rel="import" href=
+  "binary-logical-operators\binary-logical-operators-static-semantics-isanonymousfunctiondefinition.html">
+  <link rel="import" href=
+  "binary-logical-operators\binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget.html">
+  <link rel="import" href=
+  "binary-logical-operators\binary-logical-operators-runtime-semantics-evaluation.html">
+</es-clause>

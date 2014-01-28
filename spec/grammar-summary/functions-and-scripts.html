@@ -1,0 +1,41 @@
+<!doctype html>
+<es-clause title="Functions and Scripts" anchor="sec-functions-and-scripts">
+  <es-production name="FunctionDeclaration" xref=
+  "sec-ecmascript-language-statements-and-declarations">
+    <es-rhs>function <es-nt>Identifier</es-nt> ( <es-nt optional>FormalParameterList</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <es-production name="FunctionExpression" xref=
+  "sec-ecmascript-language-statements-and-declarations">
+    <es-rhs>function <es-nt optional>Identifier</es-nt> ( <es-nt optional
+    >FormalParameterList</es-nt> ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <es-production name="FormalParameterList" xref=
+  "sec-ecmascript-language-statements-and-declarations">
+    <es-rhs><es-nt>Identifier</es-nt></es-rhs>
+
+    <es-rhs><es-nt>FormalParameterList</es-nt> , <es-nt>Identifier</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="FunctionBody" xref="sec-ecmascript-language-statements-and-declarations">
+    <es-rhs><es-nt optional>SourceElements</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Program" xref="sec-ecmascript-language-functions-and-classes">
+    <es-rhs><es-nt optional>SourceElements</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="SourceElements" xref="sec-ecmascript-language-functions-and-classes">
+    <es-rhs><es-nt>SourceElement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>SourceElements</es-nt> <es-nt>SourceElement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="SourceElement" xref="sec-ecmascript-language-functions-and-classes">
+    <es-rhs><es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>FunctionDeclaration</es-nt></es-rhs>
+  </es-production>
+</es-clause>

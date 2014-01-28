@@ -1,0 +1,67 @@
+<!doctype html>
+<es-clause title="GetOwnPropertyKeys ( O, Type ) Abstract Operation" anchor=
+"sec-getownpropertykeys">
+  <p>The abstract operation GetOwnPropertyKeys is called with arguments <es-nt>O</es-nt> and
+  <es-nt>Type</es-nt> where <es-nt>O</es-nt> is an Object and <es-nt>Type</es-nt> is one of the
+  ECMAScript specification types String or Symbol. The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>obj</i> be <a href="#sec-toobject">ToObject</a> (<i>O</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
+    </li>
+
+    <li>Let <i>keys</i> be the result of calling the [[OwnPropertyKeys]] internal method of
+    <i>obj</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keys</i>).
+    </li>
+
+    <li>Let <i>nameList</i> be a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>gotAllNames</i> be <b>false</b>.</li>
+
+    <li>Repeat while <i>gotAllNames</i> is <b>false</b>,
+
+      <ol class="block">
+        <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
+        (<i>keys</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+        </li>
+
+        <li>If <i>next</i> is <b>false</b>, then let <i>gotAllNames</i> be <b>true</b>.</li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Let <i>nextKey</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextKey</i>).
+            </li>
+
+            <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>nextKey</i>) is <i>
+              Type</i>, then
+
+              <ol class="block">
+                <li>Append <i>nextKey</i> as the last element of <i>nameList</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <a href="#sec-createarrayfromlist">CreateArrayFromList</a> (<i>nameList</i>).
+    </li>
+  </ol>
+</es-clause>

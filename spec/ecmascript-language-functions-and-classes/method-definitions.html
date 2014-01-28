@@ -1,0 +1,143 @@
+<!doctype html>
+<es-clause title="Method Definitions" anchor="sec-method-definitions">
+  <h2>Syntax</h2>
+
+  <es-production name="MethodDefinition" params="Yield">
+    <es-rhs><es-nt params="?Yield">PropertyName</es-nt> ( <es-nt>StrictFormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+
+    <es-rhs><es-nt params="?Yield">GeneratorMethod</es-nt></es-rhs>
+
+    <es-rhs>get <es-nt params="?Yield">PropertyName</es-nt> ( ) { <es-nt>FunctionBody</es-nt>
+    }</es-rhs>
+
+    <es-rhs>set <es-nt params="?Yield">PropertyName</es-nt> (
+    <es-nt>PropertySetParameterList</es-nt> ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <es-production name="PropertySetParameterList">
+    <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+
+    <es-rhs><es-nt>BindingPattern</es-nt></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>The single element of a <es-nt>PropertySetParameterList</es-nt> may not have a default value
+    <es-nt>Initialiser</es-nt> because set accessor are always called with an implicitly provided
+    argument.</p>
+  </es-note>
+  <link rel="import" href=
+  "method-definitions\method-definitions-static-semantics-early-errors.html">
+
+  <es-clause title="Static Semantics: ExpectedArgumentCount" anchor=
+  "sec-method-definitions-static-semantics-expectedargumentcount">
+    <p>See also: <a href=
+    "#sec-function-definitions-static-semantics-expectedargumentcount">14.1.5</a> , <a href=
+    "#sec-arrow-function-definitions-static-semantics-expectedargumentcount">14.2.5</a> .</p>
+
+    <es-production name="PropertySetParameterList" class="inline">
+      <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return 1.</li>
+    </ol>
+
+    <es-production name="PropertySetParameterList" class="inline">
+      <es-rhs><es-nt>BindingPattern</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return 1.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: HasComputedPropertyKey" anchor=
+  "sec-method-definitions-static-semantics-hascomputedpropertykey">
+    <p><b>See also:</b> <a href=
+    "#sec-object-initialiser-static-semantics-hascomputedpropertykey">12.1.5.3</a> , <a href=
+    "#sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</a></p>
+
+    <es-production name="MethodDefinition">
+      <es-rhs><es-nt>PropertyName</es-nt> ( <es-nt>StrictFormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+
+      <es-rhs>get <es-nt>PropertyName</es-nt> ( ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+
+      <es-rhs>set <es-nt>PropertyName</es-nt> ( <es-nt>PropertySetParameterList</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return HasComputedPropertyKey of <i>PropertyName</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: IsSimpleParameterList" anchor=
+  "sec-method-definitions-static-semantics-issimpleparameterlist">
+    <es-production name="PropertySetParameterList" class="inline">
+      <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>true</b>.</li>
+    </ol>
+
+    <es-production name="PropertySetParameterList" class="inline">
+      <es-rhs><es-nt>BindingPattern</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics:" anchor="sec-method-definitions-static-semantics-propname">
+    <p><b>See also:</b> <a href="#sec-object-initialiser-static-semantics-propname">12.1.5.5</a> ,
+    <a href="#sec-generator-function-definitions-static-semantics-propname">14.4.8</a> , <a href=
+    "#sec-class-definitions-static-semantics-propname">14.5.11</a></p>
+
+    <es-production name="MethodDefinition">
+      <es-rhs><es-nt>PropertyName</es-nt> ( <es-nt>StrictFormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+
+      <es-rhs>get <es-nt>PropertyName</es-nt> ( ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+
+      <es-rhs>set <es-nt>PropertyName</es-nt> ( <es-nt>PropertySetParameterList</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return PropName of <i>PropertyName</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "method-definitions\method-definitions-static-semantics-referencessuper.html">
+
+  <es-clause title="Static Semantics:" anchor="sec-static-semantics-specialmethod">
+    <es-production name="MethodDefinition" class="inline">
+      <es-rhs><es-nt>PropertyName</es-nt> ( <es-nt>StrictFormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="MethodDefinition">
+      <es-rhs><es-nt>GeneratorMethod</es-nt></es-rhs>
+
+      <es-rhs>get <es-nt>PropertyName</es-nt> ( ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+
+      <es-rhs>set <es-nt>PropertyName</es-nt> ( <es-nt>PropertySetParameterList</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="method-definitions\runtime-semantics-definemethod.html">
+  <link rel="import" href=
+  "method-definitions\method-definitions-runtime-semantics-propertydefinitionevaluation.html">
+</es-clause>

@@ -1,0 +1,116 @@
+<!doctype html>
+<es-clause title="The Completion Record Specification Type" anchor=
+"sec-completion-record-specification-type">
+  <p>The Completion type is a Record used to explain the runtime propagation of values and control
+  flow such as the behaviour of statements (<code>break</code>, <code>continue</code>,
+  <code>return</code> and <code>throw</code>) that perform nonlocal transfers of control.</p>
+
+  <p>Values of the Completion type are Record values whole fields are defined as by <a href=
+  "#table-8">Table 8</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-8">Table 8</span> — Completion Record Fields
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 0px solid black; border-top: 2px solid #000000">
+        Field Name</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Value</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Meaning</th>
+      </tr>
+
+      <tr>
+        <td>[[type]]</td>
+
+        <td>One of <b>normal</b>, <b>break</b>, <b>continue</b>, <b>return</b>, or
+        <b>throw</b></td>
+
+        <td>The type of completion that occurred.</td>
+      </tr>
+
+      <tr>
+        <td>[[value]]</td>
+
+        <td>
+          any <a href="#sec-ecmascript-language-types">ECMAScript language value</a> or
+          <b>empty</b>
+        </td>
+
+        <td>The value that was produced.</td>
+      </tr>
+
+      <tr>
+        <td>[[target]]</td>
+
+        <td>any ECMAScript string or <b>empty</b></td>
+
+        <td>The target label for directed control transfers.</td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>The term “abrupt completion” refers to any completion with a [[type]] value other than
+  <b>normal</b>.</p>
+
+  <es-clause title="NormalCompletion" anchor="sec-normalcompletion">
+    <p>The abstract operation NormalCompletion with a single <i>argument</i>, such as:</p>
+
+    <ol class="proc">
+      <li>Return NormalCompletion(<i>argument</i>).</li>
+    </ol>
+
+    <p>Is a shorthand that is defined as follows:</p>
+
+    <ol class="proc">
+      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
+      normal, [[value]]: <i>argument</i>, [[target]]:empty}.
+      </li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="completion-record-specification-type\implicit-completion-values.html">
+
+  <es-clause title="Throw an Exception" anchor="sec-throw-an-exception">
+    <p>Algorithms steps that say to throw an exception, such as</p>
+
+    <ol class="proc">
+      <li>Throw a <b>TypeError</b> exception.</li>
+    </ol>
+
+    <p>Mean the same things as:</p>
+
+    <ol class="proc">
+      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
+      throw, [[value]]: a newly created <b>TypeError</b> object, [[target]]:empty}.
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="ReturnIfAbrupt" anchor="sec-returnifabrupt">
+    <p>Algorithms steps that say</p>
+
+    <ol class="proc">
+      <li>ReturnIfAbrupt(<i>argument</i>).</li>
+    </ol>
+
+    <p>mean the same things as:</p>
+
+    <ol class="proc">
+      <li>If argument is an <a href="#sec-completion-record-specification-type">abrupt
+      completion</a> , then return argument.
+      </li>
+
+      <li>Else if argument is a <a href="#sec-completion-record-specification-type">Completion
+      Record</a> , then let argument be argument.[[value]].
+      </li>
+    </ol>
+  </es-clause>
+</es-clause>

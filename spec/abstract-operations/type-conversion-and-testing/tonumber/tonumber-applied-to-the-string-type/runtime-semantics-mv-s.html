@@ -1,0 +1,327 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: MV’s" anchor="sec-runtime-semantics-mv-s">
+  <p>The conversion of a String to a Number value is similar overall to the determination of the
+  Number value for a numeric literal (see <a href="#sec-literals-numeric-literals">11.8.3</a> ),
+  but some of the details are different, so the process for converting a String numeric literal to
+  a value of Number type is given here in full. This value is determined in two steps: first, a
+  mathematical value (MV) is derived from the String numeric literal; second, this mathematical
+  value is rounded as described below.</p>
+
+  <ul>
+    <li>
+      <p>The MV of <es-production name="StringNumericLiteral" type="numeric" class=
+      "inline"><es-rhs constraint="empty"></es-rhs></es-production> is 0.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StringNumericLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>StrWhiteSpace</es-nt></es-rhs></es-production>
+      is 0.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StringNumericLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt optional>StrWhiteSpace</es-nt>
+      <es-nt>StrNumericLiteral</es-nt> <es-nt optional
+      >StrWhiteSpace</es-nt></es-rhs></es-production> is the MV of
+      <es-nt>StrNumericLiteral</es-nt>, no matter whether white space is present or not.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrNumericLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>StrDecimalLiteral</es-nt></es-rhs></es-production>
+      is the MV of <es-nt>StrDecimalLiteral</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrNumericLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>HexIntegerLiteral</es-nt></es-rhs></es-production>
+      is the MV of <es-nt>HexIntegerLiteral</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>StrUnsignedDecimalLiteral</es-nt></es-rhs></es-production>
+      is the MV of <es-nt>StrUnsignedDecimalLiteral</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-t>+</es-t>
+      <es-nt>StrUnsignedDecimalLiteral</es-nt></es-rhs></es-production> is the MV of
+      <es-nt>StrUnsignedDecimalLiteral</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-t>-</es-t>
+      <es-nt>StrUnsignedDecimalLiteral</es-nt></es-rhs></es-production> is the
+      negative of the MV of <es-nt>StrUnsignedDecimalLiteral</es-nt>. (Note that if the MV of
+      <es-nt>StrUnsignedDecimalLiteral</es-nt> is 0, the negative of this MV is also 0. The
+      rounding rule described below handles the conversion of this signless mathematical zero to a
+      floating-point <b>+0</b> or <b>−0</b> as appropriate.)</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrUnsignedDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>Infinity</es-nt></es-rhs></es-production> is
+      10<sup>10000</sup> (a value so large that it will round to <b>+∞</b>).</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrUnsignedDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>DecimalDigits</es-nt>
+      <es-t>.</es-t></es-rhs></es-production> is the MV of
+      <es-nt>DecimalDigits</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrUnsignedDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>DecimalDigits</es-nt> .
+      <es-nt>DecimalDigits</es-nt></es-rhs></es-production> is the MV of the first
+      <es-nt>DecimalDigits</es-nt> plus (the MV of the second <es-nt>DecimalDigits</es-nt> times
+      10<sup>−<i>n</i></sup> ), where <es-nt>n</es-nt> is the number of characters in the second
+      <es-nt>DecimalDigits</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrUnsignedDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>DecimalDigits</es-nt> .
+      <es-nt>ExponentPart</es-nt></es-rhs></es-production> is the MV of
+      <i>DecimalDigits</i> times 10<sup><i>e</i></sup> , where <i>e</i> is the MV of
+      <i>ExponentPart</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrUnsignedDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>DecimalDigits</es-nt> . <es-nt>DecimalDigits</es-nt>
+      <es-nt>ExponentPart</es-nt></es-rhs></es-production> is (the MV of the first
+      <i>DecimalDigits</i> plus (the MV of the second <i>DecimalDigits</i> times
+      10<sup>−<i>n</i></sup> )) times 10<sup><i>e</i></sup> , where <i>n</i> is the number of
+      characters in the second <i>DecimalDigits</i> and <i>e</i> is the MV of
+      <i>ExponentPart</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrUnsignedDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-t>.</es-t>
+      <es-nt>DecimalDigits</es-nt></es-rhs></es-production> is the MV of
+      <i>DecimalDigits</i> times 10<sup>−<i>n</i></sup> , where <i>n</i> is the number of
+      characters in <i>DecimalDigits</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrUnsignedDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs>. <es-nt>DecimalDigits</es-nt>
+      <es-nt>ExponentPart</es-nt></es-rhs></es-production> is the MV of
+      <i>DecimalDigits</i> times 10<sup><i>e</i>−<i>n</i></sup> , where <i>n</i> is the number of
+      characters in <i>DecimalDigits</i> and <i>e</i> is the MV of <i>ExponentPart</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrUnsignedDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>DecimalDigits</es-nt></es-rhs></es-production>
+      is the MV of <i>DecimalDigits</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="StrUnsignedDecimalLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>DecimalDigits</es-nt>
+      <es-nt>ExponentPart</es-nt></es-rhs></es-production> is the MV of
+      <i>DecimalDigits</i> times 10<sup><i>e</i></sup> , where <i>e</i> is the MV of
+      <i>ExponentPart</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigits" type="numeric" class=
+      "inline"><es-rhs><es-nt>DecimalDigit</es-nt></es-rhs></es-production> is
+      the MV of <i>DecimalDigit</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigits" type="numeric" class=
+      "inline"><es-rhs><es-nt>DecimalDigits</es-nt>
+      <es-nt>DecimalDigit</es-nt></es-rhs></es-production> is (the MV of
+      <i>DecimalDigits</i> times 10) plus the MV of <i>DecimalDigit</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="ExponentPart" type="numeric" class=
+      "inline"><es-rhs><es-nt>ExponentIndicator</es-nt>
+      <es-nt>SignedInteger</es-nt></es-rhs></es-production> is the MV of
+      <i>SignedInteger</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="SignedInteger" type="numeric" class=
+      "inline"><es-rhs><es-nt>DecimalDigits</es-nt></es-rhs></es-production>
+      is the MV of <i>DecimalDigits</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="SignedInteger" type="numeric" class=
+      "inline"><es-rhs><es-t>+</es-t>
+      <es-nt>DecimalDigits</es-nt></es-rhs></es-production> is the MV of
+      <i>DecimalDigits</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="SignedInteger" type="numeric" class=
+      "inline"><es-rhs><es-t>-</es-t>
+      <es-nt>DecimalDigits</es-nt></es-rhs></es-production> is the negative of the MV
+      of <i>DecimalDigits</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigit" type="numeric" class=
+      "inline"><es-rhs>0</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>0</es-rhs></es-production> is 0.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigit" type="numeric" class=
+      "inline"><es-rhs>1</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>1</es-rhs></es-production> is 1.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigit" type="numeric" class=
+      "inline"><es-rhs>2</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>2</es-rhs></es-production> is 2.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigit" type="numeric" class=
+      "inline"><es-rhs>3</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>3</es-rhs></es-production> is 3.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigit" type="numeric" class=
+      "inline"><es-rhs>4</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>4</es-rhs></es-production> is 4.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigit" type="numeric" class=
+      "inline"><es-rhs>5</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>5</es-rhs></es-production> is 5.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigit" type="numeric" class=
+      "inline"><es-rhs>6</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>6</es-rhs></es-production> is 6.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigit" type="numeric" class=
+      "inline"><es-rhs>7</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>7</es-rhs></es-production> is 7.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigit" type="numeric" class=
+      "inline"><es-rhs>8</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>8</es-rhs></es-production> is 8.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="DecimalDigit" type="numeric" class=
+      "inline"><es-rhs>9</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>9</es-rhs></es-production> is 9.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>a</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>A</es-rhs></es-production> is 10.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>b</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>B</es-rhs></es-production> is 11.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>c</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>C</es-rhs></es-production> is 12.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>d</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>D</es-rhs></es-production> is 13.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>e</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>E</es-rhs></es-production> is 14.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>f</es-rhs></es-production> or of
+      <es-production name="HexDigit" type="numeric" class=
+      "inline"><es-rhs>F</es-rhs></es-production> is 15.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="HexIntegerLiteral" type="numeric" class=
+      "inline"><es-rhs><es-t>0x</es-t>
+      <es-nt>HexDigit</es-nt></es-rhs></es-production> is the MV of
+      <i>HexDigit</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="HexIntegerLiteral" type="numeric" class=
+      "inline"><es-rhs><es-t>0X</es-t>
+      <es-nt>HexDigit</es-nt></es-rhs></es-production> is the MV of
+      <i>HexDigit</i>.</p>
+    </li>
+
+    <li>
+      <p>The MV of <es-production name="HexIntegerLiteral" type="numeric" class=
+      "inline"><es-rhs><es-nt>HexIntegerLiteral</es-nt>
+      <es-nt>HexDigit</es-nt></es-rhs></es-production> is (the MV of
+      <i>HexIntegerLiteral</i> times 16) plus the MV of <i>HexDigit</i>.</p>
+    </li>
+  </ul>
+
+  <p>Once the exact MV for a String numeric literal has been determined, it is then rounded to a
+  value of the Number type. If the MV is 0, then the rounded value is +0 unless the first non white
+  space character in the String numeric literal is ‘<code>-</code>’, in which case the rounded
+  value is −0. Otherwise, the rounded value must be the Number value for the MV (in the sense
+  defined in <a href="#sec-ecmascript-language-types-number-type">6.1.6</a> ), unless the literal
+  includes a <es-nt>StrUnsignedDecimalLiteral</es-nt> and the literal has more than 20 significant
+  digits, in which case the Number value may be either the Number value for the MV of a literal
+  produced by replacing each significant digit after the 20th with a 0 digit or the Number value
+  for the MV of a literal produced by replacing each significant digit after the 20th with a 0
+  digit and then incrementing the literal at the 20th digit position. A digit is <i>significant</i>
+  if it is not part of an <es-nt>ExponentPart</es-nt> and</p>
+
+  <ul>
+    <li>it is not <b>0</b>; or</li>
+
+    <li>there is a nonzero digit to its left and there is a nonzero digit, not in the
+    <es-nt>ExponentPart</es-nt>, to its right.</li>
+  </ul>
+</es-clause>

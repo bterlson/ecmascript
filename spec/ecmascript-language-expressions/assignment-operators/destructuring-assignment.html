@@ -1,0 +1,83 @@
+<!doctype html>
+<es-clause title="Destructuring Assignment" anchor="sec-destructuring-assignment">
+  <h2>Supplemental Syntax</h2>
+
+  <p>In certain circumstances when processing the production <es-production name=
+  "AssignmentExpression" class="inline"><es-rhs><es-nt>LeftHandSideExpression</es-nt> =
+  <es-nt>AssignmentExpression</es-nt></es-rhs></es-production> the following grammar
+  is used to refine the interpretation of <es-nt>LeftHandSideExpression</es-nt>.</p>
+
+  <es-production name="AssignmentPattern" params="Yield">
+    <es-rhs><es-nt params="?Yield">ObjectAssignmentPattern</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ArrayAssignmentPattern</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ObjectAssignmentPattern" params="Yield">
+    <es-rhs>{ }</es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt params="?Yield">AssignmentPropertyList</es-nt>
+    <es-t>}</es-t></es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt params="?Yield">AssignmentPropertyList</es-nt> <es-t>,</es-t>
+    <es-t>}</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="ArrayAssignmentPattern" params="Yield">
+    <es-rhs>[ <es-nt optional>Elision</es-nt> <es-nt>AssignmentRestElement</es-nt>
+    <es-gann>?Yield</es-gann>opt ]</es-rhs>
+
+    <es-rhs><es-t>[</es-t> <es-nt params="?Yield">AssignmentElementList</es-nt>
+    <es-t>]</es-t></es-rhs>
+
+    <es-rhs>[ <es-nt params="?Yield">AssignmentElementList</es-nt> , <es-nt optional
+    >Elision</es-nt> <es-nt>AssignmentRestElement</es-nt> <es-gann>?Yield</es-gann>opt ]</es-rhs>
+  </es-production>
+
+  <es-production name="AssignmentPropertyList" params="Yield">
+    <es-rhs><es-nt params="?Yield">AssignmentProperty</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">AssignmentPropertyList</es-nt> , <es-nt params=
+    "?Yield">AssignmentProperty</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="AssignmentElementList" params="Yield">
+    <es-rhs><es-nt params="?Yield">AssignmentElisionElement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">AssignmentElementList</es-nt> , <es-nt params=
+    "?Yield">AssignmentElisionElement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="AssignmentElisionElement" params="Yield">
+    <es-rhs><es-nt optional>Elision</es-nt> <es-nt params=
+    "?Yield">AssignmentElement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="AssignmentProperty" params="Yield">
+    <es-rhs><es-nt params="?Yield">IdentifierReference</es-nt> <es-nt>Initialiser</es-nt>
+    [In,?Yield]opt</es-rhs>
+
+    <es-rhs><es-nt>PropertyName</es-nt> : <es-nt params="?Yield">AssignmentElement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="AssignmentElement" params="Yield">
+    <es-rhs><es-nt params="?Yield">DestructuringAssignmentTarget</es-nt> <es-nt>Initialiser</es-nt>
+    [In,?Yield]opt</es-rhs>
+  </es-production>
+
+  <es-production name="AssignmentRestElement" params="Yield">
+    <es-rhs><es-t>...</es-t> <es-nt params="?Yield">DestructuringAssignmentTarget</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DestructuringAssignmentTarget" params="Yield">
+    <es-rhs><es-nt params="?Yield">LeftHandSideExpression</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "destructuring-assignment\destructuring-assignment-static-semantics-early-errors.html">
+  <link rel="import" href=
+  "destructuring-assignment\runtime-semantics-destructuringassignmentevaluation.html">
+  <link rel="import" href=
+  "destructuring-assignment\runtime-semantics-iteratordestructuringassignmentevaluation.html">
+  <link rel="import" href=
+  "destructuring-assignment\runtime-semantics-keyeddestructuringassignmentevaluation.html">
+</es-clause>

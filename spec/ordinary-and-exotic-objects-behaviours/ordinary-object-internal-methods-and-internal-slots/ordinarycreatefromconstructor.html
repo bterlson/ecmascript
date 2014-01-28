@@ -1,0 +1,34 @@
+<!doctype html>
+<es-clause title=
+"OrdinaryCreateFromConstructor ( constructor, intrinsicDefaultProto, internalDataList )" anchor=
+"sec-ordinarycreatefromconstructor">
+  <p>The abstract operation OrdinaryCreateFromConstructor creates an ordinary object whose
+  [[Prototype]] value is retrieved from a constructor’s <code>prototype</code> property, if it
+  exists. Otherwise the supplied default is used for [[Prototype]]. The optional
+  <es-nt>internalDataList</es-nt> is a <a href="#sec-list-and-record-specification-type">List</a>
+  of the names of <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> names
+  that should be defined as part of the object. If the list is not provided, an empty <a href=
+  "#sec-list-and-record-specification-type">List</a> is used. This abstract operation performs the
+  following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>intrinsicDefaultProto</i> is a string
+      value that is this specification’s name of an intrinsic object. The corresponding object must
+      be an intrinsic that is intended to be used as the [[Prototype]] value of an object.
+    </li>
+
+    <li>Let <i>proto</i> be the result of <a href=
+    "#sec-getprototypefromconstructor">GetPrototypeFromConstructor</a> (<i>constructor</i>,
+    <i>intrinsicDefaultProto</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>proto</i>).
+    </li>
+
+    <li>Return the result of the abstract operation <a href="#sec-objectcreate">ObjectCreate</a>
+    (<i>proto</i>, <i>internalDataList</i>).
+    </li>
+  </ol>
+</es-clause>

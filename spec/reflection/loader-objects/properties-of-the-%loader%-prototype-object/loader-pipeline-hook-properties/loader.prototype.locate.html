@@ -1,0 +1,32 @@
+<!doctype html>
+<es-clause title="Loader.prototype.locate (loadRequest)" anchor="sec-loader.prototype.locate">
+  <p>When the locate method is called with argument <es-nt>loadRequest</es-nt> the following steps
+  are taken:</p>
+
+  <ol class="proc">
+    <li>Return the result of <a href="#sec-get-o-p">Get</a> (<i>loadRequest</i>,
+    <code>"name"</code>).
+    </li>
+  </ol>
+
+  <p>This is a Loader hook that may be over-riden by an own property of Loader instances. The
+  <code>locate</code> hook is called for each distinct normalized import
+  <es-nt>ModuleSpecifier</es-nt> immediately after the <code>normalize</code> hook returns
+  successfully, unless the module is already loaded or loading.</p>
+
+  <p>The <code>locate</code> hook is called to obtain to determine the Loader-dependent resource
+  address (URL, path, etc.) corresponding to normalised module name. The resource address is used
+  later in the Loader pipeline to retrive the source code of the requested module.</p>
+
+  <p>When a <code>locate</code> hook is called by an Loader object the argument
+  <es-nt>loadRequest</es-nt> is a LoadRequest object (<a href=
+  "#sec-load-records-and-loadrequest-objects">15.2.3.2</a> ). The value of the <code>name</code>
+  property is the normalised module name. The <code>locate</code> hook returns an eventual value
+  that is used as the resource address. When the returned value is resolved, loading will continue
+  with the <code>fetch</code> hook.</p>
+
+  <es-note>
+    <p>The <code>System.locate</code> hook typically is significantly more complicated than the
+    default <code>locate</code> hook.</p>
+  </es-note>
+</es-clause>

@@ -1,0 +1,713 @@
+<!doctype html>
+<es-clause title="Lexical Grammar" anchor="sec-lexical-grammar">
+  <es-production name="SourceCharacter" type="lexical" xref="sec-ecmascript-data-types-and-values">
+    <es-rhs><es-gprose>any Unicode code unit</es-gprose></es-rhs>
+  </es-production>
+
+  <es-production name="InputElementDiv" type="lexical" xref="sec-abstract-operations">
+    <es-rhs><es-nt>WhiteSpace</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LineTerminator</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Comment</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Token</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DivPunctuator</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="InputElementRegExp" type="lexical" xref="sec-abstract-operations">
+    <es-rhs><es-nt>WhiteSpace</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LineTerminator</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Comment</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Token</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="WhiteSpace" type="lexical" xref="sec-testing-and-comparison-operations">
+    <es-rhs>&lt;TAB&gt;</es-rhs>
+
+    <es-rhs>&lt;VT&gt;</es-rhs>
+
+    <es-rhs>&lt;FF&gt;</es-rhs>
+
+    <es-rhs>&lt;SP&gt;</es-rhs>
+
+    <es-rhs>&lt;NBSP&gt;</es-rhs>
+
+    <es-rhs>&lt;BOM&gt;</es-rhs>
+
+    <es-rhs>&lt;USP&gt;</es-rhs>
+  </es-production>
+
+  <es-production name="LineTerminator" type="lexical" xref="sec-operations-on-objects">
+    <es-rhs>&lt;LF&gt;</es-rhs>
+
+    <es-rhs>&lt;CR&gt;</es-rhs>
+
+    <es-rhs>&lt;LS&gt;</es-rhs>
+
+    <es-rhs>&lt;PS&gt;</es-rhs>
+  </es-production>
+
+  <es-production name="LineTerminatorSequence" type="lexical" xref="sec-operations-on-objects">
+    <es-rhs>&lt;LF&gt;</es-rhs>
+
+    <es-rhs>&lt;CR&gt; <es-gann>lookahead ∉ &lt;LF&gt;</es-gann></es-rhs>
+
+    <es-rhs>&lt;LS&gt;</es-rhs>
+
+    <es-rhs>&lt;PS&gt;</es-rhs>
+
+    <es-rhs>&lt;CR&gt; &lt;LF&gt;</es-rhs>
+  </es-production>
+
+  <es-production name="Comment" type="lexical" xref="sec-operations-on-iterator-objects">
+    <es-rhs><es-nt>MultiLineComment</es-nt></es-rhs>
+
+    <es-rhs><es-nt>SingleLineComment</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="MultiLineComment" type="lexical" xref="sec-operations-on-iterator-objects">
+    <es-rhs><es-t>/*</es-t> <es-nt optional>MultiLineCommentChars</es-nt> <es-t>*/</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="MultiLineCommentChars" type="lexical" xref=
+  "sec-operations-on-iterator-objects">
+    <es-rhs><es-nt>MultiLineNotAsteriskChar</es-nt> <es-nt optional
+    >MultiLineCommentChars</es-nt></es-rhs>
+
+    <es-rhs><es-t>*</es-t> <es-nt optional>PostAsteriskCommentChars</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="PostAsteriskCommentChars" type="lexical" xref=
+  "sec-operations-on-iterator-objects">
+    <es-rhs><es-nt>MultiLineNotForwardSlashOrAsteriskChar</es-nt> <es-nt optional
+    >MultiLineCommentChars</es-nt></es-rhs>
+
+    <es-rhs><es-t>*</es-t> <es-nt optional>PostAsteriskCommentChars</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="MultiLineNotAsteriskChar" type="lexical" xref=
+  "sec-operations-on-iterator-objects">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not <es-t>*</es-t></es-gmod></es-rhs>
+  </es-production>
+
+  <es-production name="MultiLineNotForwardSlashOrAsteriskChar" type="lexical" xref=
+  "sec-operations-on-iterator-objects">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-t>/</es-t></es-gmod><es-gmod>or <es-t>*</es-t></es-gmod></es-rhs>
+  </es-production>
+
+  <es-production name="SingleLineComment" type="lexical" xref="sec-operations-on-iterator-objects">
+    <es-rhs><es-t>//</es-t> <es-nt optional>SingleLineCommentChars</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="SingleLineCommentChars" type="lexical" xref=
+  "sec-operations-on-iterator-objects">
+    <es-rhs><es-nt>SingleLineCommentChar</es-nt> <es-nt optional
+    >SingleLineCommentChars</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="SingleLineCommentChar" type="lexical" xref=
+  "sec-operations-on-iterator-objects">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not
+    <es-nt>LineTerminator</es-nt></es-gmod></es-rhs>
+  </es-production>
+
+  <es-production name="Token" type="lexical" xref="sec-operations-on-promise-objects">
+    <es-rhs><es-nt>IdentifierName</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Punctuator</es-nt></es-rhs>
+
+    <es-rhs><es-nt>NumericLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Identifier" type="lexical">
+    <es-rhs><es-nt>IdentifierName</es-nt> <es-gmod>but not
+    <es-nt>ReservedWord</es-nt></es-gmod></es-rhs>
+  </es-production>
+
+  <es-production name="IdentifierName" type="lexical">
+    <es-rhs><es-nt>IdentifierStart</es-nt></es-rhs>
+
+    <es-rhs><es-nt>IdentifierName</es-nt> <es-nt>IdentifierPart</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="IdentifierStart" type="lexical">
+    <es-rhs><es-nt>UnicodeLetter</es-nt></es-rhs>
+
+    <es-rhs>$</es-rhs>
+
+    <es-rhs>_</es-rhs>
+
+    <es-rhs><es-t>\</es-t> <es-nt>UnicodeEscapeSequence</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="IdentifierPart" type="lexical">
+    <es-rhs><es-nt>IdentifierStart</es-nt></es-rhs>
+
+    <es-rhs><es-nt>UnicodeCombiningMark</es-nt></es-rhs>
+
+    <es-rhs><es-nt>UnicodeDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>UnicodeConnectorPunctuation</es-nt></es-rhs>
+
+    <es-rhs>&lt;ZWNJ&gt;</es-rhs>
+
+    <es-rhs>&lt;ZWJ&gt;</es-rhs>
+  </es-production>
+
+  <es-production name="UnicodeLetter" type="lexical">
+    <es-rhs><es-gprose>any character in the Unicode categories “Uppercase letter (Lu)”, “Lowercase
+    letter (Ll)”, “Titlecase letter (Lt)”, “Modifier letter (Lm)”, “Other letter (Lo)”, or “Letter
+    number (Nl)”.</es-gprose></es-rhs>
+  </es-production>
+
+  <es-production name="UnicodeCombiningMark" type="lexical">
+    <es-rhs><es-gprose>any character in the Unicode categories “Non-spacing mark (Mn)” or
+    “Combining spacing mark (Mc)”</es-gprose></es-rhs>
+  </es-production>
+
+  <es-production name="UnicodeDigit" type="lexical">
+    <es-rhs><es-gprose>any character in the Unicode category “Decimal number
+    (Nd)”</es-gprose></es-rhs>
+  </es-production>
+
+  <es-production name="UnicodeConnectorPunctuation" type="lexical">
+    <es-rhs><es-gprose>any character in the Unicode category “Connector punctuation
+    (Pc)”</es-gprose></es-rhs>
+  </es-production>
+
+  <es-production name="ReservedWord" type="lexical">
+    <es-rhs><es-nt>Keyword</es-nt></es-rhs>
+
+    <es-rhs><es-nt>FutureReservedWord</es-nt></es-rhs>
+
+    <es-rhs><es-nt>NullLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>BooleanLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Keyword" type="lexical" oneof></es-production>
+
+  <figure>
+    <table class="lightweight-table">
+      <tr>
+        <td>break</td>
+
+        <td>do</td>
+
+        <td>instanceof</td>
+
+        <td>typeof</td>
+      </tr>
+
+      <tr>
+        <td>case</td>
+
+        <td>else</td>
+
+        <td>new</td>
+
+        <td>var</td>
+      </tr>
+
+      <tr>
+        <td>catch</td>
+
+        <td>finally</td>
+
+        <td>return</td>
+
+        <td>void</td>
+      </tr>
+
+      <tr>
+        <td>continue</td>
+
+        <td>for</td>
+
+        <td>switch</td>
+
+        <td>while</td>
+      </tr>
+
+      <tr>
+        <td>debugger</td>
+
+        <td>function</td>
+
+        <td>this</td>
+
+        <td>with</td>
+      </tr>
+
+      <tr>
+        <td>default</td>
+
+        <td>if</td>
+
+        <td>throw</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>delete</td>
+
+        <td>in</td>
+
+        <td>try</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </figure>
+
+  <es-production name="FutureReservedWord" type="lexical" oneof></es-production>
+
+  <figure>
+    <table class="lightweight-table">
+      <tr>
+        <td>class</td>
+
+        <td>enum</td>
+
+        <td>extends</td>
+
+        <td>super</td>
+      </tr>
+
+      <tr>
+        <td>const</td>
+
+        <td>export</td>
+
+        <td>import<br></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>The following tokens are also considered to be <es-nt>FutureReservedWords</es-nt> when parsing
+  <a href="#sec-strict-mode-code">strict mode code</a> (see <a href=
+  "#sec-strict-mode-code">10.2.1</a> ).</p>
+
+  <figure>
+    <table class="lightweight-table">
+      <tr>
+        <td>implements</td>
+
+        <td>let</td>
+
+        <td>private</td>
+
+        <td>public</td>
+      </tr>
+
+      <tr>
+        <td>interface</td>
+
+        <td>package</td>
+
+        <td>protected</td>
+
+        <td>static</td>
+      </tr>
+
+      <tr>
+        <td>yield</td>
+
+        <td></td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </figure>
+
+  <es-production name="Punctuator" type="lexical" oneof></es-production>
+
+  <figure>
+    <table class="lightweight-table">
+      <tr>
+        <td>{</td>
+
+        <td>}</td>
+
+        <td>(</td>
+
+        <td>)</td>
+
+        <td>[</td>
+
+        <td>]</td>
+      </tr>
+
+      <tr>
+        <td>.</td>
+
+        <td>;</td>
+
+        <td>,</td>
+
+        <td>&lt;</td>
+
+        <td>&gt;</td>
+
+        <td>&lt;=</td>
+      </tr>
+
+      <tr>
+        <td>&gt;=</td>
+
+        <td>==</td>
+
+        <td>!=</td>
+
+        <td>===</td>
+
+        <td>!==</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>+</td>
+
+        <td>-</td>
+
+        <td>*</td>
+
+        <td>%</td>
+
+        <td>++</td>
+
+        <td>--</td>
+      </tr>
+
+      <tr>
+        <td>&lt;&lt;</td>
+
+        <td>&gt;&gt;</td>
+
+        <td>&gt;&gt;&gt;</td>
+
+        <td>&amp;</td>
+
+        <td>|</td>
+
+        <td>^</td>
+      </tr>
+
+      <tr>
+        <td>!</td>
+
+        <td>~</td>
+
+        <td>&amp;&amp;</td>
+
+        <td>||</td>
+
+        <td>?</td>
+
+        <td>:</td>
+      </tr>
+
+      <tr>
+        <td>=</td>
+
+        <td>+=</td>
+
+        <td>-=</td>
+
+        <td>*=</td>
+
+        <td>%=</td>
+
+        <td>&lt;&lt;=</td>
+      </tr>
+
+      <tr>
+        <td>&gt;&gt;=</td>
+
+        <td>&gt;&gt;&gt;=</td>
+
+        <td>&amp;=</td>
+
+        <td>|=</td>
+
+        <td>^=</td>
+
+        <td></td>
+      </tr>
+    </table>
+  </figure>
+
+  <es-production name="DivPunctuator" type="lexical" oneof></es-production>
+
+  <figure>
+    <table class="lightweight-table">
+      <tr>
+        <td>/</td>
+
+        <td>/=</td>
+
+        <td></td>
+
+        <td></td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </figure>
+
+  <es-production name="Literal" type="lexical">
+    <es-rhs><es-nt>NullLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>BooleanLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>NumericLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="NullLiteral" type="lexical">
+    <es-rhs>null</es-rhs>
+  </es-production>
+
+  <es-production name="BooleanLiteral" type="lexical">
+    <es-rhs>true</es-rhs>
+
+    <es-rhs>false</es-rhs>
+  </es-production>
+
+  <es-production name="NumericLiteral" type="lexical">
+    <es-rhs><es-nt>DecimalLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>HexIntegerLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DecimalLiteral" type="lexical">
+    <es-rhs><es-nt>DecimalIntegerLiteral</es-nt> . <es-nt optional>DecimalDigits</es-nt>
+    <es-nt optional>ExponentPart</es-nt></es-rhs>
+
+    <es-rhs>. <es-nt>DecimalDigits</es-nt> <es-nt optional>ExponentPart</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DecimalIntegerLiteral</es-nt> <es-nt optional>ExponentPart</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DecimalIntegerLiteral" type="lexical">
+    <es-rhs>0</es-rhs>
+
+    <es-rhs><es-nt>NonZeroDigit</es-nt> <es-nt optional>DecimalDigits</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DecimalDigits" type="lexical">
+    <es-rhs><es-nt>DecimalDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DecimalDigits</es-nt> <es-nt>DecimalDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DecimalDigit" type="lexical" oneof>
+    <es-rhs>0 1 2 3 4 5 6 7 8 9</es-rhs>
+  </es-production>
+
+  <es-production name="NonZeroDigit" type="lexical" oneof>
+    <es-rhs>1 2 3 4 5 6 7 8 9</es-rhs>
+  </es-production>
+
+  <es-production name="ExponentPart" type="lexical">
+    <es-rhs><es-nt>ExponentIndicator</es-nt> <es-nt>SignedInteger</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ExponentIndicator" type="lexical" oneof>
+    <es-rhs>e E</es-rhs>
+  </es-production>
+
+  <es-production name="SignedInteger" type="lexical">
+    <es-rhs><es-nt>DecimalDigits</es-nt></es-rhs>
+
+    <es-rhs><es-t>+</es-t> <es-nt>DecimalDigits</es-nt></es-rhs>
+
+    <es-rhs><es-t>-</es-t> <es-nt>DecimalDigits</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="HexIntegerLiteral" type="lexical">
+    <es-rhs><es-t>0x</es-t> <es-nt>HexDigit</es-nt></es-rhs>
+
+    <es-rhs><es-t>0X</es-t> <es-nt>HexDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>HexIntegerLiteral</es-nt> <es-nt>HexDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="HexDigit" type="lexical" oneof>
+    <es-rhs>0 1 2 3 4 5 6 7 8 9 a b c d e f A B C D E F</es-rhs>
+  </es-production>
+
+  <es-production name="StringLiteral" type="lexical">
+    <es-rhs><es-t>"</es-t> <es-nt optional>DoubleStringCharacters</es-nt> <es-t>"</es-t></es-rhs>
+
+    <es-rhs><es-t>'</es-t> <es-nt optional>SingleStringCharacters</es-nt> <es-t>'</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="DoubleStringCharacters" type="lexical">
+    <es-rhs><es-nt>DoubleStringCharacter</es-nt> <es-nt optional
+    >DoubleStringCharacters</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="SingleStringCharacters" type="lexical">
+    <es-rhs><es-nt>SingleStringCharacter</es-nt> <es-nt optional
+    >SingleStringCharacters</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DoubleStringCharacter" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-t>"</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
+    <es-nt>LineTerminator</es-nt></es-gmod></es-rhs>
+
+    <es-rhs><es-t>\</es-t> <es-nt>EscapeSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LineContinuation</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="SingleStringCharacter" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-t>'</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
+    <es-nt>LineTerminator</es-nt></es-gmod></es-rhs>
+
+    <es-rhs><es-t>\</es-t> <es-nt>EscapeSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LineContinuation</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="LineContinuation" type="lexical">
+    <es-rhs><es-t>\</es-t> <es-nt>LineTerminatorSequence</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="EscapeSequence" type="lexical">
+    <es-rhs><es-nt>CharacterEscapeSequence</es-nt></es-rhs>
+
+    <es-rhs><es-t>0</es-t> <es-gann>lookahead ∉ <es-nt>DecimalDigit</es-nt></es-gann></es-rhs>
+
+    <es-rhs><es-nt>HexEscapeSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>UnicodeEscapeSequence</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="CharacterEscapeSequence" type="lexical">
+    <es-rhs><es-nt>SingleEscapeCharacter</es-nt></es-rhs>
+
+    <es-rhs><es-nt>NonEscapeCharacter</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="SingleEscapeCharacter" type="lexical" oneof>
+    <es-rhs>' " \ b f n r t v</es-rhs>
+  </es-production>
+
+  <es-production name="NonEscapeCharacter" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-nt>EscapeCharacter</es-nt></es-gmod><es-gmod>or
+    <es-nt>LineTerminator</es-nt></es-gmod></es-rhs>
+  </es-production>
+
+  <es-production name="EscapeCharacter" type="lexical">
+    <es-rhs><es-nt>SingleEscapeCharacter</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DecimalDigit</es-nt></es-rhs>
+
+    <es-rhs>x</es-rhs>
+
+    <es-rhs>u</es-rhs>
+  </es-production>
+
+  <es-production name="HexEscapeSequence" type="lexical">
+    <es-rhs>x <es-nt>HexDigit</es-nt> <es-nt>HexDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="UnicodeEscapeSequence" type="lexical">
+    <es-rhs>u <es-nt>HexDigit</es-nt> <es-nt>HexDigit</es-nt> <es-nt>HexDigit</es-nt>
+    <es-nt>HexDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionLiteral" type="lexical">
+    <es-rhs>/ <es-nt>RegularExpressionBody</es-nt> / <es-nt>RegularExpressionFlags</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionBody" type="lexical">
+    <es-rhs><es-nt>RegularExpressionFirstChar</es-nt>
+    <es-nt>RegularExpressionChars</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionChars" type="lexical">
+    <es-rhs constraint="empty"></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionChars</es-nt> <es-nt>RegularExpressionChar</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionFirstChar" type="lexical">
+    <es-rhs><es-nt>RegularExpressionNonTerminator</es-nt> <es-gmod>but not one of
+    <es-t>*</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
+    <es-t>/</es-t></es-gmod><es-gmod>or <es-t>[</es-t></es-gmod></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionBackslashSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionClass</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionChar" type="lexical">
+    <es-rhs><es-nt>RegularExpressionNonTerminator</es-nt> <es-gmod>but not
+    <es-t>\</es-t></es-gmod><es-gmod>or <es-t>/</es-t></es-gmod><es-gmod>or
+    <es-t>[</es-t></es-gmod></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionBackslashSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionClass</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionBackslashSequence" type="lexical">
+    <es-rhs><es-t>\</es-t> <es-nt>RegularExpressionNonTerminator</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionNonTerminator" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not
+    <es-nt>LineTerminator</es-nt></es-gmod></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionClass" type="lexical">
+    <es-rhs><es-t>[</es-t> <es-nt>RegularExpressionClassChars</es-nt> <es-t>]</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionClassChars" type="lexical">
+    <es-rhs constraint="empty"></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionClassChars</es-nt>
+    <es-nt>RegularExpressionClassChar</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionClassChar" type="lexical">
+    <es-rhs><es-nt>RegularExpressionNonTerminator</es-nt> <es-gmod>but not
+    <es-t>]</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionBackslashSequence</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionFlags" type="lexical">
+    <es-rhs constraint="empty"></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionFlags</es-nt> <es-nt>IdentifierPart</es-nt></es-rhs>
+  </es-production>
+</es-clause>

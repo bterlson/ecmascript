@@ -1,0 +1,100 @@
+<!doctype html>
+<es-clause title="%TypedArray%.prototype.sort ( comparefn )" anchor=
+"sec-%typedarray%.prototype.sort">
+  <p>%TypedArray%<code>.prototype.sort</code> is a distinct function that, except as described
+  below, implements the same requirements as those of <code><a href=
+  "#sec-array.prototype.sort">Array.prototype.sort</a></code> as defined in <a href=
+  "#sec-array.prototype.sort">22.1.3.24</a> . The implementation of the
+  %TypedArray%<code>.prototype.sort</code> specification may be optimized with the knowledge that
+  the <b>this</b> value is an object that has a fixed length and whose integer indexed properties
+  are not sparse. The only internal methods of the <b>this</b> object that the algorithm may call
+  are [[Get]] and [[Set]].</p>
+
+  <p>This function is not generic. If the <b>this</b> value is not a object with a
+  [[TypedArrayName]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> ,
+  a <span class="value">TypeError</span> exception is immediately thrown when it is called.</p>
+
+  <p>Upon entry, the following steps are performed to initialise evaluation of the
+  <code>sort</code> function. These steps are used instead of the entry steps in <a href=
+  "#sec-array.prototype.sort">22.1.3.24</a> :</p>
+
+  <ol class="proc">
+    <li>Let <i>obj</i> be the <b>this</b> value as the argument.</li>
+
+    <li>If <i>obj</i> does not have a [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>len</i> be the value of <i>obj</i>’s [[ArrayLength]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+  </ol>
+
+  <p>The following version of <a href="#sec-sortcompare">SortCompare</a> is used by
+  %TypedArray%<code>.prototype.sort</code>. It performs a numeric comparison rather than the string
+  comparsion used in <a href="#sec-array.prototype.sort">22.1.3.24</a> .</p>
+
+  <p>The Typed Array <a href="#sec-sortcompare">SortCompare</a> abstract operation is called with
+  two arguments <es-nt>j</es-nt> and <es-nt>k</es-nt>, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>jString</i> be <a href="#sec-tostring">ToString</a> (<i>j</i>).
+    </li>
+
+    <li>Let <i>kString</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
+    </li>
+
+    <li>Let <i>x</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>,<i>jString</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>x</i>).
+    </li>
+
+    <li>Let <i>y</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>, <i>kString</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>y</i>).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : Both <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) and <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>) is Number.
+    </li>
+
+    <li>If <i>x</i> and <i>y</i> are both <b>NaN</b>, return <b>+0</b>.</li>
+
+    <li>If <i>x</i> is <b>NaN</b>, return 1.</li>
+
+    <li>If <i>y</i> is <b>NaN</b>, return −1.</li>
+
+    <li>If the argument <i>comparefn</i> is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>comparefn</i>) is <b>false</b>, throw a
+        <b>TypeError</b> exception.
+        </li>
+
+        <li>Return the result of calling the [[Call]] internal method of <i>comparefn</i> passing
+        <b>undefined</b> as <i>thisArgument</i> and with a <a href=
+        "#sec-list-and-record-specification-type">List</a> containing the values of <i>x</i> and
+        <i>y</i> as the <i>argumentsList</i>.
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>x</i> &lt; <i>y</i>, return −1.</li>
+
+    <li>If <i>x</i> &gt; <i>y</i>, return 1.</li>
+
+    <li>Return <b>+0</b>.</li>
+  </ol>
+
+  <es-note>
+    <p>Because <b>NaN</b> always compares greater than any other value, <b>NaN</b> property values
+    always sort to the end of the result.</p>
+  </es-note>
+</es-clause>

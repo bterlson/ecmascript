@@ -1,0 +1,22 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Module Objects" anchor="sec-runtime-semantics-module-objects">
+  <es-production name="ModuleImport" class="inline">
+    <es-rhs>module <es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+  </es-production>
+
+  <p>An <es-nt>ModuleImport</es-nt> imports a module and introduces a single binding within the
+  containing module environment. The value of such a binding as a Module object.</p>
+
+  <p>A Module object is a ordinary/exotic object whose own properties corresponding corresponding
+  to the ExportedBindings of the module identifed by the <es-nt>ModuleImport</es-nt>
+  <es-nt>FromClause</es-nt>. Each property name is the <a href=
+  "#sec-identifiers-and-identifier-names">StringValue</a> of of the corresponding exported binding.
+  These are the only properties of an Module object. Each one is a read-only property with
+  attributes {[[Configurable]]: <span class="value">false</span>, [[Enumerable]]: <span class=
+  "value">true</span>}. Module objects are not extensible.</p>
+
+  <p style="background-color: #FFC000">TO DO</p>
+
+  <p style="background-color: #FFC000">Needs to decide whether a module object is an ordinary or an
+  exotic object. Whether properties are accessor or defined via [[Get]], etc.</p>
+</es-clause>

@@ -1,0 +1,142 @@
+<!doctype html>
+<es-clause title="Tasks and Task Queues" anchor="sec-tasks-and-task-queues">
+  <p>A Task is an abstract operation that initiates an ECAMScript computation when no other
+  ECMAScript computation is currently in progress. A Task abstract operation may be defined to
+  accept an arbitrary set of task parameters.</p>
+
+  <p>Execution of a Task can be initiated only when there is no running <a href=
+  "#sec-execution-contexts">execution context</a> and <a href="#sec-execution-contexts">the
+  execution context stack</a> is empty. A PendingTask is a request for the future execution of a
+  Task. A PendingTask is an internal Record whose fields are specified in <a href="#table-24">Table
+  24</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-24">Table 24</span> — PendingTask Record Fields
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 0px solid black; border-top: 2px solid #000000">
+        Field Name</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Value</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Meaning</th>
+      </tr>
+
+      <tr>
+        <td>[[Task]]</td>
+
+        <td>The name of a Task abstract operation</td>
+
+        <td>This is the abstract operation that is performed when execution of this PendingTask is
+        initiated. Tasks are abstract operations that use NextTask rather than Return to indicate
+        that they have completed.</td>
+      </tr>
+
+      <tr>
+        <td>[[Arguments]]</td>
+
+        <td>
+          A <a href="#sec-list-and-record-specification-type">List</a> .
+        </td>
+
+        <td>
+          The <a href="#sec-list-and-record-specification-type">List</a> of argument values that
+          are to be passed to [[Task]] when it is activated.
+        </td>
+      </tr>
+
+      <tr>
+        <td>[[Realm]]</td>
+
+        <td>
+          A <a href="#sec-code-realms">Realm</a> Record
+        </td>
+
+        <td>
+          The <a href="#sec-code-realms">Realm</a> that when for the initial <a href=
+          "#sec-execution-contexts">execution context</a> when this Pending Task is initiated.
+        </td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>A Task Queue is a FIFO queue of PendingTask records. Each Task Queue has a name and the full
+  set of available Task Queues are defined by an ECMAScript implementation. Every ECMAScript
+  implementation has at least the task queues defined in <a href="#table-25">Table 25</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-25">Table 25</span> — Required Task Queues
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Name</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Purpose</th>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+        LoadingTasks</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+        Tasks that validate, load, and evaluate ECMAScript <es-nt>Script</es-nt> and
+        <es-nt>Module</es-nt> code units. See clauses 10 and 15.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        PromiseTasks</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        Tasks that are responses to the settlement of a Promise (see <a href=
+        "#sec-promise-objects">25.4</a> ).
+        </td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>A request for the future execution of a Task is made by enqueueing on a Task Queue a
+  PendingTask record that includes a Task abstract operation name and any necessary argument
+  values. When there is no running <a href="#sec-execution-contexts">execution context</a> and
+  <a href="#sec-execution-contexts">the execution context stack</a> is empty, the ECMAScript
+  implementation removes the first PendingTask from a Task Queue and uses the information contained
+  in it to create an <a href="#sec-execution-contexts">execution context</a> and starts execution
+  of associated Task abstraction operation.</p>
+
+  <p>The PendingTask records from a single Task Queue are always initiated in FIFO order. This
+  specification does not define the order in which multiple Task Queues are serviced. An ECMAScript
+  implementation may interweave the FIFO evaluation of the PendingTask records of a Task Queue with
+  the evaluation of the PendingTask records of one or more other Task Queues. An implementation
+  must define what occurs when there are no running <a href="#sec-execution-contexts">execution
+  context</a> and all Task Queues are empty.</p>
+
+  <es-note>
+    <p>Typically an ECMAScript implementation will have its Task Queues are preinitialised with at
+    least one PendingTask and one of those Tasks will be the first to be executed. An
+    implementation might choose to free all resources and terminate if the current Task completes
+    and all Task Queues are empty. Alternatively, it might choose to wait for a some implementation
+    specific agent or mechanism to enqueue new PendingTask requests.</p>
+  </es-note>
+
+  <p>The following abstraction operations are used to create and manage Tasks and Task Queues:</p>
+  <link rel="import" href="tasks-and-task-queues\enqueuetask.html">
+  <link rel="import" href="tasks-and-task-queues\nexttask-result-algorithm-step.html">
+</es-clause>

@@ -1,0 +1,61 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: RegExpInitialise Abstract Operation" anchor=
+"sec-regexpinitialise">
+  <p>When the abstract operation RegExpInitialise with arguments <i>obj,</i>
+  <es-nt>pattern</es-nt>, and <es-nt>flags</es-nt> is called, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>If <i>pattern</i> is <b>undefined</b>, then let <i>P</i> be the empty String.</li>
+
+    <li>Else, let <i>P</i> be <a href="#sec-tostring">ToString</a> (<i>pattern</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>P</i>).
+    </li>
+
+    <li>If <i>flags</i> is <b>undefined</b>, then let <i>F</i> be the empty String.</li>
+
+    <li>Else, let <i>F</i> be <a href="#sec-tostring">ToString</a> (<i>flags</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>F</i>).
+    </li>
+
+    <li>If <i>F</i> contains any character other than <code>"g"</code>, <code>"i"</code>,
+    <code>"m"</code>, <code>"u"</code>, or <code>"y"</code> or if it contains the same character
+    more than once, then throw a <b>SyntaxError</b> exception.</li>
+
+    <li>Parse <i>P</i> interpreted as UTF-16 encoded Unicode code points using the grammars in
+    <a href="#sec-patterns">21.2.1</a> . If <i>F</i> contains <code>"u"</code> the goal symbol for
+    the parse is <i>Pattern</i><sub>[U]</sub>. Otherwise the goal symbol for the parse is
+    <i>Pattern</i>.Throw a <b>SyntaxError</b> exception if <i>P</i> did not conform to the grammar
+    or if all characters of <i>P</i> where not matched by the parse.
+    </li>
+
+    <li>Set <i>obj’s</i> [[RegExpMatcher]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to the internal procedure
+    obtained by evaluating ("compiling") the step 3’s parse of <i>P</i> and applying the semantics
+    provided in <a href="#sec-pattern-semantics">21.2.2</a> .
+    </li>
+
+    <li>Set the value of <i>obj’s</i> [[OriginalSource]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>P</i>.
+    </li>
+
+    <li>Set the value of <i>obj’s</i> [[OriginalFlags]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>F</i>.
+    </li>
+
+    <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>obj</i>,
+    <code>"lastIndex"</code>, 0, <b>true</b>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+    </li>
+
+    <li>Return <i>obj</i>.</li>
+  </ol>
+</es-clause>

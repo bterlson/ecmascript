@@ -1,0 +1,29 @@
+<!doctype html>
+<es-clause title="ProceedToLocate(loader, load, p) Abstract Operation" anchor=
+"sec-proceedtolocate">
+  <p>The ProceedToLocate abstract operation continues the asynchronous loading process at the
+  <code>locate</code> hook.</p>
+
+  <p>ProceedToLocate performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>p</i> be PromiseOf(<b>undefined</b>).</li>
+
+    <li>Let <i>F</i> be a new built-in function object as defined in CallLocate.</li>
+
+    <li>Set <i>F</i>’s [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loader</i>.
+    </li>
+
+    <li>Set <i>F</i>’s [[Load]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> to <i>load</i>.
+    </li>
+
+    <li>Let <i>p</i> be PromiseThen(<i>p</i>, <i>F</i>).</li>
+
+    <li>Return <a href="#sec-proceedtofetch">ProceedToFetch</a> (<i>loader</i>, <i>load</i>,
+    <i>p</i>).
+    </li>
+  </ol>
+  <link rel="import" href="proceedtolocate\calllocate-functions.html">
+</es-clause>

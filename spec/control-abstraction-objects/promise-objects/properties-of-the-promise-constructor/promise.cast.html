@@ -1,0 +1,45 @@
+<!doctype html>
+<es-clause title="Promise.cast ( x )" anchor="sec-promise.cast">
+  <p>The <code>cast</code> function called with argument <es-nt>x</es-nt> performs the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>C</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ispromise">IsPromise</a> (<i>x</i>) is <b>true</b>,
+
+      <ol class="block">
+        <li>Let <i>constructor</i> be the value of <i>x</i>'s [[PromiseConstructor]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>If <a href="#sec-samevalue">SameValue</a> (<i>constructor</i>, <i>C</i>) is
+        <b>true</b>, return <i>x</i>.
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>promiseCapability</i> be <a href=
+    "#sec-newpromisecapability">NewPromiseCapability</a> (<i>C</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promiseCapability</i>).
+    </li>
+
+    <li>Let <i>resolveResult</i> be the result of calling the [[Call]] internal method of
+    <i>promiseCapability</i>.[[Resolve]] with <b>undefined</b> as <i>thisArgument</i> and
+    (<i>x</i>) as <i>argumentsList</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>resolveResult</i>).
+    </li>
+
+    <li>Return <i>promiseCapability</i>.[[Promise]].</li>
+  </ol>
+
+  <es-note>
+    <p>The <code>cast</code> function requires its <b>this</b> value to be a constructor function
+    that supports the parameter conventions of the <code>Promise</code> constructor.</p>
+  </es-note>
+</es-clause>

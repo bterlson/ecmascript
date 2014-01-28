@@ -1,0 +1,44 @@
+<!doctype html>
+<es-clause title="Thestatement" anchor="sec-debugger-statement">
+  <h2>Syntax</h2>
+
+  <es-production name="DebuggerStatement">
+    <es-rhs>debugger ;</es-rhs>
+  </es-production>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-debugger-statement-runtime-semantics-evaluation">
+    <es-note>
+      <p>Evaluating the <es-nt>DebuggerStatement</es-nt> production may allow an implementation to
+      cause a breakpoint when run under a debugger. If a debugger is not present or active this
+      statement has no observable effect.</p>
+    </es-note>
+
+    <p>The production <es-production name="DebuggerStatement" class=
+    "inline"><es-rhs>debugger ;</es-rhs></es-production> is evaluated as
+    follows:</p>
+
+    <ol class="proc">
+      <li>If an implementation defined debugging facility is available and enabled, then
+
+        <ol class="block">
+          <li>Perform an implementation defined debugging action.</li>
+
+          <li>Let <i>result</i> be an implementation defined <a href=
+          "#sec-completion-record-specification-type">Completion</a> value.
+          </li>
+        </ol>
+      </li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>Let <i>result</i> be <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
+          </li>
+        </ol>
+      </li>
+
+      <li>Return <i>result</i>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

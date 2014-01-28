@@ -1,0 +1,83 @@
+<!doctype html>
+<es-clause title="String.prototype.localeCompare (that, reserved1=undefined, reserved2=undefined )"
+anchor="sec-string.prototype.localecompare">
+  <p>An ECMAScript implementation that includes the ECMA-402 International API must implement the
+  <code>localeCompare</code> method as specified in the ECMA-402 specification. If an ECMAScript
+  implementation does not include the ECMA-402 API the following specification of the
+  <code>localeCompare</code> method is used.</p>
+
+  <p>When the <code>localeCompare</code> method is called with argument <es-nt>that</es-nt>, it
+  returns a Number other than <b>NaN</b> that represents the result of a locale-sensitive String
+  comparison of the <b>this</b> value (converted to a String) with <es-nt>that</es-nt> (converted
+  to a String). The two Strings are <es-nt>S</es-nt> and <es-nt>That</es-nt>. The two Strings are
+  compared in an implementation-defined fashion. The result is intended to order String values in
+  the sort order specified by the system default locale, and will be negative, zero, or positive,
+  depending on whether <es-nt>S</es-nt> comes before <es-nt>That</es-nt> in the sort order, the
+  Strings are equal, or <es-nt>S</es-nt> comes after <es-nt>That</es-nt> in the sort order,
+  respectively.</p>
+
+  <p>Before perform the comparisons the following steps are performed to prepare the Strings:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
+    value).
+    </li>
+
+    <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
+    </li>
+
+    <li>Let <i>That</i> be <a href="#sec-tostring">ToString</a> (<i>that</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>That</i>).
+    </li>
+  </ol>
+
+  <p>The meaning of the optional second and third parameters to this method are defined in the
+  ECMA-402 specification; implementations that do not include ECMA-402 support must not use those
+  parameter position for anything else.</p>
+
+  <p>The <code>localeCompare</code> method, if considered as a function of two arguments
+  <b>this</b> and <es-nt>that</es-nt>, is a consistent comparison function (as defined in <a href=
+  "#sec-array.prototype.sort">22.1.3.24</a> ) on the set of all Strings.</p>
+
+  <p>The actual return values are implementation-defined to permit implementers to encode
+  additional information in the value, but the function is required to define a total ordering on
+  all Strings. If the implementation performs language-sensitive comparisions it must return
+  <code>0</code> when comparing Strings that are considered canonically equivalent by the Unicode
+  standard.</p>
+
+  <p>If no language-sensitive comparison at all is available from the host environment, this
+  function may perform a bitwise comparison.</p>
+
+  <p>The <code>length</code> property of the <code>localeCompare</code> method is <b>1</b>.</p>
+
+  <es-note>
+    <p>The <code>localeCompare</code> method itself is not directly suitable as an argument to
+    <code><a href="#sec-array.prototype.sort">Array.prototype.sort</a></code> because the latter
+    requires a function of two arguments.</p>
+  </es-note>
+
+  <es-note>
+    <p>This function is intended to rely on whatever language-sensitive comparison functionality is
+    available to the ECMAScript environment from the host environment, and to compare according to
+    the rules of the host environment’s current locale. This function must treat Strings that are
+    canonically equivalent according to the Unicode standard as identical. It is also recommended
+    that this function not honour Unicode compatibility equivalences or decompositions. For a
+    definition and discussion of canonical equivalence see the Unicode Standard, chapters 2 and 3,
+    as well as Unicode Annex #15, Unicode Normalization Forms and Unicode Technical Note #5
+    Canonical Equivalence in Applications. Also see Unicode Technical Stardard #10, Unicode
+    Collation Algorithm.</p>
+  </es-note>
+
+  <es-note>
+    <p>The <code>localeCompare</code> function is intentionally generic; it does not require that
+    its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of
+    objects for use as a method.</p>
+  </es-note>
+</es-clause>

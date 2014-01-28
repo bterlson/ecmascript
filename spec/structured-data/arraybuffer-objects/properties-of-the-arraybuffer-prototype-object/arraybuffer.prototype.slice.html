@@ -1,0 +1,98 @@
+<!doctype html>
+<es-clause title="ArrayBuffer.prototype.slice ( start , end)" anchor=
+"sec-arraybuffer.prototype.slice">
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, throw
+    a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>O</i> does not have an [[ArrayBufferData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> throw a <b>TypeError</b>
+    exception.
+    </li>
+
+    <li>If the value of <i>O</i>’s [[ArrayBufferData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b> or <b>
+      null</b>, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>len</i> be the value of <i>O</i>’s [[ArrayBufferByteLength]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>relativeStart</i> be <a href="#sec-tointeger">ToInteger</a> (<i>start</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>relativeStart</i>).
+    </li>
+
+    <li>If <i>relativeStart</i> is negative, let <i>first</i> be max((<i>len</i> +
+    <i>relativeStart</i>),0); else let <i>first</i> be min(<i>relativeStart</i>, <i>len</i>).</li>
+
+    <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let
+    <i>relativeEnd</i> be <a href="#sec-tointeger">ToInteger</a> (<i>end</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>relativeEnd</i>).
+    </li>
+
+    <li>If <i>relativeEnd</i> is negative, let <i>final</i> be max((<i>len</i> +
+    <i>relativeEnd</i>),0); else let <i>final</i> be min(<i>relativeEnd</i>, <i>len</i>).</li>
+
+    <li>Let <i>newLen</i> be max(<i>final</i>-<i>first</i>,0).</li>
+
+    <li>Let <i>ctor</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <b>"constructor"</b>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>ctor</i>).
+    </li>
+
+    <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>ctor</i>) is <b>false</b>, then throw
+    a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>new</i> be the result of calling the [[Construct]] internal method of <i>ctor</i>
+    with a new <a href="#sec-list-and-record-specification-type">List</a> containing the single
+    element <i>newLen</i>.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>new</i>).
+    </li>
+
+    <li>If <i>new</i> does not have an [[ArrayBufferData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> throw a <b>TypeError</b>
+    exception.
+    </li>
+
+    <li>If the value of <i>new</i>’s [[ArrayBufferData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If the value of <i>new</i>’s [[ArrayBufferByteLength]] &lt; <i>newLen</i>, then throw a
+    <b>TypeError</b> exception.</li>
+
+    <li>Let <i>fromBuf</i> be the value of <i>O</i>’s [[ArrayBufferData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>toBuf</i> be the value of <i>new</i>’s [[ArrayBufferData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Perform <a href="#sec-copydatablockbytes">CopyDataBlockBytes</a> (<i>toBuf</i>, 0,
+    <i>fromBuf</i>, <i>first</i>, <i>newLen</i>).
+    </li>
+
+    <li>Return <i>new</i>.</li>
+  </ol>
+</es-clause>

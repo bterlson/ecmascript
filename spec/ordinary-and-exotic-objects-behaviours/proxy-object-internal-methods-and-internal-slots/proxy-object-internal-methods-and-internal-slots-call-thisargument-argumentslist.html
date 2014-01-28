@@ -1,0 +1,53 @@
+<!doctype html>
+<es-clause title="[[Call]] (thisArgument, argumentsList)" anchor=
+"sec-proxy-object-internal-methods-and-internal-slots-call-thisargument-argumentslist">
+  <p>The [[Call]] internal method of an exotic Proxy object <es-nt>O</es-nt> is called with
+  parameters <es-nt>thisArgument</es-nt> and <es-nt>argumentsList</es-nt>, a <a href=
+  "#sec-list-and-record-specification-type">List</a> of <a href=
+  "#sec-ecmascript-language-types">ECMAScript language values</a> . The following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
+    "<code>apply</code>").
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
+    </li>
+
+    <li>If <i>trap</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Return the result of calling the [[Call]] internal method of <i>target</i> with
+        arguments <i>thisArgument</i> and <i>argumentsList</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>argArray</i> be the result of <a href=
+    "#sec-createarrayfromlist">CreateArrayFromList</a> (<i>argumentsList</i>).
+    </li>
+
+    <li>Return the result of calling the [[Call]] internal method of <i>trap</i> with
+    <i>handler</i> as the <b>this</b> value and a new <a href=
+    "#sec-list-and-record-specification-type">List</a> containing <i>target</i>,
+    <i>thisArgument</i>, and <i>argArray</i>.
+    </li>
+  </ol>
+
+  <es-note>
+    <p>A Proxy exotic object only has a [[Call]] internal method if the initial value of its
+    [[ProxyTarget]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> is
+    an object that has a [[Call]] internal method.</p>
+  </es-note>
+</es-clause>

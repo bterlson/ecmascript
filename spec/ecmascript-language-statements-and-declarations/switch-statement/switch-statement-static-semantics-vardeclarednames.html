@@ -1,0 +1,94 @@
+<!doctype html>
+<es-clause title="Static Semantics: VarDeclaredNames" anchor=
+"sec-switch-statement-static-semantics-vardeclarednames">
+  <p>See also: <a href="#sec-statement-semantics-static-semantics-vardeclarednames">13.0.1</a> ,
+  <a href="#sec-block-static-semantics-vardeclarednames">13.1.8</a> , <a href=
+  "#sec-if-statement-static-semantics-vardeclarednames">13.5.1</a> , <a href=
+  "#sec-do-while-statement-static-semantics-vardeclarednames">13.6.1.1</a> , <a href=
+  "#sec-while-statement-static-semantics-vardeclarednames">13.6.2.1</a> , <a href=
+  "#sec-for-statement-static-semantics-vardeclarednames">13.6.3.1</a> , <a href=
+  "#sec-for-in-and-for-of-statements-static-semantics-vardeclarednames">13.6.4.3</a> , <a href=
+  "#sec-with-statement-static-semantics-vardeclarednames">13.10.2</a> , <a href=
+  "#sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</a> , <a href=
+  "#sec-try-statement-static-semantics-vardeclarednames">13.14.2</a> , <a href=
+  "#sec-function-definitions-static-semantics-referencessuper">14.1.12</a> , <a href=
+  "#sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</a> , <a href=
+  "#sec-class-definitions-static-semantics-vardeclarednames">14.5.14</a> , <a href=
+  "#sec-scripts-static-semantics-vardeclarednames">15.1.5</a> , <a href=
+  "#sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</a> .</p>
+
+  <es-production name="SwitchStatement" class="inline">
+    <es-rhs>switch ( <es-nt>Expression</es-nt> ) <es-nt>CaseBlock</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the VarDeclaredNames of <i>CaseBlock</i>.</li>
+  </ol>
+
+  <es-production name="CaseBlock" class="inline">
+    <es-rhs>{ }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="CaseBlock" class="inline">
+    <es-rhs>{ <es-nt optional>CaseClauses</es-nt> <es-nt>DefaultClause</es-nt> <es-nt optional
+    >CaseClauses</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the first <i>CaseClauses</i> is present, let <i>names</i> be the VarDeclaredNames of the
+    first <i>CaseClauses</i>.</li>
+
+    <li>Else let <i>names</i> be a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Append to <i>names</i> the elements of the VarDeclaredNames of the
+    <i>DefaultClause.</i></li>
+
+    <li>If the second <i>CaseClauses</i> is not present, return <i>names</i>.</li>
+
+    <li>Else return the result of appending to <i>names</i> the elements of the VarDeclaredNames of
+    the second <i>CaseClauses</i>.</li>
+  </ol>
+
+  <es-production name="CaseClauses" class="inline">
+    <es-rhs><es-nt>CaseClauses</es-nt> <es-nt>CaseClause</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>names</i> be VarDeclaredNames of <i>CaseClauses</i>.</li>
+
+    <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>CaseClause.</i></li>
+
+    <li>Return <i>names</i>.</li>
+  </ol>
+
+  <es-production name="CaseClause" class="inline">
+    <es-rhs>case <es-nt>Expression</es-nt> : <es-nt optional>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the <i>StatementList</i> is present, return the VarDeclaredNames of
+    <i>StatementList</i>.</li>
+
+    <li>Else return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="DefaultClause" class="inline">
+    <es-rhs><es-t>default</es-t> <es-t>:</es-t> <es-nt optional>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the <i>StatementList</i> is present, return the VarDeclaredNames of
+    <i>StatementList</i>.</li>
+
+    <li>Else return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+</es-clause>

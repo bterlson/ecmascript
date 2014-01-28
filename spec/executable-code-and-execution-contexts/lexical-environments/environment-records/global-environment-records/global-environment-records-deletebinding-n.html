@@ -1,0 +1,54 @@
+<!doctype html>
+<es-clause title="DeleteBinding (N)" anchor="sec-global-environment-records-deletebinding-n">
+  <p>The concrete <a href="#sec-environment-records">Environment Record</a> method DeleteBinding
+  for global environment records can only delete bindings that have been explicitly designated as
+  being subject to deletion.</p>
+
+  <ol class="proc">
+    <li>Let <i>envRec</i> be the <a href="#sec-declarative-environment-records">declarative
+    environment record</a> for which the method was invoked.
+    </li>
+
+    <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
+
+    <li>If the result of calling <i>DclRec’s</i> HasBinding concrete method with argument <i>N</i>
+    is <b>true</b>, then
+
+      <ol class="block">
+        <li>Return the result of calling the DeleteBinding concrete method of <i>DclRec</i> with
+        argument <i>N</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+    <li>If the result of calling <i>ObjRec’s</i> HasBinding concrete method with argument <i>N</i>
+    is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>status</i> be the result of calling the DeleteBinding concrete method of
+        <i>ObjRec</i> with argument <i>N</i>.</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+
+        <li>If <i>status</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>varNames</i> be <i>envRec’s</i> VarNames <a href=
+            "#sec-list-and-record-specification-type">List</a> .
+            </li>
+
+            <li>If <i>N</i> is an element of <i>varNames</i>, then remove that element from the
+            <i>varNames</i>.</li>
+          </ol>
+        </li>
+
+        <li>Return <i>status</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return <b>true</b>.</li>
+  </ol>
+</es-clause>

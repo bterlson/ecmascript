@@ -1,0 +1,47 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-left-shift-operator-runtime-semantics-evaluation">
+  <es-production name="ShiftExpression" class="inline">
+    <es-rhs><es-nt>ShiftExpression</es-nt> &lt;&lt; <es-nt>AdditiveExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>lref</i> be the result of evaluating <i>ShiftExpression</i>.</li>
+
+    <li>Let <i>lval</i> be <a href="#sec-getvalue">GetValue</a> (<i>lref</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lval</i>).
+    </li>
+
+    <li>Let <i>rref</i> be the result of evaluating <i>AdditiveExpression</i>.</li>
+
+    <li>Let <i>rval</i> be <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rval</i>).
+    </li>
+
+    <li>Let <i>lnum</i> be <a href="#sec-toint32">ToInt32</a> (<i>lval</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lnum</i>).
+    </li>
+
+    <li>Let <i>rnum</i> be <a href="#sec-touint32">ToUint32</a> (<i>rval</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rnum</i>).
+    </li>
+
+    <li>Let <i>shiftCount</i> be the result of masking out all but the least significant 5 bits of
+    <i>rnum</i>, that is, compute <i>rnum</i> &amp; 0x1F.</li>
+
+    <li>Return the result of left shifting <i>lnum</i> by <i>shiftCount</i> bits. The result is a
+    signed 32-bit integer.</li>
+  </ol>
+</es-clause>

@@ -1,0 +1,175 @@
+<!doctype html>
+<es-clause title="Statements" anchor="sec-statements">
+  <es-production name="Statement" xref="sec-ecmascript-language-expressions">
+    <es-rhs><es-nt>Block</es-nt></es-rhs>
+
+    <es-rhs><es-nt>VariableStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>EmptyStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>IfStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>IterationStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ContinueStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>BreakStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>WithStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LabelledStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>SwitchStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ThrowStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>TryStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DebuggerStatement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Block" xref="sec-primary-expressions">
+    <es-rhs><es-t>{</es-t> <es-nt optional>StatementList</es-nt> <es-t>}</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="StatementList" xref="sec-primary-expressions">
+    <es-rhs><es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>StatementList</es-nt> <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="VariableStatement" xref="sec-left-hand-side-expressions">
+    <es-rhs><es-t>var</es-t> <es-nt>VariableDeclarationList</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="VariableDeclarationList" xref="sec-left-hand-side-expressions">
+    <es-rhs><es-nt>VariableDeclaration</es-nt></es-rhs>
+
+    <es-rhs><es-nt>VariableDeclarationList</es-nt> , <es-nt>VariableDeclaration</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="VariableDeclaration" xref="sec-left-hand-side-expressions">
+    <es-rhs><es-nt>Identifier</es-nt> <es-nt optional>Initialiser</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Initialiser" xref="sec-left-hand-side-expressions">
+    <es-rhs><es-t>=</es-t> <es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="EmptyStatement" xref="sec-postfix-expressions">
+    <es-rhs>;</es-rhs>
+  </es-production>
+
+  <es-production name="ExpressionStatement" xref="sec-unary-operators">
+    <es-rhs constraint="lookahead ∉ {{, function}"><es-nt>Expression</es-nt>
+    <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="IfStatement" xref="sec-multiplicative-operators">
+    <es-rhs>if ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt> else
+    <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>if ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="IterationStatement" xref="sec-additive-operators">
+    <es-rhs>do <es-nt>Statement</es-nt> while ( <es-nt>Expression</es-nt> ) ;</es-rhs>
+
+    <es-rhs>while ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt optional>Expression</es-nt> ; <es-nt optional>Expression</es-nt> ;
+    <es-nt optional>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( var <es-nt>VariableDeclarationList</es-nt> ; <es-nt optional>Expression</es-nt> ;
+    <es-nt optional>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> in <es-nt>Expression</es-nt> )
+    <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( var <es-nt>VariableDeclaration</es-nt> in <es-nt>Expression</es-nt> )
+    <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ContinueStatement" xref="sec-bitwise-shift-operators">
+    <es-rhs>continue ;</es-rhs>
+
+    <es-rhs><es-t>continue</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+    here</es-gann><es-nt>Identifier</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="BreakStatement" xref="sec-relational-operators">
+    <es-rhs>break ;</es-rhs>
+
+    <es-rhs><es-t>break</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+    here</es-gann><es-nt>Identifier</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="ReturnStatement" xref="sec-equality-operators">
+    <es-rhs>return ;</es-rhs>
+
+    <es-rhs><es-t>return</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+    here</es-gann><es-nt>Expression</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="WithStatement" xref="sec-binary-bitwise-operators">
+    <es-rhs>with ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="SwitchStatement" xref="sec-binary-logical-operators">
+    <es-rhs>switch ( <es-nt>Expression</es-nt> ) <es-nt>CaseBlock</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="CaseBlock" xref="sec-binary-logical-operators">
+    <es-rhs><es-t>{</es-t> <es-nt optional>CaseClauses</es-nt> <es-t>}</es-t></es-rhs>
+
+    <es-rhs>{ <es-nt optional>CaseClauses</es-nt> <es-nt>DefaultClause</es-nt> <es-nt optional
+    >CaseClauses</es-nt> }</es-rhs>
+  </es-production>
+
+  <es-production name="CaseClauses" xref="sec-binary-logical-operators">
+    <es-rhs><es-nt>CaseClause</es-nt></es-rhs>
+
+    <es-rhs><es-nt>CaseClauses</es-nt> <es-nt>CaseClause</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="CaseClause" xref="sec-binary-logical-operators">
+    <es-rhs>case <es-nt>Expression</es-nt> : <es-nt optional>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DefaultClause" xref="sec-binary-logical-operators">
+    <es-rhs><es-t>default</es-t> <es-t>:</es-t> <es-nt optional>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="LabelledStatement" xref="sec-conditional-operator">
+    <es-rhs><es-nt>Identifier</es-nt> : <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ThrowStatement" xref="sec-assignment-operators">
+    <es-rhs><es-t>throw</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+    here</es-gann><es-nt>Expression</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="TryStatement" xref="sec-comma-operator">
+    <es-rhs>try <es-nt>Block</es-nt> <es-nt>Catch</es-nt></es-rhs>
+
+    <es-rhs>try <es-nt>Block</es-nt> <es-nt>Finally</es-nt></es-rhs>
+
+    <es-rhs>try <es-nt>Block</es-nt> <es-nt>Catch</es-nt> <es-nt>Finally</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Catch" xref="sec-comma-operator">
+    <es-rhs>catch ( <es-nt>Identifier</es-nt> ) <es-nt>Block</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Finally" xref="sec-comma-operator">
+    <es-rhs><es-t>finally</es-t> <es-nt>Block</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DebuggerStatement">
+    <es-rhs>debugger ;</es-rhs>
+  </es-production>
+</es-clause>

@@ -1,0 +1,133 @@
+<!doctype html>
+<es-clause title="Regular Expression Literals" anchor="sec-literals-regular-expression-literals">
+  <es-note>
+    <p>A regular expression literal is an input element that is converted to a RegExp object (see
+    <a href="#sec-string-iterator-objects">21.1.5</a> ) each time the literal is evaluated. Two
+    regular expression literals in a program evaluate to regular expression objects that never
+    compare as <code>===</code> to each other even if the two literals' contents are identical. A
+    RegExp object may also be created at runtime by <code>new RegExp</code> (see <a href=
+    "#sec-new-regexp-...argumentslist">21.2.3.2</a> ) or calling the <code>RegExp</code>
+    constructor as a function (<a href="#sec-regexp-pattern-flags">21.2.3.1</a> ).</p>
+  </es-note>
+
+  <p>The productions below describe the syntax for a regular expression literal and are used by the
+  input element scanner to find the end of the regular expression literal. The source code
+  comprising the <es-nt>RegularExpressionBody</es-nt> and the <es-nt>RegularExpressionFlags</es-nt>
+  are subsequently parsed using the more stringent ECMAScript Regular Expression grammar (<a href=
+  "#sec-patterns">21.2.1</a> ).</p>
+
+  <p>An implementation may extend the ECMAScript Regular Expression grammar defined in <a href=
+  "#sec-patterns">21.2.1</a> , but it must not extend the <es-nt>RegularExpressionBody</es-nt> and
+  <es-nt>RegularExpressionFlags</es-nt> productions defined below or the productions used by these
+  productions.</p>
+
+  <h2>Syntax</h2>
+
+  <es-production name="RegularExpressionLiteral" type="lexical">
+    <es-rhs>/ <es-nt>RegularExpressionBody</es-nt> / <es-nt>RegularExpressionFlags</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionBody" type="lexical">
+    <es-rhs><es-nt>RegularExpressionFirstChar</es-nt>
+    <es-nt>RegularExpressionChars</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionChars" type="lexical">
+    <es-rhs constraint="empty"></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionChars</es-nt> <es-nt>RegularExpressionChar</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionFirstChar" type="lexical">
+    <es-rhs><es-nt>RegularExpressionNonTerminator</es-nt> <es-gmod>but not one of
+    <es-t>*</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
+    <es-t>/</es-t></es-gmod><es-gmod>or <es-t>[</es-t></es-gmod></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionBackslashSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionClass</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionChar" type="lexical">
+    <es-rhs><es-nt>RegularExpressionNonTerminator</es-nt> <es-gmod>but not one of
+    <es-t>\</es-t></es-gmod><es-gmod>or <es-t>/</es-t></es-gmod><es-gmod>or
+    <es-t>[</es-t></es-gmod></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionBackslashSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionClass</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionBackslashSequence" type="lexical">
+    <es-rhs><es-t>\</es-t> <es-nt>RegularExpressionNonTerminator</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionNonTerminator" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not
+    <es-nt>LineTerminator</es-nt></es-gmod></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionClass" type="lexical">
+    <es-rhs><es-t>[</es-t> <es-nt>RegularExpressionClassChars</es-nt> <es-t>]</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionClassChars" type="lexical">
+    <es-rhs constraint="empty"></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionClassChars</es-nt>
+    <es-nt>RegularExpressionClassChar</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionClassChar" type="lexical">
+    <es-rhs><es-nt>RegularExpressionNonTerminator</es-nt> <es-gmod>but not one of
+    <es-t>]</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionBackslashSequence</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="RegularExpressionFlags" type="lexical">
+    <es-rhs constraint="empty"></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionFlags</es-nt> <es-nt>IdentifierPart</es-nt></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>Regular expression literals may not be empty; instead of representing an empty regular
+    expression literal, the characters <code>//</code> start a single-line comment. To specify an
+    empty regular expression, use: <code>/(?:)/</code>.</p>
+  </es-note>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-literals-regular-expression-literals-static-semantics-early-errors">
+    <es-production name="RegularExpressionFlags" type="lexical" class="inline">
+      <es-rhs><es-nt>RegularExpressionFlags</es-nt> <es-nt>IdentifierPart</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>It is a Syntax Error if <es-nt>IdentifierPart</es-nt> contains a Unicode escape
+      sequence<es-nt>.</es-nt></li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Static Semantics:" anchor="sec-static-semantics-bodytext">
+    <es-production name="RegularExpressionLiteral" type="lexical" class="inline">
+      <es-rhs>/ <es-nt>RegularExpressionBody</es-nt> /
+      <es-nt>RegularExpressionFlags</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the source code that was recognised as <i>RegularExpressionBody</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics:" anchor="sec-static-semantics-flagtext">
+    <es-production name="RegularExpressionLiteral" type="lexical" class="inline">
+      <es-rhs>/ <es-nt>RegularExpressionBody</es-nt> /
+      <es-nt>RegularExpressionFlags</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the source code that was recognised as <i>RegularExpressionFlags</i>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

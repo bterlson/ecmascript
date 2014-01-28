@@ -1,0 +1,81 @@
+<!doctype html>
+<es-clause title="Unicode Format-Control Characters" anchor=
+"sec-unicode-format-control-characters">
+  <p>The Unicode format-control characters (i.e., the characters in category “Cf” in the Unicode
+  Character Database such as left-to-right mark or right-to-left mark) are control codes used to
+  control the formatting of a range of text in the absence of higher-level protocols for this (such
+  as mark-up languages).</p>
+
+  <p>It is useful to allow format-control characters in source text to facilitate editing and
+  display. All format control characters may be used within comments, and within string literals,
+  template literals, and regular expression literals.</p>
+
+  <p>U+200C (Zero width non-joiner) and U+200D (Zero width joiner) are format-control characters
+  that are used to make necessary distinctions when forming words or phrases in certain languages.
+  In ECMAScript source text, &lt;ZWNJ&gt; and &lt;ZWJ&gt; may also be used in an identifier after
+  the first character.</p>
+
+  <p>U+FEFF (Byte Order Mark) is a format-control character used primarily at the start of a text
+  to mark it as Unicode and to allow detection of the text's encoding and byte order. &lt;BOM&gt;
+  characters intended for this purpose can sometimes also appear after the start of a text, for
+  example as a result of concatenating files. &lt;BOM&gt; characters are treated as white space
+  characters (see <a href="#sec-white-space">11.2</a> ).</p>
+
+  <p>The special treatment of certain format-control characters outside of comments, string
+  literals, and regular expression literals is summarised in <a href="#table-28">Table 28</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-28">Table 28</span> — Format-Control Character Usage
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Code Point</th>
+
+        <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">Name</th>
+
+        <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">
+        Abbreviation</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Usage</th>
+      </tr>
+
+      <tr>
+        <td style="border-left: 1px solid #000000"><code>U+200C</code></td>
+
+        <td>Zero width non-joiner</td>
+
+        <td>&lt;ZWNJ&gt;</td>
+
+        <td style="border-right: 1px solid #000000"><i>IdentifierPart</i></td>
+      </tr>
+
+      <tr>
+        <td style="border-left: 1px solid #000000"><code>U+200D</code></td>
+
+        <td>Zero width joiner</td>
+
+        <td>&lt;ZWJ&gt;</td>
+
+        <td style="border-right: 1px solid #000000"><i>IdentifierPart</i></td>
+      </tr>
+
+      <tr>
+        <td style="border-bottom: 2px solid #000000; border-left: 1px solid #000000">
+        <code>U+FEFF</code></td>
+
+        <td style="border-bottom: 2px solid #000000">Byte Order Mark</td>
+
+        <td style="border-bottom: 2px solid #000000">&lt;BOM&gt;</td>
+
+        <td style="border-bottom: 2px solid #000000; border-right: 1px solid #000000">
+        <i>Whitespace</i></td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

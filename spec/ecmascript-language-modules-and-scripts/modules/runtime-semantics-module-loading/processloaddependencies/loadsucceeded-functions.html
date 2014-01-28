@@ -1,0 +1,38 @@
+<!doctype html>
+<es-clause title="LoadSucceeded Functions" anchor="sec-loadsucceeded-functions">
+  <p>A LoadSucceeded function is an anonymous function that transitions a Load Record from
+  <code>"loading"</code> to <code>"loaded"</code> and notifies all associated <a href=
+  "#sec-linkset-records">LinkSet Records</a> of the change. This function concludes the loader
+  pipeline. It is called after all a newly loaded module's dependencies are successfully
+  processed.</p>
+
+  <p>Each LoadSucceeded function has a [[Load]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+
+  <p>When a LoadSucceeded function <es-nt>F</es-nt> is called, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>load</i> be the value of <i>F</i>’s [[Load]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>load</i>.[[Status]] is
+      <code>"loading"</code>.
+    </li>
+
+    <li>Set <i>load</i>.[[Status]] to <code>"loaded"</code>.</li>
+
+    <li>Let <i>linkSets</i> be a copy of <i>load</i>.[[LinkSets]].</li>
+
+    <li>For each <i>linkSet</i> in <i>linkSets</i> in <a href=
+    "#sec-list-and-record-specification-type">List</a> order, do
+
+      <ol class="block">
+        <li>Call <a href="#sec-updatelinksetonload">UpdateLinkSetOnLoad</a> (<i>linkSet</i>,
+        <i>load</i>).
+        </li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

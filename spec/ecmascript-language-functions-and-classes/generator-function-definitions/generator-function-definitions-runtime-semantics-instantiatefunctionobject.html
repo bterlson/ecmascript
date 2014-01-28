@@ -1,0 +1,54 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: InstantiateFunctionObject" anchor=
+"sec-generator-function-definitions-runtime-semantics-instantiatefunctionobject">
+  <p>With parameter <es-nt>scope</es-nt>.</p>
+
+  <p>See also: <a href=
+  "#sec-function-definitions-runtime-semantics-instantiatefunctionobject">14.1.16</a> .</p>
+
+  <es-production name="GeneratorDeclaration" class="inline">
+    <es-rhs>function * <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the <i>GeneratorDeclaration</i> is contained in <a href="#sec-strict-mode-code">strict
+    code</a> or if its <i>FunctionBody</i> is <a href="#sec-strict-mode-code">strict code</a> ,
+    then let <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.
+    </li>
+
+    <li>Let <i>name</i> be <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+    <i>BindingIdentifier.</i>
+    </li>
+
+    <li>Using <i>FunctionBody</i> from the production that is being evaluated, let <i>body</i> be
+    the supplemental syntactic grammar production: <es-production name="GeneratorBody"
+    class="inline"><es-rhs><es-nt>FunctionBody</es-nt></es-rhs></es-production>
+    .</li>
+
+    <li>Let <i>F</i> be the result of performing the <a href=
+    "#sec-generatorfunctioncreate">GeneratorFunctionCreate</a> abstract operation with arguments
+    Normal, <i>FormalParameters</i>, <i>body, scope</i>, and <i>strict</i>.
+    </li>
+
+    <li>If ReferencesSuper of <i>GeneratorDeclaration</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>Perform <a href="#sec-makemethod">MakeMethod</a> (<i>F</i>, <i>name</i>,
+        <b>undefined</b>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>prototype</i> be the result of the abstract operation <a href=
+    "#sec-objectcreate">ObjectCreate</a> with the intrinsic object %GeneratorPrototype% as its
+    argument.
+    </li>
+
+    <li>Perform the abstract operation <a href="#sec-makeconstructor">MakeConstructor</a> with
+    arguments <i>F</i>, <b>true</b>, and <i>prototype</i>.
+    </li>
+
+    <li>Return <i>F</i>.</li>
+  </ol>
+</es-clause>

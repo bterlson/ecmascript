@@ -1,0 +1,305 @@
+<!doctype html>
+<es-clause title="Static Semantic Rule Cross Reference" anchor=
+"sec-static-semantic-rule-cross-reference">
+  <p style="background-color: #FFC000"><b>TODO: This Table is out of date and incomplete.</b></p>
+
+  <figure>
+    <table class="real-table">
+      <tr>
+        <td style="background-color: #000000"><b>Routine Name</b></td>
+
+        <td style="background-color: #000000"><b>Purpose</b></td>
+
+        <td style="background-color: #000000"><b>Definitions</b></td>
+
+        <td style="background-color: #000000"><b>Uses</b></td>
+      </tr>
+
+      <tr>
+        <td>BoundNames</td>
+
+        <td>Produces a list of the Identifiers bound by a production. Does not include Identifiers
+        that are bound within inner environments associated with the production.</td>
+
+        <td>
+          <a href="#sec-left-hand-side-expressions-static-semantics">12.2.1</a> , <a href=
+          "#sec-property-accessors">12.2.2</a> , <a href="#sec-function-calls">12.2.4</a> ,
+          <a href="#sec-subtraction-operator-minus">12.6.4</a> , <a href="#sec-block">13.1</a> ,
+          <a href="#sec-declarations-and-the-variable-statement">13.2</a> , 13.5
+        </td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>ConstructorMethod</td>
+
+        <td>From a <es-nt>ClassBody</es-nt> return the first <es-nt>ClassElement</es-nt> whose
+        PropName is <b>″constructor″</b>. Returns empty if the <es-nt>ClassBody</es-nt> does not
+        contain one.</td>
+
+        <td>13.5</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Contains</td>
+
+        <td>Determine if a grammar production either directly or indirectly includes a grammar
+        symbol.</td>
+
+        <td>
+          <a href="#sec-static-semantic-rules">5.3</a> , <a href="#sec-block">13.1</a> , <a href=
+          "#sec-declarations-and-the-variable-statement">13.2</a> , 13.5
+        </td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>CoveredFormalsList</td>
+
+        <td>Reparse a covered <es-nt>Expression</es-nt> using <es-nt>FormalsList</es-nt> as the
+        goal symbol.</td>
+
+        <td>13.2</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>CV</td>
+
+        <td>Determines the “character value” of a component of a <es-nt>StringLiteral</es-nt>.</td>
+
+        <td>7.8.4</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Elision Width</td>
+
+        <td>Determine the number of commas in an <es-nt>Elision</es-nt>.</td>
+
+        <td>11.1.4.1</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>ExpectedArgumentCount</td>
+
+        <td>Determine the “length” of an argument list for the purpose of initialising the “length”
+        property of a function object.</td>
+
+        <td>
+          <a href="#sec-block">13.1</a> , <a href=
+          "#sec-declarations-and-the-variable-statement">13.2</a> , 13.3
+        </td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>HasInitialiser</td>
+
+        <td>Determines whether the production contains an <es-nt>Initialiser</es-nt>
+        production.</td>
+
+        <td>
+          <a href="#sec-function-calls">12.2.4</a> , 13.1
+        </td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>IsConstantDeclaration</td>
+
+        <td>Determines whether the production introduces an immutable environment record
+        binding</td>
+
+        <td>
+          <a href="#sec-left-hand-side-expressions">12.2</a> , <a href="#sec-block">13.1</a> , 13.5
+        </td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>IsInvalidAssignmentPattern</td>
+
+        <td>Determines if a <es-nt>LeftHandSideExpression</es-nt> is a valid assignment target.
+        Primarily for dealing with destructuring assignment targets.</td>
+
+        <td>11.2</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>LexicalDeclarations</td>
+
+        <td>
+          Return a <a href="#sec-list-and-record-specification-type">List</a> containing the
+          components of a production that are processed as lexical declarations
+        </td>
+
+        <td>
+          <a href="#sec-primary-expressions">12.1</a> , <a href=
+          "#sec-binary-logical-operators">12.11</a> , 12.5
+        </td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>LexicallyDeclaredNames</td>
+
+        <td>Returns a list of the lexically scoped identifiers declared by a production.</td>
+
+        <td>
+          <a href="#sec-primary-expressions">12.1</a> , <a href="#sec-block">13.1</a> , <a href=
+          "#sec-declarations-and-the-variable-statement">13.2</a> , 13.5
+        </td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>PrototypeMethodDefinitions</td>
+
+        <td>Return a list of the non-static <es-nt>MethodDefinition</es-nt> productions that are
+        part of a <es-nt>ClassElementList</es-nt>.</td>
+
+        <td>13.5</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>MV</td>
+
+        <td>Determines the “mathematical value” of a numeric lirteral or component of a numeric
+        literal.</td>
+
+        <td>7.8.3</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>PropName</td>
+
+        <td>Determines the string value of the property name referenced by a production.</td>
+
+        <td>
+          , <a href="#sec-empty-statement">13.3</a> , 13.5
+        </td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>PropNameList</td>
+
+        <td>
+          Returns a <a href="#sec-list-and-record-specification-type">List</a> of the string values
+          of the property names referenced by a production. The list reflects the order of the
+          references in the source text. The list may contain duplicate elements.
+        </td>
+
+        <td>, 13.5</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>PrototypeMethodDefinitions</td>
+
+        <td>Return a list of the non-static <es-nt>MethodDefinition</es-nt> productions that are
+        part of a <es-nt>ClassElementList</es-nt>.</td>
+
+        <td>13.5</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>ReferencesSuper</td>
+
+        <td>Determine if a <es-nt>MethodDefinition</es-nt> contains any references to the
+        <es-nt>ReservedWord</es-nt> <code>super</code>.</td>
+
+        <td>13.3</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>SpecialMethod</td>
+
+        <td>Determine if a <es-nt>MethodDefinition</es-nt> defines a generator method or an
+        accessor property.</td>
+
+        <td>13.3</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>StaticMethodDefinitions</td>
+
+        <td>Return a list of the static <es-nt>MethodDefinition</es-nt> productions that are part
+        of a <es-nt>ClassElementList</es-nt>.</td>
+
+        <td>13.5</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>SV</td>
+
+        <td>Determines the “string value” of a <es-nt>StringLiteral</es-nt> or component of a
+        <es-nt>StringLiteral</es-nt>.</td>
+
+        <td>7.8.4</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+
+        <td></td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>VarDeclaredNames</td>
+
+        <td>Returns a list of the local top-level scoped identifiers declared by a production.
+        These are identifier that are scoped as if by a var statement.</td>
+
+        <td>
+          <a href="#sec-primary-expressions">12.1</a> , <a href=
+          "#sec-multiplicative-operators">12.5</a> , <a href=
+          "#sec-additive-operators-static-semantics-isanonymousfunctiondefinition">12.6.1</a> ,
+          <a href=
+          "#sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget">12.6.2</a> ,
+          <a href="#sec-addition-operator-plus">12.6.3</a> , <a href=
+          "#sec-subtraction-operator-minus">12.6.4</a> , <a href=
+          "#sec-conditional-operator">12.12</a> , <a href="#sec-block">13.1</a> , 13.5
+        </td>
+
+        <td></td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

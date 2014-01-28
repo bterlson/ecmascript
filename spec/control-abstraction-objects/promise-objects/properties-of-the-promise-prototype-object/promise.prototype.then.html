@@ -1,0 +1,160 @@
+<!doctype html>
+<es-clause title="Promise.prototype.then ( onFulfilled , onRejected )" anchor=
+"sec-promise.prototype.then">
+  <p>When the <code>then</code> method is called with arguments <es-nt>onFulfilled</es-nt> and
+  <es-nt>onRejected</es-nt> the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>promise</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ispromise">IsPromise</a> (<i>promise</i>) is <b>false</b>, throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>C</i> be <a href="#sec-get-o-p">Get</a> (<i>promise</i>,
+    <code>"constructor"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>C</i>).
+    </li>
+
+    <li>Let <i>promiseCapability</i> be <a href=
+    "#sec-newpromisecapability">NewPromiseCapability</a> (<i>C</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promiseCapability</i>).
+    </li>
+
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>onRejected</i>) is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>rejectionHandler</i> be <i>onRejected</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>rejectionHandler</i> be a new Thrower Function (see <a href=
+        "#sec-thrower-functions">25.4.5.3.3</a> ).
+        </li>
+      </ol>
+    </li>
+
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>onFulfilled</i>) is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>fulfillmentHandler</i> be <i>onFulfilled</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>fulfillmentHandler</i> be a new Identity Function (see <a href=
+        "#sec-identity-functions">25.4.5.3.1</a> ).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>resolutionHandler</i> be a new Promise Resolution Handler Function (see <a href=
+    "#sec-promise-resolution-handler-functions">25.4.5.3.2</a> ).
+    </li>
+
+    <li>Set the [[Promise]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>resolutionHandler</i> to <i>promise</i>.
+    </li>
+
+    <li>Set the [[FulfillmentHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>resolutionHandler</i>
+    to <i>fulfillmentHandler</i>.
+    </li>
+
+    <li>Set the [[RejectionHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>resolutionHandler</i>
+    to <i>rejectionHandler</i>.
+    </li>
+
+    <li>Let <i>resolveReaction</i> be the PromiseReaction { [[Capabilities]]:
+    <i>promiseCapability</i>, [[Handler]]: <i>resolutionHandler</i> }.</li>
+
+    <li>Let <i>rejectReaction</i> be the PromiseReaction { [[Capabilities]]:
+    <i>promiseCapability</i>, [[Handler]]: <i>rejectionHandler</i> }.</li>
+
+    <li>If the value of <i>promise</i>'s [[PromiseStatus]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is
+    <code>"unresolved"</code>,
+
+      <ol class="block">
+        <li>Append <i>resolveReaction</i> as the last element of the <a href=
+        "#sec-list-and-record-specification-type">List</a> that is the value of <i>promise</i>'s
+        [[PromiseResolveReactions]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>Append <i>rejectReaction</i> as the last element of the <a href=
+        "#sec-list-and-record-specification-type">List</a> that is the value of <i>promise</i>'s
+        [[PromiseRejectReactions]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+      </ol>
+    </li>
+
+    <li>Else if the value of <i>promise</i>'s [[PromiseStatus]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is
+    <code>"has-resolution"</code>,
+
+      <ol class="block">
+        <li>Let <i>resolution</i> be the value of <i>promise</i>'s [[PromiseResult]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>Call <a href="#sec-enqueuetask">EnqueueTask</a> (<b>"PromiseTasks"</b>, <a href=
+        "#sec-promisereactiontask">PromiseReactionTask</a> , (<i>resolveReaction</i>,
+        <i>resolution</i>)).
+        </li>
+      </ol>
+    </li>
+
+    <li>Else if the value of <i>promise</i>'s [[PromiseStatus]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is
+    <code>"has-rejection"</code>,
+
+      <ol class="block">
+        <li>Let <i>reason</i> be the value of <i>promise</i>'s [[PromiseResult]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>Call <a href="#sec-enqueuetask">EnqueueTask</a> ((<b>"PromiseTasks"</b>, <a href=
+        "#sec-promisereactiontask">PromiseReactionTask</a> , (<i>rejectReaction</i>,
+        <i>reason</i>)).
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>promiseCapability</i>.[[Promise]].</li>
+  </ol>
+
+  <es-clause title="Identity Functions" anchor="sec-identity-functions">
+    <p>An identify function is an anonymous built-in function that when called with argument
+    <es-nt>x</es-nt>, performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Return <i>x</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="promise.prototype.then\promise-resolution-handler-functions.html">
+
+  <es-clause title="Thrower Functions" anchor="sec-thrower-functions">
+    <p>A thrower function is an anonymous built-in function that when called with argument
+    <es-nt>e</es-nt>, performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
+      throw, [[value]]: <i>e</i>, [[target]]: empty}.
+      </li>
+    </ol>
+  </es-clause>
+</es-clause>

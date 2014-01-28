@@ -1,0 +1,79 @@
+<!doctype html>
+<es-clause title="Static Semantics: LexicallyDeclaredNames" anchor=
+"sec-switch-statement-static-semantics-lexicallydeclarednames">
+  <p>See also: <a href="#sec-block-static-semantics-lexicallydeclarednames">13.1.3</a> , <a href=
+  "#sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</a> , <a href=
+  "#sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</a> , <a href=
+  "#sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</a> ,
+  <a href="#sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</a> , <a href=
+  "#sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</a> , <a href=
+  "#sec-module-static-semantics-static-semantics-lexicallydeclarednames">15.2.0.10</a> .</p>
+
+  <es-production name="CaseBlock" class="inline">
+    <es-rhs>{ }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="CaseBlock" class="inline">
+    <es-rhs>{ <es-nt optional>CaseClauses</es-nt> <es-nt>DefaultClause</es-nt> <es-nt optional
+    >CaseClauses</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the first <i>CaseClauses</i> is present, let <i>names</i> be the LexicallyDeclaredNames
+    of the first <i>CaseClauses</i>.</li>
+
+    <li>Else let <i>names</i> be a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Append to <i>names</i> the elements of the LexicallyDeclaredNames of the
+    <i>DefaultClause.</i></li>
+
+    <li>If the second <i>CaseClauses</i> is not present, return <i>names</i>.</li>
+
+    <li>Else return the result of appending to <i>names</i> the elements of the
+    LexicallyDeclaredNames of the second <i>CaseClauses</i>.</li>
+  </ol>
+
+  <es-production name="CaseClauses" class="inline">
+    <es-rhs><es-nt>CaseClauses</es-nt> <es-nt>CaseClause</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>names</i> be LexicallyDeclaredNames of <i>CaseClauses</i>.</li>
+
+    <li>Append to <i>names</i> the elements of the LexicallyDeclaredNames of
+    <i>CaseClause.</i></li>
+
+    <li>Return <i>names</i>.</li>
+  </ol>
+
+  <es-production name="CaseClause" class="inline">
+    <es-rhs>case <es-nt>Expression</es-nt> : <es-nt optional>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the <i>StatementList</i> is present, return the LexicallyDeclaredNames of
+    <i>StatementList</i>.</li>
+
+    <li>Else return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="DefaultClause" class="inline">
+    <es-rhs><es-t>default</es-t> <es-t>:</es-t> <es-nt optional>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the <i>StatementList</i> is present, return the LexicallyDeclaredNames of
+    <i>StatementList</i>.</li>
+
+    <li>Else return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+</es-clause>

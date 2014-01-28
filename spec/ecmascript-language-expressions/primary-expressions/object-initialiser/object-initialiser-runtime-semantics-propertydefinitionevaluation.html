@@ -1,0 +1,139 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: PropertyDefinitionEvaluation" anchor=
+"sec-object-initialiser-runtime-semantics-propertydefinitionevaluation">
+  <p>With parameter <i>object</i>.</p>
+
+  <p>See also: <a href=
+  "#sec-method-definitions-runtime-semantics-propertydefinitionevaluation">14.3.9</a> , <a href=
+  "#sec-generator-function-definitions-runtime-semantics-propertydefinitionevaluation">14.4.13</a>
+  , B.3.1</p>
+
+  <es-production name="PropertyDefinitionList" class="inline">
+    <es-rhs><es-nt>PropertyDefinitionList</es-nt> , <es-nt>PropertyDefinition</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>status</i> be the result of performing PropertyDefinitionEvaluation of
+    <i>PropertyDefinitionList</i> with argument <i>object</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+    </li>
+
+    <li>Let <i>propDef</i> be the result of performing PropertyDefinitionEvaluation of
+    <i>PropertyDefinition</i> with argument <i>object</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propDef</i>).
+    </li>
+
+    <li>If <i>propDef</i> is empty, then return <i>propDef.</i></li>
+
+    <li>Let <i>status</i> be the result of <a href=
+    "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>object</i>, <i>propDef.</i>[[key]],
+    <i>propDef</i>.[[descriptor]]).
+    </li>
+
+    <li>Return <i>status</i>.</li>
+  </ol>
+
+  <es-production name="PropertyDefinition" class="inline">
+    <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>propName</i> be <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+    <i>IdentifierReference</i>.
+    </li>
+
+    <li>Let <i>exprValue</i> be the result of evaluating <i>IdentifierReference</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exprValue</i>).
+    </li>
+
+    <li>Let <i>propValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprValue</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propValue</i>).
+    </li>
+
+    <li>Let <i>desc</i> be the <a href="#sec-property-descriptor-specification-type">Property
+    Descriptor</a> {[[Value]]: <i>propValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]:
+    <b>true</b>, [[Configurable]]: <b>true</b>}
+    </li>
+
+    <li>Return the result of <a href="#sec-definepropertyorthrow">DefinePropertyOrThrow</a>
+    (<i>object</i>, <i>propName</i>, <i>desc</i>).
+    </li>
+  </ol>
+
+  <es-production name="PropertyDefinition" class="inline">
+    <es-rhs><es-nt>PropertyName</es-nt> : <es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propKey</i>).
+    </li>
+
+    <li>Let <i>exprValue</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+    <li>Let <i>propValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprValue</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propValue</i>).
+    </li>
+
+    <li>If IsAnonymousFunctionDefinition of <i>AssignmentExpression</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>
+          <a href="#sec-algorithm-conventions">Assert</a> : <i>propValue</i> is an <a href=
+          "#sec-ecmascript-function-objects">ECMAScript function object</a> .
+        </li>
+
+        <li>Let <i>referencesSuper</i> be the value of <i>propValue</i>’s [[NeedsSuper]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>Let <i>thisMode</i> be the value of <i>propValue</i>’s [[ThisMode]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>If <i>thisMode</i> is not lexical and <i>referencesSuper</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Set the <i>propValue</i>’s [[HomeObject]] <a href=
+            "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>object</i>.
+            </li>
+
+            <li>Set the <i>propValue</i>’s [[MethodName]] <a href=
+            "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>propKey</i>.
+            </li>
+          </ol>
+        </li>
+
+        <li>
+          <a href="#sec-setfunctionname">SetFunctionName</a> (<i>propValue</i>, <i>propKey</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>desc</i> be the <a href="#sec-property-descriptor-specification-type">Property
+    Descriptor</a> {[[Value]]: <i>propValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]:
+    <b>true</b>, [[Configurable]]: <b>true</b>}
+    </li>
+
+    <li>Return the result of <a href="#sec-definepropertyorthrow">DefinePropertyOrThrow</a>
+    (<i>object</i>, <i>propKey</i>, <i>desc</i>).
+    </li>
+  </ol>
+
+  <p class="Note"><i>NOTE	An alternative semantics for this production is given in <a href=
+  "#sec-__proto___-property-names-in-object-initialisers">B.3.1</a> .</i></p>
+</es-clause>

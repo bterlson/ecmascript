@@ -1,0 +1,124 @@
+<!doctype html>
+<es-clause title="ToNumber Applied to the String Type" anchor=
+"sec-tonumber-applied-to-the-string-type">
+  <p><a href="#sec-tonumber">ToNumber</a> applied to Strings applies the following grammar to the
+  input String. If the grammar cannot interpret the String as an expansion of
+  <es-nt>StringNumericLiteral</es-nt>, then the result of <a href="#sec-tonumber">ToNumber</a> is
+  <b>NaN</b>.</p>
+
+  <h2>Syntax</h2>
+
+  <es-production name="StringNumericLiteral" type="numeric">
+    <es-rhs><es-nt optional>StrWhiteSpace</es-nt></es-rhs>
+
+    <es-rhs><es-nt optional>StrWhiteSpace</es-nt> <es-nt>StrNumericLiteral</es-nt> <es-nt optional
+    >StrWhiteSpace</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="StrWhiteSpace" type="numeric">
+    <es-rhs><es-nt>StrWhiteSpaceChar</es-nt> <es-nt optional>StrWhiteSpace</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="StrWhiteSpaceChar" type="numeric">
+    <es-rhs><es-nt>WhiteSpace</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LineTerminator</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="StrNumericLiteral" type="numeric">
+    <es-rhs><es-nt>StrDecimalLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>HexIntegerLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="StrDecimalLiteral" type="numeric">
+    <es-rhs><es-nt>StrUnsignedDecimalLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-t>+</es-t> <es-nt>StrUnsignedDecimalLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-t>-</es-t> <es-nt>StrUnsignedDecimalLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="StrUnsignedDecimalLiteral" type="numeric">
+    <es-rhs><es-nt>Infinity</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DecimalDigits</es-nt> . <es-nt optional>DecimalDigits</es-nt> <es-nt optional
+    >ExponentPart</es-nt></es-rhs>
+
+    <es-rhs>. <es-nt>DecimalDigits</es-nt> <es-nt optional>ExponentPart</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DecimalDigits</es-nt> <es-nt optional>ExponentPart</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DecimalDigits" type="numeric">
+    <es-rhs><es-nt>DecimalDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DecimalDigits</es-nt> <es-nt>DecimalDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DecimalDigit" type="numeric" oneof>
+    <es-rhs>0 1 2 3 4 5 6 7 8 9</es-rhs>
+  </es-production>
+
+  <es-production name="ExponentPart" type="numeric">
+    <es-rhs><es-nt>ExponentIndicator</es-nt> <es-nt>SignedInteger</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ExponentIndicator" type="numeric" oneof>
+    <es-rhs>e E</es-rhs>
+  </es-production>
+
+  <es-production name="SignedInteger" type="numeric">
+    <es-rhs><es-nt>DecimalDigits</es-nt></es-rhs>
+
+    <es-rhs><es-t>+</es-t> <es-nt>DecimalDigits</es-nt></es-rhs>
+
+    <es-rhs><es-t>-</es-t> <es-nt>DecimalDigits</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="HexIntegerLiteral" type="numeric">
+    <es-rhs><es-t>0x</es-t> <es-nt>HexDigit</es-nt></es-rhs>
+
+    <es-rhs><es-t>0X</es-t> <es-nt>HexDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>HexIntegerLiteral</es-nt> <es-nt>HexDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="HexDigit" type="numeric" oneof>
+    <es-rhs>0 1 2 3 4 5 6 7 8 9 a b c d e f A B C D E F</es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>Some differences should be noted between the syntax of a <es-nt>StringNumericLiteral</es-nt>
+    and a <es-nt>NumericLiteral</es-nt> (see <a href="#sec-literals-numeric-literals">11.8.3</a>
+    ):</p>
+
+    <ul>
+      <li>
+        <p>A <es-nt>StringNumericLiteral</es-nt> may be preceded and/or followed by white space
+        and/or line terminators.</p>
+      </li>
+
+      <li>
+        <p>A <es-nt>StringNumericLiteral</es-nt> that is decimal may have any number of leading
+        <code>0</code> digits.</p>
+      </li>
+
+      <li>
+        <p>A <es-nt>StringNumericLiteral</es-nt> that is decimal may be preceded by <code>+</code>
+        or <code>-</code> to indicate its sign.</p>
+      </li>
+
+      <li>
+        <p>A <es-nt>StringNumericLiteral</es-nt> that is empty or contains only white space is
+        converted to <b>+0</b>.</p>
+      </li>
+
+      <li>
+        <p><code>Infinity</code> <code>and –Infinity</code> are recognised as a
+        <es-nt>StringNumericLiteral</es-nt> but not as a <es-nt>NumericLiteral</es-nt>.</p>
+      </li>
+    </ul>
+  </es-note>
+  <link rel="import" href="tonumber-applied-to-the-string-type\runtime-semantics-mv-s.html">
+</es-clause>

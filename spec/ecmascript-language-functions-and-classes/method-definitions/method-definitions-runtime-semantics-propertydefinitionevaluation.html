@@ -1,0 +1,137 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: PropertyDefinitionEvaluation" anchor=
+"sec-method-definitions-runtime-semantics-propertydefinitionevaluation">
+  <p>With parameter <i>object</i>.</p>
+
+  <p>See also: <a href=
+  "#sec-object-initialiser-runtime-semantics-propertydefinitionevaluation">12.1.5.8</a> , <a href=
+  "#sec-generator-function-definitions-runtime-semantics-propertydefinitionevaluation">14.4.13</a>
+  , B.3.1</p>
+
+  <es-production name="MethodDefinition" class="inline">
+    <es-rhs><es-nt>PropertyName</es-nt> ( <es-nt>StrictFormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>methodDef</i> be the result of DefineMethod of this <i>MethodDefinition</i> with
+    argument <i>object</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>methodDef</i>).
+    </li>
+
+    <li>
+      <a href="#sec-setfunctionname">SetFunctionName</a> (<i>methodDef</i>.[[closure]],
+      <i>methodDef</i>.[[key]]).
+    </li>
+
+    <li>Let <i>desc</i> be the <a href="#sec-property-descriptor-specification-type">Property
+    Descriptor</a> {[[Value]]: <i>methodDef</i>.[[closure]], [[Writable]]: <b>true</b>,
+    [[Enumerable]]: <b>true</b>, [[Configurable]]: <b>true</b>}.
+    </li>
+
+    <li>Return the result of <a href="#sec-definepropertyorthrow">DefinePropertyOrThrow</a>
+    (<i>object</i>, <i>methodDef</i>.[[key]], <i>desc</i>).
+    </li>
+  </ol>
+
+  <es-production name="MethodDefinition" class="inline">
+    <es-rhs><es-nt>GeneratorMethod</es-nt></es-rhs>
+  </es-production>
+
+  <p>See <a href="#sec-generator-function-definitions">14.4</a> .</p>
+
+  <es-production name="MethodDefinition" class="inline">
+    <es-rhs>get <es-nt>PropertyName</es-nt> ( ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propKey</i>).
+    </li>
+
+    <li>Let <i>strict</i> be IsStrict of <i>FunctionBody</i>.</li>
+
+    <li>Let <i>scope</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
+    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
+    </li>
+
+    <li>Let <i>formalParameterList</i> be the production <es-production name=
+    "FormalParameters" class="inline"><es-rhs constraint=
+    "empty"></es-rhs></es-production></li>
+
+    <li>Let <i>closure</i> be the result of performing the <a href=
+    "#sec-functioncreate">FunctionCreate</a> abstract operation with arguments Method,
+    <i>formalParameterList</i>, <i>FunctionBody, scope</i>, and <i>strict</i>.
+    </li>
+
+    <li>If ReferencesSuper of <i>MethodDefinition</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>Perform <a href="#sec-makemethod">MakeMethod</a> (<i>closure</i>, <i>propKey</i>,
+        <i>object</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-setfunctionname">SetFunctionName</a> (<i>closure</i>, <i>propKey</i>,
+      "<b>get</b>").
+    </li>
+
+    <li>Let <i>desc</i> be the PropertyDescriptor{[[Get]]: <i>closure</i>, [[Enumerable]]:
+    <b>true</b>, [[Configurable]]: <b>true</b>}</li>
+
+    <li>Return the result of <a href="#sec-definepropertyorthrow">DefinePropertyOrThrow</a>
+    (<i>object</i>, <i>propKey</i>, <i>desc</i>).
+    </li>
+  </ol>
+
+  <es-production name="MethodDefinition" class="inline">
+    <es-rhs>set <es-nt>PropertyName</es-nt> ( <es-nt>PropertySetParameterList</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propKey</i>).
+    </li>
+
+    <li>Let <i>strict</i> be IsStrict of <i>FunctionBody</i>.</li>
+
+    <li>Let <i>scope</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
+    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
+    </li>
+
+    <li>Let <i>closure</i> be the result of performing the <a href=
+    "#sec-functioncreate">FunctionCreate</a> abstract operation with arguments Method,
+    <i>PropertySetParameterList</i>, <i>FunctionBody, scope</i>, and <i>strict</i>.
+    </li>
+
+    <li>If ReferencesSuper of <i>MethodDefinition</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>Perform <a href="#sec-makemethod">MakeMethod</a> (<i>closure</i>, <i>propKey</i>,
+        <i>object</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-setfunctionname">SetFunctionName</a> (<i>closure</i>, <i>propKey</i>,
+      "<b>set</b>").
+    </li>
+
+    <li>Let <i>desc</i> be the PropertyDescriptor{[[Set]]: <i>closure</i>, [[Enumerable]]:
+    <b>true</b>, [[Configurable]]: <b>true</b>}</li>
+
+    <li>Return the result of <a href="#sec-definepropertyorthrow">DefinePropertyOrThrow</a>
+    (<i>object</i>, <i>propKey</i>, <i>desc</i>).
+    </li>
+  </ol>
+</es-clause>

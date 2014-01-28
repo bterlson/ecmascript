@@ -1,0 +1,57 @@
+<!doctype html>
+<es-clause title="ProceedToTranslate(loader, load, p) Abstract Operation" anchor=
+"sec-proceedtotranslate">
+  <p>The ProceedToTranslate abstract operation continues the asynchronous loading process at the
+  <code>translate</code> hook hook by performing performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>F</i> be a new function object as defined in CallTranslate.</li>
+
+    <li>Set <i>F</i>’s [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loader</i>.
+    </li>
+
+    <li>Set <i>F</i>’s [[Load]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> to <i>load</i>.
+    </li>
+
+    <li>Let <i>p</i> be PromiseThen(<i>p</i>, <i>F</i>).</li>
+
+    <li>Let <i>F</i> be a new function object as defined in CallInstantiate.</li>
+
+    <li>Set <i>F</i>’s [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loader</i>.
+    </li>
+
+    <li>Set <i>F</i>’s [[Load]] to <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> <i>load</i>.
+    </li>
+
+    <li>Let <i>p</i> be PromiseThen(<i>p</i>, <i>F</i>).</li>
+
+    <li>Let <i>F</i> be a new function object as defined in InstantiateSucceeded.</li>
+
+    <li>Set <i>F</i>’s [[Loader]] to <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> <i>loader</i>.
+    </li>
+
+    <li>Set <i>F</i>’s [[Load]] to <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> <i>load</i>.
+    </li>
+
+    <li>Let <i>p</i> be PromiseThen(<i>p</i>, <i>F</i>).</li>
+
+    <li>Let <i>F</i> be a new function object as defined in LoadFailed.</li>
+
+    <li>Set <i>F</i>’s [[Load]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> to <i>load</i>.
+    </li>
+
+    <li>Return PromiseCatch(<i>p</i>, <i>F</i>).</li>
+  </ol>
+  <link rel="import" href="proceedtotranslate\calltranslate-functions.html">
+  <link rel="import" href="proceedtotranslate\callinstantiate-functions.html">
+  <link rel="import" href=
+  "proceedtotranslate\instantiatesucceeded-instantiateresult-functions.html">
+  <link rel="import" href="proceedtotranslate\loadfailed-functions.html">
+</es-clause>

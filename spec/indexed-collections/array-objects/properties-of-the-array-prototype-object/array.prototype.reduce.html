@@ -1,0 +1,160 @@
+<!doctype html>
+<es-clause title="Array.prototype.reduce ( callbackfn [ , initialValue ] )" anchor=
+"sec-array.prototype.reduce">
+  <p><es-nt>callbackfn</es-nt> should be a function that takes four arguments. <code>reduce</code>
+  calls the callback, as a function, once for each element present in the array, in ascending
+  order.</p>
+
+  <p><es-nt>callbackfn</es-nt> is called with four arguments: the <i>previousValue</i> (or value
+  from the previous call to <es-nt>callbackfn</es-nt>), the <i>currentValue</i> (value of the
+  current element), the <i>currentIndex</i>, and the object being traversed. The first time that
+  callback is called, the <i>previousValue</i> and <i>currentValue</i> can be one of two values. If
+  an <es-nt>initialValue</es-nt> was provided in the call to <code>reduce</code>, then
+  <i>previousValue</i> will be equal to <es-nt>initialValue</es-nt> and <i>currentValue</i> will be
+  equal to the first value in the array. If no <es-nt>initialValue</es-nt> was provided, then
+  <i>previousValue</i> will be equal to the first value in the array and <i>currentValue</i> will
+  be equal to the second. It is a <b>TypeError</b> if the array contains no elements and
+  <es-nt>initialValue</es-nt> is not provided.</p>
+
+  <p><code>reduce</code> does not directly mutate the object on which it is called but the object
+  may be mutated by the calls to <es-nt>callbackfn</es-nt>.</p>
+
+  <p>The range of elements processed by <code>reduce</code> is set before the first call to
+  <es-nt>callbackfn</es-nt>. Elements that are appended to the array after the call to
+  <code>reduce</code> begins will not be visited by <es-nt>callbackfn</es-nt>. If existing elements
+  of the array are changed, their value as passed to <es-nt>callbackfn</es-nt> will be the value at
+  the time <code>reduce</code> visits them; elements that are deleted after the call to
+  <code>reduce</code> begins and before being visited are not visited.</p>
+
+  <p>When the <code>reduce</code> method is called with one or two arguments, the following steps
+  are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
+      this</b> value as the argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+    </li>
+
+    <li>Let <i>lenValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <code>"length"</code>).
+    </li>
+
+    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenValue</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
+    </li>
+
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>callbackfn</i>) is <b>false</b>, throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>len</i> is 0 and <i>initialValue</i> is not present, throw a <b>TypeError</b>
+    exception.</li>
+
+    <li>Let <i>k</i> be 0.</li>
+
+    <li>If <i>initialValue</i> is present, then
+
+      <ol class="block">
+        <li>Set <i>accumulator</i> to <i>initialValue</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else <i>initialValue</i> is not present,
+
+      <ol class="block">
+        <li>Let <i>kPresent</i> be <b>false</b>.</li>
+
+        <li>Repeat, while <i>kPresent</i> is <b>false</b> and <i>k</i> &lt; <i>len</i>
+
+          <ol class="block">
+            <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
+            </li>
+
+            <li>Let <i>kPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
+            (<i>O</i>, <i>Pk</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kPresent</i>).
+            </li>
+
+            <li>If <i>kPresent</i> is <b>true</b>, then
+
+              <ol class="block">
+                <li>Let <i>accumulator</i> be the result of <a href="#sec-get-o-p">Get</a>
+                (<i>O</i>, <i>Pk</i>).
+                </li>
+
+                <li>
+                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>accumulator</i>).
+                </li>
+              </ol>
+            </li>
+
+            <li>Increase <i>k</i> by 1.</li>
+          </ol>
+        </li>
+
+        <li>If <i>kPresent</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+      </ol>
+    </li>
+
+    <li>Repeat, while <i>k</i> &lt; <i>len</i>
+
+      <ol class="block">
+        <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
+        </li>
+
+        <li>Let <i>kPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
+        (<i>O</i>, <i>Pk</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kPresent</i>).
+        </li>
+
+        <li>If <i>kPresent</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>kValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+            <i>Pk</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kValue</i>).
+            </li>
+
+            <li>Let <i>accumulator</i> be the result of calling the [[Call]] internal method of <i>
+              callbackfn</i> with <b>undefined</b> as <i>thisArgument</i> and a <a href=
+              "#sec-list-and-record-specification-type">List</a> containing <i>accumulator</i>,
+              <i>kValue</i>, <i>k</i>, and <i>O</i> as <i>argumentsList</i>.
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>accumulator</i>).
+            </li>
+          </ol>
+        </li>
+
+        <li>Increase <i>k</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>accumulator</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>reduce</code> method is <b>1</b>.</p>
+
+  <es-note>
+    <p>The <code>reduce</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects
+    for use as a method. Whether the <code>reduce</code> function can be applied successfully to an
+    exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

@@ -1,0 +1,88 @@
+<!doctype html>
+<es-clause title="Array.prototype.join (separator)" anchor="sec-array.prototype.join">
+  <p>The elements of the array are converted to Strings, and these Strings are then concatenated,
+  separated by occurrences of the <es-nt>separator</es-nt>. If no separator is provided, a single
+  comma is used as the separator.</p>
+
+  <p>The <code>join</code> method takes one argument, <es-nt>separator</es-nt>, and performs the
+  following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
+      this</b> value as the argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+    </li>
+
+    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <code>"length"</code>).
+    </li>
+
+    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
+    </li>
+
+    <li>If <i>separator</i> is <b>undefined</b>, let <i>separator</i> be the single-character
+    String <code>","</code>.</li>
+
+    <li>Let <i>sep</i> be <a href="#sec-tostring">ToString</a> (<i>separator</i>).
+    </li>
+
+    <li>If <i>len</i> is zero, return the empty String.</li>
+
+    <li>Let <i>element0</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <code>"0"</code>).
+    </li>
+
+    <li>If <i>element0</i> is <b>undefined</b> or <b>null</b>, let <i>R</i> be the empty String;
+    otherwise, let <i>R</i> be <a href="#sec-tostring">ToString</a> (<i>element0</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>R</i>).
+    </li>
+
+    <li>Let <i>k</i> be <code>1</code>.</li>
+
+    <li>Repeat, while <i>k</i> &lt; <i>len</i>
+
+      <ol class="block">
+        <li>Let <i>S</i> be the String value produced by concatenating <i>R</i> and
+        <i>sep</i>.</li>
+
+        <li>Let <i>element</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+          <a href="#sec-tostring">ToString</a> (<i>k</i>)).
+        </li>
+
+        <li>If <i>element</i> is <b>undefined</b> or <b>null</b>, then let <i>next</i> be the empty
+        String; otherwise, let <i>next</i> be <a href="#sec-tostring">ToString</a>
+        (<i>element</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+        </li>
+
+        <li>Let <i>R</i> be a String value produced by concatenating <i>S</i> and <i>next</i>.</li>
+
+        <li>Increase <i>k</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>R</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>join</code> method is <b>1</b>.</p>
+
+  <es-note>
+    <p>The <code>join</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore, it can be transferred to other kinds of
+    objects for use as a method. Whether the <code>join</code> function can be applied successfully
+    to an exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

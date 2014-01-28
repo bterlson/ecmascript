@@ -1,0 +1,40 @@
+<!doctype html>
+<es-clause title="Proxy.revocable ( target, handler )" anchor="sec-proxy.revocable">
+  <p>The <code>Proxy.revocable</code> function is used to create a revocable Proxy object. When
+  <code>Proxy.revocable</code> is called with arguments <es-nt>target</es-nt> and
+  <es-nt>handler</es-nt> the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>p</i> be <a href="#sec-proxycreate">ProxyCreate</a> (<i>target</i>, <i>handler</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>p</i>).
+    </li>
+
+    <li>Let <i>revoker</i> be a new built-in function object as defined in <a href=
+    "#sec-proxy-revocation-functions">26.5.2.1.1</a> .
+    </li>
+
+    <li>Set the [[RevokableProxy]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>revoker</i> to
+    <i>p</i>.
+    </li>
+
+    <li>Let <i>result</i> be the result of <a href="#sec-objectcreate">ObjectCreate</a> ().
+    </li>
+
+    <li>
+      <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>result</i>,
+      <code>"proxy"</code>, <i>p</i>).
+    </li>
+
+    <li>
+      <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>result</i>,
+      <code>"revoke"</code>, <i>revoker</i>).
+    </li>
+
+    <li>Return <i>result</i>.</li>
+  </ol>
+  <link rel="import" href="proxy.revocable\proxy-revocation-functions.html">
+</es-clause>

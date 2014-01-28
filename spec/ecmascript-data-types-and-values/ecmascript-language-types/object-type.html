@@ -1,0 +1,43 @@
+<!doctype html>
+<es-clause title="The Object Type" anchor="sec-object-type">
+  <p>An Object is logically a collection of properties. Each property is either a data property, or
+  an accessor property:</p>
+
+  <ul>
+    <li>
+      <p>A <i>data property</i> associates a key value with an <a href=
+      "#sec-ecmascript-language-types">ECMAScript language value</a> and a set of Boolean
+      attributes.</p>
+    </li>
+
+    <li>
+      <p>An <i>accessor property</i> associates a key value with one or two accessor functions, and
+      a set of Boolean attributes. The accessor functions are used to store or retrieve an <a href=
+      "#sec-ecmascript-language-types">ECMAScript language value</a> that is associated with the
+      property.</p>
+    </li>
+  </ul>
+
+  <p>Properties are identified using key values. A key value is either an ECMAScript String value
+  or a Symbol value. All String and Symbol values, including the empty string, are valid as
+  property keys.</p>
+
+  <p>Property keys are used to access properties and their values. There are two kinds of access
+  for properties: <i>get</i> and <i>set</i>, corresponding to value retrieval and assignment,
+  respectively. The properties accessible via get and set access includes both <i>own
+  properties</i> that are a direct part of an object and <i>inherited properties</i> which are
+  provided by another associated object via a property inheritance relationship. Inherited
+  properties may be either own or inherited properties of the associated object. Each own
+  properties of an object must each have a key value that is distinct from the key values of the
+  other own properties of that object.</p>
+
+  <p>All objects are logically collections of properties, but there are multiple forms of objects
+  that differ in their semantics for accessing and manipulating their properties. O<i>rdinary
+  objects</i> are the most common form of objects and have the default object semantics. An
+  <i>exotic object</i> is any form of object whose property semantics differ in any way from the
+  default semantics.</p>
+  <link rel="import" href="object-type\property-attributes.html">
+  <link rel="import" href="object-type\object-internal-methods-and-internal-slots.html">
+  <link rel="import" href="object-type\invariants-of-the-essential-internal-methods.html">
+  <link rel="import" href="object-type\well-known-intrinsic-objects.html">
+</es-clause>

@@ -1,0 +1,38 @@
+<!doctype html>
+<es-clause title="[[GetOwnProperty]] (P)" anchor=
+"sec-ecmascript-function-objects-getownproperty-p">
+  <p>When the [[GetOwnProperty]] internal method of non-strict <a href=
+  "#sec-ecmascript-function-objects">ECMAScript function object</a> <es-nt>F</es-nt> is called with
+  <a href="#sec-object-type">property key</a> <es-nt>P</es-nt>, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>v</i> be the result of calling the default ordinary object [[GetOwnProperty]]
+    internal method (<a href=
+    "#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">9.1.5</a> ) on <i>
+      F</i> passing <i>P</i> as the argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
+    </li>
+
+    <li>If <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>v</i>) is <b>true</b>, then
+
+      <ol class="block">
+        <li>If <i>P</i> is <code>"caller"</code> and <i>v</i>.[[Value]] is a strict mode Function
+        object, then
+
+          <ol class="block">
+            <li>Set <i>v</i>.[[Value]] to <b>null</b>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>v</i>.</li>
+  </ol>
+
+  <p>If an implementation does not provide a built-in <code>caller</code> property for non-strict
+  ECMAScript function objects then it must not use this definition. Instead the ordinary object
+  [[GetOwnProperty]] internal method is used.</p>
+</es-clause>

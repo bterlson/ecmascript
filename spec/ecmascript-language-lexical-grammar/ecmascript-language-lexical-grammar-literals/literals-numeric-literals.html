@@ -1,0 +1,125 @@
+<!doctype html>
+<es-clause title="Numeric Literals" anchor="sec-literals-numeric-literals">
+  <h2>Syntax</h2>
+
+  <es-production name="NumericLiteral" type="lexical">
+    <es-rhs><es-nt>DecimalLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>BinaryIntegerLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>OctalIntegerLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>HexIntegerLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DecimalLiteral" type="lexical">
+    <es-rhs><es-nt>DecimalIntegerLiteral</es-nt> . <es-nt optional>DecimalDigits</es-nt>
+    <es-nt optional>ExponentPart</es-nt></es-rhs>
+
+    <es-rhs>. <es-nt>DecimalDigits</es-nt> <es-nt optional>ExponentPart</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DecimalIntegerLiteral</es-nt> <es-nt optional>ExponentPart</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DecimalIntegerLiteral" type="lexical">
+    <es-rhs>0</es-rhs>
+
+    <es-rhs><es-nt>NonZeroDigit</es-nt> <es-nt optional>DecimalDigits</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DecimalDigits" type="lexical">
+    <es-rhs><es-nt>DecimalDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DecimalDigits</es-nt> <es-nt>DecimalDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="DecimalDigit" type="lexical" oneof>
+    <es-rhs>0 1 2 3 4 5 6 7 8 9</es-rhs>
+  </es-production>
+
+  <es-production name="NonZeroDigit" type="lexical" oneof>
+    <es-rhs>1 2 3 4 5 6 7 8 9</es-rhs>
+  </es-production>
+
+  <es-production name="ExponentPart" type="lexical">
+    <es-rhs><es-nt>ExponentIndicator</es-nt> <es-nt>SignedInteger</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ExponentIndicator" type="lexical" oneof>
+    <es-rhs>e E</es-rhs>
+  </es-production>
+
+  <es-production name="SignedInteger" type="lexical">
+    <es-rhs><es-nt>DecimalDigits</es-nt></es-rhs>
+
+    <es-rhs><es-t>+</es-t> <es-nt>DecimalDigits</es-nt></es-rhs>
+
+    <es-rhs><es-t>-</es-t> <es-nt>DecimalDigits</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="BinaryIntegerLiteral" type="lexical">
+    <es-rhs><es-t>0b</es-t> <es-nt>BinaryDigits</es-nt></es-rhs>
+
+    <es-rhs><es-t>0B</es-t> <es-nt>BinaryDigits</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="BinaryDigits" type="lexical">
+    <es-rhs><es-nt>BinaryDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>BinaryDigits</es-nt> <es-nt>BinaryDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="BinaryDigit" type="lexical" oneof>
+    <es-rhs>0 1</es-rhs>
+  </es-production>
+
+  <es-production name="OctalIntegerLiteral" type="lexical">
+    <es-rhs><es-t>0o</es-t> <es-nt>OctalDigits</es-nt></es-rhs>
+
+    <es-rhs><es-t>0O</es-t> <es-nt>OctalDigits</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="OctalDigits" type="lexical">
+    <es-rhs><es-nt>OctalDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>OctalDigits</es-nt> <es-nt>OctalDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="OctalDigit" type="lexical" oneof>
+    <es-rhs>0 1 2 3 4 5 6 7</es-rhs>
+  </es-production>
+
+  <es-production name="HexIntegerLiteral" type="lexical">
+    <es-rhs><es-t>0x</es-t> <es-nt>HexDigits</es-nt></es-rhs>
+
+    <es-rhs><es-t>0X</es-t> <es-nt>HexDigits</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="HexDigits" type="lexical">
+    <es-rhs><es-nt>HexDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>HexDigits</es-nt> <es-nt>HexDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="HexDigit" type="lexical" oneof>
+    <es-rhs>0 1 2 3 4 5 6 7 8 9 a b c d e f A B C D E F</es-rhs>
+  </es-production>
+
+  <p>The <es-nt>SourceCharacter</es-nt> immediately following a <es-nt>NumericLiteral</es-nt> must
+  not be an <es-nt>IdentifierStart</es-nt> or <es-nt>DecimalDigit</es-nt>.</p>
+
+  <es-note>
+    <p>For example:</p>
+    <pre>
+3in
+</pre>
+
+    <p>is an error and not the two input elements <code>3</code> and <code>in</code>.</p>
+  </es-note>
+
+  <p>A conforming implementation, when processing <a href="#sec-strict-mode-code">strict mode
+  code</a> (see <a href="#sec-strict-mode-code">10.2.1</a> ), must not extend the syntax of
+  <es-nt>NumericLiteral</es-nt> to include <i>LegacyOctalIntegerLiteral</i> as described in
+  <a href="#sec-additional-syntax-numeric-literals">B.1.1</a> .</p>
+  <link rel="import" href="literals-numeric-literals\static-semantics-mv-s.html">
+</es-clause>

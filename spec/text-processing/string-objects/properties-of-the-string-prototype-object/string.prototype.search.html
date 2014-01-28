@@ -1,0 +1,49 @@
+<!doctype html>
+<es-clause title="String.prototype.search (regexp)" anchor="sec-string.prototype.search">
+  <p>When the search method is called with argument <es-nt>regexp</es-nt>, the following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
+    value).
+    </li>
+
+    <li>Let <i>string</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>string</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>regexp</i>) is Object and
+    <a href="#sec-hasproperty">HasProperty</a> (<i>regexp</i>, @@isRegExp) is <b>true</b> , then,
+
+      <ol class="block">
+        <li>Let <i>rx</i> be <i>regexp</i>;</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>rx</i> be the result of the abstract operation <a href=
+        "#sec-regexpcreate">RegExpCreate</a> (<a href=
+        "#sec-abstract-operations-for-the-regexp-constructor">21.2.3.3</a> ) with arguments
+        <i>regexp</i> and <b>undefined</b>.
+        </li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rx</i>).
+    </li>
+
+    <li>Return the result of Invoke(<i>rx</i>, <code>"search"</code>, (<i>string</i>)).</li>
+  </ol>
+
+  <es-note>
+    <p>The <code>search</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of
+    objects for use as a method.</p>
+  </es-note>
+</es-clause>

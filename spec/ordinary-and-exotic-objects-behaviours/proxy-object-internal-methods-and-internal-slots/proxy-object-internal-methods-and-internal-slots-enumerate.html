@@ -1,0 +1,56 @@
+<!doctype html>
+<es-clause title="[[Enumerate]] ()" anchor=
+"sec-proxy-object-internal-methods-and-internal-slots-enumerate">
+  <p>When the [[Enumerate]] internal method of an exotic Proxy object <es-nt>O</es-nt> is called
+  the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
+    "<code>enumerate</code>").
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
+    </li>
+
+    <li>If <i>trap</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Return the result of calling the [[Enumerate]] internal method of <i>target</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>trapResult</i> be the result of calling the [[Call]] internal method of <i>trap</i>
+    with <i>handler</i> as the <b>this</b> value and a new <a href=
+    "#sec-list-and-record-specification-type">List</a> containing <i>target</i>.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trapResult</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>trapResult</i>) is not
+    Object, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Return <i>trapResult</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>[[Enumerate]] for proxy objects enforces the following invariants:</p>
+
+    <ul>
+      <li>The result of [[Enumerate]] must be an Object.</li>
+    </ul>
+  </es-note>
+</es-clause>

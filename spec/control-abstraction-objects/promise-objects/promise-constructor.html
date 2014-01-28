@@ -1,0 +1,35 @@
+<!doctype html>
+<es-clause title="The Promise Constructor" anchor="sec-promise-constructor">
+  <p>The Promise constructor is the %Promise% intrinsic object and the initial value of the
+  <code>Promise</code> property of the global object. When <code>Promise</code> is called as a
+  function rather than as a constructor, it initialises its <b>this</b> value with the internal
+  state necessary to support the <code>Promise.prototype</code> methods.</p>
+
+  <p>The <code>Promise</code> constructor is designed to be subclassable. It may be used as the
+  value in an <code>extends</code> clause of a class definition. Subclass constructors that intend
+  to inherit the specified <code>Promise</code> behaviour must include a <code>super</code> call to
+  <code>Promise</code>.</p>
+  <link rel="import" href="promise-constructor\promise.html">
+
+  <es-clause title="new Promise ( ... argumentsList )" anchor="sec-new-promise-argumentslist">
+    <p>When <code>Promise</code> is called as part of a <code>new</code> expression it is a
+    constructor: it initialises a newly created object.</p>
+
+    <p><code>Promise</code> called as part of a new expression with argument list
+    <i>argumentsList</i> performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>F</i> be the Promise function object on which the new operator was applied.</li>
+
+      <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+      internal method that was invoked by the new operator.</li>
+
+      <li>Return <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
+      <i>argumentsList</i>).
+      </li>
+    </ol>
+
+    <p>If Promise is implemented as an <a href="#sec-ecmascript-function-objects">ECMAScript
+    function object</a> , its [[Construct]] internal method will perform the above steps.</p>
+  </es-clause>
+</es-clause>

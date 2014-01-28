@@ -1,0 +1,63 @@
+<!doctype html>
+<es-clause title="Properties of the Boolean Prototype Object" anchor=
+"sec-properties-of-the-boolean-prototype-object">
+  <p>The Boolean prototype object is an ordinary object. It is not a Boolean instance and does not
+  have a [[BooleanData]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+  slot</a> .</p>
+
+  <p>The value of the [[Prototype]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the Boolean prototype
+  object is the standard built-in Object prototype object (<a href=
+  "#sec-properties-of-the-object-prototype-object">19.1.3</a> ).</p>
+
+  <p>The abstract operation thisBooleanValue(<i>value</i>) performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is Boolean,
+    return <i>value</i>.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value)</i> is Object and
+    <i>value</i> has a [[BooleanData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then
+
+      <ol class="block">
+        <li>Let <i>b</i> be the value of <i>value’s</i> [[BooleanData]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>If <i>b</i> is not <b>undefined</b>, then return <i>b</i>.</li>
+      </ol>
+    </li>
+
+    <li>Throw a <b>TypeError</b> exception.</li>
+  </ol>
+
+  <es-clause title="Boolean.prototype.constructor" anchor="sec-boolean.prototype.constructor">
+    <p>The initial value of <code>Boolean.prototype.constructor</code> is the built-in
+    <code>Boolean</code> constructor.</p>
+  </es-clause>
+
+  <es-clause title="Boolean.prototype.toString ( )" anchor="sec-boolean.prototype.tostring">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>b</i> be thisBooleanValue(<b>this</b> value).</li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>b</i>).
+      </li>
+
+      <li>If <i>b</i> is <b>true</b>, then return <code>"true"</code>; else return
+      <code>"false"</code>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Boolean.prototype.valueOf ( )" anchor="sec-boolean.prototype.valueof">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Return thisBooleanValue(<b>this</b> value).</li>
+    </ol>
+  </es-clause>
+</es-clause>

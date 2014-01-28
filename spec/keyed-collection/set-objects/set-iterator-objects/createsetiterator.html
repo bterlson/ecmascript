@@ -1,0 +1,40 @@
+<!doctype html>
+<es-clause title="CreateSetIterator Abstract Operation" anchor="sec-createsetiterator">
+  <p>Several methods of Set objects return Iterator objects. The abstract operation
+  CreateSetIterator with arguments <es-nt>set</es-nt> and <es-nt>kind</es-nt> is used to create
+  such iterator objects. It performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>set</i>) is not Object,
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>set</i> does not have a [[SetData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> throw a <b>TypeError</b>
+    exception.
+    </li>
+
+    <li>If <i>set’s</i> [[SetData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>iterator</i> be the result of <a href="#sec-objectcreate">ObjectCreate</a>
+    (%SetIteratorPrototype%, ([[IteratedSet]], [[SetNextIndex]], [[SetIterationKind]])).
+    </li>
+
+    <li>Set <i>iterator’s</i> [[IteratedSet]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>set</i>.
+    </li>
+
+    <li>Set <i>iterator’s</i> [[SetNextIndex]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to 0.
+    </li>
+
+    <li>Set <i>iterator’s</i> [[SetIterationKind]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>kind</i>.
+    </li>
+
+    <li>Return <i>iterator</i>.</li>
+  </ol>
+</es-clause>

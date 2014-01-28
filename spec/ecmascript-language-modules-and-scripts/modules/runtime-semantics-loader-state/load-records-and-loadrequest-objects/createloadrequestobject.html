@@ -1,0 +1,38 @@
+<!doctype html>
+<es-clause title="CreateLoadRequestObject(name, metadata, address, source) Abstract Operation"
+anchor="sec-createloadrequestobject">
+  <p>The abstract operation CreateLoadRequestObject performed with arguments <es-nt>name</es-nt>,
+  <es-nt>metadata</es-nt>, and optional arguments <es-nt>address</es-nt> and <es-nt>source</es-nt>
+  returns a new LoadRequest Object. It performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>obj</i> be the result of calling <a href="#sec-objectcreate">ObjectCreate</a>
+    (%ObjectPrototype%, ()).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : The following operations will never result
+      in abrupt completions.
+    </li>
+
+    <li>Perform <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>obj</i>,
+    <code>"name"</code>, <i>name</i>).
+    </li>
+
+    <li>Perform <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>obj</i>,
+    <code>"metadata"</code>, <i>metadata</i>).
+    </li>
+
+    <li>If <i>address</i> was passed, then perform <a href=
+    "#sec-createdataproperty">CreateDataProperty</a> (<i>obj</i>, <code>"address"</code>,
+    <i>address</i>).
+    </li>
+
+    <li>If <i>source</i> was passed, then perform <a href=
+    "#sec-createdataproperty">CreateDataProperty</a> (<i>obj</i>, <code>"source"</code>,
+    <i>source</i>).
+    </li>
+
+    <li>Return <i>obj</i>.</li>
+  </ol>
+</es-clause>

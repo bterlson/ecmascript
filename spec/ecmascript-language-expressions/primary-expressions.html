@@ -1,0 +1,82 @@
+<!doctype html>
+<es-clause title="Primary Expressions" anchor="sec-primary-expressions">
+  <h2>Syntax</h2>
+
+  <es-production name="PrimaryExpression" params="Yield">
+    <es-rhs>this</es-rhs>
+
+    <es-rhs><es-nt params="?Yield">IdentifierReference</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Literal</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ArrayInitialiser</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ObjectLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>FunctionExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ClassExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt>GeneratorExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">GeneratorComprehension</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">TemplateLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt params=
+    "?Yield">CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="CoverParenthesisedExpressionAndArrowParameterList" params="Yield">
+    <es-rhs><es-t>(</es-t> <es-nt params="In, ?Yield">Expression</es-nt> <es-t>)</es-t></es-rhs>
+
+    <es-rhs>( )</es-rhs>
+
+    <es-rhs><es-t>(</es-t> <es-t>...</es-t> <es-nt params="?Yield">BindingIdentifier</es-nt>
+    <es-t>)</es-t></es-rhs>
+
+    <es-rhs>( <es-nt params="In, ?Yield">Expression</es-nt> , ... <es-nt params=
+    "?Yield">BindingIdentifier</es-nt> )</es-rhs>
+  </es-production>
+
+  <h2>Supplemental Syntax</h2>
+
+  <p>When processing the production <es-production name="PrimaryExpression" class=
+  "inline"><es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs></es-production>
+  the following grammar is used to refine the interpretation of
+  <es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt>.</p>
+
+  <es-production name="ParenthesisedExpression" params="Yield">
+    <es-rhs><es-t>(</es-t> <es-nt params="In, ?Yield">Expression</es-nt> <es-t>)</es-t></es-rhs>
+  </es-production>
+  <link rel="import" href="primary-expressions\primary-expressions-semantics.html">
+  <link rel="import" href="primary-expressions\this-keyword.html">
+  <link rel="import" href="primary-expressions\identifier-reference.html">
+  <link rel="import" href="primary-expressions\primary-expressions-literals.html">
+  <link rel="import" href="primary-expressions\array-initialiser.html">
+  <link rel="import" href="primary-expressions\object-initialiser.html">
+
+  <es-clause title="Function Defining Expressions" anchor="sec-function-defining-expressions">
+    <p>See <a href="#sec-function-definitions">14.1</a> for <es-production name=
+    "PrimaryExpression" class=
+    "inline"><es-rhs><es-nt>FunctionExpression</es-nt></es-rhs></es-production>
+    .</p>
+
+    <p>See <a href="#sec-generator-function-definitions">14.4</a> for <es-production name=
+    "PrimaryExpression" class=
+    "inline"><es-rhs><es-nt>GeneratorExpression</es-nt></es-rhs></es-production>
+    .</p>
+
+    <p>See <a href="#sec-class-definitions">14.5</a> for <es-production name=
+    "PrimaryExpression" class=
+    "inline"><es-rhs><es-nt>ClassExpression</es-nt></es-rhs></es-production>
+    .</p>
+  </es-clause>
+  <link rel="import" href="primary-expressions\generator-comprehensions.html">
+  <link rel="import" href=
+  "primary-expressions\primary-expressions-regular-expression-literals.html">
+  <link rel="import" href="primary-expressions\template-literals.html">
+  <link rel="import" href="primary-expressions\grouping-operator.html">
+</es-clause>

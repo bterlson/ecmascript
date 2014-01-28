@@ -1,0 +1,208 @@
+<!doctype html>
+<es-clause title="ECMAScript Function Objects" anchor="sec-ecmascript-function-objects">
+  <p>ECMAScript function objects encapsulate parameterised ECMAScript code closed over a <a href=
+  "#sec-lexical-environments">lexical environment</a> and support the dynamic evaluation of that
+  code. An ECMAScript function object is an ordinary object and has the same internal slots and
+  (except as noted below) the same internal methods as other ordinary objects. The code of an
+  ECMAScript function object may be either <a href="#sec-strict-mode-code">strict mode code</a>
+  (<a href="#sec-strict-mode-code">10.2.1</a> ) or non-<a href="#sec-strict-mode-code">strict mode
+  code</a> .</p>
+
+  <p>ECMAScript function objects have the additional internal slots listed in <a href=
+  "#table-26">Table 26</a> .</p>
+
+  <p>ECMAScript function objects whose code is not <a href="#sec-strict-mode-code">strict mode
+  code</a> (<a href="#sec-strict-mode-code">10.2.1</a> ) provide an alternative definition for the
+  [[GetOwnProperty]] internal method. This alternative prevents the value of strict mode function
+  from being revealed as the value of a function object property named "<code>caller</code>". The
+  alternative definition exist solely to preclude a non-standard legacy feature of some ECMAScript
+  implementations from revealing information about strict mode callers. If an implementation does
+  not provide such a feature, it need not implement this alternative internal method for ECMAScript
+  function objects. ECMAScript function objects are considered to be ordinary objects even though
+  they may use the alternative definition of [[GetOwnProperty]].</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-26">Table 26</span> -- Internal Slots of ECMAScript Function Objects
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Internal Slot</th>
+
+        <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">Type</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Description</th>
+      </tr>
+
+      <tr>
+        <td>[[Environment]]</td>
+
+        <td>
+          <a href="#sec-lexical-environments">Lexical Environment</a>
+        </td>
+
+        <td>
+          The <a href="#sec-lexical-environments">Lexical Environment</a> that the function was
+          closed over. Is used as the outer environment when evaluating the code of the function.
+        </td>
+      </tr>
+
+      <tr>
+        <td>[[FormalParameters]]</td>
+
+        <td>Parse Node</td>
+
+        <td>The root parse node of the source code that defines the function’s formal parameter
+        list.</td>
+      </tr>
+
+      <tr>
+        <td>[[FunctionKind]]</td>
+
+        <td>String</td>
+
+        <td>Either "<code>normal</code>" or "<code>generator</code>".</td>
+      </tr>
+
+      <tr>
+        <td>[[Code]]</td>
+
+        <td>Parse Node</td>
+
+        <td>The root parse node of the source code that defines the function’s body.</td>
+      </tr>
+
+      <tr>
+        <td>[[Realm]]</td>
+
+        <td>
+          <a href="#sec-code-realms">Realm</a> Record
+        </td>
+
+        <td>
+          The <a href="#sec-code-realms">Code Realm</a> in which the function was created and which
+          provides any intrinsic objects that are accessed when evaluating the function.
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid #808080; border-left: 1px solid #808080; border-right: 1px solid #808080; border-top: 1px solid #808080">
+        [[ThisMode]]</td>
+
+        <td style=
+        "border-bottom: 1px solid #808080; border-left: 1px solid #808080; border-right: 1px solid #808080; border-top: 1px solid #808080">
+        (lexical, strict, global)</td>
+
+        <td style=
+        "border-bottom: 1px solid #808080; border-left: 1px solid #808080; border-right: 1px solid #808080; border-top: 1px solid #808080">
+        Defines how <code>this</code> references are interpreted within the formal parameters and
+        code body of the function. <b>lexical</b> means that <code>this</code> refers to the
+        <b>this</b> value of a lexically enclosing function. <b>strict</b> means that the
+        <b>this</b> value is used exactly as provided by an invocation of the function.
+        <b>global</b> means that a this value of <span class="value">undefined</span> is
+        interpreted as a reference to the global object.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid #808080; border-left: 1px solid #808080; border-right: 1px solid #808080; border-top: 1px solid #808080">
+        [[Strict]]</td>
+
+        <td style=
+        "border-bottom: 1px solid #808080; border-left: 1px solid #808080; border-right: 1px solid #808080; border-top: 1px solid #808080">
+        Boolean</td>
+
+        <td style=
+        "border-bottom: 1px solid #808080; border-left: 1px solid #808080; border-right: 1px solid #808080; border-top: 1px solid #808080">
+        <span class="value">true</span> if this is a strict mode function, <span class=
+        "value">false</span> this is not a strict mode function.</td>
+      </tr>
+
+      <tr>
+        <td>[[NeedsSuper]]</td>
+
+        <td>Boolean</td>
+
+        <td><span class="value">true</span> if this functions uses <code>super</code>.</td>
+      </tr>
+
+      <tr>
+        <td>[[HomeObject]]</td>
+
+        <td>Object</td>
+
+        <td>If the function uses <code>super</code>, this is the object whose [[GetPrototypeOf]]
+        provides the object where super property lookups begin.</td>
+      </tr>
+
+      <tr>
+        <td>[[MethodName]]</td>
+
+        <td>String or Symbol</td>
+
+        <td>If the function uses <code>super</code>, this is the property keys that is used for
+        unqualified references to <code>super</code>.</td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>All ECMAScript function objects have the [[Call]] internal method defined here. ECMAScript
+  functions that are also constructors in addition have the [[Construct]] internal method.
+  ECMAScript function objects whose code is not <a href="#sec-strict-mode-code">strict mode
+  code</a> have the [[Get]] and [[GetOwnProperty]] internal methods defined here.</p>
+
+  <es-clause title="[[Construct]] ( argumentsList)" anchor="sec-construct-argumentslist">
+    <p>The [[Construct]] internal method for an <a href=
+    "#sec-ecmascript-function-objects">ECMAScript Function object</a> <es-nt>F</es-nt> is called
+    with a single parameter <es-nt>argumentsList</es-nt> which is a possibly empty <a href=
+    "#sec-list-and-record-specification-type">List</a> of <a href=
+    "#sec-ecmascript-language-types">ECMAScript language values</a> . The following steps are
+    taken:</p>
+
+    <ol class="proc">
+      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
+      <i>argumentsList</i>).
+      </li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "ecmascript-function-objects\ecmascript-function-objects-getownproperty-p.html">
+  <link rel="import" href="ecmascript-function-objects\functionallocate.html">
+  <link rel="import" href=
+  "ecmascript-function-objects\ecmascript-function-objects-call-thisargument-argumentslist.html">
+  <link rel="import" href="ecmascript-function-objects\functioninitialise.html">
+  <link rel="import" href="ecmascript-function-objects\functioncreate.html">
+  <link rel="import" href="ecmascript-function-objects\generatorfunctioncreate.html">
+  <link rel="import" href="ecmascript-function-objects\addrestrictedfunctionproperties.html">
+  <link rel="import" href="ecmascript-function-objects\makeconstructor.html">
+  <link rel="import" href="ecmascript-function-objects\makemethod.html">
+  <link rel="import" href="ecmascript-function-objects\setfunctionname.html">
+
+  <es-clause title="GetSuperBinding(obj) Abstract Operation" anchor="sec-getsuperbinding">
+    <p>The abstract operation GetSuperBinding is called with <es-nt>obj</es-nt> as its argument. It
+    performs the following steps:</p>
+
+    <ol class="proc">
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>obj</i>) is not Object,
+      then return <b>undefined</b>.
+      </li>
+
+      <li>If the value of <i>obj</i>’s [[NeedsSuper]] <a href=
+      "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>true</b>, then
+      return <b>undefined</b>.
+      </li>
+
+      <li>Return the value of <i>obj’s</i> [[HomeObject]] <a href=
+      "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+      </li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="ecmascript-function-objects\clonemethod.html">
+  <link rel="import" href="ecmascript-function-objects\function-declaration-instantiation.html">
+</es-clause>

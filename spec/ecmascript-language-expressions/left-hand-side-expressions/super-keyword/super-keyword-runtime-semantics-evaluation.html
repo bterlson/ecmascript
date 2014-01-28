@@ -1,0 +1,145 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-super-keyword-runtime-semantics-evaluation">
+  <es-production name="MemberExpression" class="inline">
+    <es-rhs><es-t>super</es-t> <es-t>[</es-t> <es-nt>Expression</es-nt> <es-t>]</es-t></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>propertyNameReference</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>Let <i>propertyNameValue</i> be <a href="#sec-getvalue">GetValue</a>
+    (<i>propertyNameReference</i>).
+    </li>
+
+    <li>Let <i>propertyKey</i> be <a href="#sec-topropertykey">ToPropertyKey</a>
+    (<i>propertyNameValue</i>).
+    </li>
+
+    <li>If the code matched by the syntactic production that is being evaluated is <a href=
+    "#sec-strict-mode-code">strict mode code</a> , let <i>strict</i> be <b>true</b>, else let
+    <i>strict</i> be <b>false</b>.
+    </li>
+
+    <li>Return the result of <a href="#sec-makesuperreference">MakeSuperReference</a>
+    (<i>propertyKey</i>, <i>strict</i>).
+    </li>
+  </ol>
+
+  <es-production name="MemberExpression" class="inline">
+    <es-rhs><es-t>super</es-t> <es-t>.</es-t> <es-nt>IdentifierName</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let propertyKey be <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+    IdentifierName.
+    </li>
+
+    <li>If the code matched by the syntactic production that is being evaluated is <a href=
+    "#sec-strict-mode-code">strict mode code</a> , let strict be <b>true</b>, else let strict be
+    <b>false</b>.
+    </li>
+
+    <li>Return the result of <a href="#sec-makesuperreference">MakeSuperReference</a> (propertyKey,
+    strict).
+    </li>
+  </ol>
+
+  <es-production name="MemberExpression" class="inline">
+    <es-rhs><es-t>new</es-t> <es-t>super</es-t> <es-nt optional>Arguments</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the code matched by the syntactic production that is being evaluated is <a href=
+    "#sec-strict-mode-code">strict mode code</a> , let <i>strict</i> be <b>true</b>, else let
+    <i>strict</i> be <b>false</b>.
+    </li>
+
+    <li>Let <i>ref</i> be the result of <a href="#sec-makesuperreference">MakeSuperReference</a>
+    (<b>undefined</b>, <i>strict</i>).
+    </li>
+
+    <li>Let <i>constructor</i> be <a href="#sec-getvalue">GetValue</a> (<i>ref</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>constructor</i>).
+    </li>
+
+    <li>If <i>Arguments</i> is present, then
+
+      <ol class="block">
+        <li>Let <i>argList</i> be the result of evaluating <i>Arguments</i>, producing a <a href=
+        "#sec-list-and-record-specification-type">List</a> of argument values (<a href=
+        "#sec-argument-lists">12.2.6</a> ).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>argList</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>argList</i> be a new empty <a href=
+        "#sec-list-and-record-specification-type">List</a> .
+        </li>
+      </ol>
+    </li>
+
+    <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>constructor</i>) is <b>false</b>,
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>thisCall</i> be this <i>MemberExpression</i>.</li>
+
+    <li>Let <i>tailCall</i> be <a href="#sec-intailposition">InTailPosition</a> (<i>thisCall</i>).
+    (See <a href="#sec-intailposition">14.6.1</a> )
+    </li>
+
+    <li>If <i>tailCall</i> is <b>true</b>, then perform the PrepareForTailCall abstract
+    operation.</li>
+
+    <li>Let <i>result</i> be the result of calling the [[Construct]] internal method on
+    <i>constructor</i>, passing <i>argList</i> as the argument.</li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : If <i>tailCall</i> is <b>true</b>, the
+      above call of [[Construct]] will not return here, but instead evaluation will continue with
+      the resumption of <i>leafCallerContext</i> as <a href="#sec-execution-contexts">the running
+      execution context</a> .
+    </li>
+
+    <li>Return <i>result</i>.</li>
+  </ol>
+
+  <es-production name="CallExpression" class="inline">
+    <es-rhs><es-t>super</es-t> <es-nt>Arguments</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the code matched by the syntactic production that is being evaluated is <a href=
+    "#sec-strict-mode-code">strict mode code</a> , let <i>strict</i> be <b>true</b>, else let
+    <i>strict</i> be <b>false</b>.
+    </li>
+
+    <li>Let <i>ref</i> be the result of <a href="#sec-makesuperreference">MakeSuperReference</a>
+    (<b>undefined</b>, <i>strict</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>ref</i>).
+    </li>
+
+    <li>Let <i>thisCall</i> be this <i>CallExpression</i>.</li>
+
+    <li>Let <i>tailCall</i> be <a href="#sec-intailposition">InTailPosition</a> (<i>thisCall</i>).
+    (See <a href="#sec-intailposition">14.6.1</a> )
+    </li>
+
+    <li>Return the result of the abstract operation EvaluateCall with arguments <i>ref</i>,
+    <i>Arguments</i>, and <i>tailCall</i>.</li>
+  </ol>
+</es-clause>

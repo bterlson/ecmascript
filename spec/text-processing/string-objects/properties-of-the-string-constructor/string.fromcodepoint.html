@@ -1,0 +1,60 @@
+<!doctype html>
+<es-clause title="String.fromCodePoint ( ...codePoints)" anchor="sec-string.fromcodepoint">
+  <p>The <code>String.fromCodePoint</code> function may be called with a variable number of
+  arguments which form the rest parameter <es-nt>codePoints</es-nt>. The following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>codePoints</i> is a well-formed rest
+      parameter object.
+    </li>
+
+    <li>Let <i>length</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>codePoints</i>,
+    <code>"length"</code>)<code>.</code>
+    </li>
+
+    <li>Let <i>elements</i> be a new <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>nextIndex</i> be 0.</li>
+
+    <li>Repeat while <i>nextIndex</i> &lt; <i>length</i>
+
+      <ol class="block">
+        <li>Let <i>next</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>codePoints</i>,
+        <a href="#sec-tostring">ToString</a> (<i>nextIndex</i>)).
+        </li>
+
+        <li>Let <i>nextCP</i> be <a href="#sec-tonumber">ToNumber</a> (<i>next</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextCP</i>).
+        </li>
+
+        <li>If <a href="#sec-samevalue">SameValue</a> (<i>nextCP</i>, <a href=
+        "#sec-tointeger">ToInteger</a> (<i>nextCP</i>)) is <b>false</b>, then throw a
+        <b>RangeError</b> exception.
+        </li>
+
+        <li>If <i>nextCP</i> &lt; 0 or <i>nextCP</i> &gt; 0x10FFFF, then throw a <b>RangeError</b>
+        exception.</li>
+
+        <li>Append the elements of the UTF-16 Encoding (<a href=
+        "#sec-static-semantics-utf-16-encoding">10.1.1</a> ) of <i>nextCP</i> to the end of
+        <i>elements</i>.
+        </li>
+
+        <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+      </ol>
+    </li>
+
+    <li>Return the String value whose elements are, in order, the elements in the <a href=
+    "#sec-list-and-record-specification-type">List</a> <i>elements</i>. If <i>length</i> is 0, the
+    empty string is returned.
+    </li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>fromCodePoint</code> function is <b>0</b>.</p>
+</es-clause>

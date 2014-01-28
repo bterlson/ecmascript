@@ -1,0 +1,83 @@
+<!doctype html>
+<es-clause title="Array.prototype.pop ( )" anchor="sec-array.prototype.pop">
+  <p>The last element of the array is removed from the array and returned.</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
+      this</b> value as the argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+    </li>
+
+    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <code>"length"</code>).
+    </li>
+
+    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
+    </li>
+
+    <li>If <i>len</i> is zero,
+
+      <ol class="block">
+        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
+        <code>"length"</code>, 0, <b>true</b>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+        </li>
+
+        <li>Return <b>undefined</b>.</li>
+      </ol>
+    </li>
+
+    <li>Else <i>len</i> &gt; 0,
+
+      <ol class="block">
+        <li>Let <i>newLen</i> be <i>len</i>–1.</li>
+
+        <li>Let <i>indx</i> be <a href="#sec-tostring">ToString</a> (<i>newLen</i>).
+        </li>
+
+        <li>Let <i>element</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+        <i>indx</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>element</i>).
+        </li>
+
+        <li>Let <i>deleteStatus</i> be the result of <a href=
+        "#sec-deletepropertyorthrow">DeletePropertyOrThrow</a> (<i>O</i>, <i>indx</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
+        </li>
+
+        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
+        <code>"length"</code>, <i>newLen</i>, <b>true</b>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+        </li>
+
+        <li>Return <i>element</i>.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <es-note>
+    <p>The <code>pop</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects
+    for use as a method. Whether the <code>pop</code> function can be applied successfully to an
+    exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

@@ -1,0 +1,36 @@
+<!doctype html>
+<es-clause title="The Map Constructor" anchor="sec-map-constructor">
+  <p>The Map constructor is the %Map% intrinsic object and the initial value of the
+  <code>Map</code> property of the global object. When <code>Map</code> is called as a function
+  rather than as a constructor, it initialises its <b>this</b> value with the internal state
+  necessary to support the <code>Map.prototype</code> built-in methods.</p>
+
+  <p>The <code>Map</code> constructor is designed to be subclassable. It may be used as the value
+  in an <code>extends</code> clause of a class definition. Subclass constructors that intend to
+  inherit the specified <code>Map</code> behaviour must include a <code>super</code> call to
+  <code>Map</code>.</p>
+  <link rel="import" href="map-constructor\map-iterable.html">
+
+  <es-clause title="new Map ( ... argumentsList )" anchor="sec-new-map-argumentslist">
+    <p>When <code>Map</code> is called as part of a <code>new</code> expression it is a
+    constructor: it initialises a newly created object.</p>
+
+    <p><code>Map</code> called as part of a new expression with argument list
+    <es-nt>argumentsList</es-nt> performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>F</i> be the Map function object on which the <code>new</code> operator was
+      applied.</li>
+
+      <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+      internal method that was invoked by the <code>new</code> operator.</li>
+
+      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
+      <i>argumentsList</i>).
+      </li>
+    </ol>
+
+    <p>If Map is implemented as an <a href="#sec-ecmascript-function-objects">ECMAScript function
+    object</a> , its [[Construct]] internal method will perform the above steps.</p>
+  </es-clause>
+</es-clause>

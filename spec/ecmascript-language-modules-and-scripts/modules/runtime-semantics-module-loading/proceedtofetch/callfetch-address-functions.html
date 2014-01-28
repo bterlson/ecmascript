@@ -1,0 +1,45 @@
+<!doctype html>
+<es-clause title="CallFetch(address) Functions" anchor="sec-callfetch-address-functions">
+  <p>A CallFetch function is an anonymous built-in function that calls the <code>fetch</code>
+  loader hook. Each CallFetch function has [[Loader]] and [[Load]] internal slots.</p>
+
+  <p>When a CallFetch function <es-nt>F</es-nt> is called with argument <es-nt>address</es-nt>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>loader</i> be the value of <i>F</i>’s [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>load</i> be the value of <i>F</i>’s [[Load]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <i>load</i>.[[LinkSets]] is an empty <a href="#sec-list-and-record-specification-type">
+      List</a> , return <b>undefined</b>.
+    </li>
+
+    <li>Set <i>load</i>.[[Address]] to <i>address</i>.</li>
+
+    <li>Let <i>loaderObj</i> be <i>loader</i>.[[LoaderObj]].</li>
+
+    <li>Let <i>hook</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>loaderObj</i>,
+    <code>"fetch"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>hook</i>).
+    </li>
+
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>hook</i>) is false, throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>obj</i> be <a href="#sec-createloadrequestobject">CreateLoadRequestObject</a>
+    (<i>load</i>.[[Name]], <i>load</i>.[[Metadata]], <i>address</i>).
+    </li>
+
+    <li>Return the result of calling the [[Call]] internal method of <i>hook</i> with <i>loader</i>
+    and (<i>obj</i>) as arguments.</li>
+  </ol>
+</es-clause>

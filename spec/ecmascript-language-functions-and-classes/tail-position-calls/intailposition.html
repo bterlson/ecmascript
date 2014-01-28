@@ -1,0 +1,33 @@
+<!doctype html>
+<es-clause title="Static Semantics: InTailPosition(nonterminal) Abstract Operation" anchor=
+"sec-intailposition">
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>nonterminal</i> is a parsed grammar
+      production.
+    </li>
+
+    <li>If the source code matching <i>nonterminal</i> is not <a href=
+    "#sec-strict-mode-code">strict code</a> , then return <b>false.</b>
+    </li>
+
+    <li>If <i>nonterminal</i> is not contained within a <i>FunctionBody</i> or <i>ConciseBody</i>,
+    then return <b>false</b>.</li>
+
+    <li>Let <i>body</i> be the <i>FunctionBody</i> or <i>ConciseBody</i> that most closely contains
+    <i>nonterminal</i>.</li>
+
+    <li>If <i>body</i> is the <i>FunctionBody</i> of a <i>GeneratorMethod</i>,
+    <i>GeneratorDeclaration</i>, or a <i>GeneratorExpression</i>, then return <b>false</b>.</li>
+
+    <li>Return the result of HasProductionInTailPosition of <i>body</i> with argument
+    <i>nonterminal</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>Tail Position calls are only defined in <a href="#sec-strict-mode-code">strict mode code</a>
+    because of a common non-standard language extension (see <a href=
+    "#sec-addrestrictedfunctionproperties">9.2.8</a> ) that enables observation of the chain of
+    caller contexts.</p>
+  </es-note>
+</es-clause>

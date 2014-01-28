@@ -1,0 +1,121 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-let-and-const-declarations-runtime-semantics-evaluation">
+  <es-production name="LexicalDeclaration" class="inline">
+    <es-rhs><es-nt>LetOrConst</es-nt> <es-nt>BindingList</es-nt> ;</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>next</i> be the result of evaluating <i>BindingList</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+    </li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
+    </li>
+  </ol>
+
+  <es-production name="BindingList" class="inline">
+    <es-rhs><es-nt>BindingList</es-nt> , <es-nt>LexicalBinding</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>next</i> be the result of evaluating <i>BindingList</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+    </li>
+
+    <li>Return the result of evaluating <i>LexicalBinding</i>.</li>
+  </ol>
+
+  <es-production name="LexicalBinding" class="inline">
+    <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>env</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
+    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
+    </li>
+
+    <li>Return the result of performing BindingInitialisation for <i>BindingIdentifier</i> passing
+    <b>undefined</b> and <i>env</i> as the arguments.</li>
+  </ol>
+
+  <es-note>
+    <p>A static semantics rule ensures that this form of <es-nt>LexicalBinding</es-nt> never occurs
+    in a <code>const</code> declaration.</p>
+  </es-note>
+
+  <es-production name="LexicalBinding" class="inline">
+    <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt>Initialiser</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>rhs</i> be the result of evaluating <i>Initialiser</i>.</li>
+
+    <li>Let <i>value</i> be <a href="#sec-getvalue">GetValue</a> (<i>rhs</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
+    </li>
+
+    <li>If IsAnonymousFunctionDefinition of <i>Initialiser</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>hasNameProperty</i> be the result of <a href=
+        "#sec-hasownproperty">HasOwnProperty</a> (<i>value</i>, <code>"name"</code>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>hasNameProperty</i>).
+        </li>
+
+        <li>If <i>hasNameProperty</i> is <b>false</b>, then
+
+          <ol class="block">
+            <li>
+              <a href="#sec-setfunctionname">SetFunctionName</a> (<i>value</i>, <a href=
+              "#sec-identifiers-and-identifier-names">StringValue</a> (<i>BindingIdentifier</i>)).
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>env</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
+    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
+    </li>
+
+    <li>Return the result of performing BindingInitialisation for <i>BindingIdentifier</i> passing
+    <i>value</i> and <i>env</i> as the arguments.</li>
+  </ol>
+
+  <es-production name="LexicalBinding" class="inline">
+    <es-rhs><es-nt>BindingPattern</es-nt> <es-nt>Initialiser</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>rhs</i> be the result of evaluating <i>Initialiser</i>.</li>
+
+    <li>Let <i>value</i> be <a href="#sec-getvalue">GetValue</a> (<i>rhs</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is not Object,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>env</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
+    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
+    </li>
+
+    <li>Return the result of performing BindingInitialisation for <i>BindingPattern</i> using
+    <i>value</i> and <i>env</i> as the <i>arguments</i>.</li>
+  </ol>
+</es-clause>

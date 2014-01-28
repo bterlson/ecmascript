@@ -1,0 +1,42 @@
+<!doctype html>
+<es-clause title="Expression Statement" anchor="sec-expression-statement">
+  <h2>Syntax</h2>
+
+  <es-production name="ExpressionStatement" params="Yield">
+    <es-rhs constraint="lookahead ∉ {{, function, class, let [}"><es-nt params=
+    "In, ?Yield">Expression</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>An <es-nt>ExpressionStatement</es-nt> cannot start with an opening curly brace because that
+    might make it ambiguous with a <es-nt>Block</es-nt>. Also, an
+    <es-nt>ExpressionStatement</es-nt> cannot start with the <code>function</code> or
+    <code>class</code> keywords because that would make it ambiguous with a
+    <es-nt>FunctionDeclaration</es-nt>, a <es-nt>GeneratorDeclaration</es-nt>, or a
+    <es-nt>ClassDeclaration</es-nt>. An <es-nt>ExpressionStatement</es-nt> cannot start with the
+    two token sequence <code>let [</code> because that would make it ambiguous with a
+    <code>let</code> <es-nt>LexicalDeclaration</es-nt> whose first <es-nt>LexicalBinding</es-nt>
+    was an <es-nt>ArrayBindingPattern</es-nt>.</p>
+  </es-note>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-expression-statement-runtime-semantics-evaluation">
+    <es-production name="ExpressionStatement" class="inline">
+      <es-rhs><es-nt>Expression</es-nt> <es-t>;</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+
+      <li>Let <i>value</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprRef</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
+      </li>
+
+      <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<i>value</i>).
+      </li>
+    </ol>
+  </es-clause>
+</es-clause>

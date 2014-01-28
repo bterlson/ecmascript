@@ -1,0 +1,24 @@
+<!doctype html>
+<es-clause title="The Global Object" anchor="sec-global-object">
+  <p>The unique <i>global object</i> is created before control enters any <a href=
+  "#sec-execution-contexts">execution context</a> .</p>
+
+  <p>The global object does not have a [[Construct]] internal method; it is not possible to use the
+  global object as a constructor with the <code>new</code> operator.</p>
+
+  <p>The global object does not have a [[Call]] internal method; it is not possible to invoke the
+  global object as a function.</p>
+
+  <p>The value of the [[Prototype]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the global object is
+  implementation-dependent.</p>
+
+  <p>In addition to the properties defined in this specification the global object may have
+  additional host defined properties. This may include a property whose value is the global object
+  itself; for example, in the HTML document object model the <code>window</code> property of the
+  global object is the global object itself.</p>
+  <link rel="import" href="global-object\value-properties-of-the-global-object.html">
+  <link rel="import" href="global-object\function-properties-of-the-global-object.html">
+  <link rel="import" href="global-object\constructor-properties-of-the-global-object.html">
+  <link rel="import" href="global-object\other-properties-of-the-global-object.html">
+</es-clause>

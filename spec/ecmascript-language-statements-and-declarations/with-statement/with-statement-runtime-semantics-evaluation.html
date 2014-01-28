@@ -1,0 +1,50 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-with-statement-runtime-semantics-evaluation">
+  <es-production name="WithStatement" class="inline">
+    <es-rhs>with ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>val</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>Let <i>obj</i> be <a href="#sec-toobject">ToObject</a> (<a href=
+    "#sec-getvalue">GetValue</a> (<i>val</i>)).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
+    </li>
+
+    <li>Let <i>oldEnv</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
+    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
+    </li>
+
+    <li>Let <i>newEnv</i> be the result of calling <a href=
+    "#sec-newobjectenvironment">NewObjectEnvironment</a> passing <i>obj</i> and <i>oldEnv</i> as
+    the arguments.
+    </li>
+
+    <li>Set the <i>withEnvironment</i> flag of <i>newEnv’s</i> environment record to
+    <b>true</b>.</li>
+
+    <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
+    "#sec-execution-contexts">LexicalEnvironment</a> to <i>newEnv</i>.
+    </li>
+
+    <li>Let <i>C</i> be the result of evaluating <i>Statement</i>.</li>
+
+    <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
+    "#sec-lexical-environments">Lexical Environment</a> to <i>oldEnv</i>.
+    </li>
+
+    <li>Return <i>C</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>No matter how control leaves the embedded <es-nt>Statement</es-nt>, whether normally or by
+    some form of <a href="#sec-completion-record-specification-type">abrupt completion</a> or
+    exception, the <a href="#sec-execution-contexts">LexicalEnvironment</a> is always restored to
+    its former state.</p>
+  </es-note>
+</es-clause>

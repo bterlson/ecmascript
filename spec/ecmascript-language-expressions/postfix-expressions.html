@@ -1,0 +1,37 @@
+<!doctype html>
+<es-clause title="Postfix Expressions" anchor="sec-postfix-expressions">
+  <h2>Syntax</h2>
+
+  <es-production name="PostfixExpression" params="Yield">
+    <es-rhs><es-nt params="?Yield">LeftHandSideExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">LeftHandSideExpression</es-nt> <es-gann>no
+    <es-nt>LineTerminator</es-nt> here</es-gann><es-t>++</es-t></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">LeftHandSideExpression</es-nt> <es-gann>no
+    <es-nt>LineTerminator</es-nt> here</es-gann><es-t>--</es-t></es-rhs>
+  </es-production>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-postfix-expressions-static-semantics-early-errors">
+    <es-production name="PostfixExpression">
+      <es-rhs><es-nt>LeftHandSideExpression</es-nt> <es-t>++</es-t></es-rhs>
+
+      <es-rhs><es-nt>LeftHandSideExpression</es-nt> <es-t>--</es-t></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is an early <a href="#sec-reference-specification-type">Reference</a> Error if
+        IsValidSimpleAssignmentTarget of <es-nt>LeftHandSideExpression</es-nt> is <span class=
+        "value">false</span>.</p>
+      </li>
+    </ul>
+  </es-clause>
+  <link rel="import" href=
+  "postfix-expressions\postfix-expressions-static-semantics-isanonymousfunctiondefinition.html">
+  <link rel="import" href=
+  "postfix-expressions\postfix-expressions-static-semantics-isvalidsimpleassignmenttarget.html">
+  <link rel="import" href="postfix-expressions\postfix-increment-operator.html">
+  <link rel="import" href="postfix-expressions\postfix-decrement-operator.html">
+</es-clause>

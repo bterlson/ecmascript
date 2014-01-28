@@ -1,0 +1,45 @@
+<!doctype html>
+<es-clause title="Map.prototype.clear ()" anchor="sec-map.prototype.clear">
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>M)</i> is not Object, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>M</i> does not have a [[MapData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> throw a <b>TypeError</b>
+    exception.
+    </li>
+
+    <li>If <i>M’s</i> [[MapData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>entries</i> be the <a href="#sec-list-and-record-specification-type">List</a> that
+    is the value of <i>M</i>’s [[MapData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+
+      <ol class="block">
+        <li>Set <i>p</i>.[[key]] to empty<i>.</i></li>
+
+        <li>Set <i>p</i>.[[value]] to empty<i>.</i></li>
+      </ol>
+    </li>
+
+    <li>Return <b>undefined</b>.</li>
+  </ol>
+
+  <es-note>
+    <p>The existing [[MapData]] <a href="#sec-list-and-record-specification-type">List</a> is
+    preserved because there may be existing MapIterator objects that are <a href=
+    "#sec-execution-contexts">suspended</a> midway through iterating over that <a href=
+    "#sec-list-and-record-specification-type">List</a> .</p>
+  </es-note>
+</es-clause>

@@ -1,0 +1,41 @@
+<!doctype html>
+<es-clause title="Static Semantics: BoundNames" anchor=
+"sec-variable-statement-static-semantics-boundnames">
+  <p>See also: <a href="#sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</a> ,
+  <a href="#sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</a> , <a href=
+  "#sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</a> , <a href=
+  "#sec-function-definitions-static-semantics-boundnames">14.1.3</a> , <a href=
+  "#sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</a> , <a href=
+  "#sec-generator-function-definitions-static-semantics-boundnames">14.4.2</a> , <a href=
+  "#sec-class-definitions-static-semantics-boundnames">14.5.2</a> , <a href=
+  "#sec-imports-static-semantics-boundnames">15.2.1.2</a> , <a href=
+  "#sec-exports-static-semantics-boundnames">15.2.2.1</a> .</p>
+
+  <es-production name="VariableDeclarationList" class="inline">
+    <es-rhs><es-nt>VariableDeclarationList</es-nt> , <es-nt>VariableDeclaration</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>names</i> be BoundNames of <i>VariableDeclarationList</i>.</li>
+
+    <li>Append to <i>names</i> the elements of BoundNames of <i>VariableDeclaration.</i></li>
+
+    <li>Return <i>names</i>.</li>
+  </ol>
+
+  <es-production name="VariableDeclaration" class="inline">
+    <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt optional>Initialiser</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+  </ol>
+
+  <es-production name="VariableDeclaration" class="inline">
+    <es-rhs><es-nt>BindingPattern</es-nt> <es-nt>Initialiser</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the BoundNames of <i>BindingPattern</i>.</li>
+  </ol>
+</es-clause>

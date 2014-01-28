@@ -1,0 +1,24 @@
+<!doctype html>
+<es-clause title="Static Semantics: BoundNames" anchor=
+"sec-arrow-function-definitions-static-semantics-boundnames">
+  <p>See also: <a href="#sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</a> ,
+  <a href="#sec-variable-statement-static-semantics-boundnames">13.2.2.1</a> , <a href=
+  "#sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</a> , <a href=
+  "#sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</a> , <a href=
+  "#sec-function-definitions-static-semantics-boundnames">14.1.3</a> , <a href=
+  "#sec-generator-function-definitions-static-semantics-boundnames">14.4.2</a> , <a href=
+  "#sec-class-definitions-static-semantics-boundnames">14.5.2</a> , <a href=
+  "#sec-imports-static-semantics-boundnames">15.2.1.2</a> , <a href=
+  "#sec-exports-static-semantics-boundnames">15.2.2.1</a> .</p>
+
+  <es-production name="ArrowParameters" class="inline">
+    <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>formals</i> be CoveredFormalsList of
+    <i>CoverParenthesisedExpressionAndArrowParameterList</i>.</li>
+
+    <li>Return the BoundNames of <i>formals</i>.</li>
+  </ol>
+</es-clause>

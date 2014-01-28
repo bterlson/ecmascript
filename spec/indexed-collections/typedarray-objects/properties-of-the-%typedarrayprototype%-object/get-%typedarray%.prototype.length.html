@@ -1,0 +1,42 @@
+<!doctype html>
+<es-clause title="get %TypedArray%.prototype.length" anchor=
+"sec-get-%typedarray%.prototype.length">
+  <p>%TypedArray%.<code>prototype.length</code> is an accessor property whose set accessor function
+  is <span class="value">undefined</span>. Its get accessor function performs the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, throw
+    a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>O</i> does not have a [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>O</i> has [[ViewedArrayBuffer]] and
+      [[ArrayLength]] internal slots.
+    </li>
+
+    <li>Let <i>buffer</i> be the value of <i>O</i>’s [[ViewedArrayBuffer]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <i>buffer</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>length</i> be the value of <i>O</i>’s [[ArrayLength]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Return <i>length</i>.</li>
+  </ol>
+
+  <p>This function is not generic. If the <b>this</b> value is not a object with a
+  [[TypedArrayName]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> ,
+  a <span class="value">TypeError</span> exception is immediately thrown when this function is
+  called.</p>
+</es-clause>

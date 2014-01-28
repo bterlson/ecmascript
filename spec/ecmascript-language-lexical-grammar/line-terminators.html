@@ -1,0 +1,99 @@
+<!doctype html>
+<es-clause title="Line Terminators" anchor="sec-line-terminators">
+  <p>Like white space characters, line terminator characters are used to improve source text
+  readability and to separate tokens (indivisible lexical units) from each other. However, unlike
+  white space characters, line terminators have some influence over the behaviour of the syntactic
+  grammar. In general, line terminators may occur between any two tokens, but there are a few
+  places where they are forbidden by the syntactic grammar. Line terminators also affect the
+  process of <a href="#sec-automatic-semicolon-insertion">automatic semicolon insertion</a>
+  (<a href="#sec-automatic-semicolon-insertion">11.9</a> ). A line terminator cannot occur within
+  any token except a <es-nt>StringLiteral</es-nt>, <es-nt>Template</es-nt>, or
+  <es-nt>TemplateSubstitutionTail</es-nt>. Line terminators may only occur within a
+  <es-nt>StringLiteral</es-nt> token as part of a <es-nt>LineContinuation</es-nt>.</p>
+
+  <p>A line terminator can occur within a <es-nt>MultiLineComment</es-nt> (<a href=
+  "#sec-comments">11.4</a> ) but cannot occur within a <es-nt>SingleLineComment</es-nt>.</p>
+
+  <p>Line terminators are included in the set of white space characters that are matched by the
+  <code>\s</code> class in regular expressions.</p>
+
+  <p>The ECMAScript line terminator characters are listed in <a href="#table-30">Table 30</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-30">Table 30</span> — Line Terminator Characters
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th>Code Point</th>
+
+        <th>Name</th>
+
+        <th>Abbreviation</th>
+      </tr>
+
+      <tr>
+        <td><code>U+000A</code></td>
+
+        <td>Line Feed</td>
+
+        <td>&lt;LF&gt;</td>
+      </tr>
+
+      <tr>
+        <td><code>U+000D</code></td>
+
+        <td>Carriage Return</td>
+
+        <td>&lt;CR&gt;</td>
+      </tr>
+
+      <tr>
+        <td><code>U+2028</code></td>
+
+        <td>Line separator</td>
+
+        <td>&lt;LS&gt;</td>
+      </tr>
+
+      <tr>
+        <td><code>U+2029</code></td>
+
+        <td>Paragraph separator</td>
+
+        <td>&lt;PS&gt;</td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>Only the Unicode code points in <a href="#table-30">Table 30</a> are treated as line
+  terminators. Other new line or line breaking Unicode code points are treated as white space but
+  not as line terminators. The sequence &lt;CR&gt;&lt;LF&gt; is commonly used as a line terminator.
+  It should be considered a single <es-nt>SourceCharacter</es-nt> for the purpose of reporting line
+  numbers.</p>
+
+  <h2>Syntax</h2>
+
+  <es-production name="LineTerminator" type="lexical">
+    <es-rhs>&lt;LF&gt;</es-rhs>
+
+    <es-rhs>&lt;CR&gt;</es-rhs>
+
+    <es-rhs>&lt;LS&gt;</es-rhs>
+
+    <es-rhs>&lt;PS&gt;</es-rhs>
+  </es-production>
+
+  <es-production name="LineTerminatorSequence" type="lexical">
+    <es-rhs>&lt;LF&gt;</es-rhs>
+
+    <es-rhs>&lt;CR&gt; <es-gann>lookahead ∉ &lt;LF&gt;</es-gann></es-rhs>
+
+    <es-rhs>&lt;LS&gt;</es-rhs>
+
+    <es-rhs>&lt;PS&gt;</es-rhs>
+
+    <es-rhs>&lt;CR&gt; &lt;LF&gt;</es-rhs>
+  </es-production>
+</es-clause>

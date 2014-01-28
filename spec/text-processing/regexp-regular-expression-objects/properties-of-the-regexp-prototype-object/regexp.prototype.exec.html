@@ -1,0 +1,39 @@
+<!doctype html>
+<es-clause title="RegExp.prototype.exec(string)" anchor="sec-regexp.prototype.exec">
+  <p>Performs a regular expression match of <es-nt>string</es-nt> against the regular expression
+  and returns an Array object containing the results of the match, or <b>null</b> if
+  <es-nt>string</es-nt> did not match.</p>
+
+  <p>The String <a href="#sec-tostring">ToString</a> (<i>string</i>) is searched for an occurrence
+  of the regular expression pattern as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>R</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>R)</i> is not Object, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>R</i> does not have a [[RegExpMatcher]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>If the value of <i>R’s</i> [[RegExpMatcher]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>S</i> be the value of <a href="#sec-tostring">ToString</a> (<i>string</i>)
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
+    </li>
+
+    <li>Return the result of the <a href="#sec-regexpexec">RegExpExec</a> (<i>R</i>, <i>S</i>, <b>
+      false</b>).
+    </li>
+  </ol>
+  <link rel="import" href="regexp.prototype.exec\regexpexec.html">
+</es-clause>

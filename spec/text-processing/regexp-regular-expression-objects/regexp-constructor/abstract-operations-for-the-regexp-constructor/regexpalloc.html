@@ -1,0 +1,31 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: RegExpAlloc Abstract Operation" anchor="sec-regexpalloc">
+  <p>When the abstract operation RegExpAlloc with argument <es-nt>constructor</es-nt> is called,
+  the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>obj</i> be the result of calling <a href=
+    "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>constructor</i>,
+    <code>"%RegExpPrototype%"</code>, ( [[RegExpMatcher]], [[OriginalSource]], [[OriginalFlags]])).
+    </li>
+
+    <li>Let <i>status</i> be the result of <a href=
+    "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>obj</i>, <code>"lastIndex"</code>,
+    PropertyDescriptor {[[Writable]]: <b>true</b>, [[Enumberable]]: <b>false</b>, [[Configurable]]:
+    <b>false}).</b>
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+    </li>
+
+    <li>Return <i>obj</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>[[RegExpMatcher]] is initially assigned the value <span class="value">undefined</span> as a
+    flag to indicate that the instance has not yet been initialised by the <span class=
+    "value">RegExp</span> constructor. This flag value is never directly exposed to ECMAScript
+    code; hence implementations may choose to encode the flag in some other manner.</p>
+  </es-note>
+</es-clause>

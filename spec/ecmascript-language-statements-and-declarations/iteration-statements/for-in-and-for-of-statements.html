@@ -1,0 +1,36 @@
+<!doctype html>
+<es-clause title="The-and-Statements" anchor="sec-for-in-and-for-of-statements">
+  <link rel="import" href=
+  "for-in-and-for-of-statements\for-in-and-for-of-statements-static-semantics-early-errors.html">
+
+  <es-clause title="Static Semantics: BoundNames" anchor=
+  "sec-for-in-and-for-of-statements-static-semantics-boundnames">
+    <p>See also: <a href="#sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</a>
+    , <a href="#sec-variable-statement-static-semantics-boundnames">13.2.2.1</a> , <a href=
+    "#sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</a> , <a href=
+    "#sec-function-definitions-static-semantics-boundnames">14.1.3</a> , <a href=
+    "#sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</a> , <a href=
+    "#sec-generator-function-definitions-static-semantics-boundnames">14.4.2</a> , <a href=
+    "#sec-class-definitions-static-semantics-boundnames">14.5.2</a> , <a href=
+    "#sec-imports-static-semantics-boundnames">15.2.1.2</a> , <a href=
+    "#sec-exports-static-semantics-boundnames">15.2.2.1</a> .</p>
+
+    <es-production name="ForDeclaration" class="inline">
+      <es-rhs><es-nt>LetOrConst</es-nt> <es-nt>ForBinding</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>ForBinding</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "for-in-and-for-of-statements\for-in-and-for-of-statements-static-semantics-vardeclarednames.html">
+  <link rel="import" href=
+  "for-in-and-for-of-statements\runtime-semantics-bindinginstantiation.html">
+  <link rel="import" href=
+  "for-in-and-for-of-statements\for-in-and-for-of-statements-runtime-semantics-labelledevaluation.html">
+  <link rel="import" href=
+  "for-in-and-for-of-statements\runtime-semantics-forin-div-ofexpressionevaluation-abstract-operation.html">
+  <link rel="import" href=
+  "for-in-and-for-of-statements\runtime-semantics-forin-div-ofbodyevaluation.html">
+</es-clause>

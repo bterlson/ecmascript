@@ -1,0 +1,85 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-if-statement-runtime-semantics-evaluation">
+  <es-production name="IfStatement" class="inline">
+    <es-rhs>if ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt> else
+    <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>Let <i>exprValue</i> be <a href="#sec-toboolean">ToBoolean</a> (<a href=
+    "#sec-getvalue">GetValue</a> (<i>exprRef</i>)).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exprValue</i>).
+    </li>
+
+    <li>If <i>exprValue</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>stmtValue</i> be the result of evaluating the first <i>Statement</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>stmtValue</i> be the result of evaluating the second <i>Statement</i>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>stmtValue</i>.[[type]] is normal and <i>stmtValue</i>.[[value]] is empty, then
+
+      <ol class="block">
+        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>stmtValue</i>.</li>
+  </ol>
+
+  <es-production name="IfStatement" class="inline">
+    <es-rhs>if ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>Let <i>exprValue</i> be <a href="#sec-toboolean">ToBoolean</a> (<a href=
+    "#sec-getvalue">GetValue</a> (<i>exprRef</i>)).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exprValue</i>).
+    </li>
+
+    <li>If <i>exprValue</i> is <b>false</b>, then
+
+      <ol class="block">
+        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>stmtValue</i> be the result of evaluating <i>Statement</i>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>stmtValue</i>.[[type]] is normal and <i>stmtValue</i>.[[value]] is empty, then
+
+      <ol class="block">
+        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>stmtValue</i>.</li>
+  </ol>
+</es-clause>

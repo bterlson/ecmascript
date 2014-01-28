@@ -1,0 +1,130 @@
+<!doctype html>
+<es-clause title="Array.prototype.shift ( )" anchor="sec-array.prototype.shift">
+  <p>The first element of the array is removed from the array and returned.</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
+      this</b> value as the argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+    </li>
+
+    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <code>"length"</code>).
+    </li>
+
+    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
+    </li>
+
+    <li>If <i>len</i> is zero, then
+
+      <ol class="block">
+        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
+        <code>"length"</code>, 0, <b>true</b>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+        </li>
+
+        <li>Return <b>undefined</b>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>first</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>, "<b>0</b>").
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>first</i>).
+    </li>
+
+    <li>Let <i>k</i> be 1.</li>
+
+    <li>Repeat, while <i>k</i> &lt; <i>len</i>
+
+      <ol class="block">
+        <li>Let <i>from</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
+        </li>
+
+        <li>Let <i>to</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>–1).
+        </li>
+
+        <li>Let <i>fromPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
+        (<i>O</i>, <i>from</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fromPresent</i>).
+        </li>
+
+        <li>If <i>fromPresent</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>fromVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+            <i>from</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fromVal</i>).
+            </li>
+
+            <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
+            (<i>O</i>, <i>to</i>, <i>fromVal</i>, <b>true</b>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+            </li>
+          </ol>
+        </li>
+
+        <li>Else <i>fromPresent</i> is <b>false</b>,
+
+          <ol class="block">
+            <li>Let <i>deleteStatus</i> be the result of <a href=
+            "#sec-deletepropertyorthrow">DeletePropertyOrThrow</a> (<i>O</i>, <i>to</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
+            </li>
+          </ol>
+        </li>
+
+        <li>Increase <i>k</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>deleteStatus</i> be the result of <a href=
+    "#sec-deletepropertyorthrow">DeletePropertyOrThrow</a> (<i>O</i>, <a href=
+    "#sec-tostring">ToString</a> (<i>len</i>–1)).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
+    </li>
+
+    <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
+    <code>"length"</code>, <i>len</i>–1, <b>true</b>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+    </li>
+
+    <li>Return <i>first</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The <code>shift</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects
+    for use as a method. Whether the <code>shift</code> function can be applied successfully to an
+    exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

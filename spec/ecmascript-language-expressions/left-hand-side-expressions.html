@@ -1,0 +1,85 @@
+<!doctype html>
+<es-clause title="Left-Hand-Side Expressions" anchor="sec-left-hand-side-expressions">
+  <h2>Syntax</h2>
+
+  <es-production name="MemberExpression" params="Yield">
+    <es-rhs constraint="Lexical goal InputElementRegExp"><es-nt params=
+    "?Yield">PrimaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">MemberExpression</es-nt> [ <es-nt params=
+    "In, ?Yield">Expression</es-nt> ]</es-rhs>
+
+    <es-rhs><es-nt params="?Yield">MemberExpression</es-nt> .
+    <es-nt>IdentifierName</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">MemberExpression</es-nt> <es-nt params=
+    "?Yield">TemplateLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-t>super</es-t> <es-t>[</es-t> <es-nt params="In, ?Yield">Expression</es-nt>
+    <es-t>]</es-t></es-rhs>
+
+    <es-rhs><es-t>super</es-t> <es-t>.</es-t> <es-nt>IdentifierName</es-nt></es-rhs>
+
+    <es-rhs><es-t>new</es-t> <es-t>super</es-t> <es-nt>Arguments</es-nt>
+    <es-gann>?Yield</es-gann><es-t>opt</es-t></es-rhs>
+
+    <es-rhs>new <es-nt params="?Yield">MemberExpression</es-nt> <es-nt params=
+    "?Yield">Arguments</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="NewExpression" params="Yield">
+    <es-rhs><es-nt params="?Yield">MemberExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>new</es-t> <es-nt params="?Yield">NewExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="CallExpression" params="Yield">
+    <es-rhs><es-nt params="?Yield">MemberExpression</es-nt> <es-nt params=
+    "?Yield">Arguments</es-nt></es-rhs>
+
+    <es-rhs><es-t>super</es-t> <es-nt params="?Yield">Arguments</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">CallExpression</es-nt> <es-nt params=
+    "?Yield">Arguments</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">CallExpression</es-nt> [ <es-nt params=
+    "In, ?Yield">Expression</es-nt> ]</es-rhs>
+
+    <es-rhs><es-nt params="?Yield">CallExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">CallExpression</es-nt> <es-nt params=
+    "?Yield">TemplateLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Arguments" params="Yield">
+    <es-rhs>( )</es-rhs>
+
+    <es-rhs><es-t>(</es-t> <es-nt params="?Yield">ArgumentList</es-nt> <es-t>)</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="ArgumentList" params="Yield">
+    <es-rhs><es-nt params="In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>...</es-t> <es-nt params="In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ArgumentList</es-nt> , <es-nt params=
+    "In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ArgumentList</es-nt> , ... <es-nt params=
+    "In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="LeftHandSideExpression" params="Yield">
+    <es-rhs><es-nt params="?Yield">NewExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">CallExpression</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "left-hand-side-expressions\left-hand-side-expressions-static-semantics.html">
+  <link rel="import" href="left-hand-side-expressions\property-accessors.html">
+  <link rel="import" href="left-hand-side-expressions\new-operator.html">
+  <link rel="import" href="left-hand-side-expressions\function-calls.html">
+  <link rel="import" href="left-hand-side-expressions\super-keyword.html">
+  <link rel="import" href="left-hand-side-expressions\argument-lists.html">
+  <link rel="import" href="left-hand-side-expressions\tagged-templates.html">
+</es-clause>

@@ -1,0 +1,139 @@
+<!doctype html>
+<es-clause title="Assertion" anchor="sec-assertion">
+  <p>The production <es-production name="Assertion" type="lexical" class=
+  "inline"><es-rhs>^</es-rhs></es-production> evaluates by returning an
+  internal AssertionTester closure that takes a State argument <es-nt>x</es-nt> and performs the
+  following:</p>
+
+  <ol class="proc">
+    <li>Let <i>e</i> be <i>x</i>'s <i>endIndex</i>.</li>
+
+    <li>If <i>e</i> is zero, return <b>true</b>.</li>
+
+    <li>If <i>Multiline</i> is <b>false</b>, return <b>false</b>.</li>
+
+    <li>If the character <i>Input</i>[<i>e</i>–1] is one of <i>LineTerminator</i>, return
+    <b>true</b>.</li>
+
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <es-note>
+    <p>Even when the <code>y</code> flag is used with a pattern, <code>^</code> always matches only
+    at the beginning of <es-nt>Input</es-nt>, or (if <es-nt>Multiline</es-nt> is <span class=
+    "value">true</span>) at the beginning of a line.</p>
+  </es-note>
+
+  <p>The production <es-production name="Assertion" type="lexical" class=
+  "inline"><es-rhs>$</es-rhs></es-production> evaluates by returning an
+  internal AssertionTester closure that takes a State argument <es-nt>x</es-nt> and performs the
+  following:</p>
+
+  <ol class="proc">
+    <li>Let <i>e</i> be <i>x</i>'s <i>endIndex</i>.</li>
+
+    <li>If <i>e</i> is equal to <i>InputLength</i>, return <b>true</b>.</li>
+
+    <li>If <i>Multiline</i> is <b>false</b>, return <b>false</b>.</li>
+
+    <li>If the character <i>Input</i>[<i>e</i>] is one of <i>LineTerminator</i>, return
+    <b>true</b>.</li>
+
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <p>The production <es-production name="Assertion" type="lexical" class=
+  "inline"><es-rhs>\ b</es-rhs></es-production> evaluates by returning an
+  internal AssertionTester closure that takes a State argument <es-nt>x</es-nt> and performs the
+  following:</p>
+
+  <ol class="proc">
+    <li>Let <i>e</i> be <i>x</i>'s <i>endIndex</i>.</li>
+
+    <li>Call IsWordChar(<i>e</i>–1) and let <i>a</i> be the Boolean result.</li>
+
+    <li>Call IsWordChar(<i>e</i>) and let <i>b</i> be the Boolean result.</li>
+
+    <li>If <i>a</i> is <b>true</b> and <i>b</i> is <b>false</b>, return <b>true</b>.</li>
+
+    <li>If <i>a</i> is <b>false</b> and <i>b</i> is <b>true</b>, return <b>true</b>.</li>
+
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <p>The production <es-production name="Assertion" type="lexical" class=
+  "inline"><es-rhs>\ B</es-rhs></es-production> evaluates by returning an
+  internal AssertionTester closure that takes a State argument <es-nt>x</es-nt> and performs the
+  following:</p>
+
+  <ol class="proc">
+    <li>Let <i>e</i> be <i>x</i>'s <i>endIndex</i>.</li>
+
+    <li>Call IsWordChar(<i>e</i>–1) and let <i>a</i> be the Boolean result.</li>
+
+    <li>Call IsWordChar(<i>e</i>) and let <i>b</i> be the Boolean result.</li>
+
+    <li>If <i>a</i> is <b>true</b> and <i>b</i> is <b>false</b>, return <b>false</b>.</li>
+
+    <li>If <i>a</i> is <b>false</b> and <i>b</i> is <b>true</b>, return <b>false</b>.</li>
+
+    <li>Return <b>true</b>.</li>
+  </ol>
+
+  <p>The production <es-production name="Assertion" type="lexical" class=
+  "inline"><es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>=</es-t> <es-nt>Disjunction</es-nt>
+  <es-t>)</es-t></es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>Disjunction</i> to obtain a Matcher <i>m</i>.</li>
+
+    <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a
+    Continuation <i>c</i>, and performs the following steps:
+
+      <ol class="nested proc">
+        <li>Let <i>d</i> be a Continuation that always returns its State argument as a successful
+        MatchResult.</li>
+
+        <li>Call <i>m</i>(<i>x</i>, <i>d</i>) and let <i>r</i> be its result.</li>
+
+        <li>If <i>r</i> is <b>failure</b>, return <b>failure</b>.</li>
+
+        <li>Let <i>y</i> be <i>r</i>'s State.</li>
+
+        <li>Let <i>cap</i> be <i>y</i>'s <i>captures</i> <a href=
+        "#sec-list-and-record-specification-type">List</a> .
+        </li>
+
+        <li>Let <i>xe</i> be <i>x</i>'s <i>endIndex</i>.</li>
+
+        <li>Let <i>z</i> be the State (<i>xe</i>, <i>cap</i>).</li>
+
+        <li>Call <i>c</i>(<i>z</i>) and return its result.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <p>The production <es-production name="Assertion" type="lexical" class=
+  "inline"><es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>!</es-t> <es-nt>Disjunction</es-nt>
+  <es-t>)</es-t></es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>Disjunction</i> to obtain a Matcher <i>m</i>.</li>
+
+    <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a
+    Continuation <i>c</i>, and performs the following steps:
+
+      <ol class="nested proc">
+        <li>Let <i>d</i> be a Continuation that always returns its State argument as a successful
+        MatchResult.</li>
+
+        <li>Call <i>m</i>(<i>x</i>, <i>d</i>) and let <i>r</i> be its result.</li>
+
+        <li>If <i>r</i> isn't <b>failure</b>, return <b>failure</b>.</li>
+
+        <li>Call <i>c</i>(<i>x</i>) and return its result.</li>
+      </ol>
+    </li>
+  </ol>
+  <link rel="import" href="assertion\runtime-semantics-iswordchar-abstract-operation.html">
+</es-clause>

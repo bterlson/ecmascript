@@ -1,0 +1,112 @@
+<!doctype html>
+<es-clause title="ECMAScript Language: Lexical Grammar" anchor=
+"sec-ecmascript-language-lexical-grammar">
+  <p>The source text of an ECMAScript script is first converted into a sequence of input elements,
+  which are tokens, line terminators, comments, or white space. The source text is scanned from
+  left to right, repeatedly taking the longest possible sequence of characters as the next input
+  element.</p>
+
+  <p>There are several situations where the identification of lexical input elements is sensitive
+  to the syntactic grammar context that is consuming the input elements. This requires multiple
+  goal symbols for the lexical grammar. The <es-nt>InputElementDiv</es-nt> goal symbol is the
+  default goal symbol and is used in those syntactic grammar contexts where a leading division
+  (<code>/</code>) or division-assignment (<code>/=</code>) operator is permitted. The
+  <es-nt>InputElementRegExp</es-nt> goal symbol is used in all syntactic grammar contexts where a
+  <es-nt>RegularExpressionLiteral</es-nt> is permitted. The <es-nt>InputElementTemplateTail</es-nt>
+  goal is used in syntactic grammar contexts where a <es-nt>TemplateLiteral</es-nt> logically
+  continues after a substitution element.</p>
+
+  <es-note>
+    <p>There are no syntactic grammar contexts where both a leading division or
+    division-assignment, and a leading <es-nt>RegularExpressionLiteral</es-nt> are permitted. This
+    is not affected by semicolon insertion (see <a href=
+    "#sec-automatic-semicolon-insertion">11.9</a> ); in examples such as the following:</p>
+    <pre>
+a = b<br>/hi/g.exec(c).map(d);
+</pre>
+
+    <p>where the first non-whitespace, non-comment character after a <es-nt>LineTerminator</es-nt>
+    is slash (<code>/</code>) and the syntactic context allows division or division-assignment, no
+    semicolon is inserted at the <es-nt>LineTerminator</es-nt>. That is, the above example is
+    interpreted in the same way as:</p>
+    <pre>
+a = b / hi / g.exec(c).map(d);
+</pre>
+  </es-note>
+
+  <h2>Syntax</h2>
+
+  <es-production name="InputElementDiv" type="lexical">
+    <es-rhs><es-nt>WhiteSpace</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LineTerminator</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Comment</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Token</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DivPunctuator</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RightBracePunctuator</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="InputElementRegExp" type="lexical">
+    <es-rhs><es-nt>WhiteSpace</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LineTerminator</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Comment</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Token</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RightBracePunctuator</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="InputElementTemplateTail" type="lexical">
+    <es-rhs><es-nt>WhiteSpace</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LineTerminator</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Comment</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Token</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DivPunctuator</es-nt></es-rhs>
+
+    <es-rhs><es-nt>TemplateSubstitutionTail</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "ecmascript-language-lexical-grammar\unicode-format-control-characters.html">
+  <link rel="import" href="ecmascript-language-lexical-grammar\white-space.html">
+  <link rel="import" href="ecmascript-language-lexical-grammar\line-terminators.html">
+  <link rel="import" href="ecmascript-language-lexical-grammar\comments.html">
+
+  <es-clause title="Tokens" anchor="sec-tokens">
+    <h2>Syntax</h2>
+
+    <es-production name="Token" type="lexical">
+      <es-rhs><es-nt>IdentifierName</es-nt></es-rhs>
+
+      <es-rhs><es-nt>Punctuator</es-nt></es-rhs>
+
+      <es-rhs><es-nt>NumericLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-nt>Template</es-nt></es-rhs>
+    </es-production>
+
+    <es-note>
+      <p>The <es-nt>DivPunctuator</es-nt>, <es-nt>RegularExpressionLiteral</es-nt>,
+      <es-nt>RightBracePunctuator,</es-nt> and <es-nt>TemplateSubstitutionTail</es-nt> productions
+      define tokens, but are not included in the <es-nt>Token</es-nt> production.</p>
+    </es-note>
+  </es-clause>
+  <link rel="import" href="ecmascript-language-lexical-grammar\names-and-keywords.html">
+  <link rel="import" href="ecmascript-language-lexical-grammar\punctuators.html">
+  <link rel="import" href=
+  "ecmascript-language-lexical-grammar\ecmascript-language-lexical-grammar-literals.html">
+  <link rel="import" href="ecmascript-language-lexical-grammar\automatic-semicolon-insertion.html">
+</es-clause>

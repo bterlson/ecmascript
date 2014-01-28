@@ -1,0 +1,71 @@
+<!doctype html>
+<es-clause title="PromiseReactionTask( reaction, argument )" anchor="sec-promisereactiontask">
+  <p>The task PromiseReactionTask with parameters <es-nt>reaction</es-nt> and
+  <es-nt>argument</es-nt> applies the appropriate handler to the incoming value, and uses the
+  handler's return value to resolve or reject the derived promise associated with that handler.</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>reaction</i> is a PromiseReaction
+      Record.
+    </li>
+
+    <li>Let <i>promiseCapability</i> be <i>reaction</i>.[[Capabilities]].</li>
+
+    <li>Let <i>handler</i> be <i>reaction</i>.[[Handler]].</li>
+
+    <li>Let <i>handlerResult</i> be the result of calling the [[Call]] internal method of
+    <i>handler</i> passing <b>undefined</b> as <i>thisArgument</i> and (<i>argument</i>) as
+    <i>argumentsList</i>.</li>
+
+    <li>If <i>handlerResult</i> is an <a href="#sec-completion-record-specification-type">abrupt
+    completion</a> , then
+
+      <ol class="block">
+        <li>Let <i>status</i> be the result of calling the [[Call]] internal method of
+        <i>promiseCapability</i>.[[Reject]] passing <b>undefined</b> as <i>thisArgument</i> and
+        (<i>handlerResult</i>.[[value]]) as <i>argumentsList</i>.</li>
+
+        <li>NextTask <i>status</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>handlerResult</i> be <i>handlerResult</i>.[[value]].</li>
+
+    <li>If <a href="#sec-samevalue">SameValue</a> (<i>handlerResult</i>,
+    <i>promiseCapability</i>.[[Promise]]) is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>selfResolutionError</i> be a newly-created <b>TypeError</b> object.</li>
+
+        <li>Let <i>status</i> be the result of calling the [[Call]] internal method of
+        <i>promiseCapability</i>.[[Reject]] passing <b>undefined</b> as <i>thisArgument</i> and
+        (<i>selfResolutionError</i>) as <i>argumentsList</i></li>
+
+        <li>NextTask <i>status</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>status</i> be <a href=
+    "#sec-updatepromisefrompotentialthenable">UpdatePromiseFromPotentialThenable</a>
+    (<i>handlerResult</i>, <i>promiseCapability</i>).
+    </li>
+
+    <li>If <i>status</i> is an <a href="#sec-completion-record-specification-type">abrupt
+    completion</a> , then NextTask <i>status</i> .
+    </li>
+
+    <li>Let <i>updateResult</i> be <i>status</i>.[[value]].</li>
+
+    <li>If <i>updateResult</i> is <code>"not a thenable"</code>,
+
+      <ol class="block">
+        <li>Let <i>status</i> be the result of calling the [[Call]] internal method of
+        <i>promiseCapability</i>.[[Resolve]] passing <b>undefined</b> as <i>thisArgument</i> and
+        (<i>handlerResult</i>) as <i>argumentsList.</i></li>
+      </ol>
+    </li>
+
+    <li>NextTask <i>status</i>.</li>
+  </ol>
+</es-clause>

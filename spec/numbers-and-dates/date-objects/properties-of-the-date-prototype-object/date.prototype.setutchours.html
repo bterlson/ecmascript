@@ -1,0 +1,56 @@
+<!doctype html>
+<es-clause title="Date.prototype.setUTCHours (hour [, min [, sec [, ms ] ] ] )" anchor=
+"sec-date.prototype.setutchours">
+  <p>If <es-nt>min</es-nt> is not specified, this behaves as if <es-nt>min</es-nt> were specified
+  with the value <code>getUTCMinutes()</code>.</p>
+
+  <p>If <es-nt>sec</es-nt> is not specified, this behaves as if <es-nt>sec</es-nt> were specified
+  with the value <code>getUTCSeconds()</code>.</p>
+
+  <p>If <es-nt>ms</es-nt> is not specified, this behaves as if <es-nt>ms</es-nt> were specified
+  with the value <code>getUTCMilliseconds()</code>.</p>
+
+  <ol class="proc">
+    <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time value</a>
+    .
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+    </li>
+
+    <li>Let <i>h</i> be <a href="#sec-tonumber">ToNumber</a> (<i>hour</i>).
+    </li>
+
+    <li>If <i>min</i> is not specified, then let <i>m</i> be <a href=
+    "#sec-hours-minutes-second-and-milliseconds">MinFromTime</a> (<i>t</i>); otherwise, let
+    <i>m</i> be <a href="#sec-tonumber">ToNumber</a> (<i>min</i>).
+    </li>
+
+    <li>If <i>sec</i> is not specified, then let <i>s</i> be <a href=
+    "#sec-hours-minutes-second-and-milliseconds">SecFromTime</a> (<i>t</i>); otherwise, let
+    <i>s</i> be <a href="#sec-tonumber">ToNumber</a> (<i>sec</i>).
+    </li>
+
+    <li>If <i>ms</i> is not specified, then let <i>milli</i> be <a href=
+    "#sec-hours-minutes-second-and-milliseconds">msFromTime</a> (<i>t</i>); otherwise, let
+    <i>milli</i> be <a href="#sec-tonumber">ToNumber</a> (<i>ms</i>).
+    </li>
+
+    <li>Let <i>newDate</i> be <a href="#sec-makedate">MakeDate</a> (<a href=
+    "#sec-day-number-and-time-within-day">Day</a> (<i>t</i>), <a href="#sec-maketime">MakeTime</a>
+    (<i>h</i>, <i>m</i>, <i>s</i>, <i>milli</i>)).
+    </li>
+
+    <li>Let <i>v</i> be <a href="#sec-timeclip">TimeClip</a> (<i>newDate</i>).
+    </li>
+
+    <li>Set the [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of this Date object to <i>v</i>.
+    </li>
+
+    <li>Return <i>v</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>setUTCHours</code> method is <b>4</b>.</p>
+</es-clause>

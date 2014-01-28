@@ -1,0 +1,32 @@
+<!doctype html>
+<es-clause title="Identifier Reference" anchor="sec-identifier-reference">
+  <es-production name="IdentifierReference" params="Yield">
+    <es-rhs><es-nt params="?Yield">NonResolvedIdentifier</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="NonResolvedIdentifier" params="Yield">
+    <es-rhs><es-nt>Identifier</es-nt></es-rhs>
+
+    <es-rhs constraint="~Yield">yield</es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "identifier-reference\identifier-reference-static-semantics-early-errors.html">
+
+  <es-clause title="Static Semantics:" anchor=
+  "sec-identifier-reference-static-semantics-stringvalue">
+    <p>See also: <a href=
+    "#sec-identifiers-and-identifier-names-static-semantics-stringvalue">11.6.1.2</a> , <a href=
+    "#sec-string-literals-static-semantics-stringvalue">11.8.4.2</a> , <a href=
+    "#sec-let-and-const-declarations-static-semantics-stringvalue">13.2.1.4</a> .</p>
+
+    <es-production name="IdentifierReference" class="inline">
+      <es-rhs>yield</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <code>"yield"</code>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "identifier-reference\identifier-reference-runtime-semantics-evaluation.html">
+</es-clause>

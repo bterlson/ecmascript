@@ -1,0 +1,156 @@
+<!doctype html>
+<es-clause title="Properties of the String Prototype Object" anchor=
+"sec-properties-of-the-string-prototype-object">
+  <p>The String prototype object is itself an ordinary object. It is not a String instance and does
+  not have a [[StringData]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+  slot</a> .</p>
+
+  <p>The value of the [[Prototype]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the String prototype
+  object is the standard built-in Object prototype object (<a href=
+  "#sec-properties-of-the-object-prototype-object">19.1.3</a> ).</p>
+
+  <p>Unless explicitly stated otherwise, the methods of the String prototype object defined below
+  are not generic and the <b>this</b> value passed to them must be either a String value or an
+  object that has a [[StringData]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> that has been initialised to
+  a String value.</p>
+
+  <p>The abstract operation thisStringValue(<i>value</i>) performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is String,
+    return <i>value</i>.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value)</i> is Object and
+    <i>value</i> has a [[StringData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then
+
+      <ol class="block">
+        <li>Let <i>s</i> be the value of <i>value’s</i> [[StringData]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>If <i>s</i> is not <b>undefined</b>, then return <i>s</i>.</li>
+      </ol>
+    </li>
+
+    <li>Throw a <b>TypeError</b> exception.</li>
+  </ol>
+
+  <p>The phrase “this String value” within the specification of a method refers to the result
+  returned by calling the abstract operation thisStringValue with the <b>this</b> value of the
+  method invocation passed as the argument.</p>
+  <link rel="import" href="properties-of-the-string-prototype-object\string.prototype.charat.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.charcodeat.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.codepointat.html">
+  <link rel="import" href="properties-of-the-string-prototype-object\string.prototype.concat.html">
+
+  <es-clause title="String.prototype.constructor" anchor="sec-string.prototype.constructor">
+    <p>The initial value of <code>String.prototype.constructor</code> is the built-in
+    <code>String</code> constructor.</p>
+  </es-clause>
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.contains.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.endswith.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.indexof.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.lastindexof.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.localecompare.html">
+  <link rel="import" href="properties-of-the-string-prototype-object\string.prototype.match.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.normalize.html">
+  <link rel="import" href="properties-of-the-string-prototype-object\string.prototype.repeat.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.replace.html">
+  <link rel="import" href="properties-of-the-string-prototype-object\string.prototype.search.html">
+  <link rel="import" href="properties-of-the-string-prototype-object\string.prototype.slice.html">
+  <link rel="import" href="properties-of-the-string-prototype-object\string.prototype.split.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.startswith.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.substring.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.tolocalelowercase.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.tolocaleuppercase.html">
+  <link rel="import" href=
+  "properties-of-the-string-prototype-object\string.prototype.tolowercase.html">
+
+  <es-clause title="String.prototype.toString ( )" anchor="sec-string.prototype.tostring">
+    <p>When the <code>toString</code> method is called, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>s</i> be thisStringValue(<b>this</b> value).</li>
+
+      <li>Return <i>s</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>For a String object, the <code>toString</code> method happens to return the same thing as
+      the <code>valueOf</code> method.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="String.prototype.toUpperCase ( )" anchor="sec-string.prototype.touppercase">
+    <p>This function interprets a string value as a sequence of code points, as described in
+    <a href="#sec-ecmascript-language-types-string-type">6.1.4</a> .</p>
+
+    <p>This function behaves in exactly the same way as <code><a href=
+    "#sec-string.prototype.tolowercase">String.prototype.toLowerCase</a></code> , except that code
+    points are mapped to their <es-nt>uppercase</es-nt> equivalents as specified in the Unicode
+    Character Database.</p>
+
+    <es-note>
+      <p>The <code>toUpperCase</code> function is intentionally generic; it does not require that
+      its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of
+      objects for use as a method.</p>
+    </es-note>
+  </es-clause>
+  <link rel="import" href="properties-of-the-string-prototype-object\string.prototype.trim.html">
+
+  <es-clause title="String.prototype.valueOf ( )" anchor="sec-string.prototype.valueof">
+    <p>When the <code>valueOf</code> method is called, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>s</i> be thisStringValue(<b>this</b> value).</li>
+
+      <li>Return <i>s</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="String.prototype [ @@iterator ]( )" anchor="sec-string.prototype-@@iterator">
+    <p>When the @@iterator method is called it returns an Iterator object (<a href=
+    "#sec-iterator-interface">25.1.2</a> ) that iterates over the code points of a String value,
+    returning each code point as a String value. The following steps are taken:</p>
+
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
+      value).
+      </li>
+
+      <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
+      </li>
+
+      <li>Return the result of calling the <a href=
+      "#sec-createstringiterator">CreateStringIterator</a> abstract operation with argument
+      <i>S</i>.
+      </li>
+    </ol>
+
+    <p>The value of the <code>name</code> property of this function is
+    <code>"[Symbol.iterator]"</code>.</p>
+  </es-clause>
+</es-clause>

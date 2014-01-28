@@ -1,0 +1,43 @@
+<!doctype html>
+<es-clause title="Error.prototype.toString ( )" anchor="sec-error.prototype.tostring">
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, throw
+    a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>name</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <code>"name"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>name</i>).
+    </li>
+
+    <li>If <i>name</i> is <b>undefined</b>, then let <i>name</i> be "<b>Error</b>"; else let
+    <i>name</i> be <a href="#sec-tostring">ToString</a> (<i>name</i>).
+    </li>
+
+    <li>Let <i>msg</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <code>"message"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>msg</i>).
+    </li>
+
+    <li>If <i>msg</i> is <b>undefined</b>, then let <i>msg</i> be the empty String; else let
+    <i>msg</i> be <a href="#sec-tostring">ToString</a> (<i>msg</i>).
+    </li>
+
+    <li>If <i>name</i> is the empty String, return <i>msg</i>.</li>
+
+    <li>If <i>msg</i> is the empty String, return <i>name</i>.</li>
+
+    <li>Return the result of concatenating <i>name</i>, <code>":"</code>, a single space character,
+    and <i>msg</i>.</li>
+  </ol>
+</es-clause>

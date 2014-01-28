@@ -1,0 +1,26 @@
+<!doctype html>
+<es-clause title="Semantics" anchor="sec-iteration-statements-semantics">
+  <es-clause title="Runtime Semantics: LoopContinues(completion, labelSet)" anchor=
+  "sec-loopcontinues">
+    <p>The abstract operation LoopContinues with arguments <es-nt>completion</es-nt> and
+    <es-nt>labelSet</es-nt> is defined by the following step:</p>
+
+    <ol class="proc">
+      <li>If <i>completion</i>.[[type]] is normal, then return <b>true</b>.</li>
+
+      <li>If <i>completion</i>.[[type]] is not continue, then return <b>false</b>.</li>
+
+      <li>If <i>completion</i>.[[target]] is empty, then return <b>true</b>.</li>
+
+      <li>If <i>completion</i>.[[target]] is an element of <i>labelSet</i>, then return
+      <b>true</b>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-note>
+      <p>Within the <es-nt>Statement</es-nt> part of an <es-nt>IterationStatement</es-nt> a
+      <es-nt>ContinueStatement</es-nt> may be used to begin a new iteration.</p>
+    </es-note>
+  </es-clause>
+</es-clause>

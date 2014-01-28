@@ -1,0 +1,31 @@
+<!doctype html>
+<es-clause title="Integer Indexed Exotic Objects" anchor="sec-integer-indexed-exotic-objects">
+  <p>An <i>Integer Indexed object</i> is an exotic object that performs special handling of integer
+  property keys.</p>
+
+  <p>Integer Indexed exotic objects have the same internal slots as ordinary objects additionally
+  [[ViewedArrayBuffer]], [[ArrayLength]], [[ByteOffset]], and [[TypedArrayName]] internal
+  slots.</p>
+
+  <p>Integer Indexed Exotic objects provide alternative definitions for the following internal
+  methods. All of the other Integer Indexed exotic object essential internal methods that are not
+  defined below are as specified in <a href=
+  "#sec-ordinary-object-internal-methods-and-internal-slots">9.1</a> .</p>
+  <link rel="import" href=
+  "integer-indexed-exotic-objects\integer-indexed-exotic-objects-getownproperty-p.html">
+  <link rel="import" href=
+  "integer-indexed-exotic-objects\integer-indexed-exotic-objects-defineownproperty-p-desc.html">
+  <link rel="import" href=
+  "integer-indexed-exotic-objects\integer-indexed-exotic-objects-get-p-receiver.html">
+  <link rel="import" href=
+  "integer-indexed-exotic-objects\integer-indexed-exotic-objects-set-p-v-receiver.html">
+
+  <es-clause title="[[Enumerate]] ()" anchor="sec-integer-indexed-exotic-objects-enumerate">
+  </es-clause>
+
+  <es-clause title="[[OwnPropertyKeys]] ()" anchor=
+  "sec-integer-indexed-exotic-objects-ownpropertykeys"></es-clause>
+  <link rel="import" href="integer-indexed-exotic-objects\integerindexedobjectcreate.html">
+  <link rel="import" href="integer-indexed-exotic-objects\integerindexedelementget.html">
+  <link rel="import" href="integer-indexed-exotic-objects\integerindexedelementset.html">
+</es-clause>

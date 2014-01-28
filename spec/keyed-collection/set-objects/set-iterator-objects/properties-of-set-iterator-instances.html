@@ -1,0 +1,47 @@
+<!doctype html>
+<es-clause title="Properties of Set Iterator Instances" anchor=
+"sec-properties-of-set-iterator-instances">
+  <p>Set Iterator instances are ordinary objects that inherit properties from the
+  %SetIteratorPrototype% intrinsic object. Set Iterator instances are initially created with the
+  internal slots specified <a href="#table-45">Table 45</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-45">Table 45</span> — Internal Slots of Set Iterator Instances
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Internal Slot</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Description</th>
+      </tr>
+
+      <tr>
+        <td>[[IteratedSet]]</td>
+
+        <td>The Set object that is being iterated.</td>
+      </tr>
+
+      <tr>
+        <td style="border-bottom: 0px solid black">[[SetNextIndex]]</td>
+
+        <td style="border-bottom: 0px solid black">The integer index of the next Set data element
+        to be examined by this iterator</td>
+      </tr>
+
+      <tr>
+        <td style="border-top: 0px solid black">[[SetIterationKind]]</td>
+
+        <td style="border-top: 0px solid black">A string value that identifies what is to be
+        returned for each element of the iteration. The possible values are: <b>"key"</b>,
+        <b>"value"</b>, <b>"key+value"</b>. <b>"key"</b> and <b>"value"</b> have the same
+        meaning.</td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

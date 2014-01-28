@@ -1,0 +1,50 @@
+<!doctype html>
+<es-clause title="Static Semantics: IsSimpleParameterList" anchor=
+"sec-function-definitions-static-semantics-issimpleparameterlist">
+  <es-production name="FormalParameters" class="inline">
+    <es-rhs constraint="empty"></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <b>true</b>.</li>
+  </ol>
+
+  <es-production name="FormalParameterList" class="inline">
+    <es-rhs><es-nt>FunctionRestParameter</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <es-production name="FormalParameterList" class="inline">
+    <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FunctionRestParameter</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <es-production name="FormalsList" class="inline">
+    <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FormalParameter</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If IsSimpleParameterList of <i>FormalsList</i> is <b>false</b>, return <b>false</b>.</li>
+
+    <li>Return IsSimpleParameterList of <i>FormalParameter</i>.</li>
+  </ol>
+
+  <es-production name="FormalParameter" class="inline">
+    <es-rhs><es-nt>BindingElement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If HasInitialiser of <i>BindingElement</i> is <b>true</b>, return <b>false</b>.</li>
+
+    <li>If <i>FormalParameter</i> <i>Contains</i> <i>BindingPattern is <b>true</b>, return
+    <b>false</b>.</i></li>
+
+    <li>Return <b>true</b>.</li>
+  </ol>
+</es-clause>

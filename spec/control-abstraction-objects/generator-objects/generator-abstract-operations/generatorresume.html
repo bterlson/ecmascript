@@ -1,0 +1,73 @@
+<!doctype html>
+<es-clause title="GeneratorResume ( generator, value )" anchor="sec-generatorresume">
+  <p>The abstract operation GeneratorResume with arguments <i>generator</i> and <i>value</i>
+  performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>generator</i>) is not
+    Object, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>generator</i> does not have a [[GeneratorState]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>state</i> be the value of <i>generator’s</i> [[GeneratorState]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>generator</i> also has a
+      [[GeneratorContext]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+      slot</a> .
+    </li>
+
+    <li>If <i>state</i> is <code>"completed"</code>, then return <a href=
+    "#sec-createiterresultobject">CreateIterResultObject</a> (<b>undefined</b>, <b>true</b>).
+    </li>
+
+    <li>If <i>state</i> is neither <code>"suspendedStart"</code> nor <code>"suspendedYield"</code>,
+    then throw a <b>TypeError</b> exception.</li>
+
+    <li>If <i>state</i> is <code>"suspendedStart"</code> and <i>value</i> is not <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>genContext</i> be value of <i>generator’s</i> [[GeneratorContext]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>methodContext</i> be <a href="#sec-execution-contexts">the running execution
+    context</a> .
+    </li>
+
+    <li>
+      <a href="#sec-execution-contexts">Suspend</a> <i>methodContext</i>.
+    </li>
+
+    <li>Set <i>generator’s</i> [[GeneratorState]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to
+    <code>"executing"</code>.
+    </li>
+
+    <li>Push <i>genContext</i> onto <a href="#sec-execution-contexts">the execution context
+    stack</a> ; <i>genContext</i> is now <a href="#sec-execution-contexts">the running execution
+    context</a> .
+    </li>
+
+    <li>Resume the <a href="#sec-execution-contexts">suspended</a> evaluation of <i>genContext</i>
+    using <a href="#sec-normalcompletion">NormalCompletion</a> (<i>value</i>) as the result of the
+    operation that <a href="#sec-execution-contexts">suspended</a> it. Let <i>result</i> be the
+    value returned by the resumed computation.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : When we return here, <i>genContext</i> has
+      already been removed from <a href="#sec-execution-contexts">the execution context stack</a>
+      and <i>methodContext</i> is <a href="#sec-execution-contexts">the currently running execution
+      context</a> .
+    </li>
+
+    <li>Return <i>result</i>.</li>
+  </ol>
+</es-clause>

@@ -1,0 +1,119 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: JA Abstract Operation" anchor=
+"sec-runtime-semantics-ja-abstract-operation">
+  <p>The abstract operation JA(<i>value</i>) serializes an array. It has access to the
+  <es-nt>stack</es-nt>, <es-nt>indent</es-nt>, and <es-nt>gap</es-nt> of the invocation of the
+  stringify method. The representation of arrays includes only the elements between zero and
+  <code>array.length</code> – 1 inclusive. Properties whose keys are not array indexes are excluded
+  from the stringification. An array is stringified as an open left bracket, elements separated by
+  comma, and a closing right bracket.</p>
+
+  <ol class="proc">
+    <li>If <i>stack</i> contains <i>value</i> then throw a <b>TypeError</b> exception because the
+    structure is cyclical.</li>
+
+    <li>Append <i>value</i> to <i>stack</i>.</li>
+
+    <li>Let <i>stepback</i> be <i>indent</i>.</li>
+
+    <li>Let <i>indent</i> be the concatenation of <i>indent</i> and <i>gap</i>.</li>
+
+    <li>Let <i>partial</i> be an empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>value</i> is a standard array object and
+      hence its <code>"length"</code> property is a non-negative integer.
+    </li>
+
+    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>value</i>,
+    <code>"length"</code>)
+    </li>
+
+    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
+    </li>
+
+    <li>Let <i>index</i> be 0.</li>
+
+    <li>Repeat while <i>index</i> &lt; <i>len</i>
+
+      <ol class="block">
+        <li>Let <i>strP</i> be the result of calling the abstract operation Str(<a href=
+        "#sec-tostring">ToString</a> (<i>index</i>), <i>value</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>strP</i>).
+        </li>
+
+        <li>If <i>strP</i> is <b>undefined</b>
+
+          <ol class="block">
+            <li>Append <code>"null"</code> to <i>partial</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else
+
+          <ol class="block">
+            <li>Append <i>strP</i> to <i>partial</i>.</li>
+          </ol>
+        </li>
+
+        <li>Increment <i>index</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>If <i>partial</i> is empty, then
+
+      <ol class="block">
+        <li>Let <i>final</i> be <code>"[]"</code>.</li>
+      </ol>
+    </li>
+
+    <li>Else
+
+      <ol class="block">
+        <li>If <i>gap</i> is the empty String
+
+          <ol class="block">
+            <li>Let <i>properties</i> be a String formed by concatenating all the element Strings
+            of <i>partial</i> with each adjacent pair of Strings separated with code unit 0x002C
+            (the comma character). A comma is not inserted either before the first String or after
+            the last String.</li>
+
+            <li>Let <i>final</i> be the result of concatenating <b>"[",</b> <i>properties</i>, and
+            <code>"]"</code>.</li>
+          </ol>
+        </li>
+
+        <li>Else
+
+          <ol class="block">
+            <li>Let <i>separator</i> be the result of concatenating code unit 0x002C (the comma
+            character), code unit 0x000A (the line feed character), and <i>indent</i>.</li>
+
+            <li>Let <i>properties</i> be a String formed by concatenating all the element Strings
+            of <i>partial</i> with each adjacent pair of Strings separated with <i>separator</i>.
+            The <i>separator</i> String is not inserted either before the first String or after the
+            last String.</li>
+
+            <li>Let <i>final</i> be the result of concatenating <code>"["</code>, code unit 0x000A
+            (the line feed character), <i>indent</i>, <i>properties</i>, code unit 0x000A,
+            <i>stepback</i>, and <code>"]</code>".</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Remove the last element of <i>stack</i>.</li>
+
+    <li>Let <i>indent</i> be <i>stepback</i>.</li>
+
+    <li>Return <i>final</i>.</li>
+  </ol>
+</es-clause>

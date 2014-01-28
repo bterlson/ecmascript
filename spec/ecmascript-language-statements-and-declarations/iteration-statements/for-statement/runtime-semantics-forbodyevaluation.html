@@ -1,0 +1,58 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: ForBodyEvaluation" anchor=
+"sec-runtime-semantics-forbodyevaluation">
+  <p>The abstract operation ForBodyEvaluation with arguments <es-nt>testExpr</es-nt>,
+  <es-nt>incrementExpr</es-nt>, <es-nt>stmt</es-nt>, and <es-nt>labelSet</es-nt> is performed as
+  follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>V</i> = <b>undefined</b>.</li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>If <i>testExpr</i> is not [empty], then
+
+          <ol class="block">
+            <li>Let <i>testExprRef</i> be the result of evaluating <i>testExpr</i>.</li>
+
+            <li>Let <i>testExprValue</i> be <a href="#sec-toboolean">ToBoolean</a> (<a href=
+            "#sec-getvalue">GetValue</a> (<i>testExprRef</i>))
+            </li>
+
+            <li>If <i>testExprValue</i> is <b>false</b>, return <a href=
+            "#sec-normalcompletion">NormalCompletion</a> (<i>V</i>).
+            </li>
+
+            <li>Else if <a href="#sec-loopcontinues">LoopContinues</a>
+            (<i>testExprValue</i>,<i>labelSet</i>) is <b>false</b>, return <i>testExprValue.</i>
+            </li>
+          </ol>
+        </li>
+
+        <li>Let <i>result</i> be the result of evaluating <i>stmt</i>.</li>
+
+        <li>If <i>result</i>.[[value]] is not empty, let <i>V</i> = <i>result</i>.[[value]].</li>
+
+        <li>If <a href="#sec-loopcontinues">LoopContinues</a> (<i>result</i>,<i>labelSet</i>) is
+        <b>false</b>, return <i>result</i>.
+        </li>
+
+        <li>If <i>incrementExpr</i> is not [empty], then
+
+          <ol class="block">
+            <li>Let <i>incExprRef</i> be the result of evaluating <i>incrementExpr</i>.</li>
+
+            <li>Let <i>incExprValue</i> be <a href="#sec-getvalue">GetValue</a>
+            (<i>incExprRef</i>).
+            </li>
+
+            <li>If <a href="#sec-loopcontinues">LoopContinues</a>
+            (<i>incExprValue</i>,<i>labelSet</i>) is <b>false</b>, return <i>incExprValue.</i>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

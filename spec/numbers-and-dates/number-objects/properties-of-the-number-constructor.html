@@ -1,0 +1,180 @@
+<!doctype html>
+<es-clause title="Properties of the Number Constructor" anchor=
+"sec-properties-of-the-number-constructor">
+  <p>The value of the [[Prototype]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the Number constructor is
+  the Function prototype object (<a href=
+  "#sec-properties-of-the-function-prototype-object">19.2.3</a> ).</p>
+
+  <p>Besides the <code>length</code> property (whose value is <b>1</b>), the Number constructor has
+  the following properties:</p>
+
+  <es-clause title="Number.EPSILON" anchor="sec-number.epsilon">
+    <p>The value of Number.EPSILON is the difference between 1 and the smallest value greater than
+    1 that is representable as a Number value, which is approximately
+    2.2204460492503130808472633361816 x 10<sup>-16</sup> .</p>
+
+    <p><br>
+    This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Number.isFinite (number)" anchor="sec-number.isfinite">
+    <p>When the <code>Number.isFinite</code> is called with one argument <es-nt>number</es-nt>, the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>number</i>) is not
+      Number, return <b>false</b>.
+      </li>
+
+      <li>If <i>number</i> is <b>NaN</b>, <b>+∞</b>, or <b>−∞</b>, return <b>false</b>.</li>
+
+      <li>Otherwise, return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Number.isInteger (number)" anchor="sec-number.isinteger">
+    <p>When the <code>Number.isInteger</code> is called with one argument <es-nt>number</es-nt>,
+    the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>number</i>) is not
+      Number, return <b>false</b>.
+      </li>
+
+      <li>If <i>number</i> is <b>NaN</b>, <b>+∞</b>, or <b>−∞</b>, return <b>false</b>.</li>
+
+      <li>Let <i>integer</i> be <a href="#sec-tointeger">ToInteger</a> (<i>number</i>).
+      </li>
+
+      <li>If <i>integer</i> is not equal to <i>number</i>, return <b>false</b>.</li>
+
+      <li>Otherwise, return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Number.isNaN (number)" anchor="sec-number.isnan">
+    <p>When the <code>Number.isNaN</code> is called with one argument <es-nt>number</es-nt>, the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>number</i>) is not
+      Number, return <b>false</b>.
+      </li>
+
+      <li>If <i>number</i> is <b>NaN</b>, return <b>true</b>.</li>
+
+      <li>Otherwise, return <b>false</b>.</li>
+    </ol>
+
+    <es-note>
+      <p>This function differs from the global isNaN function (<a href=
+      "#sec-isnan-number">18.2.3</a> ) is that it does not convert its argument to a Number before
+      determining whether it is NaN.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Number.isSafeInteger (number)" anchor="sec-number.issafeinteger">
+    <p>When the <code>Number.isSafeInteger</code> is called with one argument
+    <es-nt>number</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>number</i>) is not
+      Number, return <b>false</b>.
+      </li>
+
+      <li>If <i>number</i> is <b>NaN</b>, <b>+∞</b>, or <b>−∞</b>, return <b>false</b>.</li>
+
+      <li>Let <i>integer</i> be <a href="#sec-tointeger">ToInteger</a> (<i>number</i>).
+      </li>
+
+      <li>If <i>integer</i> is not equal to <i>number</i>, return <b>false</b>.</li>
+
+      <li>If <a href="#sec-algorithm-conventions">abs</a> (<i>integer</i>) ≤ 2<sup>53</sup> -1,
+      then return <b>true</b>.
+      </li>
+
+      <li>Otherwise, return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Number.MAX_SAFE_INTEGER" anchor="sec-number.max_safe_integer">
+    <p>The value of Number.MAX_SAFE_INTEGER is 9007199254740991 (2<sup>53</sup> -1).</p>
+
+    <p><br>
+    This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Number.MAX_VALUE" anchor="sec-number.max_value">
+    <p>The value of <code>Number.MAX_VALUE</code> is the largest positive finite value of the
+    Number type, which is approximately 1.7976931348623157&nbsp;×&nbsp;10<sup>308</sup> .</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Number.NaN" anchor="sec-number.nan">
+    <p>The value of <code>Number.NaN</code> is <b>NaN</b>.</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Number.NEGATIVE_INFINITY" anchor="sec-number.negative_infinity">
+    <p>The value of Number.NEGATIVE_INFINITY is −∞.</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Number.MIN_SAFE_INTEGER" anchor="sec-number.min_safe_integer">
+    <p>The value of Number.MIN_SAFE_INTEGER is −9007199254740991 (−(2<sup>53</sup> -1)).</p>
+
+    <p><br>
+    This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Number.MIN_VALUE" anchor="sec-number.min_value">
+    <p>The value of <code>Number.MIN_VALUE</code> is the smallest positive value of the Number
+    type, which is approximately 5&nbsp;×&nbsp;10<sup>‑324</sup> .</p>
+
+    <p>In the IEEE-764 double precision binary representation, the smallest possible value is a
+    denormalized number. If an implementation does not support denormalized values, the value of
+    <code>Number.MIN_VALUE</code> must be the smallest non-zero positive value that can actually be
+    represented by the implementation.</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Number.parseFloat (string)" anchor="sec-number.parsefloat">
+    <p>The value of the <code>Number.parseFloat</code> data property is the same built-in function
+    object that is the value of the <code>parseFloat</code> property of the global object defined
+    in <a href="#sec-parsefloat-string">18.2.4</a> .</p>
+  </es-clause>
+
+  <es-clause title="Number.parseInt (string, radix)" anchor="sec-number.parseint">
+    <p>The value of the <code>Number.parseInt</code> data property is the same built-in function
+    object that is the value of the <code>parseInt</code> property of the global object defined in
+    <a href="#sec-parseint-string-radix">18.2.5</a> .</p>
+  </es-clause>
+
+  <es-clause title="Number.POSITIVE_INFINITY" anchor="sec-number.positive_infinity">
+    <p>The value of Number.POSITIVE_INFINITY is +∞.</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Number.prototype" anchor="sec-number.prototype">
+    <p>The initial value of <code>Number.prototype</code> is the Number prototype object (<a href=
+    "#sec-properties-of-the-number-prototype-object">20.1.3</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+  <link rel="import" href="properties-of-the-number-constructor\number-@@create.html">
+</es-clause>

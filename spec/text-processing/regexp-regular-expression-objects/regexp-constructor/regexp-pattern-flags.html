@@ -1,0 +1,82 @@
+<!doctype html>
+<es-clause title="RegExp(pattern, flags)" anchor="sec-regexp-pattern-flags">
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>func</i> be this <code>RegExp</code> function object.</li>
+
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object or
+    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and <i>O</i> does
+    not have a [[RegExpMatcher]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> or <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and
+    <i>O</i> has a [[RegExpMatcher]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> and the value of
+    [[RegExpMatcher]] is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>pattern</i>) is Object
+        and <i>O</i> has a [[RegExpMatcher]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> and <i>flags</i> is <b>
+          undefined</b>, then
+
+          <ol class="block">
+            <li>Return <i>pattern</i>;</li>
+          </ol>
+        </li>
+
+        <li>Let <i>O</i> be the result of calling the abstract operation <a href=
+        "#sec-regexpalloc">RegExpAlloc</a> with argument <i>func</i>.
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>pattern</i>) is Object and
+    <i>pattern</i> has a [[RegExpMatcher]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then
+
+      <ol class="block">
+        <li>If the value of <i>pattern’s</i> [[RegExpMatcher]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>,
+        then throw a <b>TypeError</b> exception.
+        </li>
+
+        <li>If <i>flags</i> is not <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>P</i> be the value of <i>pattern’s</i> [[OriginalSource]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>Let <i>F</i> be the value of <i>pattern’s</i> [[OriginalFlags]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>P</i> be <i>pattern</i>.</li>
+
+        <li>Let <i>F</i> be <i>flags</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return the result of the abstract operation <a href=
+    "#sec-regexpinitialise">RegExpInitialise</a> with arguments <i>O,</i> <i>P</i>, and <i>F</i> .
+    </li>
+  </ol>
+
+  <es-note>
+    <p>If pattern is supplied using a <es-nt>StringLiteral</es-nt>, the usual escape sequence
+    substitutions are performed before the String is processed by RegExp. If pattern must contain
+    an escape sequence to be recognised by RegExp, any backslash <code>\</code> characters must be
+    escaped within the <es-nt>StringLiteral</es-nt> to prevent them being removed when the contents
+    of the <es-nt>StringLiteral</es-nt> are formed.</p>
+  </es-note>
+</es-clause>

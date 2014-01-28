@@ -1,0 +1,46 @@
+<!doctype html>
+<es-clause title="Loader.prototype.instantiate (loadRequest)" anchor=
+"sec-loader.prototype.instantiate">
+  <p>When the instantiate loader hook is called with argument <es-nt>loadRequest</es-nt>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Return <b>undefined</b>.</li>
+  </ol>
+
+  <p>This hook allows a Loader to provide interoperability with other module systems.</p>
+
+  <p>When a <code>instantiate</code> hook is called by an Loader object the argument,
+  <es-nt>loadRequest</es-nt>, is a LoadRequest object (<a href=
+  "#sec-load-records-and-loadrequest-objects">15.2.3.2</a> ) with <code>address</code> and
+  <code>source</code> properties. <es-nt>loadRequest</es-nt><code>.name</code>,
+  <es-nt>loadRequest</es-nt><code>.metadata</code>, and
+  <es-nt>loadRequest</es-nt><code>.address</code> are the same values passed to the
+  <code>fetch</code> and <code>translate</code> hooks.
+  <es-nt>loadRequest</es-nt><code>.source</code> is the the value produced by the
+  <code>translate</code> hook.</p>
+
+  <p>If the <code>instantiate</code> hook returns an eventual <b>undefined</b>, then the loader
+  uses the default linking behavior. It parses <es-nt>loadRequest</es-nt><code>.source</code> as a
+  Module, looks at its imports, loads its dependencies asynchronously, and finally links them
+  together and adds them to the registry.</p>
+
+  <p>Otherwise, the <code>instantiate</code> hook must return an eventual
+  <es-nt>instantiationRequest</es-nt> object. An <es-nt>instantiateRequest</es-nt> object has two
+  required properties. The value of the <code>deps</code> property is an array of strings. Each
+  string is the name of a module upon which the module identified by <es-nt>loadRequest</es-nt> has
+  dependencies. The value of the <code>execute</code> property is a function which the loader will
+  use to create the module and link it with its clients and dependencies. The function should
+  expect to receive the same number of arguments as the size of the <code>deps</code> array and
+  must return an eventual Module object. The arguments are Module objects and have a one-to-one
+  correspondence with elements of the <code>deps</code> array.</p>
+
+  <p>The module is evaluated during the linking process. First all of the modules it depends upon
+  are linked and evaluated , and then passed to the <code>execute</code> function. Then the
+  resulting module is linked with the downstream dependencies.</p>
+
+  <p><span class="marker"></span>NOTE	This feature is provided in order to permit custom loaders to
+  support using <code>import</code> to import pre-ES6 modules such as AMD modules. The design
+  requires incremental linking when such modules are present, but it ensures that modules
+  implemented with standard source-level module declarations can still be statically validated.</p>
+</es-clause>

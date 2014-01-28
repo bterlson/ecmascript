@@ -1,0 +1,36 @@
+<!doctype html>
+<es-clause title="InitialiseBinding (N,V)" anchor=
+"sec-global-environment-records-initialisebinding-n-v">
+  <p>The concrete <a href="#sec-environment-records">Environment Record</a> method
+  InitialiseBinding for global environment records is used to set the bound value of the current
+  binding of the identifier whose name is the value of the argument <es-nt>N</es-nt> to the value
+  of argument <es-nt>V</es-nt>. An uninitialised binding for <es-nt>N</es-nt> must already
+  exist.</p>
+
+  <ol class="proc">
+    <li>Let <i>envRec</i> be <a href="#sec-global-environment-records">the global environment
+    record</a> for which the method was invoked.
+    </li>
+
+    <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
+
+    <li>If the result of calling <i>DclRec’s</i> HasBinding concrete method with argument <i>N</i>
+    is <b>true</b>, then
+
+      <ol class="block">
+        <li>Return the result of calling <i>DclRec’s</i> InitialiseBinding concrete method with
+        arguments <i>N</i> and <i>V</i>.</li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : If the binding exists it must be in the
+      <a href="#sec-object-environment-records">object environment record</a> .
+    </li>
+
+    <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+    <li>Return the result of calling <i>ObjRec’s</i> InitialiseBinding concrete method with
+    arguments <i>N</i> and <i>V</i>.</li>
+  </ol>
+</es-clause>

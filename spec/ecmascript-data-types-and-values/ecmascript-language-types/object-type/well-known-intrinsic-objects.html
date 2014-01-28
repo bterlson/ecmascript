@@ -1,0 +1,624 @@
+<!doctype html>
+<es-clause title="Well-Known Intrinsic Objects" anchor="sec-well-known-intrinsic-objects">
+  <p>Well-known intrinsics are built-in objects that are explicitly referenced by the algorithms of
+  this specification and which usually have <a href="#sec-code-realms">Realm</a> specific
+  identities. Unless otherwise specified each intrinsic object actually corresponds to a set of
+  similar objects, one per <a href="#sec-code-realms">Realm</a> .</p>
+
+  <p>Within this specification a reference such as %name% means the intrinsic object, associated
+  with <a href="#sec-execution-contexts">the current Realm</a> , corresponding to the name.
+  Determination of <a href="#sec-execution-contexts">the current Realm</a> and its intrinsics is
+  described in <a href="#sec-code-realms">8.2</a> . The well-known intrinsics are listed in
+  <a href="#table-7">Table 7</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-7">Table 7</span> — Well-known Intrinsic Objects
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 0px solid black; border-top: 2px solid #000000">
+        Intrinsic Name</th>
+
+        <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">Global
+        Name</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        ECMAScript Language Association</th>
+      </tr>
+
+      <tr>
+        <td>%Object%</td>
+
+        <td><code>"Object"</code></td>
+
+        <td>
+          The <code>Object</code> constructor (<a href="#sec-object-constructor">19.1.1</a> )
+        </td>
+      </tr>
+
+      <tr>
+        <td>%ObjectPrototype%</td>
+
+        <td></td>
+
+        <td>
+          The initial value of the <code>"prototype"</code> data property of the intrinsic
+          %Object%. (<a href="#sec-properties-of-the-object-prototype-object">19.1.3</a> )
+        </td>
+      </tr>
+
+      <tr>
+        <td>%ObjProto_toString%</td>
+
+        <td></td>
+
+        <td>
+          The initial value of the <code>"toString"</code> data property of the intrinsic
+          %ObjectPrototype%. (<a href="#sec-object.prototype.tostring">19.1.3.6</a> )
+        </td>
+      </tr>
+
+      <tr>
+        <td>%Function%</td>
+
+        <td><code>"Function"</code></td>
+
+        <td>
+          The <code>Function</code> constructor (<a href="#sec-function-constructor">19.2.1</a> )
+        </td>
+      </tr>
+
+      <tr>
+        <td>%FunctionPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %Function%.</td>
+      </tr>
+
+      <tr>
+        <td>%Array%</td>
+
+        <td><code>"Array"</code></td>
+
+        <td>
+          The <code>Array</code> constructor (<a href="#sec-array-constructor">22.1.1</a> )
+        </td>
+      </tr>
+
+      <tr>
+        <td>%ArrayPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %Array%.</td>
+      </tr>
+
+      <tr>
+        <td>%ArrayIteratorPrototype%</td>
+
+        <td></td>
+
+        <td>
+          The prototype object used for<br>
+          Iterator objects created by the <a href=
+          "#sec-createarrayiterator">CreateArrayIterator</a> abstract operation.
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %String%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <code>"String"</code></td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        The <code>String</code> constructor (<a href="#sec-string-constructor">21.1.1</a> )
+        </td>
+      </tr>
+
+      <tr>
+        <td>%StringPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %String%.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %StringIteratorPrototype%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        The prototype object used for<br>
+          Iterator objects created by the <a href=
+          "#sec-createstringiterator">CreateStringIterator</a> abstract operation
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %Boolean%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <code>"Boolean"</code></td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        The initial value of the global object property named "<code>Boolean</code>".</td>
+      </tr>
+
+      <tr>
+        <td>%BooleanPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %Boolean%.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %Number%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <code>"Number"</code></td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        The initial value of the global object property named "<code>Number</code>".</td>
+      </tr>
+
+      <tr>
+        <td>%NumberPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %Number%.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %Date%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <code>"Date"</code></td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        The initial value of the global object property named "<code>Date</code>".</td>
+      </tr>
+
+      <tr>
+        <td>%DatePrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %Date%.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %RegExp%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <code>"RegExp"</code></td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        The initial value of the global object property named "<code>RegExp</code>".</td>
+      </tr>
+
+      <tr>
+        <td>%RegExpPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %RegExp%.</td>
+      </tr>
+
+      <tr>
+        <td>%Map%</td>
+
+        <td><code>"Map"</code></td>
+
+        <td>The initial value of the global object property named <code>"Map"</code>.</td>
+      </tr>
+
+      <tr>
+        <td>%MapPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %Map%.</td>
+      </tr>
+
+      <tr>
+        <td>%MapIteratorPrototype%</td>
+
+        <td></td>
+
+        <td>
+          The prototype object used for<br>
+          Iterator objects created by the <a href="#sec-createmapiterator">CreateMapIterator</a>
+          abstract operation
+        </td>
+      </tr>
+
+      <tr>
+        <td>%WeakMap%</td>
+
+        <td><code>"WeakMap"</code></td>
+
+        <td>The initial value of the global object property named <code>"WeakMap"</code>.</td>
+      </tr>
+
+      <tr>
+        <td>%WeakMapPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %WeakMap%.</td>
+      </tr>
+
+      <tr>
+        <td>%Set%</td>
+
+        <td><code>"Set"</code></td>
+
+        <td>The initial value of the global object property named <code>"Set"</code>.</td>
+      </tr>
+
+      <tr>
+        <td>%SetPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %Set%.</td>
+      </tr>
+
+      <tr>
+        <td>%WeakSet%</td>
+
+        <td><code>"WeakSet"</code></td>
+
+        <td>The initial value of the global object property named <code>"WeakSet"</code>.</td>
+      </tr>
+
+      <tr>
+        <td>%WeakSetPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %WeakSet%.</td>
+      </tr>
+
+      <tr>
+        <td>%SetIteratorPrototype%</td>
+
+        <td></td>
+
+        <td>
+          The prototype object used for<br>
+          Iterator objects created by the <a href="#sec-createsetiterator">CreateSetIterator</a>
+          abstract operation
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %GeneratorFunction%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        The initial value of the name "GeneratorFunction" exported from the built-in module
+        "std:iteration".</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %Generator%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        The initial value of the name "Generator" exported from the built-in module
+        "std:iteration"</td>
+      </tr>
+
+      <tr>
+        <td>%GeneratorPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>prototype</code> property of the %Generator%
+        intrinsic</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %Error%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %EvalError%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %RangeError%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %ReferenceError%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %SyntaxError%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %TypeError%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        %URIError%</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%ErrorPrototype%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%EvalErrorPrototype%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%RangeErrorPrototype%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%ReferenceErrorPrototype%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%SyntaxErrorPrototype%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%TypeErrorPrototype%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%URIErrorPrototype%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%ArrayBuffer%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%ArrayBufferPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %ArrayBuffer%.</td>
+      </tr>
+
+      <tr>
+        <td>%TypedArray%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%TypedArrayPrototype%</td>
+
+        <td></td>
+
+        <td>The initial value of the <code>"prototype"</code> data property of the intrinsic
+        %TypedArray%.</td>
+      </tr>
+
+      <tr>
+        <td>%Int8Array%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%Int8ArrayPrototype%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%DataView%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%DataViewPrototype%</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>%ThrowTypeError%</td>
+
+        <td></td>
+
+        <td>A function object that unconditionally throws a new instance of %TypeError%.</td>
+      </tr>
+
+      <tr>
+        <td>???</td>
+
+        <td></td>
+
+        <td></td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

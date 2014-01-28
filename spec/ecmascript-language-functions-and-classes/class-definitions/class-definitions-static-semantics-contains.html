@@ -1,0 +1,31 @@
+<!doctype html>
+<es-clause title="Static Semantics: Contains" anchor=
+"sec-class-definitions-static-semantics-contains">
+  <p>With parameter <es-nt>symbol</es-nt>.</p>
+
+  <p>See also: <a href="#sec-static-semantic-rules">5.3</a> , <a href=
+  "#sec-object-initialiser-static-semantics-contains">12.1.5.2</a> , <a href=
+  "#sec-static-semantics-static-semantics-contains">12.2.1.1</a> , <a href=
+  "#sec-function-definitions-static-semantics-contains">14.1.4</a> , <a href=
+  "#sec-arrow-function-definitions-static-semantics-contains">14.2.3</a> , <a href=
+  "#sec-generator-function-definitions-static-semantics-contains">14.4.3</a></p>
+
+  <es-production name="ClassTail" class="inline">
+    <es-rhs><es-nt optional>ClassHeritage</es-nt> { <es-nt>ClassBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>symbol</i> is <i>ClassBody</i>, return <b>true</b>.</li>
+
+    <li>If <i>ClassHeritage</i> is not present, return <b>false</b>.</li>
+
+    <li>If <i>symbol</i> is <i>ClassHeritage</i>, return <b>true</b>.</li>
+
+    <li>Return the result of Contains for <i>ClassHeritage</i> with argument <i>symbol</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>Static semantic rules that depend upon substructure generally do not look into class
+    bodies.</p>
+  </es-note>
+</es-clause>

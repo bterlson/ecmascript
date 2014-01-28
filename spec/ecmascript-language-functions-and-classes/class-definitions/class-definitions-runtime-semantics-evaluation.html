@@ -1,0 +1,95 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-class-definitions-runtime-semantics-evaluation">
+  <es-production name="ClassDeclaration" class="inline">
+    <es-rhs>class <es-nt>BindingIdentifier</es-nt> <es-nt>ClassTail</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let className be <a href="#sec-identifiers-and-identifier-names">StringValue</a>
+    (BindingIdentifier).
+    </li>
+
+    <li>Let value be the result of ClassDefinitionEvaluation of <i>ClassTail</i> with argument
+    className</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (value).
+    </li>
+
+    <li>Let hasNameProperty be the result of <a href="#sec-hasownproperty">HasOwnProperty</a>
+    (value, <code>"name"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (hasNameProperty).
+    </li>
+
+    <li>If hasNameProperty is <b>false</b>, then
+
+      <ol class="block">
+        <li>Perform <a href="#sec-setfunctionname">SetFunctionName</a> (value, className).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let env be <a href="#sec-execution-contexts">the running execution context</a> ’s
+      <a href="#sec-execution-contexts">LexicalEnvironment</a> .
+    </li>
+
+    <li>Let status be the result of performing BindingInitialisation for BindingIdentifier passing
+    value and env as the arguments.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (status).
+    </li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
+    </li>
+  </ol>
+
+  <p><es-production name="ClassExpression" class="inline"><es-rhs>class
+  <es-nt optional>BindingIdentifier</es-nt>
+  <es-nt>ClassTail</es-nt></es-rhs></es-production></p>
+
+  <ol class="proc">
+    <li>If <i>BindingIdentifier</i><sub>opt</sub> is not present, then let <i>className</i> be
+    <b>undefined</b>.</li>
+
+    <li>Else, let <i>className</i> be <a href=
+    "#sec-identifiers-and-identifier-names">StringValue</a> (<i>BindingIdentifier</i>).
+    </li>
+
+    <li>Let <i>value</i> be the result of ClassDefinitionEvaluation of <i>ClassTail</i> with
+    argument <i>className</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
+    </li>
+
+    <li>If <i>className</i> is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>hasNameProperty</i> be the result of <a href=
+        "#sec-hasownproperty">HasOwnProperty</a> (<i>value</i>, <code>"name"</code>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>hasNameProperty</i>).
+        </li>
+
+        <li>If <i>hasNameProperty</i> is <b>false</b>, then
+
+          <ol class="block">
+            <li>Perform <a href="#sec-setfunctionname">SetFunctionName</a> (<i>value</i>,
+            <i>className</i>).
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<i>value</i>).
+    </li>
+  </ol>
+</es-clause>

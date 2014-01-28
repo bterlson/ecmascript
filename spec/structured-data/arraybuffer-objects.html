@@ -1,0 +1,21 @@
+<!doctype html>
+<es-clause title="ArrayBuffer Objects" anchor="sec-arraybuffer-objects">
+  <link rel="import" href="arraybuffer-objects\abstract-operations-for-arraybuffer-objects.html">
+  <link rel="import" href="arraybuffer-objects\arraybuffer-constructor.html">
+  <link rel="import" href="arraybuffer-objects\properties-of-the-arraybuffer-constructor.html">
+  <link rel="import" href=
+  "arraybuffer-objects\properties-of-the-arraybuffer-prototype-object.html">
+
+  <es-clause title="Properties of the ArrayBuffer Instances" anchor=
+  "sec-properties-of-the-arraybuffer-instances">
+    <p>ArrayBuffer instances inherit properties from the ArrayBuffer prototype object. ArrayBuffer
+    instances each have an [[ArrayBufferData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> and an
+    [[ArrayBufferByteLength]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> .</p>
+
+    <p>ArrayBuffer instances whose [[ArrayBufferData]] is <b>null</b> are considered to be
+    <i>neutered</i> and all operators to access or modify data contained in the ArrayBuffer
+    instance will fail.</p>
+  </es-clause>
+</es-clause>

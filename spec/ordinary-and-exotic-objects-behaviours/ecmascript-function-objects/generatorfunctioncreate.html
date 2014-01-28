@@ -1,0 +1,27 @@
+<!doctype html>
+<es-clause title="GeneratorFunctionCreate Abstract Operation" anchor="sec-generatorfunctioncreate">
+  <p>The abstract operation GeneratorFunctionCreate requires the arguments: <es-nt>kind</es-nt>
+  which is one of (Normal, Method, Arrow), a parameter list production specified by
+  <es-nt>ParameterList</es-nt>, a body production specified by <es-nt>Body</es-nt>, a <a href=
+  "#sec-lexical-environments">Lexical Environment</a> specified by <es-nt>Scope</es-nt>, a Boolean
+  flag <es-nt>Strict</es-nt>, and optionally, an object <es-nt>functionPrototype</es-nt>.
+  GeneratorFunctionCreate performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If the <i>functionPrototype</i> argument was not passed, then
+
+      <ol class="block">
+        <li>Let <i>functionPrototype</i> be the intrinsic object %Generator%.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>F</i> be the result of performing <a href=
+    "#sec-functionallocate">FunctionAllocate</a> with arguments <i>functionPrototype</i>,
+    <i>Strict</i>, and <code>"generator"</code>.
+    </li>
+
+    <li>Return the result of performing <a href="#sec-functioninitialise">FunctionInitialise</a>
+    with passing <i>F</i>, <i>kind</i>, <i>ParameterList</i>, <i>Body</i>, and <i>Scope</i>.
+    </li>
+  </ol>
+</es-clause>

@@ -1,0 +1,43 @@
+<!doctype html>
+<es-clause title="NewPromiseCapability ( C )" anchor="sec-newpromisecapability">
+  <p>The abstract operation NewPromiseCapability takes a constructor function, and attempts to use
+  that constructor function in the fashion of the built-in <code>Promise</code> constructor to
+  create a Promise object and extract its resolve and reject functions. The promise plus the
+  resolve and reject functions are used to initialize a new PromiseCapability record which is
+  returned as the value of this abstraction operation. This is useful to support subclassing, as
+  this operation is generic on any constructor that calls a passed executor argument in the same
+  way as the Promise constructor. We use it to generalize static methods of the Promise constructor
+  to any subclass.</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>C</i>) is <b>false</b>, throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>C</i> is a constructor function that
+      supports the parameter conventions of the <code>Promise</code> constructor (see <a href=
+      "#sec-promise">25.4.3.1</a> ).
+    </li>
+
+    <li>Let <i>promise</i> be <a href="#sec-createfromconstructor">CreateFromConstructor</a>
+    (<i>C</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promise</i>).
+    </li>
+
+    <li>Return <a href="#sec-createpromisecapabilityrecord">CreatePromiseCapabilityRecord</a>
+    (<i>promise</i>, <i>C</i>).
+    </li>
+  </ol>
+
+  <es-note>
+    <p>This abstract operation is supports Promise subclassing, as it is generic on any constructor
+    that calls a passed executor function argument in the same way as the Promise constructor. It
+    is used to generalize static methods of the Promise constructor to any subclass.</p>
+  </es-note>
+  <link rel="import" href="newpromisecapability\createpromisecapabilityrecord.html">
+  <link rel="import" href="newpromisecapability\getcapabilitiesexecutor-functions.html">
+</es-clause>

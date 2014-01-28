@@ -1,0 +1,216 @@
+<!doctype html>
+<es-clause title="Statement Rules" anchor="sec-statement-rules">
+  <es-production name="ConciseBody" class="inline">
+    <es-rhs><es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return HasProductionInTailPosition of <i>AssignmentExpression</i> with argument
+    <i>nonterminal</i>.</li>
+  </ol>
+
+  <es-production name="StatementList" class="inline">
+    <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>has</i> be HasProductionInTailPosition of <i>StatementList</i> with argument
+    <i>nonterminal</i>.</li>
+
+    <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+    <li>Return HasProductionInTailPosition of <i>StatementListItem</i> with argument
+    <i>nonterminal</i>.</li>
+  </ol>
+
+  <p><es-production name="StatementListItem" class=
+  "inline"><es-rhs><es-nt>Declaration</es-nt></es-rhs></es-production></p>
+
+  <es-production name="Statement">
+    <es-rhs><es-nt>VariableStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>EmptyStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ContinueStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>BreakStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ThrowStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DebuggerStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ReturnStatement</es-nt> <es-t>:</es-t> <es-t>return</es-t>
+    <es-t>;</es-t></es-rhs>
+
+    <es-rhs><es-nt>CaseBlock</es-nt> <es-t>:</es-t> <es-t>{</es-t> <es-t>}</es-t></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <es-production name="IfStatement" class="inline">
+    <es-rhs>if ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt> else
+    <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>has</i> be HasProductionInTailPosition of the first <i>Statement</i> with argument
+    <i>nonterminal</i>.</li>
+
+    <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+    <li>Return HasProductionInTailPosition of the second <i>Statement</i> with argument
+    <i>nonterminal</i>.</li>
+  </ol>
+
+  <p><es-production name="IfStatement" class="inline"><es-rhs>if (
+  <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs></es-production></p>
+
+  <es-production name="IterationStatement">
+    <es-rhs>do <es-nt>Statement</es-nt> while ( <es-nt>Expression</es-nt> ) ;</es-rhs>
+
+    <es-rhs>while ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt>Expression</es-nt> ; <es-nt>Expression</es-nt> ; <es-nt>Expression</es-nt>
+    ) <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( var <es-nt>VariableDeclarationList</es-nt> ; <es-nt>Expression</es-nt> ;
+    <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> <es-nt>Expression</es-nt> ;
+    <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> in <es-nt>Expression</es-nt> )
+    <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( var <es-nt>ForBinding</es-nt> in <es-nt>Expression</es-nt> )
+    <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt>ForDeclaration</es-nt> in <es-nt>Expression</es-nt> )
+    <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+    <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( var <es-nt>ForBinding</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+    <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt>ForDeclaration</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+    <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>WithStatement</es-nt> : with ( <es-nt>Expression</es-nt> )
+    <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="LabelledStatement">
+    <es-rhs><es-nt>IdentifierReference</es-nt> : <es-nt>Statement</es-nt></es-rhs>
+
+    <es-rhs><es-t>yield</es-t> <es-t>:</es-t> <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return HasProductionInTailPosition of <i>Statement</i> with argument
+    <i>nonterminal</i>.</li>
+  </ol>
+
+  <es-production name="ReturnStatement" class="inline">
+    <es-rhs><es-t>return</es-t> <es-nt>Expression</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return HasProductionInTailPosition of <i>Expression</i> with argument
+    <i>nonterminal</i>.</li>
+  </ol>
+
+  <es-production name="SwitchStatement" class="inline">
+    <es-rhs>switch ( <es-nt>Expression</es-nt> ) <es-nt>CaseBlock</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return HasProductionInTailPosition of <i>CaseBlock</i> with argument
+    <i>nonterminal</i>.</li>
+  </ol>
+
+  <es-production name="CaseBlock" class="inline">
+    <es-rhs>{ <es-nt optional>CaseClauses</es-nt> <es-nt>DefaultClause</es-nt> <es-nt optional
+    >CaseClauses</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>has</i> be <b>false</b>.</li>
+
+    <li>If the first <i>CaseClauses</i> is present, let <i>has</i> be HasProductionInTailPosition
+    of the first <i>CaseClauses</i> with argument <i>nonterminal</i>.</li>
+
+    <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+    <li>Let <i>has</i> be HasProductionInTailPosition of the <i>DefaultClause</i> with argument
+    <i>nonterminal</i>.</li>
+
+    <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+    <li>If the second <i>CaseClauses</i> is present, let <i>has</i> be HasProductionInTailPosition
+    of the second <i>CaseClauses</i> with argument <i>nonterminal</i>.</li>
+
+    <li>Return <i>has</i>.</li>
+  </ol>
+
+  <es-production name="CaseClauses" class="inline">
+    <es-rhs><es-nt>CaseClauses</es-nt> <es-nt>CaseClause</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>has</i> be HasProductionInTailPosition of <i>CaseClauses</i> with argument
+    <i>nonterminal</i>.</li>
+
+    <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+    <li>Return HasProductionInTailPosition of <i>CaseClause</i> with argument
+    <i>nonterminal</i>.</li>
+  </ol>
+
+  <p><es-production name="CaseClause" class="inline"><es-rhs>case
+  <es-nt>Expression</es-nt> : <es-nt optional
+  >StatementList</es-nt></es-rhs></es-production></p>
+
+  <es-production name="DefaultClause" class="inline">
+    <es-rhs><es-t>default</es-t> <es-t>:</es-t> <es-nt optional>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>StatementList</i> is present, return HasProductionInTailPosition of
+    <i>StatementList</i> with argument <i>nonterminal</i>.</li>
+
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <es-production name="TryStatement" class="inline">
+    <es-rhs>try <es-nt>Block</es-nt> <es-nt>Catch</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return HasProductionInTailPosition of <i>Catch</i> with argument <i>nonterminal</i>.</li>
+  </ol>
+
+  <p><es-production name="TryStatement" class="inline"><es-rhs>try
+  <es-nt>Block</es-nt> <es-nt>Finally</es-nt></es-rhs></es-production></p>
+
+  <es-production name="TryStatement" class="inline">
+    <es-rhs>try <es-nt>Block</es-nt> <es-nt>Catch</es-nt> <es-nt>Finally</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return HasProductionInTailPosition of <i>Finally</i> with argument <i>nonterminal</i>.</li>
+  </ol>
+
+  <es-production name="Catch" class="inline">
+    <es-rhs>catch ( <es-nt>CatchParameter</es-nt> ) <es-nt>Block</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return HasProductionInTailPosition of <i>Finally</i> with argument <i>nonterminal</i>.</li>
+  </ol>
+</es-clause>

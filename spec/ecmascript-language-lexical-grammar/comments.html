@@ -1,0 +1,69 @@
+<!doctype html>
+<es-clause title="Comments" anchor="sec-comments">
+  <p>Comments can be either single or multi-line. Multi-line comments cannot nest.</p>
+
+  <p>Because a single-line comment can contain any Unicode code point except a
+  <es-nt>LineTerminator</es-nt> character, and because of the general rule that a token is always
+  as long as possible, a single-line comment always consists of all characters from the
+  <code>//</code> marker to the end of the line. However, the <es-nt>LineTerminator</es-nt> at the
+  end of the line is not considered to be part of the single-line comment; it is recognised
+  separately by the lexical grammar and becomes part of the stream of input elements for the
+  syntactic grammar. This point is very important, because it implies that the presence or absence
+  of single-line comments does not affect the process of <a href=
+  "#sec-automatic-semicolon-insertion">automatic semicolon insertion</a> (see <a href=
+  "#sec-automatic-semicolon-insertion">11.9</a> ).</p>
+
+  <p>Comments behave like white space and are discarded except that, if a
+  <es-nt>MultiLineComment</es-nt> contains a line terminator character, then the entire comment is
+  considered to be a <es-nt>LineTerminator</es-nt> for purposes of parsing by the syntactic
+  grammar.</p>
+
+  <h2>Syntax</h2>
+
+  <es-production name="Comment" type="lexical">
+    <es-rhs><es-nt>MultiLineComment</es-nt></es-rhs>
+
+    <es-rhs><es-nt>SingleLineComment</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="MultiLineComment" type="lexical">
+    <es-rhs><es-t>/*</es-t> <es-nt optional>MultiLineCommentChars</es-nt> <es-t>*/</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="MultiLineCommentChars" type="lexical">
+    <es-rhs><es-nt>MultiLineNotAsteriskChar</es-nt> <es-nt optional
+    >MultiLineCommentChars</es-nt></es-rhs>
+
+    <es-rhs><es-t>*</es-t> <es-nt optional>PostAsteriskCommentChars</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="PostAsteriskCommentChars" type="lexical">
+    <es-rhs><es-nt>MultiLineNotForwardSlashOrAsteriskChar</es-nt> <es-nt optional
+    >MultiLineCommentChars</es-nt></es-rhs>
+
+    <es-rhs><es-t>*</es-t> <es-nt optional>PostAsteriskCommentChars</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="MultiLineNotAsteriskChar" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not <es-t>*</es-t></es-gmod></es-rhs>
+  </es-production>
+
+  <es-production name="MultiLineNotForwardSlashOrAsteriskChar" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-t>/</es-t></es-gmod><es-gmod>or <es-t>*</es-t></es-gmod></es-rhs>
+  </es-production>
+
+  <es-production name="SingleLineComment" type="lexical">
+    <es-rhs><es-t>//</es-t> <es-nt optional>SingleLineCommentChars</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="SingleLineCommentChars" type="lexical">
+    <es-rhs><es-nt>SingleLineCommentChar</es-nt> <es-nt optional
+    >SingleLineCommentChars</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="SingleLineCommentChar" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not
+    <es-nt>LineTerminator</es-nt></es-gmod></es-rhs>
+  </es-production>
+</es-clause>

@@ -1,0 +1,38 @@
+<!doctype html>
+<es-clause title="Date.prototype.setSeconds (sec [, ms ] )" anchor="sec-date.prototype.setseconds">
+  <p>If <es-nt>ms</es-nt> is not specified, this behaves as if <es-nt>ms</es-nt> were specified
+  with the value <code>getMilliseconds()</code>.</p>
+
+  <ol class="proc">
+    <li>Let <i>t</i> be the result of <a href="#sec-local-time">LocalTime</a> (<a href=
+    "#sec-properties-of-the-date-prototype-object">this time value</a> ).
+    </li>
+
+    <li>Let <i>s</i> be <a href="#sec-tonumber">ToNumber</a> (<i>sec</i>).
+    </li>
+
+    <li>If <i>ms</i> is not specified, then let <i>milli</i> be <a href=
+    "#sec-hours-minutes-second-and-milliseconds">msFromTime</a> (<i>t</i>); otherwise, let
+    <i>milli</i> be <a href="#sec-tonumber">ToNumber</a> (<i>ms</i>).
+    </li>
+
+    <li>Let <i>date</i> be <a href="#sec-makedate">MakeDate</a> (<a href=
+    "#sec-day-number-and-time-within-day">Day</a> (<i>t</i>), <a href="#sec-maketime">MakeTime</a>
+    (<a href="#sec-hours-minutes-second-and-milliseconds">HourFromTime</a> (<i>t</i>), <a href=
+    "#sec-hours-minutes-second-and-milliseconds">MinFromTime</a> (<i>t</i>), <i>s</i>,
+    <i>milli</i>)).
+    </li>
+
+    <li>Let <i>u</i> be <a href="#sec-timeclip">TimeClip</a> (<a href="#sec-local-time">UTC</a>
+    (<i>date</i>)).
+    </li>
+
+    <li>Set the [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of this Date object to <i>u</i>.
+    </li>
+
+    <li>Return <i>u</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>setSeconds</code> method is <b>2</b>.</p>
+</es-clause>

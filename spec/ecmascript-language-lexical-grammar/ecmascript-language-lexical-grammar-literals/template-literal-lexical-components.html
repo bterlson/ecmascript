@@ -1,0 +1,53 @@
+<!doctype html>
+<es-clause title="Template Literal Lexical Components" anchor=
+"sec-template-literal-lexical-components">
+  <h2>Syntax</h2>
+
+  <es-production name="Template" type="lexical">
+    <es-rhs><es-nt>NoSubstitutionTemplate</es-nt></es-rhs>
+
+    <es-rhs><es-nt>TemplateHead</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="NoSubstitutionTemplate" type="lexical">
+    <es-rhs><es-t>`</es-t> <es-nt optional>TemplateCharacters</es-nt> <es-t>`</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="TemplateHead" type="lexical">
+    <es-rhs><es-t>`</es-t> <es-nt optional>TemplateCharacters</es-nt> <es-t>${</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="TemplateSubstitutionTail" type="lexical">
+    <es-rhs><es-nt>TemplateMiddle</es-nt></es-rhs>
+
+    <es-rhs><es-nt>TemplateTail</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="TemplateMiddle" type="lexical">
+    <es-rhs><es-t>}</es-t> <es-nt optional>TemplateCharacters</es-nt> <es-t>${</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="TemplateTail" type="lexical">
+    <es-rhs><es-t>}</es-t> <es-nt optional>TemplateCharacters</es-nt> <es-t>`</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="TemplateCharacters" type="lexical">
+    <es-rhs><es-nt>TemplateCharacter</es-nt> <es-nt optional>TemplateCharacters</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="TemplateCharacter" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-t>`</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
+    <es-t>$</es-t></es-gmod><es-gmod>or <es-nt>LineTerminatorSequence</es-nt></es-gmod></es-rhs>
+
+    <es-rhs><es-t>$</es-t> <es-gann>lookahead ∉ {</es-gann></es-rhs>
+
+    <es-rhs><es-t>\</es-t> <es-nt>EscapeSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LineContinuation</es-nt></es-rhs>
+
+    <es-rhs><es-nt>LineTerminatorSequence</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "template-literal-lexical-components\static-semantics-tv-s-and-trv-s.html">
+</es-clause>

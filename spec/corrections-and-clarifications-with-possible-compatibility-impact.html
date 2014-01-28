@@ -1,0 +1,217 @@
+<!doctype html>
+<es-clause title="Corrections and Clarifications with Possible Compatibility Impact" anchor=
+"sec-corrections-and-clarifications-with-possible-compatibility-impact">
+  <p><b>In Edition 6</b></p>
+
+  <p><a href="#sec-timeclip">20.3.1.14</a> : Previous editions permitted the <a href=
+  "#sec-timeclip">TimeClip</a> abstract operation to return either +0 or <b>−</b>0 as the
+  representation of a 0 <a href="#sec-time-values-and-time-range">time value</a> . The
+  6<sup>th</sup> Edition specifies that +0 always returned. This means that for the 6<sup>th</sup>
+  Edition the <a href="#sec-time-values-and-time-range">time value</a> of a Date object is never
+  observably <b>−</b>0 and methods that return time values never return <b>−</b>0.</p>
+
+  <p><a href="#sec-date-time-string-format">20.3.1.15</a> : If a time zone offset is not present,
+  the local time zone is used. Edition 5.1 incorrectly stated that a missing time zone should be
+  interpreted as “z”.</p>
+
+  <p><a href="#sec-date.prototype.toisostring">20.3.4.36</a> : If the year cannot be represented
+  using the Date Time String Format specified in <a href=
+  "#sec-date-time-string-format">20.3.1.15</a> a RangeError exception is thrown. Previous editions
+  did not specify the a behaviour for that case.</p>
+
+  <p><a href="#sec-date.prototype.tostring">20.3.4.41</a> : Previous editions did not specify the
+  value returned by <a href="#sec-date.prototype.tostring">Date.prototype.toString</a> when
+  <a href="#sec-properties-of-the-date-prototype-object">this time value</a> is NaN. The
+  6<sup>th</sup> Edition specifies the result to be the String value is <code>"Invalid
+  Date".</code></p>
+
+  <p><a href="#sec-regexp-pattern-flags">21.2.3.1</a> , <a href=
+  "#sec-escaperegexppattern">21.2.3.3.4</a> : If any LineTerminator code points in the value of the
+  <code>source</code> property of an RegExp instance must be expressed using an escape sequence.
+  Edition 5.1 only required the escaping of <code>"/"</code>.</p>
+
+  <p><b>In Edition 5.1</b></p>
+
+  <p>Clause references in this list refer to the clause numbers used in Edition 5.1.</p>
+
+  <p>: CV definitions added for <es-production name="DoubleStringCharacter" type="lexical"
+  class=
+  "inline"><es-rhs><es-nt>LineContinuation</es-nt></es-rhs></es-production>
+  and <es-production name="SingleStringCharacter" type="lexical" class=
+  "inline"><es-rhs><es-nt>LineContinuation</es-nt></es-rhs></es-production>
+  .</p>
+
+  <p>: The argument S is not ignored. It controls whether an exception is thrown when attempting to
+  set an immutable binding.</p>
+
+  <p>: In algorithm step 5, <b>true</b> is passed as the last argument to
+  [[DefineOwnProperty]].</p>
+
+  <p>: Former algorithm step 5.e is now 5.f and a new step 5.e was added to restore compatibility
+  with 3<sup>rd</sup> Edition when redefining global functions.</p>
+
+  <p>: In the final bullet item, use of IEEE 754 round-to-nearest mode is specified.</p>
+
+  <p><a href="#sec-addition-operator-plus">12.6.3</a> : Missing <a href=
+  "#sec-toboolean">ToBoolean</a> restored in step 3.a.ii of both algorithms.</p>
+
+  <p><a href="#sec-subtraction-operator-minus">12.6.4</a> : Additional final sentences in each of
+  the last two paragraphs clarify certain property enumeration requirements.</p>
+
+  <p><a href="#sec-bitwise-shift-operators">12.7</a> , <a href="#sec-relational-operators">12.8</a>
+  , <a href="#sec-equality-operators">12.9</a> : BNF modified to clarify that a
+  <code>continue</code> or <code>break</code> statement without an <es-nt>Identifier</es-nt> or a
+  <code>return</code> statement without an <es-nt>Expression</es-nt> may have a
+  <es-nt>LineTerminator</es-nt> before the semi-colon.</p>
+
+  <p><a href="#sec-comma-operator">12.14</a> : Step 3 of algorithm 1 and step 2.a of algorithm 3
+  are corrected such that the value field of <es-nt>B</es-nt> is passed as a parameter rather than
+  <es-nt>B</es-nt> itself.</p>
+
+  <p>: In step 2 of algorithm, clarify that <es-nt>S</es-nt> may be the empty string.</p>
+
+  <p>: In step 2 of algorithm clarify that <es-nt>trimmedString</es-nt> may be the empty
+  string.</p>
+
+  <p><a href="#sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</a> : Added notes
+  clarifying that ECMAScript’s URI syntax is based upon RFC 2396 and not the newer RFC 3986. In the
+  algorithm for <a href="#sec-decode">Decode</a> , a step was removed that immediately preceded the
+  current step 4.d.vii.10.a because it tested for a condition that cannot occur.</p>
+
+  <p>: Corrected use of variable <es-nt>P</es-nt> in steps 5 and 6 of algorithm.</p>
+
+  <p><a href="#sec-requestload">15.2.4.2</a> : Edition 5 handling of <span class=
+  "value">undefined</span> and <span class="value">null</span> as <span class="value">this</span>
+  value caused existing code to fail. Specification modified to maintain compatibility with such
+  code. New steps 1 and 2 added to the algorithm.</p>
+
+  <p>: Steps 5 and 7 of Edition 5 algorithm have been deleted because they imposed requirements
+  upon the <es-nt>argArray</es-nt> argument that are inconsistent with other uses of generic
+  array-like objects.</p>
+
+  <p>: In step 9.a, incorrect reference to <i>relativeStart</i> was replaced with a reference to
+  <i>actualStart</i>.</p>
+
+  <p>: Clarified that the default value for <es-nt>fromIndex</es-nt> is the length minus 1 of the
+  array.</p>
+
+  <p>: In step 10 (corresponding to step 8 in <a href="#sec-syntactic-and-lexical-grammars">5.1</a>
+  ) of the algorithm, <span class="value">undefined</span> is now the specified return value.</p>
+
+  <p>: In step 11.d.iii (corresponding to 9.c.ii in <a href=
+  "#sec-syntactic-and-lexical-grammars">5.1</a> ) the first argument to the [[Call]] internal
+  method has been changed to <span class="value">undefined</span> for consistency with the
+  definition of <a href="#sec-array.prototype.reduce">Array.prototype.reduce</a> .</p>
+
+  <p>: In Algorithm steps 3.l.ii and 3.l.iii the variable name was inverted resulting in an
+  incorrectly inverted test.</p>
+
+  <p>: Normative requirement concerning canonically equivalent strings deleted from paragraph
+  following algorithm because it is listed as a recommendation in NOTE 2.</p>
+
+  <p>: In split algorithm step 11.a and 13.a, the positional order of the arguments to <es-nt>
+    <a href="#sec-splitmatch">SplitMatch</a>
+  </es-nt> was corrected to match the actual parameter signature of <es-nt>
+    <a href="#sec-splitmatch">SplitMatch</a>
+  </es-nt> . In step 13.a.iii.7.d, <es-nt>lengthA</es-nt> replaces <es-nt>A</es-nt>.length.</p>
+
+  <p>: In first paragraph, removed the implication that the individual character property access
+  had “array index” semantics. Modified algorithm steps 3 and 5 such that they do not enforce
+  “array index” requirement.</p>
+
+  <p>: Specified legal value ranges for fields that lacked them. Eliminated “time-only” formats.
+  Specified default values for all optional fields.</p>
+
+  <p>: The step numbers of the algorithm for the internal closure produced by step 2 were
+  incorrectly numbered in a manner that implied that they were steps of the outer algorithm.</p>
+
+  <p>: In the abstract operation IsWordChar the first character in the list in step 3 is
+  “<code>a</code>” rather than “<code>A</code>”.</p>
+
+  <p>: In the algorithm for the closure returned by the abstract operation CharacterSetMatcher, the
+  variable defined by step 3 and passed as an argument in step 4 was renamed to <es-nt>ch</es-nt>
+  in order to avoid a name conflict with a formal parameter of the closure.</p>
+
+  <p>: Step 9.e was deleted because It performed an extra increment of <es-nt>i</es-nt>.</p>
+
+  <p>: Removed requirement that the message own property is set to the empty String when the
+  <es-nt>message</es-nt> argument is <span class="value">undefined</span>.</p>
+
+  <p>: Removed requirement that the message own property is set to the empty String when the
+  <es-nt>message</es-nt> argument is <span class="value">undefined</span>.</p>
+
+  <p>: Steps 6-10 modified/added to correctly deal with missing or empty message property
+  value.</p>
+
+  <p>: Removed requirement that the message own property is set to the empty String when the
+  <es-nt>message</es-nt> argument is <span class="value">undefined</span>.</p>
+
+  <p>: In step 10.b.iii of the <es-nt>JA</es-nt> abstract operation, the last element of the
+  concatenation is “<code>]</code>”.</p>
+
+  <p><a href="#sec-additional-properties-of-the-global-object">B.2.1</a> : Added to NOTE that the
+  encoding is based upon RFC 1738 rather than the newer RFC 3986.</p>
+
+  <p>: An item was added corresponding to regarding <es-nt>FutureReservedWords</es-nt> in strict
+  mode.</p>
+
+  <p><b>In Edition 5</b></p>
+
+  <p>Clause references in this list refer to the clause numbers used in Edition 5.</p>
+
+  <p>Throughout: In the Edition 3 specification the meaning of phrases such as “as if by the
+  expression <code>new Array()</code>” are subject to misinterpretation. In the Edition 5
+  specification text for all internal references and invocations of standard built-in objects and
+  methods has been clarified by making it explicit that the intent is that the actual built-in
+  object is to be used rather than the current dynamically resolved value of the correspondingly
+  identifier binding.</p>
+
+  <p><a href="#sec-null-literals">11.8.1</a> : ECMAScript generally uses a left to right evaluation
+  order, however the Edition 3 specification language for the &gt; and &lt;= operators resulted in
+  a partial right to left order. The specification has been corrected for these operators such that
+  it now specifies a full left to right evaluation order. However, this change of order is
+  potentially observable if side-effects occur during the evaluation process.</p>
+
+  <p>: Edition 5 clarifies the fact that a trailing comma at the end of an
+  <es-nt>ArrayInitialiser</es-nt> does not add to the length of the array. This is not a semantic
+  change from Edition 3 but some implementations may have previously misinterpreted this.</p>
+
+  <p>: Edition 5 reverses the order of steps 2 and 3 of the algorithm. The original order as
+  specified in Editions 1 through 3 was incorrectly specified such that side-effects of evaluating
+  <es-nt>Arguments</es-nt> could affect the result of evaluating
+  <es-nt>MemberExpression</es-nt>.</p>
+
+  <p><a href="#sec-unary-operators">12.4</a> : In Edition 3, an object is created, as if by
+  <code>new Object()</code>to serve as the scope for resolving the name of the exception parameter
+  passed to a <code>catch</code> clause of a <code>try</code> statement. If the actual exception
+  object is a function and it is called from within the <code>catch</code> clause, the scope object
+  will be passed as the <b>this</b> value of the call. The body of the function can then define new
+  properties on its <b>this</b> value and those property names become visible identifiers bindings
+  within the scope of the <b>catch</b> clause after the function returns. In Edition 5, when an
+  exception parameter is called as a function, <b>undefined</b> is passed as the <b>this</b>
+  value.</p>
+
+  <p>13: In Edition 3, the algorithm for the production <es-nt>FunctionExpression</es-nt> with an
+  <es-nt>Identifier</es-nt> adds an object created as if by <code>new Object()</code> to the scope
+  chain to serve as a scope for looking up the name of the function. The identifier resolution
+  rules (10.1.4 in Edition 3) when applied to such an object will, if necessary, follow the
+  object’s prototype chain when attempting to resolve an identifier. This means all the properties
+  of Object.prototype are visible as identifiers within that scope. In practice most
+  implementations of Edition 3 have not implemented this semantics. Edition 5 changes the specified
+  semantics by using a <a href="#sec-declarative-environment-records">Declarative Environment
+  Record</a> to bind the name of the function.</p>
+
+  <p>14: In Edition 3, the algorithm for the production <es-production name="SourceElements"
+  class="inline"><es-rhs><es-nt>SourceElements</es-nt>
+  <es-nt>SourceElement</es-nt></es-rhs></es-production> did not correctly propagate
+  statement result values in the same manner as <es-nt>Block</es-nt>. This could result in the
+  <code>eval</code> function producing an incorrect result when evaluating a <es-nt>Program</es-nt>
+  text. In practice most implementations of Edition 3 have implemented the correct propagation
+  rather than what was specified in Edition 5.</p>
+
+  <p>: <a href="#sec-regexp.prototype">RegExp.prototype</a> is now a RegExp object rather than an
+  instance of Object. The value of its [[Class]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> which is observable using
+  <a href="#sec-object.prototype.tostring">Object.prototype.toString</a> is now “RegExp” rather
+  than “Object”.</p>
+</es-clause>

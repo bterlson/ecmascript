@@ -1,0 +1,30 @@
+<!doctype html>
+<es-clause title="[[Construct]]" anchor="sec-bound-function-exotic-objects-construct">
+  <p>When the [[Construct]] internal method of an exotic <a href=
+  "#sec-bound-function-exotic-objects">bound function</a> object, <es-nt>F</es-nt> that was created
+  using the bind function is called with a list of arguments <es-nt>ExtraArgs</es-nt>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>target</i> be the value of <i>F’s</i> <a href="#sec-bound-function-exotic-objects">
+      [[BoundTargetFunction]]</a> <a href=
+      "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>target</i> has a [[Construct]] internal
+      method.
+    </li>
+
+    <li>Let <i>boundArgs</i> be the value of <i>F’s</i> <a href=
+    "#sec-bound-function-exotic-objects">[[BoundArguments]]</a> <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>args</i> be a new list containing the same values as the list <i>boundArgs</i> in
+    the same order followed by the same values as the list <i>ExtraArgs</i> in the same order.</li>
+
+    <li>Return the result of calling the [[Construct]] internal method of <i>target</i> providing
+    <i>args</i> as the arguments.</li>
+  </ol>
+</es-clause>

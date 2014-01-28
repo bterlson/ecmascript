@@ -1,0 +1,31 @@
+<!doctype html>
+<es-clause title="Equality Operators" anchor="sec-equality-operators">
+  <es-note>
+    <p>The result of evaluating an equality operator is always of type Boolean, reflecting whether
+    the relationship named by the operator holds between its two operands.</p>
+  </es-note>
+
+  <h2>Syntax</h2>
+
+  <es-production name="EqualityExpression" params="In, Yield">
+    <es-rhs><es-nt params="?In, ?Yield">RelationalExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">EqualityExpression</es-nt> == <es-nt params=
+    "?In, ?Yield">RelationalExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">EqualityExpression</es-nt> != <es-nt params=
+    "?In, ?Yield">RelationalExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">EqualityExpression</es-nt> === <es-nt params=
+    "?In, ?Yield">RelationalExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">EqualityExpression</es-nt> !== <es-nt params=
+    "?In, ?Yield">RelationalExpression</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "equality-operators\equality-operators-static-semantics-isanonymousfunctiondefinition.html">
+  <link rel="import" href=
+  "equality-operators\equality-operators-static-semantics-isvalidsimpleassignmenttarget.html">
+  <link rel="import" href=
+  "equality-operators\equality-operators-runtime-semantics-evaluation.html">
+</es-clause>

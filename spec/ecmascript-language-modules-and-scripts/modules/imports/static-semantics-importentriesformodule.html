@@ -1,0 +1,88 @@
+<!doctype html>
+<es-clause title="Static Semantics: ImportEntriesForModule" anchor=
+"sec-static-semantics-importentriesformodule">
+  <p>With parameter <es-nt>module</es-nt>.</p>
+
+  <es-production name="ImportClause" class="inline">
+    <es-rhs><es-nt>ImportedBinding</es-nt> , <es-nt>NamedImports</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>localName</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a>
+    of <i>ImportedBinding</i>.
+    </li>
+
+    <li>Let <i>defaultEntry</i> be the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]:
+    <code>"default"</code>, [[LocalName]]: <i>localName</i> }.</li>
+
+    <li>Let <i>entries</i> be a new <a href="#sec-list-and-record-specification-type">List</a>
+    containing <i>defaultEntry.</i>
+    </li>
+
+    <li>Append to <i>entries</i> the elements of the ImportEntriesForModule of <i>NamedImports</i>
+    with argument <i>module</i>.</li>
+
+    <li>Return <i>entries</i>.</li>
+  </ol>
+
+  <es-production name="NamedImports" class="inline">
+    <es-rhs>{ }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="ImportsList" class="inline">
+    <es-rhs><es-nt>ImportsList</es-nt> , <es-nt>ImportSpecifier</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>specs</i> be the ImportEntriesForModule of <i>ImportsList</i> with argument
+    <i>module</i>.</li>
+
+    <li>Append to <i>specs</i> the elements of the ImportEntitiesForModule of
+    <i>ImportSpecifier</i> with argument <i>module</i>.</li>
+
+    <li>Return <i>specs</i>.</li>
+  </ol>
+
+  <es-production name="ImportSpecifier" class="inline">
+    <es-rhs><es-nt>ImportedBinding</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>localName</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a>
+    of <i>ImportedBinding</i>.
+    </li>
+
+    <li>Let <i>entry</i> be the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]:
+    <i>localName</i> , [[LocalName]]: <i>localName</i> }.</li>
+
+    <li>Return a new <a href="#sec-list-and-record-specification-type">List</a> containing
+    <i>entry</i>.
+    </li>
+  </ol>
+
+  <es-production name="ImportSpecifier" class="inline">
+    <es-rhs><es-nt>IdentifierName</es-nt> as <es-nt>ImportedBinding</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>importName</i> be the <a href=
+    "#sec-identifiers-and-identifier-names">StringValue</a> of <i>IdentifierName</i>.
+    </li>
+
+    <li>Let <i>localName</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a>
+    of <i>ImportedBinding</i>.
+    </li>
+
+    <li>Let <i>entry</i> be the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]:
+    <i>importName</i>, [[LocalName]]: <i>localName</i> }.</li>
+
+    <li>Return a new <a href="#sec-list-and-record-specification-type">List</a> containing
+    <i>entry</i>.
+    </li>
+  </ol>
+</es-clause>

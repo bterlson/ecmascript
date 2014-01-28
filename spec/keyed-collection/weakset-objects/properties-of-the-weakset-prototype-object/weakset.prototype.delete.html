@@ -1,0 +1,55 @@
+<!doctype html>
+<es-clause title="WeakSet.prototype.delete ( value )" anchor="sec-weakset.prototype.delete">
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>S)</i> is not Object, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>S</i> does not have a [[WeakSetData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> throw a <b>TypeError</b>
+    exception.
+    </li>
+
+    <li>If <i>S’s</i> [[WeakSetData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value)</i> is not Object,
+    then return <b>false</b>.
+    </li>
+
+    <li>Let <i>entries</i> be the <a href="#sec-list-and-record-specification-type">List</a> that
+    is the value of <i>S</i>’s [[WeakSetData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Repeat for each <i>e</i> that is an element of <i>entries</i>, in original insertion order
+
+      <ol class="block">
+        <li>If <i>e</i> is not empty and <a href="#sec-samevalue">SameValue</a> (<i>e</i>,
+        <i>value</i>) is <b>true</b>, then
+
+          <ol class="block">
+            <li>Replace the element of <i>entries</i> whose value is <i>e</i> with an element whose
+            value is empty<i>.</i></li>
+
+            <li>Return <b>true</b>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <es-note>
+    <p>The value <b>empty</b> is used as a specification device to indicate that an entry has been
+    deleted. Actual implementations may take other actions such as physically removing the entry
+    from internal data structures.</p>
+  </es-note>
+</es-clause>

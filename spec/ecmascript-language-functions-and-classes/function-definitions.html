@@ -1,0 +1,150 @@
+<!doctype html>
+<es-clause title="Function Definitions" anchor="sec-function-definitions">
+  <h2>Syntax</h2>
+
+  <es-production name="FunctionDeclaration" params="Default">
+    <es-rhs>function <es-nt params="?Default">BindingIdentifier</es-nt> (
+    <es-nt>FormalParameters</es-nt> ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <es-production name="FunctionExpression">
+    <es-rhs>function <es-nt optional>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> )
+    { <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <es-production name="StrictFormalParameters">
+    <es-rhs><es-nt>FormalParameters</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann></es-rhs>
+  </es-production>
+
+  <es-production name="FormalParameters">
+    <es-rhs constraint="empty"></es-rhs>
+
+    <es-rhs><es-nt>FormalParameterList</es-nt> <es-gann>?Yield,
+    ?GeneratorParameter</es-gann></es-rhs>
+  </es-production>
+
+  <es-production name="FormalParameterList">
+    <es-rhs><es-nt params="?Yield">FunctionRestParameter</es-nt></es-rhs>
+
+    <es-rhs><es-nt>FormalsList</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann></es-rhs>
+
+    <es-rhs><es-nt>FormalsList</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann>,
+    <es-nt params="?Yield">FunctionRestParameter</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="FormalsList">
+    <es-rhs><es-nt params="?Yield">FormalParameter</es-nt></es-rhs>
+
+    <es-rhs><es-nt>FormalsList</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann>,
+    <es-nt>FormalParameter</es-nt> <es-gann>?Yield,?GeneratorParameter</es-gann></es-rhs>
+  </es-production>
+
+  <es-production name="FunctionRestParameter" params="Yield">
+    <es-rhs><es-nt params="Yield">BindingRestElement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="FormalParameter">
+    <es-rhs><es-nt>BindingElement</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann></es-rhs>
+  </es-production>
+
+  <es-production name="FunctionBody" params="Yield">
+    <es-rhs><es-nt params="?Yield">FunctionStatementList</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="FunctionStatementList" params="Yield">
+    <es-rhs><es-nt>StatementList</es-nt> <es-gann>?Yield, Return</es-gann><es-t>opt</es-t></es-rhs>
+  </es-production>
+
+  <h2>Supplemental Syntax</h2>
+
+  <p>The following productions are used as an aid in specifying the semantics of certain ECMAScript
+  language features. They are not used when parsing ECMAScript source code.</p>
+
+  <es-production name="FunctionBody">
+    <es-rhs><es-nt>ThrowTypeError</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ThrowTypeError">
+    <es-rhs constraint="empty"></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "function-definitions\directive-prologues-and-the-use-strict-directive.html">
+  <link rel="import" href=
+  "function-definitions\function-definitions-static-semantics-early-errors.html">
+  <link rel="import" href=
+  "function-definitions\function-definitions-static-semantics-boundnames.html">
+  <link rel="import" href=
+  "function-definitions\function-definitions-static-semantics-contains.html">
+  <link rel="import" href=
+  "function-definitions\function-definitions-static-semantics-expectedargumentcount.html">
+
+  <es-clause title="Static Semantics: HasInitialiser" anchor=
+  "sec-function-definitions-static-semantics-hasinitialiser">
+    <p>See also: <a href=
+    "#sec-destructuring-binding-patterns-static-semantics-hasinitialiser">13.2.3.2</a> .</p>
+
+    <es-production name="FormalsList" class="inline">
+      <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FormalParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If HasInitialiser of <i>FormalsList</i> is <b>true</b>, then return <b>true</b>.</li>
+
+      <li>Return HasInitialiser of <i>FormalParameter</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "function-definitions\function-definitions-static-semantics-isanonymousfunctiondefinition.html">
+
+  <es-clause title="Static Semantics: IsConstantDeclaration" anchor=
+  "sec-function-definitions-static-semantics-isconstantdeclaration">
+    <p>See also: <a href=
+    "#sec-let-and-const-declarations-static-semantics-isconstantdeclaration">13.2.1.3</a> ,
+    <a href="#sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</a>
+    , <a href="#sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</a>
+    .</p>
+
+    <es-production name="FunctionDeclaration" class="inline">
+      <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "function-definitions\function-definitions-static-semantics-issimpleparameterlist.html">
+
+  <es-clause title="Static Semantics: IsStrict" anchor=
+  "sec-function-definitions-static-semantics-isstrict">
+    <p>See also: <a href="#sec-scripts-static-semantics-isstrict">15.1.2</a> , <a href=
+    "#sec-module-static-semantics-static-semantics-isstrict">15.2.0.7</a> .</p>
+
+    <es-production name="FunctionStatementList" class="inline">
+      <es-rhs><es-nt optional>StatementList</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If this <i>FunctionStatementList</i> is contained in <a href=
+      "#sec-strict-mode-code">strict code</a> or if <i>StatementList</i> is <a href=
+      "#sec-strict-mode-code">strict code</a> , then return <b>true</b>. Otherwise, return
+      <b>false</b>.
+      </li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "function-definitions\function-definitions-static-semantics-lexicallydeclarednames.html">
+  <link rel="import" href=
+  "function-definitions\function-definitions-static-semantics-referencessuper.html">
+  <link rel="import" href=
+  "function-definitions\function-definitions-static-semantics-vardeclarednames.html">
+  <link rel="import" href=
+  "function-definitions\function-definitions-runtime-semantics-evaluatebody.html">
+  <link rel="import" href=
+  "function-definitions\function-definitions-runtime-semantics-iteratorbindinginitialisation.html">
+  <link rel="import" href=
+  "function-definitions\function-definitions-runtime-semantics-instantiatefunctionobject.html">
+  <link rel="import" href=
+  "function-definitions\function-definitions-runtime-semantics-evaluation.html">
+</es-clause>

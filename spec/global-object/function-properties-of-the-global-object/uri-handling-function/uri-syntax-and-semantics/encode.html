@@ -1,0 +1,93 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Encode Abstract Operation" anchor="sec-encode">
+  <p>The encoding and escaping process is described by the abstract operation Encode taking two
+  String arguments <es-nt>string</es-nt> and <es-nt>unescapedSet</es-nt>.</p>
+
+  <ol class="proc">
+    <li>Let <i>strLen</i> be the number of characters in <i>string</i>.</li>
+
+    <li>Let <i>R</i> be the empty String.</li>
+
+    <li>Let <i>k</i> be 0.</li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>If <i>k</i> equals <i>strLen</i>, return <i>R</i>.</li>
+
+        <li>Let <i>C</i> be the character at position <i>k</i> within <i>string</i>.</li>
+
+        <li>If <i>C</i> is in <i>unescapedSet</i>, then
+
+          <ol class="block">
+            <li>Let <i>S</i> be a String containing only the character <i>C</i>.</li>
+
+            <li>Let <i>R</i> be a new String value computed by concatenating the previous value of
+            <i>R</i> and <i>S</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else <i>C</i> is not in <i>unescapedSet</i>,
+
+          <ol class="block">
+            <li>If the code unit value of <i>C</i> is not less than 0xDC00 and not greater than
+            0xDFFF, throw a <b><a href=
+            "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+            exception.</li>
+
+            <li>If the code unit value of <i>C</i> is less than 0xD800 or greater than 0xDBFF, then
+
+              <ol class="block">
+                <li>Let <i>V</i> be the code unit value of <i>C</i>.</li>
+              </ol>
+            </li>
+
+            <li>Else,
+
+              <ol class="block">
+                <li>Increase <i>k</i> by 1.</li>
+
+                <li>If <i>k</i> equals <i>strLen</i>, throw a <b><a href=
+                "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+                exception.</li>
+
+                <li>Let <i>kChar</i> be the code unit value of the character at position <i>k</i>
+                within <i>string</i>.</li>
+
+                <li>If <i>kChar</i> is less than 0xDC00 or greater than 0xDFFF, throw a <b><a href=
+                "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+                exception.</li>
+
+                <li>Let <i>V</i> be (((the code unit value of <i>C</i>) – 0xD800) × 0x400 +
+                (<i>kChar</i> – 0xDC00) + 0x10000).</li>
+              </ol>
+            </li>
+
+            <li>Let <i>Octets</i> be the array of octets resulting by applying the UTF-8
+            transformation to <i>V</i>, and let <i>L</i> be the array size.</li>
+
+            <li>Let <i>j</i> be 0.</li>
+
+            <li>Repeat, while <i>j</i> &lt; <i>L</i>
+
+              <ol class="block">
+                <li>Let <i>jOctet</i> be the value at position <i>j</i> within <i>Octets</i>.</li>
+
+                <li>Let <i>S</i> be a String containing three characters “<b>%</b><i>XY</i>” where
+                <i>XY</i> are two uppercase hexadecimal digits encoding the value of
+                <i>jOctet</i>.</li>
+
+                <li>Let <i>R</i> be a new String value computed by concatenating the previous value
+                of <i>R</i> and <i>S</i>.</li>
+
+                <li>Increase <i>j</i> by 1.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Increase <i>k</i> by 1.</li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

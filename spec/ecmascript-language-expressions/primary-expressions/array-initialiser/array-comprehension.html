@@ -1,0 +1,81 @@
+<!doctype html>
+<es-clause title="Array Comprehension" anchor="sec-array-comprehension">
+  <h2>Syntax</h2>
+
+  <es-production name="ArrayComprehension" params="Yield">
+    <es-rhs constraint="Comprehension_[?Yield">]</es-rhs>
+  </es-production>
+
+  <es-production name="Comprehension" params="Yield">
+    <es-rhs><es-nt params="?Yield">ComprehensionFor</es-nt> <es-nt params=
+    "?Yield">ComprehensionTail</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ComprehensionTail" params="Yield">
+    <es-rhs><es-nt params="In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ComprehensionFor</es-nt> <es-nt params=
+    "?Yield">ComprehensionTail</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ComprehensionIf</es-nt> <es-nt params=
+    "?Yield">ComprehensionTail</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ComprehensionFor" params="Yield">
+    <es-rhs>for ( <es-nt params="?Yield">ForBinding</es-nt> of <es-nt params=
+    "In, ?Yield">AssignmentExpression</es-nt> )</es-rhs>
+  </es-production>
+
+  <es-production name="ComprehensionIf" params="Yield">
+    <es-rhs><es-t>if</es-t> <es-t>(</es-t> <es-nt params="In, ?Yield">AssignmentExpression</es-nt>
+    <es-t>)</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="ForBinding" params="Yield">
+    <es-rhs><es-nt params="?Yield">BindingIdentifier</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">BindingPattern</es-nt></es-rhs>
+  </es-production>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-array-comprehension-static-semantics-early-errors">
+    <es-production name="ComprehensionFor" class="inline">
+      <es-rhs>for ( <es-nt>ForBinding</es-nt> of <es-nt>AssignmentExpression</es-nt> )</es-rhs>
+    </es-production>
+
+    <ul>
+      <li>It is a Syntax Error if the BoundNames of <es-nt>ForBinding</es-nt> contains
+      <code>"let"</code>.</li>
+
+      <li>It is a Syntax Error if the BoundNames of <es-nt>ForBinding</es-nt> contains any
+      duplicate entries.</li>
+    </ul>
+  </es-clause>
+  <link rel="import" href=
+  "array-comprehension\array-comprehension-runtime-semantics-bindinginitialisation.html">
+  <link rel="import" href="array-comprehension\runtime-semantics-comprehensionevaluation.html">
+  <link rel="import" href=
+  "array-comprehension\runtime-semantics-comprehensioncomponentevaluation.html">
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-array-comprehension-runtime-semantics-evaluation">
+    <es-production name="ArrayComprehension" class="inline">
+      <es-rhs><es-t>[</es-t> <es-nt>Comprehension</es-nt> <es-t>]</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>array</i> be the result of the abstract operation <a href=
+      "#sec-arraycreate">ArrayCreate</a> with argument 0.
+      </li>
+
+      <li>Let <i>status</i> be the result of performing ComprehensionEvaluation for
+      <i>Comprehension</i> with argument <i>array</i>.</li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+      </li>
+
+      <li>Return <i>array</i>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

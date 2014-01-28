@@ -1,0 +1,29 @@
+<!doctype html>
+<es-clause title="Abstract Operations For ArrayBuffer Objects" anchor=
+"sec-abstract-operations-for-arraybuffer-objects">
+  <es-clause title="AllocateArrayBuffer(constructor)" anchor="sec-allocatearraybuffer">
+    <p>The abstract operation AllocateArrayBuffer with argument <es-nt>constructor</es-nt> is used
+    to create an uninitialised ArrayBuffer object. It performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>obj</i> be the result of calling <a href=
+      "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>constructor</i>,
+      <code>"%ArrayBufferPrototype%"</code>, ( [[ArrayBufferData]], [[ArrayBufferByteLength]]) ).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
+      </li>
+
+      <li>Set the [[ArrayBufferByteLength]] <a href=
+      "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>obj</i> to 0.
+      </li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="abstract-operations-for-arraybuffer-objects\setarraybufferdata.html">
+  <link rel="import" href="abstract-operations-for-arraybuffer-objects\clonearraybuffer.html">
+  <link rel="import" href="abstract-operations-for-arraybuffer-objects\getvaluefrombuffer.html">
+  <link rel="import" href="abstract-operations-for-arraybuffer-objects\setvalueinbuffer.html">
+</es-clause>

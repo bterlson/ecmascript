@@ -1,0 +1,115 @@
+<!doctype html>
+<es-clause title="Static Semantics: ExportedBindings" anchor=
+"sec-exports-static-semantics-exportedbindings">
+  <p>See also:<a href="#sec-static-semantics-declarednames">15.2.0.2</a> .</p>
+
+  <es-production name="ExportDeclaration" class="inline">
+    <es-rhs><es-t>export</es-t> <es-t>*</es-t> <es-nt>FromClause</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="ExportDeclaration">
+    <es-rhs>export <es-nt>ExportClause</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+
+    <es-rhs><es-t>export</es-t> <es-nt>ExportClause</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the ExportedBindings of this <i>ExportClause</i>.</li>
+  </ol>
+
+  <es-production name="ExportDeclaration">
+    <es-rhs><es-t>export</es-t> <es-nt>VariableStatement</es-nt></es-rhs>
+
+    <es-rhs><es-t>export</es-t> <es-nt params="Default">Declaration</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the BoundNames of this <i>ExportDeclaration</i>.</li>
+  </ol>
+
+  <p><es-production name="ExportDeclaration" class=
+  "inline"><es-rhs></es-rhs></es-production> <code>export default</code>
+  <es-nt>AssignmentExpression</es-nt><code>;</code></p>
+
+  <ol class="proc">
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing
+    <code>"default"</code>.
+    </li>
+  </ol>
+
+  <es-production name="ExportClause" class="inline">
+    <es-rhs>{ }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="ExportsList" class="inline">
+    <es-rhs><es-nt>ExportsList</es-nt> , <es-nt>ExportSpecifier</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>names</i> be the ExportedBindings of <i>ExportsList</i>.</li>
+
+    <li>Append to <i>names</i> the elements of the ExportedBindings of <i>ExportSpecifier</i>.</li>
+
+    <li>Return <i>names</i>.</li>
+  </ol>
+
+  <es-production name="ExportDeclaration" class="inline">
+    <es-rhs>export <es-nt>ExportClause</es-nt> <es-nt optional>FromClause</es-nt> ;</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the ExportedBindings of <i>ExportClause</i>.</li>
+  </ol>
+
+  <es-production name="ExportSpecifier" class="inline">
+    <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the
+      <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+      <i>IdentifierReference</i>.
+    </li>
+  </ol>
+
+  <es-production name="ExportSpecifier" class="inline">
+    <es-rhs><es-nt>IdentifierReference</es-nt> as <es-nt>IdentifierName</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the
+      <a href="#sec-identifiers-and-identifier-names">StringValue</a> of <i>IdentifierName</i>.
+    </li>
+  </ol>
+
+  <es-production name="ExportSpecifier" class="inline">
+    <es-rhs><es-nt>IdentifierName</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the
+      <a href="#sec-identifiers-and-identifier-names">StringValue</a> of <i>IdentifierName</i>.
+    </li>
+  </ol>
+
+  <es-production name="ExportSpecifier" class="inline">
+    <es-rhs><es-nt>IdentifierName</es-nt> as <es-nt>IdentifierName</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the
+      <a href="#sec-identifiers-and-identifier-names">StringValue</a> of the second
+      <i>IdentifierName</i>.
+    </li>
+  </ol>
+</es-clause>

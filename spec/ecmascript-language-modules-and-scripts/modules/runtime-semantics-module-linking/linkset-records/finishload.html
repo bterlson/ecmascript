@@ -1,0 +1,44 @@
+<!doctype html>
+<es-clause title="FinishLoad(loader, load) Abstract Operation" anchor="sec-finishload">
+  <p>The FinishLoad Abstract Operation removes a completed Load Record from all LinkSets and
+  commits the newly loaded Module to the registry. It performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>name</i> be <i>load</i>.[[Name]].</li>
+
+    <li>If <i>name</i> is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>
+          <a href="#sec-algorithm-conventions">Assert</a> : There is no Record {[[key]], [[value]]}
+          <i>p</i> that is an element of <i>loader</i>.[[ Modules]], such that <a href=
+          "#sec-samevalue">SameValue</a> (<i>p</i>.[[key]], <i>load</i>.[[Name]]) is <b>true</b>.
+        </li>
+
+        <li>Append the Record {[[key]]: <i>load</i>.[[Name]], [[value]]: <i>load</i>.[[Module]]} as
+        the last element of <i>loader</i>.[[ Modules]].</li>
+      </ol>
+    </li>
+
+    <li>If <i>load</i> is an element of the <a href=
+    "#sec-list-and-record-specification-type">List</a> <i>loader</i>.[[Loads]], then
+
+      <ol class="block">
+        <li>Remove <i>load</i> from the <a href="#sec-list-and-record-specification-type">List</a>
+        <i>loader</i>.[[Loads]].
+        </li>
+      </ol>
+    </li>
+
+    <li>For each <i>linkSet</i> in <i>load</i>.[[LinkSets]],
+
+      <ol class="block">
+        <li>Remove <i>load</i> from <i>linkSet</i>.[[Loads]].</li>
+      </ol>
+    </li>
+
+    <li>Remove all elements from the <a href="#sec-list-and-record-specification-type">List</a> <i>
+      load</i>.[[LinkSets]].
+    </li>
+  </ol>
+</es-clause>

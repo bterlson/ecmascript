@@ -1,0 +1,31 @@
+<!doctype html>
+<es-clause title="Binary Bitwise Operators" anchor="sec-binary-bitwise-operators">
+  <h2>Syntax</h2>
+
+  <es-production name="BitwiseANDExpression" params="In, Yield">
+    <es-rhs><es-nt params="?In, ?Yield">EqualityExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">BitwiseANDExpression</es-nt> &amp; <es-nt params=
+    "?In, ?Yield">EqualityExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="BitwiseXORExpression" params="In, Yield">
+    <es-rhs><es-nt params="?In, ?Yield">BitwiseANDExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">BitwiseXORExpression</es-nt> ^ <es-nt params=
+    "?In, ?Yield">BitwiseANDExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="BitwiseORExpression" params="In, Yield">
+    <es-rhs><es-nt params="?In, ?Yield">BitwiseXORExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">BitwiseORExpression</es-nt> | <es-nt params=
+    "?In, ?Yield">BitwiseXORExpression</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "binary-bitwise-operators\binary-bitwise-operators-static-semantics-isanonymousfunctiondefinition.html">
+  <link rel="import" href=
+  "binary-bitwise-operators\binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget.html">
+  <link rel="import" href=
+  "binary-bitwise-operators\binary-bitwise-operators-runtime-semantics-evaluation.html">
+</es-clause>

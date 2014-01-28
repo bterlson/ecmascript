@@ -1,0 +1,70 @@
+<!doctype html>
+<es-clause title="Quantifier" anchor="sec-quantifier">
+  <p>The production <es-production name="Quantifier" type="lexical" class=
+  "inline"><es-rhs><es-nt>QuantifierPrefix</es-nt></es-rhs></es-production>
+  evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>QuantifierPrefix</i> to obtain the two results: an integer <i>min</i> and an
+    integer (or ∞) <i>max</i>.</li>
+
+    <li>Return the three results <i>min</i>, <i>max</i>, and <b>true</b>.</li>
+  </ol>
+
+  <p>The production <es-production name="Quantifier" type="lexical" class=
+  "inline"><es-rhs><es-nt>QuantifierPrefix</es-nt>
+  <es-t>?</es-t></es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>QuantifierPrefix</i> to obtain the two results: an integer <i>min</i> and an
+    integer (or ∞) <i>max</i>.</li>
+
+    <li>Return the three results <i>min</i>, <i>max</i>, and <b>false</b>.</li>
+  </ol>
+
+  <p>The production <es-production name="QuantifierPrefix" type="lexical" class=
+  "inline"><es-rhs>*</es-rhs></es-production> evaluates by returning the two
+  results 0 and ∞.</p>
+
+  <p>The production <es-production name="QuantifierPrefix" type="lexical" class=
+  "inline"><es-rhs>+</es-rhs></es-production> evaluates by returning the two
+  results 1 and ∞.</p>
+
+  <p>The production <es-production name="QuantifierPrefix" type="lexical" class=
+  "inline"><es-rhs>?</es-rhs></es-production> evaluates by returning the two
+  results 0 and 1.</p>
+
+  <p>The production <es-production name="QuantifierPrefix" type="lexical" class=
+  "inline"><es-rhs><es-t>{</es-t> <es-nt>DecimalDigits</es-nt>
+  <es-t>}</es-t></es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>i</i> be the MV of <i>DecimalDigits</i> (see <a href=
+    "#sec-literals-numeric-literals">11.8.3</a> ).
+    </li>
+
+    <li>Return the two results <i>i</i> and <i>i</i>.</li>
+  </ol>
+
+  <p>The production <es-production name="QuantifierPrefix" type="lexical" class=
+  "inline"><es-rhs><es-t>{</es-t> <es-nt>DecimalDigits</es-nt> <es-t>,</es-t>
+  <es-t>}</es-t></es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>i</i> be the MV of <i>DecimalDigits</i>.</li>
+
+    <li>Return the two results <i>i</i> and ∞.</li>
+  </ol>
+
+  <p>The production <es-production name="QuantifierPrefix" type="lexical" class=
+  "inline"><es-rhs>{ <es-nt>DecimalDigits</es-nt> , <es-nt>DecimalDigits</es-nt>
+  }</es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>i</i> be the MV of the first <i>DecimalDigits</i>.</li>
+
+    <li>Let <i>j</i> be the MV of the second <i>DecimalDigits</i>.</li>
+
+    <li>Return the two results <i>i</i> and <i>j</i>.</li>
+  </ol>
+</es-clause>

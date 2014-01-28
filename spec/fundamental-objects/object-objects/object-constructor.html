@@ -1,0 +1,51 @@
+<!doctype html>
+<es-clause title="The Object Constructor" anchor="sec-object-constructor">
+  <p>The Object constructor is the %Object% intrinsic object and the initial value of the
+  <code>Object</code> property of the global object. When <code>Object</code> is called as a
+  function rather than as a constructor, it performs a type conversion.</p>
+
+  <p>The <code>Object</code> constructor is designed to be subclassable. It may be used as the
+  value of an <code>extends</code> clause of a class declaration.</p>
+
+  <es-note>
+    <p>Subclass constructors that inherit from the Object constructor typically should not include
+    a <code>super</code> call to <code>Object</code> as it performs no initialization action on its
+    <code>this</code> value and does not return its <code>this</code> value as its value.</p>
+  </es-note>
+
+  <es-clause title="Object ( [ value ] )" anchor="sec-object-value">
+    <p>When <code>Object</code> function is called with optional argument <es-nt>value</es-nt>, the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <i>value</i> is <b>null</b>, <b>undefined</b> or not supplied, return the result of
+      the abstract operation <a href="#sec-objectcreate">ObjectCreate</a> with the intrinsic object
+      %ObjectPrototype% as its argument.
+      </li>
+
+      <li>Return <a href="#sec-toobject">ToObject</a> (<i>value</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="new Object (... argumentsList )" anchor="sec-new-object-argumentslist">
+    <p>When <code>Object</code> is called as part of a new expression , it creates a new
+    object:</p>
+
+    <ol class="proc">
+      <li>Let <i>F</i> be the <code>Object</code> function object on which the <code>new</code>
+      operator was applied.</li>
+
+      <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+      internal method that was invoked by the <code>new</code> operator.</li>
+
+      <li>Return the result of calling the [[Call]] internal method of <i>F</i>, providing
+      <b>undefined</b> and <i>argumentsList</i> as the arguments.</li>
+    </ol>
+
+    <p>The above steps defined the [[Construct]] internal method of the Object constructor. Object
+    may not be implemented as an <a href="#sec-ecmascript-function-objects">ECMAScript function
+    object</a> because this definition differs from the definition of [[Construct]] used by
+    ECMAScript function objects.</p>
+  </es-clause>
+</es-clause>

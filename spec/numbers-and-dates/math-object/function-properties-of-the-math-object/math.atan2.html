@@ -1,0 +1,73 @@
+<!doctype html>
+<es-clause title="Math.atan2 (y, x)" anchor="sec-math.atan2">
+  <p>Returns an implementation-dependent approximation to the arc tangent of the quotient
+  <i>y</i><b>/</b><i>x</i> of the arguments <es-nt>y</es-nt> and <es-nt>x</es-nt>, where the signs
+  of <es-nt>y</es-nt> and <es-nt>x</es-nt> are used to determine the quadrant of the result. Note
+  that it is intentional and traditional for the two-argument arc tangent function that the
+  argument named <es-nt>y</es-nt> be first and the argument named <es-nt>x</es-nt> be second. The
+  result is expressed in radians and ranges from −π to +π.</p>
+
+  <ul>
+    <li>If either <i>x</i> or <i>y</i> is NaN, the result is NaN.</li>
+
+    <li>If <i>y</i>&gt;0 and <i>x</i> is +0, the result is an implementation-dependent
+    approximation to +π/2.</li>
+
+    <li>If <i>y</i>&gt;0 and <i>x</i> is −0, the result is an implementation-dependent
+    approximation to +π/2.</li>
+
+    <li>If <i>y</i> is +0 and <i>x</i>&gt;0, the result is +0.</li>
+
+    <li>If <i>y</i> is +0 and <i>x</i> is +0, the result is +0.</li>
+
+    <li>If <i>y</i> is +0 and <i>x</i> is −0, the result is an implementation-dependent
+    approximation to +π.</li>
+
+    <li>If <i>y</i> is +0 and <i>x</i>&lt;0, the result is an implementation-dependent
+    approximation to +π.</li>
+
+    <li>If <i>y</i> is −0 and <i>x</i>&gt;0, the result is −0.</li>
+
+    <li>If <i>y</i> is −0 and <i>x</i> is +0, the result is −0.</li>
+
+    <li>If <i>y</i> is −0 and <i>x</i> is −0, the result is an implementation-dependent
+    approximation to −π.</li>
+
+    <li>If <i>y</i> is −0 and <i>x</i>&lt;0, the result is an implementation-dependent
+    approximation to −π.</li>
+
+    <li>If <i>y</i>&lt;0 and <i>x</i> is +0, the result is an implementation-dependent
+    approximation to −π/2.</li>
+
+    <li>If <i>y</i>&lt;0 and <i>x</i> is −0, the result is an implementation-dependent
+    approximation to −π/2.</li>
+
+    <li>If <i>y</i>&gt;0 and <i>y</i> is finite and <i>x</i> is +∞, the result is +0.</li>
+
+    <li>If <i>y</i>&gt;0 and <i>y</i> is finite and <i>x</i> is −∞, the result if an
+    implementation-dependent approximation to +π.</li>
+
+    <li>If <i>y</i>&lt;0 and <i>y</i> is finite and <i>x</i> is +∞, the result is −0.</li>
+
+    <li>If <i>y</i>&lt;0 and <i>y</i> is finite and <i>x</i> is −∞, the result is an
+    implementation-dependent approximation to −π.</li>
+
+    <li>If <i>y</i> is +∞ and <i>x</i> is finite, the result is an implementation-dependent
+    approximation to +π/2.</li>
+
+    <li>If <i>y</i> is −∞ and <i>x</i> is finite, the result is an implementation-dependent
+    approximation to −π/2.</li>
+
+    <li>If <i>y</i> is +∞ and <i>x</i> is +∞, the result is an implementation-dependent
+    approximation to +π/4.</li>
+
+    <li>If <i>y</i> is +∞ and <i>x</i> is −∞, the result is an implementation-dependent
+    approximation to +3π/4.</li>
+
+    <li>If <i>y</i> is −∞ and <i>x</i> is +∞, the result is an implementation-dependent
+    approximation to −π/4.</li>
+
+    <li>If <i>y</i> is −∞ and <i>x</i> is −∞, the result is an implementation-dependent
+    approximation to −3π/4.</li>
+  </ul>
+</es-clause>

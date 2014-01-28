@@ -1,0 +1,612 @@
+<!doctype html>
+<es-clause title="Function Properties of the Math Object" anchor=
+"sec-function-properties-of-the-math-object">
+  <p>Each of the following <code>Math</code> object functions applies the <a href=
+  "#sec-tonumber">ToNumber</a> abstract operation to each of its arguments (in left-to-right order
+  if there is more than one). If <a href="#sec-tonumber">ToNumber</a> returns an <a href=
+  "#sec-completion-record-specification-type">abrupt completion</a> , that <a href=
+  "#sec-completion-record-specification-type">Completion Record</a> is immediately returned.
+  Otherwise, the function performs a computation on the resulting Number value(s). The value
+  returned by each function is a Number.</p>
+
+  <p>In the function descriptions below, the symbols NaN, −0, +0, −∞ and +∞ refer to the Number
+  values described in <a href="#sec-ecmascript-language-types-number-type">6.1.6</a> .</p>
+
+  <es-note>
+    <p>The behaviour of the functions <code>acos</code>, <code>acosh</code>, <code>asin</code>,
+    <code>asinh</code>, <code>atan</code>, <code>atanh</code>, <code>atan2</code>,
+    <code>cbrt</code>, <code>cos</code>, <code>cosh</code>, <code>exp</code>, <code>hypot</code>,
+    <code>log</code>,<code>log1p</code>, <code>log2</code>, <code>log10</code>, <code>pow</code>,
+    <code>sin</code>, <code>sinh</code>, <code>sqrt</code>, <code>tan</code>, and <code>tanh</code>
+    is not precisely specified here except to require specific results for certain argument values
+    that represent boundary cases of interest. For other argument values, these functions are
+    intended to compute approximations to the results of familiar mathematical functions, but some
+    latitude is allowed in the choice of approximation algorithms. The general intent is that an
+    implementer should be able to use the same mathematical library for ECMAScript on a given
+    hardware platform that is available to C programmers on that platform.</p>
+  </es-note>
+
+  <p>Although the choice of algorithms is left to the implementation, it is recommended (but not
+  specified by this standard) that implementations use the approximation algorithms for IEEE 754
+  arithmetic contained in <code>fdlibm</code>, the freely distributable mathematical library from
+  Sun Microsystems (<a href="http://www.netlib.org/fdlibm">http://www.netlib.org/fdlibm</a> ).</p>
+
+  <es-clause title="Math.abs (x)" anchor="sec-math.abs">
+    <p>Returns the absolute value of <es-nt>x</es-nt>; the result has the same magnitude as
+    <es-nt>x</es-nt> but has positive sign.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is −0, the result is +0.</li>
+
+      <li>If <i>x</i> is −∞, the result is +∞.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.acos (x)" anchor="sec-math.acos">
+    <p>Returns an implementation-dependent approximation to the arc cosine of <es-nt>x</es-nt>. The
+    result is expressed in radians and ranges from +0 to +π.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is greater than 1, the result is NaN.</li>
+
+      <li>If <i>x</i> is less than <b>−</b>1, the result is NaN.</li>
+
+      <li>If <i>x</i> is exactly 1, the result is +0.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.acosh(x)" anchor="sec-math.acosh">
+    <p>Returns an implementation-dependent approximation to the inverse hyperbolic cosine of
+    <i>x</i>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If x is less than 1, the result is NaN.</li>
+
+      <li>If x is 1, the result is +0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.asin (x)" anchor="sec-math.asin">
+    <p>Returns an implementation-dependent approximation to the arc sine of <es-nt>x</es-nt>. The
+    result is expressed in radians and ranges from −π/2 to +π/2.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is greater than 1, the result is NaN.</li>
+
+      <li>If <i>x</i> is less than –1, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.asinh(x)" anchor="sec-math.asinh">
+    <p>Returns an implementation-dependent approximation to the inverse hyperbolic sine of
+    <i>x</i>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+
+      <li>If x is −∞, the result is −∞.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.atan (x)" anchor="sec-math.atan">
+    <p>Returns an implementation-dependent approximation to the arc tangent of <es-nt>x</es-nt>.
+    The result is expressed in radians and ranges from −π/2 to +π/2.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞, the result is an implementation-dependent approximation to +π/2.</li>
+
+      <li>If <i>x</i> is −∞, the result is an implementation-dependent approximation to −π/2.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.atanh(x)" anchor="sec-math.atanh">
+    <p>Returns an implementation-dependent approximation to the inverse hyperbolic tangent of
+    <i>x</i>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is less than −1, the result is NaN.</li>
+
+      <li>If <i>x</i> is greater than 1, the result is NaN.</li>
+
+      <li>If <i>x</i> is −1, the result is −∞.</li>
+
+      <li>If <i>x</i> is +1, the result is +∞.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+    </ul>
+  </es-clause>
+  <link rel="import" href="function-properties-of-the-math-object\math.atan2.html">
+
+  <es-clause title="Math.cbrt(x)" anchor="sec-math.cbrt">
+    <p>Returns an implementation-dependent approximation to the cube root of <i>x</i>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+
+      <li>If <i>x</i> is −∞, the result is −∞.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.ceil (x)" anchor="sec-math.ceil">
+    <p>Returns the smallest (closest to <b>−∞</b>) Number value that is not less than
+    <es-nt>x</es-nt> and is equal to a mathematical integer. If <es-nt>x</es-nt> is already an
+    integer, the result is <es-nt>x</es-nt>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+
+      <li>If <i>x</i> is −∞, the result is −∞.</li>
+
+      <li>If <i>x</i> is less than 0 but greater than -1, the result is −0.</li>
+    </ul>
+
+    <p>The value of <code>Math.ceil(x)</code> is the same as the value of <code>-<a href=
+    "#sec-math.floor">Math.floor</a> (-x)</code>.</p>
+  </es-clause>
+
+  <es-clause title="Math.cos (x)" anchor="sec-math.cos">
+    <p>Returns an implementation-dependent approximation to the cosine of <es-nt>x</es-nt>. The
+    argument is expressed in radians.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is 1.</li>
+
+      <li>If <i>x</i> is −0, the result is 1.</li>
+
+      <li>If <i>x</i> is +∞, the result is NaN.</li>
+
+      <li>If <i>x</i> is −∞, the result is NaN.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.cosh(x)" anchor="sec-math.cosh">
+    <p>Returns an implementation-dependent approximation to the hyperbolic cosine of <i>x</i>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is 1.</li>
+
+      <li>If <i>x</i> is −0, the result is 1.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+
+      <li>If <i>x</i> is −∞, the result is +∞.</li>
+    </ul>
+
+    <es-note>
+      <p>The value of cosh(x) is the same as <i>(exp(x) + exp(-x))/2</i>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Math.exp (x)" anchor="sec-math.exp">
+    <p>Returns an implementation-dependent approximation to the exponential function of
+    <es-nt>x</es-nt> (<es-nt>e</es-nt> raised to the power of <es-nt>x</es-nt>, where
+    <es-nt>e</es-nt> is the base of the natural logarithms).</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is 1.</li>
+
+      <li>If <i>x</i> is −0, the result is 1.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+
+      <li>If <i>x</i> is −∞, the result is +0.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.expm1 (x)" anchor="sec-math.expm1">
+    <p>Returns an implementation-dependent approximation to subtracting 1 from the exponential
+    function of <i>x</i> (<i>e</i> raised to the power of <i>x</i>, where <i>e</i> is the base of
+    the natural logarithms). The result is computed in a way that is accurate even when the value
+    of x is close 0.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+
+      <li>If <i>x</i> is −∞, the result is -1.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.floor (x)" anchor="sec-math.floor">
+    <p>Returns the greatest (closest to <b>+∞</b>) Number value that is not greater than
+    <es-nt>x</es-nt> and is equal to a mathematical integer. If <es-nt>x</es-nt> is already an
+    integer, the result is <es-nt>x</es-nt>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+
+      <li>If <i>x</i> is −∞, the result is −∞.</li>
+
+      <li>If <i>x</i> is greater than 0 but less than 1, the result is +0.</li>
+    </ul>
+
+    <es-note>
+      <p>The value of <code>Math.<a href="#sec-algorithm-conventions">floor</a> (x)</code> is the
+      same as the value of <code>-<a href="#sec-math.ceil">Math.ceil</a> (-x)</code>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Math.fround (x )" anchor="sec-math.fround">
+    <p>When <code>Math.fround</code> is called with argument <i>x</i> the following steps are
+    taken:</p>
+
+    <ol class="proc">
+      <li>If <i>x</i> is NaN, return NaN.</li>
+
+      <li>If <i>x</i> is one of +0, −0, +∞, −∞, then return <i>x</i>.</li>
+
+      <li>Let <i>x32</i> be the result of converting <i>x</i> to a value in IEEE-754-2005 binary32
+      format using roundTiesToEven.</li>
+
+      <li>Let <i>x64</i> be the result of converting <i>x32</i> to a value in IEEE-754-2005
+      binary64 format.</li>
+
+      <li>Return the ECMAScript Number value corresponding to <i>x64</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Math.hypot([ value1 [ , value2 [ , … ] ] ] )" anchor="sec-math.hypot">
+    <p><code>Math.hypot</code> returns an implementation-dependent approximation of the square root
+    of the sum of squares of its arguments.</p>
+
+    <ul>
+      <li>If no arguments are passed, the result is +0.</li>
+
+      <li>If any argument is +∞, the result is +∞.</li>
+
+      <li>If any argument is −∞, the result is +∞.</li>
+
+      <li>If no argument is +∞ or −∞, and any argument is NaN, the result is NaN.</li>
+
+      <li>If all arguments are either +0 or -0, the result is +0.</li>
+    </ul>
+
+    <p>The length property of the <code>hypot</code> function is 2.</p>
+
+    <es-note>
+      <p>Implementations should take care to avoid the loss of precision from overflows and
+      underflows that are prone to occur in naive implementations when this function is called with
+      more than two arguments.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Math.imul(x, y)" anchor="sec-math.imul">
+    <p>When the <code>Math.imul</code> is called with arguments <es-nt>x</es-nt> and
+    <es-nt>y</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>a</i> be <a href="#sec-touint32">ToUint32</a> (<i>x</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>a</i>).
+      </li>
+
+      <li>Let <i>b</i> be <a href="#sec-touint32">ToUint32</a> (<i>y</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>b</i>).
+      </li>
+
+      <li>Let <i>product</i> be (<i>a</i> × <i>b</i>) <a href=
+      "#sec-algorithm-conventions">modulo</a> 2<sup>32</sup> .
+      </li>
+
+      <li>If <i>product</i> ≥ 2<sup>31</sup> , return <i>product</i> − 2<sup>32</sup> , otherwise
+      return <i>product</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Math.log (x)" anchor="sec-math.log">
+    <p>Returns an implementation-dependent approximation to the natural logarithm of
+    <es-nt>x</es-nt>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is less than 0, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0 or −0, the result is −∞.</li>
+
+      <li>If <i>x</i> is 1, the result is +0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.log1p (x)" anchor="sec-math.log1p">
+    <p>Returns an implementation-dependent approximation to the natural logarithm of 1 + <i>x</i>.
+    The result is computed in a way that is accurate even when the value of x is close to zero.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is less than -1, the result is NaN.</li>
+
+      <li>If x is -1, the result is -∞.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.log10 (x)" anchor="sec-math.log10">
+    <p>Returns an implementation-dependent approximation to the base 10 logarithm of <i>x</i>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is less than 0, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is −∞.</li>
+
+      <li>If <i>x</i> is −0, the result is −∞.</li>
+
+      <li>If <i>x</i> is 1, the result is +0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.log2 (x)" anchor="sec-math.log2">
+    <p>Returns an implementation-dependent approximation to the base 2 logarithm of <i>x</i>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is less than 0, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is −∞.</li>
+
+      <li>If <i>x</i> is −0, the result is −∞.</li>
+
+      <li>If <i>x</i> is 1, the result is +0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.max ( [ value1 [ , value2 [ , … ] ] ] )" anchor="sec-math.max">
+    <p>Given zero or more arguments, calls <a href="#sec-tonumber">ToNumber</a> on each of the
+    arguments and returns the largest of the resulting values.</p>
+
+    <ul>
+      <li>
+        <p>If no arguments are given, the result is −∞.</p>
+      </li>
+
+      <li>
+        <p>If any value is NaN, the result is NaN.</p>
+      </li>
+
+      <li>
+        <p>The comparison of values to determine the largest value is done using the Abstract
+        Relational Comparison algorithm (<a href="#sec-abstract-relational-comparison">7.2.8</a> )
+        except that +0 is considered to be larger than −0.</p>
+      </li>
+    </ul>
+
+    <p>The <code>length</code> property of the <code>max</code> method is <b>2</b>.</p>
+  </es-clause>
+
+  <es-clause title="Math.min ( [ value1 [ , value2 [ , … ] ] ] )" anchor="sec-math.min">
+    <p>Given zero or more arguments, calls <a href="#sec-tonumber">ToNumber</a> on each of the
+    arguments and returns the smallest of the resulting values.</p>
+
+    <ul>
+      <li>
+        <p>If no arguments are given, the result is +∞.</p>
+      </li>
+
+      <li>
+        <p>If any value is NaN, the result is NaN.</p>
+      </li>
+
+      <li>
+        <p>The comparison of values to determine the smallest value is done using the Abstract
+        Relational Comparison algorithm (<a href="#sec-abstract-relational-comparison">7.2.8</a> )
+        except that +0 is considered to be larger than −0.</p>
+      </li>
+    </ul>
+
+    <p>The <code>length</code> property of the <code>min</code> method is <b>2</b>.</p>
+  </es-clause>
+  <link rel="import" href="function-properties-of-the-math-object\math.pow.html">
+
+  <es-clause title="Math.random ( )" anchor="sec-math.random">
+    <p>Returns a Number value with positive sign, greater than or equal to 0 but less than 1,
+    chosen randomly or pseudo randomly with approximately uniform distribution over that range,
+    using an implementation-dependent algorithm or strategy. This function takes no arguments.</p>
+
+    <p>Each <code>Math.random</code> function created for distinct code Realms must produce a
+    distinct sequence of values from successive calls.</p>
+  </es-clause>
+  <link rel="import" href="function-properties-of-the-math-object\math.round.html">
+
+  <es-clause title="Math.sign(x)" anchor="sec-math.sign">
+    <p>Returns the sign of the x, indicating whether x is positive, negative or zero.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is negative and not −0, the result is −1.</li>
+
+      <li>If <i>x</i> is positive and not +0, the result is +1.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.sin (x)" anchor="sec-math.sin">
+    <p>Returns an implementation-dependent approximation to the sine of <es-nt>x</es-nt>. The
+    argument is expressed in radians.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞ or −∞, the result is NaN.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.sinh(x)" anchor="sec-math.sinh">
+    <p>Returns an implementation-dependent approximation to the hyperbolic sine of <i>x</i>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+
+      <li>If x is −∞, the result is −∞.</li>
+    </ul>
+
+    <es-note>
+      <p>The value of sinh(x) is the same as <i>(exp(x) - exp(-x))/2</i>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Math.sqrt (x)" anchor="sec-math.sqrt">
+    <p>Returns an implementation-dependent approximation to the square root of
+    <es-nt>x</es-nt>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is less than 0, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.tan (x)" anchor="sec-math.tan">
+    <p>Returns an implementation-dependent approximation to the tangent of <es-nt>x</es-nt>. The
+    argument is expressed in radians.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞ or −∞, the result is NaN.</li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Math.tanh(x)" anchor="sec-math.tanh">
+    <p>Returns an implementation-dependent approximation to the hyperbolic tangent of <i>x</i>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +1.</li>
+
+      <li>If <i>x</i> is −∞, the result is -1.</li>
+    </ul>
+
+    <es-note>
+      <p>The value of tanh(x) is the same as <i>(exp(x) - exp(-x))/(exp(x) + exp(-x))</i>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Math.trunc(x)" anchor="sec-math.trunc">
+    <p>Returns the integral part of the number <es-nt>x</es-nt>, removing any fractional digits. If
+    <es-nt>x</es-nt> is already an integer, the result is <es-nt>x</es-nt>.</p>
+
+    <ul>
+      <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+      <li>If <i>x</i> is −0, the result is −0.</li>
+
+      <li>If <i>x</i> is +0, the result is +0.</li>
+
+      <li>If <i>x</i> is +∞, the result is +∞.</li>
+
+      <li>If x is −∞, the result is −∞.</li>
+
+      <li>If <i>x</i> is greater than 0 but less than 1, the result is +0.</li>
+
+      <li>If <i>x</i> is less than 0 but greater than −1, the result is −0.</li>
+    </ul>
+  </es-clause>
+</es-clause>

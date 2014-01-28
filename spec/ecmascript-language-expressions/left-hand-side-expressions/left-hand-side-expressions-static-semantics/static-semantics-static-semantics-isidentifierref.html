@@ -1,0 +1,33 @@
+<!doctype html>
+<es-clause title="Static Semantics: IsIdentifierRef" anchor=
+"sec-static-semantics-static-semantics-isidentifierref">
+  <p>See also: <a href="#sec-semantics-static-semantics-isidentifierref">12.1.0.3</a> .</p>
+
+  <es-production name="LeftHandSideExpression">
+    <es-rhs><es-nt>CallExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="MemberExpression">
+    <es-rhs><es-nt>MemberExpression</es-nt> [ <es-nt>Expression</es-nt> ]</es-rhs>
+
+    <es-rhs><es-nt>MemberExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+
+    <es-rhs><es-nt>MemberExpression</es-nt> <es-nt>TemplateLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-t>super</es-t> <es-t>[</es-t> <es-nt>Expression</es-nt> <es-t>]</es-t></es-rhs>
+
+    <es-rhs><es-t>super</es-t> <es-t>.</es-t> <es-nt>IdentifierName</es-nt></es-rhs>
+
+    <es-rhs><es-t>new</es-t> <es-t>super</es-t> <es-nt optional>Arguments</es-nt></es-rhs>
+
+    <es-rhs>new <es-nt>MemberExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="NewExpression">
+    <es-rhs><es-t>new</es-t> <es-nt>NewExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <b>false</b>.</li>
+  </ol>
+</es-clause>

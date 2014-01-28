@@ -1,0 +1,45 @@
+<!doctype html>
+<es-clause title="CopyDataBlockBytes(toBlock, toIndex, fromBlock, fromIndex, count)" anchor=
+"sec-copydatablockbytes">
+  <p>When the abstract operation CopyDataBlockBytes is called the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>fromBlock</i> and <i>toBlock</i> are
+      distinct <a href="#sec-data-blocks">Data Block</a> values.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>fromIndex</i>, <i>toIndex</i>, and
+      <i>count</i> are positive integer values.
+    </li>
+
+    <li>Let <i>fromSize</i> be the number of bytes in <i>fromBlock</i>.</li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>fromIndex</i>+<i>count</i> ≤
+      <i>fromSize</i>.
+    </li>
+
+    <li>Let <i>toSize</i> be the number of bytes in <i>toBlock</i>.</li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>toIndex</i>+<i>count</i> ≤
+      <i>toSize</i>.
+    </li>
+
+    <li>Repeat, while <i>count</i>&gt;0
+
+      <ol class="block">
+        <li>Set toBlock[toIndex] to the value of fromBlock[fromIndex].</li>
+
+        <li>Increment <i>toIndex</i> and <i>fromIndex</i> each by 1.</li>
+
+        <li>Decrement <i>count</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
+    </li>
+  </ol>
+</es-clause>

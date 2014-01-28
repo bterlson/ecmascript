@@ -1,0 +1,40 @@
+<!doctype html>
+<es-clause title="MakeMethod ( F, methodName, homeObject) Abstract Operation" anchor=
+"sec-makemethod">
+  <p>The abstract operation MakeMethod with arguments <es-nt>F</es-nt>, <es-nt>methodName</es-nt>
+  and <es-nt>homeObject</es-nt> configures <es-nt>F</es-nt> as a method by performing the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>F</i> is an <a href=
+      "#sec-ecmascript-function-objects">ECMAScript function object</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>methodName</i> is either
+      <b>undefined</b> or a <a href="#sec-object-type">property key</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>homeObject</i> ) is either Undefined or
+      Object.
+    </li>
+
+    <li>Set the [[NeedsSuper]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>F</i> to <b>true</b>.
+    </li>
+
+    <li>Set the [[HomeObject]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>F</i> to <i>homeObject</i>.
+    </li>
+
+    <li>Set the [[MethodName]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>F</i> to <i>methodName</i>.
+    </li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
+    </li>
+  </ol>
+</es-clause>

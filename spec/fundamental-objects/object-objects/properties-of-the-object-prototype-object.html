@@ -1,0 +1,126 @@
+<!doctype html>
+<es-clause title="Properties of the Object Prototype Object" anchor=
+"sec-properties-of-the-object-prototype-object">
+  <p>The Object prototype object is an ordinary object.</p>
+
+  <p>The value of the [[Prototype]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the Object prototype
+  object is <b>null</b> and the initial value of the [[Extensible]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>true</b>.</p>
+
+  <es-clause title="Object.prototype.constructor" anchor="sec-object.prototype.constructor">
+    <p>The initial value of <code>Object.prototype.constructor</code> is the standard built-in
+    <code>Object</code> constructor.</p>
+  </es-clause>
+
+  <es-clause title="Object.prototype.hasOwnProperty (V)" anchor=
+  "sec-object.prototype.hasownproperty">
+    <p>When the <code>hasOwnProperty</code> method is called with argument <es-nt>V</es-nt>, the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>P</i> be <a href="#sec-topropertykey">ToPropertyKey</a> (<i>V</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>P</i>).
+      </li>
+
+      <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the
+      <b>this</b> value as the argument.
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+      </li>
+
+      <li>Return the result of <a href="#sec-hasownproperty">HasOwnProperty</a> (<i>O</i>,
+      <i>P</i>).
+      </li>
+    </ol>
+
+    <es-note>
+      <p>The ordering of steps 1 and 3 is chosen to ensure that any exception that would have been
+      thrown by step 1 in previous editions of this specification will continue to be thrown even
+      if the <b>this</b> value is <b>undefined</b> or <b>null</b>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Object.prototype.isPrototypeOf (V)" anchor=
+  "sec-object.prototype.isprototypeof">
+    <p>When the <code>isPrototypeOf</code> method is called with argument <es-nt>V</es-nt>, the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <i>V</i> is not an object, return <b>false</b>.</li>
+
+      <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the
+      <b>this</b> value as the argument.
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+      </li>
+
+      <li>Repeat
+
+        <ol class="block">
+          <li>Let <i>V</i> be the result of calling the [[GetPrototypeOf]] internal method of
+          <i>V</i> with no arguments.</li>
+
+          <li>if <i>V</i> is <b>null</b>, return <b>false</b></li>
+
+          <li>If <a href="#sec-samevalue">SameValue</a> (<i>O</i>, <i>V</i>) is <b>true</b>, then
+          return <b>true</b>.
+          </li>
+        </ol>
+      </li>
+    </ol>
+
+    <es-note>
+      <p>The ordering of steps 1 and 2 preserves the behaviour specified by previous editions of
+      this specification for the case where V is not an object and the <b>this</b> value is
+      <b>undefined</b> or null.</p>
+    </es-note>
+  </es-clause>
+  <link rel="import" href=
+  "properties-of-the-object-prototype-object\object.prototype.propertyisenumerable.html">
+
+  <es-clause title="Object.prototype.toLocaleString ( )" anchor=
+  "sec-object.prototype.tolocalestring">
+    <p>When the <b>toLocaleString</b> method is called, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+      <li>Return the result of Invoke(<i>O</i>, <code>"toString"</code>).</li>
+    </ol>
+
+    <es-note>
+      <p>This function is provided to give all Objects a generic <code>toLocaleString</code>
+      interface, even though not all may use it. Currently, <code>Array</code>,
+      <code>Number</code>, and <code>Date</code> provide their own locale-sensitive
+      <code>toLocaleString</code> methods.</p>
+    </es-note>
+
+    <es-note>
+      <p>The first parameter to this function is likely to be used in a future version of this
+      standard; it is recommended that implementations do not use this parameter position for
+      anything else.</p>
+    </es-note>
+  </es-clause>
+  <link rel="import" href=
+  "properties-of-the-object-prototype-object\object.prototype.tostring.html">
+
+  <es-clause title="Object.prototype.valueOf ( )" anchor="sec-object.prototype.valueof">
+    <p>When the <b>valueOf</b> method is called, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the
+      <b>this</b> value as the argument.
+      </li>
+
+      <li>Return <i>O</i>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

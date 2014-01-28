@@ -1,0 +1,88 @@
+<!doctype html>
+<es-clause title="__proto___ Property Names in Object Initialisers" anchor=
+"sec-__proto___-property-names-in-object-initialisers">
+  <p>In <a href="#sec-object-initialiser">12.1.5</a> the PropertyDefinitionEvaluation algorithm for
+  the production <es-production name="PropertyDefinition" class=
+  "inline"><es-rhs><es-nt>PropertyName</es-nt> :
+  <es-nt>AssignmentExpression</es-nt></es-rhs></es-production> is replaced with the
+  following:</p>
+
+  <es-production name="PropertyDefinition" class="inline">
+    <es-rhs><es-nt>PropertyName</es-nt> : <es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propKey</i>).
+    </li>
+
+    <li>Let <i>exprValueRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+    <li>Let <i>propValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprValueRef</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propValue</i>).
+    </li>
+
+    <li>If <i>propKey</i> is the string value <code>"__proto__"</code> and if
+    IsComputedPropertyKey(<i>propKey</i>) is <b>false</b>, then
+
+      <ol class="block">
+        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>propValue</i>) is
+        either Object or Null, then
+
+          <ol class="block">
+            <li>Return the result of calling the [[SetPrototypeOf]] internal method of
+            <i>object</i> with argument <i>propValue</i>.</li>
+          </ol>
+        </li>
+
+        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
+        </li>
+      </ol>
+    </li>
+
+    <li>If IsAnonymousFunctionDefinition of <i>AssignmentExpression</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>
+          <a href="#sec-algorithm-conventions">Assert</a> : <i>propValue</i> is an <a href=
+          "#sec-ecmascript-function-objects">ECMAScript function object</a> .
+        </li>
+
+        <li>Let <i>referencesSuper</i> be the value of <i>propValue</i>’s [[[NeedsSuper]]
+          <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>If <i>referencesSuper</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Set the <i>propValue</i>’s [[HomeObject]] <a href=
+            "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>object</i>.
+            </li>
+
+            <li>Set the <i>propValue</i>’s [[MethodName]] <a href=
+            "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>propKey</i>.
+            </li>
+          </ol>
+        </li>
+
+        <li>
+          <a href="#sec-setfunctionname">SetFunctionName</a> (<i>propValue</i>, <i>propKey</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>desc</i> be the <a href="#sec-property-descriptor-specification-type">Property
+    Descriptor</a> {[[Value]]: <i>propValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]:
+    <b>true</b>, [[Configurable]]: <b>true</b>}
+    </li>
+
+    <li>Return the result of <a href="#sec-definepropertyorthrow">DefinePropertyOrThrow</a>
+    (<i>object</i>, <i>propKey</i>, <i>desc</i>).
+    </li>
+  </ol>
+</es-clause>

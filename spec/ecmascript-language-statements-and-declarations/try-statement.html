@@ -1,0 +1,61 @@
+<!doctype html>
+<es-clause title="TheStatement" anchor="sec-try-statement">
+  <h2>Syntax</h2>
+
+  <es-production name="TryStatement" params="Yield, Return">
+    <es-rhs>try <es-nt params="?Yield, ?Return">Block</es-nt> <es-nt>Catch</es-nt> <es-gann>?Yield,
+    ?Return</es-gann></es-rhs>
+
+    <es-rhs>try <es-nt params="?Yield, ?Return">Block</es-nt> <es-nt>Finally</es-nt>
+    <es-gann>?Yield, ?Return</es-gann></es-rhs>
+
+    <es-rhs>try <es-nt params="?Yield, ?Return">Block</es-nt> <es-nt params=
+    "?Yield, ?Return">Catch</es-nt> <es-nt params="?Yield, ?Return">Finally</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Catch" params="Yield, Return">
+    <es-rhs>catch ( <es-nt params="?Yield">CatchParameter</es-nt> ) <es-nt params=
+    "?Yield, ?Return">Block</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Finally" params="Yield, Return">
+    <es-rhs><es-t>finally</es-t> <es-nt params="?Yield, ?Return">Block</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="CatchParameter" params="Yield">
+    <es-rhs><es-nt>BindingIdentifier</es-nt> <es-gann>?Yield</es-gann></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">BindingPattern</es-nt></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>The <code>try</code> statement encloses a block of code in which an exceptional condition
+    can occur, such as a runtime error or a <code>throw</code> statement. The <code>catch</code>
+    clause provides the exception-handling code. When a catch clause catches an exception, its
+    <es-nt>CatchParameter</es-nt> is bound to that exception.</p>
+  </es-note>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-try-statement-static-semantics-early-errors">
+    <es-production name="Catch" class="inline">
+      <es-rhs>catch ( <es-nt>CatchParameter</es-nt> ) <es-nt>Block</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if any element of the BoundNames of <es-nt>CatchParameter</es-nt>
+        also occurs in the LexicallyDeclaredNames of <es-nt>Block</es-nt>.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if any element of the BoundNames of <es-nt>CatchParameter</es-nt>
+        also occurs in the VarDeclaredNames of <es-nt>Block</es-nt>.</p>
+      </li>
+    </ul>
+  </es-clause>
+  <link rel="import" href="try-statement\try-statement-static-semantics-vardeclarednames.html">
+  <link rel="import" href=
+  "try-statement\try-statement-runtime-semantics-bindinginitialisation.html">
+  <link rel="import" href="try-statement\runtime-semantics-catchclauseevaluation.html">
+  <link rel="import" href="try-statement\try-statement-runtime-semantics-evaluation.html">
+</es-clause>

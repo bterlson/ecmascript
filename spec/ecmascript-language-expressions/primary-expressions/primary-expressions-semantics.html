@@ -1,0 +1,61 @@
+<!doctype html>
+<es-clause title="Semantics" anchor="sec-primary-expressions-semantics">
+  <es-clause title="Static Semantics: CoveredParenthesisedExpression" anchor=
+  "sec-static-semantics-coveredparenthesisedexpression">
+    <es-production name="CoverParenthesisedExpressionAndArrowParameterList" class="inline">
+      <es-rhs><es-t>(</es-t> <es-nt>Expression</es-nt> <es-t>)</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the result of parsing the lexical token stream matched by
+      <i>CoverParenthesisedExpressionAndArrowParameterList</i> using <i>ParenthesisedExpression</i>
+      as the goal symbol.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "primary-expressions-semantics\semantics-static-semantics-isanonymousfunctiondefinition.html">
+
+  <es-clause title="Static Semantics: IsIdentifierRef" anchor=
+  "sec-semantics-static-semantics-isidentifierref">
+    <p>See also: <a href="#sec-static-semantics-static-semantics-isidentifierref">12.2.1.3</a>
+    .</p>
+
+    <es-production name="PrimaryExpression">
+      <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>true</b>.</li>
+    </ol>
+
+    <es-production name="PrimaryExpression">
+      <es-rhs>this</es-rhs>
+
+      <es-rhs><es-nt>Literal</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ArrayInitialiser</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ObjectLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-nt>FunctionExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ClassExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt>GeneratorExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt>GeneratorComprehension</es-nt></es-rhs>
+
+      <es-rhs><es-nt>RegularExpressionLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-nt>TemplateLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "primary-expressions-semantics\semantics-static-semantics-isvalidsimpleassignmenttarget.html">
+</es-clause>

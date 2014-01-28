@@ -1,0 +1,142 @@
+<!doctype html>
+<es-clause title="ToPropertyDescriptor ( Obj )" anchor="sec-topropertydescriptor">
+  <p>When the abstract operation ToPropertyDescriptor is called with object <es-nt>Obj</es-nt>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>Obj</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>Obj</i>) is not Object
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>desc</i> be the result of creating a new <a href=
+    "#sec-property-descriptor-specification-type">Property Descriptor</a> that initially has no
+    fields.
+    </li>
+
+    <li>If the result of <a href="#sec-hasproperty">HasProperty</a> (<i>Obj</i>,
+    "<code>enumerable</code>") is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>enum</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>Obj</i>,
+        "<code>enumerable</code>").
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>enum</i>).
+        </li>
+
+        <li>Set the [[Enumerable]] field of <i>desc</i> to <a href="#sec-toboolean">ToBoolean</a>
+        (<i>enum</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>If the result of <a href="#sec-hasproperty">HasProperty</a> (<i>Obj</i>,
+    "<code>configurable</code>") is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>conf</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>Obj</i>,
+        "<code>configurable</code>").
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>conf</i>).
+        </li>
+
+        <li>Set the [[Configurable]] field of <i>desc</i> to <a href="#sec-toboolean">ToBoolean</a>
+        (<i>conf</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>If the result of <a href="#sec-hasproperty">HasProperty</a> (<i>Obj</i>,
+    "<code>value</code>") is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>value</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>Obj</i>,
+        "<code>value</code>").
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
+        </li>
+
+        <li>Set the [[Value]] field of <i>desc</i> to <i>value</i>.</li>
+      </ol>
+    </li>
+
+    <li>If the result of <a href="#sec-hasproperty">HasProperty</a> (<i>Obj</i>,
+    "<code>writable</code>") is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>writable</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>Obj</i>,
+        "<code>writable</code>").
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>writable</i>).
+        </li>
+
+        <li>Set the [[Writable]] field of <i>desc</i> to <a href="#sec-toboolean">ToBoolean</a>
+        (<i>writable</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>If the result of <a href="#sec-hasproperty">HasProperty</a> (<i>Obj</i>,
+    "<code>get</code>") is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>getter</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>Obj</i>,
+        "<code>get</code>").
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>getter</i>).
+        </li>
+
+        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>getter</i>) is <b>false</b> and
+        <i>getter</i> is not <b>undefined</b>, then throw a <b>TypeError</b> exception.
+        </li>
+
+        <li>Set the [[Get]] field of <i>desc</i> to <i>getter</i>.</li>
+      </ol>
+    </li>
+
+    <li>If the result of <a href="#sec-hasproperty">HasProperty</a> (<i>Obj</i>,
+    "<code>set</code>") is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>setter</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>Obj</i>,
+        "<code>set</code>").
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>setter</i>).
+        </li>
+
+        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>setter</i>) is <b>false</b> and
+        <i>setter</i> is not <b>undefined</b>, then throw a <b>TypeError</b> exception.
+        </li>
+
+        <li>Set the [[Set]] field of <i>desc</i> to <i>setter</i>.</li>
+      </ol>
+    </li>
+
+    <li>If either <i>desc</i>.[[Get]] or <i>desc</i>.[[Set]] are present, then
+
+      <ol class="block">
+        <li>If either <i>desc</i>.[[Value]] or <i>desc</i>.[[Writable]] are present, then throw a
+        <b>TypeError</b> exception.</li>
+      </ol>
+    </li>
+
+    <li>Set the [[Origin]] field of <i>desc</i> to <i>Obj</i>.</li>
+
+    <li>Return <i>desc</i>.</li>
+  </ol>
+</es-clause>

@@ -1,0 +1,25 @@
+<!doctype html>
+<es-clause title="Statement Semantics" anchor="sec-statement-semantics">
+  <link rel="import" href=
+  "statement-semantics\statement-semantics-static-semantics-vardeclarednames.html">
+  <link rel="import" href=
+  "statement-semantics\statement-semantics-runtime-semantics-labelledevaluation.html">
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-statement-semantics-runtime-semantics-evaluation">
+    <es-production name="BreakableStatement">
+      <es-rhs><es-nt>IterationStatement</es-nt></es-rhs>
+
+      <es-rhs><es-nt>SwitchStatement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>newLabelSet</i> be a new empty <a href="#sec-list-and-record-specification-type">
+        List</a> .
+      </li>
+
+      <li>Return the result of performing LabelledEvaluation of this <i>BreakableStatement</i> with
+      argument <i>newLabelSet</i>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

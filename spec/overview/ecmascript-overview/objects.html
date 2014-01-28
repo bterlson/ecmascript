@@ -1,0 +1,61 @@
+<!doctype html>
+<es-clause title="Objects" anchor="sec-objects">
+  <p>ECMAScript does not use classes such as those in C++, Smalltalk, or Java. Instead objects may
+  be created in various ways including via a literal notation or via <b><i>constructors</i></b>
+  which create objects and then execute code that initialises all or part of them by assigning
+  initial values to their properties. Each constructor is a function that has a property named
+  “<code>prototype</code>” that is used to implement <b><i>prototype-based inheritance</i></b> and
+  <b><i>shared properties</i></b>. Objects are created by using constructors in <b>new</b>
+  expressions; for example, <code>new Date(2009,11)</code> creates a new Date object. Invoking a
+  constructor without using <b>new</b> has consequences that depend on the constructor. For
+  example, <code>Date()</code> produces a string representation of the current date and time rather
+  than an object.</p>
+
+  <p>Every object created by a constructor has an implicit reference (called the object’s
+  <i>prototype</i>) to the value of its constructor’s “<code>prototype</code>” property.
+  Furthermore, a prototype may have a non-null implicit reference to its prototype, and so on; this
+  is called the <i>prototype chain</i>. When a reference is made to a property in an object, that
+  reference is to the property of that name in the first object in the prototype chain that
+  contains a property of that name. In other words, first the object mentioned directly is examined
+  for such a property; if that object contains the named property, that is the property to which
+  the reference refers; if that object does not contain the named property, the prototype for that
+  object is examined next; and so on.</p>
+
+  <figure>
+    <object data="figure-1.svg" height="354" type="image/svg+xml" width="719">
+      <img alt="An image of lots of boxes and arrows." height="354" src="figure-1.png" width="719">
+    </object>
+
+    <figcaption>
+      Figure 1 — Object/Prototype Relationships
+    </figcaption>
+  </figure>
+
+  <p>In a class-based object-oriented language, in general, state is carried by instances, methods
+  are carried by classes, and inheritance is only of structure and behaviour. In ECMAScript, the
+  state and methods are carried by objects, while structure, behaviour, and state are all
+  inherited.</p>
+
+  <p>All objects that do not directly contain a particular property that their prototype contains
+  share that property and its value. Figure 1 illustrates this:</p>
+
+  <p><b>CF</b> is a constructor (and also an object). Five objects have been created by using
+  <code>new</code> expressions: <b>cf<sub>1</sub></b>, <b>cf<sub>2</sub></b>,
+  <b>cf<sub>3</sub></b>, <b>cf<sub>4</sub></b>, and <b>cf<sub>5</sub></b>. Each of these objects
+  contains properties named q1 and q2. The dashed lines represent the implicit prototype
+  relationship; so, for example, <b>cf<sub>3</sub></b>’s prototype is <b>CF<sub>p</sub></b>. The
+  constructor, <b>CF</b>, has two properties itself, named P1 and P2, which are not visible to
+  <b>CF<sub>p</sub></b>, <b>cf<sub>1</sub></b>, <b>cf<sub>2</sub></b>, <b>cf<sub>3</sub></b>,
+  <b>cf<sub>4</sub></b>, or <b>cf<sub>5</sub></b>. The property named CFP1 in <b>CF<sub>p</sub></b>
+  is shared by <b>cf<sub>1</sub></b>, <b>cf<sub>2</sub></b>, <b>cf<sub>3</sub></b>,
+  <b>cf<sub>4</sub></b>, and <b>cf<sub>5</sub></b> (but not by <b>CF</b>), as are any properties
+  found in <b>CF<sub>p</sub></b>’s implicit prototype chain that are not named q1, q2, or CFP1.
+  Notice that there is no implicit prototype link between <b>CF</b> and <b>CF<sub>p</sub></b>.</p>
+
+  <p>Unlike class-based object languages, properties can be added to objects dynamically by
+  assigning values to them. That is, constructors are not required to name or assign values to all
+  or any of the constructed object’s properties. In the above diagram, one could add a new shared
+  property for <b>cf<sub>1</sub></b>, <b>cf<sub>2</sub></b>, <b>cf<sub>3</sub></b>,
+  <b>cf<sub>4</sub></b>, and <b>cf<sub>5</sub></b> by assigning a new value to the property in
+  <b>CF<sub>p</sub></b>.</p>
+</es-clause>

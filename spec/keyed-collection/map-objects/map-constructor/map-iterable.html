@@ -1,0 +1,131 @@
+<!doctype html>
+<es-clause title="Map (iterable = undefined)" anchor="sec-map-iterable">
+  <p>When the <code>Map</code> function is called with optional argument the following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>map</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>map</i>) is not Object
+    then, throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>map</i> does not have a [[MapData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>map’s</i> [[MapData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>iterable</i> is not present, let <i>iterable</i> be <b>undefined</b>.</li>
+
+    <li>If <i>iterable</i> is either <b>undefined</b> or <b>null</b>, then let <i>iter</i> be
+    <b>undefined</b>.</li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>iter</i> be the result of <a href="#sec-getiterator">GetIterator</a>
+        (<i>iterable</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>iter</i>).
+        </li>
+
+        <li>Let <i>adder</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>map</i>,
+        <code>"set"</code>)<b>.</b>
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>adder</i>).
+        </li>
+
+        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>adder</i>) is <b>false</b>, throw a <b>
+          TypeError</b> Exception.
+        </li>
+      </ol>
+    </li>
+
+    <li>If the value of <i>map’s</i> [[MapData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>map</i> has not been reentrantly
+      initialised.
+    </li>
+
+    <li>Set <i>map’s</i> [[MapData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>If <i>iter</i> is <b>undefined</b>, then return <i>map</i>.</li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
+        (<i>iter</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+        </li>
+
+        <li>If <i>next</i> is <b>false</b>, then return <a href=
+        "#sec-normalcompletion">NormalCompletion</a> (<i>map</i>).
+        </li>
+
+        <li>Let <i>nextItem</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextItem</i>).
+        </li>
+
+        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>nextItem</i>) is not
+        Object, then throw a <b>TypeError</b> exception.
+        </li>
+
+        <li>Let <i>k</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>nextItem</i>,
+        <code>"0"</code>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>k</i>).
+        </li>
+
+        <li>Let <i>v</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>nextItem</i>,
+        <code>"1"</code>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
+        </li>
+
+        <li>Let <i>status</i> be the result of calling the [[Call]] internal method of <i>adder</i>
+        with <i>map</i> as <i>thisArgument</i> and a <a href=
+        "#sec-list-and-record-specification-type">List</a> whose elements are <i>k</i> and <i>v</i>
+        as <i>argumentsList</i>.
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+      </ol>
+    </li>
+  </ol>
+
+  <es-note>
+    <p>If the parameter <es-nt>iterable</es-nt> is present, it is expected to be an object that
+    implements an @@iterator method that returns an iterator object that produces a two element
+    array-like object whose first element is a value that will be used as an Map key and whose
+    second element is the value to associate with that key.</p>
+  </es-note>
+</es-clause>

@@ -1,0 +1,58 @@
+<!doctype html>
+<es-clause title="Static Semantics: Early Errors" anchor=
+"sec-assignment-operators-static-semantics-early-errors">
+  <es-production name="AssignmentExpression" class="inline">
+    <es-rhs><es-nt>LeftHandSideExpression</es-nt> = <es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if <es-nt>LeftHandSideExpression</es-nt> is either an
+      <es-nt>ObjectLiteral</es-nt> or an <es-nt>ArrayLiteral</es-nt> and if the lexical token
+      sequence matched by <es-nt>LeftHandSideExpression</es-nt> cannot be parsed with no tokens
+      left over using <es-nt>AssignmentPattern</es-nt> as the goal symbol.</p>
+    </li>
+
+    <li>
+      <p>If <es-nt>LeftHandSideExpression</es-nt> is either an <es-nt>ObjectLiteral</es-nt> or an
+      <es-nt>ArrayLiteral</es-nt> and if the lexical token sequence matched by
+      <es-nt>LeftHandSideExpression</es-nt> can be parsed with no tokens left over using
+      <es-nt>AssignmentPattern</es-nt> as the goal symbol then the following rules are not applied.
+      Instead, the Early Error rules for <es-nt>AssignmentPattern</es-nt> are used.</p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if <es-nt>LeftHandSideExpression</es-nt> is an
+      <es-nt>Identifier</es-nt> that can be statically determined to always resolve to a <a href=
+      "#sec-declarative-environment-records">declarative environment record</a> binding and the
+      resolved binding is an immutable binding.</p>
+    </li>
+
+    <li>
+      <p>It is an early <a href="#sec-reference-specification-type">Reference</a> Error if
+      <es-nt>LeftHandSideExpression</es-nt> is neither an <es-nt>ObjectLiteral</es-nt> nor an
+      <es-nt>ArrayLiteral</es-nt> and IsValidSimpleAssignmentTarget of
+      <es-nt>LeftHandSideExpression</es-nt> is <span class="value">false</span>.</p>
+    </li>
+  </ul>
+
+  <es-production name="AssignmentExpression" class="inline">
+    <es-rhs><es-nt>LeftHandSideExpression</es-nt> <es-nt>AssignmentOperator</es-nt>
+    <es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if the <es-nt>LeftHandSideExpression</es-nt> is an
+      <es-nt>IdentifierReference</es-nt> that can be statically determined to always resolve to a
+      <a href="#sec-declarative-environment-records">declarative environment record</a> binding and
+      the resolved binding is an immutable binding.</p>
+    </li>
+
+    <li>
+      <p>It is an early <a href="#sec-reference-specification-type">Reference</a> Error if
+      IsValidSimpleAssignmentTarget(<i>LeftHandSideExpression</i>) is <span class=
+      "value">false</span>.</p>
+    </li>
+  </ul>
+</es-clause>

@@ -1,0 +1,54 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-binary-logical-operators-runtime-semantics-evaluation">
+  <es-production name="LogicalANDExpression" class="inline">
+    <es-rhs><es-nt>LogicalANDExpression</es-nt> &amp;&amp;
+    <es-nt>BitwiseORExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>lref</i> be the result of evaluating <i>LogicalANDExpression</i>.</li>
+
+    <li>Let <i>lval</i> be <a href="#sec-getvalue">GetValue</a> (<i>lref</i>).
+    </li>
+
+    <li>Let <i>lbool</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>lval</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lbool</i>).
+    </li>
+
+    <li>If <i>lbool</i> is <b>false</b>, return <i>lval</i>.</li>
+
+    <li>Let <i>rref</i> be the result of evaluating <i>BitwiseORExpression</i>.</li>
+
+    <li>Return <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
+    </li>
+  </ol>
+
+  <es-production name="LogicalORExpression" class="inline">
+    <es-rhs><es-nt>LogicalORExpression</es-nt> || <es-nt>LogicalANDExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>lref</i> be the result of evaluating <i>LogicalORExpression</i>.</li>
+
+    <li>Let <i>lval</i> be <a href="#sec-getvalue">GetValue</a> (<i>lref</i>).
+    </li>
+
+    <li>Let <i>lbool</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>lval</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lbool</i>).
+    </li>
+
+    <li>If <i>lbool</i> is <b>true</b>, return <i>lval</i>.</li>
+
+    <li>Let <i>rref</i> be the result of evaluating <i>LogicalANDExpression</i>.</li>
+
+    <li>Return <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
+    </li>
+  </ol>
+</es-clause>

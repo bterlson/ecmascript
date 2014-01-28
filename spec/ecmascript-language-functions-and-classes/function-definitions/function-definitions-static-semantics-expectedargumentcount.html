@@ -1,0 +1,62 @@
+<!doctype html>
+<es-clause title="Static Semantics: ExpectedArgumentCount" anchor=
+"sec-function-definitions-static-semantics-expectedargumentcount">
+  <p>See also: <a href=
+  "#sec-arrow-function-definitions-static-semantics-expectedargumentcount">14.2.5</a> , <a href=
+  "#sec-method-definitions-static-semantics-expectedargumentcount">14.3.2</a> .</p>
+
+  <es-production name="FormalParameters" class="inline">
+    <es-rhs constraint="empty"></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return 0.</li>
+  </ol>
+
+  <es-production name="FormalParameterList" class="inline">
+    <es-rhs><es-nt>FunctionRestParameter</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return 0.</li>
+  </ol>
+
+  <es-production name="FormalParameterList" class="inline">
+    <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FunctionRestParameter</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the ExpectedArgumentCount of <i>FormalsList</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The ExpectedArgumentCount of a <es-nt>FormalParameterList</es-nt> is the number of
+    <es-nt>FormalParameters</es-nt> to the left of either the rest parameter or the first
+    <es-nt>FormalParameter</es-nt> with an Initialiser. A <es-nt>FormalParameter</es-nt> without an
+    initialiser is allowed after the first parameter with an initialiser but such parameters are
+    considered to be optional with <span class="value">undefined</span> as their default value.</p>
+  </es-note>
+
+  <es-production name="FormalsList" class="inline">
+    <es-rhs><es-nt>FormalParameter</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If HasInitialiser of <i>FormalParameter</i> is <b>false</b> return 0</li>
+
+    <li>Return 1.</li>
+  </ol>
+
+  <es-production name="FormalsList" class="inline">
+    <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FormalParameter</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>count</i> be the ExpectedArgumentCount of <i>FormalsList.</i></li>
+
+    <li>If HasInitialiser of <i>FormalsList</i> is <b>true</b> or HasInitialiser of
+    <i>FormalParameter</i> is <b>true</b>, then return <i>count</i>.</li>
+
+    <li>Return <i>count</i>+1.</li>
+  </ol>
+</es-clause>

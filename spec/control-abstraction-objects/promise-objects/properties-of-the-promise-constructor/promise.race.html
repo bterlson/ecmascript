@@ -1,0 +1,70 @@
+<!doctype html>
+<es-clause title="Promise.race ( iterable )" anchor="sec-promise.race">
+  <p>The <code>race</code> function returns a new promise which is settled in the same way as the
+  first passed promise to settle. It casts all elements of the passed iterable to promises as it
+  runs this algorithm.</p>
+
+  <ol class="proc">
+    <li>Let <i>C</i> be the <b>this</b> value.</li>
+
+    <li>Let <i>promiseCapability</i> be <a href=
+    "#sec-newpromisecapability">NewPromiseCapability</a> (<i>C</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promiseCapability</i>).
+    </li>
+
+    <li>Let <i>iterator</i> be <a href="#sec-getiterator">GetIterator</a> (<i>iterable</i>).
+    </li>
+
+    <li>
+      <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>iterator</i>,
+      <i>promiseCapability</i>).
+    </li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>Let <i>next</i> be <a href="#sec-iteratorstep">IteratorStep</a> (<i>iterator</i>).
+        </li>
+
+        <li>
+          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>next</i>,
+          <i>promiseCapability</i>).
+        </li>
+
+        <li>If <i>next</i> is <b>false</b>, return <i>promiseCapability</i>.[[Promise]].</li>
+
+        <li>Let <i>nextValue</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
+        </li>
+
+        <li>
+          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>nextValue</i>,
+          <i>promiseCapability</i>).
+        </li>
+
+        <li>Let <i>nextPromise</i> Invoke(<i>C</i>, <code>"cast"</code>, (<i>nextValue</i>)).</li>
+
+        <li>
+          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>nextPromise</i>,
+          <i>promiseCapability</i>).
+        </li>
+
+        <li>Let <i>result</i> be Invoke(<i>nextPromise</i>, <code>"then"</code>,
+        (<i>promiseCapability</i>.[[Resolve]], <i>promiseCapability</i>.[[Reject]])).</li>
+
+        <li>
+          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>result</i>,
+          <i>promiseCapability</i>).
+        </li>
+      </ol>
+    </li>
+  </ol>
+
+  <es-note>
+    <p>The <code>race</code> function requires its <b>this</b> value to be a constructor function
+    that supports the parameter conventions of the <code>Promise</code> constructor. It also
+    requires that its <b>this</b> value provides a <code>cast</code> method.</p>
+  </es-note>
+</es-clause>

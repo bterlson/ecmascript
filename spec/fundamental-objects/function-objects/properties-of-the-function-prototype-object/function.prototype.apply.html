@@ -1,0 +1,44 @@
+<!doctype html>
+<es-clause title="Function.prototype.apply (thisArg, argArray)" anchor=
+"sec-function.prototype.apply">
+  <p>When the <code>apply</code> method is called on an object <es-nt>func</es-nt> with arguments
+  <es-nt>thisArg</es-nt> and <es-nt>argArray</es-nt>, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>func</i>) is <b>false</b>, then throw a <b>
+      TypeError</b> exception.
+    </li>
+
+    <li>If <i>argArray</i> is <b>null</b> or <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Return the result of calling the [[Call]] internal method of <i>func</i>, providing <i>
+          thisArg</i> as <i>thisArgument</i> and an empty <a href=
+          "#sec-list-and-record-specification-type">List</a> of arguments as <i>argumentsList</i>.
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>argList</i> be the result of <a href=
+    "#sec-createlistfromarraylike">CreateListFromArrayLike</a> (<i>argArray</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>argList</i> ).
+    </li>
+
+    <li>Perform the PrepareForTailCall abstract operation.</li>
+
+    <li>Return the result of calling the [[Call]] internal method of <i>func</i>, providing
+    <i>thisArg</i> as <i>thisArgument</i> and <i>argList</i> as <i>argumentsList</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>apply</code> method is <b>2</b>.</p>
+
+  <es-note>
+    <p>The thisArg value is passed without modification as the <b>this</b> value. This is a change
+    from Edition 3, where an <b>undefined</b> or <b>null</b> thisArg is replaced with the global
+    object and <a href="#sec-toobject">ToObject</a> is applied to all other values and that result
+    is passed as the <b>this</b> value.</p>
+  </es-note>
+</es-clause>

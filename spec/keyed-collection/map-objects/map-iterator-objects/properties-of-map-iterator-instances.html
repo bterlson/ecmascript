@@ -1,0 +1,44 @@
+<!doctype html>
+<es-clause title="Properties of Map Iterator Instances" anchor=
+"sec-properties-of-map-iterator-instances">
+  <p>Map Iterator instances are ordinary objects that inherit properties from the
+  %MapIteratorPrototype% intrinsic object. Map Iterator instances are initially created with the
+  internal slots described in <a href="#table-44">Table 44</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-44">Table 44</span> — Internal Slots of Map Iterator Instances
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Internal Slot</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Description</th>
+      </tr>
+
+      <tr>
+        <td>[[Map]]</td>
+
+        <td>The Map object that is being iterated.</td>
+      </tr>
+
+      <tr>
+        <td>[[MapNextIndex]]</td>
+
+        <td>The integer index of the next Map data element to be examined by this iterator.</td>
+      </tr>
+
+      <tr>
+        <td>[[MapIterationKind]]</td>
+
+        <td>A string value that identifies what is to be returned for each element of the
+        iteration. The possible values are: <b>"key"</b>, <b>"value"</b>, <b>"key+value"</b>.</td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

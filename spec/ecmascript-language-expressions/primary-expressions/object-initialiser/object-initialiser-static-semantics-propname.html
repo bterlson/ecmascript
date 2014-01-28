@@ -1,0 +1,51 @@
+<!doctype html>
+<es-clause title="Static Semantics:" anchor="sec-object-initialiser-static-semantics-propname">
+  <p>See also: <a href="#sec-method-definitions-static-semantics-propname">14.3.5</a> , <a href=
+  "#sec-generator-function-definitions-static-semantics-propname">14.4.8</a> , <a href=
+  "#sec-class-definitions-static-semantics-propname">14.5.11</a></p>
+
+  <es-production name="PropertyDefinition" class="inline">
+    <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+    <i>IdentifierReference</i>.
+    </li>
+  </ol>
+
+  <es-production name="PropertyDefinition" class="inline">
+    <es-rhs><es-nt>PropertyName</es-nt> : <es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return PropName of <i>PropertyName</i>.</li>
+  </ol>
+
+  <es-production name="LiteralPropertyName" class="inline">
+    <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a String value whose characters are the SV of the <i>StringLiteral</i>.</li>
+  </ol>
+
+  <es-production name="LiteralPropertyName" class="inline">
+    <es-rhs><es-nt>NumericLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>nbr</i> be the result of forming the value of the <i>NumericLiteral</i>.</li>
+
+    <li>Return <a href="#sec-tostring">ToString</a> (<i>nbr</i>).
+    </li>
+  </ol>
+
+  <es-production name="ComputedPropertyName" class="inline">
+    <es-rhs><es-t>[</es-t> <es-nt>AssignmentExpression</es-nt> <es-t>]</es-t></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return empty.</li>
+  </ol>
+</es-clause>

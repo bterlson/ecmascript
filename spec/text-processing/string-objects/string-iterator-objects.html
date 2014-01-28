@@ -1,0 +1,74 @@
+<!doctype html>
+<es-clause title="String Iterator Objects" anchor="sec-string-iterator-objects">
+  <p>An String Iterator is an object, that represents a specific iteration over some specific
+  String instance object. There is not a named constructor for String Iterator objects. Instead,
+  String iterator objects are created by calling certain methods of String instance objects.</p>
+
+  <es-clause title="CreateStringIterator Abstract Operation" anchor="sec-createstringiterator">
+    <p>Several methods of String objects return Iterator objects. The abstract operation
+    CreateStringIterator with argument <es-nt>string</es-nt> is used to create such iterator
+    objects. It performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>s</i> be the result of calling <a href="#sec-tostring">ToString</a>
+      (<i>string</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>s</i>).
+      </li>
+
+      <li>Let <i>iterator</i> be the result of <a href="#sec-objectcreate">ObjectCreate</a>
+      (%StringIteratorPrototype%, ([[IteratedStringt]], [[StringIteratorNextIndex]] )).
+      </li>
+
+      <li>Set <i>iterator’s</i> [[IteratedString]] <a href=
+      "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>s</i>.
+      </li>
+
+      <li>Set <i>iterator’s</i> [[StringIteratorNextIndex]] <a href=
+      "#sec-object-internal-methods-and-internal-slots">internal slot</a> to 0.
+      </li>
+
+      <li>Return <i>iterator</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="string-iterator-objects\%stringiteratorprototype%-object.html">
+
+  <es-clause title="Properties of String Iterator Instances" anchor=
+  "sec-properties-of-string-iterator-instances">
+    <p>String Iterator instances are ordinary objects that inherit properties from the
+    %StringIteratorPrototype% intrinsic object. String Iterator instances are initially created
+    with the internal slots listed in <a href="#table-42">Table 42</a> .</p>
+
+    <figure>
+      <figcaption>
+        <span id="table-40">Table 40</span> — Internal Slots of String Iterator Instances
+      </figcaption>
+
+      <table class="real-table">
+        <tr>
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+          Internal Slot</th>
+
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+          Description</th>
+        </tr>
+
+        <tr>
+          <td>[[IteratedString]]</td>
+
+          <td>The String value whose elements are being iterated.</td>
+        </tr>
+
+        <tr>
+          <td>[[StringIteratorNextIndex]]</td>
+
+          <td>The integer index of the next string index to be examined by this iteration.</td>
+        </tr>
+      </table>
+    </figure>
+  </es-clause>
+</es-clause>

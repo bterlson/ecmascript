@@ -1,0 +1,16 @@
+<!doctype html>
+<es-clause title="Loader Objects" anchor="sec-loader-objects">
+  <p>Loader objects are able to load the source code of an ECMAScript <es-nt>Module</es-nt> in the
+  context of a specific <a href="#sec-code-realms">Realm</a> .</p>
+  <link rel="import" href="loader-objects\%loader%-constructor.html">
+  <link rel="import" href="loader-objects\properties-of-the-%loader%-constructor.html">
+  <link rel="import" href="loader-objects\properties-of-the-%loader%-prototype-object.html">
+
+  <es-clause title="Properties of %Loader% Instances" anchor=
+  "sec-properties-of-%loader%-instances">
+    <p>Loader instances are ordinary objects that inherit properties from the %LoaderPrototype%
+    intrinsic object. Loader instances each have a [[Loader]] interal slot whose value after
+    initialization is the Loader Record that the Load instance reflects.</p>
+  </es-clause>
+  <link rel="import" href="loader-objects\loader-iterator-objects.html">
+</es-clause>

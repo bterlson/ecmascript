@@ -1,0 +1,54 @@
+<!doctype html>
+<es-clause title="NextTask ( result ) Algorithm Step" anchor="sec-nexttask-result-algorithm-step">
+  <p>A step such as:</p>
+
+  <ol class="proc">
+    <li>NextTask <i>result</i>.</li>
+  </ol>
+
+  <p>Is used in Task abstract operation in place of:</p>
+
+  <ol class="proc">
+    <li>Return <i>result</i>.</li>
+  </ol>
+
+  <p>Task abstraction operations must not contain a Return step or a <a href=
+  "#sec-returnifabrupt">ReturnIfAbrupt</a> step. The NextTask <es-nt>result</es-nt> operation is
+  equivalent to the following steps:</p>
+
+  <ol class="proc">
+    <li>If <i>result</i> is an <a href="#sec-completion-record-specification-type">abrupt
+    completion</a> , then perform implementation defined unhandled exception processing.
+    </li>
+
+    <li>
+      <a href="#sec-execution-contexts">Suspend</a> <a href="#sec-execution-contexts">the running
+      execution context</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : The <a href=
+      "#sec-execution-contexts">execution context stack</a> is now empty.
+    </li>
+
+    <li>Let <i>nextQueue</i> be a non-emptry Task Queue chosen in an implementation defined manner.
+    If all Task Queues are empty, the result is implementation defined.</li>
+
+    <li>Let <i>nextPending</i> be the PendingTask record at the front of <i>nextQueue</i>. Remove
+    that record from <i>nextQueue</i>.</li>
+
+    <li>Let <i>newContext</i> be a new exeution context.</li>
+
+    <li>Set <i>newContext</i>’s <a href="#sec-code-realms">Realm</a> to
+    <i>nextPending</i>.[[Realm]].
+    </li>
+
+    <li>Push <i>newContext</i> onto <a href="#sec-execution-contexts">the execution context
+    stack</a> ; <i>newContext</i> is now <a href="#sec-execution-contexts">the running execution
+    context</a> .
+    </li>
+
+    <li>Perform the abstract operation named by <i>nextPending</i>.[[Task]] using the elements of
+    <i>nextPending</i>.[[Arguments]] as its arguments.</li>
+  </ol>
+</es-clause>

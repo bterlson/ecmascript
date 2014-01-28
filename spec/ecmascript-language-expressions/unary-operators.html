@@ -1,0 +1,56 @@
+<!doctype html>
+<es-clause title="Unary Operators" anchor="sec-unary-operators">
+  <h2>Syntax</h2>
+
+  <es-production name="UnaryExpression" params="Yield">
+    <es-rhs><es-nt params="?Yield">PostfixExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>delete</es-t> <es-nt params="?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>void</es-t> <es-nt params="?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>typeof</es-t> <es-nt params="?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>++</es-t> <es-nt params="?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>--</es-t> <es-nt params="?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>+</es-t> <es-nt params="?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>-</es-t> <es-nt params="?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>~</es-t> <es-nt params="?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-t>!</es-t> <es-nt params="?Yield">UnaryExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-unary-operators-static-semantics-early-errors">
+    <es-production name="UnaryExpression">
+      <es-rhs><es-t>++</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>--</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is an early <a href="#sec-reference-specification-type">Reference</a> Error if
+        IsValidSimpleAssignmentTarget of <es-nt>UnaryExpression</es-nt> is <span class=
+        "value">false</span>.</p>
+      </li>
+    </ul>
+  </es-clause>
+  <link rel="import" href=
+  "unary-operators\unary-operators-static-semantics-isanonymousfunctiondefinition.html">
+  <link rel="import" href=
+  "unary-operators\unary-operators-static-semantics-isvalidsimpleassignmenttarget.html">
+  <link rel="import" href="unary-operators\delete-operator.html">
+  <link rel="import" href="unary-operators\void-operator.html">
+  <link rel="import" href="unary-operators\typeof-operator.html">
+  <link rel="import" href="unary-operators\prefix-increment-operator.html">
+  <link rel="import" href="unary-operators\prefix-decrement-operator.html">
+  <link rel="import" href="unary-operators\unary-plus-operator.html">
+  <link rel="import" href="unary-operators\unary-minus-operator.html">
+  <link rel="import" href="unary-operators\bitwise-not-operator.html">
+  <link rel="import" href="unary-operators\logical-not-operator.html">
+</es-clause>

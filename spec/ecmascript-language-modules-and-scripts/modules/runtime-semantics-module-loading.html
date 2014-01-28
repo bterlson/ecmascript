@@ -1,0 +1,46 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Module Loading" anchor="sec-runtime-semantics-module-loading">
+  <es-clause title="LoadModule(loader, name, options) Abstract Operation" anchor="sec-loadmodule">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : <i>loader</i> is a Loader record.
+      </li>
+
+      <li>Let <i>name</i> be <a href="#sec-tostring">ToString</a> (<i>name</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>name</i>).
+      </li>
+
+      <li>Let <i>address</i> be <a href="#sec-getoption">GetOption</a> (<i>options</i>,
+      <code>"address"</code>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>address</i>).
+      </li>
+
+      <li>If <i>address</i> is <b>undefined</b>, let <i>step</i> be <code>"locate"</code>.</li>
+
+      <li>Else, let <i>step</i> be <code>"fetch"</code>.</li>
+
+      <li>Let <i>metadata</i> be the result of <a href="#sec-objectcreate">ObjectCreate</a>
+      (%ObjectPrototype%).
+      </li>
+
+      <li>Return <a href=
+      "#sec-promiseofstartloadpartwaythrough">PromiseOfStartLoadPartwayThrough</a> ( <i>step</i>,
+      <i>loader</i>, <i>name</i>, <i>metadata</i>, <i>source</i>, <i>address</i>).
+      </li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="runtime-semantics-module-loading\requestload.html">
+  <link rel="import" href="runtime-semantics-module-loading\proceedtolocate.html">
+  <link rel="import" href="runtime-semantics-module-loading\proceedtofetch.html">
+  <link rel="import" href="runtime-semantics-module-loading\proceedtotranslate.html">
+  <link rel="import" href="runtime-semantics-module-loading\processloaddependencies.html">
+  <link rel="import" href="runtime-semantics-module-loading\promiseofstartloadpartwaythrough.html">
+</es-clause>

@@ -1,0 +1,124 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-runtime-semantics-runtime-semantics-evaluation">
+  <es-production name="TemplateLiteral" class="inline">
+    <es-rhs><es-nt>NoSubstitutionTemplate</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the string value whose elements are the TV of <i>NoSubstitutionTemplate</i> as
+    defined in <a href="#sec-template-literal-lexical-components">11.8.6</a> .
+    </li>
+  </ol>
+
+  <es-production name="TemplateLiteral" class="inline">
+    <es-rhs><es-nt>TemplateHead</es-nt> <es-nt>Expression</es-nt>
+    <es-nt>TemplateSpans</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>head</i> be the TV of <i>TemplateHead</i> as defined in <a href=
+    "#sec-template-literal-lexical-components">11.8.6</a> .
+    </li>
+
+    <li>Let <i>sub</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>Let <i>middle</i> be <a href="#sec-tostring">ToString</a> (<i>sub</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>middle</i>).
+    </li>
+
+    <li>Let <i>tail</i> be the result of evaluating <i>TemplateSpans</i> .</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>tail</i>).
+    </li>
+
+    <li>Return the string value whose elements are the code units of <i>head</i> followed by the
+    code units of <i>tail</i>.</li>
+  </ol>
+
+  <es-production name="TemplateSpans" class="inline">
+    <es-rhs><es-nt>TemplateTail</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>tail</i> be the TV of <i>TemplateTail</i> as defined in <a href=
+    "#sec-template-literal-lexical-components">11.8.6</a> .
+    </li>
+
+    <li>Return the string whose elements are the code units of <i>tail</i>.</li>
+  </ol>
+
+  <es-production name="TemplateSpans" class="inline">
+    <es-rhs><es-nt>TemplateMiddleList</es-nt> <es-nt>TemplateTail</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>head</i> be the result of evaluating <i>TemplateMiddleList</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>head</i>).
+    </li>
+
+    <li>Let <i>tail</i> be the TV of <i>TemplateTail</i> as defined in <a href=
+    "#sec-template-literal-lexical-components">11.8.6</a> .
+    </li>
+
+    <li>Return the string whose elements are the elements of <i>head</i> followed by the elements
+    of <i>tail</i>.</li>
+  </ol>
+
+  <es-production name="TemplateMiddleList" class="inline">
+    <es-rhs><es-nt>TemplateMiddle</es-nt> <es-nt>Expression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>head</i> be the TV of <i>TemplateMiddle</i> as defined in <a href=
+    "#sec-template-literal-lexical-components">11.8.6</a> .
+    </li>
+
+    <li>Let <i>sub</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>Let <i>middle</i> be <a href="#sec-tostring">ToString</a> (<i>sub</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>middle</i>).
+    </li>
+
+    <li>Return the sequence of characters consisting of the code units of <i>head</i> followed by
+    the elements of <i>middle</i>.</li>
+  </ol>
+
+  <es-production name="TemplateMiddleList" class="inline">
+    <es-rhs><es-nt>TemplateMiddleList</es-nt> <es-nt>TemplateMiddle</es-nt>
+    <es-nt>Expression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>rest</i> be the result of evaluating <i>TemplateMiddleList</i> .</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rest</i>).
+    </li>
+
+    <li>Let <i>middle</i> be the TV of <i>TemplateMiddle</i> as defined in <a href=
+    "#sec-template-literal-lexical-components">11.8.6</a> .
+    </li>
+
+    <li>Let <i>sub</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>Let <i>last</i> be <a href="#sec-tostring">ToString</a> (<i>sub</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>last</i>).
+    </li>
+
+    <li>Return the sequence of characters consisting of the elements of <i>rest</i> followed by the
+    code units of <i>middle</i> followed by the elements of <i>last</i>.</li>
+  </ol>
+</es-clause>

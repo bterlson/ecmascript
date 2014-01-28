@@ -1,0 +1,77 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-switch-statement-runtime-semantics-evaluation">
+  <es-production name="SwitchStatement" class="inline">
+    <es-rhs>switch ( <es-nt>Expression</es-nt> ) <es-nt>CaseBlock</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>Let <i>switchValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprRef</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>switchValue</i>).
+    </li>
+
+    <li>Let <i>oldEnv</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
+    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
+    </li>
+
+    <li>Let <i>blockEnv</i> be the result of calling <a href=
+    "#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a> passing <i>oldEnv</i> as the
+    argument.
+    </li>
+
+    <li>Perform Block Declaration Instantiation using <i>CaseBlock</i> and <i>blockEnv</i>.</li>
+
+    <li>Let <i>R</i> be the result of performing CaseBlockEvaluation of <i>CaseBlock</i> with
+    argument <i>switchValue</i>.</li>
+
+    <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
+    "#sec-execution-contexts">LexicalEnvironment</a> to <i>oldEnv</i>.
+    </li>
+
+    <li>Return <i>R</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>No matter how control leaves the <es-nt>SwitchStatement</es-nt> the <a href=
+    "#sec-execution-contexts">LexicalEnvironment</a> is always restored to its former state.</p>
+  </es-note>
+
+  <es-production name="CaseClause" class="inline">
+    <es-rhs><es-t>case</es-t> <es-nt>Expression</es-nt> <es-t>:</es-t></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
+    </li>
+  </ol>
+
+  <es-production name="CaseClause" class="inline">
+    <es-rhs>case <es-nt>Expression</es-nt> : <es-nt>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the result of evaluating <i>StatementList</i>.</li>
+  </ol>
+
+  <es-production name="DefaultClause" class="inline">
+    <es-rhs>default:</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
+    </li>
+  </ol>
+
+  <es-production name="DefaultClause" class="inline">
+    <es-rhs><es-t>default:</es-t> <es-nt>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the result of evaluating <i>StatementList</i>.</li>
+  </ol>
+</es-clause>

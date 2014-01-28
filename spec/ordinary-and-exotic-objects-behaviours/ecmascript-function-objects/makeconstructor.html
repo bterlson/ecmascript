@@ -1,0 +1,68 @@
+<!doctype html>
+<es-clause title="MakeConstructor Abstract Operation" anchor="sec-makeconstructor">
+  <p>The abstract operation MakeConstructor requires a Function argument <es-nt>F</es-nt> and
+  optionally, a Boolean <es-nt>writablePrototype</es-nt> and an object <es-nt>prototype</es-nt>. If
+  <es-nt>prototype</es-nt> is provided it is assumed to already contain, if needed, a
+  <code>"constructor"</code> property whose value is <es-nt>F</es-nt>. This operation converts
+  <es-nt>F</es-nt> into a constructor by performing the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>F</i> is an <a href=
+      "#sec-ecmascript-function-objects">ECMAScript function object</a> .
+    </li>
+
+    <li>Let <i>installNeeded</i> be <b>false</b>.</li>
+
+    <li>If the <i>prototype</i> argument was not provided, then
+
+      <ol class="block">
+        <li>Let <i>installNeeded</i> be <b>true</b>.</li>
+
+        <li>Let <i>prototype</i> be the result of <a href="#sec-objectcreate">ObjectCreate</a>
+        (%ObjectPrototype%).
+        </li>
+      </ol>
+    </li>
+
+    <li>If the <i>writablePrototype</i> argument was not provided, then
+
+      <ol class="block">
+        <li>Let <i>writablePrototype</i> be <b>true</b>.</li>
+      </ol>
+    </li>
+
+    <li>Set <i>F</i>’s essential internal method [[Construct]] to the definition specified in
+    <a href="#sec-construct-argumentslist">9.2.1</a> .
+    </li>
+
+    <li>If <i>installNeeded</i>, then
+
+      <ol class="block">
+        <li>Let <i>status</i> be the result of <a href=
+        "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>prototype</i>,
+        <code>"constructor"</code>, PropertyDescriptor{[[Value]]: <i>F</i>, [[Writable]]:
+        <i>writablePrototype</i>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <i>writablePrototype</i> }).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>status</i> be the result of <a href=
+    "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>F</i>, <code>"prototype"</code>, and
+    PropertyDescriptor{[[Value]]: <i>prototype</i>, [[Writable]]: <i>writablePrototype</i>,
+    [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+    </li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
+    </li>
+  </ol>
+</es-clause>

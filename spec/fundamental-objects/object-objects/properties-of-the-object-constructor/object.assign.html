@@ -1,0 +1,113 @@
+<!doctype html>
+<es-clause title="Object.assign ( target, source )" anchor="sec-object.assign">
+  <p>The <b>assign</b> function is used to copy the values of all of the enumerable own properties
+  from a <es-nt>source</es-nt> object to a <es-nt>target</es-nt> object. When the <b>assign</b>
+  function is called, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>to</i> be <a href="#sec-toobject">ToObject</a> (<i>target</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>to</i>).
+    </li>
+
+    <li>Let <i>from</i> be <a href="#sec-toobject">ToObject</a> (<i>source</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>from</i>).
+    </li>
+
+    <li>Let <i>keys</i> be the result of calling the [[OwnPropertyKeys]] internal method of
+    <i>source</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keys</i>).
+    </li>
+
+    <li>Let <i>gotAllNames</i> be <b>false</b>.</li>
+
+    <li>Let <i>pendingException</i> be <b>undefined</b>.</li>
+
+    <li>Repeat while <i>gotAllNames</i> is <b>false</b>,
+
+      <ol class="block">
+        <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
+        (<i>keys</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+        </li>
+
+        <li>If <i>next</i> is <b>false</b>, then let <i>gotAllNames</i> be <b>true</b>.</li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Let <i>nextKey</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextKey</i>).
+            </li>
+
+            <li>Let <i>desc</i> be the result of calling the [[GetOwnProperty]] internal method of
+            <i>from</i> with argument <i>nextKey</i>.</li>
+
+            <li>If <i>desc</i> is an <a href="#sec-completion-record-specification-type">abrupt
+            completion</a> , then
+
+              <ol class="block">
+                <li>If <i>pendingException</i> is <b>undefined</b>, then set
+                <i>pendingException</i> to <i>desc</i>.</li>
+              </ol>
+            </li>
+
+            <li>Else if <i>desc</i> is not <b>undefined</b> and <i>desc</i>.[[Enumerable]] is
+            <b>true</b>, then
+
+              <ol class="block">
+                <li>Let propValue be <a href="#sec-get-o-p">Get</a> (from, nextKey).
+                </li>
+
+                <li>If propValue is an <a href="#sec-completion-record-specification-type">abrupt
+                completion</a> , then
+
+                  <ol class="block">
+                    <li>If pendingException is <b>undefined</b>, then set pendingException to
+                    propValue.</li>
+                  </ol>
+                </li>
+
+                <li>else
+
+                  <ol class="block">
+                    <li>Let <i>status</i> be <a href="#sec-put-o-p-v-throw">Put</a> (<i>to</i>, <i>
+                      nextKey</i>, <i>propValue</i>, <b>true</b>);
+                    </li>
+
+                    <li>If <i>status</i> is an <a href="#sec-completion-record-specification-type">
+                      abrupt completion</a> , then
+
+                      <ol class="block">
+                        <li>If pendingException is <b>undefined</b>, then set pendingException to
+                        status.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>pendingException</i> is not <b>undefined</b>, then return
+    <i>pendingException</i>.</li>
+
+    <li>Return <i>to</i>.</li>
+  </ol>
+</es-clause>

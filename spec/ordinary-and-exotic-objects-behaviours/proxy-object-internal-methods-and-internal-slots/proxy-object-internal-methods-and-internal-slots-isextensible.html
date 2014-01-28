@@ -1,0 +1,70 @@
+<!doctype html>
+<es-clause title="[[IsExtensible]] ( )" anchor=
+"sec-proxy-object-internal-methods-and-internal-slots-isextensible">
+  <p>When the [[IsExtensible]] internal method of an exotic Proxy object <es-nt>O</es-nt> is called
+  the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
+    "<code>isExtensible</code>").
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
+    </li>
+
+    <li>If <i>trap</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Return the result of calling the [[IsExtensible]] internal method of
+        <i>target</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>trapResult</i> be the result of calling the [[Call]] internal method of <i>trap</i>
+    with <i>handler</i> as the <b>this</b> value and a new <a href=
+    "#sec-list-and-record-specification-type">List</a> containing <i>target</i>.
+    </li>
+
+    <li>Let <i>booleanTrapResult</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>trapResult</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>booleanTrapResult</i>).
+    </li>
+
+    <li>Let <i>targetResult</i> be the result of calling the [[IsExtensible]] internal method of
+    <i>target</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>targetResult</i>).
+    </li>
+
+    <li>If <a href="#sec-samevalue">SameValue</a> (<i>booleanTrapResult</i>, <i>targetResult</i>)
+    is <b>false</b>, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Return <i>booleanTrapResult</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>[[IsExtensible]] for proxy objects enforces the following invariant:</p>
+
+    <ul>
+      <li>
+        <p>[[IsExtensible]] applied to the proxy object must return the same value as
+        [[IsExtensible]] applied to the proxy object’s target object with the same argument.</p>
+      </li>
+    </ul>
+  </es-note>
+</es-clause>

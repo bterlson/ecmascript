@@ -1,0 +1,40 @@
+<!doctype html>
+<es-clause title="The Date Constructor" anchor="sec-date-constructor">
+  <p>The Date constructor is the %Date% intrinsic object and the initial value of the
+  <code>Date</code> property of the global object. When <code>Date</code> is called as a function
+  rather than as a constructor, it returns a String representing the current time (UTC). However,
+  if the <b>this</b> value passed in the call is an Object with an uninitialised [[DateValue]]
+  <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> , <code>Date</code>
+  initialises the <b>this</b> object using the argument value. This permits <code>Date</code> to be
+  used both as a function for creating data strings and to perform constructor instance
+  initialisation.</p>
+
+  <p>The <code>Date</code> constructor is designed to be subclassable. It may be used as the value
+  of an <code>extends</code> clause of a class declaration. Subclass constructors that intended to
+  inherit the specified <code>Date</code> behaviour must include a <code>super</code> call to the
+  <code>Date</code> constructor to initialise the [[DateValue]] state of subclass instances.</p>
+  <link rel="import" href="date-constructor\date-year-month-date-hours-minutes-seconds-ms.html">
+  <link rel="import" href="date-constructor\date-value.html">
+  <link rel="import" href="date-constructor\date-constructor-date.html">
+
+  <es-clause title="new Date ( ... argumentsList)" anchor="sec-new-date-argumentslist">
+    <p>When <code>Date</code> is called as part of a new expression with argument list
+    <es-nt>argumentsList</es-nt> it performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>F</i> be the <code>Date</code> function object on which the <code>new</code>
+      operator was applied.</li>
+
+      <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+      internal method that was invoked by the <code>new</code> operator.</li>
+
+      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
+      <i>argumentsList</i>).
+      </li>
+    </ol>
+
+    <p>If <code>Date</code> is implemented as an <a href=
+    "#sec-ecmascript-function-objects">ECMAScript function object</a> , its [[Construct]] internal
+    method will perform the above steps.</p>
+  </es-clause>
+</es-clause>

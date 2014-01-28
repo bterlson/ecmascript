@@ -1,0 +1,70 @@
+<!doctype html>
+<es-clause title="Promise Resolution Handler Functions" anchor=
+"sec-promise-resolution-handler-functions">
+  <p>A promise resolution handler function is an anonymous built-in function that has the ability
+  to handle a promise being resolved, by "unwrapping" any incoming values until they are no longer
+  promises or thenables and can be passed to the appropriate fulfillment handler.</p>
+
+  <p>Each promise resolution handler function has [[Promise]], [[FulfillmentHandler]], and
+  [[RejectionHandler]] internal slots.</p>
+
+  <p>When a promise resolution handler function <es-nt>F</es-nt> is called with argument
+  <es-nt>x</es-nt>, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>promise</i> be the value of <i>F</i>'s [[Promise]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>fulfillmentHandler</i> be the value of <i>F</i>'s [[FulfillmentHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>rejectionHandler</i> be the value of <i>F</i>'s [[RejectionHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <a href="#sec-samevalue">SameValue</a> (<i>x</i>, <i>promise</i>) is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>selfResolutionError</i> be a newly-created <b>TypeError</b> object.</li>
+
+        <li>Return the result of calling the [[Call]] internal method of <i>rejectionHandler</i>
+        with <b>undefined</b> as <i>thisArgument</i> and (<i>selfResolutionError</i>) as
+        <i>argumentsList</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>C</i> be the value of <i>promise</i>'s [[PromiseConstructor]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>promiseCapability</i> be <a href=
+    "#sec-newpromisecapability">NewPromiseCapability</a> (<i>C</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promiseCapability</i>).
+    </li>
+
+    <li>Let <i>updateResult</i> be <a href=
+    "#sec-updatepromisefrompotentialthenable">UpdatePromiseFromPotentialThenable</a> (<i>x</i>, <i>
+      promiseCapability</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>updateResult</i>).
+    </li>
+
+    <li>If <i>updateResult</i> is not <code>"not a thenable"</code>, then
+
+      <ol class="block">
+        <li>Return the result of Invoke(<i>promiseCapability</i>.[[Promise]], <code>"then"</code>,
+        (<i>fulfillmentHandler</i>, <i>rejectionHandler</i>)).</li>
+      </ol>
+    </li>
+
+    <li>Return the result of calling the [[Call]] internal method of <i>fulfillmentHandler</i> with
+    <b>undefined</b> as <i>thisArgument</i> and (<i>x</i>) as <i>argumentsList</i>.</li>
+  </ol>
+</es-clause>

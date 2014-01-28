@@ -1,0 +1,133 @@
+<!doctype html>
+<es-clause title="Overview of Date Objects and Definitions of Abstract Operations" anchor=
+"sec-overview-of-date-objects-and-definitions-of-abstract-operations">
+  <p>The following functions are abstract operations that operate on time values (defined in
+  <a href="#sec-time-values-and-time-range">20.3.1.1</a> ). Note that, in every case, if any
+  argument to one of these functions is <b>NaN</b>, the result will be <b>NaN</b>.</p>
+  <link rel="import" href=
+  "overview-of-date-objects-and-definitions-of-abstract-operations\time-values-and-time-range.html">
+
+  <es-clause title="Day Number and Time within Day" anchor="sec-day-number-and-time-within-day">
+    <p>A given <a href="#sec-time-values-and-time-range">time value</a> <i>t</i> belongs to day
+    number</p>
+
+    <div class="display">
+      Day(<i>t</i>) = <a href="#sec-algorithm-conventions">floor</a> (<i>t</i> / msPerDay)
+    </div>
+
+    <p>where the number of milliseconds per day is</p>
+
+    <div class="display">
+      msPerDay = 86400000
+    </div>
+
+    <p>The remainder is called the time within the day:</p>
+
+    <div class="display">
+      TimeWithinDay(<i>t</i>) = <i>t</i> <a href="#sec-algorithm-conventions">modulo</a> msPerDay
+    </div>
+  </es-clause>
+  <link rel="import" href=
+  "overview-of-date-objects-and-definitions-of-abstract-operations\year-number.html">
+  <link rel="import" href=
+  "overview-of-date-objects-and-definitions-of-abstract-operations\month-number.html">
+  <link rel="import" href=
+  "overview-of-date-objects-and-definitions-of-abstract-operations\date-number.html">
+
+  <es-clause title="Week Day" anchor="sec-week-day">
+    <p>The weekday for a particular <a href="#sec-time-values-and-time-range">time value</a>
+    <es-nt>t</es-nt> is defined as</p>
+
+    <div class="display">
+      WeekDay(<i>t</i>)	 = (<a href="#sec-day-number-and-time-within-day">Day</a> (<i>t</i>) + 4)
+      <a href="#sec-algorithm-conventions">modulo</a> 7
+    </div>
+
+    <p>A weekday value of 0 specifies Sunday; 1 specifies Monday; 2 specifies Tuesday; 3 specifies
+    Wednesday; 4&nbsp;specifies Thursday; 5 specifies Friday; and 6 specifies Saturday. Note that
+    WeekDay(0) = 4, corresponding to Thursday, 01 January, 1970.</p>
+  </es-clause>
+
+  <es-clause title="Local Time Zone Adjustment" anchor="sec-local-time-zone-adjustment">
+    <p>An implementation of ECMAScript is expected to determine the local time zone adjustment. The
+    local time zone adjustment is a value LocalTZA measured in milliseconds which when added to UTC
+    represents the local <i>standard</i> time. Daylight saving time is <i>not</i> reflected by
+    LocalTZA.</p>
+
+    <es-note>
+      <p>It is recommended that implementations use the time zone information of the IANA Time Zone
+      Database.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Daylight Saving Time Adjustment" anchor="sec-daylight-saving-time-adjustment">
+    <p>An implementation dependent algorithm using best available information on time zones to
+    determine the local daylight saving time adjustment DaylightSavingTA(<i>t</i>), measured in
+    milliseconds. An implementation of ECMAScript is expected to make its best effort to determine
+    the local daylight saving time adjustment.</p>
+  </es-clause>
+
+  <es-clause title="Local Time" anchor="sec-local-time">
+    <p>Conversion from UTC to local time is defined by</p>
+
+    <div class="display">
+      LocalTime(<i>t</i>) = <i>t</i> + <a href="#sec-local-time-zone-adjustment">LocalTZA</a> +
+      <a href="#sec-daylight-saving-time-adjustment">DaylightSavingTA</a> (<i>t</i>)
+    </div>
+
+    <p>Conversion from local time to UTC is defined by</p>
+
+    <div class="display">
+      UTC(<i>t</i>) = <i>t</i> – <a href="#sec-local-time-zone-adjustment">LocalTZA</a> – <a href=
+      "#sec-daylight-saving-time-adjustment">DaylightSavingTA</a> (<i>t</i> – <a href=
+      "#sec-local-time-zone-adjustment">LocalTZA</a> )
+    </div>
+
+    <p>Note that UTC(LocalTime(<i>t</i>)) is not necessarily always equal to <i>t</i>.</p>
+  </es-clause>
+  <link rel="import" href=
+  "overview-of-date-objects-and-definitions-of-abstract-operations\hours-minutes-second-and-milliseconds.html">
+  <link rel="import" href=
+  "overview-of-date-objects-and-definitions-of-abstract-operations\maketime.html">
+  <link rel="import" href=
+  "overview-of-date-objects-and-definitions-of-abstract-operations\makeday.html">
+
+  <es-clause title="MakeDate (day, time)" anchor="sec-makedate">
+    <p>The operator MakeDate calculates a number of milliseconds from its two arguments, which must
+    be ECMAScript Number values. This operator functions as follows:</p>
+
+    <ol class="proc">
+      <li>If <i>day</i> is not finite or <i>time</i> is not finite, return <b>NaN</b>.</li>
+
+      <li>Return <i>day</i> × <a href="#sec-day-number-and-time-within-day">msPerDay</a> +
+      <i>time</i>.
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="TimeClip (time)" anchor="sec-timeclip">
+    <p>The operator TimeClip calculates a number of milliseconds from its argument, which must be
+    an ECMAScript Number value. This operator functions as follows:</p>
+
+    <ol class="proc">
+      <li>If <i>time</i> is not finite, return <b>NaN</b>.</li>
+
+      <li>If <a href="#sec-algorithm-conventions">abs</a> (<i>time</i>) &gt;
+      8.64&nbsp;×&nbsp;10<sup>15</sup> , return <b>NaN</b>.
+      </li>
+
+      <li>Return <a href="#sec-tointeger">ToInteger</a> (<i>time</i>) + (<b>+0</b>). (Adding a
+      positive zero converts <b>−0</b> to <b>+0</b>.)
+      </li>
+    </ol>
+
+    <es-note>
+      <p>The point of step 3 is that an implementation is permitted a choice of internal
+      representations of time values, for example as a 64-bit signed integer or as a 64-bit
+      floating-point value. Depending on the implementation, this internal representation may or
+      may not distinguish <b>−0</b> and <b>+0</b>.</p>
+    </es-note>
+  </es-clause>
+  <link rel="import" href=
+  "overview-of-date-objects-and-definitions-of-abstract-operations\date-time-string-format.html">
+</es-clause>

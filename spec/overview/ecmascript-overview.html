@@ -1,0 +1,37 @@
+<!doctype html>
+<es-clause title="ECMAScript Overview" anchor="sec-ecmascript-overview">
+  <p>The following is an informal overview of ECMAScript—not all parts of the language are
+  described. This overview is not part of the standard proper.</p>
+
+  <p>ECMAScript is object-based: basic language and host facilities are provided by objects, and an
+  ECMAScript program is a cluster of communicating objects. In ECMAScript, an <b><i>object</i></b>
+  is a collection of <b><i>properties</i></b> each with zero or more <b><i>attributes</i></b> that
+  determine how each property can be used—for example, when the Writable attribute for a property
+  is set to <b>false</b>, any attempt by executed ECMAScript code to change the value of the
+  property fails. Properties are containers that hold other objects, <b><i>primitive
+  values</i></b>, or <b><i>functions</i></b>. A primitive value is a member of one of the following
+  built-in types: <b>Undefined</b>, <b>Null</b>, <b>Boolean</b>, <b>Number</b>, <b>Symbol</b> and
+  <b>String</b>; an object is a member of the remaining built-in type <b>Object</b>; and a function
+  is a callable object. A function that is associated with an object via a property is a
+  <b><i>method</i></b>.</p>
+
+  <p>ECMAScript defines a collection of <b><i>built-in objects</i></b> that round out the
+  definition of ECMAScript entities. These built-in objects include the global object, the
+  <b>Object</b> object, the <b>Function</b> object, the <b>Array</b> object, the <b>String</b>
+  object, the <b>Boolean</b> object, the <b>Number</b> object, the <b>Math</b> object, the
+  <b>Date</b> object, the <b>RegExp</b> object, the <b>JSON</b> object, and the Error objects
+  <b>Error, EvalError</b>, <b>RangeError, ReferenceError, SyntaxError, TypeError</b> and
+  <b><a href="#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b> .</p>
+
+  <p>ECMAScript also defines a set of built-in <b><i>operators</i></b>. ECMAScript operators
+  include various unary operations, multiplicative operators, additive operators, bitwise shift
+  operators, relational operators, equality operators, binary bitwise operators, binary logical
+  operators, assignment operators, and the comma operator.</p>
+
+  <p>ECMAScript syntax intentionally resembles Java syntax. ECMAScript syntax is relaxed to enable
+  it to serve as an easy-to-use scripting language. For example, a variable is not required to have
+  its type declared nor are types associated with properties, and defined functions are not
+  required to have their declarations appear textually before calls to them.</p>
+  <link rel="import" href="ecmascript-overview\objects.html">
+  <link rel="import" href="ecmascript-overview\strict-variant-of-ecmascript.html">
+</es-clause>

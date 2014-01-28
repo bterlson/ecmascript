@@ -1,0 +1,85 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: EvaluateBody" anchor=
+"sec-generator-function-definitions-runtime-semantics-evaluatebody">
+  <p>With parameter <es-nt>functionObject</es-nt>.</p>
+
+  <p>See also: <a href="#sec-function-definitions-runtime-semantics-evaluatebody">14.1.14</a> ,
+  <a href="#sec-arrow-function-definitions-runtime-semantics-evaluatebody">14.2.9</a> .</p>
+
+  <es-production name="GeneratorBody" class="inline">
+    <es-rhs><es-nt>FunctionBody</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : A <a href=
+      "#sec-function-environment-records">Function Environment Record</a> containing a this binding
+      has already been activated as the current environment.
+    </li>
+
+    <li>Let <i>env</i> be the result of the <a href=
+    "#sec-getthisenvironment">GetThisEnvironment</a> abstract operation.
+    </li>
+
+    <li>Let <i>G</i> be the result of calling the GetThisBinding concrete method of
+    <i>env</i>.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>G</i>) is not Object or if
+    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>G</i>) is Object and <i>G</i> does
+    not have a [[GeneratorState]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> or if <a href=
+    "#sec-ecmascript-data-types-and-values">Type</a> (<i>G</i>) is Object and <i>G</i> has a
+    [[GeneratorState]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a>
+    and the value of <i>G’s</i> [[GeneratorState]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>undefined</b>,
+    then
+
+      <ol class="block">
+        <li>Let <i>newG</i> be the result of calling <a href="#sec-ordinarycreatefromconstructor">
+          OrdinaryCreateFromConstructor</a> (<i>functionObject</i>,
+          <code>"%GeneratorPrototype%"</code>, ( [[GeneratorState]], [[GeneratorContext]]) ).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>newG</i>).
+        </li>
+
+        <li>Let <i>G</i> be <i>newG.</i></li>
+      </ol>
+    </li>
+
+    <li>Return the result of <a href="#sec-generatorstart">GeneratorStart</a> (<i>G</i>,
+    <i>FunctionBody</i>).
+    </li>
+  </ol>
+
+  <es-production name="GeneratorBody" class="inline">
+    <es-rhs><es-nt>Comprehension</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>G</i> be the result of <a href="#sec-objectcreate">ObjectCreate</a>
+    (<b>%</b>GeneratorPrototype<b>%</b>, ( [[GeneratorState]], [[GeneratorContext]]) ).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>G</i>).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : the value of <i>G’s</i> [[GeneratorState]]
+      <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> is
+      <b>undefined</b>.
+    </li>
+
+    <li>Let <i>startStatus</i> be the result of <a href="#sec-generatorstart">GeneratorStart</a>
+    (<i>G</i>, <i>Comprehension</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>startStatus</i>).
+    </li>
+
+    <li>Return <i>G</i>.</li>
+  </ol>
+</es-clause>

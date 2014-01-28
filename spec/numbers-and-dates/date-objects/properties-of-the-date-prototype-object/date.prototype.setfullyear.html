@@ -1,0 +1,47 @@
+<!doctype html>
+<es-clause title="Date.prototype.setFullYear (year [, month [, date ] ] )" anchor=
+"sec-date.prototype.setfullyear">
+  <p>If <es-nt>month</es-nt> is not specified, this behaves as if <es-nt>month</es-nt> were
+  specified with the value <code>getMonth()</code>.</p>
+
+  <p>If <es-nt>date</es-nt> is not specified, this behaves as if <es-nt>date</es-nt> were specified
+  with the value <code>getDate()</code>.</p>
+
+  <ol class="proc">
+    <li>Let <i>t</i> be the result of <a href="#sec-local-time">LocalTime</a> (<a href=
+    "#sec-properties-of-the-date-prototype-object">this time value</a> ); but if <a href=
+    "#sec-properties-of-the-date-prototype-object">this time value</a> is <b>NaN</b>, let <i>t</i>
+    be <b>+0</b>.
+    </li>
+
+    <li>Let <i>y</i> be <a href="#sec-tonumber">ToNumber</a> (<i>year</i>).
+    </li>
+
+    <li>If <i>month</i> is not specified, then let <i>m</i> be <a href=
+    "#sec-month-number">MonthFromTime</a> (<i>t</i>); otherwise, let <i>m</i> be <a href=
+    "#sec-tonumber">ToNumber</a> (<i>month</i>).
+    </li>
+
+    <li>If <i>date</i> is not specified, then let <i>dt</i> be <a href=
+    "#sec-date-number">DateFromTime</a> (<i>t</i>); otherwise, let <i>dt</i> be <a href=
+    "#sec-tonumber">ToNumber</a> (<i>date</i>).
+    </li>
+
+    <li>Let <i>newDate</i> be <a href="#sec-makedate">MakeDate</a> (<a href=
+    "#sec-makeday">MakeDay</a> (<i>y</i>, <i>m</i>, <i>dt</i>), <a href=
+    "#sec-day-number-and-time-within-day">TimeWithinDay</a> (<i>t</i>)).
+    </li>
+
+    <li>Let <i>u</i> be <a href="#sec-timeclip">TimeClip</a> (<a href="#sec-local-time">UTC</a>
+    (<i>newDate</i>)).
+    </li>
+
+    <li>Set the [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of this Date object to <i>u</i>.
+    </li>
+
+    <li>Return <i>u</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>setFullYear</code> method is <b>3</b>.</p>
+</es-clause>

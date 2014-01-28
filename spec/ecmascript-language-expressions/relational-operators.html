@@ -1,0 +1,43 @@
+<!doctype html>
+<es-clause title="Relational Operators" anchor="sec-relational-operators">
+  <es-note>
+    <p>The result of evaluating a relational operator is always of type Boolean, reflecting whether
+    the relationship named by the operator holds between its two operands.</p>
+  </es-note>
+
+  <h2>Syntax</h2>
+
+  <es-production name="RelationalExpression" params="In, Yield">
+    <es-rhs><es-nt params="?Yield">ShiftExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">RelationalExpression</es-nt> &lt; <es-nt params=
+    "?Yield">ShiftExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">RelationalExpression</es-nt> &gt; <es-nt params=
+    "?Yield">ShiftExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">RelationalExpression</es-nt> &lt;= <es-nt params=
+    "? Yield">ShiftExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">RelationalExpression</es-nt> &gt;= <es-nt params=
+    "?Yield">ShiftExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">RelationalExpression</es-nt> instanceof <es-nt params=
+    "?Yield">ShiftExpression</es-nt></es-rhs>
+
+    <es-rhs constraint="+In"><es-nt params="In, ?Yield">RelationalExpression</es-nt> in
+    <es-nt params="?Yield">ShiftExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>The [in] grammar parameter is needed to avoid confusing the in operator in a relational
+    expression with the in operator in a for statement.</p>
+  </es-note>
+  <link rel="import" href=
+  "relational-operators\relational-operators-static-semantics-isanonymousfunctiondefinition.html">
+  <link rel="import" href=
+  "relational-operators\relational-operators-static-semantics-isvalidsimpleassignmenttarget.html">
+  <link rel="import" href=
+  "relational-operators\relational-operators-runtime-semantics-evaluation.html">
+  <link rel="import" href="relational-operators\instanceofoperator.html">
+</es-clause>

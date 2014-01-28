@@ -1,0 +1,71 @@
+<!doctype html>
+<es-clause title="Static Semantics: IsValidSimpleAssignmentTarget" anchor=
+"sec-semantics-static-semantics-isvalidsimpleassignmenttarget">
+  <p>See also: <a href=
+  "#sec-grouping-operator-static-semantics-isvalidsimpleassignmenttarget">12.1.10.3</a> , <a href=
+  "#sec-static-semantics-static-semantics-isidentifierref">12.2.1.3</a> , <a href=
+  "#sec-postfix-expressions-static-semantics-isvalidsimpleassignmenttarget">12.3.3</a> , <a href=
+  "#sec-unary-operators-static-semantics-isvalidsimpleassignmenttarget">12.4.3</a> , <a href=
+  "#sec-multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget">12.5.2</a> ,
+  <a href="#sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget">12.6.2</a> ,
+  <a href="#sec-semantics-isvalidsimpleassignmenttarget">12.7.2</a> , <a href=
+  "#sec-relational-operators-static-semantics-isvalidsimpleassignmenttarget">12.8.2</a> , <a href=
+  "#sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</a> , <a href=
+  "#sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</a> ,
+  <a href=
+  "#sec-binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget">12.11.2</a> ,
+  <a href="#sec-conditional-operator-static-semantics-isvalidsimpleassignmenttarget">12.12.2</a> ,
+  <a href="#sec-assignment-operators-static-semantics-isvalidsimpleassignmenttarget">12.13.3</a> ,
+  <a href="#sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</a> .</p>
+
+  <es-production name="PrimaryExpression">
+    <es-rhs>this</es-rhs>
+
+    <es-rhs><es-nt>Literal</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ArrayInitialiser</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ObjectLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>FunctionExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ClassExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt>GeneratorExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt>GeneratorComprehension</es-nt></es-rhs>
+
+    <es-rhs><es-nt>RegularExpressionLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>TemplateLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <es-production name="PrimaryExpression" class="inline">
+    <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If this <i>PrimaryExpression</i> is contained in <a href="#sec-strict-mode-code">strict
+    code</a> and <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+    <i>IdentifierReference</i> is <code>"eval"</code> or <code>"arguments"</code>, then return <b>
+      false</b>.
+    </li>
+
+    <li>Return <b>true</b>.</li>
+  </ol>
+
+  <es-production name="PrimaryExpression" class="inline">
+    <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>expr</i> be CoveredParenthesisedExpression of
+    <i>CoverParenthesisedExpressionAndArrowParameterList</i>.</li>
+
+    <li>Return IsValidSimpleAssignmentTarget of <i>expr</i>.</li>
+  </ol>
+</es-clause>

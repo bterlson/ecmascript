@@ -1,0 +1,72 @@
+<!doctype html>
+<es-clause title="Array.prototype.push ( [ item1 [ , item2 [ , … ] ] ] )" anchor=
+"sec-array.prototype.push">
+  <p>The arguments are appended to the end of the array, in the order in which they appear. The new
+  length of the array is returned as the result of the call.</p>
+
+  <p>When the <code>push</code> method is called with zero or more arguments <es-nt>item1</es-nt>,
+  <es-nt>item2</es-nt>, etc., the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
+      this</b> value as the argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+    </li>
+
+    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <code>"length"</code>).
+    </li>
+
+    <li>Let <i>n</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>n</i>).
+    </li>
+
+    <li>Let <i>items</i> be a <a href="#sec-list-and-record-specification-type">List</a> whose
+    elements are, in left to right order, the arguments that were passed to this function
+    invocation.
+    </li>
+
+    <li>Repeat, while <i>items</i> is not empty
+
+      <ol class="block">
+        <li>Remove the first element from <i>items</i> and let <i>E</i> be the value of the
+        element.</li>
+
+        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
+        <a href="#sec-tostring">ToString</a> (<i>n</i>), <i>E</i>, <b>true</b>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+        </li>
+
+        <li>Increase <i>n</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
+    <code>"length"</code>, <i>n</i>, <b>true</b>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+    </li>
+
+    <li>Return <i>n</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>push</code> method is <b>1</b>.</p>
+
+  <es-note>
+    <p>The <code>push</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects
+    for use as a method. Whether the <code>push</code> function can be applied successfully to an
+    exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

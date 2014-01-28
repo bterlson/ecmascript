@@ -1,0 +1,75 @@
+<!doctype html>
+<es-clause title="Date Time String Format" anchor="sec-date-time-string-format">
+  <p>ECMAScript defines a string interchange format for date-times based upon a simplification of
+  the ISO 8601 Extended Format. The format is as follows:
+  <code>YYYY-MM-DDTHH:mm:ss.sss<i>Z</i></code></p>
+
+  <p>Where the fields are as follows:</p>
+
+  <p><code>YYYY</code>	is the decimal digits of the year 0000 to 9999 in the Gregorian
+  calendar.</p>
+
+  <p><code>-</code>		“<code>-</code>” (hyphen) appears literally twice in the string.</p>
+
+  <p><code>MM</code>		is the month of the year from 01 (January) to 12 (December).</p>
+
+  <p><code>DD</code>		is the day of the month from 01 to 31.</p>
+
+  <p><code>T</code>		“<code>T</code>” appears literally in the string, to indicate the beginning of
+  the time element.</p>
+
+  <p><code>HH</code>	is the number of complete hours that have passed since midnight as two decimal
+  digits from 00 to 24.</p>
+
+  <p><code>:</code>		“<code>:</code>” (colon) appears literally twice in the string.</p>
+
+  <p><code>mm</code>	is the number of complete minutes since the start of the hour as two decimal
+  digits from 00 to 59.</p>
+
+  <p><code>ss</code>	is the number of complete seconds since the start of the minute as two decimal
+  digits from 00 to 59.</p>
+
+  <p><code>.</code>		“<code>.</code>” (dot) appears literally in the string.</p>
+
+  <p><code>sss</code>	is the number of complete milliseconds since the start of the second as three
+  decimal digits.</p>
+
+  <p><code>Z</code>	is the time zone offset specified as “<code>Z</code>” (for UTC) or either
+  “<code>+</code>” or “<code>-</code>” followed by a time expression <code>HH:mm</code></p>
+
+  <p class="Note">This format includes date-only forms:</p>
+  <pre class="Note">
+YYYY<br>YYYY-MM<br>YYYY-MM-DD
+</pre>
+
+  <p>It also includes “date-time” forms that consist of one of the above date-only forms
+  immediately followed by one of the following time forms with an optional time zone offset
+  appended:</p>
+  <pre>
+THH:mm<br>THH:mm:ss<br>THH:mm:ss.sss
+</pre>
+
+  <p>All numbers must be base 10. If the <code>MM</code> or <code>DD</code> fields are absent
+  “<code>01</code>” is used as the value. If the <code>HH</code>, <code>mm</code>, or
+  <code>ss</code> fields are absent “<code>00</code>” is used as the value and the value of an
+  absent <code>sss</code> field is “<code>000</code>”. If the time zone offset is absent, the
+  date-time is interpreted as a local time.</p>
+
+  <p>Illegal values (out-of-bounds as well as syntax errors) in a format string means that the
+  format string is not a valid instance of this format.</p>
+
+  <es-note>
+    <p>As every day both starts and ends with midnight, the two notations 00:00 and 24:00 are
+    available to distinguish the two midnights that can be associated with one date. This means
+    that the following two notations refer to exactly the same point in time: 1995-02-04T24:00 and
+    1995-02-05T00:00</p>
+  </es-note>
+
+  <es-note>
+    <p>There exists no international standard that specifies abbreviations for civil time zones
+    like CET, EST, etc. and sometimes the same abbreviation is even used for two very different
+    time zones. For this reason, ISO 8601 and this format specifies numeric representations of date
+    and time.</p>
+  </es-note>
+  <link rel="import" href="date-time-string-format\extended-years.html">
+</es-clause>

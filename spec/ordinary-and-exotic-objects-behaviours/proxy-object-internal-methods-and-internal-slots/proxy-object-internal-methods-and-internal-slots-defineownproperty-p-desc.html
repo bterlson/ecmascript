@@ -1,0 +1,142 @@
+<!doctype html>
+<es-clause title="[[DefineOwnProperty]] (P, Desc)" anchor=
+"sec-proxy-object-internal-methods-and-internal-slots-defineownproperty-p-desc">
+  <p>When the [[DefineOwnProperty]] internal method of an exotic Proxy object <es-nt>O</es-nt> is
+  called with <a href="#sec-object-type">property key</a> <es-nt>P</es-nt> and <a href=
+  "#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+    </li>
+
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
+    "<code>defineProperty</code>").
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
+    </li>
+
+    <li>If <i>trap</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Return the result of calling the [[DefineOwnProperty]] internal method of <i>target</i>
+        with arguments <i>P</i> and <i>Desc</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>descObj</i> be <a href="#sec-frompropertydescriptor">FromPropertyDescriptor</a>
+    (<i>Desc</i>).
+    </li>
+
+    <li>NOTE If <es-nt>Desc</es-nt> was originally generated from an object using <a href=
+    "#sec-topropertydescriptor">ToPropertyDescriptor</a> , then <es-nt>descObj</es-nt> will be that
+    original object.
+    </li>
+
+    <li>Let <i>trapResult</i> be the result of calling the [[Call]] internal method of <i>trap</i>
+    with <i>handler</i> as the <b>this</b> value and a new <a href=
+    "#sec-list-and-record-specification-type">List</a> containing <i>target</i>, <i>P</i>, and <i>
+      descObj</i>.
+    </li>
+
+    <li>Let <i>booleanTrapResult</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>trapResult</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>booleanTrapResult</i>).
+    </li>
+
+    <li>If <i>booleanTrapResult</i> is <b>false</b>, then return <b>false</b>.</li>
+
+    <li>Let <i>targetDesc</i> be the result of calling the [[GetOwnProperty]] internal method of
+    <i>target</i> with argument <i>P</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>targetDesc</i>).
+    </li>
+
+    <li>Let <i>extensibleTarget</i> be the result of <a href="#sec-isextensible-o">IsExtensible</a>
+    (<i>target</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>extensibleTarget</i>).
+    </li>
+
+    <li>If <i>Desc</i> has a [[Configurable]] field and if <i>Desc</i>.[[Configurable]] is
+    <b>false,</b> then
+
+      <ol class="block">
+        <li>Let <i>settingConfigFalse</i> be <b>true</b>.</li>
+      </ol>
+    </li>
+
+    <li>Else let <i>settingConfigFalse</i> be <b>false</b>.</li>
+
+    <li>If <i>targetDesc</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>If <i>extensibleTarget</i> is <b>false</b>, then throw a <b>TypeError</b>
+        exception.</li>
+
+        <li>If <i>settingConfigFalse</i> is <b>true</b>, then throw a <b>TypeError</b>
+        exception.</li>
+      </ol>
+    </li>
+
+    <li>Else <i>targetDesc</i> is not <b>undefined<i>,</i></b>
+
+      <ol class="block">
+        <li>If <a href="#sec-iscompatiblepropertydescriptor">IsCompatiblePropertyDescriptor</a>
+        (<i>extensibleTarget</i>, <i>Desc</i> , <i>targetDesc</i>) is <b>false</b>, then throw a
+        <b>TypeError</b> exception.
+        </li>
+
+        <li>If <i>settingConfigFalse</i> is <b>true</b> and <i>targetDesc</i>.[[Configurable]] is
+        <b>true</b>, then throw a <b>TypeError</b> exception.</li>
+      </ol>
+    </li>
+
+    <li>Return <b>true</b>.</li>
+  </ol>
+
+  <es-note>
+    <p>[[DefineOwnProperty]] for proxy objects enforces the following invariants:</p>
+
+    <ul>
+      <li>
+        <p>A property cannot be added, if the target object is not extensible.</p>
+      </li>
+
+      <li>
+        <p>A property cannot be added as or modified to be non-configurable, if it does not exists
+        as a non-configurable own property of the target object.</p>
+      </li>
+
+      <li>
+        <p>A property may not be non-configurable, if is corresponding configurable property of the
+        target object exists.</p>
+      </li>
+
+      <li>
+        <p>If a property has a corresponding target object property then apply the <a href=
+        "#sec-property-descriptor-specification-type">Property Descriptor</a> of the property to
+        the target object using [[DefineOwnProperty]] will not throw an exception.</p>
+      </li>
+    </ul>
+  </es-note>
+</es-clause>

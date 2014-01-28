@@ -1,0 +1,52 @@
+<!doctype html>
+<es-clause title="Construct (F, argumentsList)" anchor="sec-construct-f-argumentslist">
+  <p>When the abstract operation Construct is called with Object <es-nt>F</es-nt> and <a href=
+  "#sec-list-and-record-specification-type">List</a> <es-nt>argumentsList</es-nt> the following
+  steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>F</i>) is Object.
+    </li>
+
+    <li>Let <i>obj</i> be <a href="#sec-createfromconstructor">CreateFromConstructor</a>
+    (<i>F</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
+    </li>
+
+    <li>If <i>obj</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>obj</i> be the result of calling <a href=
+        "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>F</i>,
+        <code>"%ObjectPrototype%"</code>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
+        </li>
+
+        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>obj</i>) is not Object,
+        then throw a <b>TypeError</b> exception.
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>result</i> be the result of calling the [[Call]] internal method of <i>F</i>,
+    providing <i>obj</i> and <i>argumentsList</i> as the arguments.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>result</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>result</i>) is Object then
+    return <i>result</i>.
+    </li>
+
+    <li>Return <i>obj</i>.</li>
+  </ol>
+</es-clause>

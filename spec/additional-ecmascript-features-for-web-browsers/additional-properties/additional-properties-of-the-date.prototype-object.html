@@ -1,0 +1,43 @@
+<!doctype html>
+<es-clause title="Additional Properties of the Date.prototype Object" anchor=
+"sec-additional-properties-of-the-date.prototype-object">
+  <es-clause title="Date.prototype.getYear ( )" anchor="sec-date.prototype.getyear">
+    <es-note>
+      <p>The <code>getFullYear</code> method is preferred for nearly all purposes, because it
+      avoids the “year 2000 problem.”</p>
+    </es-note>
+
+    <p>When the <b>getYear</b> method is called with no arguments, the following steps are
+    taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-year-number">YearFromTime</a> (<a href=
+      "#sec-local-time">LocalTime</a> (<i>t</i>)) − 1900.
+      </li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "additional-properties-of-the-date.prototype-object\date.prototype.setyear.html">
+
+  <es-clause title="Date.prototype.toGMTString ( )" anchor="sec-date.prototype.togmtstring">
+    <es-note>
+      <p>The property <code>toUTCString</code> is preferred. The <code>toGMTString</code> property
+      is provided principally for compatibility with old code. It is recommended that the
+      <code>toUTCString</code> property be used in new ECMAScript code.</p>
+    </es-note>
+
+    <p>The Function object that is the initial value of <code>Date.prototype.toGMTString</code> is
+    the same Function object that is the initial value of <code><a href=
+    "#sec-date.prototype.toutcstring">Date.prototype.toUTCString</a></code> .</p>
+  </es-clause>
+</es-clause>

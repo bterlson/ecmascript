@@ -1,0 +1,34 @@
+<!doctype html>
+<es-clause title="GetBindingValue(N,S)" anchor=
+"sec-declarative-environment-records-getbindingvalue-n-s">
+  <p>The concrete <a href="#sec-environment-records">Environment Record</a> method GetBindingValue
+  for declarative environment records simply returns the value of its bound identifier whose name
+  is the value of the argument <es-nt>N</es-nt>. The binding must already exist. If
+  <es-nt>S</es-nt> is <b>true</b> and the binding is an uninitialised immutable binding throw a
+  <b>ReferenceError</b> exception.</p>
+
+  <ol class="proc">
+    <li>Let <i>envRec</i> be the <a href="#sec-declarative-environment-records">declarative
+    environment record</a> for which the method was invoked.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>envRec</i> has a binding for <i>N</i>.
+    </li>
+
+    <li>If the binding for <i>N</i> in <i>envRec</i> is an uninitialised binding, then
+
+      <ol class="block">
+        <li>If <i>S</i> is <b>false</b>, return the value <b>undefined</b>, otherwise throw a
+        <b>ReferenceError</b> exception.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Return the value currently bound to <i>N</i> in <i>envRec</i>.</li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

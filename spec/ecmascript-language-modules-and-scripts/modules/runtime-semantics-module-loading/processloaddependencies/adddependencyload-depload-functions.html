@@ -1,0 +1,50 @@
+<!doctype html>
+<es-clause title="AddDependencyLoad(depLoad) Functions" anchor=
+"sec-adddependencyload-depload-functions">
+  <p>An AddDependencyLoad function is an anonymous function that adds a Load Record for a
+  dependency to any LinkSets associated with the parent Load.</p>
+
+  <p>Each AddDependencyLoad function has [[ParentLoad]] and [[Request]] internal slots.</p>
+
+  <p>When an AddDependencyLoad function <es-nt>F</es-nt> is called with argument
+  <es-nt>depLoad</es-nt>, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>parentLoad</i> be the value of <i>F</i>’s [[ParentLoad]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>request</i> be the value of <i>F</i>’s [[Request]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : There is no Record in the <a href=
+      "#sec-list-and-record-specification-type">List</a> <i>parentLoad</i>.[[Dependencies]] whose
+      [[key]] field is equal to <i>request</i>.
+    </li>
+
+    <li>Append the Record {[[key]]: <i>request</i>, [[value]]: <i>depLoad</i>.[[Name]]} to the end
+    of the <a href="#sec-list-and-record-specification-type">List</a>
+    <i>parentLoad</i>.[[Dependencies]].
+    </li>
+
+    <li>If <i>depLoad</i>.[[Status]] is not <code>"linked"</code>, then
+
+      <ol class="block">
+        <li>Let <i>linkSets</i> be a copy of the <a href="#sec-list-and-record-specification-type">
+          List</a> <i>parentLoad</i>.[[LinkSets]].
+        </li>
+
+        <li>For each <i>linkSet</i> in <i>linkSets</i>, do
+
+          <ol class="block">
+            <li>Call <a href="#sec-addloadtolinkset">AddLoadToLinkSet</a> (<i>linkSet</i>,
+            <i>depLoad</i>).
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

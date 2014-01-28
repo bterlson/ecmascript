@@ -1,0 +1,112 @@
+<!doctype html>
+<es-clause title="JSON.parse ( text [ , reviver ] )" anchor="sec-json.parse">
+  <p>The <code>parse</code> function parses a JSON text (a JSON-formatted String) and produces an
+  ECMAScript value. The JSON format is a subset of the syntax for ECMAScript literals, Array
+  Initialisers and Object Initialisers. After parsing, JSON objects are realized as ECMAScript
+  objects. JSON arrays are realized as ECMAScript Array instances. JSON strings, numbers, booleans,
+  and null are realized as ECMAScript Strings, Numbers, Booleans, and <b>null</b>.</p>
+
+  <p>The optional <i>reviver</i> parameter is a function that takes two parameters, (<i>key</i> and
+  <i>value</i>). It can filter and transform the results. It is called with each of the
+  <i>key</i>/<i>value</i> pairs produced by the parse, and its return value is used instead of the
+  original value. If it returns what it received, the structure is not modified. If it returns
+  <b>undefined</b> then the property is deleted from the result.</p>
+
+  <ol class="proc">
+    <li>Let <i>JText</i> be <a href="#sec-tostring">ToString</a> (<i>text</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>JText</i>).
+    </li>
+
+    <li>Parse <i>JText</i> interpreted as UTF-16 encoded Unicode points as a JSON text as specified
+    in<br>
+    ECMA-404. Throw a <b>SyntaxError</b> exception if <i>JText</i> is not a valid JSON text as
+    defined in that specification.</li>
+
+    <li>Let <i>scriptText</i> be the result of concatenating <code>"("</code>, <i>JText</i>, and
+    <code>");"</code>.</li>
+
+    <li>Let <i>completion</i> be the result of parsing and evaluating <i>scriptText</i> as if it
+    was the source text of an ECMAScript <i>Script</i>. but using the alternative definition of <i>
+      DoubleStringCharacter</i> provided below. The extended PropertyDefinitionEvaluation semantics
+      defined in <a href="#sec-__proto___-property-names-in-object-initialisers">B.3.1</a> must not
+      be used during the evaluation.
+    </li>
+
+    <li>Let <i>unfiltered</i> be <i>completion</i>.[[value]].</li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>unfiltered</i> will be either a
+      primitive value or an object that is defined by either an <i>ArrayLiteral</i> or an
+      <i>ObjectLiteral</i>.
+    </li>
+
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>reviver</i>) is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>root</i> be the result of the abstract operation <a href=
+        "#sec-objectcreate">ObjectCreate</a> with the intrinsic object %ObjectPrototype% as its
+        argument.
+        </li>
+
+        <li>Let <i>status</i> be the result of <a href=
+        "#sec-createdataproperty">CreateDataProperty</a> (<i>root</i>, the empty String,
+        <i>unfiltered</i>).
+        </li>
+
+        <li>
+          <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is <b>true</b>.
+        </li>
+
+        <li>Return the result of calling the abstract operation <a href="#sec-walk">Walk</a> ,
+        passing <i>root</i> and the empty String. The abstract operation <a href=
+        "#sec-walk">Walk</a> is described below.
+        </li>
+      </ol>
+    </li>
+
+    <li>Else
+
+      <ol class="block">
+        <li>Return <i>unfiltered</i>.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <p>JSON allows Unicode code points U+2028 and U+2029 to directly appear in <es-nt>String</es-nt>
+  literals without using an escape sequence. This is enabled by using the following alternative
+  definition of <es-nt>DoubleStringCharacter</es-nt> when parsing <es-nt>scriptText</es-nt> in step
+  5:</p>
+
+  <es-production name="DoubleStringCharacter" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-t>"</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or</es-gmod>
+    <es-gprose>U+0000 through U+001F</es-gprose></es-rhs>
+
+    <es-rhs><es-t>\</es-t> <es-nt>EscapeSequence</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>The CV of <es-production name="DoubleStringCharacter" type="lexical" class=
+      "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+      <es-t>"</es-t></es-gmod><es-gmod>or
+      <es-t>\</es-t></es-gmod><es-gmod>or</es-gmod></es-rhs></es-production> U+0000
+      <b><i>through</i></b> U+001F is the UTF-16 Encoding (<a href=
+      "#sec-static-semantics-utf-16-encoding">10.1.1</a> ) of the code point value of
+      <i>SourceCharacter</i>.</p>
+    </li>
+  </ul>
+
+  <es-note>
+    <p>The syntax of a valid JSON text is a subset of the ECMAScript
+    <es-nt>PrimaryExpression</es-nt> syntax. Hence a valid JSON text is also a valid
+    <es-nt>PrimaryExpression</es-nt>. Step 3 above verifies that <es-nt>JText</es-nt> conforms to
+    that subset. When <es-nt>scriptText</es-nt> is parsed and evaluated as a <es-nt>Script</es-nt>
+    the result will be either a String, Number, Boolean, or Null primitive value or an Object
+    defined as if by an <es-nt>ArrayLiteral</es-nt> or <es-nt>ObjectLiteral</es-nt>.</p>
+  </es-note>
+  <link rel="import" href="json.parse\walk.html">
+</es-clause>

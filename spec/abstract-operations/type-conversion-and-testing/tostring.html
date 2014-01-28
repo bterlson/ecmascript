@@ -1,0 +1,91 @@
+<!doctype html>
+<es-clause title="ToString" anchor="sec-tostring">
+  <p>The abstract operation ToString converts its <i>argument</i> to a value of type String
+  according to <a href="#table-12">Table 12</a> :</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-12">Table 12</span> — ToString Conversions
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Argument Type</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Result</th>
+      </tr>
+
+      <tr>
+        <td>
+          <a href="#sec-completion-record-specification-type">Completion Record</a>
+        </td>
+
+        <td>
+          If <i>argument</i> is an <a href="#sec-completion-record-specification-type">abrupt
+          completion</a> , return <i>argument</i>. Otherwise return
+          ToString(<i>argument</i>.[[value]])
+        </td>
+      </tr>
+
+      <tr>
+        <td>Undefined</td>
+
+        <td><code>"undefined"</code></td>
+      </tr>
+
+      <tr>
+        <td>Null</td>
+
+        <td><code>"null"</code></td>
+      </tr>
+
+      <tr>
+        <td>Boolean</td>
+
+        <td>
+          <p>If <i>argument</i> is <b>true</b>, then return <code>"true"</code>.</p>
+
+          <p>If <i>argument</i> is <b>false</b>, then return <b>"false".</b></p>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Number</td>
+
+        <td>
+          See <a href="#sec-tostring-applied-to-the-number-type">7.1.12.1</a> .
+        </td>
+      </tr>
+
+      <tr>
+        <td>String</td>
+
+        <td>Return <i>argument</i> (no conversion)</td>
+      </tr>
+
+      <tr>
+        <td>Symbol</td>
+
+        <td>Throw a <b>TypeError</b> exception.</td>
+      </tr>
+
+      <tr>
+        <td>Object</td>
+
+        <td>
+          <p>Apply the following steps:</p>
+
+          <p>1. Let <i>primValue</i> be <a href="#sec-toprimitive">ToPrimitive</a>
+          (<i>argument</i>, hint String).</p>
+
+          <p>2. Return ToString(<i>primValue</i>).</p>
+        </td>
+      </tr>
+    </table>
+  </figure>
+  <link rel="import" href="tostring\tostring-applied-to-the-number-type.html">
+</es-clause>

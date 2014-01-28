@@ -1,0 +1,49 @@
+<!doctype html>
+<es-clause title="SetFunctionName Abstract Operation" anchor="sec-setfunctionname">
+  <p>The abstract operation SetFunctionName requires a Function argument <es-nt>F</es-nt>, a String
+  or Symbol argument <es-nt>name</es-nt> and optionally a String argument <es-nt>prefix</es-nt>.
+  This operation adds a <code>name</code> property to <es-nt>F</es-nt> by performing the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>F</i> is an extensible <a href=
+      "#sec-ecmascript-function-objects">ECMAScript function object</a> , that does not have a
+      <code>name</code> own property.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>name</i>) is either Symbol or String.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>name</i>) is Symbol, then
+
+      <ol class="block">
+        <li>Let <i>description</i> be the values of <i>name</i>’s [[Description]].</li>
+
+        <li>If <i>description</i> is <b>undefined</b>, then let <i>name</i> be the empty
+        String.</li>
+
+        <li>Else, let <i>name</i> be the concatenation of <code>"["</code>, <i>description</i>, and
+        <code>"]"</code>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>name</i> is not the empty string and <i>prefix</i> was passed, then let <i>name</i>
+    be the concatenation of <i>prefix</i>, Unicode code point U+0020 (Space) , and
+    <i>name</i>.</li>
+
+    <li>Call the [[DefineOwnProperty]] internal method of <i>F</i> with arguments
+    <code>"name"</code> and PropertyDescriptor{[[Value]]: <i>name</i>, [[Writable]]: <b>false</b>,
+    [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>true</b>}.</li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : Defining the <code>name</code> property
+      will always succeed.
+    </li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
+    </li>
+  </ol>
+</es-clause>

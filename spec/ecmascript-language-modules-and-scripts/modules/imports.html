@@ -1,0 +1,106 @@
+<!doctype html>
+<es-clause title="Imports" anchor="sec-imports">
+  <es-production name="ImportDeclaration">
+    <es-rhs><es-nt>ModuleImport</es-nt></es-rhs>
+
+    <es-rhs>import <es-nt>ImportClause</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+
+    <es-rhs><es-t>import</es-t> <es-nt>ModuleSpecifier</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="ModuleImport">
+    <es-rhs>module <es-gann>no <es-nt>LineTerminator</es-nt>
+    here</es-gann><es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+  </es-production>
+
+  <es-production name="FromClause">
+    <es-rhs><es-t>from</es-t> <es-nt>ModuleSpecifier</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ImportClause">
+    <es-rhs><es-nt>ImportedBinding</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ImportedBinding</es-nt> , <es-nt>NamedImports</es-nt></es-rhs>
+
+    <es-rhs><es-nt>NamedImports</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="NamedImports">
+    <es-rhs>{ }</es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt>ImportsList</es-nt> <es-t>}</es-t></es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt>ImportsList</es-nt> <es-t>,</es-t> <es-t>}</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="ImportsList">
+    <es-rhs><es-nt>ImportSpecifier</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ImportsList</es-nt> , <es-nt>ImportSpecifier</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ImportSpecifier">
+    <es-rhs><es-nt>ImportedBinding</es-nt></es-rhs>
+
+    <es-rhs><es-nt>IdentifierName</es-nt> as <es-nt>ImportedBinding</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ModuleSpecifier">
+    <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ImportedBinding">
+    <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+  </es-production>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-imports-static-semantics-early-errors">
+    <es-production name="ModuleItem" class="inline">
+      <es-rhs><es-nt>ImportDeclaration</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if the BoundNames of <es-nt>ImportDeclaration</es-nt> contains any
+        duplicate entries.</p>
+      </li>
+    </ul>
+  </es-clause>
+  <link rel="import" href="imports\imports-static-semantics-boundnames.html">
+  <link rel="import" href="imports\imports-static-semantics-importentries.html">
+  <link rel="import" href="imports\static-semantics-importentriesformodule.html">
+
+  <es-clause title="Static Semantics: ModuleRequests" anchor=
+  "sec-imports-static-semantics-modulerequests">
+    <p>See also: <a href=
+    "#sec-module-static-semantics-static-semantics-modulerequests">15.2.0.9</a> , <a href=
+    "#sec-exports-static-semantics-modulerequests">15.2.2.5</a> .</p>
+
+    <es-production name="ImportDeclaration" class="inline">
+      <es-rhs>import <es-nt>ImportClause</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return ModuleRequests of <i>FromClause</i>.</li>
+    </ol>
+
+    <es-production name="ModuleImport" class="inline">
+      <es-rhs>module <es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return ModuleRequests of <i>FromClause</i>.</li>
+    </ol>
+
+    <es-production name="ModuleSpecifier" class="inline">
+      <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the
+      <a href="#sec-identifiers-and-identifier-names">StringValue</a> of <i>StringLiteral</i>.
+      </li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="imports\runtime-semantics-module-objects.html">
+</es-clause>

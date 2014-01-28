@@ -1,0 +1,127 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-function-definitions-runtime-semantics-evaluation">
+  <es-production name="FunctionDeclaration" class="inline">
+    <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty)
+    </li>
+  </ol>
+
+  <es-production name="FunctionExpression" class="inline">
+    <es-rhs>function ( <es-nt>FormalParameters</es-nt> ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the <i>FunctionExpression</i> is contained in <a href="#sec-strict-mode-code">strict
+    code</a> or if its <i>FunctionBody</i> is <a href="#sec-strict-mode-code">strict code</a> ,
+    then let <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.
+    </li>
+
+    <li>Let <i>scope</i> be the <a href="#sec-execution-contexts">LexicalEnvironment</a> of
+      <a href="#sec-execution-contexts">the running execution context</a> .
+    </li>
+
+    <li>Let <i>closure</i> be the result of performing the <a href=
+    "#sec-functioncreate">FunctionCreate</a> abstract operation with arguments Normal,
+    <i>FormalParameters</i>, <i>FunctionBody, scope</i>, and <i>strict</i>.
+    </li>
+
+    <li>If ReferencesSuper of <i>FunctionExpression</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>Perform <a href="#sec-makemethod">MakeMethod</a> (<i>closure</i>, <b>undefined</b>, <b>
+          undefined</b>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Perform the abstract operation <a href="#sec-makeconstructor">MakeConstructor</a> with
+    argument <i>closure</i>.
+    </li>
+
+    <li>Return <i>closure</i>.</li>
+  </ol>
+
+  <es-production name="FunctionExpression" class="inline">
+    <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If the <i>FunctionExpression</i> is contained in <a href="#sec-strict-mode-code">strict
+    code</a> or if its <i>FunctionBody</i> is <a href="#sec-strict-mode-code">strict code</a> ,
+    then let <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.
+    </li>
+
+    <li>Let <i>funcEnv</i> be the result of calling <a href=
+    "#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a> passing <a href=
+    "#sec-execution-contexts">the running execution context</a> ’s <a href=
+    "#sec-lexical-environments">Lexical Environment</a> as the argument
+    </li>
+
+    <li>Let <i>envRec</i> be <i>funcEnv’s</i> environment record.</li>
+
+    <li>Let <i>name</i> be <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+    <i>BindingIdentifier</i>.
+    </li>
+
+    <li>Call the CreateImmutableBinding concrete method of <i>envRec</i> passing <i>name</i> as the
+    argument.</li>
+
+    <li>Let <i>closure</i> be the result of performing the <a href=
+    "#sec-functioncreate">FunctionCreate</a> abstract operation with arguments Normal,
+    <i>FormalParameters</i>, <i>FunctionBody, funcEnv</i>, <i>strict</i>.
+    </li>
+
+    <li>If ReferencesSuper of <i>FunctionExpression</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>Perform <a href="#sec-makemethod">MakeMethod</a> (<i>closure</i>, <i>name</i>,
+        <b>undefined</b>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Perform the abstract operation <a href="#sec-makeconstructor">MakeConstructor</a> with
+    argument <i>closure</i>.
+    </li>
+
+    <li>
+      <a href="#sec-setfunctionname">SetFunctionName</a> (<i>closure</i>, <i>name</i>).
+    </li>
+
+    <li>Call the InitialiseBinding concrete method of <i>envRec</i> passing <i>name</i> and
+    <i>closure</i> as the arguments.</li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<i>closure</i>).
+    </li>
+  </ol>
+
+  <es-note>
+    <p>The <es-nt>BindingIdentifier</es-nt> in a <es-nt>FunctionExpression</es-nt> can be
+    referenced from inside the <es-nt>FunctionExpression's</es-nt> <es-nt>FunctionBody</es-nt> to
+    allow the function to call itself recursively. However, unlike in a
+    <es-nt>FunctionDeclaration</es-nt>, the <es-nt>BindingIdentifier</es-nt> in a
+    <es-nt>FunctionExpression</es-nt> cannot be referenced from and does not affect the scope
+    enclosing the <es-nt>FunctionExpression</es-nt>.</p>
+  </es-note>
+
+  <es-note>
+    <p>A <code>prototype</code> property is automatically created for every function defined using
+    a <es-nt>FunctionDeclaration</es-nt> or <es-nt>FunctionExpression</es-nt>, to allow for the
+    possibility that the function will be used as a constructor.</p>
+  </es-note>
+
+  <es-production name="FunctionStatementList" class="inline">
+    <es-rhs constraint="empty"></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
+    </li>
+  </ol>
+</es-clause>

@@ -1,0 +1,162 @@
+<!doctype html>
+<es-clause title="Number.prototype.toExponential (fractionDigits)" anchor=
+"sec-number.prototype.toexponential">
+  <p>Return a String containing this Number value represented in decimal exponential notation with
+  one digit before the significand's decimal point and <es-nt>fractionDigits</es-nt> digits after
+  the significand's decimal point. If <es-nt>fractionDigits</es-nt> is <b>undefined</b>, include as
+  many significand digits as necessary to uniquely specify the Number (just like in <a href=
+  "#sec-tostring">ToString</a> except that in this case the Number is always output in exponential
+  notation). Specifically, perform the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>x</i>).
+    </li>
+
+    <li>Let <i>f</i> be <a href="#sec-tointeger">ToInteger</a> (<i>fractionDigits</i>).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>f</i> is 0, when <i>fractionDigits</i>
+      is <b>undefined</b>.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>f</i>).
+    </li>
+
+    <li>If <i>x</i> is <b>NaN</b>, return the String <code>"NaN"</code>.</li>
+
+    <li>Let <i>s</i> be the empty String.</li>
+
+    <li>If <i>x</i> <i>&lt;</i> 0, then
+
+      <ol class="block">
+        <li>Let <i>s</i> be <code>"-"</code>.</li>
+
+        <li>Let <i>x</i> = –<i>x</i>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>x</i> = +∞, then
+
+      <ol class="block">
+        <li>Return the concatenation of the Strings <i>s</i> and <code>"Infinity"</code>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>f</i> &lt; 0 or <i>f</i> &gt; 20, throw a <b>RangeError</b> exception.</li>
+
+    <li>If <i>x</i> = 0, then
+
+      <ol class="block">
+        <li>Let <i>m</i> be the String consisting of <i>f</i>+1 occurrences of the code unit
+        0x0030.</li>
+
+        <li>Let <i>e</i> = 0.</li>
+      </ol>
+    </li>
+
+    <li>Else <i>x</i> ≠ 0,
+
+      <ol class="block">
+        <li>If <i>fractionDigits</i> is not <b>undefined</b>, then
+
+          <ol class="block">
+            <li>Let <i>e</i> and <i>n</i> be integers such that 10<sup><i>f</i></sup> ≤ <i>n</i>
+            &lt; 10<sup><i>f</i>+1</sup> and for which the exact mathematical value of <i>n</i> ×
+            10<sup><i>e</i>–<i>f</i></sup> – <i>x</i> is as close to zero as possible. If there are
+            two such sets of <i>e</i> and <i>n</i>, pick the <i>e</i> and <i>n</i> for which
+            <i>n</i> × 10<sup><i>e</i>–<i>f</i></sup> is larger.</li>
+          </ol>
+        </li>
+
+        <li>Else <i>fractionDigits</i> is <b>undefined</b>,
+
+          <ol class="block">
+            <li>Let <i>e</i>, <i>n</i>, and <i>f</i> be integers such that <i>f</i> ≥ 0,
+            10<sup><i>f</i></sup> ≤ <i>n</i> &lt; 10<sup><i>f</i>+1</sup> , the number value for n
+            × 10<sup><i>e</i>–<i>f</i></sup> is <i>x</i>, and <i>f</i> is as small as possible.
+            Note that the decimal representation of <i>n</i> has <i>f</i>+1 digits, <i>n</i> is not
+            divisible by 10, and the least significant digit of <i>n</i> is not necessarily
+            uniquely determined by these criteria.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>m</i> be the String consisting of the digits of the decimal representation of
+        <i>n</i> (in order, with no leading zeroes).</li>
+      </ol>
+    </li>
+
+    <li>If <i>f</i> ≠ 0, then
+
+      <ol class="block">
+        <li>Let <i>a</i> be the first element of <i>m</i>, and let <i>b</i> be the remaining
+        <i>f</i> elements of <i>m</i>.</li>
+
+        <li>Let <i>m</i> be the concatenation of the three Strings <i>a</i>, <code>"."</code>, and
+        <i>b</i>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>e</i> = 0, then
+
+      <ol class="block">
+        <li>Let <i>c</i> = <code>"+".</code></li>
+
+        <li>Let <i>d</i> = <code>"0".</code></li>
+      </ol>
+    </li>
+
+    <li>Else
+
+      <ol class="block">
+        <li>If <i>e</i> &gt; 0, then let <i>c</i> = <code>"+".</code></li>
+
+        <li>Else <i>e</i> ≤ 0,
+
+          <ol class="block">
+            <li>Let <i>c</i> = <code>"-"</code>.</li>
+
+            <li>Let <i>e</i> = –<i>e</i>.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>d</i> be the String consisting of the digits of the decimal representation of
+        <i>e</i> (in order, with no leading zeroes).</li>
+      </ol>
+    </li>
+
+    <li>Let <i>m</i> be the concatenation of the four Strings <i>m</i>, <code>"e"</code>, <i>c</i>,
+    and <i>d</i>.</li>
+
+    <li>Return the concatenation of the Strings <i>s</i> and <i>m</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>toExponential</code> method is <b>1</b>.</p>
+
+  <p>If the <code>toExponential</code> method is called with more than one argument, then the
+  behaviour is undefined (see <a href="#sec-ecmascript-standard-built-in-objects">clause 17</a>
+  ).</p>
+
+  <p>An implementation is permitted to extend the behaviour of <code>toExponential</code> for
+  values of <es-nt>fractionDigits</es-nt> less than 0 or greater than 20. In this case
+  <code>toExponential</code> would not necessarily throw <b>RangeError</b> for such values.</p>
+
+  <es-note>
+    <p>For implementations that provide more accurate conversions than required by the rules above,
+    it is recommended that the following alternative version of step 12.b.i be used as a
+    guideline:</p>
+
+    <ol class="proc">
+      <li>Let <i>e</i>, <i>n</i>, and <i>f</i> be integers such that <i>f</i> ≥ 0,
+      10<sup><i>f</i></sup> ≤ n &lt; 10<sup><i>f</i>+1</sup> , the number value for n ×
+      10<sup><i>e</i>–<i>f</i></sup> is x, and <i>f</i> is as small as possible. If there are
+      multiple possibilities for <i>n</i>, choose the value of <i>n</i> for which <i>n</i> ×
+      10<sup><i>e</i>–<i>f</i></sup> is closest in value to <i>x</i>. If there are two such
+      possible values of <i>n</i>, choose the one that is even.</li>
+    </ol>
+  </es-note>
+</es-clause>

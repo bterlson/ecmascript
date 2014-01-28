@@ -1,0 +1,63 @@
+<!doctype html>
+<es-clause title="Iteration Statements" anchor="sec-iteration-statements">
+  <h2>Syntax</h2>
+
+  <es-production name="IterationStatement" params="Yield, Return">
+    <es-rhs>do <es-nt params="?Yield, ?Return">Statement</es-nt> while ( <es-nt params=
+    "In, ?Yield">Expression</es-nt> ) ;</es-rhs>
+
+    <es-rhs>while ( <es-nt params="In, ?Yield">Expression</es-nt> ) <es-nt params=
+    "?Yield, ?Return">Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt>Expression</es-nt> <es-gann>?Yield</es-gann>opt; <es-nt>Expression</es-nt>
+    <es-gann>In, ?Yield</es-gann>opt ; <es-nt>Expression</es-nt> <es-gann>In, ?Yield</es-gann>opt )
+    <es-nt params="?Yield, ?Return">Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( var <es-nt params="?Yield">VariableDeclarationList</es-nt> ;
+    <es-nt>Expression</es-nt> <es-gann>In, ?Yield</es-gann>opt ; <es-nt>Expression</es-nt>
+    <es-gann>In, ?Yield</es-gann>opt ) <es-nt params="?Yield, ?Return">Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt params="?Yield">LexicalDeclaration</es-nt> <es-nt>Expression</es-nt>
+    <es-gann>In, ?Yield</es-gann>opt ; <es-nt>Expression</es-nt> <es-gann>In, ?Yield</es-gann>opt )
+    <es-nt params="?Yield, ?Return">Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt params="?Yield">LeftHandSideExpression</es-nt> in <es-nt params=
+    "In, ?Yield">Expression</es-nt> ) <es-nt params="?Yield, ?Return">Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( var <es-nt params="?Yield">ForBinding</es-nt> in <es-nt params=
+    "In, ?Yield">Expression</es-nt> ) <es-nt params="?Yield, ?Return">Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt params="?Yield">ForDeclaration</es-nt> in <es-nt params=
+    "In, ?Yield">Expression</es-nt> ) <es-nt>Statement</es-nt> _[?Yield, ?Return]</es-rhs>
+
+    <es-rhs>for ( <es-nt params="?Yield">LeftHandSideExpression</es-nt> of <es-nt params=
+    "In, ?Yield">AssignmentExpression</es-nt> ) <es-nt params=
+    "?Yield, ?Return">Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( var <es-nt params="?Yield">ForBinding</es-nt> of <es-nt params=
+    "In, ?Yield">AssignmentExpression</es-nt> ) <es-nt params=
+    "?Yield, ?Return">Statement</es-nt></es-rhs>
+
+    <es-rhs>for ( <es-nt params="?Yield">ForDeclaration</es-nt> of <es-nt params=
+    "In, ?Yield">AssignmentExpression</es-nt> ) <es-nt params=
+    "?Yield, ?Return">Statement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ForDeclaration" params="Yield">
+    <es-rhs><es-nt>LetOrConst</es-nt> <es-nt params="?Yield">ForBinding</es-nt></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p><es-nt>ForBinding</es-nt> is defined in <a href="#sec-array-comprehension">12.1.4.2</a>
+    .</p>
+  </es-note>
+
+  <es-note>
+    <p>A semicolon is not required after a <code>do-while</code> statement.</p>
+  </es-note>
+  <link rel="import" href="iteration-statements\iteration-statements-semantics.html">
+  <link rel="import" href="iteration-statements\do-while-statement.html">
+  <link rel="import" href="iteration-statements\while-statement.html">
+  <link rel="import" href="iteration-statements\for-statement.html">
+  <link rel="import" href="iteration-statements\for-in-and-for-of-statements.html">
+</es-clause>

@@ -1,0 +1,175 @@
+<!doctype html>
+<es-clause title="Type Conversion and Testing" anchor="sec-type-conversion-and-testing">
+  <p>The ECMAScript language implicitly performs automatic type conversion as needed. To clarify
+  the semantics of certain constructs it is useful to define a set of conversion abstract
+  operations. The conversion abstract operations are polymorphic; they can accept a value of any
+  <a href="#sec-ecmascript-language-types">ECMAScript language type</a> or of a <a href=
+  "#sec-completion-record-specification-type">Completion Record</a> value. But no other
+  specification types are used with these operations.</p>
+  <link rel="import" href="type-conversion-and-testing\toprimitive.html">
+  <link rel="import" href="type-conversion-and-testing\toboolean.html">
+  <link rel="import" href="type-conversion-and-testing\tonumber.html">
+
+  <es-clause title="ToInteger" anchor="sec-tointeger">
+    <p>The abstract operation ToInteger converts its argument to an integral numeric value. This
+    abstract operation functions as follows:</p>
+
+    <ol class="proc">
+      <li>Let <i>number</i> be the result of calling <a href="#sec-tonumber">ToNumber</a> on the
+      input argument.
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>number</i>).
+      </li>
+
+      <li>If <i>number</i> is <b>NaN</b>, return <b>+0</b>.</li>
+
+      <li>If <i>number</i> is <b>+0</b>, <b>−0</b>, <b>+∞,</b> or <b>−∞</b>, return
+      <i>number</i>.</li>
+
+      <li>Return the result of computing <a href="#sec-algorithm-conventions">sign</a>
+      (<i>number</i>) × <a href="#sec-algorithm-conventions">floor</a> (<a href=
+      "#sec-algorithm-conventions">abs</a> (<i>number</i>)).
+      </li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="type-conversion-and-testing\toint32.html">
+  <link rel="import" href="type-conversion-and-testing\touint32.html">
+  <link rel="import" href="type-conversion-and-testing\toint16.html">
+  <link rel="import" href="type-conversion-and-testing\touint16.html">
+
+  <es-clause title="ToInt8: (Signed 8 Bit Integer)" anchor="sec-toint8">
+    <p>The abstract operation ToInt8 converts its argument to one of 2<sup>8</sup> integer values
+    in the range −128 through 127, inclusive. This abstract operation functions as follows:</p>
+
+    <ol class="proc">
+      <li>Let <i>number</i> be the result of calling <a href="#sec-tonumber">ToNumber</a> on the
+      input argument.
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>number</i>).
+      </li>
+
+      <li>If <i>number</i> is <b>NaN</b>, <b>+0</b>, <b>−0</b>, <b>+∞</b>, or <b>−∞</b>, return
+      <b>+0</b>.</li>
+
+      <li>Let <i>int</i> be <a href="#sec-algorithm-conventions">sign</a> (<i>number</i>) ×
+        <a href="#sec-algorithm-conventions">floor</a> (<a href=
+        "#sec-algorithm-conventions">abs</a> (<i>number</i>)).
+      </li>
+
+      <li>Let <i>int8bit</i> be <i>int</i> <a href="#sec-algorithm-conventions">modulo</a>
+      2<sup>8</sup> .
+      </li>
+
+      <li>If <i>int8bit</i> ≥ 2<sup>7</sup> , return <i>int8bit</i> − 2<sup>8</sup> , otherwise
+      return <i>int8bit</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="ToUint8: (Unsigned 8 Bit Integer)" anchor="sec-touint8">
+    <p>The abstract operation ToUint8 converts its argument to one of 2<sup>8</sup> integer values
+    in the range 0 through 255, inclusive. This abstract operation functions as follows:</p>
+
+    <ol class="proc">
+      <li>Let <i>number</i> be the result of calling <a href="#sec-tonumber">ToNumber</a> on the
+      input argument.
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>number</i>).
+      </li>
+
+      <li>If <i>number</i> is <b>NaN</b>, +0, −0, +<b>∞</b>, or −<b>∞</b>, return <b>+0</b>.</li>
+
+      <li>Let <i>int</i> be <a href="#sec-algorithm-conventions">sign</a> (<i>number</i>) ×
+        <a href="#sec-algorithm-conventions">floor</a> (<a href=
+        "#sec-algorithm-conventions">abs</a> (<i>number</i>)).
+      </li>
+
+      <li>Let <i>int8bit</i> be <i>int</i> <a href="#sec-algorithm-conventions">modulo</a>
+      2<sup>8</sup> .
+      </li>
+
+      <li>Return <i>int8bit</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="ToUint8Clamp: (Unsigned 8 Bit Integer, Clamped)" anchor="sec-touint8clamp">
+    <p>The abstract operation ToUint8Clamp converts its argument to one of 2<sup>8</sup> integer
+    values in the range 0 through 255, inclusive. This abstract operation functions as follows:</p>
+
+    <ol class="proc">
+      <li>Let <i>number</i> be the result of calling <a href="#sec-tonumber">ToNumber</a> on the
+      input argument.
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>number</i>).
+      </li>
+
+      <li>If <i>number</i> is <b>NaN</b>, return <b>+0</b>.</li>
+
+      <li>If <i>number</i> ≤ 0, return <b>+0</b>.</li>
+
+      <li>If <i>number</i> &gt; 255, return 255.</li>
+
+      <li>Let <i>f</i> be <a href="#sec-algorithm-conventions">floor</a> (<i>number</i>).
+      </li>
+
+      <li>If <i>f+0.5</i> ≤ <i>number</i>, then return <i>f</i>+1.</li>
+
+      <li>Return <i>f</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>Note that unlike the other integer conversion abstract operation, ToUnit8Clamp rounds
+      rather than truncates non-integer values.</p>
+    </es-note>
+  </es-clause>
+  <link rel="import" href="type-conversion-and-testing\tostring.html">
+  <link rel="import" href="type-conversion-and-testing\toobject.html">
+
+  <es-clause title="ToPropertyKey" anchor="sec-topropertykey">
+    <p>The abstract operation ToPropertyKey converts its <es-nt>argument</es-nt> to a value that
+    can be used as a <a href="#sec-object-type">property key</a> by performing the following
+    steps:</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>argument</i>).
+      </li>
+
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>argument</i>) is Symbol,
+      then
+
+        <ol class="block">
+          <li>Return <i>argument</i>.</li>
+        </ol>
+      </li>
+
+      <li>Return <a href="#sec-tostring">ToString</a> (<i>argument</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="ToLength" anchor="sec-tolength">
+    <p>The abstract operation ToLength converts its <es-nt>argument</es-nt> to an integer suitable
+    for use as the length of an array-like object. It performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>len</i> be <a href="#sec-tointeger">ToInteger</a> (<i>argument</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
+      </li>
+
+      <li>If <i>len</i> ≤ +0, then return +0.</li>
+
+      <li>Return min(<i>len</i>, 2<sup>53</sup> -1).</li>
+    </ol>
+  </es-clause>
+</es-clause>

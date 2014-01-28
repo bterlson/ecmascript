@@ -1,0 +1,68 @@
+<!doctype html>
+<es-clause title="Error (message)" anchor="sec-error-message">
+  <p>When the <code>Error</code> function is called with argument <i>message</i> the following
+  steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>func</i> be this <code>Error</code> function object.</li>
+
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object or
+    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and <i>O</i> does
+    not have an [[ErrorData]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> or <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and
+    <i>O</i> has an [[ErrorData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> and the value of
+    [[ErrorData]] is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>O</i> be the result of calling <a href=
+        "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>func</i>, <code>
+          "%ErrorPrototype%"</code>,<br>
+          ( [[ErrorData]]) ).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object.
+    </li>
+
+    <li>Set the value of <i>O’s</i> [[ErrorData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to any value other than <b>
+      undefined</b>.
+    </li>
+
+    <li>If <i>message</i> is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>msg</i> be <a href="#sec-tostring">ToString</a> (<i>message</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>msg</i>).
+        </li>
+
+        <li>Let <i>msgDesc</i> be the PropertyDescriptor{[[Value]]: <i>msg</i>, [[Writable]]:
+        <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>true</b>}.</li>
+
+        <li>Let <i>status</i> be the result of <a href=
+        "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>O</i>, "<code>message</code>",
+        <i>msgDesc</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>O</i>.</li>
+  </ol>
+</es-clause>

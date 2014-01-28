@@ -1,0 +1,55 @@
+<!doctype html>
+<es-clause title="Abstract Equality Comparison" anchor="sec-abstract-equality-comparison">
+  <p>The comparison <es-nt>x</es-nt> == <es-nt>y</es-nt>, where <es-nt>x</es-nt> and
+  <es-nt>y</es-nt> are values, produces <b>true</b> or <b>false</b>. Such a comparison is performed
+  as follows:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is the same as
+    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>), then
+
+      <ol class="block">
+        <li>Return the result of performing Strict Equality Comparison <i>x</i> === <i>y</i>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>x</i> is <b>null</b> and <i>y</i> is <b>undefined</b>, return <b>true</b>.</li>
+
+    <li>If <i>x</i> is <b>undefined</b> and <i>y</i> is <b>null</b>, return <b>true</b>.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Number and
+    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>) is String,<br>
+      return the result of the comparison <i>x</i> == <a href="#sec-tonumber">ToNumber</a>
+      (<i>y</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is String and
+    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>) is Number,<br>
+      return the result of the comparison <a href="#sec-tonumber">ToNumber</a> (<i>x</i>) ==
+      <i>y</i>.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Boolean, return
+    the result of the comparison <a href="#sec-tonumber">ToNumber</a> (<i>x</i>) == <i>y</i>.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>) is Boolean, return
+    the result of the comparison <i>x</i> == <a href="#sec-tonumber">ToNumber</a> (<i>y</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is either String or
+    Number and <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>) is Object,<br>
+      return the result of the comparison <i>x</i> == <a href="#sec-toprimitive">ToPrimitive</a>
+      (<i>y</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Object and
+    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>) is either String or
+    Number,<br>
+      return the result of the comparison <a href="#sec-toprimitive">ToPrimitive</a> (<i>x</i>) ==
+      <i>y</i>.
+    </li>
+
+    <li>Return <b>false</b>.</li>
+  </ol>
+</es-clause>

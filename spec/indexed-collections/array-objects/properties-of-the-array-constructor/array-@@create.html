@@ -1,0 +1,47 @@
+<!doctype html>
+<es-clause title="Array[ @@create ] ( )" anchor="sec-array-@@create">
+  <p>The @@create method of an object <es-nt>F</es-nt> performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+    <li>Let <i>proto</i> be the result of <a href=
+    "#sec-getprototypefromconstructor">GetPrototypeFromConstructor</a> (<i>F</i>,
+    <code>"%ArrayPrototype%"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>proto</i>).
+    </li>
+
+    <li>Let <i>obj</i> be the result of calling <a href="#sec-arraycreate">ArrayCreate</a> with
+    arguments <b>undefined</b> and <i>proto</i>.
+    </li>
+
+    <li>Return <i>obj</i>.</li>
+  </ol>
+
+  <p>The value of the <code>name</code> property of this function is
+  <code>"[Symbol.create]"</code>.</p>
+
+  <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+  [[Configurable]]: <b>true</b> }.</p>
+
+  <es-note>
+    <p>Passing <span class="value">undefined</span> as the first argument to <a href=
+    "#sec-arraycreate">ArrayCreate</a> causes the [[ArrayInitialisationState]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the array to be
+    initially assigned the value <b>false</b>. This is a flag used to indicate that the instance
+    has not yet been initialised by the <code>Array</code> constructor. This flag value is never
+    directly exposed to ECMAScript code; hence implementations may choose to encode the flag in any
+    unobservable manner.</p>
+  </es-note>
+
+  <es-note>
+    <p>The Array <code>@@create</code> function is intentionally generic; it does not require that
+    its <b>this</b> value be the Array constructor object. It can be transferred to other
+    constructor functions for use as a <code>@@create</code> method. When used with other
+    constructors, this function will create an exotic Array object whose [[Prototype]] value is
+    obtained from the associated constructor.</p>
+  </es-note>
+</es-clause>

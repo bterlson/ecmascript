@@ -1,0 +1,70 @@
+<!doctype html>
+<es-clause title="Testing and Comparison Operations" anchor=
+"sec-testing-and-comparison-operations">
+  <link rel="import" href="testing-and-comparison-operations\checkobjectcoercible.html">
+  <link rel="import" href="testing-and-comparison-operations\iscallable.html">
+  <link rel="import" href="testing-and-comparison-operations\samevalue.html">
+  <link rel="import" href="testing-and-comparison-operations\samevaluezero.html">
+
+  <es-clause title="IsConstructor" anchor="sec-isconstructor">
+    <p>The abstract operation IsConstructor determines if its <es-nt>argument</es-nt>, which must
+    be an <a href="#sec-ecmascript-language-types">ECMAScript language value</a> or a <a href=
+    "#sec-completion-record-specification-type">Completion Record</a> , is a function object with a
+    [[Construct]] internal method.</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>argument</i>).
+      </li>
+
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>argument</i>) is not
+      Object, return <b>false</b>.
+      </li>
+
+      <li>If <i>argument</i> has a [[Construct]] internal method, return <b>true</b>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="IsPropertyKey" anchor="sec-ispropertykey">
+    <p>The abstract operation IsPropertyKey determines if its <es-nt>argument</es-nt>, which must
+    be an <a href="#sec-ecmascript-language-types">ECMAScript language value</a> or a <a href=
+    "#sec-completion-record-specification-type">Completion Record</a> , is a value that may be used
+    as a <a href="#sec-object-type">property key</a> .</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>argument</i>).
+      </li>
+
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>argument</i>) is String,
+      return <b>true</b>.
+      </li>
+
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>argument</i>) is Symbol,
+      return <b>true</b>.
+      </li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="IsExtensible (O)" anchor="sec-isextensible-o">
+    <p>The abstract operation IsExtensible is used to determine whether additional properties can
+    be added to the object that is <es-nt>O</es-nt>. A Boolean value is returned. This abstract
+    operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+        "#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object.
+      </li>
+
+      <li>Return the result of calling the [[IsExtensible]] internal method of <i>O</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="testing-and-comparison-operations\abstract-relational-comparison.html">
+  <link rel="import" href="testing-and-comparison-operations\abstract-equality-comparison.html">
+  <link rel="import" href="testing-and-comparison-operations\strict-equality-comparison.html">
+</es-clause>

@@ -1,0 +1,137 @@
+<!doctype html>
+<es-clause title="%TypedArray%.prototype.set(typedArray, offset = 0 )" anchor=
+"sec-%typedarray%.prototype.set-typedarray-offset">
+  <p>Set multiple values in this <i>TypedArray</i>, reading the values from the
+  <es-nt>typedArray</es-nt> argument object. The optional <i>offset</i> value indicates the first
+  element index in this <i>TypedArray</i> where values are written. If omitted, it is assumed to be
+  0.</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>typedArray</i> has a [[TypedArrayName]]
+      <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> . If it does not,
+      the definition in <a href="#sec-%typedarray%.prototype.set-array-offset">22.2.3.22</a>
+      applies.
+    </li>
+
+    <li>Let <i>target</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>target</i>) is not Object,
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>target</i> does not have a [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>target</i> has [[ViewedArrayBuffer]]
+      <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>targetBuffer</i> be the value of <i>target</i>’s [[ViewedArrayBuffer]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <i>targetBuffer</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>srcBuffer</i> be the value of <i>typedArray</i>’s [[ViewedArrayBuffer]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <i>srcBuffer</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>targetLength</i> be the value of <i>target</i>’s [[ArrayLength]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>targetOffset</i> be <a href="#sec-tointeger">ToInteger</a> (<i>offset</i>)
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>targetOffset</i>).
+    </li>
+
+    <li>If <i>targetOffset</i> &lt; 0, then throw a <b>RangeError</b> exception.</li>
+
+    <li>Let <i>targetName</i> be the string value <i>target</i>’s [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>targetType</i> be the string value of the Element Type value in <a href="#table-43">
+      Table 43</a> for <i>targetName</i>.
+    </li>
+
+    <li>Let <i>targetElementSize</i> be the Number value of the Element Size value specified in
+    <a href="#table-43">Table 43</a> for <i>targetName</i>.
+    </li>
+
+    <li>Let <i>targetByteOffset</i> be the value of <i>target</i>’s [[ByteOffset]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>srcName</i> be the string value <i>typedArray</i>’s [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>srcType</i> be the string value of the Element Type value in <a href=
+    "#table-43">Table 43</a> for <i>srcName</i> .
+    </li>
+
+    <li>Let <i>srcElementSize</i> be the Number value of the Element Size value specified in
+    <a href="#table-43">Table 43</a> for <i>srcName</i>.
+    </li>
+
+    <li>Let <i>srcLength</i> be the value of <i>typedArray</i>’s [[ArrayLength]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>srcByteOffset</i> be the value of <i>typedArray</i>’s [[ByteOffset]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <i>srcLength</i> + <i>targetOffset</i> &gt; <i>targetLength</i>, then throw a
+    <b>RangeError</b> exception.</li>
+
+    <li>If <a href="#sec-samevalue">SameValue</a> (<i>srcBuffer</i>, <i>targetBuffer</i>) is
+    <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>srcBuffer</i> be the result of calling <a href=
+        "#sec-clonearraybuffer">CloneArrayBuffer</a> (<i>srcBuffer</i>, <i>srcByteOffset</i>).
+        </li>
+
+        <li>Let <i>srcByteIndex</i> be 0.</li>
+      </ol>
+    </li>
+
+    <li>Else, let <i>srcByteIndex</i> be <i>srcByteOffset</i>.</li>
+
+    <li>Let <i>targetByteIndex</i> be <i>targetOffset</i> × <i>targetElementSize</i> +
+    <i>targetByteOffset</i>.</li>
+
+    <li>Let <i>limit</i> be <i>targetByteIndex</i> + <i>targetElementSize</i> ×
+    min(<i>srcLength</i>, <i>targetLength</i> – <i>targetOffset</i>).</li>
+
+    <li>Repeat, while <i>targetByteIndex</i> &lt; <i>limit</i>
+
+      <ol class="block">
+        <li>Let <i>value</i> be the result of <a href=
+        "#sec-getvaluefrombuffer">GetValueFromBuffer</a> (<i>srcBuffer</i>, <i>srcByteIndex</i>,
+        <i>srcType</i>).
+        </li>
+
+        <li>Let <i>status</i> be the result of <a href="#sec-setvalueinbuffer">SetValueInBuffer</a>
+        (<i>targetBuffer</i>, <i>targetByteIndex</i>, <i>targetType</i>, <i>value</i>).
+        </li>
+
+        <li>Set <i>srcByteIndex</i> to <i>srcByteIndex</i> + <i>srcElementSize</i>.</li>
+
+        <li>Set <i>targetByteIndex</i> to <i>targetByteIndex</i> + <i>targetElementSize</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return <b>undefined</b>.</li>
+  </ol>
+</es-clause>

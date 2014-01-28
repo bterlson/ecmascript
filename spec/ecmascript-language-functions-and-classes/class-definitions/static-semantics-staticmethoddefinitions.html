@@ -1,0 +1,39 @@
+<!doctype html>
+<es-clause title="Static Semantics: StaticMethodDefinitions" anchor=
+"sec-static-semantics-staticmethoddefinitions">
+  <es-production name="ClassElementList" class="inline">
+    <es-rhs><es-nt>ClassElement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>ClassElement</i> is the production <es-production name="ClassElement" class=
+    "inline"><es-rhs>;</es-rhs></es-production> then, return a new empty
+    <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>If IsStatic of <i>ClassElement</i> is <b>false</b>, return a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing
+    <i>ClassElement</i>.
+    </li>
+  </ol>
+
+  <es-production name="ClassElementList" class="inline">
+    <es-rhs><es-nt>ClassElementList</es-nt> <es-nt>ClassElement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>list</i> be StaticMethodDefinitions of <i>ClassElementList.</i></li>
+
+    <li>If <i>ClassElement</i> is the production <es-production name="ClassElement" class=
+    "inline"><es-rhs>;</es-rhs></es-production> then, return <i>list</i>.</li>
+
+    <li>If IsStatic of <i>ClassElement</i> is <b>false</b>, return <i>list</i>.</li>
+
+    <li>Append <i>ClassElement</i> to the end of <i>list</i>.</li>
+
+    <li>Return <i>list</i>.</li>
+  </ol>
+</es-clause>

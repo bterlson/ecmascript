@@ -1,0 +1,66 @@
+<!doctype html>
+<es-clause title="Properties of Promise Instances" anchor="sec-properties-of-promise-instances">
+  <p>Promise instances are ordinary objects that inherit properties from the Promise prototype
+  object (the intrinsic, %PromiseProtype%). Promise instances are initially created with the
+  internal slots described in <a href="#table-49">Table 49</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-49">Table 49</span> — Internal Slots of Promise Instances
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Internal Slot</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Description</th>
+      </tr>
+
+      <tr>
+        <td>[[PromiseStatus]]</td>
+
+        <td>A string value that governs how a promise will react to incoming calls to its then
+        method. The possible values are: <b>undefined</b>, <code>"unresolved"</code>,
+        <code>"has-resolution"</code>, and <code>"has-rejection"</code>.</td>
+      </tr>
+
+      <tr>
+        <td>[[PromiseConstructor]]</td>
+
+        <td>The function object that was used to construct this promise. Checked by the
+        <code>cast</code> method of the <code>Promise</code> constructor.</td>
+      </tr>
+
+      <tr>
+        <td>[[PromiseResult]]</td>
+
+        <td>The value with which the promise has been resolved or rejected, if any. Only meaningful
+        if [[PromiseStatus]] is not <code>"unresolved"</code>.</td>
+      </tr>
+
+      <tr>
+        <td>[[PromiseResolveReactions]]</td>
+
+        <td>
+          A <a href="#sec-list-and-record-specification-type">List</a> of PromiseReaction records
+          to be processed when/if the promise transitions from being unresolved to having a
+          resolution.
+        </td>
+      </tr>
+
+      <tr>
+        <td>[[PromiseRejectReactions]]</td>
+
+        <td>
+          A <a href="#sec-list-and-record-specification-type">List</a> of PromiseReaction records
+          to be processed when/if the promise transitions from being unresolved to having a
+          rejection.
+        </td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

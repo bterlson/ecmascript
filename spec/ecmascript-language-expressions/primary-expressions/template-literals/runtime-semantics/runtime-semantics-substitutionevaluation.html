@@ -1,0 +1,62 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: SubstitutionEvaluation" anchor=
+"sec-runtime-semantics-substitutionevaluation">
+  <es-production name="TemplateSpans" class="inline">
+    <es-rhs><es-nt>TemplateTail</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return an empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="TemplateSpans" class="inline">
+    <es-rhs><es-nt>TemplateMiddleList</es-nt> <es-nt>TemplateTail</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the result of SubstitutionEvaluation of <i>TemplateMiddleList</i>.</li>
+  </ol>
+
+  <es-production name="TemplateMiddleList" class="inline">
+    <es-rhs><es-nt>TemplateMiddle</es-nt> <es-nt>Expression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>sub</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>sub</i>).
+    </li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing only
+    <i>sub</i>.
+    </li>
+  </ol>
+
+  <es-production name="TemplateMiddleList" class="inline">
+    <es-rhs><es-nt>TemplateMiddleList</es-nt> <es-nt>TemplateMiddle</es-nt>
+    <es-nt>Expression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>preceeding</i> be the result of SubstitutionEvaluation of <i>TemplateMiddleList</i>
+    .</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>preceeding</i>).
+    </li>
+
+    <li>Let <i>next</i> be the result of evaluating <i>Expression</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+    </li>
+
+    <li>Append <i>next</i> as the last element of the <a href=
+    "#sec-list-and-record-specification-type">List</a> <i>preceeding</i>.
+    </li>
+
+    <li>Return <i>preceeding</i>.</li>
+  </ol>
+</es-clause>

@@ -1,0 +1,31 @@
+<!doctype html>
+<es-clause title="decodeURI (encodedURI)" anchor="sec-decodeuri-encodeduri">
+  <p>The <code>decodeURI</code> function computes a new version of a URI in which each escape
+  sequence and UTF-8 encoding of the sort that might be introduced by the <code>encodeURI</code>
+  function is replaced with the character that it represents. Escape sequences that could not have
+  been introduced by <code>encodeURI</code> are not replaced.</p>
+
+  <p>When the <code>decodeURI</code> function is called with one argument
+  <es-nt>encodedURI</es-nt>, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>uriString</i> be <a href="#sec-tostring">ToString</a> (<i>encodedURI</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>uriString</i>).
+    </li>
+
+    <li>Let <i>reservedURISet</i> be a String containing one instance of each character valid in
+    <i>uriReserved</i> plus “<code>#</code>”.</li>
+
+    <li>Return the result of calling <a href="#sec-decode">Decode</a> (<i>uriString</i>,
+    <i>reservedURISet</i>)
+    </li>
+  </ol>
+
+  <es-note>
+    <p>The character “<code>#</code>” is not decoded from escape sequences even though it is not a
+    reserved URI character.</p>
+  </es-note>
+</es-clause>

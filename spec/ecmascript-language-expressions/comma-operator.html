@@ -1,0 +1,41 @@
+<!doctype html>
+<es-clause title="Comma Operator (" anchor="sec-comma-operator">
+  <h2>Syntax</h2>
+
+  <es-production name="Expression" params="In, Yield">
+    <es-rhs><es-nt params="?In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">Expression</es-nt> , <es-nt params=
+    "?In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "comma-operator\comma-operator-static-semantics-isanonymousfunctiondefinition.html">
+  <link rel="import" href=
+  "comma-operator\comma-operator-static-semantics-isvalidsimpleassignmenttarget.html">
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-comma-operator-runtime-semantics-evaluation">
+    <es-production name="Expression" class="inline">
+      <es-rhs><es-nt>Expression</es-nt> , <es-nt>AssignmentExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>lref</i> be the result of evaluating <i>Expression</i>.</li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<a href="#sec-getvalue">GetValue</a>
+        (<i>lref</i>))
+      </li>
+
+      <li>Let <i>rref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+      <li>Return <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
+      </li>
+    </ol>
+
+    <es-note>
+      <p><a href="#sec-getvalue">GetValue</a> must be called even though its value is not used
+      because it may have observable side-effects.</p>
+    </es-note>
+  </es-clause>
+</es-clause>

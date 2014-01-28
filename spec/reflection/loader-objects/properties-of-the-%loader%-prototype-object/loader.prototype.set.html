@@ -1,0 +1,53 @@
+<!doctype html>
+<es-clause title="Loader.prototype.set ( name, module )" anchor="sec-loader.prototype.set">
+  <p>Store a Module obj in this Loader's <es-nt>module</es-nt> registry, overwriting any existing
+  entry with the same <es-nt>name</es-nt>.</p>
+
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>loader</i> be this Loader.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>loader</i>).
+    </li>
+
+    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>name</i> be <a href="#sec-tostring">ToString</a> (<i>name</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>name</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>module</i>) is not Object,
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>modules</i> be the value of of <i>loaderRecord.</i>[[ Modules]],</li>
+
+    <li>Repeat for each Record {[[ key]], [[value]]} <i>p</i> that is an element of <i>modules</i>,
+
+      <ol class="block">
+        <li>If <a href="#sec-samevalue">SameValue</a> (<i>p</i>.[[key]], <i>name</i>) is
+        <b>true</b>, then
+
+          <ol class="block">
+            <li>Set <i>p</i>.[[value]] to <i>module</i>.</li>
+
+            <li>Return <i>loader</i>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>p</i> be the Record {[[key]]: <i>name</i>, [[value]]: <i>module</i>}.</li>
+
+    <li>Append <i>p</i> as the last record of <i>loaderRecord</i>.[[ Modules]].</li>
+
+    <li>Return <i>loader</i>.</li>
+  </ol>
+</es-clause>

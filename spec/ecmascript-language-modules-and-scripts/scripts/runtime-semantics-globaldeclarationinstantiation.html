@@ -1,0 +1,235 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: GlobalDeclarationInstantiation" anchor=
+"sec-runtime-semantics-globaldeclarationinstantiation">
+  <es-note>
+    <p>When an <a href="#sec-execution-contexts">execution context</a> is established for
+    evaluating scripts, declarations are instantiated in the current global environment. Each
+    global binding declarated in the code is instantiated.</p>
+  </es-note>
+
+  <p>GlobalDeclarationInstantiation is performed as follows using arguments <i>script</i>,
+  <i>env</i>, and <i>deletableBindings</i>. <es-nt>script</es-nt> is the <es-nt>ScriptBody</es-nt>
+  that for which the <a href="#sec-execution-contexts">execution context</a> is being established.
+  <es-nt>env</es-nt> is <a href="#sec-global-environment-records">the global environment record</a>
+  in which bindings are to be created. <es-nt>deletableBindings</es-nt> is <span class=
+  "value">true</span> if the bindings that are created should be deletable.</p>
+
+  <ol class="proc">
+    <li>Let <i>strict</i> be IsStrict of <i>script</i>.</li>
+
+    <li>Let <i>lexNames</i> be the LexicallyDeclaredNames of <i>script</i>.</li>
+
+    <li>Let <i>varNames</i> be the VarDeclaredNames of <i>script</i>.</li>
+
+    <li>For each <i>name</i> in <i>lexNames</i>, do
+
+      <ol class="block">
+        <li>If the result of calling <i>env’s</i> <a href=
+        "#sec-hasvardeclaration">HasVarDeclaration</a> concrete method passing <i>name</i> as the
+        argument is <b>true</b>, throw a <b>SyntaxError</b> exception.
+        </li>
+
+        <li>If the result of calling <i>env’s</i> <a href=
+        "#sec-haslexicaldeclaration">HasLexicalDeclaration</a> concrete method passing <i>name</i>
+        as the argument is <b>true</b>, throw a <b>SyntaxError</b> exception.
+        </li>
+      </ol>
+    </li>
+
+    <li>For each <i>name</i> in <i>varNames</i>, do
+
+      <ol class="block">
+        <li>If the result of calling <i>env’s</i> <a href=
+        "#sec-haslexicaldeclaration">HasLexicalDeclaration</a> concrete method passing <i>name</i>
+        as the argument is <b>true</b>, throw a <b>SyntaxError</b> exception.
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>varDeclarations</i> be the VarScopedDeclarations of <i>script</i>.</li>
+
+    <li>Let <i>functionsToInitialise</i> be an empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>declaredFunctionNames</i> be an empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>For each <i>d</i> in <i>varDeclarations</i>, in reverse list order do
+
+      <ol class="block">
+        <li>If <i>d</i> is a <i>FunctionDeclaration</i> then
+
+          <ol class="block">
+            <li>NOTE		If there are multiple <i>FunctionDeclarations</i> for the same name, the last
+            declaration is used.</li>
+
+            <li>Let <i>fn</i> be the sole element of the BoundNames of <i>d.</i></li>
+
+            <li>If <i>fn</i> is not an element of <i>declaredFunctionNames</i>, then
+
+              <ol class="block">
+                <li>Let <i>fnDefinable</i> be the result of calling <i>env’s</i> <a href=
+                "#sec-candeclareglobalfunction">CanDeclareGlobalFunction</a> concrete method
+                passing <i>fn</i> as the argument.
+                </li>
+
+                <li>If <i>fnDefinable</i> is <b>false</b>, throw <b>TypeError</b> exception.</li>
+
+                <li>Append <i>fn</i> to <i>declaredFunctionNames</i>.</li>
+
+                <li>Append <i>d</i> to <i>functionsToInitialise</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>declaredVarNames</i> be an empty <a href="#sec-list-and-record-specification-type">
+      List</a> .
+    </li>
+
+    <li>For each <i>d</i> in <i>varDeclarations</i>, do
+
+      <ol class="block">
+        <li>If <i>d</i> is a <i>VariableStatement</i> then
+
+          <ol class="block">
+            <li>For each String <i>vn</i> in the BoundNames of <i>d</i>, do
+
+              <ol class="block">
+                <li>If <i>vn</i> is not an element of <i>declaredFunctionNames</i>, then
+
+                  <ol class="block">
+                    <li>Let <i>vnDefinable</i> be the result of calling <i>env’s</i> <a href=
+                    "#sec-candeclareglobalvar">CanDeclareGlobalVar</a> concrete method passing <i>
+                      vn</i> as the argument.
+                    </li>
+
+                    <li>If <i>vnDefinable</i> is <b>false</b>, throw <b>TypeError</b>
+                    exception.</li>
+
+                    <li>If <i>vn</i> is not an element of <i>declaredVarNames</i>, then
+
+                      <ol class="block">
+                        <li>Append <i>vn</i> to <i>declaredVarNames</i>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>NOTE: No abnormal terminations occur after this algorithm step.</li>
+
+    <li>For each <i>FunctionDeclaration</i> <i>f</i> in <i>functionsToInitialise</i>, do
+
+      <ol class="block">
+        <li>Let <i>fn</i> be the sole element of the BoundNames of <i>f.</i></li>
+
+        <li>Let <i>fo</i> be the result of performing InstantiateFunctionObject for <i>f</i> with
+        argument <i>env</i>.</li>
+
+        <li>Let <i>status</i> be the result of calling <i>env</i>’s <a href=
+        "#sec-createglobalfunctionbinding">CreateGlobalFunctionBinding</a> concrete method passing
+        <i>fn</i>, <i>fo</i>, and <i>deletableBindings</i> as the arguments.
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>For each String <i>vn</i> in <i>declaredVarNames</i>, in list order do
+
+      <ol class="block">
+        <li>Let <i>status</i> be the result of calling <i>env’s</i> <a href=
+        "#sec-createglobalvarbinding">CreateGlobalVarBinding</a> concrete method passing <i>vn</i>
+        and <i>deletableBindings</i> as the argument.
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>lexDeclarations</i> be the LexicallyScopedDeclarations of <i>script</i>.</li>
+
+    <li>For each element <i>d</i> in <i>lexDeclarations</i> do
+
+      <ol class="block">
+        <li>NOTE		Except for generator function declarations, lexically declarated names are only
+        instantiated here but not initialised.</li>
+
+        <li>For each element <i>dn</i> of the BoundNames of <i>d</i> do
+
+          <ol class="block">
+            <li>If IsConstantDeclaration of <i>d</i> is <b>true</b>, then
+
+              <ol class="block">
+                <li>Let <i>status</i> be the result of calling <i>env</i>’s CreateImmutableBinding
+                concrete method passing <i>dn</i> as the argument.</li>
+              </ol>
+            </li>
+
+            <li>Else,
+
+              <ol class="block">
+                <li>Let <i>status</i> be the result of calling <i>env</i>’s CreateMutableBinding
+                concrete method passing <i>dn</i> and <b>false</b> as the arguments.</li>
+              </ol>
+            </li>
+
+            <li>
+              <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is never an <a href=
+              "#sec-completion-record-specification-type">abrupt completion</a> for lexically
+              declared names.
+            </li>
+          </ol>
+        </li>
+
+        <li>If <i>d</i> is a <i>GeneratorDeclaration</i> production, then
+
+          <ol class="block">
+            <li>Let <i>fn</i> be the sole element of the BoundNames of <i>d.</i></li>
+
+            <li>Let <i>fo</i> be the result of performing InstantiateFunctionObject for <i>d</i>
+            with argument <i>env</i>.</li>
+
+            <li>Let <i>status</i> be the result of calling <i>env</i>’s SetMutableBinding concrete
+            method passing <i>fn</i>, <i>fo</i>, and <b>false</b> as the arguments.</li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty)
+    </li>
+  </ol>
+
+  <es-note>
+    <p>Early errors specified in <a href="#sec-scripts-static-semantics-early-errors">15.1.1</a>
+    prevent name conflicts between function/var declarations and let/const/class/module
+    declarations as well as redeclaration of let/const/class/module bindings for declaration
+    contained within a single <es-nt>Script</es-nt>. However, such conflicts and redeclarations
+    that span more than one <es-nt>Script</es-nt> are detected as runtime errors during
+    GlobalDeclarationInstantiation. If any such errors are detected, no bindings are instantiated
+    for the script.</p>
+
+    <p>Unlike explicit var or function declarations, properties that are directly created on the
+    global object result in global bindings that may be shadowed by let, const, class, and module
+    declarations.</p>
+  </es-note>
+</es-clause>

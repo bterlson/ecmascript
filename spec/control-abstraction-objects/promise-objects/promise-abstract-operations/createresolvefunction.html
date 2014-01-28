@@ -1,0 +1,18 @@
+<!doctype html>
+<es-clause title="CreateResolveFunction ( promise )" anchor="sec-createresolvefunction">
+  <p>When CreateResolveFunction is performed with argument <es-nt>promise</es-nt>, the following
+  steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>resolve</i> be a new built-in function object as defined in Promise Resolve
+    Functions (<a href="#sec-promise-resolve-functions">25.4.1.4.1</a> ).
+    </li>
+
+    <li>Set the [[Promise]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>resolve</i> to <i>promise</i>.
+    </li>
+
+    <li>Return <i>resolve</i>.</li>
+  </ol>
+  <link rel="import" href="createresolvefunction\promise-resolve-functions.html">
+</es-clause>

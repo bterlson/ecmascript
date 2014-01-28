@@ -1,0 +1,71 @@
+<!doctype html>
+<es-clause title="%Loader%.prototype.define ( name, source, options = undefined )" anchor=
+"sec-%loader%.prototype.define">
+  <p>The <code>define</code> method installs a module in this <es-nt>loader</es-nt>'s module
+  registry for <es-nt>source</es-nt> using <es-nt>name</es-nt> as the registry key. The module is
+  not immediately available. The <code>translate</code> and <code>instantiate</code> hooks are
+  called asynchronously, and dependencies are loaded asynchronously. <code>define</code> returns a
+  Promise object that resolves to <es-nt>undefined</es-nt> when the new module and its dependencies
+  are installed in the registry.</p>
+
+  <p>When the <code>define</code> method is called with arguments <es-nt>name</es-nt>,
+  <es-nt>source</es-nt>, and optional argument <es-nt>options</es-nt> the following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>loader</i> be this Loader.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>loader</i>).
+    </li>
+
+    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>name</i> be <a href="#sec-tostring">ToString</a> (<i>name</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>name</i>).
+    </li>
+
+    <li>Let <i>address</i> be <a href="#sec-getoption">GetOption</a> (<i>options</i>,
+    <code>"address"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>address</i>).
+    </li>
+
+    <li>Let <i>metadata</i> be <a href="#sec-getoption">GetOption</a> (<i>options</i>,
+    <code>"metadata"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>metadata</i>).
+    </li>
+
+    <li>If <i>metadata</i> is <i>undefined</i> then let <i>metadata</i> be the result of calling
+    <a href="#sec-objectcreate">ObjectCreate</a> (%ObjectPrototype%).
+    </li>
+
+    <li>Let <i>p</i> be <a href=
+    "#sec-promiseofstartloadpartwaythrough">PromiseOfStartLoadPartwayThrough</a>
+    (<code>"translate"</code>, <i>loaderRecord</i>, <i>name</i>, <i>metadata</i>, <i>source</i>,
+    <i>address</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>p</i>).
+    </li>
+
+    <li>Let <i>G</i> be a new function as defined by ReturnUndefined.</li>
+
+    <li>Let <i>p</i> be the result of calling PromiseThen(<i>p</i>, <i>G</i>).</li>
+
+    <li>Return <i>p</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>define</code> method is <b>2</b>.</p>
+</es-clause>

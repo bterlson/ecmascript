@@ -1,0 +1,68 @@
+<!doctype html>
+<es-clause title="Loader.prototype.module ( source, options )" anchor=
+"sec-loader.prototype.module">
+  <p>The <code>module</code> method asynchronously loads, links, and evaluates evaluates an
+  anonymous module from <es-nt>source</es-nt>. The module's dependencies, if any, are loaded and
+  committed to the registry. The anonymous module itself is not added to the registry.
+  <code>module</code> returns a Promise object that resolves to a new Module instance object once
+  the given module body has been evaluated.</p>
+
+  <p>When the <code>module</code> method is called with argument <es-nt>source</es-nt> and optional
+  arguments <es-nt>options</es-nt> the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>loader</i> be this Loader.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>loader</i>).
+    </li>
+
+    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>address</i> be <a href="#sec-getoption">GetOption</a> (<i>options</i>,
+    <code>"address"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>address</i>).
+    </li>
+
+    <li>Let <i>load</i> be <a href="#sec-createload">CreateLoad</a> (<b>undefined</b>).
+    </li>
+
+    <li>Set <i>load</i>.[[Address]] field of <i>load</i> to <i>address</i>.</li>
+
+    <li>Let <i>linkSet</i> be <a href="#sec-createlinkset">CreateLinkSet</a> (<i>loaderRecord</i>,
+    <i>load</i>).
+    </li>
+
+    <li>Let <i>successCallback</i> be a new function object as defined by
+    EvaluateLoadedModule.</li>
+
+    <li>Set <i>successCallback</i>’s [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loaderRecord</i>.
+    </li>
+
+    <li>Set <i>successCallback</i>’s [[Load]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>load</i>.
+    </li>
+
+    <li>Let <i>p</i> be the result of calling PromiseThen(<i>linkSet</i>.[[Done]],
+    <i>successCallback</i>).</li>
+
+    <li>Let <i>sourcePromise</i> be PromiseOf(<i>source</i>).</li>
+
+    <li>Perform <a href="#sec-proceedtotranslate">ProceedToTranslate</a> (<i>loaderRecord</i>, <i>
+      load</i>, <i>sourcePromise</i>).
+    </li>
+
+    <li>Return <i>p</i>.</li>
+  </ol>
+
+  <p>If the optional argument <es-nt>options</es-nt> is an object with an <code>address</code>
+  property.</p>
+
+  <p>The <code>length</code> property of the <code>module</code> method is <b>1</b>.</p>
+</es-clause>

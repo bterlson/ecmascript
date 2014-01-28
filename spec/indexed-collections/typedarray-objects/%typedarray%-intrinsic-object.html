@@ -1,0 +1,34 @@
+<!doctype html>
+<es-clause title="The %TypedArray% Intrinsic Object" anchor="sec-%typedarray%-intrinsic-object">
+  <p>The %TypedArray% intrinsic object is a constructor-like function object that all of the
+  <i>TypedArray</i> constructor object inherit from. %TypedArray% and its corresponding prototype
+  object provide common properties that are inherited by all <i>TypedArray</i> constructors and
+  their instances. The %TypedArray% intrinsic does not have a global name or appear as a property
+  of the global object.</p>
+
+  <p>If the <b>this</b> value passed in the call is an Object with a [[ViewedArrayBuffer]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> whose value is <span class=
+  "value">undefined</span>, it initialises the <b>this</b> value using the argument values. This
+  permits super invocation of the <i>TypedArray</i> constructors by <i>TypedArray</i>
+  subclasses.</p>
+
+  <p>The %TypedArray% intrinsic function object is designed to act as the superclass of the various
+  <i>TypedArray</i> constructors. Those constructors use %TypedArray% to initialise their instances
+  by invoking %TypedArray% as if by making a <code>super</code> call. The %TypedArray% intrinsic
+  function is not designed to be directly called in any other way. If %TypedArray% is directly
+  called or called as part of a <code>new</code> expression an exception is thrown.</p>
+
+  <p>The actual behaviour of a <code>super</code> call of %TypedArray% depends upon the number and
+  kind of arguments that are passed to it.</p>
+  <link rel="import" href="%typedarray%-intrinsic-object\%typedarray%-length.html">
+  <link rel="import" href="%typedarray%-intrinsic-object\%typedarray%-typedarray.html">
+  <link rel="import" href="%typedarray%-intrinsic-object\%typedarray%-array.html">
+  <link rel="import" href=
+  "%typedarray%-intrinsic-object\%typedarray%-buffer-byteoffset-length.html">
+
+  <es-clause title="%TypedArray% ( all other argument combinations )" anchor=
+  "sec-%typedarray%-all-other-argument-combinations">
+    <p>If the %TypedArray% function is called with arguments that do not match any of the
+    preceeding argument descriptions a <b>TypeError</b> exception is thrown.</p>
+  </es-clause>
+</es-clause>

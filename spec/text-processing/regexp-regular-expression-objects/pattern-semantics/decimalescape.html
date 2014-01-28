@@ -1,0 +1,25 @@
+<!doctype html>
+<es-clause title="DecimalEscape" anchor="sec-decimalescape">
+  <p>The production <es-production name="DecimalEscape" type="lexical" class=
+  "inline"><es-rhs><es-nt>DecimalIntegerLiteral</es-nt></es-rhs></es-production>
+  evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>i</i> be the MV of <i>DecimalIntegerLiteral</i>.</li>
+
+    <li>If <i>i</i> is zero, return the EscapeValue consisting of the character U+0000 (NULL).</li>
+
+    <li>Return the EscapeValue consisting of the integer <i>i</i>.</li>
+  </ol>
+
+  <p>The definition of “the MV of <es-nt>DecimalIntegerLiteral</es-nt>” is in <a href=
+  "#sec-literals-numeric-literals">11.8.3</a> .</p>
+
+  <es-note>
+    <p>If <code>\</code> is followed by a decimal number <es-nt>n</es-nt> whose first digit is not
+    <code>0</code>, then the escape sequence is considered to be a backreference. It is an error if
+    <es-nt>n</es-nt> is greater than the total number of left capturing parentheses in the entire
+    regular expression. <code>\0</code> represents the &lt;NUL&gt; character and cannot be followed
+    by a decimal digit.</p>
+  </es-note>
+</es-clause>

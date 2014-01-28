@@ -1,0 +1,80 @@
+<!doctype html>
+<es-clause title="GetOrCreateLoad(name) Functions" anchor="sec-getorcreateload-name-functions">
+  <p>A GetOrCreateLoad function is an anonymous function that gets or creates a Load Record for a
+  given module <es-nt>name</es-nt>.</p>
+
+  <p>Each GetOrCreateLoad function has a [[Loader]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+
+  <p>When a GetOrCreateLoad function <es-nt>F</es-nt> is called with argument <es-nt>name</es-nt>,
+  the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>loader</i> be <i>F</i>’s [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>name</i> be <a href="#sec-tostring">ToString</a> (<i>name</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>name</i>).
+    </li>
+
+    <li>Let <i>modules</i> be the value of of <i>loaderRecord.</i>[[ Modules]],</li>
+
+    <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>loader</i>.[[
+    Modules], do
+
+      <ol class="block">
+        <li>If <a href="#sec-samevalue">SameValue</a> (<i>p</i>.[[key]], <i>name</i>) is
+        <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>existingModule</i> be the [[value]] field of that Record.</li>
+
+            <li>Let <i>load</i> be the result of <a href="#sec-createload">CreateLoad</a>
+            (<i>name</i>).
+            </li>
+
+            <li>Set <i>load</i>.[[Status]] to <code>"linked"</code>.</li>
+
+            <li>Set <i>load</i>.[[Module]] to <i>existingModule</i>.</li>
+
+            <li>Return <i>load</i>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Repeat for each Record <i>load</i> that is an element of <i>loader</i>.[[Loads]], do
+
+      <ol class="block">
+        <li>If <a href="#sec-samevalue">SameValue</a> (<i>load</i>.[[Name]], <i>name</i>) is
+        <b>true</b>, then
+
+          <ol class="block">
+            <li>
+              <a href="#sec-algorithm-conventions">Assert</a> : <i>load</i>.status is either
+              <code>"loading"</code> or <code>"loaded"</code>.
+            </li>
+
+            <li>Return <i>load</i>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>load</i> be the result of <a href="#sec-createload">CreateLoad</a> (<i>name</i>).
+    </li>
+
+    <li>Append <i>load</i> to the the end of the <a href="#sec-list-and-record-specification-type">
+      List</a> <i>loader</i>.[[Loads]].
+    </li>
+
+    <li>Call <a href="#sec-proceedtolocate">ProceedToLocate</a> (<i>loader</i>, <i>load</i>).
+    </li>
+
+    <li>Return <i>load</i>.</li>
+  </ol>
+</es-clause>

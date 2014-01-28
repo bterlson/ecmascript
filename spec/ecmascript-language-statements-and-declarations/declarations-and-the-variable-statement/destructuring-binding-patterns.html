@@ -1,0 +1,136 @@
+<!doctype html>
+<es-clause title="Destructuring Binding Patterns" anchor="sec-destructuring-binding-patterns">
+  <h2>Syntax</h2>
+
+  <es-production name="BindingPattern">
+    <es-rhs><es-nt>ObjectBindingPattern</es-nt>
+    <es-gann>?Yield,?GeneratorParameter</es-gann></es-rhs>
+
+    <es-rhs><es-nt>ArrayBindingPattern</es-nt>
+    <es-gann>?Yield,?GeneratorParameter</es-gann></es-rhs>
+  </es-production>
+
+  <es-production name="ObjectBindingPattern">
+    <es-rhs>{ }</es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt>BindingPropertyList</es-nt>
+    <es-gann>?Yield,?GeneratorParameter</es-gann><es-t>}</es-t></es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt>BindingPropertyList</es-nt>
+    <es-gann>?Yield,?GeneratorParameter</es-gann><es-t>,</es-t> <es-t>}</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="ArrayBindingPattern">
+    <es-rhs>[ <es-nt optional>Elision</es-nt> <es-nt>BindingRestElement</es-nt> <es-gann>?Yield,
+    ?GeneratorParameter</es-gann>opt ]</es-rhs>
+
+    <es-rhs><es-t>[</es-t> <es-nt>BindingElementList</es-nt> <es-gann>?Yield,
+    ?GeneratorParameter</es-gann><es-t>]</es-t></es-rhs>
+
+    <es-rhs>[ <es-nt>BindingElementList</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann>,
+    <es-nt optional>Elision</es-nt> <es-nt>BindingRestElement</es-nt> <es-gann>?Yield,
+    ?GeneratorParameter</es-gann>opt ]</es-rhs>
+  </es-production>
+
+  <es-production name="BindingPropertyList">
+    <es-rhs><es-nt>BindingProperty</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann></es-rhs>
+
+    <es-rhs><es-nt>BindingPropertyList</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann>,
+    <es-nt>BindingProperty</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann></es-rhs>
+  </es-production>
+
+  <es-production name="BindingElementList">
+    <es-rhs><es-nt>BindingElisionElement</es-nt> <es-gann>?Yield,
+    ?GeneratorParameter</es-gann></es-rhs>
+
+    <es-rhs><es-nt>BindingElementList</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann>,
+    <es-nt>BindingElisionElement</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann></es-rhs>
+  </es-production>
+
+  <es-production name="BindingElisionElement">
+    <es-rhs><es-nt optional>Elision</es-nt> <es-nt>BindingElement</es-nt> <es-gann>?Yield,
+    ?GeneratorParameter</es-gann></es-rhs>
+  </es-production>
+
+  <es-production name="BindingProperty">
+    <es-rhs><es-nt>SingleNameBinding</es-nt> <es-gann>?Yield,
+    ?GeneratorParameter</es-gann></es-rhs>
+
+    <es-rhs><es-nt>PropertyName</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann>:
+    <es-nt>BindingElement</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann></es-rhs>
+  </es-production>
+
+  <es-production name="BindingElement">
+    <es-rhs><es-nt>SingleNameBinding</es-nt> <es-gann>?Yield,
+    ?GeneratorParameter</es-gann></es-rhs>
+
+    <es-rhs constraint="+GeneratorParameter"><es-nt>BindingPattern</es-nt>
+    <es-gann>?Yield,GeneratorParameter</es-gann><es-nt>Initialiser</es-nt>
+    <es-gann>In</es-gann>opt</es-rhs>
+
+    <es-rhs constraint="~GeneratorParameter"><es-nt params="?Yield">BindingPattern</es-nt>
+    <es-nt>Initialiser</es-nt> <es-gann>In, ?Yield</es-gann>opt</es-rhs>
+  </es-production>
+
+  <es-production name="SingleNameBinding">
+    <es-rhs constraint="+GeneratorParameter"><es-nt params="Yield">BindingIdentifier</es-nt>
+    <es-nt>Initialiser</es-nt> <es-gann>In</es-gann>opt</es-rhs>
+
+    <es-rhs constraint="~GeneratorParameter"><es-nt params="?Yield">BindingIdentifier</es-nt>
+    <es-nt>Initialiser</es-nt> <es-gann>In, ?Yield</es-gann>opt</es-rhs>
+  </es-production>
+
+  <es-production name="BindingRestElement">
+    <es-rhs constraint="+GeneratorParameter"><es-t>...</es-t> <es-nt params=
+    "Yield">BindingIdentifier</es-nt></es-rhs>
+
+    <es-rhs constraint="~GeneratorParameter"><es-t>...</es-t> <es-nt params=
+    "?Yield">BindingIdentifier</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "destructuring-binding-patterns\destructuring-binding-patterns-static-semantics-boundnames.html">
+
+  <es-clause title="Static Semantics: HasInitialiser" anchor=
+  "sec-destructuring-binding-patterns-static-semantics-hasinitialiser">
+    <p>See also: <a href="#sec-function-definitions-static-semantics-hasinitialiser">14.1.6</a>
+    .</p>
+
+    <es-production name="BindingElement" class="inline">
+      <es-rhs><es-nt>BindingPattern</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="BindingElement" class="inline">
+      <es-rhs><es-nt>BindingPattern</es-nt> <es-nt>Initialiser</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>true</b>.</li>
+    </ol>
+
+    <es-production name="SingleNameBinding" class="inline">
+      <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="SingleNameBinding" class="inline">
+      <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt>Initialiser</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "destructuring-binding-patterns\destructuring-binding-patterns-runtime-semantics-bindinginitialisation.html">
+  <link rel="import" href=
+  "destructuring-binding-patterns\destructuring-binding-patterns-runtime-semantics-iteratorbindinginitialisation.html">
+  <link rel="import" href=
+  "destructuring-binding-patterns\runtime-semantics-keyedbindinginitialisation.html">
+</es-clause>

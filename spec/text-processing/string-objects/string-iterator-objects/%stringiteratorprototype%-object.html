@@ -1,0 +1,27 @@
+<!doctype html>
+<es-clause title="The %StringIteratorPrototype% Object" anchor=
+"sec-%stringiteratorprototype%-object">
+  <p>All String Iterator Objects inherit properties from the %StringIteratorPrototype% intrinsic
+  object. The %StringIteratorPrototype% object is an ordinary object and its [[Prototype]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> is the %ObjectPrototype%
+  intrinsic object. In addition, %StringIteratorPrototype% has the following properties:</p>
+  <link rel="import" href="%stringiteratorprototype%-object\%stringiteratorprototype%.next.html">
+
+  <es-clause title="%StringIteratorPrototype% [ @@iterator ] ( )" anchor=
+  "sec-%stringiteratorprototype%-@@iterator">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Return the <b>this</b> value.</li>
+    </ol>
+
+    <p>The value of the <code>name</code> property of this function is
+    <code>"[Symbol.iterator]"</code>.</p>
+  </es-clause>
+
+  <es-clause title="%StringIteratorPrototype%.@@toStringTag" anchor=
+  "sec-%stringiteratorprototype%.@@tostringtag">
+    <p>The initial value of the @@toStringTag property is the string value <b>"String
+    Iterator"</b>.</p>
+  </es-clause>
+</es-clause>

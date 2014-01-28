@@ -1,0 +1,56 @@
+<!doctype html>
+<es-clause title="Types of Source Code" anchor="sec-types-of-source-code">
+  <p>There are four types of ECMAScript code:</p>
+
+  <ul>
+    <li>
+      <p><i>Global code</i> is source text that is treated as an ECMAScript <i>Script</i>. The
+      global code of a particular <i>Script</i> does not include any source text that is parsed as
+      part of a <i>FunctionBody</i>, <i>GeneratorBody</i>, <i>ConciseBody</i>, <i>ClassBody</i>, or
+      <i>ModuleBody</i>.</p>
+    </li>
+
+    <li>
+      <p><i>Eval code</i> is the source text supplied to the built-in <code>eval</code> function.
+      More precisely, if the parameter to the built-in <code>eval</code> function is a String, it
+      is treated as an ECMAScript <i>Script</i>. The eval code for a particular invocation of
+      <code>eval</code> is the global code portion of that <i>Script</i>.</p>
+    </li>
+
+    <li>
+      <p><i>Function code</i> is source text that is parsed to supply the value of the [[Code]]
+      <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> (see <a href=
+      "#sec-ordinarycreatefromconstructor">9.1.14</a> ) of function and generator objects. The
+      <i>function code</i> of a particular function or generator does not include any source text
+      that is parsed as the function code of a nested <i>FunctionBody</i>, <i>GeneratorBody</i>,
+      <i>ConciseBody</i>, or <i>ClassBody</i>.</p>
+    </li>
+
+    <li>
+      <p><i>Module code</i> is source text that is code that is provided as a <i>ModuleBody</i>. It
+      is the code that is directly evaluated when a module is initialised. The module code of a
+      particular module does not include any source text that is parsed as part of a nested
+      <i>FunctionBody</i>, <i>GeneratorBody</i>, <i>ConciseBody</i>, <i>ClassBody</i>, or
+      <i>ModuleBody</i>.</p>
+    </li>
+  </ul>
+
+  <es-note>
+    <p>Function code is generally provided as the bodies of Function Definitions (<a href=
+    "#sec-function-definitions">14.1</a> ), Arrow Function Definitions (<a href=
+    "#sec-arrow-function-definitions">14.2</a> ), Method Definitions (<a href=
+    "#sec-method-definitions">14.3</a> ) and Generator Definitions (<a href=
+    "#sec-generator-function-definitions">14.4</a> ). Function code is also derived from the last
+    argument to the Function constructor (<a href="#sec-function-p1-p2-pn-body">19.2.1.1</a> ) and
+    the GeneratorFunction constructor (<a href="#sec-generatorfunction">25.2.1.1</a> ).</p>
+  </es-note>
+  <link rel="import" href="types-of-source-code\strict-mode-code.html">
+
+  <es-clause title="Non-ECMAScript Functions" anchor="sec-non-ecmascript-functions">
+    <p>An ECMAScript implementation may support the evaluation of exotic function objects whose
+    evaluative behaviour is expressed in some implementation defined form of executable code other
+    than via ECMAScript code. Whether a function object is an ECMAScript code function or a
+    non-ECMAScript function is not semantically observable from the perspective of an ECMAScript
+    code function that calls or is called by such a non-ECMAScript function.</p>
+  </es-clause>
+</es-clause>

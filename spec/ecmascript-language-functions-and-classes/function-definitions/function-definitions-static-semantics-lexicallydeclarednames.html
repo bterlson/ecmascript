@@ -1,0 +1,37 @@
+<!doctype html>
+<es-clause title="Static Semantics: LexicallyDeclaredNames" anchor=
+"sec-function-definitions-static-semantics-lexicallydeclarednames">
+  <p>See also: <a href="#sec-block-static-semantics-lexicallydeclarednames">13.1.3</a> , <a href=
+  "#sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</a> , <a href=
+  "#sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</a> , <a href=
+  "#sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</a> ,
+  <a href="#sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</a> , <a href=
+  "#sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</a> , <a href=
+  "#sec-module-static-semantics-static-semantics-lexicallydeclarednames">15.2.0.10</a> .</p>
+
+  <es-production name="FunctionDeclaration" class="inline">
+    <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+  </ol>
+
+  <es-production name="FunctionStatementList" class="inline">
+    <es-rhs constraint="empty"></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return an empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="FunctionStatementList" class="inline">
+    <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return TopLevelLexicallyDeclaredNames of <i>StatementList</i>.</li>
+  </ol>
+</es-clause>

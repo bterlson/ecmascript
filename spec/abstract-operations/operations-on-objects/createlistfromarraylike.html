@@ -1,0 +1,51 @@
+<!doctype html>
+<es-clause title="CreateListFromArrayLike (obj)" anchor="sec-createlistfromarraylike">
+  <p>The abstract operation CreateListFromArrayLike is used to create a <a href=
+  "#sec-list-and-record-specification-type">List</a> value whose elements are provided by the
+  indexed properties of an array-like object. This abstract operation performs the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>obj</i>) is not Object,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>len</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>,
+    <code>"length"</code>).
+    </li>
+
+    <li>Let <i>n</i> be <a href="#sec-tolength">ToLength</a> (<i>len</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>n</i>).
+    </li>
+
+    <li>Let <i>list</i> be an empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>index</i> be 0.</li>
+
+    <li>Repeat while <i>index</i> &lt; <i>n</i>
+
+      <ol class="block">
+        <li>Let <i>indexName</i> be <a href="#sec-tostring">ToString</a> (<i>index</i>).
+        </li>
+
+        <li>Let <i>next</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>,
+        <i>indexName</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+        </li>
+
+        <li>Append <i>next</i> as the last element of <i>list</i>.</li>
+
+        <li>Set <i>index</i> to <i>index</i> + 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>list</i>.</li>
+  </ol>
+</es-clause>

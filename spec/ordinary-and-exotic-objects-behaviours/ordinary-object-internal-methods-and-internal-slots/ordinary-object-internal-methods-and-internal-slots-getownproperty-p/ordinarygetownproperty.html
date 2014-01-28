@@ -1,0 +1,45 @@
+<!doctype html>
+<es-clause title="OrdinaryGetOwnProperty (O, P)" anchor="sec-ordinarygetownproperty">
+  <p>When the abstract operation OrdinaryGetOwnProperty is called with Object <es-nt>O</es-nt> and
+  with <a href="#sec-object-type">property key</a> <es-nt>P</es-nt>, the following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+    </li>
+
+    <li>If <i>O</i> does not have an own property with key <i>P</i>, return <b>undefined</b>.</li>
+
+    <li>Let <i>D</i> be a newly created <a href=
+    "#sec-property-descriptor-specification-type">Property Descriptor</a> with no fields.
+    </li>
+
+    <li>Let <i>X</i> be <i>O</i>’s own property whose key is <i>P</i>.</li>
+
+    <li>If <i>X</i> is a data property, then
+
+      <ol class="block">
+        <li>Set <i>D</i>.[[Value]] to the value of <i>X</i>’s [[Value]] attribute.</li>
+
+        <li>Set <i>D</i>.[[Writable]] to the value of <i>X</i>’s [[Writable]] attribute</li>
+      </ol>
+    </li>
+
+    <li>Else <i>X</i> is an accessor property, so
+
+      <ol class="block">
+        <li>Set <i>D</i>.[[Get]] to the value of <i>X</i>’s [[Get]] attribute.</li>
+
+        <li>Set <i>D</i>.[[Set]] to the value of <i>X</i>’s [[Set]] attribute.</li>
+      </ol>
+    </li>
+
+    <li>Set <i>D</i>.[[Enumerable]] to the value of <i>X</i>’s [[Enumerable]] attribute.</li>
+
+    <li>Set <i>D</i>.[[Configurable]] to the value of <i>X</i>’s [[Configurable]] attribute.</li>
+
+    <li>Return <i>D</i>.</li>
+  </ol>
+</es-clause>

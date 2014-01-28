@@ -1,0 +1,48 @@
+<!doctype html>
+<es-clause title="Native Error Types Used in This Standard" anchor=
+"sec-native-error-types-used-in-this-standard">
+  <p>A new instance of one of the <i>NativeError</i> objects below is thrown when a runtime error
+  is detected. All of these objects share the same structure, as described in <a href=
+  "#sec-nativeerror-object-structure">19.5.6</a> .</p>
+
+  <es-clause title="EvalError" anchor="sec-native-error-types-used-in-this-standard-evalerror">
+    <p>This exception is not currently used within this specification. This object remains for
+    compatibility with previous editions of this specification.</p>
+  </es-clause>
+
+  <es-clause title="RangeError" anchor="sec-native-error-types-used-in-this-standard-rangeerror">
+    <p>Indicates a value that is not in the set or range of allowable values. See , , , , , , and
+    .</p>
+  </es-clause>
+
+  <es-clause title="ReferenceError" anchor=
+  "sec-native-error-types-used-in-this-standard-referenceerror">
+    <p>Indicate that an invalid reference value has been detected. See , , <a href=
+    "#sec-strict-mode-code">10.2.1</a> , , , and .</p>
+  </es-clause>
+
+  <es-clause title="SyntaxError" anchor="sec-native-error-types-used-in-this-standard-syntaxerror">
+    <p>Indicates that a parsing error has occurred. See , , , , , , , , <a href=
+    "#sec-left-hand-side-expressions-static-semantics">12.2.1</a> , <a href=
+    "#sec-binary-bitwise-operators-static-semantics-isanonymousfunctiondefinition">12.10.1</a> ,
+    <a href="#sec-comma-operator-static-semantics-isanonymousfunctiondefinition">12.14.1</a> ,
+    <a href="#sec-block">13.1</a> , , , , , , , , , and .</p>
+  </es-clause>
+
+  <es-clause title="TypeError" anchor="sec-native-error-types-used-in-this-standard-typeerror">
+    <p>Indicates the actual type of an operand is different than the expected type. See , , , , , ,
+    , , , <a href="#sec-strict-mode-code">10.2.1</a> , , , , , , <a href=
+    "#sec-template-literal-lexical-components">11.8.6</a> , , , <a href=
+    "#sec-declarations-and-the-variable-statement">13.2</a> , <a href=
+    "#sec-destructuring-binding-patterns">13.2.3</a> , 15, <a href=
+    "#sec-load-records-and-loadrequest-objects">15.2.3.2</a> , , , , , , , , , , , , , <a href=
+    "#sec-proceedtolocate">15.2.4.3</a> , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,
+    , and .</p>
+  </es-clause>
+
+  <es-clause title="URIError" anchor="sec-native-error-types-used-in-this-standard-urierror">
+    <p>Indicates that one of the global URI handling functions was used in a way that is
+    incompatible with its definition. See <a href=
+    "#sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</a> .</p>
+  </es-clause>
+</es-clause>

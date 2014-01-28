@@ -1,0 +1,74 @@
+<!doctype html>
+<es-clause title="ECMAScript Language: Statements and Declarations" anchor=
+"sec-ecmascript-language-statements-and-declarations">
+  <h2>Syntax</h2>
+
+  <es-production name="Statement" params="Yield, Return">
+    <es-rhs><es-nt params="?Yield, ?Return">BlockStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">VariableStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>EmptyStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ExpressionStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield, ?Return">IfStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield, ?Return">BreakableStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ContinueStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>BreakStatement</es-nt></es-rhs>
+
+    <es-rhs constraint="+Return"><es-nt params="?Yield">ReturnStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield, ?Return">WithStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield, ?Return">LabelledStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ThrowStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield, ?Return">TryStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt>DebuggerStatement</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Declaration" params="Yield, Default">
+    <es-rhs><es-nt params="?Default">FunctionDeclaration</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Default">GeneratorDeclaration</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Default">ClassDeclaration</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="In, ?Yield">LexicalDeclaration</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="BreakableStatement" params="Yield, Return">
+    <es-rhs><es-nt params="?Yield, ?Return">IterationStatement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield, ?Return">SwitchStatement</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "ecmascript-language-statements-and-declarations\statement-semantics.html">
+  <link rel="import" href="ecmascript-language-statements-and-declarations\block.html">
+  <link rel="import" href=
+  "ecmascript-language-statements-and-declarations\declarations-and-the-variable-statement.html">
+  <link rel="import" href="ecmascript-language-statements-and-declarations\empty-statement.html">
+  <link rel="import" href=
+  "ecmascript-language-statements-and-declarations\expression-statement.html">
+  <link rel="import" href="ecmascript-language-statements-and-declarations\if-statement.html">
+  <link rel="import" href=
+  "ecmascript-language-statements-and-declarations\iteration-statements.html">
+  <link rel="import" href=
+  "ecmascript-language-statements-and-declarations\continue-statement.html">
+  <link rel="import" href="ecmascript-language-statements-and-declarations\break-statement.html">
+  <link rel="import" href="ecmascript-language-statements-and-declarations\return-statement.html">
+  <link rel="import" href="ecmascript-language-statements-and-declarations\with-statement.html">
+  <link rel="import" href="ecmascript-language-statements-and-declarations\switch-statement.html">
+  <link rel="import" href=
+  "ecmascript-language-statements-and-declarations\labelled-statements.html">
+  <link rel="import" href="ecmascript-language-statements-and-declarations\throw-statement.html">
+  <link rel="import" href="ecmascript-language-statements-and-declarations\try-statement.html">
+  <link rel="import" href=
+  "ecmascript-language-statements-and-declarations\debugger-statement.html">
+</es-clause>

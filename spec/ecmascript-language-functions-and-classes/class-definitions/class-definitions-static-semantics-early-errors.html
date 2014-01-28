@@ -1,0 +1,48 @@
+<!doctype html>
+<es-clause title="Static Semantics: Early Errors" anchor=
+"sec-class-definitions-static-semantics-early-errors">
+  <es-production name="ClassBody" class="inline">
+    <es-rhs><es-nt>ClassElementList</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if PrototypePropertyNameList of <es-nt>ClassElementList</es-nt>
+      <es-nt>contains any duplicate entries, unless the following condition is true for each
+      duplicate entry:</es-nt> The duplicated entry occurs exactly twice in the list and one
+      occurrence was obtained from a <code>get</code> accessor <es-nt>MethodDefinition</es-nt> and
+      the other occurrence was obtained from a <code>set</code> accessor
+      <es-nt>MethodDefinition</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if StaticPropertyNameList of <es-nt>ClassElementList</es-nt>
+      <es-nt>contains any duplicate entries, unless the following condition is true for each
+      duplicate entry:</es-nt> The duplicated entry occurs exactly twice in the list and one
+      occurrence was obtained from a <code>get</code> accessor <es-nt>MethodDefinition</es-nt> and
+      the other occurrence was obtained from a <code>set</code> accessor
+      <es-nt>MethodDefinition</es-nt>.</p>
+    </li>
+  </ul>
+
+  <es-production name="ClassElement" class="inline">
+    <es-rhs><es-nt>MethodDefinition</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if PropName of <es-nt>MethodDefinition</es-nt> <es-nt>is</es-nt>
+      <b>″constructor″</b> <es-nt>and</es-nt> <i>SpecialMethod of MethodDefinition is
+      <b>true</b>.</i></p>
+    </li>
+  </ul>
+
+  <es-production name="ClassElement" class="inline">
+    <es-rhs><es-t>static</es-t> <es-nt>MethodDefinition</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>It is a Syntax Error if PropName of <es-nt>MethodDefinition</es-nt> <es-nt>is</es-nt>
+    <b>″prototype″</b><es-nt>.</es-nt></li>
+  </ul>
+</es-clause>

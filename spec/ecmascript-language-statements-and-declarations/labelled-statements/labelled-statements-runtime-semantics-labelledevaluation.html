@@ -1,0 +1,39 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: LabelledEvaluation" anchor=
+"sec-labelled-statements-runtime-semantics-labelledevaluation">
+  <p>With argument <es-nt>labelSet</es-nt>.</p>
+
+  <p>See also: <a href="#sec-statement-semantics-runtime-semantics-labelledevaluation">13.0.2</a> ,
+  <a href="#sec-do-while-statement-runtime-semantics-labelledevaluation">13.6.1.2</a> , <a href=
+  "#sec-while-statement-runtime-semantics-labelledevaluation">13.6.2.2</a> , <a href=
+  "#sec-for-statement-runtime-semantics-labelledevaluation">13.6.3.2</a> , <a href=
+  "#sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation">13.6.4.5</a> .</p>
+
+  <es-production name="LabelledStatement" class="inline">
+    <es-rhs><es-nt>IdentifierReference</es-nt> : <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>label</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+    <i>IdentifierReference</i>.
+    </li>
+
+    <li>Return the result of <a href=
+    "#sec-labelledstatementevaluation">LabelledStatementEvaluation</a> (<i>label</i>,
+    <i>Statement</i>, <i>labelSet</i>).
+    </li>
+  </ol>
+
+  <es-production name="LabelledStatement" class="inline">
+    <es-rhs><es-t>yield</es-t> <es-t>:</es-t> <es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the result of <a href=
+    "#sec-labelledstatementevaluation">LabelledStatementEvaluation</a> (<code>"yield"</code>,
+    <i>Statement</i>, <i>labelSet</i>).
+    </li>
+  </ol>
+  <link rel="import" href=
+  "labelled-statements-runtime-semantics-labelledevaluation\labelledstatementevaluation.html">
+</es-clause>

@@ -1,0 +1,166 @@
+<!doctype html>
+<es-clause title="Operations on Iterator Objects" anchor="sec-operations-on-iterator-objects">
+  <p>See Commmon Iteration Interfaces(<a href="#sec-common-iteration-interfaces">25.1</a> ).</p>
+
+  <es-clause title="GetIterator ( obj )" anchor="sec-getiterator">
+    <p>The abstract operation GetIterator with argument <es-nt>obj</es-nt> performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>iterator</i> be the result of performing Invoke with arguments <i>obj</i>,
+      @@iterator and an empty <a href="#sec-list-and-record-specification-type">List</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>iterator</i>)<i>.</i>
+      </li>
+
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>iterator</i>) is not
+      Object, then throw a <b>TypeError</b> exception.
+      </li>
+
+      <li>Return <i>iterator</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="IteratorNext ( iterator, value )" anchor="sec-iteratornext">
+    <p>The abstract operation IteratorNext with argument <es-nt>iterator</es-nt> and optional
+    argument <es-nt>value</es-nt> performs the following steps:</p>
+
+    <ol class="proc">
+      <li>If <i>value</i> was not passed, let <i>value</i> be <b>undefined</b>.
+
+        <ol class="block">
+          <li>Let <i>result</i> be the result of Invoke(<i>iterator</i>, <code>"next"</code>, (
+          )).</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Let <i>result</i> be the result of Invoke(<i>iterator</i>, <code>"next"</code>,
+          (<i>value</i>)).</li>
+        </ol>
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>result</i>).
+      </li>
+
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>result</i>) is not
+      Object, then throw a <b>TypeError</b> exception.
+      </li>
+
+      <li>Return <i>result</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="IteratorComplete ( iterResult )" anchor="sec-iteratorcomplete">
+    <p>The abstract operation IteratorComplete with argument <es-nt>iterResult</es-nt> performs the
+    following steps:</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+        "#sec-ecmascript-data-types-and-values">Type</a> (<i>iterResult</i>) is Object.
+      </li>
+
+      <li>Let <i>done</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>iterResult</i>,
+      <code>"done"</code>).
+      </li>
+
+      <li>Return <a href="#sec-toboolean">ToBoolean</a> (<i>done</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="IteratorValue ( iterResult )" anchor="sec-iteratorvalue">
+    <p>The abstract operation IteratorValue with argument <es-nt>iterResult</es-nt> performs the
+    following steps:</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+        "#sec-ecmascript-data-types-and-values">Type</a> (<i>iterResult</i>) is Object.
+      </li>
+
+      <li>Return the result of <a href="#sec-get-o-p">Get</a> (<i>iterResult</i>,
+      <code>"value"</code>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="IteratorStep ( iterator)" anchor="sec-iteratorstep">
+    <p>The abstract operation IteratorStep with argument <es-nt>iterator</es-nt> requests the next
+    value from <es-nt>iterator</es-nt> and returns either <span class="value">false</span>
+    indicating that the iterator has reached its end or the IteratorResult object if a next value
+    is available. IteratorStep performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>result</i> be the result of <a href="#sec-iteratornext">IteratorNext</a>
+      (<i>iterator</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>result</i>).
+      </li>
+
+      <li>Let <i>done</i> be the result of <a href="#sec-iteratorcomplete">IteratorComplete</a>
+      (<i>result</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>done</i>).
+      </li>
+
+      <li>If <i>done</i> is <b>true</b>, then return <b>false</b>.</li>
+
+      <li>Return <i>result</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CreateIterResultObject (value, done)" anchor="sec-createiterresultobject">
+    <p>The abstract operation CreateIterResultObject with arguments <es-nt>value</es-nt> and
+    <es-nt>done</es-nt> creates an object that supports the IteratorResult interface by performing
+    the following steps:</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+        "#sec-ecmascript-data-types-and-values">Type</a> (<i>done</i>) is Boolean.
+      </li>
+
+      <li>Let <i>obj</i> be the result of performing <a href="#sec-objectcreate">ObjectCreate</a>
+      (%ObjectPrototype%).
+      </li>
+
+      <li>Perform <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>obj</i>,
+      <code>"value"</code>, <i>value</i>).
+      </li>
+
+      <li>Perform <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>obj</i>,
+      <code>"done"</code>, <i>done</i>).
+      </li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="operations-on-iterator-objects\createlistiterator.html">
+
+  <es-clause title="CreateEmptyIterator ( )" anchor="sec-createemptyiterator">
+    <p>The abstract operation CreateEmptyIterator with no arguments creates an Iterator object
+    whose next method always reports that the iterator is done. It performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>empty</i> be a <a href="#sec-list-and-record-specification-type">List</a> with no
+      elements.
+      </li>
+
+      <li>Return the result of <a href="#sec-createlistiterator">CreateListIterator</a>
+      (<i>empty</i>).
+      </li>
+    </ol>
+  </es-clause>
+</es-clause>

@@ -1,0 +1,42 @@
+<!doctype html>
+<es-clause title="Common Iteration Interfaces" anchor="sec-common-iteration-interfaces">
+  <p>An interface is a set of object property keys whose associated values match a specific
+  specification. Any object that provides all the properties of an interface in conformance to the
+  interface’s specification <i>conforms</i> to that interface. An interface isn’t represented by a
+  single object and there may be many distinctly implemented objects that conform to any interface.
+  An individual object may conform to multiple interfaces.</p>
+
+  <es-clause title="TheInterface" anchor="sec-iterable-interface">
+    <p>The <i>Iterable</i> interface includes the following property:</p>
+
+    <figure>
+      <table class="real-table">
+        <tr>
+          <th style=
+          "background-color: #A6A6A6; border-bottom: 0px solid black; border-top: 1px solid #000080">
+          Property</th>
+
+          <th style=
+          "background-color: #A6A6A6; border-bottom: 0px solid black; border-top: 1px solid #000080">
+          Value</th>
+
+          <th style=
+          "background-color: #A6A6A6; border-bottom: 0px solid black; border-top: 1px solid #000080">
+          Requirements</th>
+        </tr>
+
+        <tr>
+          <td style="border-top: 0px solid black"><code>@@iterator</code></td>
+
+          <td style="border-top: 0px solid black">A zero arguments function that returns an
+          object.</td>
+
+          <td style="border-top: 0px solid black">The function returns an object that conforms to
+          the <i>iterator</i> interface.</td>
+        </tr>
+      </table>
+    </figure>
+  </es-clause>
+  <link rel="import" href="common-iteration-interfaces\iterator-interface.html">
+  <link rel="import" href="common-iteration-interfaces\iteratorresult-interface.html">
+</es-clause>

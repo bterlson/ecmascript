@@ -1,0 +1,165 @@
+<!doctype html>
+<es-clause title="eval (x)" anchor="sec-eval-x">
+  <p>When the <code>eval</code> function is called with one argument <es-nt>x</es-nt>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is not String,
+    return <i>x</i>.
+    </li>
+
+    <li>Let <i>script</i> be the ECMAScript code that is the result of parsing <i>x</i>,
+    interpreted as UTF-16 encoded Unicode text as described in <a href=
+    "#sec-static-semantics-utf-16-encoding">10.1.1</a> <i>,</i> for the goal symbol <i>Script</i>.
+    If the parse fails or any early errors are detected, throw a <b>SyntaxError</b> exception (but
+    <a href="#sec-error-handling-and-language-extensions">see also clause 16</a> ).
+    </li>
+
+    <li>If <i>script</i> Contains <i>ScriptBody</i> is <b>false</b>, return <b>undefined</b>.</li>
+
+    <li>Let <i>strictScript</i> be IsStrict of <i>script</i>.</li>
+
+    <li>If this is a direct call to eval (<a href="#sec-direct-call-to-eval">18.2.1.1</a> ), let
+    <i>direct</i> be <b>true</b>, otherwise let <i>direct</i> be <b>false</b>.
+    </li>
+
+    <li>If <i>direct</i> is <b>true</b> and the code that made the direct call to eval is
+      <a href="#sec-strict-mode-code">strict code</a> , then let <i>strictCaller</i> be
+      <b>true</b><i>.</i> Otherwise, let <i>strictCaller</i> be <b>false</b><i>.</i>
+    </li>
+
+    <li>Let <i>ctx</i> be <a href="#sec-execution-contexts">the running execution context</a> . If
+    <i>direct</i> is <b>true</b> <i>ctx</i> will be the <a href="#sec-execution-contexts">execution
+    context</a> that performed the direct eval. If <i>direct</i> is <b>false</b> <i>ctx</i> will be
+    the <a href="#sec-execution-contexts">execution context</a> for the invocation of the eval
+    function.
+    </li>
+
+    <li>Let <i>evalRealm</i> be <i>ctx’s</i> <a href="#sec-code-realms">Realm</a> .
+    </li>
+
+    <li>If <i>direct</i> is <b>false</b> and <i>strictScript</i> is <b>false</b>, then
+
+      <ol class="block">
+        <li>Return the result of Script Evaluation for <i>script</i> with arguments
+        <i>evalRealm</i> and <b>true</b>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>direct</i> is <b>true</b>, <i>strictScript</i> is <b>false</b>, <i>strictCaller</i>
+    is <b>false</b>, and <i>ctx’s</i> <a href="#sec-execution-contexts">LexicalEnvironment</a> is
+    the same as <i>evalRealm</i>.[[globalEnv]], then
+
+      <ol class="block">
+        <li>Return the result of Script Evaluation for <i>script</i> with arguments
+        <i>evalRealm</i> and <b>true</b>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>direct</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>If the code that made the direct call to eval is function code and ValidInFunction of
+        <i>script</i> is <b>false</b>, then throw a <b>SyntaxError</b> exception.</li>
+
+        <li>If the code that made the direct call to eval is module code and ValidInModule of
+        <i>script</i> is <b>false</b>, then throw a <b>SyntaxError</b> exception.</li>
+      </ol>
+    </li>
+
+    <li>If <i>direct</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>lexEnv</i> be <i>ctx’s</i> <a href=
+        "#sec-execution-contexts">LexicalEnvironment</a> .
+        </li>
+
+        <li>Let <i>varEnv</i> be <i>ctx’s</i> <a href=
+        "#sec-execution-contexts">VariableEnvironment</a> .
+        </li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>lexEnv</i> be <i>evalRealm</i>.[[globalEnv]].</li>
+
+        <li>Let <i>varEnv</i> be <i>evalRealm</i>.[[globalEnv]].</li>
+      </ol>
+    </li>
+
+    <li>If <i>strictScript</i> is <b>true</b> or if <i>direct</i> is <b>true</b> and
+    <i>strictCaller</i> is <b>true</b> , then
+
+      <ol class="block">
+        <li>Let <i>strictVarEnv</i> be the result of calling <a href=
+        "#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a> passing <i>lexEnv</i> as the
+        argument.
+        </li>
+
+        <li>Let <i>lexEnv</i> be <i>strictVarEnv</i>.</li>
+
+        <li>Let <i>varEnv</i> be <i>strictVarEnv</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>status</i> be the result of performing Eval Declaration Instantiation as described
+    in <a href="#sec-eval-declaration-instantiation">18.2.1.2</a> with <i>script</i>,
+    <i>varEnv</i>, and <i>lexEnv</i>.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+    </li>
+
+    <li>Let <i>evalCxt</i> be a new <a href="#sec-execution-contexts">ECMAScript code execution
+    context</a> .
+    </li>
+
+    <li>Set the <i>evalCxt’s</i> <a href="#sec-code-realms">Realm</a> to <i>evalRealm</i>.
+    </li>
+
+    <li>Set the <i>evalCxt’s</i> <a href="#sec-execution-contexts">VariableEnvironment</a> to
+    <i>varEnv</i>.
+    </li>
+
+    <li>Set the <i>evalCxt’s</i> <a href="#sec-execution-contexts">LexicalEnvironment</a> to
+    <i>lexEnv</i>.
+    </li>
+
+    <li>If there is a <a href="#sec-execution-contexts">currently running execution context</a> ,
+    <a href="#sec-execution-contexts">suspend</a> it.
+    </li>
+
+    <li>Push <i>evalCxt</i> on to <a href="#sec-execution-contexts">the execution context stack</a>
+    ; <i>evalCxt</i> is now <a href="#sec-execution-contexts">the running execution context</a> .
+    </li>
+
+    <li>Let <i>result</i> be the result of evaluating <i>script</i>..</li>
+
+    <li>
+      <a href="#sec-execution-contexts">Suspend</a> <i>evalCxt</i> and remove it from <a href=
+      "#sec-execution-contexts">the execution context stack</a> .
+    </li>
+
+    <li>Resume the context that is now on the top of <a href="#sec-execution-contexts">the
+    execution context stack</a> as <a href="#sec-execution-contexts">the running execution
+    context</a> .
+    </li>
+
+    <li>Return <i>result</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The eval code cannot instantiate variable or function bindings in the variable environment
+    of the calling context that invoked the eval if either the code of the calling context or the
+    eval code is <a href="#sec-strict-mode-code">strict code</a> . Instead such bindings are
+    instantiated in a new <a href="#sec-execution-contexts">VariableEnvironment</a> that is only
+    accessible to the eval code.</p>
+  </es-note>
+  <link rel="import" href="eval-x\direct-call-to-eval.html">
+
+  <es-clause title="Eval Declaration Instantiation" anchor="sec-eval-declaration-instantiation">
+  </es-clause>
+</es-clause>

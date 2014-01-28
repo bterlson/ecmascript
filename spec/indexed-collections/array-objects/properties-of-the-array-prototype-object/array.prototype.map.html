@@ -1,0 +1,165 @@
+<!doctype html>
+<es-clause title="Array.prototype.map ( callbackfn, thisArg = undefined )" anchor=
+"sec-array.prototype.map">
+  <p><es-nt>callbackfn</es-nt> should be a function that accepts three arguments. <code>map</code>
+  calls <es-nt>callbackfn</es-nt> once for each element in the array, in ascending order, and
+  constructs a new Array from the results. <es-nt>callbackfn</es-nt> is called only for elements of
+  the array which actually exist; it is not called for missing elements of the array.</p>
+
+  <p>If a <es-nt>thisArg</es-nt> parameter is provided, it will be used as the <b>this</b> value
+  for each invocation of <es-nt>callbackfn</es-nt>. If it is not provided, <b>undefined</b> is used
+  instead.</p>
+
+  <p><es-nt>callbackfn</es-nt> is called with three arguments: the value of the element, the index
+  of the element, and the object being traversed.</p>
+
+  <p><code>map</code> does not directly mutate the object on which it is called but the object may
+  be mutated by the calls to <es-nt>callbackfn</es-nt>.</p>
+
+  <p>The range of elements processed by <code>map</code> is set before the first call to
+  <es-nt>callbackfn</es-nt>. Elements which are appended to the array after the call to
+  <code>map</code> begins will not be visited by <es-nt>callbackfn</es-nt>. If existing elements of
+  the array are changed, their value as passed to <es-nt>callbackfn</es-nt> will be the value at
+  the time <code>map</code> visits them; elements that are deleted after the call to
+  <code>map</code> begins and before being visited are not visited.</p>
+
+  <p>When the <code>map</code> method is called with one or two arguments, the following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
+      this</b> value as the argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+    </li>
+
+    <li>Let <i>lenValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+    <code>"length"</code>)
+    </li>
+
+    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenValue</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
+    </li>
+
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>callbackfn</i>) is <b>false</b>, throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be
+    <b>undefined</b>.</li>
+
+    <li>Let <i>A</i> be <b>undefined</b>.</li>
+
+    <li>If <i>O</i> is an exotic Array object, then
+
+      <ol class="block">
+        <li>Let <i>C</i> be <a href="#sec-get-o-p">Get</a> (<i>O</i>, <code>"constructor"</code>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>C</i>).
+        </li>
+
+        <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>C</i>) is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>thisRealm</i> be <a href="#sec-execution-contexts">the running execution
+            context</a> ’s <a href="#sec-code-realms">Realm</a> .
+            </li>
+
+            <li>If <i>thisRealm</i> and the value of <i>A’s</i> [[Realm]] <a href=
+            "#sec-object-internal-methods-and-internal-slots">internal slot</a> are the same value,
+            then
+
+              <ol class="block">
+                <li>Let <i>A</i> be the result of calling the [[Construct]] internal method of
+                <i>C</i> with an argument list containing the single item <i>len</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>A</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>A</i> be the result of the abstract operation <a href=
+        "#sec-arraycreate">ArrayCreate</a> with argument <i>len</i>.
+        </li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>A</i>).
+    </li>
+
+    <li>Let <i>k</i> be 0.</li>
+
+    <li>Repeat, while <i>k</i> &lt; <i>len</i>
+
+      <ol class="block">
+        <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
+        </li>
+
+        <li>Let <i>kPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
+        (<i>O</i>, <i>Pk</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kPresent</i>).
+        </li>
+
+        <li>If <i>kPresent</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>kValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+            <i>Pk</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kValue</i>).
+            </li>
+
+            <li>Let <i>mappedValue</i> be the result of calling the [[Call]] internal method of <i>
+              callbackfn</i> with <i>T</i> as <i>thisArgument</i> and a <a href=
+              "#sec-list-and-record-specification-type">List</a> containing <i>kValue</i>,
+              <i>k</i>, and <i>O</i> as <i>argumentsList</i>.
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>mappedValue</i>).
+            </li>
+
+            <li>Let <i>status</i> be the result of <a href=
+            "#sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</a> (<i>A</i>, <i>Pk</i>,
+            <i>mappedValue</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+            </li>
+          </ol>
+        </li>
+
+        <li>Increase <i>k</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>A</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>map</code> method is <b>1</b>.</p>
+
+  <es-note>
+    <p>The <code>map</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects
+    for use as a method. Whether the <code>map</code> function can be applied successfully to an
+    exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

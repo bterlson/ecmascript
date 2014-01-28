@@ -1,0 +1,52 @@
+<!doctype html>
+<es-clause title="Strict Mode Code" anchor="sec-strict-mode-code">
+  <p>An ECMAScript <es-nt>Script</es-nt> syntactic unit may be processed using either unrestricted
+  or strict mode syntax and semantics. When processed using strict mode the four types of
+  ECMAScript code are referred to as module code, strict global code, strict eval code, and strict
+  function code. Code is interpreted as strict mode code in the following situations:</p>
+
+  <ul>
+    <li>
+      <p>Global code is strict global code if it begins with a <a href=
+      "#sec-directive-prologues-and-the-use-strict-directive">Directive Prologue</a> that contains
+      a <a href="#sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</a>
+      (see <a href="#sec-directive-prologues-and-the-use-strict-directive">14.1.1</a> ).</p>
+    </li>
+
+    <li>
+      <p>Module code is always strict code.</p>
+    </li>
+
+    <li>
+      <p>A <es-nt>ClassDeclaration</es-nt> or a <es-nt>ClassExpression</es-nt> is always strict
+      code.</p>
+    </li>
+
+    <li>
+      <p>Eval code is strict eval code if it begins with a <a href=
+      "#sec-directive-prologues-and-the-use-strict-directive">Directive Prologue</a> that contains
+      a <a href="#sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</a> or
+      if the call to eval is a direct call (see <a href="#sec-direct-call-to-eval">18.2.1.1</a> )
+      to the eval function that is contained in strict mode code.</p>
+    </li>
+
+    <li>
+      <p>Function code that is part of a <es-nt>FunctionDeclaration</es-nt>,
+      <es-nt>FunctionExpression</es-nt>, or accessor <es-nt>PropertyDefinition</es-nt> is strict
+      function code if its <es-nt>FunctionDeclaration</es-nt>, <es-nt>FunctionExpression</es-nt>,
+      or <es-nt>PropertyDefinition</es-nt> is contained in strict mode code or if the function code
+      begins with a <a href="#sec-directive-prologues-and-the-use-strict-directive">Directive
+      Prologue</a> that contains a <a href=
+      "#sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</a> .</p>
+    </li>
+
+    <li>
+      <p>Function code that is supplied as the last argument to the built-in Function constructor
+      is strict function code if the last argument is a String that when processed as a
+      <es-nt>FunctionBody</es-nt> begins with a <a href=
+      "#sec-directive-prologues-and-the-use-strict-directive">Directive Prologue</a> that contains
+      a <a href="#sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</a>
+      .</p>
+    </li>
+  </ul>
+</es-clause>

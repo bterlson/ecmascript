@@ -1,0 +1,36 @@
+<!doctype html>
+<es-clause title="The ArrayBuffer Constructor" anchor="sec-arraybuffer-constructor">
+  <p>The ArrayBuffer constructor is the %ArrayBuffer% intrinsic object and the initial value of the
+  <code>ArrayBuffer</code> property of the global object. When <code>ArrayBuffer</code> is called
+  as a function rather than as a constructor, its <b>this</b> value must be an Object with an
+  [[ArrayBufferData]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a>
+  whose value is <span class="value">undefined.</span> The ArrayBuffer constructor initialises the
+  <b>this</b> value using the argument values.</p>
+
+  <p>The <code>ArrayBuffer</code> constructor is designed to be subclassable. It may be used as the
+  value of an <code>extends</code> clause of a class declaration. Subclass constructors that
+  intended to inherit the specified <code>ArrayBuffer</code> behaviour must include a
+  <code>super</code> call to the <code>ArrayBuffer</code> constructor to initialise subclass
+  instances.</p>
+  <link rel="import" href="arraybuffer-constructor\arraybuffer-length.html">
+
+  <es-clause title="new ArrayBuffer( ... argumentsList)" anchor=
+  "sec-new-arraybuffer-argumentslist">
+    <p>ArrayBuffer called as part of a new expression performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>F</i> be the ArrayBuffer function object on which the <code>new</code> operator
+      was applied.</li>
+
+      <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+      internal method that was invoked by the <code>new</code> operator.</li>
+
+      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
+      <i>argumentsList</i>).
+      </li>
+    </ol>
+
+    <p>If ArrayBuffer is implemented as an <a href="#sec-ecmascript-function-objects">ECMAScript
+    function object</a> , its [[Construct]] internal method will perform the above steps.</p>
+  </es-clause>
+</es-clause>

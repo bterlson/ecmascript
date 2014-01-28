@@ -1,0 +1,66 @@
+<!doctype html>
+<es-clause title="GetPrototypeFromConstructor ( constructor, intrinsicDefaultProto )" anchor=
+"sec-getprototypefromconstructor">
+  <p>The abstract operation GetPrototypeFromConstructor determines the [[Prototype]] value that
+  should be used to create an object corresponding to a specific constructor. The value is
+  retrieved from the constructor’s <code>prototype</code> property, if it exists. Otherwise the
+  supplied default is used for [[Prototype]]. This abstract operation performs the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>intrinsicDefaultProto</i> is a string
+      value that is this specification’s name of an intrinsic object. The corresponding object must
+      be an intrinsic that is intended to be used as the [[Prototype]] value of an object.
+    </li>
+
+    <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>constructor</i>) is <b>false</b>,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>proto</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>constructor</i>,
+    <code>"prototype"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>proto</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>proto</i>) is not Object,
+    then
+
+      <ol class="block">
+        <li>If <i>constructor</i> has a [[Realm]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> , let <i>realm</i> be
+        <i>constructor’s</i> [[Realm]].
+        </li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Let <i>ctx</i> be <a href="#sec-execution-contexts">the running execution
+            context</a> .
+            </li>
+
+            <li>Let <i>realm</i> be <i>ctx’s</i> <a href="#sec-code-realms">Realm</a> .
+            </li>
+          </ol>
+        </li>
+
+        <li>Let <i>proto</i> be <i>realm’s</i> intrinsic object named
+        <i>intrinsicDefaultProto</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>proto</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>If <es-nt>constructor</es-nt> does not supply a [[Prototype]] value, the default value that
+    is used is obtained from the <a href="#sec-code-realms">Code Realm</a> of the
+    <es-nt>constructor</es-nt> function rather than from <a href="#sec-execution-contexts">the
+    running execution context</a> . This accounts for the possibility that a built-in @@create
+    method from a different <a href="#sec-code-realms">Code Realm</a> might be installed on
+    <es-nt>constructor</es-nt>.</p>
+  </es-note>
+</es-clause>

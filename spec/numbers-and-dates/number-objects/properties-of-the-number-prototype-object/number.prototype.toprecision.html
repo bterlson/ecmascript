@@ -1,0 +1,145 @@
+<!doctype html>
+<es-clause title="Number.prototype.toPrecision (precision)" anchor=
+"sec-number.prototype.toprecision">
+  <p>Return a String containing this Number value represented either in decimal exponential
+  notation with one digit before the significand's decimal point and <i>precision</i>–1 digits
+  after the significand's decimal point or in decimal fixed notation with <es-nt>precision</es-nt>
+  significant digits. If <es-nt>precision</es-nt> is <b>undefined</b>, call <a href=
+  "#sec-tostring">ToString</a> (<a href="#sec-toint8">7.1.9</a> ) instead. Specifically, perform
+  the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>x</i>).
+    </li>
+
+    <li>If <i>precision</i> is <b>undefined</b>, return <a href="#sec-tostring">ToString</a>
+    (<i>x</i>).
+    </li>
+
+    <li>Let <i>p</i> be <a href="#sec-tointeger">ToInteger</a> (<i>precision</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>p</i>).
+    </li>
+
+    <li>If <i>x</i> is <b>NaN</b>, return the String <code>"NaN"</code>.</li>
+
+    <li>Let <i>s</i> be the empty String.</li>
+
+    <li>If <i>x</i> &lt; 0, then
+
+      <ol class="block">
+        <li>Let <i>s</i> be <code>"-"</code>.</li>
+
+        <li>Let <i>x</i> = –<i>x</i>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>x</i> = +∞, then
+
+      <ol class="block">
+        <li>Return the concatenation of the Strings <i>s</i> and <code>"Infinity"</code>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>p</i> &lt; 1 or <i>p</i> &gt; 21, throw a <b>RangeError</b> exception.</li>
+
+    <li>If <i>x</i> = 0, then
+
+      <ol class="block">
+        <li>Let <i>m</i> be the String consisting of <i>p</i> occurrences of the code unit 0x0030
+        (the Unicode character ‘0’).</li>
+
+        <li>Let <i>e</i> = 0.</li>
+      </ol>
+    </li>
+
+    <li>Else <i>x</i> ≠ 0,
+
+      <ol class="block">
+        <li>Let <i>e</i> and <i>n</i> be integers such that 10<sup><i>p</i>–1</sup> ≤ <i>n</i> &lt;
+        10<sup><i>p</i></sup> and for which the exact mathematical value of <i>n</i> ×
+        10<sup><i>e</i>–<i>p</i>+1</sup> – <i>x</i> is as close to zero as possible. If there are
+        two such sets of <i>e</i> and <i>n</i>, pick the <i>e</i> and <i>n</i> for which <i>n</i> ×
+        10<sup><i>e</i>–<i>p</i>+1</sup> is larger.</li>
+
+        <li>Let <i>m</i> be the String consisting of the digits of the decimal representation of
+        <i>n</i> (in order, with no leading zeroes).</li>
+
+        <li>If <i>e</i> &lt; –6 or <i>e</i> ≥ <i>p</i>, then
+
+          <ol class="block">
+            <li>
+              <a href="#sec-algorithm-conventions">Assert</a> : <i>e</i> ≠ 0
+            </li>
+
+            <li>Let <i>a</i> be the first element of <i>m</i>, and let <i>b</i> be the remaining
+            <i>p</i>–1 elements of <i>m</i>.</li>
+
+            <li>Let <i>m</i> be the concatenation of the three Strings <i>a</i>, <code>"."</code>,
+            and <i>b</i>.</li>
+
+            <li>If <i>e</i> &gt; 0, then
+
+              <ol class="block">
+                <li>Let <i>c</i> = <code>"+"</code>.</li>
+              </ol>
+            </li>
+
+            <li>Else <i>e</i> &lt; 0,
+
+              <ol class="block">
+                <li>Let <i>c</i> = <code>"-"</code>.</li>
+
+                <li>Let <i>e</i> = –<i>e</i>.</li>
+              </ol>
+            </li>
+
+            <li>Let <i>d</i> be the String consisting of the digits of the decimal representation
+            of <i>e</i> (in order, with no leading zeroes).</li>
+
+            <li>Return the concatenation of the five Strings <i>s</i>, <i>m</i>, <code>"e"</code>,
+            <i>c</i>, and <i>d</i>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>e</i> = <i>p</i>–1, then return the concatenation of the Strings <i>s</i> and
+    <i>m</i>.</li>
+
+    <li>If <i>e</i> ≥ 0, then
+
+      <ol class="block">
+        <li>Let <i>m</i> be the concatenation of the first <i>e</i>+1 elements of <i>m</i>, the
+        code unit 0x002E (Unicode character ‘.’), and the remaining <i>p</i>– (<i>e</i>+1) elements
+        of <i>m</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else <i>e</i> &lt; 0,
+
+      <ol class="block">
+        <li>Let <i>m</i> be the concatenation of the String <code>"0."</code>, –(<i>e</i>+1)
+        occurrences of code unit 0x0030 (the Unicode character ‘<code>0</code>’), and the String
+        <i>m</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return the concatenation of the Strings <i>s</i> and <i>m</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>toPrecision</code> method is <b>1</b>.</p>
+
+  <p>If the <code>toPrecision</code> method is called with more than one argument, then the
+  behaviour is undefined (see <a href="#sec-ecmascript-standard-built-in-objects">clause 17</a>
+  ).</p>
+
+  <p>An implementation is permitted to extend the behaviour of <code>toPrecision</code> for values
+  of <es-nt>precision</es-nt> less than 1 or greater than 21. In this case <code>toPrecision</code>
+  would not necessarily throw <b>RangeError</b> for such values.</p>
+</es-clause>

@@ -1,0 +1,209 @@
+<!doctype html>
+<es-clause title="JSON.stringify ( value [ , replacer [ , space ] ] )" anchor="sec-json.stringify">
+  <p>The <code>stringify</code> function returns a String in UTF-16 encoded JSON format
+  representing an ECMAScript value. It can take three parameters. The <es-nt>value</es-nt>
+  parameter is an ECMAScript value, which is usually an object or array, although it can also be a
+  String, Boolean, Number or <b>null</b>. The optional <es-nt>replacer</es-nt> parameter is either
+  a function that alters the way objects and arrays are stringified, or an array of Strings and
+  Numbers that acts as a white list for selecting the object properties that will be stringified.
+  The optional <es-nt>space</es-nt> parameter is a String or Number that allows the result to have
+  white space injected into it to improve human readability.</p>
+
+  <p>These are the steps in stringifying an object:</p>
+
+  <ol class="proc">
+    <li>Let <i>stack</i> be an empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>indent</i> be the empty String.</li>
+
+    <li>Let <i>PropertyList</i> and <i>ReplacerFunction</i> be <b>undefined</b>.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>replacer</i>) is Object,
+    then
+
+      <ol class="block">
+        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>replacer</i>) is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>ReplacerFunction</i> be <i>replacer</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else if <i>replacer</i> is an exotic Array object, then
+
+          <ol class="block">
+            <li>Let <i>PropertyList</i> be an empty <a href=
+            "#sec-list-and-record-specification-type">List</a>
+            </li>
+
+            <li>For each value <i>v</i> of a property of <i>replacer</i> that has an array index
+            property name. The properties are enumerated in the ascending array index order of
+            their names.
+
+              <ol class="block">
+                <li>Let <i>item</i> be <b>undefined</b>.</li>
+
+                <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>v</i>) is
+                String then let <i>item</i> be <i>v.</i>
+                </li>
+
+                <li>Else if <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>v</i>) is
+                Number then let <i>item</i> be <a href="#sec-tostring">ToString</a> (<i>v</i>).
+                </li>
+
+                <li>Else if <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>v</i>) is
+                Object then,
+
+                  <ol class="block">
+                    <li>If <i>v</i> has a [[StringData]] or [[NumberData]] <a href=
+                    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then let
+                    <i>item</i> be <a href="#sec-tostring">ToString</a> (<i>v</i>).
+                    </li>
+                  </ol>
+                </li>
+
+                <li>If <i>item</i> is not <b>undefined</b> and <i>item</i> is not currently an
+                element of <i>PropertyList</i> then,
+
+                  <ol class="block">
+                    <li>Append <i>item</i> to the end of <i>PropertyList</i>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>space</i>) is Object then,
+
+      <ol class="block">
+        <li>If <i>space</i> has a [[NumberData]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> then,
+
+          <ol class="block">
+            <li>Let <i>space</i> be <a href="#sec-tonumber">ToNumber</a> (<i>space</i>).
+            </li>
+          </ol>
+        </li>
+
+        <li>Else if <i>space</i> has a [[StringData]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> then,
+
+          <ol class="block">
+            <li>Let <i>space</i> be <a href="#sec-tostring">ToString</a> (<i>space</i>).
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>space</i>) is Number
+
+      <ol class="block">
+        <li>Let <i>space</i> be min(10, <a href="#sec-tointeger">ToInteger</a> (<i>space</i>)).
+        </li>
+
+        <li>Set <i>gap</i> to a String containing <i>space</i> occurrences of code unit 0x0020 (the
+        Unicode space character). This will be the empty String if <i>space</i> is less than
+        1.</li>
+      </ol>
+    </li>
+
+    <li>Else if <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>space)</i> is String
+
+      <ol class="block">
+        <li>If the number of elements in <i>space</i> is 10 or less, set <i>gap</i> to <i>space</i>
+        otherwise set <i>gap</i> to a String consisting of the first 10 elements of
+        <i>space</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else
+
+      <ol class="block">
+        <li>Set <i>gap</i> to the empty String.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>wrapper</i> be the result of the abstract operation <a href=
+    "#sec-objectcreate">ObjectCreate</a> with the intrinsic object %ObjectPrototype% as its
+    argument.
+    </li>
+
+    <li>Let <i>status</i> be the result of <a href="#sec-createdataproperty">CreateDataProperty</a>
+    (<i>wrapper</i>, the empty String, <i>value</i>).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is <b>true</b>.
+    </li>
+
+    <li>Return the result of calling the abstract operation Str(the empty String,
+    <i>wrapper</i>).</li>
+  </ol>
+
+  <es-note>
+    <p>JSON structures are allowed to be nested to any depth, but they must be acyclic. If
+    <es-nt>value</es-nt> is or contains a cyclic structure, then the stringify function must throw
+    a <b>TypeError</b> exception. This is an example of a value that cannot be stringified:</p>
+    <pre>
+a = [];
+</pre>
+    <pre>
+a[0] = a;
+</pre>
+    <pre>
+my_text = JSON.stringify(a); // This must throw a TypeError.
+</pre>
+  </es-note>
+
+  <es-note>
+    <p>Symbolic primitive values are rendered as follows:</p>
+
+    <ul>
+      <li>The <b>null</b> value is rendered in JSON text as the String <code>null</code>.</li>
+
+      <li>The <b>undefined</b> value is not rendered.</li>
+
+      <li>The <b>true</b> value is rendered in JSON text as the String <code>true</code>.</li>
+
+      <li>The <b>false</b> value is rendered in JSON text as the String <code>false</code>.</li>
+    </ul>
+  </es-note>
+
+  <es-note>
+    <p>String values are wrapped in double quotes. The characters <code>"</code> and <code>\</code>
+    are escaped with <code>\</code> prefixes. Control characters are replaced with escape sequences
+    <code>\u</code>HHHH, or with the shorter forms, <code>\b</code> (backspace), <code>\f</code>
+    (formfeed), <code>\n</code> (newline), <code>\r</code> (carriage return), <code>\t</code>
+    (tab).</p>
+  </es-note>
+
+  <es-note>
+    <p>Finite numbers are stringified as if by calling <a href="#sec-tostring">ToString</a>
+    <b>(</b><i>number</i><b>)</b>. <b>NaN</b> and Infinity regardless of sign are represented as
+    the String <code>null</code>.</p>
+  </es-note>
+
+  <es-note>
+    <p>Values that do not have a JSON representation (such as <b>undefined</b> and functions) do
+    not produce a String. Instead they produce the <b>undefined</b> value. In arrays these values
+    are represented as the String <code>null</code>. In objects an unrepresentable value causes the
+    property to be excluded from stringification.</p>
+  </es-note>
+
+  <es-note>
+    <p>An object is rendered as an opening left brace followed by zero or more properties,
+    separated with commas, closed with a right brace. A property is a quoted String representing
+    the key or property name, a colon, and then the stringified property value. An array is
+    rendered as an opening left bracket followed by zero or more values, separated with commas,
+    closed with a right bracket.</p>
+  </es-note>
+  <link rel="import" href="json.stringify\runtime-semantics-str-abstract-operation.html">
+  <link rel="import" href="json.stringify\quote.html">
+  <link rel="import" href="json.stringify\runtime-semantics-jo-abstract-operation.html">
+  <link rel="import" href="json.stringify\runtime-semantics-ja-abstract-operation.html">
+</es-clause>

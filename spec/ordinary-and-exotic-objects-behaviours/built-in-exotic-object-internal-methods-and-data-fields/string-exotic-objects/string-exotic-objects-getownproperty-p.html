@@ -1,0 +1,60 @@
+<!doctype html>
+<es-clause title="[[GetOwnProperty]] ( P )" anchor="sec-string-exotic-objects-getownproperty-p">
+  <p>When the [[GetOwnProperty]] internal method of an exotic String object <es-nt>S</es-nt> is
+  called with <a href="#sec-object-type">property key</a> <es-nt>P</es-nt> the following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+    </li>
+
+    <li>Let <i>desc</i> be the result of <a href=
+    "#sec-ordinarygetownproperty">OrdinaryGetOwnProperty</a> (<i>S</i>, <i>P</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>desc</i>).
+    </li>
+
+    <li>If <i>desc</i> is not <b>undefined</b> return <i>desc</i>.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>P</i>) is not String, then
+    return <b>undefined</b>.
+    </li>
+
+    <li>Let <i>index</i> be <a href="#sec-tointeger">ToInteger</a> (<i>P</i>).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>index</i> is not an <a href=
+      "#sec-completion-record-specification-type">abrupt completion</a> .
+    </li>
+
+    <li>Let <i>absIntIndex</i> be <a href="#sec-tostring">ToString</a> (<a href=
+    "#sec-algorithm-conventions">abs</a> (<i>index</i>)).
+    </li>
+
+    <li>If <a href="#sec-samevalue">SameValue</a> (<i>absIntIndex</i>, <i>P</i>) is <b>false</b>
+    return <b>undefined</b>.
+    </li>
+
+    <li>Let <i>str</i> be the String value of the [[StringData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>S</i>, if the value
+    of [[StringData]] is <b>undefined</b> the empty string is used as its value.
+    </li>
+
+    <li>Let <i>len</i> be the number of elements in <i>str</i>.</li>
+
+    <li>If <i>len</i> ≤ <i>index</i>, return <b>undefined</b>.</li>
+
+    <li>Let <i>resultStr</i> be a String value of length 1, containing one code unit from
+    <i>str</i>, specifically the code unit at position <i>index</i>, where the first (leftmost)
+    element in <i>str</i> is considered to be at position 0, the next one at position 1, and so
+    on.</li>
+
+    <li>Return a PropertyDescriptor{ [[Value]]: <i>resultStr</i>, [[Enumerable]]: <b>true</b>,
+    [[Writable]]: <b>false</b>, [[Configurable]]: <b>false</b> }.</li>
+  </ol>
+</es-clause>

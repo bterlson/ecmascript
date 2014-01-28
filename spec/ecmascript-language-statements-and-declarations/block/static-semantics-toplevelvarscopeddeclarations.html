@@ -1,0 +1,52 @@
+<!doctype html>
+<es-clause title="Static Semantics: TopLevelVarScopedDeclarations" anchor=
+"sec-static-semantics-toplevelvarscopeddeclarations">
+  <es-production name="StatementList" class="inline">
+    <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>declarations</i> be TopLevelVarScopedDeclarations of <i>StatementList</i>.</li>
+
+    <li>Append to <i>declarations</i> the elements of the TopLevelVarScopedDeclarations of
+    <i>StatementListItem.</i></li>
+
+    <li>Return <i>declarations</i>.</li>
+  </ol>
+
+  <es-production name="StatementListItem" class="inline">
+    <es-rhs><es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>Statement</i> is <es-production name="Statement" class=
+    "inline"><es-rhs><es-nt>VariableStatement</es-nt></es-rhs></es-production>
+    , then return a new <a href="#sec-list-and-record-specification-type">List</a> containing
+    <i>VariableStatement</i>.
+    </li>
+
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="StatementListItem" class="inline">
+    <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+    "inline"><es-rhs><es-nt>FunctionDeclaration</es-nt></es-rhs></es-production>
+    , then return a new <a href="#sec-list-and-record-specification-type">List</a> containing
+    <i>Declaration</i>.
+    </li>
+
+    <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+    "inline"><es-rhs><es-nt>GeneratorDeclarationDeclaration</es-nt></es-rhs></es-production>
+    , then return a new <a href="#sec-list-and-record-specification-type">List</a> containing
+    <i>Declaration</i>.
+    </li>
+
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+</es-clause>

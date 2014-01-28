@@ -1,0 +1,34 @@
+<!doctype html>
+<es-clause title="Math.round (x)" anchor="sec-math.round">
+  <p>Returns the Number value that is closest to <es-nt>x</es-nt> and is equal to a mathematical
+  integer. If two integer Number values are equally close to <es-nt>x</es-nt>, then the result is
+  the Number value that is closer to +∞. If <es-nt>x</es-nt> is already an integer, the result is
+  <es-nt>x</es-nt>.</p>
+
+  <ul>
+    <li>If <i>x</i> is NaN, the result is NaN.</li>
+
+    <li>If <i>x</i> is +0, the result is +0.</li>
+
+    <li>If <i>x</i> is −0, the result is −0.</li>
+
+    <li>If <i>x</i> is +∞, the result is +∞.</li>
+
+    <li>If <i>x</i> is −∞, the result is −∞.</li>
+
+    <li>If <i>x</i> is greater than 0 but less than 0.5, the result is +0.</li>
+
+    <li>If <i>x</i> is less than 0 but greater than or equal to -0.5, the result is −0.</li>
+  </ul>
+
+  <es-note>
+    <p><code>Math.round(3.5)</code> returns 4, but <code>Math.round(–3.5)</code> returns –3.</p>
+  </es-note>
+
+  <es-note>
+    <p>The value of <code>Math.round(x)</code> is the same as the value of <code><a href=
+    "#sec-math.floor">Math.floor</a> (x+0.5)</code>, except when <code>x</code> is −0 or is less
+    than 0 but greater than or equal to -0.5; for these cases <code>Math.round(x)</code> returns
+    −0, but <code><a href="#sec-math.floor">Math.floor</a> (x+0.5)</code> returns +0.</p>
+  </es-note>
+</es-clause>

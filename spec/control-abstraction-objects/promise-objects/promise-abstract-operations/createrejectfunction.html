@@ -1,0 +1,18 @@
+<!doctype html>
+<es-clause title="CreateRejectFunction ( promise )" anchor="sec-createrejectfunction">
+  <p>When CreateRejectFunction is performed with argument <es-nt>promise</es-nt>, the following
+  steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>reject</i> be a new built-in function object as defined in Promise Reject Functions
+    (<a href="#sec-promise-reject-functions">25.4.1.3.1</a> ).
+    </li>
+
+    <li>Set the [[Promise]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>reject</i> to <i>promise</i>.
+    </li>
+
+    <li>Return <i>reject</i>.</li>
+  </ol>
+  <link rel="import" href="createrejectfunction\promise-reject-functions.html">
+</es-clause>

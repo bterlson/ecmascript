@@ -1,0 +1,67 @@
+<!doctype html>
+<es-clause title="UpdateLinkSetOnLoad(linkSet, load) Abstract Operation" anchor=
+"sec-updatelinksetonload">
+  <p>The UpdateLinkSetOnLoad abstract operation is called immediately after a Load successfully
+  finishes, after starting Loads for any dependencies that were not already loading, loaded, or in
+  the module registry.</p>
+
+  <p>This operation determines whether <es-nt>linkSet</es-nt> is ready to link, and if so, calls
+  <a href="#sec-link">Link</a> .</p>
+
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>load</i> is an element of
+      <i>linkSet</i>.[[Loads]].
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>load</i>.[[Status]] is either
+      <code>"loaded"</code> or <code>"linked"</code>.
+    </li>
+
+    <li>Repeat for each <i>element</i> in <i>linkSet</i>.[[Loads]],
+
+      <ol class="block">
+        <li>If <i>element</i>.[[Status]] is <code>"loading"</code>, then return.</li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : All Loads in <i>linkSet</i>.[[Loads]] have
+      finished loading.
+    </li>
+
+    <li>Let <i>startingLoad</i> be the first element of the <a href=
+    "#sec-list-and-record-specification-type">List</a> <i>linkSet</i>.[[Loads]].
+    </li>
+
+    <li>Let <i>status</i> be the result of <a href="#sec-link">Link</a> (<i>linkSet</i>.[[Loads]],
+    <i>linkSet</i>.[[Loader]]).
+    </li>
+
+    <li>If <i>status</i> is an <a href="#sec-completion-record-specification-type">abrupt
+    completion</a> , then
+
+      <ol class="block">
+        <li>Return <a href="#sec-linksetfailed">LinkSetFailed</a> (<i>linkSet</i>,
+        <i>status</i>.[[value]]).
+        </li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>linkSet</i>.[[Loads]] is an empty
+      <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Call the [[Call]] internal method of <i>linkSet</i>.[[Resolve]] passing <b>undefined</b>
+    and (<i>startingLoad</i>) as arguments.</li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : The call performed by step 9 completed
+      normally.
+    </li>
+  </ol>
+</es-clause>

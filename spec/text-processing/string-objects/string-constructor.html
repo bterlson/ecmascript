@@ -1,0 +1,38 @@
+<!doctype html>
+<es-clause title="The String Constructor" anchor="sec-string-constructor">
+  <p>The String constructor is the %String% intrinsic object and the initial value of the
+  <code>String</code> property of the global object. When <code>String</code> is called as a
+  function rather than as a constructor, it performs a type conversion. However, if the <b>this</b>
+  value passed in the call is an Object with an uninitialised [[StringData]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> , it initialises the
+  <b>this</b> value using the argument value. This permits <code>String</code> to be used both to
+  perform type conversion and to perform constructor instance initialisation.</p>
+
+  <p>The <code>String</code> constructor is designed to be subclassable. It may be used as the
+  value of an <code>extends</code> clause of a class declaration. Subclass constructors that
+  intended to inherit the specified <code>String</code> behaviour must include a <code>super</code>
+  call to the <code>String</code> constructor to initialise the [[StringData]] state of subclass
+  instances.</p>
+  <link rel="import" href="string-constructor\string-constructor-string-value.html">
+
+  <es-clause title="new String ( ... argumentsList )" anchor="sec-new-string-argumentslist">
+    <p>When <code>String</code> is called as part of a new expression , it initialises a newly
+    created exotic String object:</p>
+
+    <ol class="proc">
+      <li>Let <i>F</i> be the <code>String</code> function object on which the <code>new</code>
+      operator was applied.</li>
+
+      <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+      internal method that was invoked by the <code>new</code> operator.</li>
+
+      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
+      <i>argumentsList</i>).
+      </li>
+    </ol>
+
+    <p>If <code>String</code> is implemented as an <a href=
+    "#sec-ecmascript-function-objects">ECMAScript function object</a> , its [[Construct]] internal
+    method will perform the above steps.</p>
+  </es-clause>
+</es-clause>

@@ -1,0 +1,57 @@
+<!doctype html>
+<es-clause title="RequestLoad(loader, request, refererName, refererAddress) Abstract Operation"
+anchor="sec-requestload">
+  <p>The RequestLoad abstract operation normalizes the given module name, <es-nt>request</es-nt>,
+  and returns a Promise object that resolves to the value of a Load object for the given
+  module.</p>
+
+  <p>The <es-nt>loader</es-nt> argument is a Loader record.</p>
+
+  <p><es-nt>request</es-nt> is the (non-normalized) name of the module to be imported, as it
+  appears in the import-declaration or as the argument to <code>loader.load()</code> or
+  <code>loader.import()</code>.</p>
+
+  <p><es-nt>refererName</es-nt> and <es-nt>refererAddress</es-nt> provide information about the
+  context of the <code>import()</code> call or import-declaration. This information is passed to
+  all the <es-nt>loader</es-nt> hooks.</p>
+
+  <p>If the requested module is already in the <es-nt>loader</es-nt>'s module registry, RequestLoad
+  returns a Promise object for a Load with the [[Status]] field set to <code>"linked"</code>. If
+  the requested module is loading or loaded but not yet linked, RequestLoad returns a Promise
+  object for an existing Load object from <es-nt>loader</es-nt>.[[Loads]]. Otherwise, RequestLoad
+  starts loading the module and returns a Promise object for a new Load Record.</p>
+
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>F</i> be a new anonymous function as defined by CallNormalize.</li>
+
+    <li>Set <i>F</i>’s [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loader</i>.
+    </li>
+
+    <li>Set <i>F</i>’s [[Request]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>request</i>.
+    </li>
+
+    <li>Set <i>F</i>’s [[RefererName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>refererName</i>.
+    </li>
+
+    <li>Set <i>F</i>’s [[RefererAddress]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>refererAddress</i>.
+    </li>
+
+    <li>Let <i>p</i> be PromiseNew(<i>F</i>).</li>
+
+    <li>Let <i>G</i> be a new built-in function as defined by GetOrCreateLoad.</li>
+
+    <li>Set <i>G</i>’s [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loader</i>.
+    </li>
+
+    <li>Return PromiseThen(<i>p</i>, <i>G</i>).</li>
+  </ol>
+  <link rel="import" href="requestload\callnormalize-resolve-reject-functions.html">
+  <link rel="import" href="requestload\getorcreateload-name-functions.html">
+</es-clause>

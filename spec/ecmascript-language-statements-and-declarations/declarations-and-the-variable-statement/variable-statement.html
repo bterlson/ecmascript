@@ -1,0 +1,42 @@
+<!doctype html>
+<es-clause title="Variable Statement" anchor="sec-variable-statement">
+  <es-note>
+    <p>A <code>var</code> statement declares variables that are scoped to <a href=
+    "#sec-execution-contexts">the running execution context</a> ’s <a href=
+    "#sec-execution-contexts">VariableEnvironment</a> . Var variables are created when their
+    containing <a href="#sec-lexical-environments">Lexical Environment</a> is instantiated and are
+    initialised to <b>undefined</b> when created. Within the scope of any VariableEnvironemnt a
+    common <es-nt>Identifier</es-nt> may appear in more than one <es-nt>VariableDeclaration</es-nt>
+    but those declarations collective define only one variable. A variable defined by a
+    <es-nt>VariableDeclaration</es-nt> with an <es-nt>Initialiser</es-nt> is assigned the value of
+    its <i>Initialiser</i>’s <es-nt>AssignmentExpression</es-nt> when the
+    <es-nt>VariableDeclaration</es-nt> is executed, not when the variable is created.</p>
+  </es-note>
+
+  <h2>Syntax</h2>
+
+  <es-production name="VariableStatement" params="Yield">
+    <es-rhs><es-t>var</es-t> <es-nt params="In, ?Yield">VariableDeclarationList</es-nt>
+    <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="VariableDeclarationList" params="In, Yield">
+    <es-rhs><es-nt params="?In, ?Yield">VariableDeclaration</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In, ?Yield">VariableDeclarationList</es-nt> , <es-nt params=
+    "?In, ?Yield">VariableDeclaration</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="VariableDeclaration" params="In, Yield">
+    <es-rhs><es-nt params="?Yield">BindingIdentifier</es-nt> <es-nt>Initialiser</es-nt>
+    <es-gann>?In, ?Yield</es-gann>opt</es-rhs>
+
+    <es-rhs><es-nt params="Yield">BindingPattern</es-nt> <es-nt params=
+    "?In, ?Yield">Initialiser</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href="variable-statement\variable-statement-static-semantics-boundnames.html">
+  <link rel="import" href=
+  "variable-statement\variable-statement-runtime-semantics-bindinginitialisation.html">
+  <link rel="import" href=
+  "variable-statement\variable-statement-runtime-semantics-evaluation.html">
+</es-clause>

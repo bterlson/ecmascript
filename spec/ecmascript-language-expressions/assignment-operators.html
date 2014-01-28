@@ -1,0 +1,59 @@
+<!doctype html>
+<es-clause title="Assignment Operators" anchor="sec-assignment-operators">
+  <h2>Syntax</h2>
+
+  <es-production name="AssignmentExpression" params="In, Yield">
+    <es-rhs><es-nt params="?In, ?Yield">ConditionalExpression</es-nt></es-rhs>
+
+    <es-rhs constraint="+Yield"><es-nt params="?In">YieldExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?In">ArrowFunction</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">LeftHandSideExpression</es-nt> = <es-nt params=
+    "?In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">LeftHandSideExpression</es-nt> <es-nt>AssignmentOperator</es-nt>
+    <es-nt params="?In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="AssignmentOperator" class="inline">
+    <es-rhs><es-gmod>one of</es-gmod></es-rhs>
+  </es-production>
+
+  <figure>
+    <table class="lightweight-table">
+      <tr>
+        <td>*=</td>
+
+        <td>/=</td>
+
+        <td>%=</td>
+
+        <td>+=</td>
+
+        <td>-=</td>
+
+        <td>&lt;&lt;=</td>
+
+        <td>&gt;&gt;=</td>
+
+        <td>&gt;&gt;&gt;=</td>
+
+        <td>&amp;=</td>
+
+        <td>^=</td>
+
+        <td>|=</td>
+      </tr>
+    </table>
+  </figure>
+  <link rel="import" href=
+  "assignment-operators\assignment-operators-static-semantics-early-errors.html">
+  <link rel="import" href=
+  "assignment-operators\assignment-operators-static-semantics-isanonymousfunctiondefinition.html">
+  <link rel="import" href=
+  "assignment-operators\assignment-operators-static-semantics-isvalidsimpleassignmenttarget.html">
+  <link rel="import" href=
+  "assignment-operators\assignment-operators-runtime-semantics-evaluation.html">
+  <link rel="import" href="assignment-operators\destructuring-assignment.html">
+</es-clause>

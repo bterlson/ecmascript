@@ -1,0 +1,29 @@
+<!doctype html>
+<es-clause title="Generator Comprehensions" anchor="sec-generator-comprehensions">
+  <h2>Syntax</h2>
+
+  <es-production name="GeneratorComprehension" params="Yield">
+    <es-rhs><es-t>(</es-t> <es-nt params="?Yield">Comprehension</es-nt> <es-t>)</es-t></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>The keyword <code>yield</code> may be used in identifier contexts within a
+    <es-nt>GeneratorComprehension</es-nt> contained in non-<a href="#sec-strict-mode-code">strict
+    code</a> . The following early error rule ensures that a <es-nt>GeneratorComprehension</es-nt>
+    never contains a <es-nt>YieldExpression</es-nt>.</p>
+  </es-note>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-generator-comprehensions-static-semantics-early-errors">
+    <es-production name="GeneratorComprehension" class="inline">
+      <es-rhs><es-t>(</es-t> <es-nt>Comprehension</es-nt> <es-t>)</es-t></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>It is a Syntax Error if <i>Comprehension</i> Contains <i>YieldExpression</i> is
+      <b>true</b>.</li>
+    </ul>
+  </es-clause>
+  <link rel="import" href=
+  "generator-comprehensions\generator-comprehensions-runtime-semantics-evaluation.html">
+</es-clause>

@@ -1,0 +1,64 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: IteratorBindingInitialisation" anchor=
+"sec-arrow-function-definitions-runtime-semantics-iteratorbindinginitialisation">
+  <p>With parameters <es-nt>iterator</es-nt> and <es-nt>environment</es-nt>.</p>
+
+  <p>See also: <a href=
+  "#sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</a> , <a href=
+  "#sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</a> ,<a href=
+  "#sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</a> ,<a href=
+  "#sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</a>
+  ,<a href="#sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</a> , <a href=
+  "#sec-function-definitions-runtime-semantics-iteratorbindinginitialisation">14.1.15</a> .</p>
+
+  <es-note>
+    <p>When <b>undefined</b> is passed for <es-nt>environment</es-nt> it indicates that a <a href=
+    "#sec-putvalue">PutValue</a> operation should be used to assign the initialisation value. This
+    is the case for formal parameter lists of non-strict functions. In that case the formal
+    parameter bindings are preinitialised in order to deal with the possibility of multiple
+    parameters with the same name.</p>
+  </es-note>
+
+  <es-production name="ArrowParameters" class="inline">
+    <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
+    (<i>iterator</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+    </li>
+
+    <li>If <i>next</i> is <b>false</b>, then let <i>v</i> be <b>undefined</b></li>
+
+    <li>Else
+
+      <ol class="block">
+        <li>Let <i>v</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Return the result of performing BindingInitialisation for <i>BindingIdentifier</i> using
+    <i>v</i> and <i>environment</i> as the arguments.</li>
+  </ol>
+
+  <es-production name="ArrowParameters" class="inline">
+    <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>formals</i> be CoveredFormalsList of
+    <i>CoverParenthesisedExpressionAndArrowParameterList</i>.</li>
+
+    <li>Return the result of performing IteratorBindingInitialisation of <i>formals</i> with
+    arguments <i>value</i> and <i>environment</i>.</li>
+  </ol>
+</es-clause>

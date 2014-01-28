@@ -1,0 +1,31 @@
+<!doctype html>
+<es-clause title="TheStatement" anchor="sec-throw-statement">
+  <h2>Syntax</h2>
+
+  <es-production name="ThrowStatement" params="Yield">
+    <es-rhs><es-t>throw</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+    here</es-gann><es-nt params="In, ?Yield">Expression</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-throw-statement-runtime-semantics-evaluation">
+    <p>The production <es-production name="ThrowStatement" class=
+    "inline"><es-rhs><es-t>throw</es-t> <es-nt>Expression</es-nt>
+    <es-t>;</es-t></es-rhs></es-production> is evaluated as follows:</p>
+
+    <ol class="proc">
+      <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+
+      <li>Let <i>exprValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprRef</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exprValue</i>).
+      </li>
+
+      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
+      throw, [[value]]: <i>exprValue</i>, [[target]]: empty}.
+      </li>
+    </ol>
+  </es-clause>
+</es-clause>

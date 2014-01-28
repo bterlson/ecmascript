@@ -1,0 +1,49 @@
+<!doctype html>
+<es-clause title="TheStatement" anchor="sec-return-statement">
+  <h2>Syntax</h2>
+
+  <es-production name="ReturnStatement" params="Yield">
+    <es-rhs>return ;</es-rhs>
+
+    <es-rhs><es-t>return</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+    here</es-gann><es-nt params="In, ?Yield">Expression</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>A <code>return</code> statement causes a function to cease execution and return a value to
+    the caller. If <es-nt>Expression</es-nt> is omitted, the return value is <b>undefined</b>.
+    Otherwise, the return value is the value of <es-nt>Expression</es-nt>.</p>
+  </es-note>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-return-statement-runtime-semantics-evaluation">
+    <es-production name="ReturnStatement" class="inline">
+      <es-rhs>return ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
+      return, [[value]]: <b>undefined</b>, [[target]]: empty}.
+      </li>
+    </ol>
+
+    <es-production name="ReturnStatement" class="inline">
+      <es-rhs><es-t>return</es-t> <es-nt>Expression</es-nt> <es-t>;</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+
+      <li>Let <i>exprValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprRef</i>).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exprValue</i>).
+      </li>
+
+      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
+      return, [[value]]: <i>exprValue</i>, [[target]]: empty}.
+      </li>
+    </ol>
+  </es-clause>
+</es-clause>

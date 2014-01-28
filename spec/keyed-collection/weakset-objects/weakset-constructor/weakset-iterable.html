@@ -1,0 +1,92 @@
+<!doctype html>
+<es-clause title="WeakSet (iterable = undefined)" anchor="sec-weakset-iterable">
+  <p>When the <code>WeakSet</code> function is called with optional argument
+  <es-nt>iterable</es-nt> the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>set</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>set</i>) is not Object
+    then, throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>set</i> does not have a [[WeakSetData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>set’s</i> [[WeakSetData]] <a href="#sec-object-internal-methods-and-internal-slots">
+      internal slot</a> is not <b>undefined</b>, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>iterable</i> is not present, let <i>iterable</i> be <b>undefined</b>.</li>
+
+    <li>If <i>iterable</i> is either <b>undefined</b> or <b>null</b>, then let <i>iter</i> be
+    <b>undefined</b>.</li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>iter</i> be the result of <a href="#sec-getiterator">GetIterator</a>
+        (<i>iterable</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>iter</i>).
+        </li>
+
+        <li>Let <i>adder</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>set</i>,
+        <code>"add"</code>)<b>.</b>
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>adder</i>).
+        </li>
+
+        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>adder</i>) is <b>false</b>, throw a <b>
+          TypeError</b> Exception.
+        </li>
+      </ol>
+    </li>
+
+    <li>Set <i>set’s</i> [[WeakSetData]] <a href="#sec-object-internal-methods-and-internal-slots">
+      internal slot</a> to a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>If <i>iter</i> is <b>undefined</b>, then return <i>set</i>.</li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
+        (<i>iter</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+        </li>
+
+        <li>If <i>next</i> is <b>false</b>, then return <a href=
+        "#sec-normalcompletion">NormalCompletion</a> (<i>set</i>).
+        </li>
+
+        <li>Let <i>nextValue</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextValue</i>).
+        </li>
+
+        <li>Let <i>status</i> be the result of calling the [[Call]] internal method of <i>adder</i>
+        with <i>set</i> as <i>thisArgument</i> and a <a href=
+        "#sec-list-and-record-specification-type">List</a> whose sole element is <i>nextValue</i>
+        as <i>argumentsList</i>.
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

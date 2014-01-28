@@ -1,0 +1,51 @@
+<!doctype html>
+<es-clause title="LinkImports ( M )" anchor="sec-linkimports">
+  <p>The abstract operation LinkImports with argument <es-nt>M</es-nt> performs the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>envRec</i> be <i>M</i>.[[Environment]].</li>
+
+    <li>Let <i>defs</i> be <i>M</i>.[[ImportDefinitions]].</li>
+
+    <li>For each <i>def</i> in <i>defs</i>, do
+
+      <ol class="block">
+        <li>If <i>def</i>.[[ImportName]] is <b>module</b>, then the following steps are taken:
+
+          <ol class="block">
+            <li>Call the CreateImmutableBinding concrete method of <i>envRec</i> passing
+            <i>def</i>.[[LocalName]] as the argument.</li>
+
+            <li>Call the InitializeImmutableBinding concrete method of <i>envRec</i> passing
+            <i>def</i>.[[LocalName]] and <i>def</i>.[[Module]] as the arguments.</li>
+          </ol>
+        </li>
+
+        <li>Otherwise, the following steps are taken:
+
+          <ol class="block">
+            <li>Let <i>binding</i> be the result of calling the <a href=
+            "#sec-resolveexport">ResolveExport</a> abstract operation passing <i>def</i>.[[Module]]
+            and <i>def</i>.[[ImportName]] as the arguments.
+            </li>
+
+            <li>If <i>binding</i> is <b>undefined</b>, then the following steps are taken:
+
+              <ol class="block">
+                <li>Let <i>error</i> be a new <a href=
+                "#sec-reference-specification-type">Reference</a> Error.
+                </li>
+
+                <li>Add <i>error</i> to <i>M</i>.[[LinkErrors]].</li>
+              </ol>
+            </li>
+
+            <li>Otherwise, call the CreateImportBinding concrete method of <i>envRec</i> passing
+            <i>def</i>.[[LocalName]] and <i>binding</i> as the arguments.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

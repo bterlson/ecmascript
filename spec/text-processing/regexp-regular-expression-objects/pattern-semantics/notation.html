@@ -1,0 +1,125 @@
+<!doctype html>
+<es-clause title="Notation" anchor="sec-notation">
+  <p>The descriptions below use the following variables:</p>
+
+  <ul>
+    <li>
+      <p><es-nt>Input</es-nt> is a <a href="#sec-list-and-record-specification-type">List</a>
+      consisting of all of the characters, in order, of the String being matched by the regular
+      expression pattern. Each character is either a code units or a code points, depending upon
+      the kind of pattern involved. The notation <i>input</i>[<i>n</i>] means the
+      <i>n<sup>th</sup></i> character of <es-nt>input</es-nt>, where <es-nt>n</es-nt> can range
+      between 0 (inclusive) and <es-nt>InputLength</es-nt> (exclusive).</p>
+    </li>
+
+    <li>
+      <p><es-nt>InputLength</es-nt> is the number of characters in <es-nt>Input</es-nt>.</p>
+    </li>
+
+    <li>
+      <p><es-nt>NcapturingParens</es-nt> is the total number of left capturing parentheses (i.e.
+      the total number of times the <es-production name="Atom" type="lexical" class=
+      "inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
+      <es-t>)</es-t></es-rhs></es-production> production is expanded) in the pattern.
+      A left capturing parenthesis is any <code>(</code> pattern character that is matched by the
+      <code>(</code> terminal of the <es-production name="Atom" type="lexical" class=
+      "inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
+      <es-t>)</es-t></es-rhs></es-production> production.</p>
+    </li>
+
+    <li>
+      <p><es-nt>IgnoreCase</es-nt> is <b>true</b> if the RegExp object's [[OriginalFlags]] <a href=
+      "#sec-object-internal-methods-and-internal-slots">internal slot</a> contains <code>"i"</code>
+      and otherwise is <b>false</b>.</p>
+    </li>
+
+    <li>
+      <p><es-nt>Multiline</es-nt> is <b>true</b> if the RegExp object’s [[OriginalFlags]] <a href=
+      "#sec-object-internal-methods-and-internal-slots">internal slot</a> contains <code>"m"</code>
+      and otherwise is <b>false</b>.</p>
+    </li>
+
+    <li>
+      <p><es-nt>Unicode</es-nt> is <b>true</b> if the RegExp object’s [[OriginalFlags]] <a href=
+      "#sec-object-internal-methods-and-internal-slots">internal slot</a> contains <code>"u"</code>
+      and otherwise is <b>false</b>.</p>
+    </li>
+  </ul>
+
+  <p>Furthermore, the descriptions below use the following internal data structures:</p>
+
+  <ul>
+    <li>
+      <p>A <es-nt>CharSet</es-nt> is a mathematical set of characters, either code units or code
+      points depending up the state of the <es-nt>Unicode</es-nt> flag. “All characters” means
+      either all code unit values or all code point values also depending upon the state if
+      <es-nt>Unicode</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>A <es-nt>State</es-nt> is an ordered pair (<i>endIndex</i>, <i>captures</i>) where
+      <es-nt>endIndex</es-nt> is an integer and <es-nt>captures</es-nt> is a <a href=
+      "#sec-list-and-record-specification-type">List</a> of <es-nt>NcapturingParens</es-nt> values.
+      <es-nt>States</es-nt> are used to represent partial match states in the regular expression
+      matching algorithms. The <es-nt>endIndex</es-nt> is one plus the index of the last input
+      character matched so far by the pattern, while <es-nt>captures</es-nt> holds the results of
+      capturing parentheses. The <i>n<sup>th</sup></i> element of <es-nt>captures</es-nt> is either
+      a <a href="#sec-list-and-record-specification-type">List</a> that represents the value
+      obtained by the <i>n<sup>th</sup></i> set of capturing parentheses or <b>undefined</b> if the
+      <i>n<sup>th</sup></i> set of capturing parentheses hasn’t been reached yet. Due to
+      backtracking, many <es-nt>States</es-nt> may be in use at any time during the matching
+      process.</p>
+    </li>
+
+    <li>
+      <p>A <es-nt>MatchResult</es-nt> is either a <es-nt>State</es-nt> or the special token
+      <b>failure</b> that indicates that the match failed.</p>
+    </li>
+
+    <li>
+      <p>A <es-nt>Continuation</es-nt> procedure is an internal closure (i.e. an internal procedure
+      with some arguments already bound to values) that takes one <es-nt>State</es-nt> argument and
+      returns a <es-nt>MatchResult</es-nt> result. If an internal closure references variables
+      bound in the function that creates the closure, the closure uses the values that these
+      variables had at the time the closure was created. The <es-nt>Continuation</es-nt> attempts
+      to match the remaining portion (specified by the closure's already-bound arguments) of the
+      pattern against <es-nt>Input</es-nt>, starting at the intermediate state given by its
+      <es-nt>State</es-nt> argument. If the match succeeds, the <es-nt>Continuation</es-nt> returns
+      the final <es-nt>State</es-nt> that it reached; if the match fails, the
+      <es-nt>Continuation</es-nt> returns <b>failure</b>.</p>
+    </li>
+
+    <li>
+      <p>A <es-nt>Matcher</es-nt> procedure is an internal closure that takes two arguments -- a
+      <es-nt>State</es-nt> and a <es-nt>Continuation</es-nt> -- and returns a
+      <es-nt>MatchResult</es-nt> result. A <es-nt>Matcher</es-nt> attempts to match a middle
+      subpattern (specified by the closure's already-bound arguments) of the pattern against
+      <es-nt>Input</es-nt>, starting at the intermediate state given by its <es-nt>State</es-nt>
+      argument. The <es-nt>Continuation</es-nt> argument should be a closure that matches the rest
+      of the pattern. After matching the subpattern of a pattern to obtain a new
+      <es-nt>State</es-nt>, the <es-nt>Matcher</es-nt> then calls <es-nt>Continuation</es-nt> on
+      that new <es-nt>State</es-nt> to test if the rest of the pattern can match as well. If it
+      can, the <i>Matcher</i> returns the <es-nt>State</es-nt> returned by
+      <es-nt>Continuation</es-nt>; if not, the <es-nt>Matcher</es-nt> may try different choices at
+      its choice points, repeatedly calling <es-nt>Continuation</es-nt> until it either succeeds or
+      all possibilities have been exhausted.</p>
+    </li>
+
+    <li>
+      <p>An <es-nt>AssertionTester</es-nt> procedure is an internal closure that takes a
+      <es-nt>State</es-nt> argument and returns a Boolean result. The assertion tester tests a
+      specific condition (specified by the closure's already-bound arguments) against the current
+      place in <es-nt>Input</es-nt> and returns <b>true</b> if the condition matched or
+      <b>false</b> if not.</p>
+    </li>
+
+    <li>
+      <p>An <es-nt>EscapeValue</es-nt> is either a character or an integer. An
+      <es-nt>EscapeValue</es-nt> is used to denote the interpretation of a
+      <es-nt>DecimalEscape</es-nt> escape sequence: a character <es-nt>ch</es-nt> means that the
+      escape sequence is interpreted as the character <es-nt>ch</es-nt>, while an integer
+      <es-nt>n</es-nt> means that the escape sequence is interpreted as a backreference to the
+      <i>n</i><sup>th</sup> set of capturing parentheses.</p>
+    </li>
+  </ul>
+</es-clause>

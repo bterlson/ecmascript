@@ -1,0 +1,48 @@
+<!doctype html>
+<es-clause title="CreateModuleLinkageRecord (loader, body) Abstract Operation" anchor=
+"sec-createmodulelinkagerecord">
+  <p>The abstract operation CreateModuleLinkageRecord with arguments <es-nt>loader</es-nt> and
+  <es-nt>body</es-nt> performs the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>body</i> is a <i>Modulebody</i> parse.
+    </li>
+
+    <li>Let <i>M</i> be a new object with [[Prototype]] <b>null</b>.</li>
+
+    <li>Set <i>M</i>.[[Body]] to <i>body</i>.</li>
+
+    <li>Set <i>M</i>.[[BoundNames]] to DeclaredNames of <i>body</i>.</li>
+
+    <li>Set <i>M</i>.[[KnownExportEntries]] to KnownExportEntries of <i>body</i>.</li>
+
+    <li>Set <i>M</i>.[[UnknownExportEntries]] to UnknownExportEntries of <i>body</i>.</li>
+
+    <li>Set <i>M</i>.[[ExportDefinitions]] to <b>undefined</b>.</li>
+
+    <li>Set <i>M</i>.[[Exports]] to <b>undefined</b>.</li>
+
+    <li>Set <i>M</i>.[[Dependencies]] to <b>undefined</b>.</li>
+
+    <li>Set <i>M</i>.[[UnlinkedDependencies]] to <b>undefined</b>.</li>
+
+    <li>Set <i>M</i>.[[ImportEntries]] to ImportEntries of <i>body</i>.</li>
+
+    <li>Set <i>M</i>.[[ImportDefinitions]] to <b>undefined</b>.</li>
+
+    <li>Set <i>M</i>.[[LinkErrors]] to a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>realm</i> be <i>loader</i>.[[Realm]].</li>
+
+    <li>Let <i>globalEnv</i> be <i>realm</i>.[[<i>globalEnv</i>]].</li>
+
+    <li>Let <i>env</i> be NewModuleEnvironment(<i>globalEnv</i>).</li>
+
+    <li>Set <i>M</i>.[[Environment]] to <i>env</i>.</li>
+
+    <li>Return <i>M</i>.</li>
+  </ol>
+</es-clause>

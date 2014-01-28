@@ -1,0 +1,52 @@
+<!doctype html>
+<es-clause title="Promise.all Resolve Element Functions" anchor=
+"sec-promise.all-resolve-element-functions">
+  <p>A <a href="#sec-promise.all">Promise.all</a> resolve element function is an anonymous built-in
+  function that is used to resolve a specific <a href="#sec-promise.all">Promise.all</a> element..
+  Each <a href="#sec-promise.all">Promise.all</a> resolve element function has [[Index]],
+  [[Values]], [[Capabilities]], and [[RemainingElements]] internal slots.</p>
+
+  <p>When a <a href="#sec-promise.all">Promise.all</a> resolve element function <es-nt>F</es-nt> is
+  called with argument <es-nt>x</es-nt>, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>index</i> be the value of <i>F</i>'s [[Index]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>values</i> be the value of <i>F</i>'s [[Values]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>promiseCapability</i> be the value of <i>F</i>'s [[Capabilities]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>remainingElementsCount</i> be the value of <i>F</i>'s [[RemainingElements]]
+      <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>result</i> be <a href="#sec-createdataproperty">CreateDataProperty</a>
+    (<i>values</i>, <a href="#sec-tostring">ToString</a> (<i>index</i>), <i>x</i>).
+    </li>
+
+    <li>
+      <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>result</i>,
+      <i>promiseCapability</i>).
+    </li>
+
+    <li>Set <i>remainingElementsCount</i>.[[value]] to <i>remainingElementsCount</i>.[[value]] -
+    1.</li>
+
+    <li>If <i>remainingElementsCount</i>.[[value]] is 0,
+
+      <ol class="block">
+        <li>Return the result of calling the [[Call]] internal method of
+        <i>promiseCapability</i>.[[Resolve]] with <b>undefined</b> as <i>thisArgument</i> and
+        (<i>values</i>) as <i>argumentsList</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return <b>undefined</b>.</li>
+  </ol>
+</es-clause>

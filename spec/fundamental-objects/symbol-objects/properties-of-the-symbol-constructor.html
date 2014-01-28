@@ -1,0 +1,127 @@
+<!doctype html>
+<es-clause title="Properties of the Symbol Constructor" anchor=
+"sec-properties-of-the-symbol-constructor">
+  <p>The value of the [[Prototype]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the Symbol constructor is
+  the Function prototype object (<a href=
+  "#sec-properties-of-the-function-prototype-object">19.2.3</a> ).</p>
+
+  <p>Besides the <code>length</code> property (whose value is <b>0</b>), the Symbol constructor has
+  the following properties:</p>
+
+  <es-clause title="Symbol.create" anchor="sec-symbol.create">
+    <p>The initial value of <code>Symbol.create</code> is the well known symbol @@create (<a href=
+    "#table-1">Table 1</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+  <link rel="import" href="properties-of-the-symbol-constructor\symbol.for.html">
+
+  <es-clause title="Symbol.hasInstance" anchor="sec-symbol.hasinstance">
+    <p>The initial value of <code>Symbol.hasInstance</code> is the well known symbol @@hasInstance
+    (<a href="#table-1">Table 1</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Symbol.isConcatSpreadable" anchor="sec-symbol.isconcatspreadable">
+    <p>The initial value of <code>Symbol.isConcatSpreadable</code> is the well known symbol
+    @@isConcatSpreadable (<a href="#table-1">Table 1</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Symbol.isRegExp" anchor="sec-symbol.isregexp">
+    <p>The initial value of <code>Symbol.isRegExp</code> is the well known symbol @@isRegExp
+    (<a href="#table-1">Table 1</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Symbol.iterator" anchor="sec-symbol.iterator">
+    <p>The initial value of <code>Symbol.iterator</code> is the well known symbol @@iterator
+    (<a href="#table-1">Table 1</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Symbol.keyFor (sym)" anchor="sec-symbol.keyfor">
+    <p>When <code>Symbol.keyFor</code> is called with argument <es-nt>sym</es-nt> it performs the
+    following steps:</p>
+
+    <ol class="proc">
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>sym</i>) is not Symbol,
+      then throw a <b>TypeError</b> exception.
+      </li>
+
+      <li>For each element <i>e</i> of the GlobalSymbolRegistry <a href=
+      "#sec-list-and-record-specification-type">List</a> (see <a href=
+      "#sec-symbol.for">19.4.2.2</a> ),
+
+        <ol class="block">
+          <li>If <a href="#sec-samevalue">SameValue</a> (<i>e</i>.[[symbol]], <i>sym</i>) is
+          <b>true</b>, then return <i>e</i>.[[key]].
+          </li>
+        </ol>
+      </li>
+
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : GlobalSymbolRegistry does not current
+        contain an entry for <i>sym</i>.
+      </li>
+
+      <li>Return <b>undefined</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Symbol.prototype" anchor="sec-symbol.prototype">
+    <p>The initial value of <code>Symbol.prototype</code> is the Symbol prototype object (<a href=
+    "#sec-properties-of-the-symbol-prototype-object">19.4.3</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Symbol.toPrimitive" anchor="sec-symbol.toprimitive">
+    <p>The initial value of <code>Symbol.toPrimitive</code> is the well known symbol @@toPrimitive
+    (<a href="#table-1">Table 1</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Symbol.toStringTag" anchor="sec-symbol.tostringtag">
+    <p>The initial value of <code>Symbol.toStringTag</code> is the well known symbol @@toStringTag
+    (<a href="#table-1">Table 1</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Symbol.unscopables" anchor="sec-symbol.unscopables">
+    <p>The initial value of <code>Symbol.</code>unscopables is the well known symbol @@unscopables
+    (<a href="#table-1">Table 1</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="Symbol[ @@create ] ( )" anchor="sec-symbol-@@create">
+    <p>The @@create method of a Symbol object <es-nt>F</es-nt> performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Throw a <b>TypeError</b> exception.</li>
+    </ol>
+
+    <p>The value of the <code>name</code> property of this function is
+    <code>"[Symbol.create]"</code>.</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>true</b> }.</p>
+  </es-clause>
+</es-clause>

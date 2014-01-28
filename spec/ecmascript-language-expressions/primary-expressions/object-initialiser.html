@@ -1,0 +1,142 @@
+<!doctype html>
+<es-clause title="Object Initialiser" anchor="sec-object-initialiser">
+  <es-note>
+    <p>An object initialiser is an expression describing the initialisation of an Object, written
+    in a form resembling a literal. It is a list of zero or more pairs of property names and
+    associated values, enclosed in curly braces. The values need not be literals; they are
+    evaluated each time the object initialiser is evaluated.</p>
+  </es-note>
+
+  <h2>Syntax</h2>
+
+  <es-production name="ObjectLiteral" params="Yield">
+    <es-rhs>{ }</es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt params="?Yield">PropertyDefinitionList</es-nt>
+    <es-t>}</es-t></es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt params="?Yield">PropertyDefinitionList</es-nt> <es-t>,</es-t>
+    <es-t>}</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="PropertyDefinitionList" params="Yield">
+    <es-rhs><es-nt params="?Yield">PropertyDefinition</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">PropertyDefinitionList</es-nt> , <es-nt params=
+    "?Yield">PropertyDefinition</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="PropertyDefinition" params="Yield">
+    <es-rhs><es-nt params="?Yield">IdentifierReference</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">CoverInitialisedName</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">PropertyName</es-nt> : <es-nt params=
+    "In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">MethodDefinition</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="PropertyName">
+    <es-rhs><es-nt>LiteralPropertyName</es-nt></es-rhs>
+
+    <es-rhs constraint="+GeneratorParameter"><es-nt>ComputedPropertyName</es-nt></es-rhs>
+
+    <es-rhs constraint="~GeneratorParameter"><es-nt params=
+    "?Yield">ComputedPropertyName</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="LiteralPropertyName">
+    <es-rhs><es-nt>IdentifierName</es-nt></es-rhs>
+
+    <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>NumericLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ComputedPropertyName" params="Yield">
+    <es-rhs><es-t>[</es-t> <es-nt params="In, ?Yield">AssignmentExpression</es-nt>
+    <es-t>]</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="CoverInitialisedName" params="Yield">
+    <es-rhs><es-nt>IdentifierReference</es-nt> <es-nt params=
+    "In, ?Yield">Initialiser</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Initialiser" params="In, Yield">
+    <es-rhs><es-t>=</es-t> <es-nt params="?In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p><es-nt>MethodDefinition</es-nt> is defined in <a href="#sec-method-definitions">14.3</a>
+    .</p>
+  </es-note>
+
+  <es-note>
+    <p>In certain contexts, <es-nt>ObjectLiteral</es-nt> is used as a cover grammar for a more
+    restricted secondary grammar. The <es-nt>CoverInitialisedName</es-nt> production is necessary
+    to fully cover these secondary grammars. However, use of this production results in an early
+    Syntax Error in normal contexts where an actual <es-nt>ObjectLiteral</es-nt> is expected.</p>
+  </es-note>
+  <link rel="import" href=
+  "object-initialiser\object-initialiser-static-semantics-early-errors.html">
+  <link rel="import" href="object-initialiser\object-initialiser-static-semantics-contains.html">
+  <link rel="import" href=
+  "object-initialiser\object-initialiser-static-semantics-hascomputedpropertykey.html">
+
+  <es-clause title="Static Semantics: IsComputedPropertyKey" anchor=
+  "sec-static-semantics-iscomputedpropertykey">
+    <es-production name="PropertyName" class="inline">
+      <es-rhs><es-nt>LiteralPropertyName</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="PropertyName" class="inline">
+      <es-rhs><es-nt>ComputedPropertyName</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="object-initialiser\object-initialiser-static-semantics-propname.html">
+
+  <es-clause title="Static Semantics: PropertyNameList" anchor=
+  "sec-static-semantics-propertynamelist">
+    <es-production name="PropertyDefinitionList" class="inline">
+      <es-rhs><es-nt>PropertyDefinition</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If PropName of <i>PropertyDefinition</i> is empty, return a new empty <a href=
+      "#sec-list-and-record-specification-type">List</a> .
+      </li>
+
+      <li>Return a new <a href="#sec-list-and-record-specification-type">List</a> containing
+      PropName of <i>PropertyDefinition</i>.
+      </li>
+    </ol>
+
+    <es-production name="PropertyDefinitionList" class="inline">
+      <es-rhs><es-nt>PropertyDefinitionList</es-nt> , <es-nt>PropertyDefinition</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>list</i> be PropertyNameList of <i>PropertyDefinitionList.</i></li>
+
+      <li>If PropName of <i>PropertyDefinition</i> is empty, return <i>list</i>.</li>
+
+      <li>Append PropName of <i>PropertyDefinition</i> to the end of <i>list</i>.</li>
+
+      <li>Return <i>list</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "object-initialiser\object-initialiser-runtime-semantics-evaluation.html">
+  <link rel="import" href=
+  "object-initialiser\object-initialiser-runtime-semantics-propertydefinitionevaluation.html">
+</es-clause>

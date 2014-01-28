@@ -1,0 +1,88 @@
+<!doctype html>
+<es-clause title="EnsureEvaluated(mod, seen, loader) Abstract Operation" anchor=
+"sec-ensureevaluated">
+  <p>The abstract operation EnsureEvaluated walks the dependency graph of the module
+  <es-nt>mod</es-nt>, evaluating any module bodies that have not already been evaluated (including,
+  finally, <es-nt>mod</es-nt> itself). Modules are evaluated in depth-first, left-to-right, post
+  order, stopping at cycles.</p>
+
+  <p><es-nt>mod</es-nt> and its dependencies must already be linked.</p>
+
+  <p>The <a href="#sec-list-and-record-specification-type">List</a> <es-nt>seen</es-nt> is used to
+  detect cycles. <es-nt>mod</es-nt> must not already be in the <a href=
+  "#sec-list-and-record-specification-type">List</a> <es-nt>seen</es-nt>.</p>
+
+  <p>On success, <es-nt>mod</es-nt> and all its dependencies, transitively, will have started to
+  evaluate exactly once.</p>
+
+  <p>EnsureEvaluated performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Append <i>mod</i> as the last element of <i>seen</i>.</li>
+
+    <li>Let <i>deps</i> be <i>mod</i>.[[Dependencies]].</li>
+
+    <li>For each <i>pair</i> in <i>deps</i>, in <a href="#sec-list-and-record-specification-type">
+      List</a> order,
+
+      <ol class="block">
+        <li>Let <i>dep</i> be <i>pair</i>.[[value]].</li>
+
+        <li>If <i>dep</i> is not an element of <i>seen</i>, then
+
+          <ol class="block">
+            <li>Call EnsureEvaluated with the arguments <i>dep</i>, <i>seen</i>, and
+            <i>loader</i>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>mod</i>.[[Evaluated]] is <b>true</b>, return <b>undefined</b>.</li>
+
+    <li>Set <i>mod</i>.[[Evaluated]] to <b>true</b>.</li>
+
+    <li>If <i>mod</i>.[[Body]] is <b>undefined</b>, then return <b>undefined</b>.</li>
+
+    <li>Let status be the result of perform ModuleDeclarationInstantiation(<i>mod</i>.[[Body]],
+    <i>mod</i>.[[Environment]]).</li>
+
+    <li>Let <i>initContext</i> be a new <a href="#sec-execution-contexts">ECMAScript code execution
+    context</a> .
+    </li>
+
+    <li>Set <i>initContext</i>'s <a href="#sec-code-realms">Realm</a> to <i>loader</i>.[[Realm]].
+    </li>
+
+    <li>Set <i>initContext</i>'s <a href="#sec-execution-contexts">VariableEnvironment</a> to
+    <i>mod</i>.[[Environment]].
+    </li>
+
+    <li>Set <i>initContext</i>'s <a href="#sec-execution-contexts">LexicalEnvironment</a> to
+    <i>mod</i>.[[Environment]].
+    </li>
+
+    <li>If there is a <a href="#sec-execution-contexts">currently running execution context</a> ,
+    <a href="#sec-execution-contexts">suspend</a> it.
+    </li>
+
+    <li>Push <i>initContext</i> on to <a href="#sec-execution-contexts">the execution context
+    stack</a> ; <i>initContext</i> is now <a href="#sec-execution-contexts">the running execution
+    context</a> .
+    </li>
+
+    <li>Let <i>r</i> be the result of evaluating <i>mod</i>.[[Body]].</li>
+
+    <li>
+      <a href="#sec-execution-contexts">Suspend</a> <i>initContext</i> and remove it from <a href=
+      "#sec-execution-contexts">the execution context stack</a> .
+    </li>
+
+    <li>Resume the context, if any, that is now on the top of <a href="#sec-execution-contexts">the
+    execution context stack</a> as <a href="#sec-execution-contexts">the running execution
+    context</a> .
+    </li>
+
+    <li>Return <i>r</i>.</li>
+  </ol>
+</es-clause>

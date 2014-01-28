@@ -1,0 +1,198 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: RegExpExec Abstract Operation" anchor="sec-regexpexec">
+  <p>The abstract operation RegExpExec with arguments <es-nt>R</es-nt>, <es-nt>S</es-nt> and
+  <es-nt>ignore</es-nt> performs the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>R</i> is an initialised RegExp instance.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>S</i>) is String.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>ignore</i>) is Boolean.
+    </li>
+
+    <li>Let <i>matcher</i> be the value of <i>R’s</i> [[RegExpMatcher]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>length</i> be the length of <i>S</i>.</li>
+
+    <li>If <i>ignore</i> is <b>true<i>,</i></b> then let <i>global</i> be <b>false</b>.</li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>lastIndex</i> be the result of <a href="#sec-get-o-p">Get</a>
+        (<i>R</i>,"<b>lastIndex</b>").
+        </li>
+
+        <li>Let <i>i</i> be the value of <a href="#sec-tointeger">ToInteger</a> (<i>lastIndex</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>i</i>).
+        </li>
+
+        <li>Let <i>global</i> be the result of <a href="#sec-toboolean">ToBoolean</a> (<a href=
+        "#sec-get-o-p">Get</a> (<i>R</i>, "<b>global"</b><b>))</b>.
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>global</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>sticky</i> be the result of <a href="#sec-toboolean">ToBoolean</a> (<a href=
+    "#sec-get-o-p">Get</a> (<i>R</i>, "<b>sticky"</b><b>))</b>.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>sticky</i>).
+    </li>
+
+    <li>If <i>global</i> is <b>false</b> and <i>sticky</i> is <b>false</b>, then let <i>i</i> =
+    0.</li>
+
+    <li>Let <i>matchSucceeded</i> be <b>false</b>.</li>
+
+    <li>Repeat, while <i>matchSucceeded</i> is <b>false</b>
+
+      <ol class="block">
+        <li>If <i>i</i> &lt; 0 or <i>i</i> &gt; <i>length</i>, then
+
+          <ol class="block">
+            <li>If <i>ignore</i> is <b>true</b>, then
+
+              <ol class="block">
+                <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
+                (<i>R</i>, "<b>lastIndex"</b>, 0, <b>true</b>).
+                </li>
+
+                <li>
+                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+                </li>
+              </ol>
+            </li>
+
+            <li>Return <b>null</b>.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>r</i> be the result of calling <i>matcher</i> with arguments <i>S</i> and
+        <i>i</i>.</li>
+
+        <li>If <i>r</i> is <b>failure</b>, then
+
+          <ol class="block">
+            <li>If <i>sticky</i> is <b>true</b>, then
+
+              <ol class="block">
+                <li>If <i>ignore</i> is <b>true</b>, then
+
+                  <ol class="block">
+                    <li>Let <i>putStatus</i> be the result of <a href=
+                    "#sec-put-o-p-v-throw">Put</a> (<i>R</i>, "<b>lastIndex"</b>, 0, <b>true</b>).
+                    </li>
+
+                    <li>
+                      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+                    </li>
+                  </ol>
+                </li>
+
+                <li>Return <b>null</b>.</li>
+              </ol>
+            </li>
+
+            <li>Let <i>i</i> = <i>i</i>+1.</li>
+          </ol>
+        </li>
+
+        <li>else
+
+          <ol class="block">
+            <li>
+              <a href="#sec-algorithm-conventions">Assert</a> : <i>r</i> is a State.
+            </li>
+
+            <li>Set <i>matchSucceeded</i> to <b>true</b>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>e</i> be <i>r</i>'s <i>endIndex</i> value.</li>
+
+    <li>If <i>global</i> is <b>true</b> or <i>sticky</i> is <b>true</b>,
+
+      <ol class="block">
+        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>R</i>,
+        "<b>lastIndex"</b>, <i>e</i>, <b>true</b>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>n</i> be the length of <i>r</i>'s <i>captures</i> <a href=
+    "#sec-list-and-record-specification-type">List</a> . (This is the same value as <a href=
+    "#sec-notation">21.2.2.1</a> 's <i>NcapturingParens</i>.)
+    </li>
+
+    <li>Let <i>A</i> be the result of the abstract operation <a href=
+    "#sec-arraycreate">ArrayCreate</a> (<i>n</i> + 1).
+    </li>
+
+    <li>Let <i>matchIndex</i> be <i>i</i>.</li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : The following <a href=
+      "#sec-createdataproperty">CreateDataProperty</a> calls will not result in an <a href=
+      "#sec-completion-record-specification-type">abrupt completion</a> .
+    </li>
+
+    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, "<b>index"</b>,
+    <i>matchIndex</i>).
+    </li>
+
+    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, "<b>input"</b>,
+    <i>S</i>).
+    </li>
+
+    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, "<b>length"</b>,
+    <i>n</i> + 1).
+    </li>
+
+    <li>Let <i>matchedSubstr</i> be the matched substring (i.e. the portion of <i>S</i> between
+    offset <i>i</i> inclusive and offset <i>e</i> exclusive).</li>
+
+    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, "<b>0"</b>,
+    <i>matchedSubstr</i>).
+    </li>
+
+    <li>For each integer <i>i</i> such that <i>i</i> &gt; 0 and <i>i</i> ≤ <i>n</i>
+
+      <ol class="block">
+        <li>Let <i>captureI</i> be <i>i</i><sup>th</sup> element of <i>r</i>'s <i>captures</i>
+        <a href="#sec-list-and-record-specification-type">List</a> .
+        </li>
+
+        <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, <a href=
+        "#sec-tostring">ToString</a> (<i>i</i>) , <i>captureI</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>A</i>.</li>
+  </ol>
+</es-clause>

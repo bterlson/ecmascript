@@ -1,0 +1,61 @@
+<!doctype html>
+<es-clause title="GetValue (V)" anchor="sec-getvalue">
+  <ol class="proc">
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>V</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>V</i>) is not <a href=
+    "#sec-reference-specification-type">Reference</a> , return <i>V</i>.
+    </li>
+
+    <li>Let <i>base</i> be the result of calling <a href=
+    "#sec-reference-specification-type">GetBase</a> (<i>V</i>).
+    </li>
+
+    <li>If <a href="#sec-reference-specification-type">IsUnresolvableReference</a> (<i>V</i>),
+    throw a <b>ReferenceError</b> exception.
+    </li>
+
+    <li>If <a href="#sec-reference-specification-type">IsPropertyReference</a> (<i>V</i>), then
+
+      <ol class="block">
+        <li>If <a href="#sec-reference-specification-type">HasPrimitiveBase</a> (<i>V</i>) is
+        <b>true</b>, then
+
+          <ol class="block">
+            <li>
+              <a href="#sec-algorithm-conventions">Assert</a> : In this case, <i>base</i> will
+              never be <b>null</b> or <b>undefined</b>.
+            </li>
+
+            <li>Let <i>base</i> be <a href="#sec-toobject">ToObject</a> (<i>base</i>).
+            </li>
+          </ol>
+        </li>
+
+        <li>Return the result of calling the [[Get]] internal method of <i>base</i> passing
+          <a href="#sec-reference-specification-type">GetReferencedName</a> (<i>V</i>) and <a href=
+          "#sec-getthisvalue">GetThisValue</a> (<i>V</i>) as the arguments.
+        </li>
+      </ol>
+    </li>
+
+    <li>Else <i>base</i> must be an environment record,
+
+      <ol class="block">
+        <li>Return the result of calling the GetBindingValue (see <a href=
+        "#sec-environment-records">8.1.1</a> ) concrete method of <i>base</i> passing <a href=
+        "#sec-reference-specification-type">GetReferencedName</a> (<i>V</i>) and <a href=
+        "#sec-reference-specification-type">IsStrictReference</a> (<i>V</i>) as arguments.
+        </li>
+      </ol>
+    </li>
+  </ol>
+
+  <es-note>
+    <p>The object that may be created in step 5.a.ii is not accessible outside of the above
+    abstract operation and the ordinary object [[Get]] internal method. An implementation might
+    choose to avoid the actual creation of the object.</p>
+  </es-note>
+</es-clause>

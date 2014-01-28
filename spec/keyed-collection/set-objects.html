@@ -1,0 +1,23 @@
+<!doctype html>
+<es-clause title="Set Objects" anchor="sec-set-objects">
+  <p>Set objects are collections of <a href="#sec-ecmascript-language-types">ECMAScript language
+  values</a> . A distinct value may only occur once as an element of a Set’s collection. Distinct
+  values are discriminated using a comparision algorithm that is selected when the Set is
+  created.</p>
+
+  <p>A Set object can iterate its elements in insertion order. Set objects must be implemented
+  using either hash tables or other mechanisms that, on average, provide access times that are
+  sublinear on the number of elements in the collection. The data structures used in this Set
+  objects specification is only intended to describe the required observable semantics of Set
+  objects. It is not intended to be a viable implementation model.</p>
+  <link rel="import" href="set-objects\set-constructor.html">
+  <link rel="import" href="set-objects\properties-of-the-set-constructor.html">
+  <link rel="import" href="set-objects\properties-of-the-set-prototype-object.html">
+
+  <es-clause title="Properties of Set Instances" anchor="sec-properties-of-set-instances">
+    <p>Set instances are ordinary objects that inherit properties from the Set prototype. After
+    initialisation by the Set constructor, Set instances also have a [[SetData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+  </es-clause>
+  <link rel="import" href="set-objects\set-iterator-objects.html">
+</es-clause>

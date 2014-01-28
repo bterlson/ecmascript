@@ -1,0 +1,47 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: BindingInstantiation" anchor=
+"sec-runtime-semantics-bindinginstantiation">
+  <p>With arguments <es-nt>value</es-nt> and <es-nt>environment</es-nt>.</p>
+
+  <p>See also: <a href="#sec-statement-semantics-runtime-semantics-labelledevaluation">13.0.2</a> ,
+  <a href="#sec-do-while-statement-runtime-semantics-labelledevaluation">13.6.1.2</a> , <a href=
+  "#sec-while-statement-runtime-semantics-labelledevaluation">13.6.2.2</a> , <a href=
+  "#sec-for-statement-runtime-semantics-labelledevaluation">13.6.3.2</a> , <a href=
+  "#sec-labelled-statements-runtime-semantics-labelledevaluation">13.12.3</a> .</p>
+
+  <es-production name="ForDeclaration" class="inline">
+    <es-rhs><es-nt>LetOrConst</es-nt> <es-nt>ForBinding</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>For each element <i>name</i> of the BoundNames of <i>ForBinding</i> do
+
+      <ol class="block">
+        <li>If IsConstantDeclaration of <i>LetOrConst</i> is <b>false</b>, then
+
+          <ol class="block">
+            <li>Call <i>environment</i>’s CreateMutableBinding concrete method with argument
+            <i>name</i>.</li>
+
+            <li>
+              <a href="#sec-algorithm-conventions">Assert</a> : The above call to
+              CreateMutableBinding will never return an <a href=
+              "#sec-completion-record-specification-type">abrupt completion</a> .
+            </li>
+          </ol>
+        </li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Call <i>environment</i>’s CreateImmutableBinding concrete method with argument
+            <i>name</i>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Return the result of performing BindingInitialisation for <i>ForBinding</i> passing
+    <i>value</i> and <i>environment</i> as the arguments.</li>
+  </ol>
+</es-clause>

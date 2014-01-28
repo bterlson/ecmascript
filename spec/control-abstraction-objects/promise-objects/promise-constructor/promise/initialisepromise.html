@@ -1,0 +1,62 @@
+<!doctype html>
+<es-clause title="InitialisePromise( promise, executor) Abstract Operation" anchor=
+"sec-initialisepromise">
+  <p>The abstract operation InitialisePromise initialises a newly allocated <es-nt>promise</es-nt>
+  object using an <es-nt>executor</es-nt> function.</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>promise</i> has a have a
+      [[PromiseStatus]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a>
+      and it’s value is <b>undefined.</b>
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href="#sec-iscallable">IsCallable</a>
+      (<i>executor</i>) is <b>true</b>.
+    </li>
+
+    <li>Set <i>promise</i>'s [[PromiseStatus]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to
+    <code>"unresolved"</code>.
+    </li>
+
+    <li>Set <i>promise</i>'s [[PromiseResolveReactions]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Set <i>promise</i>'s [[PromiseRejectReactions]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>resolve</i> be <a href="#sec-createresolvefunction">CreateResolveFunction</a>
+    (<i>promise</i>).
+    </li>
+
+    <li>Let <i>reject</i> be <a href="#sec-createrejectfunction">CreateRejectFunction</a>
+    (<i>promise</i>).
+    </li>
+
+    <li>Let <i>completion</i> be the result of calling the [[Call]] internal method of
+    <i>executor</i> with <b>undefined</b> as <i>thisArgument</i> and (<i>resolve</i>,
+    <i>reject</i>) as <i>argumentsList</i>.</li>
+
+    <li>If <i>completion</i> is an <a href="#sec-completion-record-specification-type">abrupt
+    completion</a> , then
+
+      <ol class="block">
+        <li>Let <i>status</i> be the result of calling the [[Call]] internal method of
+        <i>reject</i> with <b>undefined</b> as <i>thisArgument</i> and
+        (<i>completion</i>.[[value]]) as <i>argumentsList</i>.</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>promise</i>.</li>
+  </ol>
+</es-clause>

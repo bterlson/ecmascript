@@ -1,0 +1,65 @@
+<!doctype html>
+<es-clause title="CloneArrayBuffer(srcBuffer, srcByteOffset)" anchor="sec-clonearraybuffer">
+  <p>The abstract operation CloneArrayBuffer takes two parameters, an ArrayBuffer
+  <es-nt>srcBuffer</es-nt>, an integer <es-nt>srcByteOffset</es-nt>. It creates a new ArrayBufer
+  whose data is a copy of <es-nt>srcBuffer’s</es-nt> data starting at
+  <es-nt>srcByteOffset</es-nt>.This operation performs the follow steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>srcBuffer</i>) is Object and it has an
+      [[ArrayBufferData]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+      slot</a> .
+    </li>
+
+    <li>Let <i>srcBlock</i> be the value of <i>srcBuffer’s</i> [[ArrayBufferData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <i>srcBlock</i> is <b>undefined</b> or <b>null</b>, then throw a <b>TypeError</b>
+    exception.</li>
+
+    <li>Let <i>srcLength</i> be the value of <i>srcBuffer</i>’s [[ArrayBufferByteLength]]
+      <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>bufferConstructor</i> be the result of <a href="#sec-get-o-p">Get</a>
+    (<i>srcBuffer</i>, <code>"constructor"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>bufferConstructor</i>).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>srcByteOffset</i>≤<i>srcLength</i>.
+    </li>
+
+    <li>Let <i>cloneLength</i> be <i>srcLength</i>–<i>srcByteOffset.</i></li>
+
+    <li>If <i>bufferConstructor</i> is <b>undefined</b>, then let <i>bufferConstructor</i> be
+    %ArrayBuffer%.</li>
+
+    <li>Let <i>targetBuffer</i> be the result of calling <a href=
+    "#sec-allocatearraybuffer">AllocateArrayBuffer</a> (<i>bufferConstructor</i>).
+    </li>
+
+    <li>Let <i>status</i> be the result of <a href="#sec-setarraybufferdata">SetArrayBufferData</a>
+    (<i>data</i>, <i>cloneLength</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+    </li>
+
+    <li>Let <i>targetBlock</i> be the value of <i>targetBuffer’s</i> [[ArrayBufferData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Perform CopyDataBlock(<i>targetBlock</i>, 0, <i>srcBlock</i>, <i>srcByteOffset</i>,
+    <i>cloneLength</i>).</li>
+
+    <li>Return <i>targetBlock</i>.</li>
+  </ol>
+</es-clause>

@@ -1,0 +1,47 @@
+<!doctype html>
+<es-clause title="CallNormalize(resolve, reject) Functions" anchor=
+"sec-callnormalize-resolve-reject-functions">
+  <p>A CallNormalize function is an anonymous built-in function that calls a
+  <es-nt>loader</es-nt>'s normalize hook.</p>
+
+  <p>Each CallNormalize function has internal slots [[Loader]], [[Request]], [[RefererName]], and
+  [[RefererAddress]].</p>
+
+  <p>When a CallNormalize function <es-nt>F</es-nt> is called with arguments <es-nt>resolve</es-nt>
+  and <es-nt>reject</es-nt>, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>loader</i> be the value of <i>F</i>’s [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>request</i> be <i>F</i>’s [[Request]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>refererName</i> be the value of <i>F</i>’s [[RefererName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>refererAddress</i> be the value of <i>F</i>’s [[RefererAddress]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>loaderObj</i> be <i>loader</i>.[[LoaderObj]].</li>
+
+    <li>Let <i>normalizeHook</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>loaderObj</i>,
+    <code>"normalize"</code>).
+    </li>
+
+    <li>Let <i>name</i> be the result of calling the [[Call]] internal method of
+    <i>normalizeHook</i> passing <i>loaderObj</i> and (<i>request</i>, <i>refererName</i>,
+    <i>refererAddress</i>) as arguments.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>name</i>).
+    </li>
+
+    <li>Return the result of calling the [[Call]] internal method of <i>resolve</i> passing
+    <b>undefined</b> and (<i>name</i>) as arguments.</li>
+  </ol>
+</es-clause>

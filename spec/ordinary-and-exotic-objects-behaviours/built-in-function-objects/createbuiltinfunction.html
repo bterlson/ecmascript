@@ -1,0 +1,32 @@
+<!doctype html>
+<es-clause title="CreateBuiltinFunction(realm, steps) Abstract Operation" anchor=
+"sec-createbuiltinfunction">
+  <p>The abstract operation CreateBuiltinFunction takes arguments <es-nt>realm</es-nt> and
+  <es-nt>steps</es-nt>. It returns a bult-in function object created by the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>realm</i> is a <a href=
+      "#sec-code-realms">Realm</a> Record.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>steps</i> is either a set of algorithm
+      steps or other definition of a functions behaviour provided in this specification.
+    </li>
+
+    <li>Let <i>func</i> be a new built-in function object that when called performs the action
+    described by <i>steps</i>. The [[Realm]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>func</i> is step to
+    <i>realm</i>.
+    </li>
+
+    <li>Perform the <a href=
+    "#sec-addrestrictedfunctionproperties">AddRestrictedFunctionProperties</a> (<a href=
+    "#sec-addrestrictedfunctionproperties">9.2.8</a> ) abstract operation with argument
+    <i>func</i>.
+    </li>
+
+    <li>Return <i>func</i>.</li>
+  </ol>
+</es-clause>

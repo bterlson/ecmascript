@@ -1,0 +1,29 @@
+<!doctype html>
+<es-clause title="String Exotic Objects" anchor="sec-string-exotic-objects">
+  <p>A <i>String object</i> is an exotic object that encapsulates a String value and exposes
+  virtual integer indexed data properties corresponding to the individual code unit elements of the
+  string value. Exotic String objects always have a data property named <b>"length"</b> whose value
+  is the number of code unit elements in the encapsulated String value. Both the code unit data
+  properties and the <b>"length"</b> property are non-writable and non-configurable.</p>
+
+  <p>Exotic String objects have the same internal slots as ordinary objects. They also have a
+  [[StringData]] internal slot.</p>
+
+  <p>Exotic String objects provide alternative definitions for the following internal methods. All
+  of the other exotic String object essential internal methods that are not defined below are as
+  specified in <a href="#sec-ordinary-object-internal-methods-and-internal-slots">9.1</a> .</p>
+  <link rel="import" href="string-exotic-objects\string-exotic-objects-getownproperty-p.html">
+  <link rel="import" href=
+  "string-exotic-objects\string-exotic-objects-defineownproperty-p-desc.html">
+
+  <es-clause title="[[Enumerate]] ()" anchor="sec-string-exotic-objects-enumerate">
+    <p>When the [[Enumerate]] internal method of an exotic String object <es-nt>O</es-nt> is called
+    the following steps are taken:</p>
+  </es-clause>
+
+  <es-clause title="[[OwnPropertyKeys]] ( )" anchor="sec-string-exotic-objects-ownpropertykeys">
+    <p>When the [[OwnPropertyKeys]] internal method of an exotic String object <es-nt>O</es-nt> is
+    called the following steps are taken:</p>
+  </es-clause>
+  <link rel="import" href="string-exotic-objects\stringcreate.html">
+</es-clause>

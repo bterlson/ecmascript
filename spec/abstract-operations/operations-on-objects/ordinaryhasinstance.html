@@ -1,0 +1,61 @@
+<!doctype html>
+<es-clause title="OrdinaryHasInstance (C, O)" anchor="sec-ordinaryhasinstance">
+  <p>The abstract operation OrdinaryHasInstance implements the default algorithm for determining if
+  an object <es-nt>O</es-nt> inherits from the instance object inheritance path provided by
+  constructor <es-nt>C</es-nt>. This abstract operation performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>C</i>) is <b>false</b>, return
+    <b>false</b>.
+    </li>
+
+    <li>If <i>C</i> has a <a href="#sec-bound-function-exotic-objects">[[BoundTargetFunction]]</a>
+    <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> , then
+
+      <ol class="block">
+        <li>Let <i>BC</i> be the value of <i>C’s</i> <a href="#sec-bound-function-exotic-objects">
+          [[BoundTargetFunction]]</a> <a href=
+          "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>Return the result of <a href="#sec-instanceofoperator">InstanceofOperator</a>
+        (<i>O</i>,<i>BC</i>) (see <a href="#sec-instanceofoperator">12.8.4</a> ).
+        </li>
+      </ol>
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object,
+    return <b>false</b>.
+    </li>
+
+    <li>Let <i>P</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>C</i>,
+    <code>"prototype"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>P</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>P</i>) is not Object, throw
+    a <b>TypeError</b> exception.
+    </li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>Set <i>O</i> to the result of calling the [[GetPrototypeOf]] internal method of
+        <i>O</i> with no arguments.</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+        </li>
+
+        <li>If <i>O</i> is <code>null</code>, return <b>false</b>.</li>
+
+        <li>If <a href="#sec-samevalue">SameValue</a> (<i>P</i>, <i>O</i>) is <b>true</b>, return
+        <b>true</b>.
+        </li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

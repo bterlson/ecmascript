@@ -1,0 +1,107 @@
+<!doctype html>
+<es-clause title="String.raw ( callSite, ...substitutions)" anchor="sec-string.raw">
+  <p>The <code>String.raw</code> function may be called with a variable number of arguments. The
+  first argument is <es-nt>callSite</es-nt> and the remainder of the arguments form the rest
+  parameter <es-nt>substitutions</es-nt>. The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>substitutions</i> is a well-formed rest
+      parameter object.
+    </li>
+
+    <li>Let <i>cooked</i> be <a href="#sec-toobject">ToObject</a> (<i>callSite</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>cooked</i>).
+    </li>
+
+    <li>Let <i>rawValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>cooked</i>, <code>
+      "raw"</code>)<code>.</code>
+    </li>
+
+    <li>Let <i>raw</i> be <a href="#sec-toobject">ToObject</a> (<i>rawValue</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>raw</i>).
+    </li>
+
+    <li>Let <i>len</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>raw</i>,
+    <code>"length"</code>)<code>.</code>
+    </li>
+
+    <li>Let <i>literalSegments</i> be <a href="#sec-tolength">ToLength</a> (<i>len</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>literalSegments</i>).
+    </li>
+
+    <li>If <i>literalSegments</i> ≤ 0, then return the empty string.</li>
+
+    <li>Let <i>stringElements</i> be a new <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>nextIndex</i> be 0.</li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>Let <i>nextKey</i> be <a href="#sec-tostring">ToString</a> (<i>nextIndex</i>).
+        </li>
+
+        <li>Let <i>next</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>raw</i>,
+        <i>nextKey</i>).
+        </li>
+
+        <li>Let <i>nextSeg</i> be <a href="#sec-tostring">ToString</a> (<i>next</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextSeg</i>).
+        </li>
+
+        <li>Append in order the code unit elements of <i>nextSeg</i> to the end of
+        <i>stringElements</i>.</li>
+
+        <li>If <i>nextIndex</i> + 1 = <i>literalSegments</i>, then
+
+          <ol class="block">
+            <li>Return the string value whose elements are, in order, the elements in the
+              <a href="#sec-list-and-record-specification-type">List</a> <i>stringElements</i>. If
+              <i>length</i> is 0, the empty string is returned.
+            </li>
+          </ol>
+        </li>
+
+        <li>Let <i>next</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>substitutions</i>,
+        <i>nextKey</i>).
+        </li>
+
+        <li>Let <i>nextSub</i> be <a href="#sec-tostring">ToString</a> (<i>next</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextSub</i>).
+        </li>
+
+        <li>Append in order the code unit elements of <i>nextSub</i> to the end of
+        <i>stringElements</i>.</li>
+
+        <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>raw</code> function is <b>1</b>.</p>
+
+  <es-note>
+    <p>String.raw is intended for use as a tag function of a Tagged Template String (<a href=
+    "#sec-tagged-templates">12.2.7</a> ). When called as such the first argument will be a well
+    formed template call site object and the rest parameter will contain the substitution
+    values.</p>
+  </es-note>
+</es-clause>

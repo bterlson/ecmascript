@@ -1,0 +1,43 @@
+<!doctype html>
+<es-clause title="( ... argumentsList)" anchor="sec-typedarray">
+  <p>A <i>TypedArray</i> constructor with a list of arguments <i>argumentsList</i> performs the
+  following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>O</i> does not have a [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>If the value of <i>O’s</i> [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Set <i>O’s</i> [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to the String value from
+    the constructor name column in the row of <a href="#table-43">Table 43</a> corresponding to
+    this constructor.
+    </li>
+
+    <li>Let <i>F</i> be the <i>TypedArray</i> function object that was called.</li>
+
+    <li>Let <i>realmF</i> be <i>F’s</i> [[Realm]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>super</i> be <i>realmF’s</i> %TypedArray% intrinsic object.</li>
+
+    <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Call]] internal
+    method that invoked <i>F</i>.</li>
+
+    <li>Return the result of calling the [[Call]] internal method of <i>super</i> with <i>O</i> and
+    <i>argumentsList</i> as arguments.</li>
+  </ol>
+</es-clause>

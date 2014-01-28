@@ -1,0 +1,33 @@
+<!doctype html>
+<es-clause title="GetCapabilitiesExecutor Functions" anchor=
+"sec-getcapabilitiesexecutor-functions">
+  <p>A GetCapabilitiesExecutor function is an anonymous built-in function that has a [[Capability]]
+  <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+
+  <p>When a GetCapabilitiesExecutor function <es-nt>F</es-nt> is called with arguments
+  <es-nt>resolve</es-nt> and <es-nt>reject</es-nt> the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>F</i> has a [[Capability]] <a href=
+      "#sec-object-internal-methods-and-internal-slots">internal slot</a> whose value is a
+      PromiseCapability Record.
+    </li>
+
+    <li>Let <i>promiseCapability</i> be the value of <i>F</i>'s [[Capability]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <i>promiseCapability</i>.[[Resolve]] is not <b>undefined</b>, then throw a
+    <b>TypeError</b> exception.</li>
+
+    <li>If <i>promiseCapability</i>.[[Reject]] is not <b>undefined</b>, then throw a
+    <b>TypeError</b> exception.</li>
+
+    <li>Set <i>promiseCapability</i>.[[Resolve]] to <i>resolve</i>.</li>
+
+    <li>Set <i>promiseCapability</i>.[[Reject]] to <i>reject</i>.</li>
+
+    <li>Return <b>undefined</b>.</li>
+  </ol>
+</es-clause>

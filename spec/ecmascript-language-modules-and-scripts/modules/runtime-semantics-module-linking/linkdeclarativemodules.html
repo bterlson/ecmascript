@@ -1,0 +1,152 @@
+<!doctype html>
+<es-clause title="LinkDeclarativeModules ( loads, loader )" anchor="sec-linkdeclarativemodules">
+  <p>The abstract operation LinkDeclarativeModules with arguments <es-nt>loads</es-nt> and
+  <es-nt>loader</es-nt> performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>unlinked</i> be a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>For each <i>load</i> in <i>loads</i>, do
+
+      <ol class="block">
+        <li>If <i>load</i>.[[Status]] is not <b>linked</b>, then
+
+          <ol class="block">
+            <li>Let <i>module</i> be <a href=
+            "#sec-createmodulelinkagerecord">CreateModuleLinkageRecord</a> (<i>loader</i>,
+            <i>load</i>.[[Body]]).
+            </li>
+
+            <li>Let <i>pair</i> be the record {[[Module]]: <i>module</i>, [[Load]]:
+            <i>load</i>}.</li>
+
+            <li>Add <i>pair</i> to <i>unlinked</i>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>For each <i>pair</i> in <i>unlinked</i>, do
+
+      <ol class="block">
+        <li>Let <i>resolvedDeps</i> be a new empty <a href=
+        "#sec-list-and-record-specification-type">List</a> .
+        </li>
+
+        <li>Let <i>unlinkedDeps</i> be a new empty <a href=
+        "#sec-list-and-record-specification-type">List</a> .
+        </li>
+
+        <li>For each element <i>dep</i> in <i>pair</i>.[[Load]].[[Dependencies]], do
+
+          <ol class="block">
+            <li>Let <i>requestName</i> be <i>dep</i>.[[Key]].</li>
+
+            <li>Let <i>normalizedName</i> be <i>dep</i>.[[Value]].</li>
+
+            <li>If <i>loads</i> contains a record <i>load</i> such that
+            SameAs(<i>load</i>.[[Name]], <i>normalizedName</i>) is <b>true</b>, then
+
+              <ol class="block">
+                <li>If <i>load</i>.[[Status]] is <b>linked</b>, then
+
+                  <ol class="block">
+                    <li>Let <i>resolvedDep</i> be the record {[[Key]]: <i>requestName</i>,
+                    [[Value]]: <i>load</i>.[[Module]]}.</li>
+
+                    <li>Add <i>resolvedDep</i> to <i>resolvedDeps</i>.</li>
+                  </ol>
+                </li>
+
+                <li>Else,
+
+                  <ol class="block">
+                    <li>Let <i>otherPair</i> be the record in <i>unlinked</i> such that
+                    SameAs(<i>otherPair</i>.[[Load]].[[Name]], <i>normalizedName</i>) is
+                    <b>true</b>.</li>
+
+                    <li>Add the record {[[Key]]: <i>requestName</i>, [[Value]]:
+                    <i>otherPair</i>.[[Module]]} to <i>resolvedDeps</i>.</li>
+
+                    <li>Add <i>otherPair</i>.[[Load]] to <i>unlinkedDeps</i>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+
+            <li>Else,
+
+              <ol class="block">
+                <li>Let <i>module</i> be LoaderRegistryLookup(<i>loader</i>,
+                <i>normalizedName</i>).</li>
+
+                <li>If <i>module</i> is <b>null</b> then
+
+                  <ol class="block">
+                    <li>Let <i>error</i> be a new <b>ReferenceError</b> exception.</li>
+
+                    <li>Add <i>error</i> to <i>pair</i>.[[Module]].[[LinkErrors]].</li>
+                  </ol>
+                </li>
+
+                <li>Else, add the record {[[Key]]: <i>requestName</i>, [[Value]]: <i>module</i>} to
+                <i>resolvedDeps.</i></li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Set <i>pair</i>.[[Module]].[[Dependencies]] to <i>resolvedDeps</i>.</li>
+
+        <li>Set <i>pair</i>.[[Module]].[[UnlinkedDependencies]] to <i>unlinkedDeps</i>.</li>
+      </ol>
+    </li>
+
+    <li>For each <i>pair</i> in <i>unlinked</i>, do
+
+      <ol class="block">
+        <li>Perform <a href="#sec-resolveexportentries">ResolveExportEntries</a>
+        (<i>pair</i>.[[Module]], a new empty <a href=
+        "#sec-list-and-record-specification-type">List</a> .
+        </li>
+
+        <li>Perform <a href="#sec-resolveexports">ResolveExports</a> (<i>pair</i>.[[Module]]).
+        </li>
+      </ol>
+    </li>
+
+    <li>For each <i>pair</i> in <i>unlinked</i>, do
+
+      <ol class="block">
+        <li>Perform <a href="#sec-resolveimportentries">ResolveImportEntries</a>
+        (<i>pair</i>.[[Module]]).
+        </li>
+
+        <li>Perform <a href="#sec-linkimports">LinkImports</a> (<i>pair</i>.[[Module]]).
+        </li>
+      </ol>
+    </li>
+
+    <li>If there exists a <i>pair</i> in <i>unlinked</i> such that
+    <i>pair</i>.[[Module]].[[LinkErrors]] is not empty, choose one of the link errors and throw
+    it.</li>
+
+    <li>For each <i>pair</i> in <i>unlinked</i>, do
+
+      <ol class="block">
+        <li>Set <i>pair</i>.[[Load]].[[Module]] to <i>pair</i>.[[Module]].</li>
+
+        <li>Set <i>pair</i>.[[Load]].[[Status]] to <b>linked</b>.</li>
+
+        <li>Let <i>r</i> beFinishLoad(<i>loader</i>, <i>pair</i>.[[Load]]).</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>r</i>).
+        </li>
+      </ol>
+    </li>
+  </ol>
+  <link rel="import" href="linkdeclarativemodules\linkimports.html">
+</es-clause>

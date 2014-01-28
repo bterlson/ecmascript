@@ -1,0 +1,26 @@
+<!doctype html>
+<es-clause title="Direct Call to Eval" anchor="sec-direct-call-to-eval">
+  <p>A direct call to the eval function is one that is expressed as a <es-nt>CallExpression</es-nt>
+  that meets all of the following conditions:</p>
+
+  <ul>
+    <li>
+      <p>The <a href="#sec-reference-specification-type">Reference</a> that is the result of
+      evaluating the MemberExpression in the CallExpression has an environment record as its base
+      value and its reference name is "eval".</p>
+    </li>
+
+    <li>
+      <p>If the base value of the <a href="#sec-reference-specification-type">Reference</a> has
+      true acalls its withEnvironment value, then its binding object is an object that uses the
+      ordinary definition of the [[Call]] internal method (<a href=
+      "#sec-built-in-function-objects-call-thisargument-argumentslist">9.3.1</a> )</p>
+    </li>
+
+    <li>
+      <p>The result of calling the abstract operation <a href="#sec-getvalue">GetValue</a> with
+      that <a href="#sec-reference-specification-type">Reference</a> as the argument is the
+      standard built-in function defined in <a href="#sec-eval-x">18.2.1</a> .</p>
+    </li>
+  </ul>
+</es-clause>

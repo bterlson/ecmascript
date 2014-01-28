@@ -1,0 +1,111 @@
+<!doctype html>
+<es-clause title="[[Set]] ( P, V, Receiver)" anchor=
+"sec-ordinary-object-internal-methods-and-internal-slots-set-p-v-receiver">
+  <p>When the [[Set]] internal method of <es-nt>O</es-nt> is called with <a href=
+  "#sec-object-type">property key</a> <es-nt>P</es-nt>, value <es-nt>V</es-nt>, and <a href=
+  "#sec-ecmascript-language-types">ECMAScript language value</a> <es-nt>Receiver</es-nt>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+    </li>
+
+    <li>Let <i>ownDesc</i> be the result of calling the [[GetOwnProperty]] internal method of
+    <i>O</i> with argument <i>P</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>ownDesc</i>).
+    </li>
+
+    <li>If <i>ownDesc</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>parent</i> be the result of calling the [[GetPrototypeOf]] internal method of
+        <i>O</i>.</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>parent</i>).
+        </li>
+
+        <li>If <i>parent</i> is not <b>null</b>, then
+
+          <ol class="block">
+            <li>Return the result of calling the [[Set]] internal method of <i>parent</i> with
+            arguments <i>P</i>, <i>V</i>, and <i>Receiver</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Let <i>ownDesc</i> be the PropertyDescriptor{[[Value]]: <b>undefined</b>,
+            [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
+            <b>true</b>}.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>ownDesc</i>) is <b>true</b>,
+    then
+
+      <ol class="block">
+        <li>If <i>ownDesc</i>.[[Writable]] is <b>false</b>, return <b>false</b>.</li>
+
+        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>Receiver</i>) is not
+        Object, return <b>false</b>.
+        </li>
+
+        <li>Let <i>existingDescriptor</i> be the result of calling the [[GetOwnProperty]] internal
+        method of <i>Receiver</i> with argument <i>P</i>.</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>existingDescriptor</i>).
+        </li>
+
+        <li>If <i>existingDescriptor</i> is not <b>undefined</b>, then
+
+          <ol class="block">
+            <li>Let <i>valueDesc</i> be the PropertyDescriptor{[[Value]]: <i>V</i>}.</li>
+
+            <li>Return the result of calling the [[DefineOwnProperty]] internal method of
+            <i>Receiver</i> with arguments <i>P</i> and <i>valueDesc</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else <i>Receiver</i> does not currently have a property <i>P</i>,
+
+          <ol class="block">
+            <li>Return the result of performing <a href=
+            "#sec-createdataproperty">CreateDataProperty</a> (<i>Receiver</i>, <i>P</i>, <i>V</i>).
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <a href="#sec-isaccessordescriptor">IsAccessorDescriptor</a> (<i>ownDesc</i>) is
+    <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>setter</i> be <i>ownDesc</i>.[[Set]].</li>
+
+        <li>If <i>setter</i> is <b>undefined</b>, return <b>false</b>.</li>
+
+        <li>Let <i>setterResult</i> be the result of calling the [[Call]] internal method of
+        <i>setter</i> providing <i>Receiver</i> as <i>thisArgument</i> and a new <a href=
+        "#sec-list-and-record-specification-type">List</a> containing <i>V</i> as
+        <i>argumentsList</i>.
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>setterResult</i>).
+        </li>
+
+        <li>Return <b>true</b>.</li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

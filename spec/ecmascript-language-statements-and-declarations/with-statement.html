@@ -1,0 +1,34 @@
+<!doctype html>
+<es-clause title="TheStatement" anchor="sec-with-statement">
+  <h2>Syntax</h2>
+
+  <es-production name="WithStatement" params="Yield, Return">
+    <es-rhs>with ( <es-nt params="In, ?Yield">Expression</es-nt> ) <es-nt params=
+    "?Yield, ?Return">Statement</es-nt></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>The <code>with</code> statement adds an <a href="#sec-object-environment-records">object
+    environment record</a> for a computed object to the <a href="#sec-lexical-environments">lexical
+    environment</a> of <a href="#sec-execution-contexts">the running execution context</a> . It
+    then executes a statement using this augmented <a href="#sec-lexical-environments">lexical
+    environment</a> . Finally, it restores the original <a href="#sec-lexical-environments">lexical
+    environment</a> .</p>
+  </es-note>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-with-statement-static-semantics-early-errors">
+    <es-production name="WithStatement" class="inline">
+      <es-rhs>with ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if the code that matches this production is contained in <a href=
+        "#sec-strict-mode-code">strict code</a> .</p>
+      </li>
+    </ul>
+  </es-clause>
+  <link rel="import" href="with-statement\with-statement-static-semantics-vardeclarednames.html">
+  <link rel="import" href="with-statement\with-statement-runtime-semantics-evaluation.html">
+</es-clause>

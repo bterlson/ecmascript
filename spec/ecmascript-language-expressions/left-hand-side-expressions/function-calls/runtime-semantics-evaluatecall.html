@@ -1,0 +1,86 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: EvaluateCall" anchor="sec-runtime-semantics-evaluatecall">
+  <p>The abstract operation EvaluateCall takes as arguments a value <i>ref</i>, and a syntactic
+  grammar production <i>arguments</i>, and a Boolean argument <i>tailPosition</i>. It performs the
+  following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>func</i> be <a href="#sec-getvalue">GetValue</a> (<i>ref</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>func</i>).
+    </li>
+
+    <li>Let <i>argList</i> be the result of performing ArgumentListEvaluation of
+    <i>arguments</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>argList</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>func</i>) is not Object,
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>func</i>) is <b>false</b>, throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>ref</i>) is <a href=
+    "#sec-reference-specification-type">Reference</a> , then
+
+      <ol class="block">
+        <li>If <a href="#sec-reference-specification-type">IsPropertyReference</a> (<i>ref</i>) is
+        <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>thisValue</i> be <a href="#sec-getthisvalue">GetThisValue</a> (<i>ref</i>).
+            </li>
+          </ol>
+        </li>
+
+        <li>Else, the base of <i>ref</i> is an <a href="#sec-environment-records">Environment
+        Record</a>
+
+          <ol class="block">
+            <li>Let <i>thisValue</i> be the result of calling the WithBaseObject concrete method of
+            <a href="#sec-reference-specification-type">GetBase</a> (<i>ref</i>).
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Else <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>ref</i>) is not
+      <a href="#sec-reference-specification-type">Reference</a> ,
+
+      <ol class="block">
+        <li>Let <i>thisValue</i> be <b>undefined</b>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>tailPosition</i> is <b>true</b>, then perform the PrepareForTailCall abstract
+    operation.</li>
+
+    <li>Let <i>result</i> be the result of calling the [[Call]] internal method on <i>func</i>,
+    passing <i>thisValue</i> as the <i>thisArgument</i> and <i>argList</i> as the
+    <i>argumentsList</i>.</li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : If <i>tailPosition</i> is <b>true</b>, the
+      above call will not return here, but instead evaluation will continue with the resumption of
+      <i>leafCallerContext</i> as <a href="#sec-execution-contexts">the running execution
+      context</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : If <i>result</i> is not an <a href=
+      "#sec-completion-record-specification-type">abrupt completion</a> then <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>result</i>) is an <a href=
+      "#sec-ecmascript-language-types">ECMAScript language type</a>
+    </li>
+
+    <li>Return <i>result</i>.</li>
+  </ol>
+</es-clause>

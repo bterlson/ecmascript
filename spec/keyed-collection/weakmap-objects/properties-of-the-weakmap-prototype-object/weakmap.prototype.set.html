@@ -1,0 +1,48 @@
+<!doctype html>
+<es-clause title="WeakMap.prototype.set ( key , value )" anchor="sec-weakmap.prototype.set">
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>M)</i> is not Object, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>M</i> does not have a [[WeakMapData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> throw a <b>TypeError</b>
+    exception.
+    </li>
+
+    <li>Let <i>entries</i> be the <a href="#sec-list-and-record-specification-type">List</a> that
+    is the value of <i>M</i>’s [[WeakMapData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <i>entries</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>key</i>) is not Object,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+
+      <ol class="block">
+        <li>If <i>p</i>.[[key]] and <i>key</i> are the same object, then
+
+          <ol class="block">
+            <li>Set <i>p</i>.[[value]] to <i>value.</i></li>
+
+            <li>Return <i>M</i>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>p</i> be the Record {[[key]]: <i>key</i>, [[value]]: <i>value</i>}.</li>
+
+    <li>Append <i>p</i> as the last element of <i>entries</i>.</li>
+
+    <li>Return <i>M</i>.</li>
+  </ol>
+</es-clause>

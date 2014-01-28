@@ -1,0 +1,176 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: ClassDefinitionEvaluation" anchor=
+"sec-runtime-semantics-classdefinitionevaluation">
+  <p>With parameter <es-nt>className</es-nt>.</p>
+
+  <es-production name="ClassTail" class="inline">
+    <es-rhs><es-nt optional>ClassHeritage</es-nt> { <es-nt>ClassBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>ClassHeritage</i><sub>opt</sub> is not present, then
+
+      <ol class="block">
+        <li>Let <i>protoParent</i> be the intrinsic object %ObjectPrototype%.</li>
+
+        <li>Let <i>constructorParent</i> be the intrinsic object %FunctionPrototype%.</li>
+      </ol>
+    </li>
+
+    <li>Else
+
+      <ol class="block">
+        <li>Let <i>superclass</i> be the result of evaluating <i>ClassHeritage</i>.</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>superclass</i>).
+        </li>
+
+        <li>If <i>superclass</i> is <b>null</b>, then
+
+          <ol class="block">
+            <li>Let <i>protoParent</i> be <b>null</b>.</li>
+
+            <li>Let <i>constructorParent</i> be the intrinsic object %FunctionPrototype%.</li>
+          </ol>
+        </li>
+
+        <li>Else if <a href="#sec-isconstructor">IsConstructor</a> (<i>superclass</i>) is
+        <b>false</b>, then throw a <b>TypeError</b> exception.
+        </li>
+
+        <li>Else
+
+          <ol class="block">
+            <li>Let <i>protoParent</i> be the result of <a href="#sec-get-o-p">Get</a>
+            (<i>superclass</i>, <code>"prototype"</code>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>protoParent</i>).
+            </li>
+
+            <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>protoParent</i>) is
+            neither Object nor Null, throw a <b>TypeError</b> exception.
+            </li>
+
+            <li>Let <i>constructorParent</i> be <i>superclass</i>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>proto</i> be the result of the abstract operation <a href=
+    "#sec-objectcreate">ObjectCreate</a> with argument <i>protoParent</i>.
+    </li>
+
+    <li>Let <i>lex</i> be the <a href="#sec-execution-contexts">LexicalEnvironment</a> of
+      <a href="#sec-execution-contexts">the running execution context</a> .
+    </li>
+
+    <li>If <i>className</i> is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>scope</i> be the result of calling <a href=
+        "#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a> passing <i>lex</i> as the
+        argument
+        </li>
+
+        <li>Let <i>envRec</i> be <i>scope’s</i> environment record.</li>
+
+        <li>Call the CreateImmutableBinding concrete method of <i>envRec</i> passing
+        <i>className</i> as the argument.</li>
+
+        <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
+        "#sec-execution-contexts">LexicalEnvironment</a> to <i>scope</i>.
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>constructor</i> be ConstructorMethod of <i>ClassBody</i>.</li>
+
+    <li>If <i>constructor</i> is empty, then
+
+      <ol class="block">
+        <li>If <i>ClassHeritage</i><sub>opt</sub> is present, then
+
+          <ol class="block">
+            <li>Let <i>constructor</i> be the result of parsing the String <code>"constructor(...
+            args){return super</code> <code>(...args);}"</code> using the syntactic grammar with
+            the goal symbol <i>MethodDefinition.</i></li>
+          </ol>
+        </li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Let <i>constructor</i> be the result of parsing the String <code>"constructor( ){
+            }"</code> using the syntactic grammar with the goal symbol
+            <i>MethodDefinition.</i></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>strict</i> be <b>true</b>.</li>
+
+    <li>Let <i>constructorInfo</i> be the result of performing DefineMethod for <i>constructor</i>
+    with arguments <i>proto</i> and <i>constructorParent</i> as the optional
+    <i>functionPrototype</i> argument.</li>
+
+    <li>Let <i>F</i> be <i>constructorInfo</i>.[[closure]]</li>
+
+    <li>Perform the abstract operation <a href="#sec-makeconstructor">MakeConstructor</a> with
+    argument <i>F</i> and <b>false</b> as the optional <i>writablePrototype</i> argument and
+    <i>proto</i> as the optional <i>prototype</i> argument.
+    </li>
+
+    <li>If <i>className</i> is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Call the InitialiseBinding concrete method of <i>envRec</i> passing <i>className</i>
+        and <i>F</i> as the arguments.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>desc</i> be the PropertyDescriptor{[[Enumerable]]: <b>false</b>, [[Writable]]:
+    <b>true</b>, [[Configurable]]: <b>true</b>}.</li>
+
+    <li>Call the [[DefineOwnProperty]] internal method of <i>proto</i> with arguments
+    <code>"constructor"</code> and <i>desc</i></li>
+
+    <li>Let <i>protoMethods</i> be PrototypeMethodDefinitions of <i>ClassBody</i>.</li>
+
+    <li>For each <i>MethodDefinition</i> <i>m</i> in order from <i>protoMethods</i>
+
+      <ol class="block">
+        <li>Let <i>status</i> be the result of performing PropertyDefinitionEvaluation for <i>m</i>
+        with argument <i>proto</i>.</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>staticMethods</i> be StaticMethodDefinitions of <i>ClassBody</i>.</li>
+
+    <li>For each <i>MethodDefinition</i> <i>s</i> in order from <i>staticMethods</i>
+
+      <ol class="block">
+        <li>Let <i>status</i> be the result of performing PropertyDefinitionEvaluation for <i>s</i>
+        with argument <i>F</i>.</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
+    "#sec-execution-contexts">LexicalEnvironment</a> to <i>lex</i>.
+    </li>
+
+    <li>Return <i>F</i>.</li>
+  </ol>
+</es-clause>

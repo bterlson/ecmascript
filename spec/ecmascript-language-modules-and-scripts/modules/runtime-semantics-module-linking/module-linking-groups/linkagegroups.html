@@ -1,0 +1,79 @@
+<!doctype html>
+<es-clause title="LinkageGroups ( start )" anchor="sec-linkagegroups">
+  <p>The abstract operation LinkageGroups with argument <es-nt>start</es-nt> performs the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>start</i> is a <a href=
+      "#sec-list-and-record-specification-type">List</a> of <a href="#sec-linkset-records">LinkSet
+      Records</a> .
+    </li>
+
+    <li>Let <i>G</i> be the linkage graph of <i>start</i>.</li>
+
+    <li>If there are any mixed dependency cycles in <i>G</i>, throw a new Syntax Error.</li>
+
+    <li>For each <i>load</i> in <i>G</i>, do
+
+      <ol class="block">
+        <li>Let <i>n</i> be the largest dependency group count of all acyclic dependency chains in
+        <i>G</i> starting from <i>load</i>.</li>
+
+        <li>Set <i>load</i>.[[GroupIndex]] to <i>n</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>declarativeGroupCount</i> be the largest [[GroupIndex]] of any <i>load</i> in
+    <i>G</i> such that <i>load</i>.[[Kind]] is declarative.</li>
+
+    <li>Let <i>declarativeGroups</i> be a new <a href=
+    "#sec-list-and-record-specification-type">List</a> of length <i>declarativeGroupCount</i> where
+    each element is a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>dynamicGroupCount</i> be the largest [[GroupIndex]] of any <i>load</i> in <i>G</i>
+    such that <i>load</i>.[[Kind]] is dynamic.</li>
+
+    <li>Let <i>dynamicGroups</i> be a new <a href=
+    "#sec-list-and-record-specification-type">List</a> of length <i>dynamicGroupCount</i> where
+    each element is a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>visited</i> be a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>For each <i>load</i> in <i>start</i>, do
+
+      <ol class="block">
+        <li>Perform <a href="#sec-buildlinkagegroups">BuildLinkageGroups</a> (<i>load</i>,
+        <i>declarativeGroups</i>, <i>dynamicGroups</i>, and <i>visited</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>If any <i>load</i> in the first element of <i>declarativeGroups</i> has a dependency on a
+    load record of [[Kind]] dynamic, then
+
+      <ol class="block">
+        <li>Let <i>groups</i> be a <a href="#sec-list-and-record-specification-type">List</a>
+        constructed by interleaving the elements of <i>dynamicGroups</i> and
+        <i>declarativeGroups</i>, starting with the former.
+        </li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>let <i>groups</i> be a <a href="#sec-list-and-record-specification-type">List</a>
+        constructed by interleaving the elements of <i>declarativeGroups</i> and
+        <i>dynamicGroups</i>, starting with the former.
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>groups</i>.</li>
+  </ol>
+</es-clause>

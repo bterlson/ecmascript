@@ -1,0 +1,33 @@
+<!doctype html>
+<es-clause title="Static Semantics:" anchor=
+"sec-identifiers-and-identifier-names-static-semantics-stringvalue">
+  <p>See also: <a href="#sec-identifier-reference-static-semantics-stringvalue">12.1.2.2</a> ,
+  <a href="#sec-let-and-const-declarations-static-semantics-stringvalue">13.2.1.4</a> .</p>
+
+  <es-production name="Identifier" type="lexical" class="inline">
+    <es-rhs><es-nt>IdentifierName</es-nt> <es-gmod>but not
+    <es-nt>ReservedWord</es-nt></es-gmod></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+    <i>IdentifierName</i>.
+    </li>
+  </ol>
+
+  <es-production name="IdentifierName" type="lexical">
+    <es-rhs><es-nt>IdentifierStart</es-nt></es-rhs>
+
+    <es-rhs><es-nt>IdentifierName</es-nt> <es-nt>IdentifierPart</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the String value consisting of the sequence of code units corresponding to
+    <i>IdentifierName</i>. In determining the sequence any occurrences of <code>\</code>
+    <i>UnicodeEscapeSequence</i> are first replaced with the code point represented by the
+    <i>UnicodeEscapeSequence</i> and then the code points of the entire <i>IdentifierName</i> are
+    converted to code units by UTF-16 Encoding (<a href=
+    "#sec-static-semantics-utf-16-encoding">10.1.1</a> ) each code point.
+    </li>
+  </ol>
+</es-clause>

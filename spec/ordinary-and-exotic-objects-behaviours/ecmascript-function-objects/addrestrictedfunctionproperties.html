@@ -1,0 +1,65 @@
+<!doctype html>
+<es-clause title="AddRestrictedFunctionProperties Abstract Operation" anchor=
+"sec-addrestrictedfunctionproperties">
+  <p>The abstract operation AddRestrictedFunctionProperties is called with a function object
+  <es-nt>F</es-nt> as its argument. It performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>thrower</i> be the %ThrowTypeError% intrinsic function Object.</li>
+
+    <li>Let <i>status</i> be the result of <a href=
+    "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>F</i>, <code>"caller"</code>,
+    PropertyDescriptor {[[Get]]: <i>thrower</i>, [[Set]]: <i>thrower</i>, [[Enumerable]]:
+    <b>false</b>, [[Configurable]]: <b>false</b>}).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+    </li>
+
+    <li>Return the result of <a href="#sec-definepropertyorthrow">DefinePropertyOrThrow</a>
+    (<i>F</i> , <code>"arguments"</code>, PropertyDescriptor {[[Get]]: <i>thrower</i>, [[Set]]: <i>
+      thrower</i>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}).
+    </li>
+  </ol>
+
+  <p>The %ThrowTypeError% object is a unique function object that is defined once for each <a href=
+  "#sec-code-realms">Realm</a> as follows:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : %FunctionPrototype% for <a href=
+      "#sec-execution-contexts">the current Realm</a> has already been initialised.
+    </li>
+
+    <li>Let <i>functionPrototype</i> be the intrinsic object %FunctionPrototype%.</li>
+
+    <li>Let <i>scope</i> be <a href="#sec-global-environment-records">the Global Environment</a> of
+    <a href="#sec-execution-contexts">the current Realm</a> .
+    </li>
+
+    <li>Let <i>formalParameters</i> be the syntactic production: <es-production name=
+    "FormalParameters" class="inline"><es-rhs constraint=
+    "empty"></es-rhs></es-production> .</li>
+
+    <li>Let <i>body</i> be the syntactic production: <es-production name="FunctionBody"
+    class=
+    "inline"><es-rhs><es-nt>ThrowTypeError</es-nt></es-rhs></es-production>
+    .</li>
+
+    <li>Let <i>F</i> be the result of performing <a href=
+    "#sec-functionallocate">FunctionAllocate</a> with arguments <i>functionPrototype</i> and
+    <b>true</b>.
+    </li>
+
+    <li>Let %ThrowTypeError% be <i>F</i>.</li>
+
+    <li>Perform the abstract operation <a href="#sec-functioninitialise">FunctionInitialise</a>
+    with arguments <i>F</i>, Normal, <i>formalParameters</i>, <i>body,</i> and <i>scope</i>.
+    </li>
+
+    <li>Call the [[PreventExtensions]] internal method of <i>F</i>.</li>
+
+    <li>Return <i>F.</i></li>
+  </ol>
+</es-clause>

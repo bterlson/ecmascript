@@ -1,0 +1,166 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: RepeatMatcher Abstract Operation" anchor=
+"sec-runtime-semantics-repeatmatcher-abstract-operation">
+  <p>The abstract operation RepeatMatcher takes eight parameters, a Matcher <es-nt>m</es-nt>, an
+  integer <es-nt>min</es-nt>, an integer (or ∞) <es-nt>max</es-nt>, a Boolean
+  <es-nt>greedy</es-nt>, a State <es-nt>x</es-nt>, a Continuation <es-nt>c</es-nt>, an integer
+  <es-nt>parenIndex</es-nt>, and an integer <es-nt>parenCount</es-nt>, and performs the
+  following:</p>
+
+  <ol class="proc">
+    <li>If <i>max</i> is zero, then call <i>c</i>(<i>x</i>) and return its result.</li>
+
+    <li>Create an internal Continuation closure <i>d</i> that takes one State argument <i>y</i> and
+    performs the following:
+
+      <ol class="nested proc">
+        <li>If <i>min</i> is zero and <i>y</i>'s <i>endIndex</i> is equal to <i>x</i>'s
+        <i>endIndex</i>, then return <b>failure</b>.</li>
+
+        <li>If <i>min</i> is zero then let <i>min2</i> be zero; otherwise let <i>min2</i> be
+        <i>min</i>–1.</li>
+
+        <li>If <i>max</i> is ∞, then let <i>max2</i> be ∞; otherwise let <i>max2</i> be
+        <i>max</i>–1.</li>
+
+        <li>Call RepeatMatcher(<i>m</i>, <i>min2</i>, <i>max2</i>, <i>greedy</i>, <i>y</i>,
+        <i>c</i>, <i>parenIndex</i>, <i>parenCount</i>) and return its result.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>cap</i> be a fresh copy of <i>x</i>'s <i>captures</i> <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>For every integer <i>k</i> that satisfies <i>parenIndex</i> &lt; <i>k</i> and <i>k</i> ≤
+    <i>parenIndex</i>+<i>parenCount</i>, set <i>cap</i>[<i>k</i>] to <b>undefined</b>.</li>
+
+    <li>Let <i>e</i> be <i>x</i>'s <i>endIndex</i>.</li>
+
+    <li>Let <i>xr</i> be the State (<i>e</i>, <i>cap</i>).</li>
+
+    <li>If <i>min</i> is not zero, then call <i>m</i>(<i>xr</i>, <i>d</i>) and return its
+    result.</li>
+
+    <li>If <i>greedy</i> is <b>false</b>, then
+
+      <ol class="block">
+        <li>Call <i>c</i>(<i>x</i>) and let <i>z</i> be its result.</li>
+
+        <li>If <i>z</i> is not <b>failure</b>, return <i>z</i>.</li>
+
+        <li>Call <i>m</i>(<i>xr</i>, <i>d</i>) and return its result.</li>
+      </ol>
+    </li>
+
+    <li>Call <i>m</i>(<i>xr</i>, <i>d</i>) and let <i>z</i> be its result.</li>
+
+    <li>If <i>z</i> is not <b>failure</b>, return <i>z</i>.</li>
+
+    <li>Call <i>c</i>(<i>x</i>) and return its result.</li>
+  </ol>
+
+  <es-note>
+    <p>An <es-nt>Atom</es-nt> followed by a <es-nt>Quantifier</es-nt> is repeated the number of
+    times specified by the <es-nt>Quantifier</es-nt>. A <es-nt>Quantifier</es-nt> can be
+    non-greedy, in which case the <es-nt>Atom</es-nt> pattern is repeated as few times as possible
+    while still matching the sequel, or it can be greedy, in which case the <es-nt>Atom</es-nt>
+    pattern is repeated as many times as possible while still matching the sequel. The
+    <es-nt>Atom</es-nt> pattern is repeated rather than the input character sequence that it
+    matches, so different repetitions of the <es-nt>Atom</es-nt> can match different input
+    substrings.</p>
+  </es-note>
+
+  <es-note>
+    <p>If the <es-nt>Atom</es-nt> and the sequel of the regular expression all have choice points,
+    the <es-nt>Atom</es-nt> is first matched as many (or as few, if non-greedy) times as possible.
+    All choices in the sequel are tried before moving on to the next choice in the last repetition
+    of <es-nt>Atom</es-nt>. All choices in the last (n<sup>th</sup> ) repetition of
+    <es-nt>Atom</es-nt> are tried before moving on to the next choice in the next-to-last
+    (n–1)<sup>st</sup> repetition of <es-nt>Atom</es-nt>; at which point it may turn out that more
+    or fewer repetitions of <es-nt>Atom</es-nt> are now possible; these are exhausted (again,
+    starting with either as few or as many as possible) before moving on to the next choice in the
+    (n-1)<sup>st</sup> repetition of <es-nt>Atom</es-nt> and so on.</p>
+
+    <p>Compare</p>
+    <pre>
+/a[a-z]{2,4}/.exec("abcdefghi")
+</pre>
+
+    <p>which returns <code>"abcde"</code> with</p>
+    <pre>
+/a[a-z]{2,4}?/.exec("abcdefghi")
+</pre>
+
+    <p>which returns <code>"abc"</code>.</p>
+
+    <p>Consider also</p>
+    <pre>
+/(aa|aabaac|ba|b|c)*/.exec("aabaac")
+</pre>
+
+    <p>which, by the choice point ordering above, returns the array</p>
+    <pre>
+["aaba", "ba"]
+</pre>
+
+    <p>and not any of:</p>
+    <pre>
+["aabaac", "aabaac"]
+</pre>
+    <pre>
+["aabaac", "c"]
+</pre>
+
+    <p>The above ordering of choice points can be used to write a regular expression that
+    calculates the greatest common divisor of two numbers (represented in unary notation). The
+    following example calculates the gcd of 10 and 15:</p>
+    <pre>
+"aaaaaaaaaa,aaaaaaaaaaaaaaa".replace(/^(a+)\1*,\1+$/,"$1")
+</pre>
+
+    <p>which returns the gcd in unary notation <code>"aaaaa"</code>.</p>
+  </es-note>
+
+  <es-note>
+    <p>Step 4 of the RepeatMatcher clears <es-nt>Atom's</es-nt> captures each time
+    <es-nt>Atom</es-nt> is repeated. We can see its behaviour in the regular expression</p>
+    <pre>
+/(z)((a+)?(b+)?(c))*/.exec("zaacbbbcac")
+</pre>
+
+    <p>which returns the array</p>
+    <pre>
+["zaacbbbcac", "z", "ac", "a", undefined, "c"]
+</pre>
+
+    <p>and not</p>
+    <pre>
+["zaacbbbcac", "z", "ac", "a", "bbb", "c"]
+</pre>
+
+    <p>because each iteration of the outermost <code>*</code> clears all captured Strings contained
+    in the quantified <es-nt>Atom</es-nt>, which in this case includes capture Strings numbered 2,
+    3, 4, and 5.</p>
+  </es-note>
+
+  <es-note>
+    <p>Step 1 of the RepeatMatcher's <es-nt>d</es-nt> closure states that, once the minimum number
+    of repetitions has been satisfied, any more expansions of <es-nt>Atom</es-nt> that match the
+    empty character sequence are not considered for further repetitions. This prevents the regular
+    expression engine from falling into an infinite loop on patterns such as:</p>
+    <pre>
+/(a*)*/.exec("b")
+</pre>
+
+    <p>or the slightly more complicated:</p>
+    <pre>
+/(a*)b\1+/.exec("baaaac")
+</pre>
+
+    <p>which returns the array</p>
+    <pre>
+["b", ""]
+</pre>
+  </es-note>
+</es-clause>

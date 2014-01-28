@@ -1,0 +1,170 @@
+<!doctype html>
+<es-clause title="GeneratorFunction (p1, p2, … , pn, body)" anchor="sec-generatorfunction">
+  <p>The last argument specifies the body (executable code) of a generator function; any preceding
+  arguments specify formal parameters.</p>
+
+  <p>When the <code>GeneratorFunction</code> function is called with some arguments
+  <es-nt>p1</es-nt>, <es-nt>p2</es-nt>, … , <es-nt>pn</es-nt>, <es-nt>body</es-nt> (where
+  <es-nt>n</es-nt> might be 0, that is, there are no “<es-nt>p</es-nt>” arguments, and where
+  <es-nt>body</es-nt> might also not be provided), the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>argCount</i> be the total number of arguments passed to this function
+    invocation.</li>
+
+    <li>Let <i>P</i> be the empty String.</li>
+
+    <li>If <i>argCount</i> = 0, let <i>bodyText</i> be the empty String.</li>
+
+    <li>Else if <i>argCount</i> = 1, let <i>bodyText</i> be that argument.</li>
+
+    <li>Else <i>argCount</i> &gt; 1,
+
+      <ol class="block">
+        <li>Let <i>firstArg</i> be the first argument.</li>
+
+        <li>Let <i>P</i> be <a href="#sec-tostring">ToString</a> (<i>firstArg</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>P</i>).
+        </li>
+
+        <li>Let <i>k</i> be 2.</li>
+
+        <li>Repeat, while <i>k</i> &lt; <i>argCount</i>
+
+          <ol class="block">
+            <li>Let <i>nextArg</i> be the <i>k</i>’th argument.</li>
+
+            <li>Let <i>nextArgString</i> be <a href="#sec-tostring">ToString</a> (<i>nextArg</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextArgString</i>).
+            </li>
+
+            <li>Let <i>P</i> be the result of concatenating the previous value of <i>P</i>, the
+            String <code>","</code> (a comma), and <i>nextArgString</i>.</li>
+
+            <li>Increase <i>k</i> by 1.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>bodyText</i> be the <i>k</i>’th argument.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>bodyText</i> be <a href="#sec-tostring">ToString</a> (<i>bodyText</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>bodyText</i>).
+    </li>
+
+    <li>Let <i>parameters</i> be the result of parsing <i>P</i>, interpreted as UTF-16 encoded
+    Unicode text as described in <a href="#sec-ecmascript-language-source-code">clause 10</a>
+    .1.1<i>,</i> using <i>FormalParameters</i> as the goal symbol. Throw a <b>SyntaxError</b>
+    exception if the parse fails.
+    </li>
+
+    <li>Let <i>funcBody</i> be the result of parsing <i>bodyText</i>, interpreted as UTF-16 encoded
+    Unicode text as described in <a href="#sec-ecmascript-language-source-code">clause 10</a>
+    .1.1<i>,</i> using <i>FunctionBody</i><sub>[Yield]</sub> as the goal symbol. Throw a
+    <b>SyntaxError</b> exception if the parse fails or if any static semantics errors are detected.
+    </li>
+
+    <li>If IsSimpleParameterList of <i>parameters</i> is <b>false</b> and any element of the
+    BoundNames of <i>parameters</i> also occurs in the VarDeclaredNames of <i>funcBody</i>, then
+    throw a <b>SyntaxError</b> exception.</li>
+
+    <li>If any element of the BoundNames of <i>parameters</i> also occurs in the
+    LexicallyDeclaredNames of <i>funcBody</i>, then throw a <b>SyntaxError</b> exception.</li>
+
+    <li>If <i>bodyText</i> is <a href="#sec-strict-mode-code">strict mode code</a> (see <a href=
+    "#sec-strict-mode-code">10.2.1</a> ) then let <i>strict</i> be <b>true</b>, else let
+    <i>strict</i> be <b>false</b>.
+    </li>
+
+    <li>Let <i>scope</i> be <a href="#sec-global-environment-records">the Global Environment</a> .
+    </li>
+
+    <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>F</i>) is not Object or if
+    <i>F</i> does not have a [[Code]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> or if the value of [[Code]]
+    is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>C</i> be the function that is currently being evaluated.</li>
+
+        <li>Let <i>proto</i> be the result of <a href=
+        "#sec-getprototypefromconstructor">GetPrototypeFromConstructor</a> (<i>C</i>,
+        <code>"%Generator%"</code>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>proto</i>).
+        </li>
+
+        <li>Let <i>F</i> be the result of calling <a href=
+        "#sec-functionallocate">FunctionAllocate</a> with arguments <i>proto</i> , <i>strict</i>,
+        and <code>"generator"</code>.
+        </li>
+      </ol>
+    </li>
+
+    <li>Else, set <i>F’s</i> [[Strict]] <a href="#sec-object-internal-methods-and-internal-slots">
+      internal slot</a> to <i>strict</i>.
+    </li>
+
+    <li>If the value of <i>F’s</i> [[FunctionKind]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not
+    <code>"generator"</code>, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Using <i>funcBody</i> as the <i>FunctionBody</i> production, let <i>body</i> be the
+    supplemental syntactic grammar production: <es-production name="GeneratorBody" class=
+    "inline"><es-rhs><es-nt>FunctionBody</es-nt></es-rhs></es-production>
+    .</li>
+
+    <li>Perform the <a href="#sec-functioninitialise">FunctionInitialise</a> abstract operation
+    with arguments <i>F</i>, Normal, <i>parameters</i>, <i>body,</i> and <i>scope</i>.
+    </li>
+
+    <li>Let <i>prototype</i> be the result of the abstract operation <a href=
+    "#sec-objectcreate">ObjectCreate</a> with the intrinsic object %GeneratorPrototype% as its
+    argument.
+    </li>
+
+    <li>If ReferencesSuper(<i>funcBody</i>) is <b>true</b> or ReferencesSuper(<i>parameters</i>) is
+    <b>true</b>, then
+
+      <ol class="block">
+        <li>Perform <a href="#sec-makemethod">MakeMethod</a> (<i>F</i>, <b>undefined</b>,
+        <b>undefined</b>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>status</i> be the result of the abstract operation <a href=
+    "#sec-makeconstructor">MakeConstructor</a> with arguments <i>F</i>, <b>true</b>, and
+    <i>prototype</i>.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+    </li>
+
+    <li>
+      <a href="#sec-setfunctionname">SetFunctionName</a> (<i>F</i>, "<b>anonymous</b>").
+    </li>
+
+    <li>Return <i>F</i>.</li>
+  </ol>
+
+  <p>A <code>prototype</code> property is automatically created for every function created using
+  the <code>GeneratorFunction</code> constructor, to provide for the possibility that the function
+  will be used as a constructor.</p>
+</es-clause>

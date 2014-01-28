@@ -1,0 +1,33 @@
+<!doctype html>
+<es-clause title="MakeTime (hour, min, sec, ms)" anchor="sec-maketime">
+  <p>The operator MakeTime calculates a number of milliseconds from its four arguments, which must
+  be ECMAScript Number values. This operator functions as follows:</p>
+
+  <ol class="proc">
+    <li>If <i>hour</i> is not finite or <i>min</i> is not finite or <i>sec</i> is not finite or
+    <i>ms</i> is not finite, return <b>NaN</b>.</li>
+
+    <li>Let <i>h</i> be <a href="#sec-tointeger">ToInteger</a> (<i>hour</i>).
+    </li>
+
+    <li>Let <i>m</i> be <a href="#sec-tointeger">ToInteger</a> (<i>min</i>).
+    </li>
+
+    <li>Let <i>s</i> be <a href="#sec-tointeger">ToInteger</a> (<i>sec</i>).
+    </li>
+
+    <li>Let <i>milli</i> be <a href="#sec-tointeger">ToInteger</a> (<i>ms</i>).
+    </li>
+
+    <li>Let <i>t</i> be <i>h</i> <code>*</code> <a href=
+    "#sec-hours-minutes-second-and-milliseconds">msPerHour</a> <code>+</code> <i>m</i>
+    <code>*</code> <a href="#sec-hours-minutes-second-and-milliseconds">msPerMinute</a>
+    <code>+</code> <i>s</i> <code>*</code> <a href=
+    "#sec-hours-minutes-second-and-milliseconds">msPerSecond</a> <code>+</code> <i>milli</i>,
+    performing the arithmetic according to IEEE 754 rules (that is, as if using the ECMAScript
+    operators <code>*</code> and <code>+</code>).
+    </li>
+
+    <li>Return <i>t</i>.</li>
+  </ol>
+</es-clause>

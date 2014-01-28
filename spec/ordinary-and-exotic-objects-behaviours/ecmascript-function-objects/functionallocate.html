@@ -1,0 +1,67 @@
+<!doctype html>
+<es-clause title="FunctionAllocate Abstract Operation" anchor="sec-functionallocate">
+  <p>The abstract operation FunctionAllocate requires the two arguments <i>functionPrototype</i>
+  and <i>strict</i>. It also accepts one optional argument, <es-nt>functionKind</es-nt>.
+  FunctionAllocate performs the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>functionPrototype</i>) is Object.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : If <i>functionKind</i> is present, its
+      value is either "<code>normal</code>" or "<code>generator</code>".
+    </li>
+
+    <li>If <i>functionKind</i> is not present, then let <i>functionKind</i> be
+    "<code>normal</code>".</li>
+
+    <li>Let <i>F</i> be a newly created <a href="#sec-ecmascript-function-objects">ECMAScript
+    function object</a> with the internal slots listed in <a href="#table-26">Table 26</a> . All of
+    those internal slots are initialised to <b>undefined</b>.
+    </li>
+
+    <li>Set <i>F</i>’s essential internal methods except for [[GetOwnProperty]] to the default
+    ordinary object definitions specified in <a href=
+    "#sec-ordinary-object-internal-methods-and-internal-slots">9.1</a> .
+    </li>
+
+    <li>If <i>strict</i> is <b>true</b>, set <i>F</i>’s [[GetOwnProperty]] internal method to the
+    default ordinary object definitions specified in <a href=
+    "#sec-ordinary-object-internal-methods-and-internal-slots">9.1</a> .
+    </li>
+
+    <li>Else, set <i>F</i>’s [[GetOwnProperty]] internal method to the definitions specified in
+    <a href="#sec-ecmascript-function-objects-getownproperty-p">9.2.2</a> .
+    </li>
+
+    <li>Set <i>F</i>’s [[Call]] internal method to the definition specified in <a href=
+    "#sec-construct-argumentslist">9.2.1</a> .
+    </li>
+
+    <li>Set the [[Strict]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>F</i> to <i>strict</i>.
+    </li>
+
+    <li>Set the [[FunctionKind]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>F</i> to <i>functionKind</i>.
+    </li>
+
+    <li>Set the [[Prototype]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>F</i> to <i>functionPrototype</i>.
+    </li>
+
+    <li>Set the [[Extensible]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>F</i> to <b>true</b>.
+    </li>
+
+    <li>Set the [[Realm]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>F</i> to <a href="#sec-execution-contexts">the running execution context</a> ’s
+    <a href="#sec-code-realms">Realm</a> .
+    </li>
+
+    <li>Return <i>F</i>.</li>
+  </ol>
+</es-clause>

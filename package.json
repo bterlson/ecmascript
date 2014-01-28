@@ -1,0 +1,17 @@
+{
+  "name": "specapp",
+  "version": "0.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "htmlparser2": "~3.4.0",
+    "htmltidy": "0.0.6"
+  },
+  "scripts": {
+    "parse": "node tasks/parse.js",
+    "build": "node tasks/build.js"
+  },
+  "author": "",
+  "license": "BSD-2-Clause"
+}

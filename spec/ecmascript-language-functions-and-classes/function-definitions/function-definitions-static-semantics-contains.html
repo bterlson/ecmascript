@@ -1,0 +1,35 @@
+<!doctype html>
+<es-clause title="Static Semantics: Contains" anchor=
+"sec-function-definitions-static-semantics-contains">
+  <p>With parameter <es-nt>symbol</es-nt>.</p>
+
+  <p>See also: <a href="#sec-static-semantic-rules">5.3</a> , <a href=
+  "#sec-object-initialiser-static-semantics-contains">12.1.5.2</a> , <a href=
+  "#sec-static-semantics-static-semantics-contains">12.2.1.1</a> , <a href=
+  "#sec-arrow-function-definitions-static-semantics-contains">14.2.3</a> , <a href=
+  "#sec-generator-function-definitions-static-semantics-contains">14.4.3</a> , <a href=
+  "#sec-class-definitions-static-semantics-contains">14.5.4</a></p>
+
+  <es-production name="FunctionDeclaration" class="inline">
+    <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <es-production name="FunctionExpression" class="inline">
+    <es-rhs>function <es-nt optional>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> )
+    { <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return <b>false</b>.</li>
+  </ol>
+
+  <es-note>
+    <p>Static semantic rules that depend upon substructure generally do not look into function
+    definitions.</p>
+  </es-note>
+</es-clause>

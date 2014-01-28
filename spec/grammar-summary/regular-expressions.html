@@ -1,0 +1,186 @@
+<!doctype html>
+<es-clause title="Regular Expressions" anchor="sec-regular-expressions">
+  <es-production name="Pattern" type="lexical">
+    <es-rhs><es-nt>Disjunction</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Disjunction" type="lexical">
+    <es-rhs><es-nt>Alternative</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Alternative</es-nt> | <es-nt>Disjunction</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Alternative" type="lexical">
+    <es-rhs constraint="empty"></es-rhs>
+
+    <es-rhs><es-nt>Alternative</es-nt> <es-nt>Term</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Term" type="lexical">
+    <es-rhs><es-nt>Assertion</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Atom</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Atom</es-nt> <es-nt>Quantifier</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Assertion" type="lexical">
+    <es-rhs>^</es-rhs>
+
+    <es-rhs>$</es-rhs>
+
+    <es-rhs>\ b</es-rhs>
+
+    <es-rhs>\ B</es-rhs>
+
+    <es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>=</es-t> <es-nt>Disjunction</es-nt>
+    <es-t>)</es-t></es-rhs>
+
+    <es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>!</es-t> <es-nt>Disjunction</es-nt>
+    <es-t>)</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="Quantifier" type="lexical">
+    <es-rhs><es-nt>QuantifierPrefix</es-nt></es-rhs>
+
+    <es-rhs><es-nt>QuantifierPrefix</es-nt> <es-t>?</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="QuantifierPrefix" type="lexical">
+    <es-rhs>*</es-rhs>
+
+    <es-rhs>+</es-rhs>
+
+    <es-rhs>?</es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt>DecimalDigits</es-nt> <es-t>}</es-t></es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt>DecimalDigits</es-nt> <es-t>,</es-t> <es-t>}</es-t></es-rhs>
+
+    <es-rhs>{ <es-nt>DecimalDigits</es-nt> , <es-nt>DecimalDigits</es-nt> }</es-rhs>
+  </es-production>
+
+  <es-production name="Atom" type="lexical">
+    <es-rhs><es-nt>PatternCharacter</es-nt></es-rhs>
+
+    <es-rhs>.</es-rhs>
+
+    <es-rhs><es-t>\</es-t> <es-nt>AtomEscape</es-nt></es-rhs>
+
+    <es-rhs><es-nt>CharacterClass</es-nt></es-rhs>
+
+    <es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt> <es-t>)</es-t></es-rhs>
+
+    <es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>:</es-t> <es-nt>Disjunction</es-nt>
+    <es-t>)</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="PatternCharacter" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-t>-</es-t></es-gmod></es-rhs>
+
+    <es-rhs>^ $ \ . * + ? ( ) [ ] { } |</es-rhs>
+  </es-production>
+
+  <es-production name="AtomEscape" type="lexical">
+    <es-rhs><es-nt>DecimalEscape</es-nt></es-rhs>
+
+    <es-rhs><es-nt>CharacterEscape</es-nt></es-rhs>
+
+    <es-rhs><es-nt>CharacterClassEscape</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="CharacterEscape" type="lexical">
+    <es-rhs><es-nt>ControlEscape</es-nt></es-rhs>
+
+    <es-rhs><es-t>c</es-t> <es-nt>ControlLetter</es-nt></es-rhs>
+
+    <es-rhs><es-nt>HexEscapeSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>UnicodeEscapeSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>IdentityEscape</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ControlEscape" type="lexical" oneof>
+    <es-rhs>f n r t v</es-rhs>
+  </es-production>
+
+  <es-production name="ControlLetter" type="lexical" oneof>
+    <es-rhs>a b c d e f g h i j k l m n o p q r s t u v w x y z</es-rhs>
+
+    <es-rhs>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</es-rhs>
+  </es-production>
+
+  <es-production name="IdentityEscape" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not
+    <es-nt>IdentifierPart</es-nt></es-gmod></es-rhs>
+
+    <es-rhs>&lt;ZWJ&gt;</es-rhs>
+
+    <es-rhs>&lt;ZWNJ&gt;</es-rhs>
+  </es-production>
+
+  <es-production name="DecimalEscape" type="lexical">
+    <es-rhs><es-nt>DecimalIntegerLiteral</es-nt> <es-gann>lookahead ∉
+    <es-nt>DecimalDigit</es-nt></es-gann></es-rhs>
+  </es-production>
+
+  <es-production name="CharacterClassEscape" type="lexical" oneof>
+    <es-rhs>d D s S w W</es-rhs>
+  </es-production>
+
+  <es-production name="CharacterClass" type="lexical">
+    <es-rhs><es-t>[</es-t> <es-gann>lookahead ∉
+    {<es-t>^</es-t>}</es-gann><es-nt>ClassRanges</es-nt> <es-t>]</es-t></es-rhs>
+
+    <es-rhs><es-t>[</es-t> <es-t>^</es-t> <es-nt>ClassRanges</es-nt> <es-t>]</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="ClassRanges" type="lexical">
+    <es-rhs constraint="empty"></es-rhs>
+
+    <es-rhs><es-nt>NonemptyClassRanges</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="NonemptyClassRanges" type="lexical">
+    <es-rhs><es-nt>ClassAtom</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ClassAtom</es-nt> <es-nt>NonemptyClassRangesNoDash</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ClassAtom</es-nt> – <es-nt>ClassAtom</es-nt> <es-nt>ClassRanges</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="NonemptyClassRangesNoDash" type="lexical">
+    <es-rhs><es-nt>ClassAtom</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ClassAtomNoDash</es-nt> <es-nt>NonemptyClassRangesNoDash</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ClassAtomNoDash</es-nt> – <es-nt>ClassAtom</es-nt>
+    <es-nt>ClassRanges</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ClassAtom" type="lexical">
+    <es-rhs>-</es-rhs>
+
+    <es-rhs><es-nt>ClassAtomNoDash</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ClassAtomNoDash" type="lexical">
+    <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-t>\</es-t></es-gmod><es-gmod>or <es-t>]</es-t></es-gmod><es-gmod>or
+    <es-t>-</es-t></es-gmod></es-rhs>
+
+    <es-rhs><es-t>\</es-t> <es-nt>ClassEscape</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ClassEscape" type="lexical">
+    <es-rhs><es-nt>DecimalEscape</es-nt></es-rhs>
+
+    <es-rhs>b</es-rhs>
+
+    <es-rhs><es-nt>CharacterEscape</es-nt></es-rhs>
+
+    <es-rhs><es-nt>CharacterClassEscape</es-nt></es-rhs>
+  </es-production>
+</es-clause>

@@ -1,0 +1,170 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: ArgumentListEvaluation" anchor=
+"sec-argument-lists-runtime-semantics-argumentlistevaluation">
+  <p>See also: <a href=
+  "#sec-runtime-semantics-runtime-semantics-argumentlistevaluation">12.1.9.2.1</a></p>
+
+  <es-production name="Arguments" class="inline">
+    <es-rhs>( )</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return an empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="ArgumentList" class="inline">
+    <es-rhs><es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>ref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+    <li>Let <i>arg</i> be <a href="#sec-getvalue">GetValue</a> (<i>ref</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>arg</i>).
+    </li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> whose sole item is <i>
+      arg</i>.
+    </li>
+  </ol>
+
+  <es-production name="ArgumentList" class="inline">
+    <es-rhs><es-t>...</es-t> <es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>list</i> be an empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>spreadRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+    <li>Let <i>spreadObj</i> be <a href="#sec-getvalue">GetValue</a> (<i>spreadRef</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>spreadObj</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>spreadObj</i>) is not
+    Object, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>iterator</i> be the result of performing <a href="#sec-getiterator">GetIterator</a>
+    (<i>spreadObj</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>iterator</i>).
+    </li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
+        (<i>iterator</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+        </li>
+
+        <li>If <i>next</i> is <b>false</b>, then return <i>list</i>.</li>
+
+        <li>Let <i>nextArg</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextArg</i>).
+        </li>
+
+        <li>Append <i>nextArg</i> as the last element of <i>list</i>.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <es-production name="ArgumentList" class="inline">
+    <es-rhs><es-nt>ArgumentList</es-nt> , <es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>precedingArgs</i> be the result of evaluating <i>ArgumentList</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>precedingArgs</i>).
+    </li>
+
+    <li>Let <i>ref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+    <li>Let <i>arg</i> be <a href="#sec-getvalue">GetValue</a> (<i>ref</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>arg</i>).
+    </li>
+
+    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> whose length is one
+    greater than the length of <i>precedingArgs</i> and whose items are the items of
+    <i>precedingArgs</i>, in order, followed at the end by <i>arg</i> which is the last item of the
+    new list.
+    </li>
+  </ol>
+
+  <es-production name="ArgumentList" class="inline">
+    <es-rhs><es-nt>ArgumentList</es-nt> , ... <es-nt>AssignmentExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>precedingArgs</i> be an empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>spreadRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+    <li>Let <i>spreadObj</i> be <a href="#sec-getvalue">GetValue</a> (<i>spreadRef</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>spreadObj</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>spreadObj</i>) is not
+    Object, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>iterator</i> be the result of performing <a href="#sec-getiterator">GetIterator</a>
+    (<i>spreadObj</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>iterator</i>).
+    </li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
+        (<i>iterator</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
+        </li>
+
+        <li>If <i>next</i> is <b>false</b>, then return <i>precedingArgs</i>.</li>
+
+        <li>Let <i>nextArg</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextArg</i>).
+        </li>
+
+        <li>Append <i>nextArg</i> as the last element of <i>precedingArgs</i>.</li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

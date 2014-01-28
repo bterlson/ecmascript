@@ -1,0 +1,215 @@
+<!doctype html>
+<es-clause title="Array.prototype.concat ( [ item1 [ , item2 [ , … ] ] ] )" anchor=
+"sec-array.prototype.concat">
+  <p>When the <code>concat</code> method is called with zero or more arguments
+  <es-nt>item1</es-nt>, <es-nt>item2</es-nt>, etc., it returns an array containing the array
+  elements of the object followed by the array elements of each argument in order.</p>
+
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
+      this</b> value as the argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+    </li>
+
+    <li>Let <i>A</i> be <b>undefined</b>.</li>
+
+    <li>If <i>O</i> is an exotic Array object, then
+
+      <ol class="block">
+        <li>Let <i>C</i> be <a href="#sec-get-o-p">Get</a> (<i>O</i>, <code>"constructor"</code>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>C</i>).
+        </li>
+
+        <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>C</i>) is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>thisRealm</i> be <a href="#sec-execution-contexts">the running execution
+            context</a> ’s <a href="#sec-code-realms">Realm</a> .
+            </li>
+
+            <li>If <i>thisRealm</i> and the value of <i>C’s</i> [[Realm]] <a href=
+            "#sec-object-internal-methods-and-internal-slots">internal slot</a> are the same value,
+            then
+
+              <ol class="block">
+                <li>Let <i>A</i> be the result of calling the [[Construct]] internal method of
+                <i>C</i> with argument (0).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>A</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>A</i> be the result of the abstract operation <a href=
+        "#sec-arraycreate">ArrayCreate</a> with argument 0.
+        </li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>A</i>).
+    </li>
+
+    <li>Let <i>n</i> be 0.</li>
+
+    <li>Let <i>items</i> be a <a href="#sec-list-and-record-specification-type">List</a> whose
+    first element is <i>O</i> and whose subsequent elements are, in left to right order, the
+    arguments that were passed to this function invocation.
+    </li>
+
+    <li>Repeat, while <i>items</i> is not empty
+
+      <ol class="block">
+        <li>Remove the first element from <i>items</i> and let <i>E</i> be the value of the
+        element.</li>
+
+        <li>Let <i>spreadable</i> be the result of <a href=
+        "#sec-isconcatspreadable">IsConcatSpreadable</a> (<i>E</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>spreadable</i>).
+        </li>
+
+        <li>If <i>spreadable</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>k</i> be 0.</li>
+
+            <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>E</i>, <code>
+              "length"</code>).
+            </li>
+
+            <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
+            </li>
+
+            <li>Repeat, while <i>k</i> &lt; <i>len</i>
+
+              <ol class="block">
+                <li>Let <i>P</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
+                </li>
+
+                <li>Let <i>exists</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
+                (<i>E</i>, <i>P</i>).
+                </li>
+
+                <li>
+                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exists</i>).
+                </li>
+
+                <li>If <i>exists</i> is <b>true</b>, then
+
+                  <ol class="block">
+                    <li>Let <i>subElement</i> be the result of <a href="#sec-get-o-p">Get</a>
+                    (<i>E</i>, <i>P</i>).
+                    </li>
+
+                    <li>
+                      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>subElement</i>).
+                    </li>
+
+                    <li>Let <i>status</i> be the result of <a href=
+                    "#sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</a> (<i>A</i>,
+                    <a href="#sec-tostring">ToString</a> (<i>n</i>), <i>subElement</i>).
+                    </li>
+
+                    <li>
+                      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+                    </li>
+                  </ol>
+                </li>
+
+                <li>Increase <i>n</i> by 1.</li>
+
+                <li>Increase <i>k</i> by 1.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Else <i>E</i> is added as a single item rather than spread,
+
+          <ol class="block">
+            <li>Let <i>status</i> be the result of <a href=
+            "#sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</a> (<i>A</i>, <a href=
+            "#sec-tostring">ToString</a> (<i>n</i>), <i>E</i>).
+            </li>
+
+            <li>
+              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+            </li>
+
+            <li>Increase <i>n</i> by 1.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>A</i>,
+    <code>"length"</code>, <i>n</i>, <b>true</b>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+    </li>
+
+    <li>Return <i>A</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>concat</code> method is <b>1</b>.</p>
+
+  <es-note>
+    <p>The explicit setting of the <code>length</code> property in step 10 is necessary to ensure
+    that its value is correct in situations where the trailing elements of the result Array are not
+    present.</p>
+  </es-note>
+
+  <es-note>
+    <p>The <code>concat</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects
+    for use as a method. Whether the <code>concat</code> function can be applied successfully to an
+    exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+
+  <es-clause title="IsConcatSpreadable ( O ) Abstract Operation" anchor="sec-isconcatspreadable">
+    <p>The abstract operation IsConcatSpreadable with argument <i>O</i> performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object,
+      then return <b>false</b>.
+      </li>
+
+      <li>Let <i>spreadable</i> be <a href="#sec-get-o-p">Get</a> (<i>O</i>, @@isConcatSpreadable).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>spreadable</i>).
+      </li>
+
+      <li>If <i>spreadable</i> is not <b>undefined</b>, then return <a href=
+      "#sec-toboolean">ToBoolean</a> (<i>spreadable</i>).
+      </li>
+
+      <li>If <i>O</i> is an exotic Array object, then return <b>true</b>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

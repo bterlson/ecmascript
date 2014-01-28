@@ -1,0 +1,97 @@
+<!doctype html>
+<es-clause title="ToObject" anchor="sec-toobject">
+  <p>The abstract operation ToObject converts its <i>argument</i> to a value of type Object
+  according to <a href="#table-13">Table 13</a> :</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-13">Table 13</span> — ToObject Conversions
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Argument Type</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Result</th>
+      </tr>
+
+      <tr>
+        <td>
+          <a href="#sec-completion-record-specification-type">Completion Record</a>
+        </td>
+
+        <td>
+          If <i>argument</i> is an <a href="#sec-completion-record-specification-type">abrupt
+          completion</a> , return <i>argument</i>. Otherwise return
+          ToObject(<i>argument</i>.[[value]])
+        </td>
+      </tr>
+
+      <tr>
+        <td>Undefined</td>
+
+        <td>Throw a <b>TypeError</b> exception.</td>
+      </tr>
+
+      <tr>
+        <td>Null</td>
+
+        <td>Throw a <b>TypeError</b> exception.</td>
+      </tr>
+
+      <tr>
+        <td>Boolean</td>
+
+        <td>
+          Return a new Boolean object whose [[BooleanData]] <a href=
+          "#sec-object-internal-methods-and-internal-slots">internal slot</a> is set to the value
+          of <i>argument</i>. See <a href="#sec-boolean-objects">19.3</a> for a description of
+          Boolean objects.
+        </td>
+      </tr>
+
+      <tr>
+        <td>Number</td>
+
+        <td>
+          Return a new Number object whose [[NumberData]] <a href=
+          "#sec-object-internal-methods-and-internal-slots">internal slot</a> is set to the value
+          of <i>argument</i>. See <a href="#sec-number-objects">20.1</a> for a description of
+          Number objects.
+        </td>
+      </tr>
+
+      <tr>
+        <td>String</td>
+
+        <td>
+          Return a new String object whose [[StringData]] <a href=
+          "#sec-object-internal-methods-and-internal-slots">internal slot</a> is set to the value
+          of <i>argument</i>. See <a href="#sec-string-objects">21.1</a> for a description of
+          String objects.
+        </td>
+      </tr>
+
+      <tr>
+        <td>Symbol</td>
+
+        <td>
+          Return a new Symbol object whose [[SymbolData]] <a href=
+          "#sec-object-internal-methods-and-internal-slots">internal slot</a> is set to the value
+          of <i>argument</i>. See <a href="#sec-symbol-objects">19.4</a> for a description of
+          Symbol objects.
+        </td>
+      </tr>
+
+      <tr>
+        <td>Object</td>
+
+        <td>Return <i>argument</i> (no conversion).</td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

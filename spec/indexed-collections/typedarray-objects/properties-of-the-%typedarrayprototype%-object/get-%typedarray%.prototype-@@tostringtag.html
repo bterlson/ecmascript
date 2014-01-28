@@ -1,0 +1,36 @@
+<!doctype html>
+<es-clause title="get %TypedArray%.prototype [ @@toStringTag ]" anchor=
+"sec-get-%typedarray%.prototype-@@tostringtag">
+  <p>%TypedArray%.<code>prototype[@@toStringTag]</code> is an accessor property whose set accessor
+  function is <span class="value">undefined</span>. Its get accessor function performs the
+  following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the <b>this</b>.value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, throw
+    a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>O</i> does not have a [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> throw a <b>TypeError</b>
+    exception.
+    </li>
+
+    <li>Let <i>name</i> be the value of <i>O</i>’s [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>name</i> is a String value.
+    </li>
+
+    <li>Return <i>name</i>.</li>
+  </ol>
+
+  <p>This property has the attributes { [[Enumerable]]: <span class="value">false</span>,
+  [[Configurable]]: <span class="value">true</span> }.</p>
+
+  <p>The initial value of the <code>name</code> property of this function is
+  <code>"[Symbol.toStringTag]"</code>.</p>
+</es-clause>

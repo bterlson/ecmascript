@@ -1,0 +1,46 @@
+<!doctype html>
+<es-clause title="Static Semantics: TopLevelVarDeclaredNames" anchor=
+"sec-static-semantics-toplevelvardeclarednames">
+  <es-production name="StatementList" class="inline">
+    <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>names</i> be TopLevelVarDeclaredNames of <i>StatementList</i>.</li>
+
+    <li>Append to <i>names</i> the elements of the TopLevelVarDeclaredNames of
+    <i>StatementListItem.</i></li>
+
+    <li>Return <i>names</i>.</li>
+  </ol>
+
+  <es-production name="StatementListItem" class="inline">
+    <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+    "inline"><es-rhs><es-nt>FunctionDeclaration</es-nt></es-rhs></es-production>
+    , then return the LexicallyDeclaredNames of <i>Declaration</i>.</li>
+
+    <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+    "inline"><es-rhs><es-nt>GeneratorDeclaration</es-nt></es-rhs></es-production>
+    , then return the LexicallyDeclaredNames of <i>Declaration</i>.</li>
+
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="StatementListItem" class="inline">
+    <es-rhs><es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return VarDeclaredNames of <i>Statement</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>At the top level of a function or script, inner function declarations are treated like var
+    declarations.</p>
+  </es-note>
+</es-clause>

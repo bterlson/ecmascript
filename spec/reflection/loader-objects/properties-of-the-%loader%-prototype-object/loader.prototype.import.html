@@ -1,0 +1,56 @@
+<!doctype html>
+<es-clause title="Loader.prototype.import ( name, options = undefined )" anchor=
+"sec-loader.prototype.import">
+  <p>The <code>import</code> method asynchronously loads, links, and evaluates a module and all its
+  dependencies if these actions have not already been performed. The argument <es-nt>name</es-nt>
+  is the registry key for the module. <code>import</code> returns a Promise that resolves to the
+  <code>Module</code> object once it has been committed to the registry and evaluated.</p>
+
+  <p>When the <code>import</code> method is called with argument <es-nt>name</es-nt> and optional
+  arguments <es-nt>options</es-nt> the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>loader</i> be this Loader.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>loader</i>).
+    </li>
+
+    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>p</i> be the result of calling <a href="#sec-loadmodule">LoadModule</a>
+    (<i>loaderRecord</i>, <i>name</i>, <i>options</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>p</i>).
+    </li>
+
+    <li>Let <i>F</i> be a new function object as defined by EvaluateLoadedModule.</li>
+
+    <li>Set <i>F</i>’s [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loaderRecord</i>.
+    </li>
+
+    <li>Let <i>p</i> be PromiseThen(<i>p</i>, <i>F</i>).</li>
+
+    <li>Return <i>p</i>.</li>
+  </ol>
+
+  <p>If the optional argument <es-nt>options</es-nt> is an object with an <code>address</code>
+  property the string value of that property is used as the module location and module loading
+  starts with the fetch step. If an <code>address</code> property is not present, module loading
+  starts with the locate step.</p>
+
+  <p>The <code>length</code> property of the <code>import</code> method is <b>1</b>.</p>
+
+  <es-note>
+    <p>Invoking the <code>import</code> method is the dynamic equivalent (when combined with
+    normalization) of:<br>
+    <es-production name="ImportDeclaration" type="lexical" class=
+    "inline"><es-rhs><es-t>import</es-t> <es-nt>ModuleSpecifier</es-nt>
+    <es-t>;</es-t></es-rhs></es-production></p>
+  </es-note>
+</es-clause>

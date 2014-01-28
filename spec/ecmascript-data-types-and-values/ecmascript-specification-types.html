@@ -1,0 +1,30 @@
+<!doctype html>
+<es-clause title="ECMAScript Specification Types" anchor="sec-ecmascript-specification-types">
+  <p>A specification type corresponds to meta-values that are used within algorithms to describe
+  the semantics of ECMAScript language constructs and ECMAScript language types. The specification
+  types are <a href="#sec-reference-specification-type">Reference</a> , <a href=
+  "#sec-list-and-record-specification-type">List</a> , <a href=
+  "#sec-completion-record-specification-type">Completion</a> , <a href=
+  "#sec-property-descriptor-specification-type">Property Descriptor</a> , <a href=
+  "#sec-lexical-environments">Lexical Environment</a> , <a href=
+  "#sec-environment-records">Environment Record</a> , and <a href="#sec-data-blocks">Data Block</a>
+  . Specification type values are specification artefacts that do not necessarily correspond to any
+  specific entity within an ECMAScript implementation. Specification type values may be used to
+  describe intermediate results of ECMAScript expression evaluation but such values cannot be
+  stored as properties of objects or values of ECMAScript language variables.</p>
+  <link rel="import" href="ecmascript-specification-types\list-and-record-specification-type.html">
+  <link rel="import" href=
+  "ecmascript-specification-types\completion-record-specification-type.html">
+  <link rel="import" href="ecmascript-specification-types\reference-specification-type.html">
+  <link rel="import" href=
+  "ecmascript-specification-types\property-descriptor-specification-type.html">
+
+  <es-clause title="The Lexical Environment and Environment Record Specification Types" anchor=
+  "sec-lexical-environment-and-environment-record-specification-types">
+    <p>The <a href="#sec-lexical-environments">Lexical Environment</a> and <a href=
+    "#sec-environment-records">Environment Record</a> types are used to explain the behaviour of
+    name resolution in nested functions and blocks. These types and the operations upon them are
+    defined in <a href="#sec-lexical-environments">8.1</a> .</p>
+  </es-clause>
+  <link rel="import" href="ecmascript-specification-types\data-blocks.html">
+</es-clause>

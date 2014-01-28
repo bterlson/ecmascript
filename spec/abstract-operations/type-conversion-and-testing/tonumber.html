@@ -1,0 +1,89 @@
+<!doctype html>
+<es-clause title="ToNumber" anchor="sec-tonumber">
+  <p>The abstract operation ToNumber converts its <i>argument</i> to a value of type Number
+  according to <a href="#table-11">Table 11</a> :</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-11">Table 11</span> — ToNumber Conversions
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Argument Type</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Result</th>
+      </tr>
+
+      <tr>
+        <td>
+          <a href="#sec-completion-record-specification-type">Completion Record</a>
+        </td>
+
+        <td>
+          If <i>argument</i> is an <a href="#sec-completion-record-specification-type">abrupt
+          completion</a> , return <i>argument</i>. Otherwise return
+          ToNumber(<i>argument</i>.[[value]])
+        </td>
+      </tr>
+
+      <tr>
+        <td>Undefined</td>
+
+        <td>Return <b>NaN</b></td>
+      </tr>
+
+      <tr>
+        <td>Null</td>
+
+        <td>Return <b>+0</b></td>
+      </tr>
+
+      <tr>
+        <td>Boolean</td>
+
+        <td>Return <b>1</b> if <i>argument</i> is <b>true</b>. Return <b>+0</b> if <i>argument</i>
+        is <b>false</b>.</td>
+      </tr>
+
+      <tr>
+        <td>Number</td>
+
+        <td>Return <i>argument</i> (no conversion).</td>
+      </tr>
+
+      <tr>
+        <td>String</td>
+
+        <td>See grammar and note below.</td>
+      </tr>
+
+      <tr>
+        <td>Symbol</td>
+
+        <td>Return <b>NaN</b></td>
+      </tr>
+
+      <tr>
+        <td>Object</td>
+
+        <td>
+          <p>Apply the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>primValue</i> be <a href="#sec-toprimitive">ToPrimitive</a>
+            (<i>argument</i>, hint Number).
+            </li>
+
+            <li>Return ToNumber(<i>primValue</i>).</li>
+          </ol>
+        </td>
+      </tr>
+    </table>
+  </figure>
+  <link rel="import" href="tonumber\tonumber-applied-to-the-string-type.html">
+</es-clause>

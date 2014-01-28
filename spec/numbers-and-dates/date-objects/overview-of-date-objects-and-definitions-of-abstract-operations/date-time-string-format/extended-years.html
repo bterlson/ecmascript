@@ -1,0 +1,21 @@
+<!doctype html>
+<es-clause title="Extended years" anchor="sec-extended-years">
+  <p>ECMAScript requires the ability to specify 6 digit years (extended years); approximately
+  285,426 years, either forward or backward, from 01 January, 1970 UTC. To represent years before 0
+  or after 9999, ISO 8601 permits the expansion of the year representation, but only by prior
+  agreement between the sender and the receiver. In the simplified ECMAScript format such an
+  expanded year representation shall have 2 extra year digits and is always prefixed with a + or –
+  sign. The year 0 is considered positive and hence prefixed with a + sign.</p>
+
+  <es-note>
+    <p>Examples of extended years:</p>
+  </es-note>
+
+  <p>-283457-03-21T15:00:59.008Z &nbsp; 283458 B.C.<br>
+  -000001-01-01T00:00:00Z &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 B.C.<br>
+  +000000-01-01T00:00:00Z &nbsp; &nbsp; &nbsp; &nbsp; 1 B.C.<br>
+  +000001-01-01T00:00:00Z &nbsp; &nbsp; &nbsp; &nbsp; 1 A.D.<br>
+  +001970-01-01T00:00:00Z &nbsp; &nbsp; &nbsp; &nbsp; 1970 A.D.<br>
+  +002009-12-15T00:00:00Z &nbsp; &nbsp; &nbsp; &nbsp; 2009 A.D.<br>
+  +287396-10-12T08:59:00.992Z 287396 A.D.</p>
+</es-clause>

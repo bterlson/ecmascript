@@ -1,0 +1,140 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: ComprehensionComponentEvaluation" anchor=
+"sec-runtime-semantics-comprehensioncomponentevaluation">
+  <p>With arguments <es-nt>tail</es-nt> and <es-nt>accumulator</es-nt>.</p>
+
+  <es-note>
+    <p><b>undefined</b> is passed for <es-nt>accumulator</es-nt> to indicate that a comprehension
+    component is being evaluated as part of a generator comprehension. Otherwise, the value of
+    <es-nt>accumulator</es-nt> is the array object into the elements of an array comprehension are
+    to be accumulated.</p>
+  </es-note>
+
+  <es-production name="ComprehensionFor" class="inline">
+    <es-rhs>for ( <es-nt>ForBinding</es-nt> of <es-nt>AssignmentExpression</es-nt> )</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>exprRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+    <li>Let <i>exprValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprRef</i>).
+    </li>
+
+    <li>Let <i>obj</i> be <a href="#sec-toobject">ToObject</a> (<i>exprValue</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
+    </li>
+
+    <li>Let <i>keys</i> be <a href="#sec-getiterator">GetIterator</a> (<i>obj</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keys</i>).
+    </li>
+
+    <li>Let <i>oldEnv</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
+    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
+    </li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>Let <i>nextResult</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
+        (<i>keys</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextResult</i>).
+        </li>
+
+        <li>If <i>nextResult</i> is <b>true</b>, then return <b>true</b>.</li>
+
+        <li>Let <i>nextValue</i> be <a href="#sec-iteratorvalue">IteratorValue</a>
+        (<i>nextResult</i>);
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextValue</i>).
+        </li>
+
+        <li>Let <i>forEnv</i> be the result of calling <a href=
+        "#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a> passing <i>oldEnv</i> as the
+        argument.
+        </li>
+
+        <li>For each element <i>name</i> of the BoundNames of <i>ForBinding</i> do
+
+          <ol class="block">
+            <li>Call <i>forEnv</i>’s CreateMutableBinding concrete method with argument
+            <i>name</i>.</li>
+
+            <li>
+              <a href="#sec-algorithm-conventions">Assert</a> : The above call to
+              CreateMutableBinding will never return an <a href=
+              "#sec-completion-record-specification-type">abrupt completion</a> .
+            </li>
+          </ol>
+        </li>
+
+        <li>Let <i>status</i> be the result of performing BindingInitialisation for
+        <i>ForBinding</i> passing <i>nextValue</i> and <i>forEnv</i> as the arguments.</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+
+        <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
+        "#sec-execution-contexts">LexicalEnvironment</a> to <i>forEnv</i>.
+        </li>
+
+        <li>Let <i>continue</i> be the result of performing ComprehensionEvaluation for <i>tail</i>
+        with argument <i>accumulator</i>.</li>
+
+        <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
+        "#sec-execution-contexts">LexicalEnvironment</a> to <i>oldEnv</i>.
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>continue</i>).
+        </li>
+      </ol>
+    </li>
+  </ol>
+
+  <es-production name="ComprehensionIf" class="inline">
+    <es-rhs><es-t>if</es-t> <es-t>(</es-t> <es-nt>AssignmentExpression</es-nt>
+    <es-t>)</es-t></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>valueRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+    <li>Let <i>value</i> be <a href="#sec-getvalue">GetValue</a> (<i>valueRef</i>).
+    </li>
+
+    <li>Let <i>boolValue</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>value</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>boolValue</i>).
+    </li>
+
+    <li>If <i>boolValue</i> is <b>true</b>, then
+
+      <ol class="block">
+        <li>Return the result of performing ComprehensionEvaluation for <i>tail</i> with argument
+        <i>accumulator</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
+        </li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

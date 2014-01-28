@@ -1,0 +1,41 @@
+<!doctype html>
+<es-clause title="Properties of the WeakSet Constructor" anchor=
+"sec-properties-of-the-weakset-constructor">
+  <p>The value of the [[Prototype]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the WeakSet constructor is
+  the Function prototype object (<a href=
+  "#sec-properties-of-the-function-prototype-object">19.2.3</a> ).</p>
+
+  <p>Besides the <code>length</code> property (whose value is <b>0</b>), the WeakSet constructor
+  has the following properties:</p>
+
+  <es-clause title="WeakSet.prototype" anchor="sec-weakset.prototype">
+    <p>The initial value of <code>WeakSet.prototype</code> is the intrinsic %WeakSetPrototype%
+    object (<a href="#sec-properties-of-the-weakset-prototype-object">23.4.3</a> ).</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>false</b> }.</p>
+  </es-clause>
+
+  <es-clause title="WeakSet [ @@create ] ( )" anchor="sec-weakset-@@create">
+    <p>The @@create method of a WeakSet function object <es-nt>F</es-nt> performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+      <li>Let <i>obj</i> be the result of calling <a href=
+      "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>F</i>,
+      <code>"%WeakSetPrototype%"</code>, ( [[WeakSetData]] )).
+      </li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+
+    <p>The value of the <code>name</code> property of this function is
+    <code>"[Symbol.create]"</code>.</p>
+
+    <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+    [[Configurable]]: <b>true</b> }.</p>
+  </es-clause>
+</es-clause>

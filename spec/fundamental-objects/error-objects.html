@@ -1,0 +1,19 @@
+<!doctype html>
+<es-clause title="Error Objects" anchor="sec-error-objects">
+  <p>Instances of Error objects are thrown as exceptions when runtime errors occur. The Error
+  objects may also serve as base objects for user-defined exception classes.</p>
+  <link rel="import" href="error-objects\error-constructor.html">
+  <link rel="import" href="error-objects\properties-of-the-error-constructor.html">
+  <link rel="import" href="error-objects\properties-of-the-error-prototype-object.html">
+
+  <es-clause title="Properties of Error Instances" anchor="sec-properties-of-error-instances">
+    <p>Error instances are ordinary objects that inherit properties from the Error prototype object
+    and have an [[ErrorData]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> whose initial value is <span class="value">undefined</span>. The only specified uses
+    of [[ErrorData]] is to flag whether or not an Error instance has been initialised by the Error
+    constructor and to identify them as Error objects within <code><a href=
+    "#sec-object.prototype.tostring">Object.prototype.toString</a></code> .</p>
+  </es-clause>
+  <link rel="import" href="error-objects\native-error-types-used-in-this-standard.html">
+  <link rel="import" href="error-objects\nativeerror-object-structure.html">
+</es-clause>

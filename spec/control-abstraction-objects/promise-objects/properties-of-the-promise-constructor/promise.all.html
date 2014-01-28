@@ -1,0 +1,122 @@
+<!doctype html>
+<es-clause title="Promise.all ( iterable )" anchor="sec-promise.all">
+  <p>The <code>all</code> function returns a new promise which is fulfilled with an array of
+  fulfillment values for the passed promises, or rejects with the reason of the first passed
+  promise that rejects. It casts all elements of the passed iterable to promises as it runs this
+  algorithm.</p>
+
+  <ol class="proc">
+    <li>Let <i>C</i> be the <b>this</b> value.</li>
+
+    <li>Let <i>promiseCapability</i> be <a href=
+    "#sec-newpromisecapability">NewPromiseCapability</a> (<i>C</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promiseCapability</i>).
+    </li>
+
+    <li>Let <i>iterator</i> be <a href="#sec-getiterator">GetIterator</a> (<i>iterable</i>).
+    </li>
+
+    <li>
+      <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>iterator</i>,
+      <i>promiseCapability</i>).
+    </li>
+
+    <li>Let <i>values</i> be <a href="#sec-arraycreate">ArrayCreate</a> (0).
+    </li>
+
+    <li>Let <i>remainingElementsCount</i> be a new Record { [[value]]: 0 }.</li>
+
+    <li>Let <i>index</i> be 0.</li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>Let <i>next</i> be <a href="#sec-iteratorstep">IteratorStep</a> (<i>iterator</i>).
+        </li>
+
+        <li>
+          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>next</i>,
+          <i>promiseCapability</i>).
+        </li>
+
+        <li>If <i>next</i> is <b>false</b>,
+
+          <ol class="block">
+            <li>If <i>index</i> is 0,
+
+              <ol class="block">
+                <li>Let <i>resolveResult</i> be the result of calling the [[Call]] internal method
+                of <i>promiseCapability</i>.[[Resolve]] with <b>undefined</b> as
+                <i>thisArgument</i> and (<i>values</i>) as <i>argumentsList</i>.</li>
+
+                <li>
+                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>resolveResult</i>).
+                </li>
+              </ol>
+            </li>
+
+            <li>Return <i>promiseCapability</i>.[[Promise]].</li>
+          </ol>
+        </li>
+
+        <li>Let <i>nextValue</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
+        </li>
+
+        <li>
+          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>nextValue</i>,
+          <i>promiseCapability</i>).
+        </li>
+
+        <li>Let <i>nextPromise</i> be Invoke(<i>C</i>, <code>"cast"</code>,
+        (<i>nextValue</i>)).</li>
+
+        <li>
+          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>nextPromise</i>,
+          <i>promiseCapability</i>).
+        </li>
+
+        <li>Let <i>resolveElement</i> be a new built-in function object as defined in Promise.all
+        Resolve Element Functions.</li>
+
+        <li>Set the [[Index]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+        slot</a> of <i>resolveElement</i> to <i>index</i>.
+        </li>
+
+        <li>Set the [[Values]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+        slot</a> of <i>resolveElement</i> to <i>values</i>.
+        </li>
+
+        <li>Set the [[Capabilities]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of
+        <i>resolveElementFunction</i> to <i>promiseCapability</i>.
+        </li>
+
+        <li>Set the [[RemainingElements]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of
+        <i>resolveElement</i> to <i>remainingElementsCount</i>.
+        </li>
+
+        <li>Let <i>result</i> be Invoke(<i>nextPromise</i>, <code>"then"</code>,
+        (<i>resolveElement</i>, <i>promiseCapability</i>.[[Reject]])).</li>
+
+        <li>
+          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>result</i>,
+          <i>promiseCapability</i>).
+        </li>
+
+        <li>Set <i>index</i> to <i>index</i> + 1.</li>
+
+        <li>Set <i>remainingElementsCount</i>.[[value]] to <i>remainingElementsCount</i>.[[value]]
+        + 1.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <p class="Note">Note: The <code>all</code> function requires its <b>this</b> value to be a
+  constructor function that supports the parameter conventions of the <code>Promise</code>
+  constructor.</p>
+  <link rel="import" href="promise.all\promise.all-resolve-element-functions.html">
+</es-clause>

@@ -1,0 +1,55 @@
+<!doctype html>
+<es-clause title="ToUint32: (Unsigned 32 Bit Integer)" anchor="sec-touint32">
+  <p>The abstract operation ToUint32 converts its argument to one of 2<sup>32</sup> integer values
+  in the range 0 through 2<sup>32</sup> −1, inclusive. This abstract operation functions as
+  follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>number</i> be the result of calling <a href="#sec-tonumber">ToNumber</a> on the
+    input argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>number</i>).
+    </li>
+
+    <li>If <i>number</i> is <b>NaN</b>, +0, −0, +<b>∞</b>, or −<b>∞</b>, return <b>+0</b>.</li>
+
+    <li>Let <i>int</i> be <a href="#sec-algorithm-conventions">sign</a> (<i>number</i>) ×
+      <a href="#sec-algorithm-conventions">floor</a> (<a href="#sec-algorithm-conventions">abs</a>
+      (<i>number</i>)).
+    </li>
+
+    <li>Let <i>int32bit</i> be <i>int</i> <a href="#sec-algorithm-conventions">modulo</a>
+    2<sup>32</sup> .
+    </li>
+
+    <li>Return <i>int32bit</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>Given the above definition of ToUint32:</p>
+
+    <ul>
+      <li>
+        <p>Step 6 is the only difference between ToUint32 and <a href="#sec-toint32">ToInt32</a>
+        .</p>
+      </li>
+
+      <li>
+        <p>The ToUint32 abstract operation is idempotent: if applied to a result that it produced,
+        the second application leaves that value unchanged.</p>
+      </li>
+
+      <li>
+        <p>ToUint32(<a href="#sec-toint32">ToInt32</a> (<i>x</i>)) is equal to ToUint32(<i>x</i>)
+        for all values of <es-nt>x</es-nt>. (It is to preserve this latter property that <b>+∞</b>
+        and <b>−∞</b> are mapped to <b>+0</b>.)</p>
+      </li>
+
+      <li>
+        <p>ToUint32 maps <b>−0</b> to <b>+0</b>.</p>
+      </li>
+    </ul>
+  </es-note>
+</es-clause>

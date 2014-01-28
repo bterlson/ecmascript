@@ -1,0 +1,92 @@
+<!doctype html>
+<es-clause title="String Literals" anchor="sec-additional-syntax-string-literals">
+  <p>The syntax and semantics of <a href="#sec-literals-string-literals">11.8.4</a> is extended as
+  follows except that this extension is not allowed for <a href="#sec-strict-mode-code">strict mode
+  code</a> :</p>
+
+  <h2>Syntax</h2>
+
+  <es-production name="EscapeSequence" type="lexical">
+    <es-rhs><es-nt>CharacterEscapeSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>OctalEscapeSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>HexEscapeSequence</es-nt></es-rhs>
+
+    <es-rhs><es-nt>UnicodeEscapeSequence</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="OctalEscapeSequence" type="lexical">
+    <es-rhs><es-nt>OctalDigit</es-nt> <es-gann>lookahead ∉
+    <es-nt>DecimalDigit</es-nt></es-gann></es-rhs>
+
+    <es-rhs><es-nt>ZeroToThree</es-nt> <es-nt>OctalDigit</es-nt> <es-gann>lookahead ∉
+    <es-nt>DecimalDigit</es-nt></es-gann></es-rhs>
+
+    <es-rhs><es-nt>FourToSeven</es-nt> <es-nt>OctalDigit</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ZeroToThree</es-nt> <es-nt>OctalDigit</es-nt> <es-nt>OctalDigit</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ZeroToThree" type="lexical" oneof>
+    <es-rhs>0 1 2 3</es-rhs>
+  </es-production>
+
+  <es-production name="FourToSeven" type="lexical" oneof>
+    <es-rhs>4 5 6 7</es-rhs>
+  </es-production>
+
+  <h2>Static Semantics</h2>
+
+  <ul>
+    <li>The CV of <es-production name="EscapeSequence" type="lexical" class=
+    "inline"><es-rhs><es-nt>OctalEscapeSequence</es-nt></es-rhs></es-production>
+    is the CV of the <i>OctalEscapeSequence</i>.</li>
+
+    <li>The CV of <es-production name="OctalEscapeSequence" type="lexical" class=
+    "inline"><es-rhs><es-nt>OctalDigit</es-nt></es-rhs></es-production> is the
+    character whose code unit value is the MV of the <i>OctalDigit</i>.</li>
+
+    <li>The CV of <es-production name="OctalEscapeSequence" type="lexical" class=
+    "inline"><es-rhs><es-nt>ZeroToThree</es-nt>
+    <es-nt>OctalDigit</es-nt></es-rhs></es-production> is the character whose code
+    unit value is (8 times the MV of the <i>ZeroToThree</i>) plus the MV of the
+    <i>OctalDigit</i>.</li>
+
+    <li>The CV of <es-production name="OctalEscapeSequence" type="lexical" class=
+    "inline"><es-rhs><es-nt>FourToSeven</es-nt>
+    <es-nt>OctalDigit</es-nt></es-rhs></es-production> is the character whose code
+    unit value is (8 times the MV of the <i>FourToSeven</i>) plus the MV of the
+    <i>OctalDigit</i>.</li>
+
+    <li>The CV of <es-production name="OctalEscapeSequence" type="lexical" class=
+    "inline"><es-rhs><es-nt>ZeroToThree</es-nt> <es-nt>OctalDigit</es-nt>
+    <es-nt>OctalDigit</es-nt></es-rhs></es-production> is the character whose code
+    unit value is (64 (that is, 8<sup>2</sup> ) times the MV of the <i>ZeroToThree</i>) plus (8
+    times the MV of the first <i>OctalDigit</i>) plus the MV of the second <i>OctalDigit</i>.</li>
+
+    <li>The MV of <es-production name="ZeroToThree" type="lexical" class=
+    "inline"><es-rhs>0</es-rhs></es-production> is 0.</li>
+
+    <li>The MV of <es-production name="ZeroToThree" type="lexical" class=
+    "inline"><es-rhs>1</es-rhs></es-production> is 1.</li>
+
+    <li>The MV of <es-production name="ZeroToThree" type="lexical" class=
+    "inline"><es-rhs>2</es-rhs></es-production> is 2.</li>
+
+    <li>The MV of <es-production name="ZeroToThree" type="lexical" class=
+    "inline"><es-rhs>3</es-rhs></es-production> is 3.</li>
+
+    <li>The MV of <es-production name="FourToSeven" type="lexical" class=
+    "inline"><es-rhs>4</es-rhs></es-production> is 4.</li>
+
+    <li>The MV of <es-production name="FourToSeven" type="lexical" class=
+    "inline"><es-rhs>5</es-rhs></es-production> is 5.</li>
+
+    <li>The MV of <es-production name="FourToSeven" type="lexical" class=
+    "inline"><es-rhs>6</es-rhs></es-production> is 6.</li>
+
+    <li>The MV of <es-production name="FourToSeven" type="lexical" class=
+    "inline"><es-rhs>7</es-rhs></es-production> is 7.</li>
+  </ul>
+</es-clause>

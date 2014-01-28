@@ -1,0 +1,55 @@
+<!doctype html>
+<es-clause title="Static Semantics: Early Errors" anchor=
+"sec-identifier-reference-static-semantics-early-errors">
+  <es-production name="IdentifierReference" class="inline">
+    <es-rhs><es-nt>NonResolvedIdentifier</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+      <es-nt>NonResolvedIdentifier</es-nt> <es-nt>
+        does not statically resolve to a <a href="#sec-declarative-environment-records">declarative
+        environment record</a> binding.
+      </es-nt></p>
+    </li>
+  </ul>
+
+  <es-production name="NonResolvedIdentifier" class="inline">
+    <es-rhs><es-nt>Identifier</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if this <es-nt>NonResolvedIdentifier</es-nt> is contained in <a href=
+      "#sec-strict-mode-code">strict code</a> and if the <a href=
+      "#sec-identifiers-and-identifier-names">StringValue</a> of <es-nt>Identifier</es-nt> is:
+      <code>"implements"</code>, <code>"interface"</code>, <code>"let"</code>,
+      <code>"package"</code>, <code>"private"</code>, <code>"protected"</code>,
+      <code>"public"</code>, <code>"static"</code>, or <code>"yield"</code>.</p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if this <es-nt>NonResolvedIdentifier</es-nt> has a <sub>[Yield]</sub>
+      and the <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+      <es-nt>Identifier</es-nt> is <code>"yield"</code>.</p>
+    </li>
+  </ul>
+
+  <es-production name="NonResolvedIdentifier" class="inline">
+    <es-rhs>yield</es-rhs>
+  </es-production>
+
+  <ul>
+    <li>It is a Syntax Error if the <es-nt>IdentifierReference</es-nt> is contained in <a href=
+    "#sec-strict-mode-code">strict code</a> <es-nt>.</es-nt>
+    </li>
+  </ul>
+
+  <es-note>
+    <p>Unlike a <es-nt>BindingIdentifier</es-nt> (<a href=
+    "#sec-let-and-const-declarations-static-semantics-early-errors">13.2.1.1</a> ), an
+    <es-nt>IdentifierReference</es-nt> in <a href="#sec-strict-mode-code">strict code</a> may be
+    the <es-nt>Identifier</es-nt> <code>eval</code> or <code>arguments</code>.</p>
+  </es-note>
+</es-clause>

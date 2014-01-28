@@ -1,0 +1,143 @@
+<!doctype html>
+<es-clause title="Abstract Relational Comparison" anchor="sec-abstract-relational-comparison">
+  <p>The comparison <es-nt>x</es-nt> &lt; <es-nt>y</es-nt>, where <es-nt>x</es-nt> and
+  <es-nt>y</es-nt> are values, produces <b>true</b>, <b>false</b>, or <b>undefined</b> (which
+  indicates that at least one operand is <b>NaN</b>). In addition to <es-nt>x</es-nt> and
+  <es-nt>y</es-nt> the algorithm takes a Boolean flag named <es-nt>LeftFirst</es-nt> as a
+  parameter. The flag is used to control the order in which operations with potentially visible
+  side-effects are performed upon <es-nt>x</es-nt> and <es-nt>y</es-nt>. It is necessary because
+  ECMAScript specifies left to right evaluation of expressions. The default value of
+  <es-nt>LeftFirst</es-nt> is <b>true</b> and indicates that the <es-nt>x</es-nt> parameter
+  corresponds to an expression that occurs to the left of the <es-nt>y</es-nt> parameter’s
+  corresponding expression. If <es-nt>LeftFirst</es-nt> is <b>false</b>, the reverse is the case
+  and operations must be performed upon <es-nt>y</es-nt> before <es-nt>x</es-nt>. Such a comparison
+  is performed as follows:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>x</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>y</i>).
+    </li>
+
+    <li>If the <i>LeftFirst</i> flag is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>px</i> be the result of calling <a href="#sec-toprimitive">ToPrimitive</a>
+        (<i>x</i>, hint Number).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>px</i>).
+        </li>
+
+        <li>Let <i>py</i> be the result of calling <a href="#sec-toprimitive">ToPrimitive</a>
+        (<i>y</i>, hint Number).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>py</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Else the order of evaluation needs to be reversed to preserve left to right evaluation
+
+      <ol class="block">
+        <li>Let <i>py</i> be the result of calling <a href="#sec-toprimitive">ToPrimitive</a>
+        (<i>y</i>, hint Number).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>py</i>).
+        </li>
+
+        <li>Let <i>px</i> be the result of calling <a href="#sec-toprimitive">ToPrimitive</a>
+        (<i>x</i>, hint Number).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>px</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>If both <i>px</i> and <i>py</i> are Strings, then
+
+      <ol class="block">
+        <li>If <i>py</i> is a prefix of <i>px</i>, return <b>false</b>. (A String value <i>p</i> is
+        a prefix of String value <i>q</i> if <i>q</i> can be the result of concatenating <i>p</i>
+        and some other String <i>r</i>. Note that any String is a prefix of itself, because
+        <i>r</i> may be the empty String.)</li>
+
+        <li>If <i>px</i> is a prefix of <i>py</i>, return <b>true</b>.</li>
+
+        <li>Let <i>k</i> be the smallest nonnegative integer such that the character at position
+        <i>k</i> within <i>px</i> is different from the character at position <i>k</i> within
+        <i>py</i>. (There must be such a <i>k</i>, for neither String is a prefix of the
+        other.)</li>
+
+        <li>Let <i>m</i> be the integer that is the code unit value for the character at position
+        <i>k</i> within <i>px</i>.</li>
+
+        <li>Let <i>n</i> be the integer that is the code unit value for the character at position
+        <i>k</i> within <i>py</i>.</li>
+
+        <li>If <i>m</i> &lt; <i>n</i>, return <b>true</b>. Otherwise, return <b>false</b>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>nx</i> be the result of calling <a href="#sec-tonumber">ToNumber</a>
+        (<i>px</i>). Because <i>px</i> and <i>py</i> are primitive values evaluation order is not
+        important.
+        </li>
+
+        <li>Let <i>ny</i> be the result of calling <a href="#sec-tonumber">ToNumber</a>
+        (<i>py</i>).
+        </li>
+
+        <li>If <i>nx</i> is <b>NaN</b>, return <b>undefined</b>.</li>
+
+        <li>If <i>ny</i> is <b>NaN</b>, return <b>undefined</b>.</li>
+
+        <li>If <i>nx</i> and <i>ny</i> are the same Number value, return <b>false</b>.</li>
+
+        <li>If <i>nx</i> is <b>+0</b> and <i>ny</i> is <b>−0</b>, return <b>false</b>.</li>
+
+        <li>If <i>nx</i> is <b>−0</b> and <i>ny</i> is <b>+0</b>, return <b>false</b>.</li>
+
+        <li>If <i>nx</i> is <b>+∞</b>, return <b>false</b>.</li>
+
+        <li>If <i>ny</i> is <b>+∞</b>, return <b>true</b>.</li>
+
+        <li>If <i>ny</i> is <b>−∞</b>, return <b>false</b>.</li>
+
+        <li>If <i>nx</i> is <b>−∞</b>, return <b>true</b>.</li>
+
+        <li>If the mathematical value of <i>nx</i> is less than the mathematical value of <i>ny</i>
+        —note that these mathematical values are both finite and not both zero—return <b>true</b>.
+        Otherwise, return <b>false</b>.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <es-note>
+    <p>Step 5 differs from step 11 in the algorithm for the addition operator <code>+</code>
+    (<a href="#sec-addition-operator-plus">12.6.3</a> ) in using “and” instead of “or”.</p>
+  </es-note>
+
+  <es-note>
+    <p>The comparison of Strings uses a simple lexicographic ordering on sequences of code unit
+    values. There is no attempt to use the more complex, semantically oriented definitions of
+    character or string equality and collating order defined in the Unicode specification.
+    Therefore String values that are canonically equal according to the Unicode standard could test
+    as unequal. In effect this algorithm assumes that both Strings are already in normalised form.
+    Also, note that for strings containing supplementary characters, lexicographic ordering on
+    sequences of UTF-16 code unit values differs from that on sequences of code point values.</p>
+  </es-note>
+</es-clause>

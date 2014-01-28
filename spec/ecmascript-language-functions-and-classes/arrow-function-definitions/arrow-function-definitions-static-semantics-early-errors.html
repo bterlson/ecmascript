@@ -1,0 +1,36 @@
+<!doctype html>
+<es-clause title="Static Semantics: Early Errors" anchor=
+"sec-arrow-function-definitions-static-semantics-early-errors">
+  <es-production name="ArrowFunction" class="inline">
+    <es-rhs><es-nt>ArrowParameters</es-nt> =&gt; <es-nt>ConciseBody</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if any element of the BoundNames of <es-nt>ArrowParameters</es-nt>
+      also occurs in the VarDeclaredNames of <es-nt>ConciseBody</es-nt>.</p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if any element of the BoundNames of <es-nt>ArrowParameters</es-nt>
+      also occurs in the LexicallyDeclaredNames of <es-nt>ConciseBody</es-nt>.</p>
+    </li>
+  </ul>
+
+  <es-production name="ArrowParameters" class="inline">
+    <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if the lexical token sequence matched by
+      <es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt> cannot be parsed with no
+      tokens left over using <es-nt>ArrowFormalParameters</es-nt> as the goal symbol.</p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if any early errors are present for CoveredFormalsList of
+      <es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt>.</p>
+    </li>
+  </ul>
+</es-clause>

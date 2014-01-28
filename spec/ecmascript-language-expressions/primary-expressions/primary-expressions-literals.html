@@ -1,0 +1,20 @@
+<!doctype html>
+<es-clause title="Literals" anchor="sec-primary-expressions-literals">
+  <h2>Syntax</h2>
+
+  <es-production name="Literal">
+    <es-rhs><es-nt>NullLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ValueLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ValueLiteral">
+    <es-rhs><es-nt>BooleanLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>NumericLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "primary-expressions-literals\literals-runtime-semantics-evaluation.html">
+</es-clause>

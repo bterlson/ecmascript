@@ -1,0 +1,43 @@
+<!doctype html>
+<es-clause title="LoadFailed Functions" anchor="sec-loadfailed-functions">
+  <p>A LoadFailed function is an anonymous function that marks a Load Record as having failed. All
+  LinkSets that depend on the Load also fail.</p>
+
+  <p>Each LoadFailed function has a [[Load]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+
+  <p>When a LoadFailed function <es-nt>F</es-nt> is called with argument <es-nt>exc</es-nt>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>load</i> be the value of <i>F</i>’s [[Load]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>load</i>.[[Status]] is
+      <code>"loading"</code>.
+    </li>
+
+    <li>Set <i>load</i>.[[Status]] to `"failed".</li>
+
+    <li>Set <i>load</i>.[[Exception]] to <i>exc</i>.</li>
+
+    <li>Let <i>linkSets</i> be a copy of the <a href=
+    "#sec-list-and-record-specification-type">List</a> <i>load</i>.[[LinkSets]].
+    </li>
+
+    <li>For each <i>linkSet</i> in <i>linkSets</i>, in the order in which the <a href=
+    "#sec-linkset-records">LinkSet Records</a> were created,
+
+      <ol class="block">
+        <li>Call <a href="#sec-linksetfailed">LinkSetFailed</a> (<i>linkSet</i>, <i>exc</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>load</i>.[[LinkSets]] is empty.
+    </li>
+  </ol>
+</es-clause>

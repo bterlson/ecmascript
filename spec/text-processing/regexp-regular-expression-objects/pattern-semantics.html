@@ -1,0 +1,109 @@
+<!doctype html>
+<es-clause title="Pattern Semantics" anchor="sec-pattern-semantics">
+  <p>A regular expression pattern is converted into an internal procedure using the process
+  described below. An implementation is encouraged to use more efficient algorithms than the ones
+  listed below, as long as the results are the same. The internal procedure is used as the value of
+  a RegExp object’s [[RegExpMatcher]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+
+  <p>A <es-nt>Pattern</es-nt> is either a BMP pattern or a Unicode pattern depending upon whether
+  or not its associated flags contains a <code>"u"</code>. A BMP pattern matches against a String
+  interpreted as consisting of a sequence of Unicode code units. A Unicode pattern matches against
+  a String interpreted as consisting of Unicode code points encoded using UTF-16. In the context of
+  describing the behaviour of a BMP pattern “character” means a Unicode code unit. In the context
+  of describing the behaviour of a Unicode pattern “character” means a Unicode code point. In
+  either context, “character value” means the numeric value of the code unit or code point.</p>
+
+  <p>The semantics of <es-nt>Pattern</es-nt> is defined as if a <es-nt>Pattern</es-nt> was a
+  <a href="#sec-list-and-record-specification-type">List</a> of <es-nt>SourceCharacter</es-nt>
+  values. Each <es-nt>SourceCharacter</es-nt> corresponding to a Unicode code point. If a BMP
+  pattern contains a non-BMP <es-nt>SourceCharacter</es-nt> the entire pattern is encoded using
+  UTF-16 and the individual code units of that encoding are used as the elements of the <a href=
+  "#sec-list-and-record-specification-type">List</a> .</p>
+
+  <es-note>
+    <p>For example, consider a pattern expressed in source code as the single non-BMP character
+    U+1D11E (MUSICAL SYMBOL G CLEF). Interpreted as a Unicode pattern, it would be a single element
+    (character) <a href="#sec-list-and-record-specification-type">List</a> consisting of the single
+    code point 0x1D11E. However, interpreted as a BMP pattern, it is first UTF-16 encoded to
+    produce a two element <a href="#sec-list-and-record-specification-type">List</a> consisting the
+    code units 0xD834 and 0xDDE.</p>
+
+    <p>Patterns are passed to the RegExp constructor as ECMAScript string values in which non-BMP
+    characters are UTF-16 encoded. The single charcter MUSICAL SYMBOL G CLEF pattern, expressed as
+    a string value, is a String of length 2 whose elements were the code units 0xD834 and 0xDDE. So
+    no further translation of the string would be necessary to process it as a BMP pattern
+    consisting of two pattern characters. However, to process it as a Unicode pattern the string
+    value must treated as if it was UTF-16 decoded into a <a href=
+    "#sec-list-and-record-specification-type">List</a> consisting of a single pattern character,
+    the code unit U+1D11E.</p>
+  </es-note>
+
+  <p>An implementation may not actually perform such translations to or from UTF-16, but the
+  semantics of this specification requires that the result of pattern matching be as if such
+  transations were performed.</p>
+  <link rel="import" href="pattern-semantics\notation.html">
+  <link rel="import" href="pattern-semantics\pattern.html">
+  <link rel="import" href="pattern-semantics\disjunction.html">
+  <link rel="import" href="pattern-semantics\alternative.html">
+  <link rel="import" href="pattern-semantics\term.html">
+  <link rel="import" href="pattern-semantics\assertion.html">
+  <link rel="import" href="pattern-semantics\quantifier.html">
+  <link rel="import" href="pattern-semantics\atom.html">
+  <link rel="import" href="pattern-semantics\atomescape.html">
+  <link rel="import" href="pattern-semantics\characterescape.html">
+  <link rel="import" href="pattern-semantics\decimalescape.html">
+  <link rel="import" href="pattern-semantics\characterclassescape.html">
+
+  <es-clause title="CharacterClass" anchor="sec-characterclass">
+    <p>The production <es-production name="CharacterClass" type="lexical" class=
+    "inline"><es-rhs><es-t>[</es-t> <es-nt>ClassRanges</es-nt>
+    <es-t>]</es-t></es-rhs></es-production> evaluates by evaluating
+    <es-nt>ClassRanges</es-nt> to obtain a CharSet and returning that CharSet and the Boolean
+    <b>false</b>.</p>
+
+    <p>The production <es-production name="CharacterClass" type="lexical" class=
+    "inline"><es-rhs><es-t>[</es-t> <es-t>^</es-t> <es-nt>ClassRanges</es-nt>
+    <es-t>]</es-t></es-rhs></es-production> evaluates by evaluating
+    <es-nt>ClassRanges</es-nt> to obtain a CharSet and returning that CharSet and the Boolean
+    <b>true</b>.</p>
+  </es-clause>
+
+  <es-clause title="ClassRanges" anchor="sec-classranges">
+    <p>The production <es-production name="ClassRanges" type="lexical" class=
+    "inline"><es-rhs constraint="empty"></es-rhs></es-production> evaluates by
+    returning the empty CharSet.</p>
+
+    <p>The production <es-production name="ClassRanges" type="lexical" class=
+    "inline"><es-rhs><es-nt>NonemptyClassRanges</es-nt></es-rhs></es-production>
+    evaluates by evaluating <es-nt>NonemptyClassRanges</es-nt> to obtain a CharSet and returning
+    that CharSet.</p>
+  </es-clause>
+  <link rel="import" href="pattern-semantics\nonemptyclassranges.html">
+  <link rel="import" href="pattern-semantics\nonemptyclassrangesnodash.html">
+
+  <es-clause title="ClassAtom" anchor="sec-classatom">
+    <p>The production <es-production name="ClassAtom" type="lexical" class=
+    "inline"><es-rhs>-</es-rhs></es-production> evaluates by returning the
+    CharSet containing the one character <code>-</code>.</p>
+
+    <p>The production <es-production name="ClassAtom" type="lexical" class=
+    "inline"><es-rhs><es-nt>ClassAtomNoDash</es-nt></es-rhs></es-production>
+    evaluates by evaluating <es-nt>ClassAtomNoDash</es-nt> to obtain a CharSet and returning that
+    CharSet.</p>
+  </es-clause>
+
+  <es-clause title="ClassAtomNoDash" anchor="sec-classatomnodash">
+    <p>The production <es-production name="ClassAtomNoDash" type="lexical" class=
+    "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-t>\</es-t></es-gmod><es-gmod>or <es-t>]</es-t></es-gmod><es-gmod>or
+    <es-t>-</es-t></es-gmod></es-rhs></es-production> evaluates by returning a
+    one-element CharSet containing the character represented by <es-nt>SourceCharacter</es-nt>.</p>
+
+    <p>The production <es-production name="ClassAtomNoDash" type="lexical" class=
+    "inline"><es-rhs><es-t>\</es-t>
+    <es-nt>ClassEscape</es-nt></es-rhs></es-production> evaluates by evaluating
+    <es-nt>ClassEscape</es-nt> to obtain a CharSet and returning that CharSet.</p>
+  </es-clause>
+  <link rel="import" href="pattern-semantics\classescape.html">
+</es-clause>

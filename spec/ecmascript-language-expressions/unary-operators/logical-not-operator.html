@@ -1,0 +1,25 @@
+<!doctype html>
+<es-clause title="Logical NOT Operator ()" anchor="sec-logical-not-operator">
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-logical-not-operator-runtime-semantics-evaluation">
+    <es-production name="UnaryExpression" class="inline">
+      <es-rhs><es-t>!</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+      <li>Let <i>oldValue</i> be <a href="#sec-toboolean">ToBoolean</a> (<a href=
+      "#sec-getvalue">GetValue</a> (<i>expr</i>)).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>oldValue</i>).
+      </li>
+
+      <li>If <i>oldValue</i> is <b>true</b>, return <b>false</b>.</li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

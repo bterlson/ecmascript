@@ -1,0 +1,20 @@
+<!doctype html>
+<es-clause title="Empty Statement" anchor="sec-empty-statement">
+  <h2>Syntax</h2>
+
+  <es-production name="EmptyStatement">
+    <es-rhs>;</es-rhs>
+  </es-production>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-empty-statement-runtime-semantics-evaluation">
+    <es-production name="EmptyStatement" class="inline">
+      <es-rhs>;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
+      </li>
+    </ol>
+  </es-clause>
+</es-clause>

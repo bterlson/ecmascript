@@ -1,0 +1,55 @@
+<!doctype html>
+<es-clause title="%TypedArray% [ @@create ] ( )" anchor="sec-%typedarray%-@@create">
+  <p>The @@create method of %TypedArray% performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>F</i>) is not Object, then
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>proto</i> be the result of <a href=
+    "#sec-getprototypefromconstructor">GetPrototypeFromConstructor</a> (<i>F</i>,
+    <code>"%TypedArrayPrototype%"</code>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>proto</i>).
+    </li>
+
+    <li>Let <i>obj</i> be the result of calling <a href=
+    "#sec-integerindexedobjectcreate">IntegerIndexedObjectCreate</a> (<i>proto</i>).
+    </li>
+
+    <li>Add a [[ViewedArrayBuffer]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>obj</i> and set its
+    initial value to <b>undefined</b>.
+    </li>
+
+    <li>Add a [[TypedArrayName]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> to <i>obj</i> and set its initial value to <b>undefined</b> .
+    </li>
+
+    <li>Add a [[ByteLength]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> to <i>obj</i> and set its initial value to 0.
+    </li>
+
+    <li>Add a [[ByteOffset]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> to <i>obj</i> and set its initial value to 0.
+    </li>
+
+    <li>Add an [[ArrayLength]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> to <i>obj</i> and set its initial value to 0.
+    </li>
+
+    <li>Return <i>obj</i>.</li>
+  </ol>
+
+  <p>The value of the <code>name</code> property of this function is
+  <code>"[Symbol.create]"</code>.</p>
+
+  <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+  [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+  "value">true</span> }.</p>
+</es-clause>

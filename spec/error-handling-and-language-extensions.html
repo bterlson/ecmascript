@@ -1,0 +1,46 @@
+<!doctype html>
+<es-clause title="Error Handling and Language Extensions" anchor=
+"sec-error-handling-and-language-extensions">
+  <p>An implementation must report most errors at the time the relevant ECMAScript language
+  construct is evaluated. An <i>early error</i> is an error that can be detected and reported prior
+  to the evaluation of any construct in the <es-nt>Script</es-nt> containing the error. An
+  implementation must report early errors in a <es-nt>Script</es-nt> prior to the first evaluation
+  of that <es-nt>Script</es-nt>. Early errors in <b>eval</b> code are reported at the time
+  <code>eval</code> is called but prior to evaluation of any construct within the <b>eval</b> code.
+  All errors that are not early errors are runtime errors.</p>
+
+  <p>An implementation must treat as an early error any instance of an early error that is
+  specified in a static</p>
+
+  <p>An implementation shall not treat other kinds of errors as early errors even if the compiler
+  can prove that a construct cannot execute without error under any circumstances. An
+  implementation may issue an early warning in such a case, but it should not report the error
+  until the relevant construct is actually executed.</p>
+
+  <p>An implementation shall report all errors as specified, except for the following:</p>
+
+  <ul>
+    <li>
+      <p>An implementation may extend script syntax and regular expression pattern or flag syntax.
+      To permit this, all operations (such as calling <code>eval</code>, using a regular expression
+      literal, or using the <code>Function</code> or <code>RegExp</code> constructor) that are
+      allowed to throw <b>SyntaxError</b> are permitted to exhibit implementation-defined behaviour
+      instead of throwing <b>SyntaxError</b> when they encounter an implementation-defined
+      extension to the script syntax or regular expression pattern or flag syntax.</p>
+    </li>
+
+    <li>
+      <p>An implementation may provide additional types, values, objects, properties, and functions
+      beyond those described in this specification. This may cause constructs (such as looking up a
+      variable in the global scope) to have implementation-defined behaviour instead of throwing an
+      error (such as <b>ReferenceError</b>).</p>
+    </li>
+
+    <li>
+      <p>An implementation may define behaviour other than throwing <b>RangeError</b> for
+      <code>toFixed</code>, <code>toExponential</code>, and <code>toPrecision</code> when the
+      <es-nt>fractionDigits</es-nt> or <es-nt>precision</es-nt> argument is outside the specified
+      range.</p>
+    </li>
+  </ul>
+</es-clause>

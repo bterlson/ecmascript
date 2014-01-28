@@ -1,0 +1,84 @@
+<!doctype html>
+<es-clause title="TheStatement" anchor="sec-switch-statement">
+  <h2>Syntax</h2>
+
+  <es-production name="SwitchStatement" params="Yield, Return">
+    <es-rhs>switch ( <es-nt params="In, ?Yield">Expression</es-nt> ) <es-nt params=
+    "?Yield, ?Return">CaseBlock</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="CaseBlock" params="Yield, Return">
+    <es-rhs><es-t>{</es-t> <es-nt>CaseClauses</es-nt> <es-gann>?Yield,
+    ?Return</es-gann><es-t>opt</es-t> <es-t>}</es-t></es-rhs>
+
+    <es-rhs>{ <es-nt>CaseClauses</es-nt> <es-gann>?Yield, ?Return</es-gann>opt <es-nt params=
+    "?Yield, ?Return">DefaultClause</es-nt> <es-nt>CaseClauses</es-nt> <es-gann>?Yield,
+    ?Return</es-gann>opt }</es-rhs>
+  </es-production>
+
+  <es-production name="CaseClauses" params="Yield, Return">
+    <es-rhs><es-nt params="?Yield, ?Return">CaseClause</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield, ?Return">CaseClauses</es-nt> <es-nt params=
+    "?Yield, ?Return">CaseClause</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="CaseClause" params="Yield, Return">
+    <es-rhs>case <es-nt params="In, ?Yield">Expression</es-nt> : <es-nt>StatementList</es-nt>
+    <es-gann>?Yield, ?Return</es-gann>opt</es-rhs>
+  </es-production>
+
+  <es-production name="DefaultClause" params="Yield, Return">
+    <es-rhs><es-t>default</es-t> <es-t>:</es-t> <es-nt>StatementList</es-nt> <es-gann>?Yield,
+    ?Return</es-gann><es-t>opt</es-t></es-rhs>
+  </es-production>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-switch-statement-static-semantics-early-errors">
+    <es-production name="CaseBlock" class="inline">
+      <es-rhs><es-t>{</es-t> <es-nt>CaseClauses</es-nt> <es-t>}</es-t></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if the LexicallyDeclaredNames of <es-nt>CaseClauses</es-nt>
+        contains any duplicate entries.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if any element of the LexicallyDeclaredNames of
+        <es-nt>CaseClauses</es-nt> also occurs in the VarDeclaredNames of
+        <es-nt>CaseClauses</es-nt>.</p>
+      </li>
+    </ul>
+  </es-clause>
+  <link rel="import" href=
+  "switch-statement\switch-statement-static-semantics-lexicaldeclarations.html">
+  <link rel="import" href=
+  "switch-statement\switch-statement-static-semantics-lexicallydeclarednames.html">
+  <link rel="import" href=
+  "switch-statement\switch-statement-static-semantics-vardeclarednames.html">
+  <link rel="import" href="switch-statement\runtime-semantics-caseblockevaluation.html">
+
+  <es-clause title="Runtime Semantics: CaseSelectorEvaluation" anchor=
+  "sec-runtime-semantics-caseselectorevaluation">
+    <es-production name="CaseClause" class="inline">
+      <es-rhs>case <es-nt>Expression</es-nt> : <es-nt optional>StatementList</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+
+      <li>Return <a href="#sec-getvalue">GetValue</a> (<i>exprRef</i>).
+      </li>
+    </ol>
+
+    <es-note>
+      <p>CaseSelectorEvaluation does not execute the associated <es-nt>StatementList</es-nt>. It
+      simply evaluates the <es-nt>Expression</es-nt> and returns the value, which the
+      <es-nt>CaseBlock</es-nt> algorithm uses to determine which <es-nt>StatementList</es-nt> to
+      start executing.</p>
+    </es-note>
+  </es-clause>
+  <link rel="import" href="switch-statement\switch-statement-runtime-semantics-evaluation.html">
+</es-clause>

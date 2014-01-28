@@ -1,0 +1,46 @@
+<!doctype html>
+<es-clause title="PromiseReaction Records" anchor="sec-promisereaction-records">
+  <p>The PromiseReaction is a Record value used to store information about how a promise should
+  react when it becomes resolved or rejected with a given value. PromiseReaction records are
+  created by the <code>then</code> method of the Promise prototype, and are used by a <a href=
+  "#sec-promisereactiontask">PromiseReactionTask</a> .</p>
+
+  <p>PromiseReaction records have the fields listed in <b>Table 48</b>.</p>
+
+  <p><b>Table 48 — PromiseReaction Record Fields</b></p>
+
+  <figure>
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 0px solid black; border-top: 2px solid #000000">
+        Field Name</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Value</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Meaning</th>
+      </tr>
+
+      <tr>
+        <td>[[Capabilities]]</td>
+
+        <td>A PromiseCapability record</td>
+
+        <td>The capabilities of the promise for which this record provides a reaction handler.</td>
+      </tr>
+
+      <tr>
+        <td>[[Handler]]</td>
+
+        <td>A function object</td>
+
+        <td>The function that should be applied to the incoming value, and whose return value will
+        govern what happens to the derived promise.</td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

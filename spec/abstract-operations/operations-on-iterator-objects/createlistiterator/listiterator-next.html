@@ -1,0 +1,44 @@
+<!doctype html>
+<es-clause title="ListIterator next( )" anchor="sec-listiterator-next">
+  <p>The ListIterator <code>next</code> method is a standard built-in function object (<a href=
+  "#sec-ecmascript-standard-built-in-objects">clause 17</a> ) that performs the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <i>O</i> does not have a [[IteratedList]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>list</i> be the <a href="#sec-list-and-record-specification-type">List</a> that is
+    value of the [[IteratedList] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>index</i> be the value of the [[ListIteratorNextIndex]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>lenValue</i> be the number of elements of <i>list</i>.</li>
+
+    <li>If <i>index</i> ≥ <i>len</i>, then
+
+      <ol class="block">
+        <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a>
+        (<b>undefined</b>, <b>true</b>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Set the value of the [[ListIteratorNextIndex]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to
+    <i>index</i>+1.
+    </li>
+
+    <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a>
+    (<i>list</i>[<i>index</i>], <b>false</b>).
+    </li>
+  </ol>
+</es-clause>

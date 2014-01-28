@@ -1,0 +1,39 @@
+<!doctype html>
+<es-clause title="SetArrayBufferData(arrayBuffer, bytes)" anchor="sec-setarraybufferdata">
+  <p>The abstract operation SetArrayBufferData with arguments <i>arrayBuffer</i> and <i>bytes</i>
+  is used to initialise the storage block encapsulated by an ArrayBuffer object. It performs the
+  following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (arrayBuffer).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>arrayBuffer</i>) is Object and it has an
+      [[ArrayBufferData]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+      slot</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>bytes</i> is positive integer.
+    </li>
+
+    <li>Let <i>block</i> be the result of <a href=
+    "#sec-createbytedatablock">CreateByteDataBlock</a> (<i>bytes</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>block</i>).
+    </li>
+
+    <li>Set <i>arrayBuffer’s</i> [[ArrayBufferData]] to <i>block</i>.</li>
+
+    <li>Set <i>arrayBuffer</i>’s [[ArrayBufferByteLength]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>bytes</i>.
+    </li>
+
+    <li>Return <i>arrayBuffer</i>.</li>
+  </ol>
+</es-clause>

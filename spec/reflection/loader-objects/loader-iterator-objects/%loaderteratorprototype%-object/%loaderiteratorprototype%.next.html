@@ -1,0 +1,111 @@
+<!doctype html>
+<es-clause title="%LoaderIteratorPrototype%.next( )" anchor="sec-%loaderiteratorprototype%.next">
+  <ol class="proc">
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, throw
+    a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>O</i> does not have all of the internal slots of a Loader Iterator Instance
+      (<a href="#sec-properties-of-loader-iterator-instances">26.3.5.3</a> ), throw a
+      <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>m</i> be the value of the [[Loader]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>loaderRecord</i> be <i>m’s</i> [[LoaderRecord]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>index</i> be the value of the [[LoaderNextIndex]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>itemKind</i> be the value of the [[LoaderIterationKind]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>If <i>m</i> is <b>undefined</b>, then return <a href=
+    "#sec-createiterresultobject">CreateIterResultObject</a> (<b>undefined</b>, <b>true</b>).
+    </li>
+
+    <li>Let <i>entries</i> be the <a href="#sec-list-and-record-specification-type">List</a> that
+    is the value of the <i>loaderRecord</i>.[[Modules]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>m</i>.
+    </li>
+
+    <li>Repeat while <i>index</i> is less than the total number of elements of <i>entries</i>. The
+    number of elements must be redetermined each time this method is evaluated.
+
+      <ol class="block">
+        <li>Let <i>e</i> be the Record {[[key]], [[value]]} that is the value of
+        <i>entries</i>[<i>index</i>].</li>
+
+        <li>Set <i>index</i> to <i>index</i>+1;</li>
+
+        <li>Set the [[LoaderNextIndex]] <a href="#sec-object-internal-methods-and-internal-slots">
+          internal slot</a> of <i>O</i> to <i>index</i>.
+        </li>
+
+        <li>If <i>e</i>.[[key]] is not empty, then
+
+          <ol class="block">
+            <li>If <i>itemKind</i> is <b>"key"</b> then, let <i>result</i> be
+            <i>e</i>.[[key]].</li>
+
+            <li>Else if <i>itemKind</i> is <b>"value"</b> then, let <i>result</i> be
+            <i>e</i>.[[value]].</li>
+
+            <li>Else,
+
+              <ol class="block">
+                <li>
+                  <a href="#sec-algorithm-conventions">Assert</a> : <i>itemKind</i> is
+                  <code>"key+value"</code>.
+                </li>
+
+                <li>Let <i>result</i> be the result of performing <a href=
+                "#sec-arraycreate">ArrayCreate</a> (2).
+                </li>
+
+                <li>
+                  <a href="#sec-algorithm-conventions">Assert</a> : <i>result</i> is a new,
+                  well-formed Array object so the following operations will never fail.
+                </li>
+
+                <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>result</i>,
+                <b>"0"</b>, <i>e</i>.[[key]]) .
+                </li>
+
+                <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>result</i>,
+                <b>"1"</b>, <i>e</i>.[[value]]).
+                </li>
+              </ol>
+            </li>
+
+            <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a>
+            (<i>result</i>, <b>false</b>).
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Set the [[Loader]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>O</i> to <b>undefined</b>.
+    </li>
+
+    <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a> (<b>undefined</b>,
+    <b>true</b>).
+    </li>
+  </ol>
+
+  <es-note>
+    <p>Setting the [[Loader]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> to undefined when the iterator is exhausted ensures that the same iterator can not
+    restarted if new entries are subsequently added. This condition is tested in step 7.</p>
+  </es-note>
+</es-clause>

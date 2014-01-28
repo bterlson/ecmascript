@@ -1,0 +1,63 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: LabelledEvaluation" anchor=
+"sec-statement-semantics-runtime-semantics-labelledevaluation">
+  <p>With argument <es-nt>labelSet</es-nt>.</p>
+
+  <p>See also: <a href="#sec-do-while-statement-runtime-semantics-labelledevaluation">13.6.1.2</a>
+  , <a href="#sec-while-statement-runtime-semantics-labelledevaluation">13.6.2.2</a> , <a href=
+  "#sec-for-statement-runtime-semantics-labelledevaluation">13.6.3.2</a> , <a href=
+  "#sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation">13.6.4.5</a> , <a href=
+  "#sec-labelled-statements-runtime-semantics-labelledevaluation">13.12.3</a> .</p>
+
+  <es-production name="BreakableStatement" class="inline">
+    <es-rhs><es-nt>IterationStatement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>stmtResult</i> be the result of performing LabelledEvaluation of
+    <i>IterationStatement</i> with argument <i>labelSet</i>.</li>
+
+    <li>If <i>stmtResult</i>.[[type]] is break and <i>stmtResult</i>.[[target]] is empty, then
+
+      <ol class="block">
+        <li>If <i>stmtResult</i>.[[value]] is empty, then let <i>stmtResult</i> be <a href=
+        "#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
+        </li>
+
+        <li>Else, let <i>stmtResult</i> be <a href="#sec-normalcompletion">NormalCompletion</a>
+        (<i>stmtResult</i>.[[value]])
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>stmtResult</i>.</li>
+  </ol>
+
+  <es-production name="BreakableStatement" class="inline">
+    <es-rhs><es-nt>SwitchStatement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>stmtResult</i> be the result of evaluating <i>SwitchStatement</i>.</li>
+
+    <li>If <i>stmtResult</i>.[[type]] is break and <i>stmtResult</i>.[[target]] is empty, then
+
+      <ol class="block">
+        <li>If <i>stmtResult</i>.[[value]] is empty, then let <i>stmtResult</i> be <a href=
+        "#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
+        </li>
+
+        <li>Else, let <i>stmtResult</i> be <a href="#sec-normalcompletion">NormalCompletion</a>
+        (<i>stmtResult</i>.[[value]])
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>stmtResult</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>A <es-nt>BreakableStatement</es-nt> is one that can be exited via an unlabelled
+    <es-nt>BreakStatement.</es-nt></p>
+  </es-note>
+</es-clause>

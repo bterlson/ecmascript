@@ -1,0 +1,38 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: PrepareForTailCall" anchor=
+"sec-runtime-semantics-preparefortailcall">
+  <p>The abstract operation PrepareForTailCall performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>leafContext</i> be <a href="#sec-execution-contexts">the running execution
+    context</a> .
+    </li>
+
+    <li>
+      <a href="#sec-execution-contexts">Suspend</a> <i>leafContext</i>.
+    </li>
+
+    <li>Pop <i>leafContext</i> from the <a href="#sec-execution-contexts">execution context context
+    stack</a> . The <a href="#sec-execution-contexts">execution context</a> now on the top of the
+    stack becomes <a href="#sec-execution-contexts">the running execution context</a> , however it
+    remains in its <a href="#sec-execution-contexts">suspended</a> state.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>leafContext</i> has no further use. It
+      will never be activated as <a href="#sec-execution-contexts">the running execution
+      context</a> .
+    </li>
+  </ol>
+
+  <p>A tail position call must either release any transient internal resources associated with the
+  currently executing function <a href="#sec-execution-contexts">execution context</a> before
+  invoking the target function or reuse those resources in support of the target function.</p>
+
+  <es-note>
+    <p>For example, a tail position call should only grow an implementation’s activication record
+    stack by the amount that the size of the target function’s activation record exceeds the size
+    of the calling function’s activation record. If the target function’s activation record is
+    smaller, then the total size of the stack should decrease.</p>
+  </es-note>
+</es-clause>

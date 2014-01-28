@@ -1,0 +1,30 @@
+<!doctype html>
+<es-clause title="Static Semantics: Early Errors" anchor=
+"sec-delete-operator-static-semantics-early-errors">
+  <es-production name="UnaryExpression" class="inline">
+    <es-rhs><es-t>delete</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+  </es-production>
+
+  <ul>
+    <li>
+      <p>It is a Syntax Error if the <es-nt>UnaryExpression</es-nt> is contained in <a href=
+      "#sec-strict-mode-code">strict code</a> and the derived <es-nt>UnaryExpression</es-nt> is
+      <es-production name="PrimaryExpression" class=
+      "inline"><es-rhs></es-rhs></es-production>
+      <es-nt>IdentifierReference.</es-nt></p>
+    </li>
+
+    <li>
+      <p>It is a Syntax Error if the derived <es-nt>UnaryExpression</es-nt> is<br>
+      <i>PrimaryExpression : CoverParenthesisedExpressionAndArrowParameterList<br></i>and derives a
+      production that, if used in place of <es-nt>UnaryExpression,</es-nt> would produce a Syntax
+      Error according to these rules. This rule is recursively applied.</p>
+    </li>
+  </ul>
+
+  <es-note>
+    <p>The last rule means that expressions such as<br>
+    <code>delete (((foo)))</code><br>
+    produce early errors because of recursive application of the first rule.</p>
+  </es-note>
+</es-clause>

@@ -1,0 +1,104 @@
+<!doctype html>
+<es-clause title="[[Get]] (P, Receiver)" anchor=
+"sec-proxy-object-internal-methods-and-internal-slots-get-p-receiver">
+  <p>When the [[Get]] internal method of an exotic Proxy object <es-nt>O</es-nt> is called with
+  <a href="#sec-object-type">property key</a> <es-nt>P</es-nt> and <a href=
+  "#sec-ecmascript-language-types">ECMAScript language value</a> <es-nt>Receiver</es-nt> the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+    </li>
+
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
+    "<code>get</code>").
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
+    </li>
+
+    <li>If <i>trap</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Return the result of calling the [[Get]] internal method of <i>target</i> with
+        arguments <i>P</i> and <i>Receiver</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>trapResult</i> be the result of calling the [[Call]] internal method of <i>trap</i>
+    with <i>handler</i> as the <b>this</b> value and a new <a href=
+    "#sec-list-and-record-specification-type">List</a> containing <i>target</i>, <i>P</i>, and <i>
+      Receiver</i>.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trapResult</i>).
+    </li>
+
+    <li>Let <i>targetDesc</i> be the result of calling the [[GetOwnProperty]] internal method of
+    <i>target</i> with argument <i>P</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>targetDesc</i>).
+    </li>
+
+    <li>If <i>targetDesc</i> is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>If <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>targetDesc</i>) and
+        <i>targetDesc</i>.[[Configurable]] is <b>false</b> and <i>targetDesc</i>.[[Writable]] is
+        <b>false</b>, then
+
+          <ol class="block">
+            <li>If <a href="#sec-samevalue">SameValue</a> (<i>trapResult</i>,
+            <i>targetDesc</i>.[[Value]]) is <b>false</b>, then throw a <b>TypeError</b> exception.
+            </li>
+          </ol>
+        </li>
+
+        <li>If <a href="#sec-isaccessordescriptor">IsAccessorDescriptor</a> (<i>targetDesc</i>) and
+        <i>targetDesc</i>.[[Configurable]] is <b>false</b> and <i>targetDesc</i>.[[Get]] is
+        <b>undefined</b>, then
+
+          <ol class="block">
+            <li>If <i>trapResult</i> is not <b>undefined</b>, then throw a <b>TypeError</b>
+            exception.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>trapResult</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>[[Get]] for proxy objects enforces the following invariants:</p>
+
+    <ul>
+      <li>
+        <p>The value reported for a property must be the same as the value of the corresponding
+        target object property if the target object property is a non-writable, non-configurable
+        data property.</p>
+      </li>
+
+      <li>
+        <p>The value reported for a property must be <span class="value">undefined</span> if the
+        corresponding corresponding target object property is non-configurable accessor property
+        that has <span class="value">undefined</span> as its [[Get]] attribute.</p>
+      </li>
+    </ul>
+  </es-note>
+</es-clause>

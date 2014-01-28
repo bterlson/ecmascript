@@ -1,0 +1,114 @@
+<!doctype html>
+<es-clause title="White Space" anchor="sec-white-space">
+  <p>White space characters are used to improve source text readability and to separate tokens
+  (indivisible lexical units) from each other, but are otherwise insignificant. White space
+  characters may occur between any two tokens and at the start or end of input. White space
+  characters may occur within a <es-nt>StringLiteral</es-nt>, a
+  <es-nt>RegularExpressionLiteral</es-nt>, a <es-nt>Template</es-nt>, or a
+  <es-nt>TemplateSubstitutionTail</es-nt> where they are considered significant characters forming
+  part of a literal value. They may also occur within a <es-nt>Comment</es-nt>, but cannot appear
+  within any other kind of token.</p>
+
+  <p>The ECMAScript white space characters are listed in <a href="#table-29">Table 29</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-29">Table 29</span> — Whitespace Characters
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Code Point</th>
+
+        <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">Name</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Abbreviation</th>
+      </tr>
+
+      <tr>
+        <td style="border-left: 1px solid #000000"><code>U+0009</code></td>
+
+        <td>Character Tabulation</td>
+
+        <td style="border-right: 1px solid #000000">&lt;TAB&gt;</td>
+      </tr>
+
+      <tr>
+        <td style="border-left: 1px solid #000000"><code>U+000B</code></td>
+
+        <td>LINE TABULATION</td>
+
+        <td style="border-right: 1px solid #000000">&lt;VT&gt;</td>
+      </tr>
+
+      <tr>
+        <td style="border-left: 1px solid #000000"><code>U+000C</code></td>
+
+        <td>Form Feed</td>
+
+        <td style="border-right: 1px solid #000000">&lt;FF&gt;</td>
+      </tr>
+
+      <tr>
+        <td style="border-left: 1px solid #000000"><code>U+0020</code></td>
+
+        <td>Space</td>
+
+        <td style="border-right: 1px solid #000000">&lt;SP&gt;</td>
+      </tr>
+
+      <tr>
+        <td style="border-left: 1px solid #000000"><code>U+00A0</code></td>
+
+        <td>No-break space</td>
+
+        <td style="border-right: 1px solid #000000">&lt;NBSP&gt;</td>
+      </tr>
+
+      <tr>
+        <td style="border-left: 1px solid #000000"><code>U+FEFF</code></td>
+
+        <td>Byte Order Mark</td>
+
+        <td style="border-right: 1px solid #000000">&lt;BOM&gt;</td>
+      </tr>
+
+      <tr>
+        <td style="border-bottom: 2px solid #000000; border-left: 1px solid #000000">Other category
+        “Zs”</td>
+
+        <td style="border-bottom: 2px solid #000000">Any other Unicode “space separator”</td>
+
+        <td style="border-bottom: 2px solid #000000; border-right: 1px solid #000000">
+        &lt;USP&gt;</td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>ECMAScript implementations must recognise all of the white space characters defined in Unicode
+  5.1. Later editions of the Unicode Standard may define other white space characters. ECMAScript
+  implementations may recognise white space characters from later editions of the Unicode
+  Standard.</p>
+
+  <h2>Syntax</h2>
+
+  <es-production name="WhiteSpace" type="lexical">
+    <es-rhs>&lt;TAB&gt;</es-rhs>
+
+    <es-rhs>&lt;VT&gt;</es-rhs>
+
+    <es-rhs>&lt;FF&gt;</es-rhs>
+
+    <es-rhs>&lt;SP&gt;</es-rhs>
+
+    <es-rhs>&lt;NBSP&gt;</es-rhs>
+
+    <es-rhs>&lt;BOM&gt;</es-rhs>
+
+    <es-rhs>&lt;USP&gt;</es-rhs>
+  </es-production>
+</es-clause>

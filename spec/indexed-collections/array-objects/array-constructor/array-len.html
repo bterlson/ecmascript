@@ -1,0 +1,90 @@
+<!doctype html>
+<es-clause title="Array (len)" anchor="sec-array-len">
+  <p>This description applies if and only if the Array constructor is called with exactly one
+  argument.</p>
+
+  <ol class="proc">
+    <li>Let <i>numberOfArgs</i> be the number of arguments passed to this constructor call.</li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>numberOfArgs</i> = 1.
+    </li>
+
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and
+    <i>O</i> has an [[ArrayInitialisationState]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> and the value of
+    [[ArrayInitialisationState]] is <b>false</b>, then
+
+      <ol class="block">
+        <li>Set the value of <i>O’s</i> [[ArrayInitialisationState]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <b>true</b>.
+        </li>
+
+        <li>Let <i>array</i> be <i>O</i>.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>F</i> be this function.</li>
+
+        <li>Let <i>proto</i> be the result of <a href=
+        "#sec-getprototypefromconstructor">GetPrototypeFromConstructor</a> (<i>F</i>,
+        <code>"%ArrayPrototype%"</code>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>proto</i>).
+        </li>
+
+        <li>Let <i>array</i> be the result of <a href="#sec-arraycreate">ArrayCreate</a> (0,
+        <i>proto</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>array</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>len</i>) is not Number,
+    then
+
+      <ol class="block">
+        <li>Let <i>defineStatus</i> be the result of <a href=
+        "#sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</a> (<i>array</i>, "<b>0</b>",
+        <i>len</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>defineStatus</i>).
+        </li>
+
+        <li>Let <i>intLen</i> be 1.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>intLen</i> be <a href="#sec-touint32">ToUint32</a> (<i>len</i>).
+        </li>
+
+        <li>If <i>intLen</i> ≠ <i>len</i>, then throw a <b>RangeError</b> exception.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>array</i>,
+    <code>"length"</code>, <i>intLen</i>, <b>true</b>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
+    </li>
+
+    <li>Return <i>array</i>.</li>
+  </ol>
+</es-clause>

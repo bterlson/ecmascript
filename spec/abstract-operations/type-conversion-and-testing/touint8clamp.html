@@ -1,0 +1,36 @@
+<!doctype html>
+<es-clause title="ToUint8Clamp: (Unsigned 8 Bit Integer, Clamped)" anchor="sec-touint8clamp">
+  <p>The abstract operation ToUint8Clamp converts its argument to one of <span style=
+  "font-family: Times New Roman">2<sup>8</sup></span> integer values in the range <span style=
+  "font-family: Times New Roman">0</span> through <span style=
+  "font-family: Times New Roman">255</span>, inclusive. This abstract operation functions as
+  follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>number</i> be the result of calling <a href="#sec-tonumber">ToNumber</a> on the
+    input argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>number</i>).
+    </li>
+
+    <li>If <i>number</i> is <b>NaN</b>, return <b>+0</b>.</li>
+
+    <li>If <i>number</i> ≤ 0, return <b>+0</b>.</li>
+
+    <li>If <i>number</i> &gt; 255, return 255.</li>
+
+    <li>Let <i>f</i> be <a href="#sec-algorithm-conventions">floor</a> (<i>number</i>).
+    </li>
+
+    <li>If <i>f+0.5</i> ≤ <i>number</i>, then return <i>f</i>+1.</li>
+
+    <li>Return <i>f</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>Note that unlike the other integer conversion abstract operation, ToUnit8Clamp rounds rather
+    than truncates non-integer values.</p>
+  </es-note>
+</es-clause>

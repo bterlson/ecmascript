@@ -1,0 +1,87 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: ObjectDefineProperties Abstract Operation" anchor=
+"sec-objectdefineproperties">
+  <p>The abstract operation ObjectDefineProperties with arguments <i>O</i> and <i>Properties</i>
+  performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object throw
+    a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>props</i> be <a href="#sec-toobject">ToObject</a> (<i>Properties</i>).
+    </li>
+
+    <li>Let <i>names</i> be a <a href="#sec-list-and-record-specification-type">List</a> containing
+    the keys of each enumerable own property of <i>props.</i>
+    </li>
+
+    <li>Let <i>descriptors</i> be an empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>For each element <i>P</i> of <i>names</i> in list order,
+
+      <ol class="block">
+        <li>Let <i>descObj</i> be the result of <a href="#sec-get-o-p">Get</a> ( <i>props</i>, <i>
+          P</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>descObj</i>).
+        </li>
+
+        <li>Let <i>desc</i> be the result of calling <a href=
+        "#sec-topropertydescriptor">ToPropertyDescriptor</a> with <i>descObj</i> as the argument.
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>desc</i>).
+        </li>
+
+        <li>Append the pair (a two element <a href=
+        "#sec-list-and-record-specification-type">List</a> ) consisting of <i>P</i> and <i>desc</i>
+        to the end of <i>descriptors</i>.
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>pendingException</i> be <b>undefined</b>.</li>
+
+    <li>For each <i>pair</i> from <i>descriptors</i> in list order,
+
+      <ol class="block">
+        <li>Let <i>P</i> be the first element of <i>pair</i>.</li>
+
+        <li>Let <i>desc</i> be the second element of <i>pair</i>.</li>
+
+        <li>Let <i>status</i> be the result of <a href=
+        "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>O</i>,<i>P</i>, <i>desc</i>).
+        </li>
+
+        <li>If <i>status</i> is an <a href="#sec-completion-record-specification-type">abrupt
+        completion</a> then,
+
+          <ol class="block">
+            <li>If <i>pendingException</i> is <b>undefined</b>, then set <i>pendingException</i> to
+            <i>status</i>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>pendingException</i>).
+    </li>
+
+    <li>Return <i>O</i>.</li>
+  </ol>
+
+  <p>If an implementation defines a specific order of enumeration for the for-in statement, that
+  same enumeration order must be used to order the list elements in step 3 of this algorithm.</p>
+
+  <es-note>
+    <p>An exception in defining an individual property in step 7 does not terminate the process of
+    defining other properties. All valid property definitions are processed.</p>
+  </es-note>
+</es-clause>

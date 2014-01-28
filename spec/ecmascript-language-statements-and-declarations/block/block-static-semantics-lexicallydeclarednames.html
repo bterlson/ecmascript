@@ -1,0 +1,49 @@
+<!doctype html>
+<es-clause title="Static Semantics: LexicallyDeclaredNames" anchor=
+"sec-block-static-semantics-lexicallydeclarednames">
+  <p>See also: <a href="#sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</a>
+  , <a href="#sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</a> ,
+  <a href="#sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</a> ,
+  <a href="#sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</a>
+  , <a href="#sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</a> , <a href=
+  "#sec-module-static-semantics-static-semantics-lexicallydeclarednames">15.2.0.10</a> .</p>
+
+  <es-production name="Block" class="inline">
+    <es-rhs>{ }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="StatementList" class="inline">
+    <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>names</i> be LexicallyDeclaredNames of <i>StatementList</i>.</li>
+
+    <li>Append to <i>names</i> the elements of the LexicallyDeclaredNames of
+    <i>StatementListItem.</i></li>
+
+    <li>Return <i>names</i>.</li>
+  </ol>
+
+  <es-production name="StatementListItem" class="inline">
+    <es-rhs><es-nt>Statement</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="StatementListItem" class="inline">
+    <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the BoundNames of <i>Declaration</i>.</li>
+  </ol>
+</es-clause>

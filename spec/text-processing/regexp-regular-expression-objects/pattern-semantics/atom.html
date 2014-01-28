@@ -1,0 +1,97 @@
+<!doctype html>
+<es-clause title="Atom" anchor="sec-atom">
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs><es-nt>PatternCharacter</es-nt></es-rhs></es-production>
+  evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>ch</i> be the character represented by <i>PatternCharacter</i>.</li>
+
+    <li>Let <i>A</i> be a one-element CharSet containing the character <i>ch</i>.</li>
+
+    <li>Call CharacterSetMatcher(<i>A</i>, <b>false</b>) and return its Matcher result.</li>
+  </ol>
+
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs>.</es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>A</i> be the set of all characters except <i>LineTerminator</i>.</li>
+
+    <li>Call CharacterSetMatcher(<i>A</i>, <b>false</b>) and return its Matcher result.</li>
+  </ol>
+
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs><es-t>\</es-t>
+  <es-nt>AtomEscape</es-nt></es-rhs></es-production> evaluates by evaluating
+  <es-nt>AtomEscape</es-nt> to obtain a Matcher and returning that Matcher.</p>
+
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs><es-nt>CharacterClass</es-nt></es-rhs></es-production>
+  evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>CharacterClass</i> to obtain a CharSet <i>A</i> and a Boolean
+    <i>invert</i>.</li>
+
+    <li>Call CharacterSetMatcher(<i>A</i>, <i>invert</i>) and return its Matcher result.</li>
+  </ol>
+
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
+  <es-t>)</es-t></es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>Disjunction</i> to obtain a Matcher <i>m</i>.</li>
+
+    <li>Let <i>parenIndex</i> be the number of left capturing parentheses in the entire regular
+    expression that occur to the left of this production expansion's initial left parenthesis. This
+    is the total number of times the <es-production name="Atom" type="lexical" class=
+    "inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
+    <es-t>)</es-t></es-rhs></es-production> production is expanded prior to this
+    production's <i>Atom</i> plus the total number of <es-production name="Atom" type=
+    "lexical" class="inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
+    <es-t>)</es-t></es-rhs></es-production> productions enclosing this
+    <i>Atom</i>.</li>
+
+    <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a
+    Continuation <i>c</i>, and performs the following steps:
+
+      <ol class="nested proc">
+        <li>Create an internal Continuation closure <i>d</i> that takes one State argument <i>y</i>
+        and performs the following steps:
+
+          <ol class="nested proc">
+            <li>Let <i>cap</i> be a fresh copy of <i>y</i>'s <i>captures</i> <a href=
+            "#sec-list-and-record-specification-type">List</a> .
+            </li>
+
+            <li>Let <i>xe</i> be <i>x</i>'s <i>endIndex</i>.</li>
+
+            <li>Let <i>ye</i> be <i>y</i>'s <i>endIndex</i>.</li>
+
+            <li>Let <i>s</i> be a fresh <a href="#sec-list-and-record-specification-type">List</a>
+            whose characters are the characters of <i>Input</i> at positions <i>xe</i> (inclusive)
+            through <i>ye</i> (exclusive).
+            </li>
+
+            <li>Set <i>cap</i>[<i>parenIndex</i>+1] to <i>s</i>.</li>
+
+            <li>Let <i>z</i> be the State (<i>ye</i>, <i>cap</i>).</li>
+
+            <li>Call <i>c</i>(<i>z</i>) and return its result.</li>
+          </ol>
+        </li>
+
+        <li>Call <i>m</i>(<i>x</i>, <i>d</i>) and return its result.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>:</es-t> <es-nt>Disjunction</es-nt>
+  <es-t>)</es-t></es-rhs></es-production> evaluates by evaluating
+  <es-nt>Disjunction</es-nt> to obtain a Matcher and returning that Matcher.</p>
+  <link rel="import" href="atom\runtime-semantics-charactersetmatcher-abstract-operation.html">
+  <link rel="import" href="atom\runtime-semantics-canonicalize-abstract-operation.html">
+</es-clause>

@@ -1,0 +1,88 @@
+<!doctype html>
+<es-clause title="[[GetPrototypeOf]] ( )" anchor=
+"sec-proxy-object-internal-methods-and-internal-slots-getprototypeof">
+  <p>When the [[GetPrototypeOf]] internal method of an exotic Proxy object <es-nt>O</es-nt> is
+  called the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
+    "<code>getPrototypeOf</code>").
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
+    </li>
+
+    <li>If <i>trap</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Return the result of calling the [[GetPrototypeOf]] internal method of
+        <i>target</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>handlerProto</i> be the result of calling the [[Call]] internal method of
+    <i>trap</i> with <i>handler</i> as the <b>this</b> value and a new <a href=
+    "#sec-list-and-record-specification-type">List</a> containing <i>target</i>.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>handlerProto</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>handlerProto</i>) is
+    neither Object nor Null, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>extensibleTarget</i> be the result of <a href="#sec-isextensible-o">IsExtensible</a>
+    (<i>target</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>extensibleTarget</i>).
+    </li>
+
+    <li>If <i>extensibleTarget</i> is <b>true</b>, then return <i>handlerProto</i>.</li>
+
+    <li>Let <i>targetProto</i> be the result of calling the [[GetPrototypeOf]] internal method of
+    <i>target</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>targetProto</i>).
+    </li>
+
+    <li>If <a href="#sec-samevalue">SameValue</a> (<i>handlerProto</i>, <i>targetProto</i>) is <b>
+      false</b>, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Return <i>handlerProto</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>[[GetPrototypeOf]] for proxy objects enforces the following invariant:</p>
+
+    <ul>
+      <li>
+        <p>The result of [[GetPrototypeOf]] must be either an Object or <b>null</b>.</p>
+
+        <ul>
+          <li>
+            <p>If the target object is not extensible, [[GetPrototypeOf]] applied to the proxy
+            object must return the same value as [[GetPrototypeOf] applied to the proxy object’s
+            target object.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </es-note>
+</es-clause>

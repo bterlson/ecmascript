@@ -1,0 +1,48 @@
+<!doctype html>
+<es-clause title="Property Accessors" anchor="sec-property-accessors">
+  <es-note>
+    <p>Properties are accessed by name, using either the dot notation:</p>
+  </es-note>
+
+  <div class="lhs">
+    MemberExpression <code>.</code> IdentifierName<br>
+    CallExpression <code>.</code> IdentifierName
+  </div>
+
+  <p>or the bracket notation:</p>
+
+  <div class="lhs">
+    MemberExpression <code>[</code> Expression <code>]</code><br>
+    CallExpression <code>[</code> Expression <code>]</code>
+  </div>
+
+  <p>The dot notation is explained by the following syntactic conversion:</p>
+
+  <div class="lhs">
+    MemberExpression <code>.</code> IdentifierName
+  </div>
+
+  <p>is identical in its behaviour to</p>
+
+  <div class="lhs">
+    MemberExpression <code>[</code> &lt;identifier-name-string&gt; <code>]</code>
+  </div>
+
+  <p>and similarly</p>
+
+  <div class="lhs">
+    CallExpression <code>.</code> IdentifierName
+  </div>
+
+  <p>is identical in its behaviour to</p>
+
+  <div class="lhs">
+    CallExpression <code>[</code> &lt;identifier-name-string&gt; <code>]</code>
+  </div>
+
+  <p>where <es-nt>&lt;identifier-name-string&gt;</es-nt> is a string literal containing the same
+  sequence of characters after processing of Unicode escape sequences as the
+  <es-nt>IdentifierName</es-nt>.</p>
+  <link rel="import" href=
+  "property-accessors\property-accessors-runtime-semantics-evaluation.html">
+</es-clause>

@@ -1,0 +1,68 @@
+<!doctype html>
+<es-clause title="Bound Function Exotic Objects" anchor="sec-bound-function-exotic-objects">
+  <p>A <i>bound function</i> is an exotic object that wrappers another function object. A bound
+  function is callable (it has a [[Call]] internal method and may have a [[Construct]] internal
+  method). Calling a bound function generally results in a call of its wrappered function.</p>
+
+  <p>Bound function objects do not have the internal slots of ECMAScript function objects defined
+  in <a href="#table-26">Table 26</a> . Instead they have the internal slots defined in <a href=
+  "#table-27">Table 27</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-27">Table 27</span> -- Internal Slots of Exotic Bound Function Objects
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Internal Slot</th>
+
+        <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">Type</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Description</th>
+      </tr>
+
+      <tr>
+        <td>[[BoundTargetFunction]]</td>
+
+        <td>Callable Object</td>
+
+        <td>The wrappered function object.</td>
+      </tr>
+
+      <tr>
+        <td>[[BoundThis]]</td>
+
+        <td>Any</td>
+
+        <td>The value that is always passed as the <b>this</b> value when calling the wrappered
+        function.</td>
+      </tr>
+
+      <tr>
+        <td>[[BoundArguments]]</td>
+
+        <td>
+          <a href="#sec-list-and-record-specification-type">List</a> of Any
+        </td>
+
+        <td>A list of values that whose elements are used as the first arguments to any call to the
+        wrappered function.</td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>Unlike ECMAScript function objects, bound function objects do not use alternative definitions
+  of the [[Get]] and [[GetOwnProperty]] internal methods. Bound function objects provide all of the
+  essential internal methods as specified in <a href=
+  "#sec-ordinary-object-internal-methods-and-internal-slots">9.1</a> . However, they use the
+  following definitions for the essential internal methods of function objects.</p>
+  <link rel="import" href="bound-function-exotic-objects\call.html">
+  <link rel="import" href=
+  "bound-function-exotic-objects\bound-function-exotic-objects-construct.html">
+  <link rel="import" href="bound-function-exotic-objects\boundfunctioncreate.html">
+</es-clause>

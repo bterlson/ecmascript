@@ -1,0 +1,116 @@
+<!doctype html>
+<es-clause title="%ArrayIteratorPrototype%. next( )" anchor="sec-%arrayiteratorprototype%-next">
+  <ol class="proc">
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, throw
+    a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>O</i> does not have all of the internal slots of an Array Iterator Instance
+      (<a href="#sec-properties-of-array-iterator-instances">22.1.5.3</a> ), throw a
+      <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>a</i> be the value of the [[IteratedObject]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>If <i>a</i> is <b>undefined</b>, then return <a href=
+    "#sec-createiterresultobject">CreateIterResultObject</a> (<b>undefined</b>, <b>true</b>).
+    </li>
+
+    <li>Let <i>index</i> be the value of the [[ArrayIteratorNextIndex]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>itemKind</i> be the value of the [[ArrayIterationKind]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
+    </li>
+
+    <li>Let <i>lenValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>a</i>,
+    <code>"length"</code>).
+    </li>
+
+    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenValue</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
+    </li>
+
+    <li>If <i>index</i> ≥ <i>len</i>, then
+
+      <ol class="block">
+        <li>Set the value of the [[IteratedObject]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to
+        <b>undefined</b>.
+        </li>
+
+        <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a>
+        (<b>undefined</b>, <b>true</b>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Set the value of the [[ArrayIteratorNextIndex]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to
+    <i>index</i>+1.
+    </li>
+
+    <li>If <i>itemKind</i> contains the substring <b>"value"</b>, then
+
+      <ol class="block">
+        <li>Let <i>elementKey</i> be <a href="#sec-tostring">ToString</a> (<i>index</i>).
+        </li>
+
+        <li>Let <i>elementValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>a</i>, <i>
+          elementKey</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>elementValue</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>itemKind</i> contains the substring <b>"key+value"</b>, then
+
+      <ol class="block">
+        <li>Let <i>result</i> be the result of performing <a href=
+        "#sec-arraycreate">ArrayCreate</a> (2).
+        </li>
+
+        <li>
+          <a href="#sec-algorithm-conventions">Assert</a> : <i>result</i> is a new, well-formed
+          Array object so the following operations will never fail.
+        </li>
+
+        <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>result</i>,
+        <b>"0"</b>, <i>index</i>).
+        </li>
+
+        <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>result</i>,
+        <b>"1"</b>, <i>elementValue</i>).
+        </li>
+
+        <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a> (<i>result</i>,
+        <b>false</b>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Else If <i>itemKind</i> contains the substring <b>"key"</b> then, return <a href=
+    "#sec-createiterresultobject">CreateIterResultObject</a> (<i>index</i>, <b>false</b>).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>itemKind</i> contains the substring
+      <code>"value"</code>,
+    </li>
+
+    <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a>
+    (<i>elementValue</i>, <b>false</b>).
+    </li>
+  </ol>
+</es-clause>

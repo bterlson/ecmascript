@@ -1,0 +1,64 @@
+<!doctype html>
+<es-clause title="IntegerIndexedElementSet ( O, index, value ) Abstract Operation" anchor=
+"sec-integerindexedelementset">
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>index</i>) is Number and <i>index</i> is
+      an integer.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>O</i> is an Object that has
+      [[ViewedArrayBuffer]], [[ArrayLength]], [[ByteOffset]], and [[TypedArrayName]] internal
+      slots.
+    </li>
+
+    <li>Let <i>buffer</i> be the value of <i>O</i>’s [[ViewedArrayBuffer]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <i>buffer</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>length</i> be the value of <i>O</i>’s [[ArrayLength]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>numValue</i> be <a href="#sec-tonumber">ToNumber</a> (<i>value)</i>.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>numValue</i>).
+    </li>
+
+    <li>If <i>index</i> &lt; 0 or <i>index</i> ≥ <i>length</i>, then return <b>false</b>.</li>
+
+    <li>Let <i>offset</i> be the value of <i>O</i>’s [[ByteOffset]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>arrayTypeName</i> be the string value <i>O</i>’s [[TypedArrayName]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in
+      <a href="#table-43">Table 43</a> for <i>arrayTypeName</i>.
+    </li>
+
+    <li>Let <i>indexedPosition</i> = (<i>index</i> × <i>elementSize</i>) + <i>offset</i>.</li>
+
+    <li>Let <i>elementType</i> be the string value of the Element Type value in <a href=
+    "#table-43">Table 43</a> for <i>arrayTypeName</i>.
+    </li>
+
+    <li>Let <i>status</i> be the result of <a href="#sec-setvalueinbuffer">SetValueInBuffer</a>
+    (<i>buffer</i>, <i>indexedPosition</i>, <i>elementType</i>, <i>numValue</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+    </li>
+
+    <li>Return <b>true</b>.</li>
+  </ol>
+</es-clause>

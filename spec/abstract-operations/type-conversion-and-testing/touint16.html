@@ -1,0 +1,41 @@
+<!doctype html>
+<es-clause title="ToUint16: (Unsigned 16 Bit Integer)" anchor="sec-touint16">
+  <p>The abstract operation ToUint16 converts its argument to one of 2<sup>16</sup> integer values
+  in the range 0 through 2<sup>16</sup> −1, inclusive. This abstract operation functions as
+  follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>number</i> be the result of calling <a href="#sec-tonumber">ToNumber</a> on the
+    input argument.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>number</i>).
+    </li>
+
+    <li>If <i>number</i> is <b>NaN</b>, +0, −0, +<b>∞</b>, or −<b>∞</b>, return <b>+0</b>.</li>
+
+    <li>Let <i>int</i> be <a href="#sec-algorithm-conventions">sign</a> (<i>number</i>) ×
+      <a href="#sec-algorithm-conventions">floor</a> (<a href="#sec-algorithm-conventions">abs</a>
+      (<i>number</i>)).
+    </li>
+
+    <li>Let <i>int16bit</i> be <i>int</i> <a href="#sec-algorithm-conventions">modulo</a>
+    2<sup>16</sup> .
+    </li>
+
+    <li>Return <i>int16bit</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>Given the above definition of ToUint16:</p>
+
+    <ul>
+      <li>The substitution of 2<sup>16</sup> for 2<sup>32</sup> in step 5 is the only difference
+      between <a href="#sec-touint32">ToUint32</a> and ToUint16.
+      </li>
+
+      <li>ToUint16 maps <b>−0</b> to <b>+0</b>.</li>
+    </ul>
+  </es-note>
+</es-clause>

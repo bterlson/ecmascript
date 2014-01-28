@@ -1,0 +1,117 @@
+<!doctype html>
+<es-clause title="%Realm% (options = { }, initialiser = undefined)" anchor="sec-%realm%">
+  <p>When the %Realm% function is called with optional arguments <es-nt>options</es-nt> and
+  <es-nt>initialiser</es-nt> the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>realmObject</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>realmObject</i>) is not
+    Object, throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>realmObject</i> does not have a [[Realm]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , throw a <b>TypeError</b>
+    exception.
+    </li>
+
+    <li>If the value of <i>realmObject</i>’s [[Realm]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>undefined</b>,
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>evalHooks</i> be GetOptions(<i>options</i>, <code>"eval"</code>).</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>evalHooks</i>).
+    </li>
+
+    <li>Let <i>directEval</i> be GetOptions(<i>evalHooks</i>, <code>"direct"</code>).</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>directEval</i>).
+    </li>
+
+    <li>Let <i>translate</i> be GetOptions(<i>directEval</i>, <code>"translate"</code>).</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>translate</i>).
+    </li>
+
+    <li>If <i>translate</i> is not <b>undefined</b> and <a href="#sec-iscallable">IsCallable</a>
+    (<i>translate</i>) is <b>false</b>, throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>fallback</i> be GetOptions(<i>directEval</i>, <code>"fallback"</code>).</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fallback</i>).
+    </li>
+
+    <li>If <i>fallback</i> is not <b>undefined</b> and <a href="#sec-iscallable">IsCallable</a>
+    (<i>fallback</i>) is <b>false</b>, throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>indirectEval</i> be GetOptions(<i>options</i>, <code>"indirect"</code>).</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>indirectEval</i>).
+    </li>
+
+    <li>If <i>indirectEval</i> is not <b>undefined</b> and <a href="#sec-iscallable">IsCallable</a>
+    (<i>indirectEval</i>) is <b>false</b>, throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>Function</i> be GetOptions(<i>options</i>, <code>"Function"</code>).</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>Function</i>).
+    </li>
+
+    <li>If <i>Function</i> is not <b>undefined</b> and <a href="#sec-iscallable">IsCallable</a>
+    (<i>Function</i>) is <b>false</b>, throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>NOTE the following step ensures that this function was not rentretly applied to
+    <es-nt>realmObject</es-nt> during the above steps.</li>
+
+    <li>If the value of <i>realmObject</i>’s [[Realm]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>undefined</b>,
+    throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Let <i>realm</i> be <a href="#sec-createrealm">CreateRealm</a> ( ).
+    </li>
+
+    <li>Set <i>realm</i>.[[directEvalTranslate]] to <i>translate</i>.</li>
+
+    <li>Set <i>realm</i>.[[directEvalFallback]] to <i>fallback</i>.</li>
+
+    <li>Set <i>realm</i>.[[indirectEval]] to <i>indirectEval</i>.</li>
+
+    <li>Set <i>realm</i>.[[Function]] to <i>Function</i>.</li>
+
+    <li>Set <i>realmObject</i>’s [[Realm]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>realm</i>.
+    </li>
+
+    <li>If <i>initializer</i> is not undefined, then
+
+      <ol class="block">
+        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>initializer</i>) is <b>false</b>, throw
+        a <b>TypeError</b> exception.
+        </li>
+
+        <li>Let <i>status</i> be the result of calling the [[Call]] internal method of the
+        <i>initializer</i> function, passing <i>realmObject</i> as the <b>this</b> value and
+        <i>builtins</i> as the single argument.</li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <i>realmObject</i>.</li>
+  </ol>
+</es-clause>

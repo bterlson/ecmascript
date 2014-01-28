@@ -1,0 +1,79 @@
+<!doctype html>
+<es-clause title="ToBoolean" anchor="sec-toboolean">
+  <p>The abstract operation ToBoolean converts its <i>argument</i> to a value of type Boolean
+  according to <a href="#table-10">Table 10</a> :</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-10">Table 10</span> — ToBoolean Conversions
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Argument Type</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Result</th>
+      </tr>
+
+      <tr>
+        <td>
+          <a href="#sec-completion-record-specification-type">Completion Record</a>
+        </td>
+
+        <td>
+          If <i>argument</i> is an <a href="#sec-completion-record-specification-type">abrupt
+          completion</a> , return the argument. Otherwise return
+          ToBoolean(<i>argument</i>.[[value]])
+        </td>
+      </tr>
+
+      <tr>
+        <td>Undefined</td>
+
+        <td>Return <b>false</b></td>
+      </tr>
+
+      <tr>
+        <td>Null</td>
+
+        <td>Return <b>false</b></td>
+      </tr>
+
+      <tr>
+        <td>Boolean</td>
+
+        <td>Return the input argument (no conversion).</td>
+      </tr>
+
+      <tr>
+        <td>Number</td>
+
+        <td>Return <b>false</b> if the argument is <b>+0</b>, <b>−0</b>, or <b>NaN</b>; otherwise
+        return <b>true</b>.</td>
+      </tr>
+
+      <tr>
+        <td>String</td>
+
+        <td>Return <b>false</b> if the argument is the empty String (its length is zero); otherwise
+        return <b>true</b>.</td>
+      </tr>
+
+      <tr>
+        <td>Symbol</td>
+
+        <td>Return <b>true</b></td>
+      </tr>
+
+      <tr>
+        <td>Object</td>
+
+        <td>Return <b>true</b></td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

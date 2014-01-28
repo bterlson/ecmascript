@@ -1,0 +1,69 @@
+<!doctype html>
+<es-clause title="Static Semantics: BoundNames" anchor="sec-imports-static-semantics-boundnames">
+  <p>See also: <a href="#sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</a> ,
+  <a href="#sec-variable-statement-static-semantics-boundnames">13.2.2.1</a> , <a href=
+  "#sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</a> , <a href=
+  "#sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</a> , <a href=
+  "#sec-function-definitions-static-semantics-boundnames">14.1.3</a> , <a href=
+  "#sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</a> , <a href=
+  "#sec-generator-function-definitions-static-semantics-boundnames">14.4.2</a> , <a href=
+  "#sec-class-definitions-static-semantics-boundnames">14.5.2</a> , <a href=
+  "#sec-exports-static-semantics-boundnames">15.2.2.1</a> .</p>
+
+  <es-production name="ImportDeclaration" class="inline">
+    <es-rhs>import <es-nt>ImportClause</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the BoundNames of <i>ImportClause</i>.</li>
+  </ol>
+
+  <es-production name="ImportDeclaration" class="inline">
+    <es-rhs><es-t>import</es-t> <es-nt>ModuleSpecifier</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="ModuleImport" class="inline">
+    <es-rhs>module <es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the BoundNames of <i>ImportedBinding</i>.</li>
+  </ol>
+
+  <es-production name="ImportClause" class="inline">
+    <es-rhs><es-nt>ImportedBinding</es-nt> , <es-nt>NamedImports</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>names</i> be the BoundNames of <i>ImportedBinding</i>.</li>
+
+    <li>Append to <i>names</i> the elements of the BoundNames of <i>NamedImports</i>.</li>
+
+    <li>Return names.</li>
+  </ol>
+
+  <es-production name="ImportsList" class="inline">
+    <es-rhs><es-nt>ImportsList</es-nt> , <es-nt>ImportSpecifier</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>names</i> be the BoundNames of <i>ImportsList</i>.</li>
+
+    <li>Append to <i>names</i> the elements of the BoundNames of <i>ImportSpecifier</i>.</li>
+
+    <li>Return names.</li>
+  </ol>
+
+  <es-production name="ImportSpecifier" class="inline">
+    <es-rhs><es-nt>IdentifierName</es-nt> as <es-nt>ImportedBinding</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the BoundNames of <i>ImportedBinding</i>.</li>
+  </ol>
+</es-clause>

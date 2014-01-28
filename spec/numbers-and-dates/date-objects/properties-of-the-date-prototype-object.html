@@ -1,0 +1,627 @@
+<!doctype html>
+<es-clause title="Properties of the Date Prototype Object" anchor=
+"sec-properties-of-the-date-prototype-object">
+  <p>The Date prototype object is itself an ordinary object. It is not a Date instance and does not
+  have a [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a>
+  .</p>
+
+  <p>The value of the [[Prototype]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the Date prototype object
+  is the standard built-in Object prototype object (<a href=
+  "#sec-properties-of-the-date-prototype-object">20.3.4</a> ).</p>
+
+  <p>Unless explicitly defined otherwise, the methods of the Date prototype object defined below
+  are not generic and the <b>this</b> value passed to them must be an object that has a
+  [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> that
+  has been initialised to a <a href="#sec-time-values-and-time-range">time value</a> .</p>
+
+  <p>The abstract operation thisTimeValue(<i>value</i>) performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value)</i> is Object and
+    <i>value</i> has a [[DateValue]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then
+
+      <ol class="block">
+        <li>Let <i>n</i> be the Number that is the value of <i>value’s</i> [[DateValue]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>If <i>n</i> is not <b>undefined</b>, then return <i>n</i>.</li>
+      </ol>
+    </li>
+
+    <li>Throw a <b>TypeError</b> exception.</li>
+  </ol>
+
+  <p>In following descriptions of functions that are properties of the Date prototype object, the
+  phrase “this Date object” refers to the object that is the <b>this</b> value for the invocation
+  of the function. The phrase “this <a href="#sec-time-values-and-time-range">time value</a> ”
+  within the specification of a method refers to the result returned by calling the abstract
+  operation thisTimeValue with the <b>this</b> value of the method invocation passed as the
+  argument.</p>
+
+  <es-clause title="Date.prototype.constructor" anchor="sec-date.prototype.constructor">
+    <p>The initial value of <code>Date.prototype.constructor</code> is the built-in
+    <code>Date</code> constructor.</p>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getDate ( )" anchor="sec-date.prototype.getdate">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-date-number">DateFromTime</a> (<a href=
+      "#sec-local-time">LocalTime</a> (<i>t</i>)).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getDay ( )" anchor="sec-date.prototype.getday">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-week-day">WeekDay</a> (<a href="#sec-local-time">LocalTime</a>
+      (<i>t</i>)).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getFullYear ( )" anchor="sec-date.prototype.getfullyear">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-year-number">YearFromTime</a> (<a href=
+      "#sec-local-time">LocalTime</a> (<i>t</i>)).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getHours ( )" anchor="sec-date.prototype.gethours">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-hours-minutes-second-and-milliseconds">HourFromTime</a> (<a href=
+      "#sec-local-time">LocalTime</a> (<i>t</i>)).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getMilliseconds ( )" anchor=
+  "sec-date.prototype.getmilliseconds">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-hours-minutes-second-and-milliseconds">msFromTime</a> (<a href=
+      "#sec-local-time">LocalTime</a> (<i>t</i>)).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getMinutes ( )" anchor="sec-date.prototype.getminutes">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-hours-minutes-second-and-milliseconds">MinFromTime</a> (<a href=
+      "#sec-local-time">LocalTime</a> (<i>t</i>)).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getMonth ( )" anchor="sec-date.prototype.getmonth">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-month-number">MonthFromTime</a> (<a href=
+      "#sec-local-time">LocalTime</a> (<i>t</i>)).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getSeconds ( )" anchor="sec-date.prototype.getseconds">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-hours-minutes-second-and-milliseconds">SecFromTime</a> (<a href=
+      "#sec-local-time">LocalTime</a> (<i>t</i>)).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getTime ( )" anchor="sec-date.prototype.gettime">
+    <ol class="proc">
+      <li>Return <a href="#sec-properties-of-the-date-prototype-object">this time value</a> .
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getTimezoneOffset ( )" anchor=
+  "sec-date.prototype.gettimezoneoffset">
+    <p>Returns the difference between local time and UTC time in minutes.</p>
+
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return (<i>t</i> − <a href="#sec-local-time">LocalTime</a> (<i>t</i>)) / <a href=
+      "#sec-hours-minutes-second-and-milliseconds">msPerMinute</a> .
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getUTCDate ( )" anchor="sec-date.prototype.getutcdate">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-date-number">DateFromTime</a> (<i>t</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getUTCDay ( )" anchor="sec-date.prototype.getutcday">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-week-day">WeekDay</a> (<i>t</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getUTCFullYear ( )" anchor="sec-date.prototype.getutcfullyear">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-year-number">YearFromTime</a> (<i>t</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getUTCHours ( )" anchor="sec-date.prototype.getutchours">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-hours-minutes-second-and-milliseconds">HourFromTime</a> (<i>t</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getUTCMilliseconds ( )" anchor=
+  "sec-date.prototype.getutcmilliseconds">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-hours-minutes-second-and-milliseconds">msFromTime</a> (<i>t</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getUTCMinutes ( )" anchor="sec-date.prototype.getutcminutes">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-hours-minutes-second-and-milliseconds">MinFromTime</a> (<i>t</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getUTCMonth ( )" anchor="sec-date.prototype.getutcmonth">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-month-number">MonthFromTime</a> (<i>t</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.getUTCSeconds ( )" anchor="sec-date.prototype.getutcseconds">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+      <li>Return <a href="#sec-hours-minutes-second-and-milliseconds">SecFromTime</a> (<i>t</i>).
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.setDate (date)" anchor="sec-date.prototype.setdate">
+    <ol class="proc">
+      <li>Let <i>t</i> be the result of <a href="#sec-local-time">LocalTime</a> (<a href=
+      "#sec-properties-of-the-date-prototype-object">this time value</a> ).
+      </li>
+
+      <li>Let <i>dt</i> be <a href="#sec-tonumber">ToNumber</a> (<i>date</i>).
+      </li>
+
+      <li>Let <i>newDate</i> be <a href="#sec-makedate">MakeDate</a> (<a href=
+      "#sec-makeday">MakeDay</a> (<a href="#sec-year-number">YearFromTime</a> (<i>t</i>),
+        <a href="#sec-month-number">MonthFromTime</a> (<i>t</i>), <i>dt</i>), <a href=
+        "#sec-day-number-and-time-within-day">TimeWithinDay</a> (<i>t</i>)).
+      </li>
+
+      <li>Let <i>u</i> be <a href="#sec-timeclip">TimeClip</a> (<a href="#sec-local-time">UTC</a>
+      (<i>newDate</i>)).
+      </li>
+
+      <li>Set the [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+      slot</a> of this Date object to <i>u</i>.
+      </li>
+
+      <li>Return <i>u</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object\date.prototype.setfullyear.html">
+  <link rel="import" href="properties-of-the-date-prototype-object\date.prototype.sethours.html">
+
+  <es-clause title="Date.prototype.setMilliseconds (ms)" anchor=
+  "sec-date.prototype.setmilliseconds">
+    <ol class="proc">
+      <li>Let <i>t</i> be the result of <a href="#sec-local-time">LocalTime</a> (<a href=
+      "#sec-properties-of-the-date-prototype-object">this time value</a> ).
+      </li>
+
+      <li>Let <i>time</i> be <a href="#sec-maketime">MakeTime</a> (<a href=
+      "#sec-hours-minutes-second-and-milliseconds">HourFromTime</a> (<i>t</i>), <a href=
+      "#sec-hours-minutes-second-and-milliseconds">MinFromTime</a> (<i>t</i>), <a href=
+      "#sec-hours-minutes-second-and-milliseconds">SecFromTime</a> (<i>t</i>), <a href=
+      "#sec-tonumber">ToNumber</a> (<i>ms</i>)).
+      </li>
+
+      <li>Let <i>u</i> be <a href="#sec-timeclip">TimeClip</a> (<a href="#sec-local-time">UTC</a>
+      (<a href="#sec-makedate">MakeDate</a> (<a href="#sec-day-number-and-time-within-day">Day</a>
+      (<i>t</i>), <i>time</i>))).
+      </li>
+
+      <li>Set the [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+      slot</a> of this Date object to <i>u</i>.
+      </li>
+
+      <li>Return <i>u</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="properties-of-the-date-prototype-object\date.prototype.setminutes.html">
+  <link rel="import" href="properties-of-the-date-prototype-object\date.prototype.setmonth.html">
+  <link rel="import" href="properties-of-the-date-prototype-object\date.prototype.setseconds.html">
+
+  <es-clause title="Date.prototype.setTime (time)" anchor="sec-date.prototype.settime">
+    <ol class="proc">
+      <li>Let <i>v</i> be <a href="#sec-timeclip">TimeClip</a> (<a href=
+      "#sec-tonumber">ToNumber</a> (<i>time</i>)).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
+      </li>
+
+      <li>Set the [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+      slot</a> of this Date object to <i>v</i>.
+      </li>
+
+      <li>Return <i>v</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date.prototype.setUTCDate (date)" anchor="sec-date.prototype.setutcdate">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>Let <i>dt</i> be <a href="#sec-tonumber">ToNumber</a> (<i>date</i>).
+      </li>
+
+      <li>Let <i>newDate</i> be <a href="#sec-makedate">MakeDate</a> (<a href=
+      "#sec-makeday">MakeDay</a> (<a href="#sec-year-number">YearFromTime</a> (<i>t</i>),
+        <a href="#sec-month-number">MonthFromTime</a> (<i>t</i>), <i>dt</i>), <a href=
+        "#sec-day-number-and-time-within-day">TimeWithinDay</a> (<i>t</i>)).
+      </li>
+
+      <li>Let <i>v</i> be <a href="#sec-timeclip">TimeClip</a> (<i>newDate</i>).
+      </li>
+
+      <li>Set the [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+      slot</a> of this Date object to <i>v</i>.
+      </li>
+
+      <li>Return <i>v</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object\date.prototype.setutcfullyear.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object\date.prototype.setutchours.html">
+
+  <es-clause title="Date.prototype.setUTCMilliseconds (ms)" anchor=
+  "sec-date.prototype.setutcmilliseconds">
+    <ol class="proc">
+      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
+      value</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
+      </li>
+
+      <li>Let <i>time</i> be <a href="#sec-maketime">MakeTime</a> (<a href=
+      "#sec-hours-minutes-second-and-milliseconds">HourFromTime</a> (<i>t</i>), <a href=
+      "#sec-hours-minutes-second-and-milliseconds">MinFromTime</a> (<i>t</i>), <a href=
+      "#sec-hours-minutes-second-and-milliseconds">SecFromTime</a> (<i>t</i>), <a href=
+      "#sec-tonumber">ToNumber</a> (<i>ms</i>)).
+      </li>
+
+      <li>Let <i>v</i> be <a href="#sec-timeclip">TimeClip</a> (<a href=
+      "#sec-makedate">MakeDate</a> (<a href="#sec-day-number-and-time-within-day">Day</a>
+      (<i>t</i>), <i>time</i>)).
+      </li>
+
+      <li>Set the [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+      slot</a> of this Date object to <i>v</i>.
+      </li>
+
+      <li>Return <i>v</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object\date.prototype.setutcminutes.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object\date.prototype.setutcmonth.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object\date.prototype.setutcseconds.html">
+
+  <es-clause title="Date.prototype.toDateString ( )" anchor="sec-date.prototype.todatestring">
+    <p>This function returns a String value. The contents of the String are
+    implementation-dependent, but are intended to represent the “date” portion of the Date in the
+    current time zone in a convenient, human-readable form.</p>
+  </es-clause>
+
+  <es-clause title="Date.prototype.toISOString ( )" anchor="sec-date.prototype.toisostring">
+    <p>This function returns a String value representing the instance in time corresponding to
+    <a href="#sec-properties-of-the-date-prototype-object">this time value</a> . The format of the
+    String is the Date Time string format defined in <a href=
+    "#sec-date-time-string-format">20.3.1.15</a> . All fields are present in the String. The time
+    zone is always UTC, denoted by the suffix Z. If <a href=
+    "#sec-properties-of-the-date-prototype-object">this time value</a> is not a finite Number or if
+    the year is not a value that can be represented in that format (if necessary using extended
+    year format), a <b>RangeError</b> exception is thrown.</p>
+  </es-clause>
+  <link rel="import" href="properties-of-the-date-prototype-object\date.prototype.tojson.html">
+
+  <es-clause title="Date.prototype.toLocaleDateString (reserved1=undefined, reserved2=undefined)"
+  anchor="sec-date.prototype.tolocaledatestring">
+    <p>An ECMAScript implementation that includes the ECMA-402 International API must implement the
+    <code>Date.prototype.toLocaleDateString</code> method as specified in the ECMA-402
+    specification. If an ECMAScript implementation does not include the ECMA-402 API the following
+    specification of the <code>toLocaleDateString</code> method is used.</p>
+
+    <p>This function returns a String value. The contents of the String are
+    implementation-dependent, but are intended to represent the “date” portion of the Date in the
+    current time zone in a convenient, human-readable form that corresponds to the conventions of
+    the host environment’s current locale.</p>
+
+    <p>The meaning of the optional parameters to this method are defined in the ECMA-402
+    specification; implementations that do not include ECMA-402 support must not use those
+    parameter position for anything else.</p>
+
+    <p>The <code>length</code> property of the <code>toLocaleDateString</code> method is
+    <b>0</b>.</p>
+  </es-clause>
+
+  <es-clause title="Date.prototype.toLocaleString (reserved1=undefined, reserved2=undefined)"
+  anchor="sec-date.prototype.tolocalestring">
+    <p>An ECMAScript implementation that includes the ECMA-402 International API must implement the
+    <code>Date.prototype.toLocaleString</code> method as specified in the ECMA-402 specification.
+    If an ECMAScript implementation does not include the ECMA-402 API the following specification
+    of the <code>toLocaleString</code> method is used.</p>
+
+    <p>This function returns a String value. The contents of the String are
+    implementation-dependent, but are intended to represent the Date in the current time zone in a
+    convenient, human-readable form that corresponds to the conventions of the host environment’s
+    current locale.</p>
+
+    <p>The meaning of the optional parameters to this method are defined in the ECMA-402
+    specification; implementations that do not include ECMA-402 support must not use those
+    parameter position for anything else.</p>
+
+    <p>The <code>length</code> property of the <code>toLocaleString</code> method is <b>0</b>.</p>
+  </es-clause>
+
+  <es-clause title="Date.prototype.toLocaleTimeString (reserved1=undefined, reserved2=undefined)"
+  anchor="sec-date.prototype.tolocaletimestring">
+    <p>An ECMAScript implementation that includes the ECMA-402 International API must implement the
+    <code>Date.prototype.toLocaleTimeString</code> method as specified in the ECMA-402
+    specification. If an ECMAScript implementation does not include the ECMA-402 API the following
+    specification of the <code>toLocaleString</code> method is used.</p>
+
+    <p>This function returns a String value. The contents of the String are
+    implementation-dependent, but are intended to represent the “time” portion of the Date in the
+    current time zone in a convenient, human-readable form that corresponds to the conventions of
+    the host environment’s current locale.</p>
+
+    <p>The meaning of the optional parameters to this method are defined in the ECMA-402
+    specification; implementations that do not include ECMA-402 support must not use those
+    parameter position for anything else.</p>
+
+    <p>The <code>length</code> property of the <code>toLocaleTimeString</code> method is
+    <b>0</b>.</p>
+  </es-clause>
+
+  <es-clause title="Date.prototype.toString ( )" anchor="sec-date.prototype.tostring">
+    <p>This function returns a String value. If <a href=
+    "#sec-properties-of-the-date-prototype-object">this time value</a> is NaN, the String value is
+    <code>"Invalid Date"</code>, otherwise the contents of the String are implementation-dependent,
+    but are intended to represent the Date in the current time zone in a convenient, human-readable
+    form.</p>
+
+    <es-note>
+      <p>For any Date value <i>d</i> whose milliseconds amount is zero, the result of <a href=
+      "#sec-date.parse">Date.parse</a> (<i>d</i>.toString()) is equal to <i>d</i>.valueOf(). See
+      <a href="#sec-date.parse">20.3.3.2</a> .</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Date.prototype.toTimeString ( )" anchor="sec-date.prototype.totimestring">
+    <p>This function returns a String value. The contents of the String are
+    implementation-dependent, but are intended to represent the “time” portion of the Date in the
+    current time zone in a convenient, human-readable form.</p>
+  </es-clause>
+
+  <es-clause title="Date.prototype.toUTCString ( )" anchor="sec-date.prototype.toutcstring">
+    <p>This function returns a String value. The contents of the String are
+    implementation-dependent, but are intended to represent <a href=
+    "#sec-properties-of-the-date-prototype-object">this time value</a> in a convenient,
+    human-readable form in UTC.</p>
+
+    <es-note>
+      <p>The intent is to produce a String representation of a date that is more readable than the
+      format specified in <a href="#sec-date-time-string-format">20.3.1.15</a> . It is not
+      essential that the chosen format be unambiguous or easily machine parsable. If an
+      implementation does not have a preferred human-readable format it is recommended to use the
+      format defined in <a href="#sec-date-time-string-format">20.3.1.15</a> but with a space
+      rather than a “T” used to separate the date and time elements.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Date.prototype.valueOf ( )" anchor="sec-date.prototype.valueof">
+    <p>The <code>valueOf</code> function returns a Number, which is <a href=
+    "#sec-properties-of-the-date-prototype-object">this time value</a> .</p>
+  </es-clause>
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object\date.prototype-@@toprimitive.html">
+</es-clause>

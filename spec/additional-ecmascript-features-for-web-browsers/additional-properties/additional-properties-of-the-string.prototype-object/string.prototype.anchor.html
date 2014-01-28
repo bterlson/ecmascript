@@ -1,0 +1,79 @@
+<!doctype html>
+<es-clause title="String.prototype.anchor ( name )" anchor="sec-string.prototype.anchor">
+  <p>When the <b>anchor</b> method is called with argument <es-nt>name</es-nt>, the following steps
+  are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+    <li>Return the result of performing the abstract operation CreateHTML with arguments <i>S</i>,
+    <code>"a"</code>, <code>"name"</code> and <i>name</i>.</li>
+  </ol>
+
+  <p>The abstract operation CreateHTML is called with arguments <es-nt>string, tag</es-nt>,
+  <es-nt>attribute</es-nt>, and <i>value</i>. The arguments <es-nt>tag</es-nt> and
+  <es-nt>attribute</es-nt> must be string values. The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>str</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a>
+    (<i>string</i>).
+    </li>
+
+    <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>str</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
+    </li>
+
+    <li>Let <i>p1</i> be the string value that is the concatenation of <code>"&lt;"</code> and
+    <i>tag</i>.</li>
+
+    <li>If <i>attribute</i> is not the empty String, then
+
+      <ol class="block">
+        <li>Let <i>V</i> be the result of performing <a href="#sec-tostring">ToString</a>
+        (<i>value</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>V</i>).
+        </li>
+
+        <li>Let <i>escapedV</i> be the string value that is the same as <i>V</i> except that each
+        occurrence of the character <code>"</code> (code unit value 0x0022) in <i>V</i> has been
+        replaced with the six character sequence <code>"&amp;quot;"</code>.</li>
+
+        <li>Let <i>p1</i> be the string value that is the concatenation of the following string
+        values:
+
+          <ul>
+            <li><i>p1</i></li>
+
+            <li>a single space code unit 0x0020</li>
+
+            <li><i>attribute</i></li>
+
+            <li><code>"="</code></li>
+
+            <li><code>′"′</code></li>
+
+            <li><i>escapedV</i></li>
+
+            <li><code>′"′</code></li>
+          </ul>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>p2</i> be the string value that is the concatenation of <i>p1</i> and
+    <code>"&gt;"</code>.</li>
+
+    <li>Let <i>p3</i> be the string value that is the concatenation of <i>p2</i> and <i>S</i>.</li>
+
+    <li>Let <i>p4</i> be the string value that is the concatenation of <i>p2</i>,
+    <code>"&lt;/"</code>, <i>tag</i>, and <code>"&gt;"</code>.</li>
+
+    <li>Return <i>p4</i>.</li>
+  </ol>
+</es-clause>

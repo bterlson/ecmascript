@@ -1,0 +1,111 @@
+<!doctype html>
+<es-clause title="Object.prototype.toString ( )" anchor="sec-object.prototype.tostring">
+  <p>When the <code>toString</code> method is called, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>If the <b>this</b> value is <b>undefined</b>, return <code>"[object
+    Undefined]"</code>.</li>
+
+    <li>If the <b>this</b> value is <b>null</b>, return <code>"[object Null]"</code>.</li>
+
+    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
+      this</b> value as the argument.
+    </li>
+
+    <li>If <i>O</i> is an exotic Array object, then let <i>builtinTag</i> be
+    <code>"Array"</code>.</li>
+
+    <li>Else, if <i>O</i> is an exotic String object, then let <i>builtinTag</i> be
+    <code>"String"</code>.</li>
+
+    <li>Else, if <i>O</i> is an exotic Proxy object, then let <i>builtinTag</i> be
+    <code>"Proxy"</code>.</li>
+
+    <li>Else, if <i>O</i> is an <a href="#sec-arguments-exotic-objects">exotic arguments object</a>
+    , then let <i>builtinTag</i> be <code>"Arguments"</code>.
+    </li>
+
+    <li>Else, if <i>O</i> is an <a href="#sec-ecmascript-function-objects">ECMAScript function
+    object</a> , a built-in function object, or a <a href=
+    "#sec-bound-function-exotic-objects">bound function</a> exotic object, then let
+    <i>builtinTag</i> be <code>"Function"</code>.
+    </li>
+
+    <li>Else, if <i>O</i> has an [[ErrorData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then let
+    <i>builtinTag</i> be <code>"Error"</code>.
+    </li>
+
+    <li>Else, if <i>O</i> has a [[BooleanData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then let
+    <i>builtinTag</i> be <code>"Boolean"</code>.
+    </li>
+
+    <li>Else, if <i>O</i> has a [[NumberData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then let
+    <i>builtinTag</i> be <code>"Number"</code>.
+    </li>
+
+    <li>Else, if <i>O</i> has a [[DateValue]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then let
+    <i>builtinTag</i> be <code>"Date"</code>.
+    </li>
+
+    <li>Else, if <i>O</i> has a [[RegExpMatcher]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then let
+    <i>builtinTag</i> be <code>"RegExp"</code>.
+    </li>
+
+    <li>Else, let <i>builtinTag</i> be <code>"Object"</code>.</li>
+
+    <li>Let <i>hasTag</i> be the result of <a href="#sec-hasproperty">HasProperty</a> (<i>O</i>,
+    @@toStringTag).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>hasTag</i>).
+    </li>
+
+    <li>If <i>hasTag</i> is <b>false</b>, then let <i>tag</i> be <i>builtinTag</i>.</li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>tag</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
+        @@toStringTag).
+        </li>
+
+        <li>If <i>tag</i> is an <a href="#sec-completion-record-specification-type">abrupt
+        completion</a> , let <i>tag</i> be <a href="#sec-normalcompletion">NormalCompletion</a>
+        (<code>"???"</code>).
+        </li>
+
+        <li>Let <i>tag</i> be <i>tag</i>.[[value]].</li>
+
+        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>tag</i>) is not String,
+        let <i>tag</i> be <code>"???"</code>.
+        </li>
+
+        <li>If <i>tag</i> is any of <code>"Arguments"</code>, <code>"Array"</code>,
+        <code>"Boolean"</code>, <code>"Date"</code>, <code>"Error"</code>, <code>"Function"</code>,
+        <code>"Number"</code>, <code>"RegExp"</code>, or <code>"String"</code> and <a href=
+        "#sec-samevalue">SameValue</a> (<i>tag</i>, <i>builtinTag</i>) is <b>false</b>, then let
+        <i>tag</i> be the string value <code>"~"</code> concatenated with the current value of <i>
+          tag</i>.
+        </li>
+      </ol>
+    </li>
+
+    <li>Return the String value that is the result of concatenating the three Strings "[object ",
+    tag, and "]".</li>
+  </ol>
+
+  <es-note>
+    <p>Historically, this function was occasionally used to access the string value of the
+    [[Class]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> that was
+    used in previous editions of this specification as a nominal type tag for various built-in
+    objects. The above definition of <code>toString</code> preserves the ability to use it as a
+    reliable test for those specific kinds of built-in objects but it does not provide a reliable
+    type testing mechanism for other kinds of built-in or program defined objects.</p>
+  </es-note>
+</es-clause>

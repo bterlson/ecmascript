@@ -1,0 +1,48 @@
+<!doctype html>
+<es-clause title="Year Number" anchor="sec-year-number">
+  <p>ECMAScript uses an extrapolated Gregorian system to map a day number to a year number and to
+  determine the month and date within that year. In this system, leap years are precisely those
+  which are (divisible by 4) and ((not divisible by 100) or (divisible by 400)). The number of days
+  in year number <es-nt>y</es-nt> is therefore defined by</p>
+
+  <div class="display">
+    DaysInYear(<i>y</i>) 	= 365 if (<i>y</i> <a href="#sec-algorithm-conventions">modulo</a> 4) ≠
+    0<br>
+    = 366 if (<i>y</i> <a href="#sec-algorithm-conventions">modulo</a> 4) = 0 and (<i>y</i>
+    <a href="#sec-algorithm-conventions">modulo</a> 100) ≠ 0<br>
+    = 365 if (<i>y</i> <a href="#sec-algorithm-conventions">modulo</a> 100) = 0 and (<i>y</i>
+    <a href="#sec-algorithm-conventions">modulo</a> 400) ≠ 0<br>
+    = 366 if (<i>y</i> <a href="#sec-algorithm-conventions">modulo</a> 400) = 0
+  </div>
+
+  <p>All non-leap years have 365 days with the usual number of days per month and leap years have
+  an extra day in February. The day number of the first day of year <es-nt>y</es-nt> is given
+  by:</p>
+
+  <div class="display">
+    DayFromYear(<i>y</i>)	= 365 × (<i>y</i>−1970) + <a href="#sec-algorithm-conventions">floor</a>
+    ((<i>y</i>−1969)/4) − <a href="#sec-algorithm-conventions">floor</a> ((<i>y</i>−1901)/100) +
+    <a href="#sec-algorithm-conventions">floor</a> ((<i>y</i>−1601)/400)
+  </div>
+
+  <p>The <a href="#sec-time-values-and-time-range">time value</a> of the start of a year is:</p>
+
+  <div class="display">
+    TimeFromYear(<i>y</i>)	= <a href="#sec-day-number-and-time-within-day">msPerDay</a> ×
+    DayFromYear(<i>y</i>)
+  </div>
+
+  <p>A <a href="#sec-time-values-and-time-range">time value</a> determines a year by:</p>
+
+  <div class="display">
+    YearFromTime(<i>t</i>)	= the largest integer <i>y</i> (closest to positive infinity) such that
+    TimeFromYear(<i>y</i>) ≤ <i>t</i>
+  </div>
+
+  <p>The leap-year function is 1 for a time within a leap year and otherwise is zero:</p>
+
+  <div class="display">
+    InLeapYear(<i>t</i>)	= 0 if DaysInYear(YearFromTime(<i>t</i>)) = 365<br>
+    = 1 if DaysInYear(YearFromTime<i>(t</i>)) = 366
+  </div>
+</es-clause>

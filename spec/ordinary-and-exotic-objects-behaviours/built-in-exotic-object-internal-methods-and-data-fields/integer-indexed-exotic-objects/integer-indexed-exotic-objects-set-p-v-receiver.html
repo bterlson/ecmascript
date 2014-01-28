@@ -1,0 +1,45 @@
+<!doctype html>
+<es-clause title="[[Set]] ( P, V, Receiver)" anchor=
+"sec-integer-indexed-exotic-objects-set-p-v-receiver">
+  <p>When the [[Set]] internal method of an Integer Indexed exotic object <es-nt>O</es-nt> is
+  called with <a href="#sec-object-type">property key</a> <es-nt>P</es-nt>, value <es-nt>V</es-nt>,
+  and <a href="#sec-ecmascript-language-types">ECMAScript language value</a>
+  <es-nt>Receiver</es-nt>, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>P</i>) is String and if
+    <a href="#sec-samevalue">SameValue</a> (<i>O</i>, <i>Receiver</i>) is <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>intIndex</i> be <a href="#sec-tointeger">ToInteger</a> (<i>P</i>).
+        </li>
+
+        <li>
+          <a href="#sec-algorithm-conventions">Assert</a> : <i>intIndex</i> is not an <a href=
+          "#sec-completion-record-specification-type">abrupt completion</a> .
+        </li>
+
+        <li>If <a href="#sec-samevalue">SameValue</a> (<a href="#sec-tostring">ToString</a>
+        (<i>intIndex</i>), <i>P</i>) is <b>true</b>, then
+
+          <ol class="block">
+            <li>Return the result of <a href="#sec-toboolean">ToBoolean</a> (<a href=
+            "#sec-integerindexedelementset">IntegerIndexedElementSet</a> (<i>O</i>,
+            <i>intIndex</i>, <i>V</i>)).
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Return the result of calling the default ordinary object [[Set]] internal method
+      (<a href="#sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver">9.1.8</a>
+      ) on <i>O</i> passing <i>P</i>, <i>V</i>, and <i>Receiver</i> as arguments.
+    </li>
+  </ol>
+</es-clause>

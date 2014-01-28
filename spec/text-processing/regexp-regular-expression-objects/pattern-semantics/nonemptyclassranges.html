@@ -1,0 +1,58 @@
+<!doctype html>
+<es-clause title="NonemptyClassRanges" anchor="sec-nonemptyclassranges">
+  <p>The production <es-production name="NonemptyClassRanges" type="lexical" class=
+  "inline"><es-rhs><es-nt>ClassAtom</es-nt></es-rhs></es-production> evaluates
+  by evaluating <es-nt>ClassAtom</es-nt> to obtain a CharSet and returning that CharSet.</p>
+
+  <p>The production <es-production name="NonemptyClassRanges" type="lexical" class=
+  "inline"><es-rhs><es-nt>ClassAtom</es-nt>
+  <es-nt>NonemptyClassRangesNoDash</es-nt></es-rhs></es-production> evaluates as
+  follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>ClassAtom</i> to obtain a CharSet <i>A</i>.</li>
+
+    <li>Evaluate <i>NonemptyClassRangesNoDash</i> to obtain a CharSet <i>B</i>.</li>
+
+    <li>Return the union of CharSets <i>A</i> and <i>B</i>.</li>
+  </ol>
+
+  <p>The production <es-production name="NonemptyClassRanges" type="lexical" class=
+  "inline"><es-rhs><es-nt>ClassAtom</es-nt> - <es-nt>ClassAtom</es-nt>
+  <es-nt>ClassRanges</es-nt></es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate the first <i>ClassAtom</i> to obtain a CharSet <i>A</i>.</li>
+
+    <li>Evaluate the second <i>ClassAtom</i> to obtain a CharSet <i>B</i>.</li>
+
+    <li>Evaluate <i>ClassRanges</i> to obtain a CharSet <i>C</i>.</li>
+
+    <li>Call CharacterRange(<i>A</i>, <i>B</i>) and let <i>D</i> be the resulting CharSet.</li>
+
+    <li>Return the union of CharSets <i>D</i> and <i>C</i>.</li>
+  </ol>
+
+  <es-clause title="Runtime Semantics: CharacterRange Abstract Operation" anchor=
+  "sec-runtime-semantics-characterrange-abstract-operation">
+    <p>The abstract operation CharacterRange takes two CharSet parameters <es-nt>A</es-nt> and
+    <es-nt>B</es-nt> and performs the following:</p>
+
+    <p><span class="marker"></span>If <i>A</i> does not contain exactly one character or <i>B</i>
+    does not contain exactly one character then throw a <b>SyntaxError</b> exception.</p>
+
+    <p><span class="marker"></span>Let <i>a</i> be the one character in CharSet <i>A</i>.</p>
+
+    <p><span class="marker"></span>Let <i>b</i> be the one character in CharSet <i>B</i>.</p>
+
+    <p><span class="marker"></span>Let <i>i</i> be the character value of character <i>a</i>.</p>
+
+    <p><span class="marker"></span>Let <i>j</i> be the character value of character <i>b</i>.</p>
+
+    <p><span class="marker"></span>If <i>i</i> &gt; <i>j</i> then throw a <b>SyntaxError</b>
+    exception.</p>
+
+    <p><span class="marker"></span>Return the set containing all characters numbered <i>i</i>
+    through <i>j</i>, inclusive.</p>
+  </es-clause>
+</es-clause>

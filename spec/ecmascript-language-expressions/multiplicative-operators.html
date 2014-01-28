@@ -1,0 +1,23 @@
+<!doctype html>
+<es-clause title="Multiplicative Operators" anchor="sec-multiplicative-operators">
+  <h2>Syntax</h2>
+
+  <es-production name="MultiplicativeExpression" params="Yield">
+    <es-rhs><es-nt params="?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">MultiplicativeExpression</es-nt> * <es-nt params=
+    "?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">MultiplicativeExpression</es-nt> / <es-nt params=
+    "?Yield">UnaryExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">MultiplicativeExpression</es-nt> % <es-nt params=
+    "?Yield">UnaryExpression</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "multiplicative-operators\multiplicative-operators-static-semantics-isanonymousfunctiondefinition.html">
+  <link rel="import" href=
+  "multiplicative-operators\multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget.html">
+  <link rel="import" href=
+  "multiplicative-operators\multiplicative-operators-runtime-semantics-evaluation.html">
+</es-clause>

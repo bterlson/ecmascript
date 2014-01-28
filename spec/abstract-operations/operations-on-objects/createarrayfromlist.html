@@ -1,0 +1,39 @@
+<!doctype html>
+<es-clause title="CreateArrayFromList (elements)" anchor="sec-createarrayfromlist">
+  <p>The abstract operation CreateArrayFromList is used to create an Array object whose elements
+  are provided by a <a href="#sec-list-and-record-specification-type">List</a> . This abstract
+  operation performs the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>elements</i> is a <a href=
+      "#sec-list-and-record-specification-type">List</a> whose elements are all <a href=
+      "#sec-ecmascript-language-types">ECMAScript language values</a> .
+    </li>
+
+    <li>Let <i>array</i> be the result of the abstract operation <a href=
+    "#sec-arraycreate">ArrayCreate</a> (see <a href="#sec-arraycreate">9.4.2.2</a> ) with argument
+    0.
+    </li>
+
+    <li>Let <i>n</i> be 0.</li>
+
+    <li>For each element <i>e</i> of <i>elements</i>
+
+      <ol class="block">
+        <li>Let <i>status</i> be the result of <a href=
+        "#sec-createdataproperty">CreateDataProperty</a> (<i>array</i>, <a href=
+        "#sec-tostring">ToString</a> (<i>n</i>), <i>e</i>).
+        </li>
+
+        <li>
+          <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is <b>true</b>.
+        </li>
+
+        <li>Increment <i>n</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>array</i>.</li>
+  </ol>
+</es-clause>

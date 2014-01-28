@@ -1,0 +1,80 @@
+<!doctype html>
+<es-clause title="IsCallable" anchor="sec-iscallable">
+  <p>The abstract operation IsCallable determines if its <es-nt>argument</es-nt>, which must be an
+  <a href="#sec-ecmascript-language-types">ECMAScript language value</a> or a <a href=
+  "#sec-completion-record-specification-type">Completion Record</a> , is a callable function Object
+  according to <a href="#table-15">Table 15</a> :</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-15">Table 15</span> — IsCallable Results
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Argument Type</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Result</th>
+      </tr>
+
+      <tr>
+        <td>
+          <a href="#sec-completion-record-specification-type">Completion Record</a>
+        </td>
+
+        <td>
+          If <es-nt>argument</es-nt> is an <a href=
+          "#sec-completion-record-specification-type">abrupt completion</a> , return
+          <es-nt>argument</es-nt>. Otherwise return IsCallable(<es-nt>argument</es-nt>.[[value]])
+        </td>
+      </tr>
+
+      <tr>
+        <td>Undefined</td>
+
+        <td>Return <b>false</b>.</td>
+      </tr>
+
+      <tr>
+        <td>Null</td>
+
+        <td>Return <b>false</b>.</td>
+      </tr>
+
+      <tr>
+        <td>Boolean</td>
+
+        <td>Return <b>false</b>.</td>
+      </tr>
+
+      <tr>
+        <td>Number</td>
+
+        <td>Return <b>false</b>.</td>
+      </tr>
+
+      <tr>
+        <td>String</td>
+
+        <td>Return <b>false</b>.</td>
+      </tr>
+
+      <tr>
+        <td>Symbol</td>
+
+        <td>Return <b>false</b>.</td>
+      </tr>
+
+      <tr>
+        <td>Object</td>
+
+        <td>If <es-nt>argument</es-nt> has a [[Call]] internal method, then return <b>true</b>,
+        otherwise return <b>false</b>.</td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

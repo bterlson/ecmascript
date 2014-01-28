@@ -1,0 +1,98 @@
+<!doctype html>
+<es-clause title="Code Realms" anchor="sec-code-realms">
+  <p>Before it is evaluated, all ECMAScript code must be associated with a <i>Realm</i>.
+  Conceptually, a realm consists of a set of intrinsic objects, an ECMAScript global environment,
+  all of the ECMAScript code that is loaded within the scope of that global environment, a Loader
+  object that can associate new ECMAScript code with the realm, and other associated state and
+  resources.</p>
+
+  <p>A Realm is specified as a Record with the fields specified in <a href="#table-20">Table 20</a>
+  :</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-20">Table 20</span> — Realm Record Fields
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 0px solid black; border-top: 2px solid #000000">
+        Field Name</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Value</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Meaning</th>
+      </tr>
+
+      <tr>
+        <td>[[intrinsics]]</td>
+
+        <td>A record whose field names are intrinsic keys and whose values are objects</td>
+
+        <td>These are the intrinsic values used by code associated with this Realm</td>
+      </tr>
+
+      <tr>
+        <td>[[globalThis]]</td>
+
+        <td>An object</td>
+
+        <td>The global object for this Realm</td>
+      </tr>
+
+      <tr>
+        <td>[[globalEnv]]</td>
+
+        <td>An ECMAScript environment</td>
+
+        <td>The global environment for this Realm</td>
+      </tr>
+
+      <tr>
+        <td>[[directEvalTranslate]]</td>
+
+        <td><b>undefined</b> or an object that is callable as a function.</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>[[directEvalFallback]]</td>
+
+        <td><b>undefined</b> or an object that is callable as a function.</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>[[indirectEval]]</td>
+
+        <td><b>undefined</b> or an object that is callable as a function.</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>[[Function]]</td>
+
+        <td><b>undefined</b> or an object that is callable as a function.</td>
+
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>[[loader]]</td>
+
+        <td>any ECMAScript identifier or <b>empty</b></td>
+
+        <td>The Loader object that can associate ECMAScript code with this Realm</td>
+      </tr>
+    </table>
+  </figure>
+  <link rel="import" href="code-realms\createrealm.html">
+</es-clause>

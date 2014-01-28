@@ -1,0 +1,195 @@
+<!doctype html>
+<es-clause title="String.prototype.split (separator, limit)" anchor="sec-string.prototype.split">
+  <p>Returns an Array object into which substrings of the result of converting this object to a
+  String have been stored. The substrings are determined by searching from left to right for
+  occurrences of <es-nt>separator</es-nt>; these occurrences are not part of any substring in the
+  returned array, but serve to divide up the String value. The value of <es-nt>separator</es-nt>
+  may be a String of any length or it may be a RegExp object.</p>
+
+  <p>When the <code>split</code> method is called, the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
+    value).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>separator</i>) is Object
+    and <a href="#sec-hasproperty">HasProperty</a> (<i>separator</i>, @@isRegExp) is <b>true</b> ,
+    then,
+
+      <ol class="block">
+        <li>Return the result of Invoke(<i>separator</i>, <code>"split"</code>, (<i>O</i>,
+        <i>limit</i>))</li>
+      </ol>
+    </li>
+
+    <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
+    </li>
+
+    <li>Let <i>A</i> be the result of the abstract operation <a href=
+    "#sec-arraycreate">ArrayCreate</a> with argument 0.
+    </li>
+
+    <li>Let <i>lengthA</i> be 0.</li>
+
+    <li>If <i>limit</i> is <b>undefined</b>, let <i>lim</i> = 2<sup>53</sup> –1; else let
+    <i>lim</i> = <a href="#sec-tolength">ToLength</a> (<i>limit</i>).
+    </li>
+
+    <li>Let <i>s</i> be the number of elements in <i>S</i>.</li>
+
+    <li>Let <i>p</i> = 0.</li>
+
+    <li>Let <i>R</i> be <a href="#sec-tostring">ToString</a> (<i>separator</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>R</i>).
+    </li>
+
+    <li>If <i>lim</i> = 0, return <i>A</i>.</li>
+
+    <li>If <i>separator</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, "<b>0</b>",
+        <i>S</i>).
+        </li>
+
+        <li>
+          <a href="#sec-algorithm-conventions">Assert</a> : The above call will never result in an
+          <a href="#sec-completion-record-specification-type">abrupt completion</a> .
+        </li>
+
+        <li>Return <i>A</i>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>s</i> = 0, then
+
+      <ol class="block">
+        <li>Let <i>z</i> be the result of <a href="#sec-splitmatch">SplitMatch</a> (<i>S</i>, 0,
+        <i>R</i>).
+        </li>
+
+        <li>If <i>z</i> is not <b>false</b>, return <i>A</i>.</li>
+
+        <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, "<b>0</b>",
+        <i>S</i>).
+        </li>
+
+        <li>
+          <a href="#sec-algorithm-conventions">Assert</a> : The above call will never result in an
+          <a href="#sec-completion-record-specification-type">abrupt completion</a> .
+        </li>
+
+        <li>Return <i>A</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>q</i> = <i>p</i>.</li>
+
+    <li>Repeat, while <i>q</i> ≠ <i>s</i>
+
+      <ol class="block">
+        <li>Let <i>e</i> be the result of <a href="#sec-splitmatch">SplitMatch</a> (<i>S, q,
+        R</i>).
+        </li>
+
+        <li>If <i>e</i> is <b>false</b>, then let <i>q</i> = <i>q</i>+1.</li>
+
+        <li>Else <i>e</i> is an integer index into <i>S</i>,
+
+          <ol class="block">
+            <li>If <i>e</i> = <i>p</i>, then let <i>q</i> = <i>q</i>+1.</li>
+
+            <li>Else <i>e</i> ≠ <i>p</i>,
+
+              <ol class="block">
+                <li>Let <i>T</i> be a String value equal to the substring of <i>S</i> consisting of
+                the code units at positions <i>p</i> (inclusive) through <i>q</i> (exclusive).</li>
+
+                <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>,
+                <a href="#sec-tostring">ToString</a> (<i>lengthA</i>), <i>T</i>).
+                </li>
+
+                <li>
+                  <a href="#sec-algorithm-conventions">Assert</a> : The above call will never
+                  result in an <a href="#sec-completion-record-specification-type">abrupt
+                  completion</a> .
+                </li>
+
+                <li>Increment <i>lengthA</i> by 1.</li>
+
+                <li>If <i>lengthA</i> = <i>lim</i>, return <i>A</i>.</li>
+
+                <li>Let <i>p</i> = <i>e</i>.</li>
+
+                <li>Let <i>q</i> = <i>p</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>T</i> be a String value equal to the substring of <i>S</i> consisting of the code
+    units at positions <i>p</i> (inclusive) through <i>s</i> (exclusive).</li>
+
+    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, <a href=
+    "#sec-tostring">ToString</a> (<i>lengthA</i>), <i>T</i>).
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : The above call will never result in an
+      <a href="#sec-completion-record-specification-type">abrupt completion</a> .
+    </li>
+
+    <li>Return <i>A</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The value of <es-nt>separator</es-nt> may be an empty String, an empty regular expression,
+    or a regular expression that can match an empty String. In this case, <es-nt>separator</es-nt>
+    does not match the empty substring at the beginning or end of the input String, nor does it
+    match the empty substring at the end of the previous separator match. (For example, if
+    <es-nt>separator</es-nt> is the empty String, the String is split up into individual code unit
+    elements; the length of the result array equals the length of the String, and each substring
+    contains one code unit.) If <es-nt>separator</es-nt> is a regular expression, only the first
+    match at a given position of the <b>this</b> String is considered, even if backtracking could
+    yield a non-empty-substring match at that position. (For example,
+    <code>"ab".split(/a*?/)</code> evaluates to the array <code>["a","b"]</code>, while
+    <code>"ab".split(/a*/)</code> evaluates to the array<code>["","b"]</code>.)</p>
+
+    <p>If the <b>this</b> object is (or converts to) the empty String, the result depends on
+    whether <es-nt>separator</es-nt> can match the empty String. If it can, the result array
+    contains no elements. Otherwise, the result array contains one element, which is the empty
+    String.</p>
+
+    <p>If <es-nt>separator</es-nt> is a regular expression that contains capturing parentheses,
+    then each time <es-nt>separator</es-nt> is matched the results (including any <b>undefined</b>
+    results) of the capturing parentheses are spliced into the output array. For&nbsp;example,</p>
+    <pre>
+"A&lt;B&gt;bold&lt;/B&gt;and&lt;CODE&gt;coded&lt;/CODE&gt;".split(/&lt;(\/)?([^&lt;&gt;]+)&gt;/)
+</pre>
+
+    <p>evaluates to the array</p>
+    <pre>
+["A", undefined, "B", "bold", "/", "B", "and", undefined,<br> "CODE", "coded", "/", "CODE", ""]
+</pre>
+
+    <p>If <es-nt>separator</es-nt> is <b>undefined</b>, then the result array contains just one
+    String, which is the <b>this</b> value (converted to a String). If <es-nt>limit</es-nt> is not
+    <b>undefined</b>, then the output array is truncated so that it contains no more than
+    <es-nt>limit</es-nt> elements.</p>
+  </es-note>
+  <link rel="import" href="string.prototype.split\splitmatch.html">
+</es-clause>

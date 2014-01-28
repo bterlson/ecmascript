@@ -1,0 +1,120 @@
+<!doctype html>
+<es-clause title="SetIntegrityLevel (O, level)" anchor="sec-setintegritylevel">
+  <p>The abstract operation SetIntegrityLevel is used to fix the set of own properties of an
+  object. This abstract operation performs the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>level</i> is either
+      "<code>sealed</code>" or "<code>frozen</code>".
+    </li>
+
+    <li>Let <i>keys</i> be the result of calling the [[OwnPropertyKeys]] internal method of
+    <i>O</i>.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keys</i>).
+    </li>
+
+    <li>Let <i>pendingException</i> be <b>undefined</b>.</li>
+
+    <li>If <i>level</i> is "<code>sealed</code>", then
+
+      <ol class="block">
+        <li>Repeat for each element <i>k</i> of <i>keys</i>,
+
+          <ol class="block">
+            <li>Let <i>status</i> be the result of <a href=
+            "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>O</i>, <i>k</i>,
+            PropertyDescriptor{ [[Configurable]]: <b>false</b>}).
+            </li>
+
+            <li>If <i>status</i> is an <a href="#sec-completion-record-specification-type">abrupt
+            completion</a> , then
+
+              <ol class="block">
+                <li>If <i>pendingException</i> is <b>undefined</b>, then set
+                <i>pendingException</i> to <i>status</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Else <i>level</i> is "<code>frozen</code>",
+
+      <ol class="block">
+        <li>Repeat for each element <i>k</i> of <i>keys</i>,
+
+          <ol class="block">
+            <li>Let <i>status</i> be the result of calling the [[GetOwnProperty]] internal method
+            of <i>O</i> with <i>k</i>.</li>
+
+            <li>If <i>status</i> is an <a href="#sec-completion-record-specification-type">abrupt
+            completion</a> , then
+
+              <ol class="block">
+                <li>If <i>pendingException</i> is <b>undefined</b>, then set
+                <i>pendingException</i> to <i>status</i>.</li>
+              </ol>
+            </li>
+
+            <li>Else,
+
+              <ol class="block">
+                <li>Let <i>currentDesc</i> be <i>status</i>.[[value]].</li>
+
+                <li>If <i>currentDesc</i> is not <b>undefined</b>, then
+
+                  <ol class="block">
+                    <li>If <a href="#sec-isaccessordescriptor">IsAccessorDescriptor</a>
+                    (<i>currentDesc</i>) is <b>true</b>, then
+
+                      <ol class="block">
+                        <li>Let <i>desc</i> be the PropertyDescriptor{[[Configurable]]:
+                        <b>false</b>}.</li>
+                      </ol>
+                    </li>
+
+                    <li>Else,
+
+                      <ol class="block">
+                        <li>Let <i>desc</i> be the PropertyDescriptor { [[Configurable]]:
+                        <b>false</b>, [[Writable]]: <b>false</b> }.</li>
+                      </ol>
+                    </li>
+
+                    <li>Let <i>status</i> be the result of <a href=
+                    "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>O</i>, <i>k</i>, <i>
+                      desc</i>).
+                    </li>
+
+                    <li>If <i>status</i> is an <a href="#sec-completion-record-specification-type">
+                      abrupt completion</a> , then
+
+                      <ol class="block">
+                        <li>If <i>pendingException</i> is <b>undefined</b>, then set
+                        <i>pendingException</i> to <i>status</i>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>pendingException</i> is not <b>undefined</b>, then return
+    <i>pendingException</i>.</li>
+
+    <li>Return the result of calling the [[PreventExtensions]] internal method of <i>O</i>.</li>
+  </ol>
+</es-clause>

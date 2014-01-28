@@ -1,0 +1,34 @@
+<!doctype html>
+<es-clause title="CreateArrayIterator Abstract Operation" anchor="sec-createarrayiterator">
+  <p>Several methods of Array objects return Iterator objects. The abstract operation
+  CreateArrayIterator with arguments <es-nt>array</es-nt> and <es-nt>kind</es-nt> is used to create
+  such iterator objects. It performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> (<i>array</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
+    </li>
+
+    <li>Let <i>iterator</i> be the result of <a href="#sec-objectcreate">ObjectCreate</a>
+    (%ArrayIteratorPrototype%, ([[IteratedObject]], [[ArrayIteratorNextIndex]],
+    [[ArrayIterationKind]])).
+    </li>
+
+    <li>Set <i>iterator’s</i> [[IteratedObject]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>O</i>.
+    </li>
+
+    <li>Set <i>iterator’s</i> [[ArrayIteratorNextIndex]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to 0.
+    </li>
+
+    <li>Set <i>iterator’s</i> [[ArrayIterationKind]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>kind</i>.
+    </li>
+
+    <li>Return <i>iterator</i>.</li>
+  </ol>
+</es-clause>

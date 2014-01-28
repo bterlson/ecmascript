@@ -1,0 +1,58 @@
+<!doctype html>
+<es-clause title="Promise ( executor )" anchor="sec-promise">
+  <p>When the <code>Promise</code> function is called with argument <es-nt>executor</es-nt> the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>promise</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>executor</i>) is <b>false</b>, then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>promise</i>) is not Object,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>promise</i> does not have a [[PromiseStatus]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
+    <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>promise</i>'s [[PromiseStatus]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>Return InitializePromise(<i>promise</i>, <i>executor</i>).</li>
+  </ol>
+
+  <es-note>
+    <p>The <es-nt>executor</es-nt> argument must be a function object. It is called for initiating
+    and reporting completion of the possibly deferred action represented by this Promise object.
+    The executor is called with two arguments: <es-nt>resolve</es-nt> and <es-nt>reject</es-nt>.
+    These are functions that may be used by the <es-nt>executor</es-nt> function to report eventual
+    completion or failure of the deferred computation. Returning from the executor function does
+    not mean that the deferred action has been completed but only that the request to eventually
+    perform the deferred action has been accepted.</p>
+
+    <p>The <es-nt>resolve</es-nt> function that is passed to an <es-nt>executor</es-nt> function
+    accepts a single argument. The <es-nt>executor</es-nt> code may eventually call the
+    <es-nt>resolve</es-nt> function to indicate that it wishes to resolve the associated Promise
+    objecct. The argument passed to the <es-nt>resolve</es-nt> function represents the eventual
+    value of the deferred action and can be either the actual fulfillment value or another Promise
+    object which will provide the value if it is fullfilled.</p>
+
+    <p>The <es-nt>reject</es-nt> function that is passed to an <es-nt>executor</es-nt> function
+    accepts a single argument. The <es-nt>executor</es-nt> code may eventually call the
+    <es-nt>reject</es-nt> function to indicate that the associated Promise is rejected and will
+    never be fulfilled. The argument passed to the <es-nt>reject</es-nt> function is used as the
+    rejection value of the promise. Typically it will be an <code>Error</code> object.</p>
+  </es-note>
+
+  <p>The resolve and reject functions passed to an <es-nt>executor</es-nt> function by the Promise
+  constructor have the capability to actually resolve and reject the associated promise. Subclasses
+  may have different constructor behavior that passes in customized values for resolve and
+  reject.</p>
+  <link rel="import" href="promise\initialisepromise.html">
+</es-clause>

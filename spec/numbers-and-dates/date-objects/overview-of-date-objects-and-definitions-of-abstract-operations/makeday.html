@@ -1,0 +1,34 @@
+<!doctype html>
+<es-clause title="MakeDay (year, month, date)" anchor="sec-makeday">
+  <p>The operator MakeDay calculates a number of days from its three arguments, which must be
+  ECMAScript Number values. This operator functions as follows:</p>
+
+  <ol class="proc">
+    <li>If <i>year</i> is not finite or <i>month</i> is not finite or <i>date</i> is not finite,
+    return <b>NaN</b>.</li>
+
+    <li>Let <i>y</i> be <a href="#sec-tointeger">ToInteger</a> (<i>year</i>).
+    </li>
+
+    <li>Let <i>m</i> be <a href="#sec-tointeger">ToInteger</a> (<i>month</i>).
+    </li>
+
+    <li>Let <i>dt</i> be <a href="#sec-tointeger">ToInteger</a> (<i>date</i>).
+    </li>
+
+    <li>Let <i>ym</i> be <i>y</i> + <a href="#sec-algorithm-conventions">floor</a> (<i>m</i> /12).
+    </li>
+
+    <li>Let <i>mn</i> be <i>m</i> <a href="#sec-algorithm-conventions">modulo</a> 12.
+    </li>
+
+    <li>Find a value <i>t</i> such that <a href="#sec-year-number">YearFromTime</a> (<i>t</i>) is
+    <i>ym</i> and <a href="#sec-month-number">MonthFromTime</a> (<i>t</i>) is <i>mn</i> and
+      <a href="#sec-date-number">DateFromTime</a> (<i>t</i>) is 1; but if this is not possible
+      (because some argument is out of range), return <b>NaN</b>.
+    </li>
+
+    <li>Return <a href="#sec-day-number-and-time-within-day">Day</a> (<i>t</i>) + <i>dt</i> − 1.
+    </li>
+  </ol>
+</es-clause>

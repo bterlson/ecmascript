@@ -1,0 +1,65 @@
+<!doctype html>
+<es-clause title="GeneratorYield ( iterNextObj )" anchor="sec-generatoryield">
+  <p>The abstract operation GeneratorYield with argument <es-nt>iterNextObj</es-nt> performs the
+  following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>iterNextObj</i> is an Object that
+      implemented the <i>IteratorResult</i> interface.
+    </li>
+
+    <li>Let <i>genContext</i> be <a href="#sec-execution-contexts">the running execution
+    context</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>genContext</i> is the <a href=
+      "#sec-execution-contexts">execution context</a> of a generator.
+    </li>
+
+    <li>Let <i>generator</i> be the value of the Generator component of <i>genContext</i>.</li>
+
+    <li>Set the value of <i>generator’s</i> [[GeneratorState]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to
+    <code>"suspendedYield"</code>.
+    </li>
+
+    <li>Remove <i>genContext</i> from <a href="#sec-execution-contexts">the execution context
+    stack</a> and restore the <a href="#sec-execution-contexts">execution context</a> that is at
+    the top of <a href="#sec-execution-contexts">the execution context stack</a> as <a href=
+    "#sec-execution-contexts">the running execution context</a> .
+    </li>
+
+    <li>Set the code evaluation state of <i>genContext</i> such that when evaluation is resumed
+    with a <a href="#sec-completion-record-specification-type">Completion</a>
+    <i>resumptionValue</i> the following steps will be performed:
+
+      <ol class="block">
+        <li>Return <i>resumptionValue</i>.</li>
+
+        <li>NOTE: This returns to the evaluation of the <i>YieldExpression</i> production that
+        originally called this abstract operation.</li>
+      </ol>
+    </li>
+
+    <li>Resume the <a href="#sec-execution-contexts">suspended</a> evaluation of <i>genContext</i>
+    using <a href="#sec-normalcompletion">NormalCompletion</a> (<i>value</i>) as the result of the
+    operation that <a href="#sec-execution-contexts">suspended</a> it. Let <i>result</i> be the
+    value returned by the resumed computation.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : When we return here, <i>genContext</i> has
+      already been removed from <a href="#sec-execution-contexts">the execution context stack</a>
+      and <a href="#sec-execution-contexts">the currently running execution context</a> is the
+      context that most recently resumed execution of <i>generator</i>.
+    </li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<i>iterNextObj</i>).
+    </li>
+
+    <li>NOTE: This returns to the evaluation of the operation that had most previously resumed
+    evaluation of <i>genContext</i>.</li>
+  </ol>
+</es-clause>

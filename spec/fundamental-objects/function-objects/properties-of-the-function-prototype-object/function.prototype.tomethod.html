@@ -1,0 +1,36 @@
+<!doctype html>
+<es-clause title="Function.prototype.toMethod (superBinding, methodName = undefined)" anchor=
+"sec-function.prototype.tomethod">
+  <p>When the <code>toMethod</code> method is called on an object <es-nt>func</es-nt> with argument
+  <es-nt>superBinding</es-nt> and optional argument <es-nt>methodName</es-nt> the following steps
+  are taken:</p>
+
+  <ol class="proc">
+    <li>If <i>func</i> is not an <a href="#sec-ecmascript-function-objects">ECMAScript function
+    object</a> , then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>superBinding</i>) is not
+    Object, then throw a <b>TypeError</b> exception.
+    </li>
+
+    <li>If <i>methodName</i> is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>methodName</i> be <a href="#sec-topropertykey">ToPropertyKey</a>
+        (<i>methodName</i>).
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>methodName</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>Return <a href="#sec-clonemethod">CloneMethod</a> (<i>func</i>, <i>superBinding</i>,
+    <i>methodName</i>).
+    </li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>toMethod</code> method is <b>1</b>.</p>
+</es-clause>

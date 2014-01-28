@@ -1,0 +1,60 @@
+<!doctype html>
+<es-clause title="Disjunction" anchor="sec-disjunction">
+  <p>The production <es-production name="Disjunction" type="lexical" class=
+  "inline"><es-rhs><es-nt>Alternative</es-nt></es-rhs></es-production>
+  evaluates by evaluating <es-nt>Alternative</es-nt> to obtain a Matcher and returning that
+  Matcher.</p>
+
+  <p>The production <es-production name="Disjunction" type="lexical" class=
+  "inline"><es-rhs><es-nt>Alternative</es-nt> |
+  <es-nt>Disjunction</es-nt></es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>Alternative</i> to obtain a Matcher <i>m1</i>.</li>
+
+    <li>Evaluate <i>Disjunction</i> to obtain a Matcher <i>m2</i>.</li>
+
+    <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a
+    Continuation <i>c</i>, and performs the following:
+
+      <ol class="nested proc">
+        <li>Call <i>m1</i>(<i>x</i>, <i>c</i>) and let <i>r</i> be its result.</li>
+
+        <li>If <i>r</i> isn't <b>failure</b>, return <i>r</i>.</li>
+
+        <li>Call <i>m2</i>(<i>x</i>, <i>c</i>) and return its result.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <es-note>
+    <p>The <code>|</code> regular expression operator separates two alternatives. The pattern first
+    tries to match the left <es-nt>Alternative</es-nt> (followed by the sequel of the regular
+    expression); if it fails, it tries to match the right <es-nt>Disjunction</es-nt> (followed by
+    the sequel of the regular expression). If the left <es-nt>Alternative</es-nt>, the right
+    <es-nt>Disjunction</es-nt>, and the sequel all have choice points, all choices in the sequel
+    are tried before moving on to the next choice in the left <es-nt>Alternative</es-nt>. If
+    choices in the left <es-nt>Alternative</es-nt> are exhausted, the right
+    <es-nt>Disjunction</es-nt> is tried instead of the left <es-nt>Alternative</es-nt>. Any
+    capturing parentheses inside a portion of the pattern skipped by <code>|</code> produce
+    <b>undefined</b> values instead of Strings. Thus, for example,</p>
+    <pre>
+/a|ab/.exec("abc")
+</pre>
+
+    <p>returns the result <code>"a"</code> and not <code>"ab"</code>. Moreover,</p>
+    <pre>
+/((a)|(ab))((c)|(bc))/.exec("abc")
+</pre>
+
+    <p>returns the array</p>
+    <pre>
+["abc", "a", "a", undefined, "bc", undefined, "bc"]
+</pre>
+
+    <p>and not</p>
+    <pre>
+["abc", "ab", undefined, "ab", "c", "c", undefined]
+</pre>
+  </es-note>
+</es-clause>

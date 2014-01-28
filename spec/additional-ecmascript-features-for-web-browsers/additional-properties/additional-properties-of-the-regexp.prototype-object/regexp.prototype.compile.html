@@ -1,0 +1,67 @@
+<!doctype html>
+<es-clause title="RegExp.prototype.compile (pattern, flags )" anchor=
+"sec-regexp.prototype.compile">
+  <p>When the <b>compile</b> method is called with arguments <i>pattern</i> and <i>flags</i>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object or
+    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and <i>O</i> does
+    not have a [[RegExpMatcher]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> , then
+
+      <ol class="block">
+        <li>Throw a <b>TypeError</b> exception.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>extensible</i> be the result of calling the [[IsExtensible]] internal method of
+    <i>O</i>.</li>
+
+    <li>If <i>extensible</i> is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>pattern</i>) is Object and
+    <i>pattern</i> has a [[RegExpMatcher]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then
+
+      <ol class="block">
+        <li>If the value of <i>pattern’s</i> [[RegExpMatcher]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>,
+        then throw a <b>TypeError</b> exception.
+        </li>
+
+        <li>If <i>flags</i> is not <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>P</i> be the value of <i>pattern’s</i> [[OriginalSource]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+
+        <li>Let <i>F</i> be the value of <i>pattern’s</i> [[OriginalFlags]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>let <i>P</i> be <i>pattern</i>.</li>
+
+        <li>let <i>F</i> be <i>flags</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return the result of the abstract operation <a href=
+    "#sec-regexpinitialise">RegExpInitialise</a> with arguments <i>O,</i> <i>P</i>, and <i>F</i>.
+    </li>
+  </ol>
+
+  <es-note>
+    <p>The <code>compile</code> method completely reinitialises the <b>this</b> object RegExp with
+    a new pattern and flags. An implementaton may interpret use of this method as an assertion that
+    the resulting RegExp object will be used multiple times and hence is a candidate for extra
+    optimization.</p>
+  </es-note>
+</es-clause>

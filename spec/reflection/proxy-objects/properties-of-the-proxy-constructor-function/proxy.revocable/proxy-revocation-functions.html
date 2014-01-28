@@ -1,0 +1,37 @@
+<!doctype html>
+<es-clause title="Proxy Revocation Functions" anchor="sec-proxy-revocation-functions">
+  <p>A Proxy revocation function is an anonymous function that has the ability to invalidate a
+  specific Proxy object.</p>
+
+  <p>Each Proxy revocation function has a [[RevokableProxy]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+
+  <p>When a Proxy revocation function, <es-nt>F</es-nt>, is called the following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>p</i> be the value of <i>F</i>’s [[RevokableProxy]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>If <i>p</i> is <b>null</b>, then return <b>undefined</b>.</li>
+
+    <li>Set the value of <i>F</i>’s [[RevokableProxy]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <b>null</b>.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>p</i> is a Proxy object.
+    </li>
+
+    <li>Set the [[ProxyTarget]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>p</i> to <b>null</b>.
+    </li>
+
+    <li>Set the [[ProxyHandler]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+    slot</a> of <i>p</i> to <b>null</b>.
+    </li>
+
+    <li>Return <b>undefined</b>.</li>
+  </ol>
+</es-clause>

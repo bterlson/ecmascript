@@ -1,0 +1,121 @@
+<!doctype html>
+<es-clause title="Operations on Objects" anchor="sec-operations-on-objects">
+  <es-clause title="Get (O, P)" anchor="sec-get-o-p">
+    <p>The abstract operation Get is used to retrieve the value of a specific property of an
+    object. The operation is called with arguments <es-nt>O</es-nt> and <es-nt>P</es-nt> where
+    <es-nt>O</es-nt> is the object and <es-nt>P</es-nt> is the <a href="#sec-object-type">property
+    key</a> . This abstract operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+        "#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object.
+      </li>
+
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+        "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+      </li>
+
+      <li>Return the result of calling the [[Get]] internal method of <i>O</i> passing <i>P</i> and
+      <i>O</i> as the arguments.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="operations-on-objects\put-o-p-v-throw.html">
+  <link rel="import" href="operations-on-objects\createdataproperty.html">
+  <link rel="import" href="operations-on-objects\createdatapropertyorthrow.html">
+  <link rel="import" href="operations-on-objects\definepropertyorthrow.html">
+  <link rel="import" href="operations-on-objects\deletepropertyorthrow.html">
+  <link rel="import" href="operations-on-objects\getmethod.html">
+
+  <es-clause title="HasProperty (O, P)" anchor="sec-hasproperty">
+    <p>The abstract operation HasProperty is used to determine whether an object has a property
+    with the specified <a href="#sec-object-type">property key</a> . The property may be either an
+    own or inherited. A Boolean value is returned. The operation is called with arguments
+    <es-nt>O</es-nt> and <es-nt>P</es-nt> where <es-nt>O</es-nt> is the object and <es-nt>P</es-nt>
+    is the <a href="#sec-object-type">property key</a> . This abstract operation performs the
+    following steps:</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+        "#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object.
+      </li>
+
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+        "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+      </li>
+
+      <li>Return the result of calling the [[HasProperty]] internal method of <i>O</i> with
+      argument <i>P</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="operations-on-objects\hasownproperty.html">
+  <link rel="import" href="operations-on-objects\setintegritylevel.html">
+  <link rel="import" href="operations-on-objects\testintegritylevel.html">
+  <link rel="import" href="operations-on-objects\createarrayfromlist.html">
+  <link rel="import" href="operations-on-objects\createlistfromarraylike.html">
+  <link rel="import" href="operations-on-objects\ordinaryhasinstance.html">
+  <link rel="import" href="operations-on-objects\getprototypefromconstructor.html">
+
+  <es-clause title="CreateFromConstructor (F)" anchor="sec-createfromconstructor">
+    <p>When the abstract operation CreateFromConstructor is called with Object <es-nt>F</es-nt> the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>creator</i> be <a href="#sec-get-o-p">Get</a> (<i>F</i>, @@create).
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>creator</i>).
+      </li>
+
+      <li>If <i>creator</i> is <b>undefined</b>, then return <b>undefined</b>.</li>
+
+      <li>If <a href="#sec-iscallable">IsCallable</a> (<i>creator</i>) is <b>false</b>, then throw
+      a <b>TypeError</b> exception.
+      </li>
+
+      <li>Let <i>obj</i> be the result of calling the [[Call]] internal method of <i>creator</i>
+      with arguments <i>F</i> and an empty <a href=
+      "#sec-list-and-record-specification-type">List</a> .
+      </li>
+
+      <li>
+        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
+      </li>
+
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>obj</i>) is not Object,
+      then throw a <b>TypeError</b> exception.
+      </li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+  </es-clause>
+  <link rel="import" href="operations-on-objects\construct-f-argumentslist.html">
+
+  <es-clause title="GetOption (options, P)" anchor="sec-getoption">
+    <p>The abstract operation GetOption is used to retrieve the value of a specific property of an
+    object in situation where the object may not be present. The operation is called with arguments
+    <es-nt>options</es-nt> and <es-nt>P</es-nt> where <es-nt>options</es-nt> is the object and
+    <es-nt>P</es-nt> is the <a href="#sec-object-type">property key</a> . This abstract operation
+    performs the following steps:</p>
+
+    <ol class="proc">
+      <li>
+        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+        "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+      </li>
+
+      <li>If <i>options</i> is <b>undefined</b>, then return <b>undefined</b>.</li>
+
+      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>options</i>) is not
+      Object, then throw a <b>TypeError</b> exception.
+      </li>
+
+      <li>Return the result of calling the [[Get]] internal method of <i>options</i> passing
+      <i>P</i> and <i>O</i> as the arguments.</li>
+    </ol>
+  </es-clause>
+</es-clause>

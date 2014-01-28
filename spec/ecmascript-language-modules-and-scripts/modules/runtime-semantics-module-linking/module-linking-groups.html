@@ -1,0 +1,65 @@
+<!doctype html>
+<es-clause title="Module Linking Groups" anchor="sec-module-linking-groups">
+  <p>A load record <i>load</i><sub>1</sub> has a <b><i>linkage dependency</i></b> on a load record
+  <i>load</i><sub>2</sub> if <i>load</i><sub>2</sub> is contained in
+  <i>load</i><sub>1</sub>.[[UnlinkedDependencies]] or there exists a load record
+  <es-nt>load</es-nt> in <i>load</i><sub>1</sub>.[[UnlinkedDependencies]] such that
+  <es-nt>load</es-nt> has a linkage dependency on <i>load</i><sub>2</sub>.</p>
+
+  <p>The <b><i>linkage graph</i></b> of a <a href=
+  "#sec-list-and-record-specification-type">List</a> , <i>list,</i> of load records is the set of
+  load records <es-nt>load</es-nt> such that some load record in <es-nt>list</es-nt> has a linkage
+  dependency on <es-nt>load</es-nt>.</p>
+
+  <p>A <b><i>dependency chain</i></b> from <i>load</i><sub>1</sub> to <i>load</i><sub>2</sub> is a
+  <a href="#sec-list-and-record-specification-type">List</a> of load records demonstrating the
+  transitive linkage dependency from <i>load</i><sub>1</sub> to <i>load</i><sub>2</sub>.</p>
+
+  <p>A <b><i>dependency cycle</i></b> is a dependency chain whose first and last elements’ [[Name]]
+  fields have the same value.</p>
+
+  <p>A dependency chain is <b><i>cyclic</i></b> if it contains a subsequence that is a dependency
+  cycle. A dependency chain is <b><i>acyclic</i></b> if it is not cyclic.</p>
+
+  <p>A dependency chain is <b><i>mixed</i></b> if there are two elements with distinct values for
+  their [[Kind]] fields. A <b><i>dependency group transition</i></b> of kind <i>kind</i> is a
+  two-element subsequence <i>load</i><sub>1</sub>, <i>load</i><sub>2</sub> of a dependency chain
+  such that <i>load</i><sub>1</sub>.[[Kind]] is not equal to <i>kind</i> and
+  <i>load</i><sub>2</sub>.[[Kind]] is equal to <i>kind</i>.</p>
+
+  <p>The <b><i>dependency group count</i></b> of a dependency chain with first element
+  <i>load</i><sub>1</sub> is the number of distinct dependency group transitions of kind
+  <i>load</i><sub>1</sub>.[[Kind]].</p>
+  <link rel="import" href="module-linking-groups\linkagegroups.html">
+
+  <es-clause title="BuildLinkageGroups ( load, declarativeGroups, dynamicGroups, visited )" anchor=
+  "sec-buildlinkagegroups">
+    <p>The abstract operation BuildLinkageGroups with arguments <es-nt>load</es-nt>,
+    <es-nt>declarativeGroups</es-nt>, and <es-nt>dynamicGroups</es-nt> performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li>If <i>visited</i> contains an element whose [[Name]] is equal to <i>load</i>.[[Name]],
+      then return.</li>
+
+      <li>Add <i>load</i> to <i>visited</i>.</li>
+
+      <li>For each <i>dep</i> of <i>load</i>.[[UnlinkedDependencies]], do
+
+        <ol class="block">
+          <li>Call the BuildLinkageGroups abstract operation passing <i>dep</i>,
+          <i>declarativeGroups</i>, <i>dynamicGroups</i>, and <i>visited</i> as arguments.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>i</i> be <i>load</i>.[[GroupIndex]].</li>
+
+      <li>If <i>load</i>.[[Kind]] is declarative let <i>groups</i> be <i>declarativeGroups</i>;
+      otherwise let <i>groups</i> be <i>dynamicGroups</i>.</li>
+
+      <li>Let <i>group</i> be the <i>i</i>th element of <i>groups</i>.</li>
+
+      <li>Add <i>load</i> to <i>group</i>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

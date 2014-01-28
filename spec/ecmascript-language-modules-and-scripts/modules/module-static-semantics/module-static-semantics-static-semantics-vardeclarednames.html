@@ -1,0 +1,52 @@
+<!doctype html>
+<es-clause title="Static Semantics: VarDeclaredNames" anchor=
+"sec-module-static-semantics-static-semantics-vardeclarednames">
+  <p>See also: <a href="#sec-statement-semantics-static-semantics-vardeclarednames">13.0.1</a> ,
+  <a href="#sec-block-static-semantics-vardeclarednames">13.1.8</a> , <a href=
+  "#sec-if-statement-static-semantics-vardeclarednames">13.5.1</a> , <a href=
+  "#sec-do-while-statement-static-semantics-vardeclarednames">13.6.1.1</a> , <a href=
+  "#sec-while-statement-static-semantics-vardeclarednames">13.6.2.1</a> , <a href=
+  "#sec-for-statement-static-semantics-vardeclarednames">13.6.3.1</a> , <a href=
+  "#sec-for-in-and-for-of-statements-static-semantics-vardeclarednames">13.6.4.3</a> , <a href=
+  "#sec-with-statement-static-semantics-vardeclarednames">13.10.2</a> , <a href=
+  "#sec-switch-statement-static-semantics-vardeclarednames">13.11.4</a> , <a href=
+  "#sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</a> , <a href=
+  "#sec-try-statement-static-semantics-vardeclarednames">13.14.2</a> , <a href=
+  "#sec-function-definitions-static-semantics-referencessuper">14.1.12</a> , <a href=
+  "#sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</a> , <a href=
+  "#sec-class-definitions-static-semantics-vardeclarednames">14.5.14</a> , <a href=
+  "#sec-scripts-static-semantics-vardeclarednames">15.1.5</a> .</p>
+
+  <es-production name="ModuleItemList" class="inline">
+    <es-rhs><es-nt>ModuleItemList</es-nt> <es-nt>ModuleItem</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>names</i> be VarDeclaredNames of <i>ModuleItemList</i>.</li>
+
+    <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>ModuleItem.</i></li>
+
+    <li>Return <i>names</i>.</li>
+  </ol>
+
+  <es-production name="ModuleItem" class="inline">
+    <es-rhs><es-nt>ImportDeclaration</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return an empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+
+  <es-production name="ModuleItem" class="inline">
+    <es-rhs><es-nt>ExportDeclaration</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If <i>ExportDeclaration</i> is <code>export</code> <i>VariableStatement</i><code>;</code>
+    then return BoundNames of <i>ExportDeclaration</i>.</li>
+
+    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+  </ol>
+</es-clause>

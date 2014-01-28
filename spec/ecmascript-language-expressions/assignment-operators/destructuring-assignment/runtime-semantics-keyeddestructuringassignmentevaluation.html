@@ -1,0 +1,53 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: KeyedDestructuringAssignmentEvaluation" anchor=
+"sec-runtime-semantics-keyeddestructuringassignmentevaluation">
+  <p>with parameters <es-nt>obj</es-nt> and <es-nt>propertyName</es-nt></p>
+
+  <p><es-nt>AssignmentElement</es-nt> <sub><i>[Yield]</i></sub> <b>:</b>
+  <es-nt>DestructuringAssignmentTarget</es-nt> <es-nt>Initialiser</es-nt> <sub>opt</sub></p>
+
+  <ol class="proc">
+    <li>Let <i>v</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>, <i>name</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
+    </li>
+
+    <li>If <i>Initialiser</i><sub>opt</sub> is present and <i>v</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>defaultValue</i> be the result of evaluating <i>Initialiser</i>.</li>
+
+        <li>Let <i>v</i> be <a href="#sec-getvalue">GetValue</a> (<i>defaultValue</i>)
+        </li>
+
+        <li>
+          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>DestructuringAssignmentTarget</i> is an <i>ObjectLiteral or an ArrayLiteral</i> then
+
+      <ol class="block">
+        <li>Let <i>AssignmentPattern</i> be the parse of the source code corresponding to
+        <i>DestructuringAssignmentTarget</i> using either <i>AssignmentPattern</i> or
+        <i>AssignmentPattern</i><sub>[?Yield]</sub> as the goal symbol depending upon whether this
+        <i>AssignmentElement</i> has the <sub>Yield</sub> parameter.</li>
+
+        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>v</i>) is not Object,
+        then throw a <b>TypeError</b> exception.
+        </li>
+
+        <li>Return the result of performing DestructuringAssignmentEvaluation of
+        <i>AssignmentPattern</i> with <i>v</i> as the argument.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>lref</i> be the result of evaluating <i>DestructuringAssignmentTarget</i>.</li>
+
+    <li>Return <a href="#sec-putvalue">PutValue</a> (<i>lref</i>,<i>v</i>).
+    </li>
+  </ol>
+</es-clause>

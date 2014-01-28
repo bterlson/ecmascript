@@ -1,0 +1,36 @@
+<!doctype html>
+<es-clause title="GetThisEnvironment" anchor="sec-getthisenvironment">
+  <p>The abstract operation GetThisEnvironment finds the <a href=
+  "#sec-lexical-environments">lexical environment</a> that currently supplies the binding of the
+  keyword <code>this</code>. GetThisEnvironment performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>lex</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
+    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
+    </li>
+
+    <li>Repeat
+
+      <ol class="block">
+        <li>Let <i>envRec</i> be <i>lex</i>’s environment record.</li>
+
+        <li>Let <i>exists</i> be the result of calling the HasThisBinding concrete method of
+        <i>envRec</i>.</li>
+
+        <li>If <i>exists</i> is <code>true</code>, then return <i>envRec</i>.</li>
+
+        <li>Let <i>outer</i> be the value of <i>lex’s</i> <a href="#sec-lexical-environments">outer
+        environment reference</a> .
+        </li>
+
+        <li>Let <i>lex</i> be <i>outer</i>.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <es-note>
+    <p>The loop in step 2 will always terminate because the llst of environments always ends with
+    <a href="#sec-global-environment-records">the global environment</a> which has a
+    <code>this</code> binding.</p>
+  </es-note>
+</es-clause>

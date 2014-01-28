@@ -1,0 +1,33 @@
+<!doctype html>
+<es-clause title="The Syntactic Grammar" anchor="sec-syntactic-grammar">
+  <p>The <i>syntactic grammar</i> for ECMAScript is given in clauses 11, 12, 13 and 14. This
+  grammar has ECMAScript tokens defined by the lexical grammar as its terminal symbols (<a href=
+  "#sec-lexical-and-regexp-grammars">5.1.2</a> ). It defines a set of productions, starting from
+  the goal symbol <es-nt>Script</es-nt>, that describe how sequences of tokens can form
+  syntactically correct independent components of an ECMAScript programs.</p>
+
+  <p>When a stream of characters is to be parsed as an ECMAScript script, it is first converted to
+  a stream of input elements by repeated application of the lexical grammar; this stream of input
+  elements is then parsed by a single application of the syntactic grammar. The script is
+  syntactically in error if the tokens in the stream of input elements cannot be parsed as a single
+  instance of the goal nonterminal <es-nt>Script</es-nt>, with no tokens left over.</p>
+
+  <p>Productions of the syntactic grammar are distinguished by having just one colon “<b>:</b>” as
+  punctuation.</p>
+
+  <p>The syntactic grammar as presented in clauses 12, 13, 14 and 15 is actually not a complete
+  account of which token sequences are accepted as correct ECMAScript scripts. Certain additional
+  token sequences are also accepted, namely, those that would be described by the grammar if only
+  semicolons were added to the sequence in certain places (such as before line terminator
+  characters). Furthermore, certain token sequences that are described by the grammar are not
+  considered acceptable if a terminator character appears in certain “awkward” places.</p>
+
+  <p>In certain cases in order to avoid ambiguities the syntactic grammar uses generalised
+  productions that permit token sequences that are not valid ECMAScript scripts. For example, this
+  technique is used in with object literals and object destructuring patterns. In such cases a more
+  restrictive <i>supplemental grammar</i> is provided that further restricts the acceptable token
+  sequences. In certain contexts, when explicitly specific, the input elements corresponding to
+  such a production are parsed again using a goal symbol of a supplemental grammar. The script is
+  syntactically in error if the tokens in the stream of input elements cannot be parsed as a single
+  instance of the supplemental goal symbol, with no tokens left over.</p>
+</es-clause>

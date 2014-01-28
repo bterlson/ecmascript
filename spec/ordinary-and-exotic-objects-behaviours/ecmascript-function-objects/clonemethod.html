@@ -1,0 +1,73 @@
+<!doctype html>
+<es-clause title="CloneMethod(function, newHome, newName) Abstract Operation" anchor=
+"sec-clonemethod">
+  <p>The abstract operation Clone is called with a function object <es-nt>function</es-nt>, an
+  object <es-nt>newHome</es-nt>, and a <a href="#sec-object-type">property key</a>
+  <es-nt>newName</es-nt> as its argument. It performs the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>function</i> is an <a href=
+      "#sec-ecmascript-function-objects">ECMAScript function object</a> .
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>newHome</i>) is Object.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (newName) one of Undefined, String, or
+      Symbol.
+    </li>
+
+    <li>Let <i>new</i> be a new <a href="#sec-ecmascript-function-objects">ECMAScript function
+    object</a> that has all of the same internal methods and internal slots as <i>function</i>.
+    </li>
+
+    <li>Set the value of each of <i>new’s</i> internal slots, except for [[HomeObject]] and
+    [[MethodName]] to the value of <i>function’s</i> corresponding <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+  </ol>
+
+  <p>If the value of <i>function</i>’s [[NeedsSuper]] <a href=
+  "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>true</b>, then</p>
+
+  <ol class="proc">
+    <li>Set the value of <i>new’s</i> [[HomeObject]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>newHome</i>.
+    </li>
+
+    <li>If <i>newName</i> is not <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Set the value of <i>new’s</i> [[MethodName]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>newName</i>.
+        </li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Set the value of <i>new’s</i> [[MethodName]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> to the value of
+        <i>functions’s</i> [[MethodName]] <a href=
+        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+        </li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol class="proc">
+    <li>Return <i>new</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The purpose of this abstract operation is to create a new function object that is identical
+    to the argument object in all aways except for its identity and the value of its [[HomeObject]]
+    <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+  </es-note>
+</es-clause>

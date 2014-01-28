@@ -1,0 +1,67 @@
+<!doctype html>
+<es-clause title="CreateGlobalFunctionBinding (N, V, D)" anchor="sec-createglobalfunctionbinding">
+  <p>The concrete <a href="#sec-environment-records">Environment Record</a> method
+  CreateGlobalFunctionBinding for global environment records creates a mutable binding in the
+  associated <a href="#sec-object-environment-records">object environment record</a> and records
+  the bound name in the associated VarNames <a href=
+  "#sec-list-and-record-specification-type">List</a> . If a binding already exists, it is
+  replaced.</p>
+
+  <ol class="proc">
+    <li>Let <i>envRec</i> be the <a href="#sec-declarative-environment-records">declarative
+    environment record</a> for which the method was invoked.
+    </li>
+
+    <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+    <li>Let <i>globalObject</i> be the binding object for <i>ObjRec</i>.</li>
+
+    <li>Let <i>existingProp</i> be the result of calling the [[GetOwnProperty]] internal method of
+    <i>globalObject</i> with argument <i>N</i>.</li>
+
+    <li>If <i>existingProp</i> is <b>undefined</b> or <i>existingProp</i>.[[Configurable]] is
+    <b>true</b>, then
+
+      <ol class="block">
+        <li>Let <i>desc</i> be the PropertyDescriptor{[[Value]]:<i>V</i>, [[Writable]]:
+        <b>true</b>, [[Enumerable]]: <b>true</b> , [[Configurable]]: <i>D</i>}.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>desc</i> be the PropertyDescriptor{[[Value]]:<i>V</i> }.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>status</i> be the result of <a href=
+    "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>globalObject</i>, <i>N</i>,
+    <i>desc</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+    </li>
+
+    <li>Let <i>varDeclaredNames</i> be <i>envRec’s</i> VarNames <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>If <i>varDeclaredNames</i> does not contain the value of <i>N</i>, then
+
+      <ol class="block">
+        <li>Append <i>N</i> to <i>varDeclaredNames</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
+    </li>
+  </ol>
+
+  <es-note>
+    <p>Global function declarations are always represented as own properties of the global object.
+    If possible, an existing own property is reconfigured to have a standard set of attribute
+    values.</p>
+  </es-note>
+</es-clause>

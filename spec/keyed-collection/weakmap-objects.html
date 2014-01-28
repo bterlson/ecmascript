@@ -1,0 +1,52 @@
+<!doctype html>
+<es-clause title="WeakMap Objects" anchor="sec-weakmap-objects">
+  <p>WeakMap objects are collections of key/value pairs where the keys are objects and values may
+  be arbitrary <a href="#sec-ecmascript-language-types">ECMAScript language values</a> . A WeakMap
+  may be queried to see if it contains an key/value pair with a specific key, but no mechanisms is
+  provided for enumerating the objects it holds as keys. If an object that is being used as the key
+  of a WeakMap key/value pair is only reachable by following a chain of references that start
+  within that WeakMap, then that key/value pair is inaccessible and is automatically removed from
+  the WeakMap. WeakMap implementations must detect and remove such key/value pairs and any
+  associated resources.</p>
+
+  <p>An implementation may impose an arbitrarily determined latency between the time a key/value
+  pair of a WeakMap becomes inaccessible and the time when the key/value pair is removed from the
+  WeakMap. If this latency was observable to ECMAScript program, it would be a source of
+  indeterminacy that could impact program execution.&nbsp; For that reason, an ECMAScript
+  implementation must not provide any means to observe a key of a WeakMap that does not require the
+  observer to present the observed key.</p>
+
+  <p>WeakMap objects must be implemented using either hash tables or other mechanisms that, on
+  average, provide access times that are sublinear on the number of key/value pairs in the
+  collection. The data structure used in this WeakMap objects specification are only intended to
+  describe the required observable semantics of WeakMap objects. It is not intended to be a viable
+  implementation model.</p>
+
+  <es-note>
+    <p>WeakMap and WeakSets are intended to provide mechanisms for dynamically associating state
+    with an object in a manner that does not “leak” memory resources if, in the absence of the
+    WeakMap or WeakSet, the object otherwise became inaccessible and subject to resource
+    reclamation by the implementation’s garbage collection mechanisms. Achieving this
+    characteristic requires coordination between the WeakMap or WeakSet implementation and the
+    garbage collector. The following references describe mechanism that may be useful to
+    implementations of WeakMap and WeakSets:</p>
+
+    <p>Barry Hayes. 1997. Ephemerons: a new finalization mechanism. In <i>Proceedings of the 12th
+    ACM SIGPLAN conference on Object-oriented programming, systems, languages, and applications
+    (OOPSLA '97)</i>, A. Michael Berman (Ed.). ACM, New York, NY, USA, 176-183. <a href=
+    "http://doi.acm.org/10.1145/263698.263733">http://doi.acm.org/10.1145/263698.263733</a> .</p>
+
+    <p>Alexandra Barros, Roberto Ierusalimschy, Eliminating Cycles in Weak Tables. Journal of
+    Universal Computer Science - J.UCS , vol. 14, no. 21, pp. 3481-3497, 2008. <a href=
+    "http://www.jucs.org/jucs_14_21/eliminating_cycles_in_weak">http://www.jucs.org/jucs_14_21/eliminating_cycles_in_weak</a></p>
+  </es-note>
+  <link rel="import" href="weakmap-objects\weakmap-constructor.html">
+  <link rel="import" href="weakmap-objects\properties-of-the-weakmap-constructor.html">
+  <link rel="import" href="weakmap-objects\properties-of-the-weakmap-prototype-object.html">
+
+  <es-clause title="Properties of WeakMap Instances" anchor="sec-properties-of-weakmap-instances">
+    <p>WeakMap instances are ordinary objects that inherit properties from the WeakMap prototype.
+    WeakMap instances also have a [[WeakMapData]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+  </es-clause>
+</es-clause>

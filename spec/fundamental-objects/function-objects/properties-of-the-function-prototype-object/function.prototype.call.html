@@ -1,0 +1,33 @@
+<!doctype html>
+<es-clause title="Function.prototype.call (thisArg [ , arg1 [ , arg2, … ] ] )" anchor=
+"sec-function.prototype.call">
+  <p>When the <code>call</code> method is called on an object <es-nt>func</es-nt> with argument
+  <es-nt>thisArg</es-nt> and optional arguments <es-nt>arg1</es-nt>, <es-nt>arg2</es-nt> etc, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>func</i>) is <b>false</b>, then throw a <b>
+      TypeError</b> exception.
+    </li>
+
+    <li>Let <i>argList</i> be an empty <a href="#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>If this method was called with more than one argument then in left to right order starting
+    with <i>arg1</i> append each argument as the last element of <i>argList</i></li>
+
+    <li>Perform the PrepareForTailCall abstract operation.</li>
+
+    <li>Return the result of calling the [[Call]] internal method of <i>func</i>, providing
+    <i>thisArg</i> as <i>thisArgument</i> and <i>argList</i> as <i>argumentsList</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>call</code> method is <b>1</b>.</p>
+
+  <es-note>
+    <p>The thisArg value is passed without modification as the <b>this</b> value. This is a change
+    from Edition 3, where an <b>undefined</b> or <b>null</b> thisArg is replaced with the global
+    object and <a href="#sec-toobject">ToObject</a> is applied to all other values and that result
+    is passed as the <b>this</b> value.</p>
+  </es-note>
+</es-clause>

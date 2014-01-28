@@ -1,0 +1,42 @@
+<!doctype html>
+<es-clause title="CanDeclareGlobalFunction (N)" anchor="sec-candeclareglobalfunction">
+  <p>The concrete environment record method CanDeclareGlobalFunction for global environment records
+  determines if a corresponding <a href=
+  "#sec-createglobalfunctionbinding">CreateGlobalFunctionBinding</a> call would succeed if called
+  for the same argument <es-nt>N</es-nt>.</p>
+
+  <ol class="proc">
+    <li>Let <i>envRec</i> be <a href="#sec-global-environment-records">the global environment
+    record</a> for which the method was invoked.
+    </li>
+
+    <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+    <li>Let <i>globalObject</i> be the binding object for <i>ObjRec</i>.</li>
+
+    <li>Let <i>extensible</i> be the result of <a href="#sec-isextensible-o">IsExtensible</a>
+    (<i>globalObject</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>extensible</i>).
+    </li>
+
+    <li>If the result of calling <i>ObjRec’s</i> HasBinding concrete method with argument <i>N</i>
+    is <b>false</b>, then return <i>extensible</i>.</li>
+
+    <li>Let <i>existingProp</i> be the result of calling the [[GetOwnProperty]] internal method of
+    <i>globalObject</i> with argument <i>N</i>.</li>
+
+    <li>If <i>existingProp</i> is <b>undefined</b>, then return <i>extensible</i>.</li>
+
+    <li>If <i>existingProp</i>.[[Configurable]] is <b>true</b>, then return <b>true</b>.</li>
+
+    <li>If <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>existingProp</i>) is
+    <b>true</b> and <i>existingProp</i> has attribute values {[[Writable]]: <b>true</b>,
+    [[Enumerable]]: <b>true</b>}, then return <b>true</b>.
+    </li>
+
+    <li>Return <b>false</b>.</li>
+  </ol>
+</es-clause>

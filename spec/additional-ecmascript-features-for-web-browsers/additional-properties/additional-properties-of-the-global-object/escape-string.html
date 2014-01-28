@@ -1,0 +1,76 @@
+<!doctype html>
+<es-clause title="escape (string)" anchor="sec-escape-string">
+  <p>The <code>escape</code> function is a property of the global object. It computes a new version
+  of a String value in which certain characters have been replaced by a hexadecimal escape
+  sequence.</p>
+
+  <p>For those characters being replaced whose code unit value is <code>0xFF</code> or less, a
+  two-digit escape sequence of the form <code>%</code><i>xx</i> is used. For those characters being
+  replaced whose code unit value is greater than <code>0xFF</code>, a four-digit escape sequence of
+  the form <code>%u</code><i>xxxx</i> is used.</p>
+
+  <p>When the <code>escape</code> function is called with one argument <es-nt>string</es-nt>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>string</i> be <a href="#sec-tostring">ToString</a> (<i>string</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>string</i>).
+    </li>
+
+    <li>Let <i>length</i> be the number of code units in <i>string</i>.</li>
+
+    <li>Let <i>R</i> be the empty string.</li>
+
+    <li>Let <i>k</i> be 0.</li>
+
+    <li>Repeat, while <i>k</i> &lt; <i>length</i>,
+
+      <ol class="block">
+        <li>Let <i>char</i> be the code unit (represented as a 16-bit unsigned integer) at position
+        <i>k</i> within <i>string</i>.</li>
+
+        <li>If <i>char</i> is the code point of one of the 69 nonblank characters<br>
+          <code>″ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@*_+-./″<br></code>then,
+
+          <ol class="block">
+            <li>Let <i>S</i> be a String containing the single character <i>char</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else if <i>char</i> &gt; 256,
+
+          <ol class="block">
+            <li>Let <i>S</i> be a String containing six characters
+            <code>″%u</code><i>wxyz</i><code>″</code> where <i>wxyz</i> are four hexadecimal digits
+            encoding the value of <i>char</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else, <i>char</i> &lt; 256
+
+          <ol class="block">
+            <li>Let <i>S</i> be a String containing three characters
+            <code>″%</code><i>xy</i><code>″</code> where <i>xy</i> are two hexadecimal digits
+            encoding the value of <i>char</i>.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>R</i> be a new String value computed by concatenating the previous value of
+        <i>R</i> and <i>S</i>.</li>
+
+        <li>Increase <i>k</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>R</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The encoding is partly based on the encoding described in RFC 1738, but the entire encoding
+    specified in this standard is described above without regard to the contents of RFC 1738. This
+    encoding does not reflect changes to RFC 1738 made by RFC 3986.</p>
+  </es-note>
+</es-clause>

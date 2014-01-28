@@ -1,0 +1,31 @@
+<!doctype html>
+<es-clause title="DeletePropertyOrThrow (O, P)" anchor="sec-deletepropertyorthrow">
+  <p>The abstract operation DeletePropertyOrThrow is used to remove a specific own property of an
+  object. It throws an exception if the property is not configurable. The operation is called with
+  arguments <es-nt>O</es-nt> and <es-nt>P</es-nt> where <es-nt>O</es-nt> is the object and
+  <es-nt>P</es-nt> is the <a href="#sec-object-type">property key</a> . This abstract operation
+  performs the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+    </li>
+
+    <li>Let <i>success</i> be the result of calling the [[Delete]] internal method of <i>O</i>
+    passing <i>P</i> as the argument.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>success</i>).
+    </li>
+
+    <li>If <i>success</i> is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Return <i>success</i>.</li>
+  </ol>
+</es-clause>

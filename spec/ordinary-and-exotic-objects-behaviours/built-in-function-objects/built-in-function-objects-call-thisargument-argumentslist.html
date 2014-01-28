@@ -1,0 +1,55 @@
+<!doctype html>
+<es-clause title="[[Call]] ( thisArgument, argumentsList)" anchor=
+"sec-built-in-function-objects-call-thisargument-argumentslist">
+  <p>The [[Call]] internal method for a built-in function object <es-nt>F</es-nt> is called with
+  parameters <es-nt>thisArgument</es-nt> and <es-nt>argumentsList</es-nt>, a <a href=
+  "#sec-list-and-record-specification-type">List</a> of <a href=
+  "#sec-ecmascript-language-types">ECMAScript language values</a> . The following steps are
+  taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>callerContext</i> be <a href="#sec-execution-contexts">the running execution
+    context</a> .
+    </li>
+
+    <li>If <i>callerContext</i> is not already <a href="#sec-execution-contexts">suspended</a> ,
+    then <a href="#sec-execution-contexts">Suspend</a> <i>callerContext</i>.
+    </li>
+
+    <li>Let <i>calleeContext</i> be a new <a href="#sec-execution-contexts">execution context</a> .
+    </li>
+
+    <li>Let <i>calleeRealm</i> be the value of <i>F’s</i> [[Realm]] <a href=
+    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+    </li>
+
+    <li>Set <i>calleeContext’s</i> <a href="#sec-code-realms">Realm</a> to <i>calleeRealm</i>.
+    </li>
+
+    <li>Perform any necessary implementation defined initialisation of <i>calleeContext</i>.</li>
+
+    <li>Push <i>calleeContext</i> onto <a href="#sec-execution-contexts">the execution context
+    stack</a> ; <i>calleeContext</i> is now <a href="#sec-execution-contexts">the running execution
+    context</a> .
+    </li>
+
+    <li>Let <i>result</i> be the <a href="#sec-completion-record-specification-type">Completion
+    Record</a> that is the result of evaluating <i>F</i> in an implementation defined manner that
+    conforms to this specification of <i>F</i>.
+    </li>
+
+    <li>Remove <i>calleeContext</i> from <a href="#sec-execution-contexts">the execution context
+    stack</a> and restore <i>callerContext</i> as <a href="#sec-execution-contexts">the running
+    execution context</a> .
+    </li>
+
+    <li>Return <i>result</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>When <es-nt>calleeContext</es-nt> is removed from <a href="#sec-execution-contexts">the
+    execution context stack</a> it must not be destroyed because it may have been <a href=
+    "#sec-execution-contexts">suspended</a> and retained by a generator object for later
+    resumption<i>.</i></p>
+  </es-note>
+</es-clause>

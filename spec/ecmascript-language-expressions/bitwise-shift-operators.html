@@ -1,0 +1,23 @@
+<!doctype html>
+<es-clause title="Bitwise Shift Operators" anchor="sec-bitwise-shift-operators">
+  <h2>Syntax</h2>
+
+  <es-production name="ShiftExpression" params="Yield">
+    <es-rhs><es-nt params="?Yield">AdditiveExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ShiftExpression</es-nt> &lt;&lt; <es-nt params=
+    "?Yield">AdditiveExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ShiftExpression</es-nt> &gt;&gt; <es-nt params=
+    "?Yield">AdditiveExpression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">ShiftExpression</es-nt> &gt;&gt;&gt; <es-nt params=
+    "?Yield">AdditiveExpression</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href=
+  "bitwise-shift-operators\bitwise-shift-operators-static-semantics-isanonymousfunctiondefinition.html">
+  <link rel="import" href="bitwise-shift-operators\semantics-isvalidsimpleassignmenttarget.html">
+  <link rel="import" href="bitwise-shift-operators\left-shift-operator.html">
+  <link rel="import" href="bitwise-shift-operators\signed-right-shift-operator.html">
+  <link rel="import" href="bitwise-shift-operators\unsigned-right-shift-operator.html">
+</es-clause>

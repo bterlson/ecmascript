@@ -1,0 +1,73 @@
+<!doctype html>
+<es-clause title="HasOwnProperty (O, P)" anchor="sec-hasownproperty">
+  <p>The abstract operation HasOwnProperty is used to determine whether an object has an own
+  property with the specified <a href="#sec-object-type">property key</a> . A Boolean value is
+  returned. The operation is called with arguments <es-nt>O</es-nt> and <es-nt>P</es-nt> where
+  <es-nt>O</es-nt> is the object and <es-nt>P</es-nt> is the <a href="#sec-object-type">property
+  key</a> . This abstract operation performs the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+    </li>
+
+    <li>Let <i>desc</i> be the result of calling the [[GetOwnProperty]] internal method of <i>O</i>
+    passing <i>P</i> as the argument.</li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>desc</i>).
+    </li>
+
+    <li>If <i>desc</i> is <b>undefined</b>, return <b>false</b>.</li>
+
+    <li>Return <b>true</b>.</li>
+  </ol>
+
+  <p><span class="marker">7.3.10	</span><b>Invoke(O,P, [args])</b></p>
+
+  <p>The abstract operation Invoke is used to call a method property of an object. The operation is
+  called with arguments <es-nt>O</es-nt>, <es-nt>P</es-nt> , and optionally <es-nt>args</es-nt>
+  where <es-nt>O</es-nt> serves as both the lookup point for the property and the <b>this</b> value
+  of the call, <es-nt>P</es-nt> is the <a href="#sec-object-type">property key</a> , and
+  <es-nt>args</es-nt> is the list of arguments values passed to the method. If <es-nt>args</es-nt>
+  is not present, an empty <a href="#sec-list-and-record-specification-type">List</a> is used as
+  its value. This abstract operation performs the following steps:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>P</i> is a valid <a href=
+      "#sec-object-type">property key</a> .
+    </li>
+
+    <li>If <i>args</i> was not passed, then let <i>args</i> be a new empty <a href=
+    "#sec-list-and-record-specification-type">List</a> .
+    </li>
+
+    <li>Let <i>obj</i> be <a href="#sec-toobject">ToObject</a> (<i>O</i>).
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
+    </li>
+
+    <li>Let <i>func</i> be the result of calling the [[Get]] internal method of <i>obj</i> passing
+    <i>P</i> and <i>O</i> as the arguments.</li>
+
+    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>func</i>) is <b>false</b>, then throw a <b>
+      TypeError</b> exception.
+    </li>
+
+    <li>
+      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>func</i>).
+    </li>
+
+    <li>Return the result of calling the [[Call]] internal method of <i>func</i> passing <i>O</i>
+    as <i>thisArgument</i> and <i>args</i> as <i>argumentsList</i>.</li>
+  </ol>
+</es-clause>

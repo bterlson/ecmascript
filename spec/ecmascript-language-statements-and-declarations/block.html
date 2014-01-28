@@ -1,0 +1,56 @@
+<!doctype html>
+<es-clause title="Block" anchor="sec-block">
+  <h2>Syntax</h2>
+
+  <es-production name="BlockStatement" params="Yield, Return">
+    <es-rhs><es-nt params="?Yield, ?Return">Block</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="Block" params="Yield, Return">
+    <es-rhs><es-t>{</es-t> <es-nt>StatementList</es-nt> <es-gann>?Yield,
+    ?Return</es-gann><es-t>opt</es-t> <es-t>}</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="StatementList" params="Yield, Return">
+    <es-rhs><es-nt params="?Yield, ?Return">StatementListItem</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield, ?Return">StatementList</es-nt> <es-nt params=
+    "?Yield, ?Return">StatementListItem</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="StatementListItem" params="Yield, Return">
+    <es-rhs><es-nt params="?Yield, ?Return">Statement</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">Declaration</es-nt></es-rhs>
+  </es-production>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-block-static-semantics-early-errors">
+    <es-production name="Block" class="inline">
+      <es-rhs><es-t>{</es-t> <es-nt>StatementList</es-nt> <es-t>}</es-t></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if the LexicallyDeclaredNames of <es-nt>StatementList</es-nt>
+        contains any duplicate entries.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if any element of the LexicallyDeclaredNames of
+        <es-nt>StatementList</es-nt> also occurs in the VarDeclaredNames of
+        <es-nt>StatementList</es-nt>.</p>
+      </li>
+    </ul>
+  </es-clause>
+  <link rel="import" href="block\block-static-semantics-lexicaldeclarations.html">
+  <link rel="import" href="block\block-static-semantics-lexicallydeclarednames.html">
+  <link rel="import" href="block\static-semantics-toplevellexicallydeclarednames.html">
+  <link rel="import" href="block\static-semantics-toplevellexicallyscopeddeclarations.html">
+  <link rel="import" href="block\static-semantics-toplevelvardeclarednames.html">
+  <link rel="import" href="block\static-semantics-toplevelvarscopeddeclarations.html">
+  <link rel="import" href="block\block-static-semantics-vardeclarednames.html">
+  <link rel="import" href="block\block-static-semantics-varscopeddeclarations.html">
+  <link rel="import" href="block\block-runtime-semantics-evaluation.html">
+  <link rel="import" href="block\runtime-semantics-block-declaration-instantiation.html">
+</es-clause>

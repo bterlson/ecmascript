@@ -1,0 +1,29 @@
+<!doctype html>
+<es-clause title="Template Literals" anchor="sec-template-literals">
+  <h2>Syntax</h2>
+
+  <es-production name="TemplateLiteral" params="Yield">
+    <es-rhs><es-nt>NoSubstitutionTemplate</es-nt></es-rhs>
+
+    <es-rhs><es-nt>TemplateHead</es-nt> <es-nt params="In, ?Yield">Expression</es-nt>
+    <es-gann>Lexical goal <es-nt>InputElementTemplateTail</es-nt></es-gann><es-nt params=
+    "?Yield">TemplateSpans</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="TemplateSpans" params="Yield">
+    <es-rhs><es-nt>TemplateTail</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">TemplateMiddleList</es-nt> <es-gann>Lexical goal
+    <es-nt>InputElementTemplateTail</es-nt></es-gann><es-nt>TemplateTail</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="TemplateMiddleList" params="Yield">
+    <es-rhs><es-nt>TemplateMiddle</es-nt> <es-nt params="In, ?Yield">Expression</es-nt></es-rhs>
+
+    <es-rhs><es-nt params="?Yield">TemplateMiddleList</es-nt> <es-gann>Lexical goal
+    <es-nt>InputElementTemplateTail</es-nt></es-gann><es-nt>TemplateMiddle</es-nt> <es-nt params=
+    "In, ?Yield">Expression</es-nt></es-rhs>
+  </es-production>
+  <link rel="import" href="template-literals\template-literals-static-semantics.html">
+  <link rel="import" href="template-literals\runtime-semantics.html">
+</es-clause>

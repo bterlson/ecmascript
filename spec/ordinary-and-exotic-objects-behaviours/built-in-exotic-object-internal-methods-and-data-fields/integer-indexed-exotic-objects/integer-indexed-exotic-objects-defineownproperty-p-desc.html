@@ -1,0 +1,125 @@
+<!doctype html>
+<es-clause title="[[DefineOwnProperty]] ( P, Desc)" anchor=
+"sec-integer-indexed-exotic-objects-defineownproperty-p-desc">
+  <p>When the [[DefineOwnProperty]] internal method of an Integer Indexed exotic object
+  <es-nt>O</es-nt> is called with <a href="#sec-object-type">property key</a> <es-nt>P</es-nt>, and
+  <a href="#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt>
+  the following steps are taken:</p>
+
+  <ol class="proc">
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
+      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
+    </li>
+
+    <li>
+      <a href="#sec-algorithm-conventions">Assert</a> : <i>O</i> is an Object that has a
+      [[ViewedArrayBuffer]] <a href="#sec-object-internal-methods-and-internal-slots">internal
+      slot</a> .
+    </li>
+
+    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>P</i>) is String, then
+
+      <ol class="block">
+        <li>Let <i>intIndex</i> be <a href="#sec-tointeger">ToInteger</a> (<i>P</i>).
+        </li>
+
+        <li>
+          <a href="#sec-algorithm-conventions">Assert</a> : <i>intIndex</i> is not an <a href=
+          "#sec-completion-record-specification-type">abrupt completion</a> .
+        </li>
+
+        <li>If <a href="#sec-samevalue">SameValue</a> (<a href="#sec-tostring">ToString</a>
+        (<i>intIndex</i>), <i>P</i>) is <b>true</b>, then
+
+          <ol class="block">
+            <li>If <i>intIndex</i> &lt; 0, then return <b>false</b>.</li>
+
+            <li>Let <i>length</i> be the value of <i>O</i>’s [[ArrayLength]] <a href=
+            "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
+            </li>
+
+            <li>If <i>length</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+            <li>If <i>intIndex</i> ≥ <i>length</i>, then return <b>false</b>.</li>
+
+            <li>If <a href="#sec-isaccessordescriptor">IsAccessorDescriptor</a> (<i>Desc</i>) is
+            <b>true</b>, then return <b>false.</b>
+            </li>
+
+            <li>If <i>Desc</i> has a [[Configurable]] field and if <i>Desc</i>.[[Configurable]] is
+            <b>true</b>, then return <b>false<i>.</i></b></li>
+
+            <li>If <i>Desc</i> has an [[Enumerable]] field and if <i>Desc</i>.[[Enumerable]] is
+            <b>false</b>, then return <b>false<i>.</i></b></li>
+
+            <li>Let <i>writable</i> be <b>true</b> if the integer indexed properties of <i>O</i>
+            are writable and <b>false</b> if they are not.</li>
+
+            <li>Let <i>makeReadOnly</i> be <b>false</b>.</li>
+
+            <li>If <i>Desc</i> has a [[Writable]] field, then
+
+              <ol class="block">
+                <li>If <i>Desc</i>.[[Writable]] is <b>true</b> and <i>writable</i> is <b>false</b>,
+                then return <b>false</b>.</li>
+
+                <li>If <i>Desc</i>.[[Writable]] is <b>false</b> and <i>writable</i> is <b>true</b>,
+                then let <i>makeReadOnly</i> be <b>true</b>.</li>
+              </ol>
+            </li>
+
+            <li>If <i>Desc</i> has a [[Value]] field, then
+
+              <ol class="block">
+                <li>Let <i>value</i> be <i>Desc</i>.[[Value]].</li>
+
+                <li>If <i>writable</i> is <b>false</b>, then
+
+                  <ol class="block">
+                    <li>Let <i>oldValue</i> be the result of <a href=
+                    "#sec-integerindexedelementget">IntegerIndexedElementGet</a> (<i>O</i>,
+                    <i>intIndex</i>).
+                    </li>
+
+                    <li>
+                      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>oldValue</i>).
+                    </li>
+
+                    <li>If <i>oldValue</i> is <b>undefined</b>, then return <b>false</b>.</li>
+
+                    <li>If <a href="#sec-samevalue">SameValue</a> ( <i>value</i>, <i>oldValue</i>)
+                    is <b>false</b>, then return <b>false</b>.
+                    </li>
+                  </ol>
+                </li>
+
+                <li>Else
+
+                  <ol class="block">
+                    <li>Let <i>status</i> be the result of <a href="#sec-integerindexedelementset">
+                      IntegerIndexedElementSet</a> (<i>O</i>, <i>intIndex</i>, <i>value</i>).
+                    </li>
+
+                    <li>
+                      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+
+            <li>If <i>makeReadOnly</i> is <b>true</b>, then mark the integer indexed properties of
+            <i>O</i> as non-writable.</li>
+
+            <li>Return <b>true</b>.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Return the result of <a href="#sec-ordinarygetownproperty">OrdinaryGetOwnProperty</a>
+    (<i>O</i>, <i>P</i>).
+    </li>
+  </ol>
+</es-clause>
