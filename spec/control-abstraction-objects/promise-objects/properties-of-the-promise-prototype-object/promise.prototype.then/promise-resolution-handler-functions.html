@@ -12,19 +12,17 @@
   <es-nt>x</es-nt>, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>promise</i> be the value of <i>F</i>'s [[Promise]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>promise</i> be the value of <i>F</i>'s [[Promise]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>fulfillmentHandler</i> be the value of <i>F</i>'s [[FulfillmentHandler]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>fulfillmentHandler</i> be the value of <i>F</i>'s [[FulfillmentHandler]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>rejectionHandler</i> be the value of <i>F</i>'s [[RejectionHandler]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>rejectionHandler</i> be the value of <i>F</i>'s [[RejectionHandler]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>If <a href="#sec-samevalue">SameValue</a> (<i>x</i>, <i>promise</i>) is <b>true</b>, then
+    <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>x</i>, <i>promise</i>) is
+    <b>true</b>, then
 
       <ol class="block">
         <li>Let <i>selfResolutionError</i> be a newly-created <b>TypeError</b> object.</li>
@@ -35,26 +33,20 @@
       </ol>
     </li>
 
-    <li>Let <i>C</i> be the value of <i>promise</i>'s [[PromiseConstructor]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>C</i> be the value of <i>promise</i>'s [[PromiseConstructor]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>promiseCapability</i> be <a href=
-    "#sec-newpromisecapability">NewPromiseCapability</a> (<i>C</i>).
-    </li>
+    <li>Let <i>promiseCapability</i> be <es-xref target=
+    "sec-newpromisecapability">NewPromiseCapability</es-xref>(<i>C</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promiseCapability</i>).
-    </li>
+    <li><es-xref target=
+    "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>promiseCapability</i>).</li>
 
-    <li>Let <i>updateResult</i> be <a href=
-    "#sec-updatepromisefrompotentialthenable">UpdatePromiseFromPotentialThenable</a> (<i>x</i>, <i>
-      promiseCapability</i>).
-    </li>
+    <li>Let <i>updateResult</i> be <es-xref target=
+    "sec-updatepromisefrompotentialthenable">UpdatePromiseFromPotentialThenable</es-xref>(<i>x</i>,
+    <i>promiseCapability</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>updateResult</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>updateResult</i>).</li>
 
     <li>If <i>updateResult</i> is not <code>"not a thenable"</code>, then
 

@@ -16,9 +16,8 @@
   The following steps are performed:</p>
 
   <ol class="proc">
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>obj</i>) is not Object,
-    throw a TypeError exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>obj</i>) is not
+    Object, throw a TypeError exception.</li>
 
     <li>Let <i>mod</i> be CreateLinkedModuleInstance( )</li>
 
@@ -26,18 +25,15 @@
     <i>obj</i> as the argument.</li>
 
     <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keys</i>).
+      <es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keys</i>).
 
       <ol class="block">
         <li>For each <i>key</i> in <i>keys</i>, do</li>
 
-        <li>Let <i>value</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>,
-        <i>key</i>).
-        </li>
+        <li>Let <i>value</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>obj</i>, <i>key</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
 
         <li>Let <i>F</i> be the result of calling CreateConstantGetter(<i>key</i>,
         <i>value</i>).</li>
@@ -45,14 +41,11 @@
         <li>Let <i>desc</i> be the PropertyDescriptor {[[Configurable]]: <b>false</b>,
         [[Enumerable]]: <b>true</b>, [[Get]]: <i>F</i>, [[Set]]: <b>undefined</b>}.</li>
 
-        <li>Let <i>status</i> be the result of calling the <a href=
-        "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> abstract operation passing
-        <i>mod</i>, <i>key</i>, and <i>desc</i> as arguments.
-        </li>
+        <li>Let <i>status</i> be the result of calling the <es-xref target=
+        "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref> abstract operation passing
+        <i>mod</i>, <i>key</i>, and <i>desc</i> as arguments.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
       </ol>
     </li>
 

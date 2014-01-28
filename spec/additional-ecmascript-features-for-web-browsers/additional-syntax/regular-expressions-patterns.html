@@ -1,9 +1,9 @@
 <!doctype html>
 <es-clause title="Regular Expressions Patterns" anchor="sec-regular-expressions-patterns">
-  <p>The syntax of <a href="#sec-patterns">21.2.1</a> is extended as modified and extended as
-  follows. These changes introduce ambiguities that are broken by the ordering or grammar
-  productions and by contextual information. The following grammar is used, with each alternative
-  considered only if previous production alternatives do not match.</p>
+  <p>The syntax of <es-xref target="sec-patterns">21.2.1</es-xref> is extended as modified and
+  extended as follows. These changes introduce ambiguities that are broken by the ordering or
+  grammar productions and by contextual information. The following grammar is used, with each
+  alternative considered only if previous production alternatives do not match.</p>
 
   <p><b>Syntax</b></p>
 
@@ -211,10 +211,11 @@
 
   <p><b>Pattern Semantics</b></p>
 
-  <p>The semantics of <a href="#sec-pattern-semantics">21.2.2</a> is extended as follows:</p>
+  <p>The semantics of <es-xref target="sec-pattern-semantics">21.2.2</es-xref> is extended as
+  follows:</p>
 
-  <p>Within <a href="#sec-term">21.2.2.5</a> reference to “<es-production name="Atom" type=
-  "lexical" class="inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
+  <p>Within <es-xref target="sec-term">21.2.2.5</es-xref> reference to “<es-production name=
+  "Atom" type="lexical" class="inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
   <es-t>)</es-t></es-rhs></es-production> ” are to be interpreted as meaning
   “<es-production name="Atom" type="lexical" class="inline"><es-rhs><es-t>(</es-t>
   <es-nt>Disjunction</es-nt> <es-t>)</es-t></es-rhs></es-production> or
@@ -222,8 +223,8 @@
   "inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
   <es-t>)</es-t></es-rhs></es-production> ”.</p>
 
-  <p>Term (<a href="#sec-term">21.2.2.5</a> ) includes the following additional evaluation
-  rule:</p>
+  <p>Term (<es-xref target="sec-term">21.2.2.5</es-xref>) includes the following additional
+  evaluation rule:</p>
 
   <p>The production <es-production name="Term" type="lexical" class=
   "inline"><es-rhs><es-nt>QuantifiableAssertion</es-nt>
@@ -232,9 +233,9 @@
   "inline"><es-rhs><es-nt>Atom</es-nt></es-rhs></es-production>
   <i>Quantifier</i> but with <i>QuantifiableAssertion</i> substituted for <i>Atom</i>.</p>
 
-  <p>Atom (<a href="#sec-atom">21.2.2.8</a> ) evaluation rules for the <es-nt>Atom</es-nt>
-  productions except for <es-production name="Atom" type="lexical" class=
-  "inline"><es-rhs><es-nt>PatternCharacter</es-nt></es-rhs></es-production>
+  <p>Atom (<es-xref target="sec-atom">21.2.2.8</es-xref>) evaluation rules for the
+  <es-nt>Atom</es-nt> productions except for <es-production name="Atom" type="lexical"
+  class="inline"><es-rhs><es-nt>PatternCharacter</es-nt></es-rhs></es-production>
   are also used for the <es-nt>AtomNoBrace</es-nt> productions, but with <es-nt>AtomNoBrace</es-nt>
   substituted for <i>Atom</i>. The following evaluation rule is also added:</p>
 
@@ -250,16 +251,17 @@
     <li>Call CharacterSetMatcher(<i>A</i>, <b>false</b>) and return its Matcher result.</li>
   </ol>
 
-  <p>CharacterEscape (<a href="#sec-characterescape">21.2.2.10</a> ) includes the following
-  additional evaluation rule:</p>
+  <p>CharacterEscape (<es-xref target="sec-characterescape">21.2.2.10</es-xref>) includes the
+  following additional evaluation rule:</p>
 
   <p>The production <es-production name="CharacterEscape" type="lexical" class=
   "inline"><es-rhs><es-nt>OctalEscapeSequence</es-nt></es-rhs></es-production>
-  evaluates by evaluating the CV of the <es-nt>OctalscapeSequence</es-nt> (<a href=
-  "#sec-additional-syntax-string-literals">see B.1.2</a> ) and returning its character result.</p>
+  evaluates by evaluating the CV of the <es-nt>OctalscapeSequence</es-nt> (<es-xref target=
+  "sec-additional-syntax-string-literals">see B.1.2</es-xref>) and returning its character
+  result.</p>
 
-  <p>ClassAtom (<a href="#sec-classatom">21.2.2.17</a> ) includes the following additional
-  evaluation rules:</p>
+  <p>ClassAtom (<es-xref target="sec-classatom">21.2.2.17</es-xref>) includes the following
+  additional evaluation rules:</p>
 
   <p>The production <es-production name="ClassAtomInRange" type="lexical" class=
   "inline"><es-rhs>-</es-rhs></es-production> evaluates by returning the
@@ -270,8 +272,8 @@
   evaluates by evaluating <es-nt>ClassAtomNoDashInRange</es-nt> to obtain a CharSet and returning
   that CharSet.</p>
 
-  <p>ClassAtomNoDash (<a href="#sec-classatomnodash">21.2.2.18</a> ) includes the following
-  additional evaluation rules:</p>
+  <p>ClassAtomNoDash (<es-xref target="sec-classatomnodash">21.2.2.18</es-xref>) includes the
+  following additional evaluation rules:</p>
 
   <p>The production <es-production name="ClassAtomNoDashInRange" type="lexical" class=
   "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of

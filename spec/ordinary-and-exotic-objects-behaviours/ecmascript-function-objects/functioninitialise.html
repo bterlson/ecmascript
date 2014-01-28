@@ -3,63 +3,55 @@
   <p>The abstract operation FunctionInitialise requires the arguments: a function object
   <es-nt>F</es-nt>, <es-nt>kind</es-nt> which is one of (Normal, Method, Arrow), a parameter list
   production specified by <es-nt>ParameterList</es-nt>, a body production specified by
-  <es-nt>Body</es-nt>, a <a href="#sec-lexical-environments">Lexical Environment</a> specified by
-  <i>Scope</i>. FunctionInitialise performs the following steps:</p>
+  <es-nt>Body</es-nt>, a <es-xref target="sec-lexical-environments">Lexical Environment</es-xref>
+  specified by <i>Scope</i>. FunctionInitialise performs the following steps:</p>
 
   <ol class="proc">
     <li>Let <i>len</i> be the ExpectedArgumentCount of <i>ParameterList</i>.</li>
 
-    <li>Let <i>strict</i> be the vale of <i>F’s</i> [[Strict]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>strict</i> be the vale of <i>F’s</i> [[Strict]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>status</i> be the result of <a href=
-    "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>F</i>, <code>"length"</code>,
+    <li>Let <i>status</i> be the result of <es-xref target=
+    "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>F</i>, <code>"length"</code>,
     PropertyDescriptor{[[Value]]: <i>len</i>, [[Writable]]: <b>false</b>, [[Enumerable]]:
-    <b>false</b>, [[Configurable]]: <b>true</b>}).
-    </li>
+    <b>false</b>, [[Configurable]]: <b>true</b>}).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
     <li>If <i>strict</i> is <b>true</b>, then
 
       <ol class="block">
-        <li>Let <i>status</i> be the result of the <a href="#sec-addrestrictedfunctionproperties">
-          AddRestrictedFunctionProperties</a> abstract operation with argument <i>F</i>.
-        </li>
+        <li>Let <i>status</i> be the result of the <es-xref target=
+        "sec-addrestrictedfunctionproperties">AddRestrictedFunctionProperties</es-xref> abstract
+        operation with argument <i>F</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
       </ol>
     </li>
 
-    <li>Set the [[Environment]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> of <i>F</i> to the value of <i>Scope</i>.
-    </li>
+    <li>Set the [[Environment]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to the
+    value of <i>Scope</i>.</li>
 
-    <li>Set the [[FormalParameters]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>F</i> to
-    <i>ParameterList</i> .
-    </li>
+    <li>Set the [[FormalParameters]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to
+    <i>ParameterList</i> .</li>
 
-    <li>Set the [[Code]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> of <i>F</i> to <i>Body</i>.
-    </li>
+    <li>Set the [[Code]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref> of <i>F</i> to <i>Body</i>.</li>
 
-    <li>If <i>kind</i> is Arrow, then set the [[ThisMode]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>F</i> to lexical.
-    </li>
+    <li>If <i>kind</i> is Arrow, then set the [[ThisMode]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to
+    lexical.</li>
 
-    <li>Else if <i>strict</i> is <b>true</b>, then set the [[ThisMode]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>F</i> to strict.
-    </li>
+    <li>Else if <i>strict</i> is <b>true</b>, then set the [[ThisMode]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to
+    strict.</li>
 
-    <li>Else set the [[ThisMode]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>F</i> to global.
-    </li>
+    <li>Else set the [[ThisMode]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to
+    global.</li>
 
     <li>Return <i>F</i>.</li>
   </ol>

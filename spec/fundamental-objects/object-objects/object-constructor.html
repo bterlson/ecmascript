@@ -19,12 +19,10 @@
 
     <ol class="proc">
       <li>If <i>value</i> is <b>null</b>, <b>undefined</b> or not supplied, return the result of
-      the abstract operation <a href="#sec-objectcreate">ObjectCreate</a> with the intrinsic object
-      %ObjectPrototype% as its argument.
-      </li>
+      the abstract operation <es-xref target="sec-objectcreate">ObjectCreate</es-xref> with the
+      intrinsic object %ObjectPrototype% as its argument.</li>
 
-      <li>Return <a href="#sec-toobject">ToObject</a> (<i>value</i>).
-      </li>
+      <li>Return <es-xref target="sec-toobject">ToObject</es-xref>(<i>value</i>).</li>
     </ol>
   </es-clause>
 
@@ -44,8 +42,8 @@
     </ol>
 
     <p>The above steps defined the [[Construct]] internal method of the Object constructor. Object
-    may not be implemented as an <a href="#sec-ecmascript-function-objects">ECMAScript function
-    object</a> because this definition differs from the definition of [[Construct]] used by
-    ECMAScript function objects.</p>
+    may not be implemented as an <es-xref target="sec-ecmascript-function-objects">ECMAScript
+    function object</es-xref> because this definition differs from the definition of [[Construct]]
+    used by ECMAScript function objects.</p>
   </es-clause>
 </es-clause>

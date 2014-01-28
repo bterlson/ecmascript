@@ -1,16 +1,17 @@
 <!doctype html>
 <es-clause title="Function Properties of the Math Object" anchor=
 "sec-function-properties-of-the-math-object">
-  <p>Each of the following <code>Math</code> object functions applies the <a href=
-  "#sec-tonumber">ToNumber</a> abstract operation to each of its arguments (in left-to-right order
-  if there is more than one). If <a href="#sec-tonumber">ToNumber</a> returns an <a href=
-  "#sec-completion-record-specification-type">abrupt completion</a> , that <a href=
-  "#sec-completion-record-specification-type">Completion Record</a> is immediately returned.
-  Otherwise, the function performs a computation on the resulting Number value(s). The value
-  returned by each function is a Number.</p>
+  <p>Each of the following <code>Math</code> object functions applies the <es-xref target=
+  "sec-tonumber">ToNumber</es-xref> abstract operation to each of its arguments (in left-to-right
+  order if there is more than one). If <es-xref target="sec-tonumber">ToNumber</es-xref> returns an
+  <es-xref target="sec-completion-record-specification-type">abrupt completion</es-xref>, that
+  <es-xref target="sec-completion-record-specification-type">Completion Record</es-xref> is
+  immediately returned. Otherwise, the function performs a computation on the resulting Number
+  value(s). The value returned by each function is a Number.</p>
 
   <p>In the function descriptions below, the symbols NaN, −0, +0, −∞ and +∞ refer to the Number
-  values described in <a href="#sec-ecmascript-language-types-number-type">6.1.6</a> .</p>
+  values described in <es-xref target=
+  "sec-ecmascript-language-types-number-type">6.1.6</es-xref>.</p>
 
   <es-note>
     <p>The behaviour of the functions <code>acos</code>, <code>acosh</code>, <code>asin</code>,
@@ -182,8 +183,8 @@
       <li>If <i>x</i> is less than 0 but greater than -1, the result is −0.</li>
     </ul>
 
-    <p>The value of <code>Math.ceil(x)</code> is the same as the value of <code>-<a href=
-    "#sec-math.floor">Math.floor</a> (-x)</code>.</p>
+    <p>The value of <code>Math.ceil(x)</code> is the same as the value of <code>-<es-xref target=
+    "sec-math.floor">Math.floor</es-xref>(-x)</code>.</p>
   </es-clause>
 
   <es-clause title="Math.cos (x)" anchor="sec-math.cos">
@@ -280,8 +281,9 @@
     </ul>
 
     <es-note>
-      <p>The value of <code>Math.<a href="#sec-algorithm-conventions">floor</a> (x)</code> is the
-      same as the value of <code>-<a href="#sec-math.ceil">Math.ceil</a> (-x)</code>.</p>
+      <p>The value of <code>Math.<es-xref target=
+      "sec-algorithm-conventions">floor</es-xref>(x)</code> is the same as the value of
+      <code>-<es-xref target="sec-math.ceil">Math.ceil</es-xref>(-x)</code>.</p>
     </es-note>
   </es-clause>
 
@@ -334,23 +336,16 @@
     <es-nt>y</es-nt> the following steps are taken:</p>
 
     <ol class="proc">
-      <li>Let <i>a</i> be <a href="#sec-touint32">ToUint32</a> (<i>x</i>).
-      </li>
+      <li>Let <i>a</i> be <es-xref target="sec-touint32">ToUint32</es-xref>(<i>x</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>a</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>a</i>).</li>
 
-      <li>Let <i>b</i> be <a href="#sec-touint32">ToUint32</a> (<i>y</i>).
-      </li>
+      <li>Let <i>b</i> be <es-xref target="sec-touint32">ToUint32</es-xref>(<i>y</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>b</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>b</i>).</li>
 
-      <li>Let <i>product</i> be (<i>a</i> × <i>b</i>) <a href=
-      "#sec-algorithm-conventions">modulo</a> 2<sup>32</sup> .
-      </li>
+      <li>Let <i>product</i> be (<i>a</i> × <i>b</i>) <es-xref target=
+      "sec-algorithm-conventions">modulo</es-xref> 2<sup>32</sup> .</li>
 
       <li>If <i>product</i> ≥ 2<sup>31</sup> , return <i>product</i> − 2<sup>32</sup> , otherwise
       return <i>product</i>.</li>
@@ -430,8 +425,8 @@
   </es-clause>
 
   <es-clause title="Math.max ( [ value1 [ , value2 [ , … ] ] ] )" anchor="sec-math.max">
-    <p>Given zero or more arguments, calls <a href="#sec-tonumber">ToNumber</a> on each of the
-    arguments and returns the largest of the resulting values.</p>
+    <p>Given zero or more arguments, calls <es-xref target="sec-tonumber">ToNumber</es-xref> on
+    each of the arguments and returns the largest of the resulting values.</p>
 
     <ul>
       <li>
@@ -444,8 +439,9 @@
 
       <li>
         <p>The comparison of values to determine the largest value is done using the Abstract
-        Relational Comparison algorithm (<a href="#sec-abstract-relational-comparison">7.2.8</a> )
-        except that +0 is considered to be larger than −0.</p>
+        Relational Comparison algorithm (<es-xref target=
+        "sec-abstract-relational-comparison">7.2.8</es-xref>) except that +0 is considered to be
+        larger than −0.</p>
       </li>
     </ul>
 
@@ -453,8 +449,8 @@
   </es-clause>
 
   <es-clause title="Math.min ( [ value1 [ , value2 [ , … ] ] ] )" anchor="sec-math.min">
-    <p>Given zero or more arguments, calls <a href="#sec-tonumber">ToNumber</a> on each of the
-    arguments and returns the smallest of the resulting values.</p>
+    <p>Given zero or more arguments, calls <es-xref target="sec-tonumber">ToNumber</es-xref> on
+    each of the arguments and returns the smallest of the resulting values.</p>
 
     <ul>
       <li>
@@ -467,8 +463,9 @@
 
       <li>
         <p>The comparison of values to determine the smallest value is done using the Abstract
-        Relational Comparison algorithm (<a href="#sec-abstract-relational-comparison">7.2.8</a> )
-        except that +0 is considered to be larger than −0.</p>
+        Relational Comparison algorithm (<es-xref target=
+        "sec-abstract-relational-comparison">7.2.8</es-xref>) except that +0 is considered to be
+        larger than −0.</p>
       </li>
     </ul>
 

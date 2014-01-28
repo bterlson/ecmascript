@@ -5,19 +5,15 @@
   <ol class="proc">
     <li>Let <i>F</i> be the <b>this</b> value.</li>
 
-    <li>Let <i>proto</i> be the result of <a href=
-    "#sec-getprototypefromconstructor">GetPrototypeFromConstructor</a> (<i>F</i>,
-    <code>"%Generator%"</code>).
-    </li>
+    <li>Let <i>proto</i> be the result of <es-xref target=
+    "sec-getprototypefromconstructor">GetPrototypeFromConstructor</es-xref>(<i>F</i>,
+    <code>"%Generator%"</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>proto</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
 
-    <li>Let <i>obj</i> be the result of calling <a href=
-    "#sec-functionallocate">FunctionAllocate</a> with argument <i>proto</i>, <b>false</b>, and
-    <code>"generator"</code>.
-    </li>
+    <li>Let <i>obj</i> be the result of calling <es-xref target=
+    "sec-functionallocate">FunctionAllocate</es-xref> with argument <i>proto</i>, <b>false</b>, and
+    <code>"generator"</code>.</li>
 
     <li>Return <i>obj</i>.</li>
   </ol>
@@ -31,12 +27,12 @@
 
   <es-note>
     <p>The GeneratorFunction <code>@@create</code> function passes <span class="value">false</span>
-    as the <es-nt>strict</es-nt> parameter to <a href="#sec-functionallocate">FunctionAllocate</a>
-    . This causes the allocated <a href="#sec-ecmascript-function-objects">ECMAScript function
-    object</a> to have the internal methods of a non-strict function. The
-    <code>GeneratorFunction</code> constructor may reset the functions [[Strict]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <span class=
-    "value">true</span>. It is up to the implementation whether this also changes the internal
-    methods.</p>
+    as the <es-nt>strict</es-nt> parameter to <es-xref target=
+    "sec-functionallocate">FunctionAllocate</es-xref>. This causes the allocated <es-xref target=
+    "sec-ecmascript-function-objects">ECMAScript function object</es-xref> to have the internal
+    methods of a non-strict function. The <code>GeneratorFunction</code> constructor may reset the
+    functions [[Strict]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref> to <span class="value">true</span>. It is up to the implementation whether this
+    also changes the internal methods.</p>
   </es-note>
 </es-clause>

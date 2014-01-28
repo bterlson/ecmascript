@@ -6,18 +6,16 @@
   steps:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>F</i> is an extensible <a href=
-      "#sec-ecmascript-function-objects">ECMAScript function object</a> , that does not have a
-      <code>name</code> own property.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>F</i> is an extensible
+    <es-xref target="sec-ecmascript-function-objects">ECMAScript function object</es-xref>, that
+    does not have a <code>name</code> own property.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>name</i>) is either Symbol or String.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>name</i>) is either Symbol or
+    String.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>name</i>) is Symbol, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>name</i>) is
+    Symbol, then
 
       <ol class="block">
         <li>Let <i>description</i> be the values of <i>name</i>’s [[Description]].</li>
@@ -38,12 +36,10 @@
     <code>"name"</code> and PropertyDescriptor{[[Value]]: <i>name</i>, [[Writable]]: <b>false</b>,
     [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>true</b>}.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : Defining the <code>name</code> property
-      will always succeed.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: Defining the
+    <code>name</code> property will always succeed.</li>
 
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
   </ol>
 </es-clause>

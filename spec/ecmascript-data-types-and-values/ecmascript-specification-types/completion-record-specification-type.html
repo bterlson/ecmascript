@@ -40,10 +40,8 @@
       <tr>
         <td>[[value]]</td>
 
-        <td>
-          any <a href="#sec-ecmascript-language-types">ECMAScript language value</a> or
-          <b>empty</b>
-        </td>
+        <td>any <es-xref target="sec-ecmascript-language-types">ECMAScript language value</es-xref>
+        or <b>empty</b></td>
 
         <td>The value that was produced.</td>
       </tr>
@@ -71,9 +69,9 @@
     <p>Is a shorthand that is defined as follows:</p>
 
     <ol class="proc">
-      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
-      normal, [[value]]: <i>argument</i>, [[target]]:empty}.
-      </li>
+      <li>Return <es-xref target=
+      "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: normal, [[value]]:
+      <i>argument</i>, [[target]]:empty}.</li>
     </ol>
   </es-clause>
   <link rel="import" href="completion-record-specification-type\implicit-completion-values.html">
@@ -88,9 +86,9 @@
     <p>Mean the same things as:</p>
 
     <ol class="proc">
-      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
-      throw, [[value]]: a newly created <b>TypeError</b> object, [[target]]:empty}.
-      </li>
+      <li>Return <es-xref target=
+      "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: throw, [[value]]: a
+      newly created <b>TypeError</b> object, [[target]]:empty}.</li>
     </ol>
   </es-clause>
 
@@ -104,13 +102,12 @@
     <p>mean the same things as:</p>
 
     <ol class="proc">
-      <li>If argument is an <a href="#sec-completion-record-specification-type">abrupt
-      completion</a> , then return argument.
-      </li>
+      <li>If argument is an <es-xref target="sec-completion-record-specification-type">abrupt
+      completion</es-xref>, then return argument.</li>
 
-      <li>Else if argument is a <a href="#sec-completion-record-specification-type">Completion
-      Record</a> , then let argument be argument.[[value]].
-      </li>
+      <li>Else if argument is a <es-xref target=
+      "sec-completion-record-specification-type">Completion Record</es-xref>, then let argument be
+      argument.[[value]].</li>
     </ol>
   </es-clause>
 </es-clause>

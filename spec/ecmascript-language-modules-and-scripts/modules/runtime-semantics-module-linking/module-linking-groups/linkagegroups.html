@@ -4,11 +4,9 @@
   steps:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>start</i> is a <a href=
-      "#sec-list-and-record-specification-type">List</a> of <a href="#sec-linkset-records">LinkSet
-      Records</a> .
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>start</i> is a
+    <es-xref target="sec-list-and-record-specification-type">List</es-xref> of <es-xref target=
+    "sec-linkset-records">LinkSet Records</es-xref>.</li>
 
     <li>Let <i>G</i> be the linkage graph of <i>start</i>.</li>
 
@@ -27,29 +25,28 @@
     <li>Let <i>declarativeGroupCount</i> be the largest [[GroupIndex]] of any <i>load</i> in
     <i>G</i> such that <i>load</i>.[[Kind]] is declarative.</li>
 
-    <li>Let <i>declarativeGroups</i> be a new <a href=
-    "#sec-list-and-record-specification-type">List</a> of length <i>declarativeGroupCount</i> where
-    each element is a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>declarativeGroups</i> be a new <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> of length <i>declarativeGroupCount</i>
+    where each element is a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>Let <i>dynamicGroupCount</i> be the largest [[GroupIndex]] of any <i>load</i> in <i>G</i>
     such that <i>load</i>.[[Kind]] is dynamic.</li>
 
-    <li>Let <i>dynamicGroups</i> be a new <a href=
-    "#sec-list-and-record-specification-type">List</a> of length <i>dynamicGroupCount</i> where
-    each element is a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>dynamicGroups</i> be a new <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> of length <i>dynamicGroupCount</i>
+    where each element is a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
-    <li>Let <i>visited</i> be a new empty <a href=
-    "#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>visited</i> be a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>For each <i>load</i> in <i>start</i>, do
 
       <ol class="block">
-        <li>Perform <a href="#sec-buildlinkagegroups">BuildLinkageGroups</a> (<i>load</i>,
-        <i>declarativeGroups</i>, <i>dynamicGroups</i>, and <i>visited</i>).
-        </li>
+        <li>Perform <es-xref target=
+        "sec-buildlinkagegroups">BuildLinkageGroups</es-xref>(<i>load</i>,
+        <i>declarativeGroups</i>, <i>dynamicGroups</i>, and <i>visited</i>).</li>
       </ol>
     </li>
 
@@ -57,20 +54,20 @@
     load record of [[Kind]] dynamic, then
 
       <ol class="block">
-        <li>Let <i>groups</i> be a <a href="#sec-list-and-record-specification-type">List</a>
-        constructed by interleaving the elements of <i>dynamicGroups</i> and
-        <i>declarativeGroups</i>, starting with the former.
-        </li>
+        <li>Let <i>groups</i> be a <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> constructed by interleaving the
+        elements of <i>dynamicGroups</i> and <i>declarativeGroups</i>, starting with the
+        former.</li>
       </ol>
     </li>
 
     <li>Else,
 
       <ol class="block">
-        <li>let <i>groups</i> be a <a href="#sec-list-and-record-specification-type">List</a>
-        constructed by interleaving the elements of <i>declarativeGroups</i> and
-        <i>dynamicGroups</i>, starting with the former.
-        </li>
+        <li>let <i>groups</i> be a <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> constructed by interleaving the
+        elements of <i>declarativeGroups</i> and <i>dynamicGroups</i>, starting with the
+        former.</li>
       </ol>
     </li>
 

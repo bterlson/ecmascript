@@ -8,69 +8,60 @@
   </es-production>
 
   <ol class="proc">
-    <li>The code of this <i>Script</i> is <a href="#sec-strict-mode-code">strict mode code</a> if
-    the <a href="#sec-directive-prologues-and-the-use-strict-directive">Directive Prologue</a>
-    (<a href="#sec-directive-prologues-and-the-use-strict-directive">14.1.1</a> ) of its
-    <i>ScriptBody</i> contains a <a href=
-    "#sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</a> or if any of
-    the conditions of <a href="#sec-strict-mode-code">10.2.1</a> apply. If the code of this
-    <i>Script</i> is <a href="#sec-strict-mode-code">strict mode code</a> , <i>ScriptBody</i> is
-    evaluated in the following steps as <a href="#sec-strict-mode-code">strict mode code</a> .
-    Otherwise <i>ScriptBody</i> is evaluated in the following steps as non-<a href=
-    "#sec-strict-mode-code">strict mode code</a> .
-    </li>
+    <li>The code of this <i>Script</i> is <es-xref target="sec-strict-mode-code">strict mode
+    code</es-xref> if the <es-xref target=
+    "sec-directive-prologues-and-the-use-strict-directive">Directive Prologue</es-xref>
+    (<es-xref target="sec-directive-prologues-and-the-use-strict-directive">14.1.1</es-xref>) of
+    its <i>ScriptBody</i> contains a <es-xref target=
+    "sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</es-xref> or if any
+    of the conditions of <es-xref target="sec-strict-mode-code">10.2.1</es-xref> apply. If the code
+    of this <i>Script</i> is <es-xref target="sec-strict-mode-code">strict mode code</es-xref>,
+    <i>ScriptBody</i> is evaluated in the following steps as <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>. Otherwise <i>ScriptBody</i> is evaluated in
+    the following steps as non-<es-xref target="sec-strict-mode-code">strict mode
+    code</es-xref>.</li>
 
-    <li>If <i>ScriptBody</i> is not present, return <a href=
-    "#sec-normalcompletion">NormalCompletion</a> (empty).
-    </li>
+    <li>If <i>ScriptBody</i> is not present, return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
 
     <li>Let <i>globalEnv</i> be <i>realm</i>.[[globalEnv]].</li>
 
     <li>Let <i>status</i> be the result of performing GlobalDeclarationInstantiation as described
-    in <a href="#sec-runtime-semantics-globaldeclarationinstantiation">15.1.8</a> using
-    <i>ScriptBody</i>, <i>globalEnv</i>, and <i>deletableBindings</i> as arguments.
-    </li>
+    in <es-xref target="sec-runtime-semantics-globaldeclarationinstantiation">15.1.8</es-xref>
+    using <i>ScriptBody</i>, <i>globalEnv</i>, and <i>deletableBindings</i> as arguments.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
-    <li>Let <i>progCxt</i> be a new <a href="#sec-execution-contexts">ECMAScript code execution
-    context</a> .
-    </li>
+    <li>Let <i>progCxt</i> be a new <es-xref target="sec-execution-contexts">ECMAScript code
+    execution context</es-xref>.</li>
 
-    <li>Set the <i>progCxt’s</i> <a href="#sec-code-realms">Realm</a> to <i>realm</i>.
-    </li>
+    <li>Set the <i>progCxt’s</i> <es-xref target="sec-code-realms">Realm</es-xref> to
+    <i>realm</i>.</li>
 
-    <li>Set the <i>progCxt’s</i> <a href="#sec-execution-contexts">VariableEnvironment</a> to
-    <i>globalEnv</i>.
-    </li>
+    <li>Set the <i>progCxt’s</i> <es-xref target=
+    "sec-execution-contexts">VariableEnvironment</es-xref> to <i>globalEnv</i>.</li>
 
-    <li>Set the <i>progCxt’s</i> <a href="#sec-execution-contexts">LexicalEnvironment</a> to
-    <i>globalEnv</i>.
-    </li>
+    <li>Set the <i>progCxt’s</i> <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref> to <i>globalEnv</i>.</li>
 
-    <li>If there is a <a href="#sec-execution-contexts">currently running execution context</a> ,
-    <a href="#sec-execution-contexts">suspend</a> it.
-    </li>
+    <li>If there is a <es-xref target="sec-execution-contexts">currently running execution
+    context</es-xref>, <es-xref target="sec-execution-contexts">suspend</es-xref> it.</li>
 
-    <li>Push <i>progCxt</i> on to <a href="#sec-execution-contexts">the execution context stack</a>
-    ; <i>progCxt</i> is now <a href="#sec-execution-contexts">the running execution context</a> .
-    </li>
+    <li>Push <i>progCxt</i> on to <es-xref target="sec-execution-contexts">the execution context
+    stack</es-xref>; <i>progCxt</i> is now <es-xref target="sec-execution-contexts">the running
+    execution context</es-xref>.</li>
 
     <li>Let <i>result</i> be the result of evaluating <i>ScriptBody</i>.</li>
 
-    <li>
-      <a href="#sec-execution-contexts">Suspend</a> <i>progCxt</i> and remove it from <a href=
-      "#sec-execution-contexts">the execution context stack</a> .
-    </li>
+    <li><es-xref target="sec-execution-contexts">Suspend</es-xref> <i>progCxt</i> and remove it
+    from <es-xref target="sec-execution-contexts">the execution context stack</es-xref>.</li>
 
-    <li>If <a href="#sec-execution-contexts">the execution context stack</a> is not empty, resume
-    the context that is now on the top of <a href="#sec-execution-contexts">the execution context
-    stack</a> as <a href="#sec-execution-contexts">the running execution context</a> . Otherwise,
-    <a href="#sec-execution-contexts">the execution context stack</a> is now empty and there is no
-    running <a href="#sec-execution-contexts">execution context</a> .
-    </li>
+    <li>If <es-xref target="sec-execution-contexts">the execution context stack</es-xref> is not
+    empty, resume the context that is now on the top of <es-xref target=
+    "sec-execution-contexts">the execution context stack</es-xref> as <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>. Otherwise, <es-xref target=
+    "sec-execution-contexts">the execution context stack</es-xref> is now empty and there is no
+    running <es-xref target="sec-execution-contexts">execution context</es-xref>.</li>
 
     <li>Return <i>result</i>.</li>
   </ol>

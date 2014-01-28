@@ -2,70 +2,57 @@
 <es-clause title="%TypedArray% ( array )" anchor="sec-%typedarray%-array">
   <p>This description applies if and only if the %TypedArray% function is called with at least one
   argument and the Type of first argument is Object and that object does not have either a
-  [[TypedArrayName]] or an [[ArrayBufferData]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+  [[TypedArrayName]] or an [[ArrayBufferData]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
 
   <p>%TypedArray% called with argument <es-nt>array</es-nt> performs the following steps:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>array</i>) is Object and <i>array</i>
-      does not have either a [[TypedArrayName]] or an [[ArrayBufferData]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>array</i>) is Object and <i>array</i>
+    does not have either a [[TypedArrayName]] or an [[ArrayBufferData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>Let <i>O</i> be the <b>this</b> value.</li>
 
     <li>Let <i>srcArray</i> be <i>array</i>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object or if
-    <i>O</i> does not have a [[TypedArrayName]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
-    <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is not
+    Object or if <i>O</i> does not have a [[TypedArrayName]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+    <b>TypeError</b> exception.</li>
 
-    <li>If the value of <i>O’s</i> [[TypedArrayName]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>, then
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If the value of <i>O’s</i> [[TypedArrayName]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>O</i> has a [[ViewedArrayBuffer]]
-      <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>O</i> has a
+    [[ViewedArrayBuffer]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref>.</li>
 
-    <li>If the value of <i>O’s</i> [[ViewedArrayBuffer]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>undefined</b>,
-    then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If the value of <i>O’s</i> [[ViewedArrayBuffer]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not
+    <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>constructorName</i> be the string value <i>O</i>’s [[TypedArrayName]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>constructorName</i> be the string value <i>O</i>’s [[TypedArrayName]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>Let <i>elementType</i> be the string value of the Element Type value in <a href=
     "#table-43">Table 43</a> for <i>constructorName</i>.
     </li>
 
-    <li>Let <i>arrayLength</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>srcArray</i>,
-    <code>"length"</code>).
-    </li>
+    <li>Let <i>arrayLength</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>srcArray</i>, <code>"length"</code>).</li>
 
-    <li>Let <i>elementLength</i> be <a href="#sec-tolength">ToLength</a> (<i>arrayLength</i> ).
-    </li>
+    <li>Let <i>elementLength</i> be <es-xref target=
+    "sec-tolength">ToLength</es-xref>(<i>arrayLength</i> ).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>elementLength</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>elementLength</i>).</li>
 
-    <li>Let <i>data</i> be the result of calling <a href=
-    "#sec-allocatearraybuffer">AllocateArrayBuffer</a> (%ArrayBuffer%).
-    </li>
+    <li>Let <i>data</i> be the result of calling <es-xref target=
+    "sec-allocatearraybuffer">AllocateArrayBuffer</es-xref>(%ArrayBuffer%).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>data</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>data</i>).</li>
 
     <li>Let <i>elementSize</i> be the Size Element value in <a href="#table-43">Table 43</a> for
     <i>constructorName</i>.
@@ -73,36 +60,28 @@
 
     <li>Let <i>byteLength</i> be <i>elementSize</i> × <i>elementLength</i>.</li>
 
-    <li>Let <i>status</i> be the result of <a href="#sec-setarraybufferdata">SetArrayBufferData</a>
-    (<i>data</i>, <i>byteLength</i>)
-    </li>
+    <li>Let <i>status</i> be the result of <es-xref target=
+    "sec-setarraybufferdata">SetArrayBufferData</es-xref>(<i>data</i>, <i>byteLength</i>)</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
     <li>Let <i>k</i> be 0.</li>
 
     <li>Repeat, while <i>k</i> &lt; <i>elementLength</i>
 
       <ol class="block">
-        <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
-        </li>
+        <li>Let <i>Pk</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
 
-        <li>Let <i>kValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>srcArray</i>, <i>
-          Pk</i>).
-        </li>
+        <li>Let <i>kValue</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>srcArray</i>, <i>Pk</i>).</li>
 
-        <li>Let <i>kNumber</i> be <a href="#sec-tonumber">ToNumber</a> (<i>kValue</i>).
-        </li>
+        <li>Let <i>kNumber</i> be <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>kValue</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kNumber</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kNumber</i>).</li>
 
-        <li>Perform <a href="#sec-setvalueinbuffer">SetValueInBuffer</a> (<i>data</i>, <i>k ×</i>
-        <i>elementSize</i>, <i>elementType</i>, <i>kNumber</i>).
-        </li>
+        <li>Perform <es-xref target="sec-setvalueinbuffer">SetValueInBuffer</es-xref>(<i>data</i>,
+        <i>k ×</i> <i>elementSize</i>, <i>elementType</i>, <i>kNumber</i>).</li>
 
         <li>Increase <i>k</i> by 1.</li>
       </ol>
@@ -110,24 +89,22 @@
 
     <li>Note: Side-effects of preceding steps may have already initialised <i>O</i>.</li>
 
-    <li>If the value of <i>O’s</i> [[ViewedArrayBuffer]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>undefined</b>,
-    then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If the value of <i>O’s</i> [[ViewedArrayBuffer]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not
+    <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
 
     <li>Set <i>O’s</i> [[ViewedArrayBuffer]] to <i>data</i>.</li>
 
-    <li>Set <i>O</i>’s [[ByteLength]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>byteLength</i>.
-    </li>
+    <li>Set <i>O</i>’s [[ByteLength]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>byteLength</i>.</li>
 
-    <li>Set <i>O</i>’s [[ByteOffset]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to 0.
-    </li>
+    <li>Set <i>O</i>’s [[ByteOffset]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to 0.</li>
 
-    <li>Set <i>O</i>’s [[ArrayLength]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>elementLength</i>.
-    </li>
+    <li>Set <i>O</i>’s [[ArrayLength]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>elementLength</i>.</li>
 
     <li>Return <i>O</i>.</li>
   </ol>

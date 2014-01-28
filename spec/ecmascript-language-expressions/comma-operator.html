@@ -22,20 +22,17 @@
     <ol class="proc">
       <li>Let <i>lref</i> be the result of evaluating <i>Expression</i>.</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<a href="#sec-getvalue">GetValue</a>
-        (<i>lref</i>))
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>lref</i>))</li>
 
       <li>Let <i>rref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
 
-      <li>Return <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
-      </li>
+      <li>Return <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rref</i>).</li>
     </ol>
 
     <es-note>
-      <p><a href="#sec-getvalue">GetValue</a> must be called even though its value is not used
-      because it may have observable side-effects.</p>
+      <p><es-xref target="sec-getvalue">GetValue</es-xref> must be called even though its value is
+      not used because it may have observable side-effects.</p>
     </es-note>
   </es-clause>
 </es-clause>

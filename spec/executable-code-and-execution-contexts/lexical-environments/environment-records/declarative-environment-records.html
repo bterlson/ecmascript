@@ -13,9 +13,9 @@
     determines if the argument identifier is one of the identifiers bound by the record:</p>
 
     <ol class="proc">
-      <li>Let <i>envRec</i> be the <a href="#sec-declarative-environment-records">declarative
-      environment record</a> for which the method was invoked.
-      </li>
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
 
       <li>If <i>envRec</i> has a binding for the name that is the value of <i>N</i>, return
       <b>true</b>.</li>
@@ -28,20 +28,18 @@
 
   <es-clause title="CreateImmutableBinding (N)" anchor=
   "sec-declarative-environment-records-createimmutablebinding-n">
-    <p>The concrete <a href="#sec-environment-records">Environment Record</a> method
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
     CreateImmutableBinding for declarative environment records creates a new immutable binding for
     the name <es-nt>N</es-nt> that is uninitialised. A binding must not already exist in this
     environment record for <es-nt>N</es-nt>.</p>
 
     <ol class="proc">
-      <li>Let <i>envRec</i> be the <a href="#sec-declarative-environment-records">declarative
-      environment record</a> for which the method was invoked.
-      </li>
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
 
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <i>envRec</i> does not already have a
-        binding for <i>N</i>.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>envRec</i> does not
+      already have a binding for <i>N</i>.</li>
 
       <li>Create an immutable binding in <i>envRec</i> for <i>N</i> and record that it is
       uninitialised.</li>
@@ -50,21 +48,19 @@
 
   <es-clause title="InitialiseBinding (N,V)" anchor=
   "sec-declarative-environment-records-initialisebinding-n-v">
-    <p>The concrete <a href="#sec-environment-records">Environment Record</a> method
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
     InitialiseBinding for declarative environment records is used to set the bound value of the
     current binding of the identifier whose name is the value of the argument <es-nt>N</es-nt> to
     the value of argument <es-nt>V</es-nt>. An uninitialised binding for <es-nt>N</es-nt> must
     already exist.</p>
 
     <ol class="proc">
-      <li>Let <i>envRec</i> be the <a href="#sec-declarative-environment-records">declarative
-      environment record</a> for which the method was invoked.
-      </li>
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
 
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <i>envRec</i> must have an uninitialised
-        binding for <i>N</i>.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>envRec</i> must have an
+      uninitialised binding for <i>N</i>.</li>
 
       <li>Set the bound value for <i>N</i> in <i>envRec</i> to <i>V</i>.</li>
 
@@ -78,14 +74,14 @@
 
   <es-clause title="DeleteBinding (N)" anchor=
   "sec-declarative-environment-records-deletebinding-n">
-    <p>The concrete <a href="#sec-environment-records">Environment Record</a> method DeleteBinding
-    for declarative environment records can only delete bindings that have been explicitly
-    designated as being subject to deletion.</p>
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    DeleteBinding for declarative environment records can only delete bindings that have been
+    explicitly designated as being subject to deletion.</p>
 
     <ol class="proc">
-      <li>Let <i>envRec</i> be the <a href="#sec-declarative-environment-records">declarative
-      environment record</a> for which the method was invoked.
-      </li>
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
 
       <li>If <i>envRec</i> does not have a binding for the name that is the value of <i>N</i>,
       return <b>true</b>.</li>

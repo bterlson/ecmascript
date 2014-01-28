@@ -1,7 +1,7 @@
 <!doctype html>
 <es-clause title="GetIdentifierReference (lex, name, strict)" anchor="sec-getidentifierreference">
-  <p>The abstract operation GetIdentifierReference is called with a <a href=
-  "#sec-lexical-environments">Lexical Environment</a> <es-nt>lex</es-nt>, a String
+  <p>The abstract operation GetIdentifierReference is called with a <es-xref target=
+  "sec-lexical-environments">Lexical Environment</es-xref> <es-nt>lex</es-nt>, a String
   <es-nt>name</es-nt>, and a Boolean flag <es-nt>strict.</es-nt> The value of <es-nt>lex</es-nt>
   may be <b>null</b>. When called, the following steps are performed:</p>
 
@@ -9,10 +9,10 @@
     <li>If <i>lex</i> is the value <b>null</b>, then
 
       <ol class="block">
-        <li>Return a value of type <a href="#sec-reference-specification-type">Reference</a> whose
-        base value is <b>undefined</b>, whose referenced name is <i>name</i>, and whose strict
-        reference flag is <i>strict</i>.
-        </li>
+        <li>Return a value of type <es-xref target=
+        "sec-reference-specification-type">Reference</es-xref> whose base value is
+        <b>undefined</b>, whose referenced name is <i>name</i>, and whose strict reference flag is
+        <i>strict</i>.</li>
       </ol>
     </li>
 
@@ -21,26 +21,23 @@
     <li>Let <i>exists</i> be the result of calling the HasBinding(<i>N</i>) concrete method of
     <i>envRec</i> passing <i>name</i> as the argument <i>N</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exists</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>exists</i>).</li>
 
     <li>If <i>exists</i> is <code>true</code>, then
 
       <ol class="block">
-        <li>Return a value of type <a href="#sec-reference-specification-type">Reference</a> whose
-        base value is <i>envRec</i>, whose referenced name is <i>name</i>, and whose strict
-        reference flag is <i>strict.</i>
-        </li>
+        <li>Return a value of type <es-xref target=
+        "sec-reference-specification-type">Reference</es-xref> whose base value is <i>envRec</i>,
+        whose referenced name is <i>name</i>, and whose strict reference flag is
+        <i>strict.</i></li>
       </ol>
     </li>
 
     <li>Else
 
       <ol class="block">
-        <li>Let <i>outer</i> be the value of <i>lex’s</i> <a href="#sec-lexical-environments">outer
-        environment reference</a> .
-        </li>
+        <li>Let <i>outer</i> be the value of <i>lex’s</i> <es-xref target=
+        "sec-lexical-environments">outer environment reference</es-xref>.</li>
 
         <li>Return the result of calling GetIdentifierReference passing <i>outer</i>, <i>name</i>,
         and <i>strict</i> as arguments.</li>

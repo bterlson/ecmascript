@@ -3,8 +3,8 @@
   <p>The Boolean constructor is the %Boolean% intrinsic object and the initial value of the
   <code>Boolean</code> property of the global object. When <code>Boolean</code> is called as a
   function rather than as a constructor, it performs a type conversion. However, if the <b>this</b>
-  value passed in the call is an Object with an uninitialised [[BooleanData]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> , it initialises the
+  value passed in the call is an Object with an uninitialised [[BooleanData]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, it initialises the
   <b>this</b> value using the argument value. This permits <code>Boolean</code> to be used both to
   perform type conversion and to perform constructor instance initialisation.</p>
 
@@ -21,18 +21,17 @@
     <ol class="proc">
       <li>Let <i>O</i> be the <b>this</b> value.</li>
 
-      <li>Let <i>b</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>value</i>).
-      </li>
+      <li>Let <i>b</i> be <es-xref target="sec-toboolean">ToBoolean</es-xref>(<i>value</i>).</li>
 
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and <i>
-        O</i> has a [[BooleanData]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> and the value of
-        [[BooleanData]] is <b>undefined</b>, then
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+      Object and <i>O</i> has a [[BooleanData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+      [[BooleanData]] is <b>undefined</b>, then
 
         <ol class="block">
-          <li>Set the value of <i>O’s</i> [[BooleanData]] <a href=
-          "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>b</i>.
-          </li>
+          <li>Set the value of <i>O’s</i> [[BooleanData]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+          <i>b</i>.</li>
 
           <li>Return <i>O</i>.</li>
         </ol>
@@ -53,13 +52,12 @@
       <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
       internal method that was invoked by the <code>new</code> operator.</li>
 
-      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
-      <i>argumentsList</i>).
-      </li>
+      <li>Return the result of <es-xref target="sec-construct-f-argumentslist">Construct</es-xref>
+      (<i>F</i>, <i>argumentsList</i>).</li>
     </ol>
 
-    <p>If <code>Boolean</code> is implemented as an <a href=
-    "#sec-ecmascript-function-objects">ECMAScript function object</a> , its [[Construct]] internal
-    method will perform the above steps.</p>
+    <p>If <code>Boolean</code> is implemented as an <es-xref target=
+    "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+    internal method will perform the above steps.</p>
   </es-clause>
 </es-clause>

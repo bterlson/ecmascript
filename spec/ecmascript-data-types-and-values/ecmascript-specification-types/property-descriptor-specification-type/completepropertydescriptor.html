@@ -1,31 +1,27 @@
 <!doctype html>
 <es-clause title="CompletePropertyDescriptor ( Desc, LikeDesc )" anchor=
 "sec-completepropertydescriptor">
-  <p>When the abstract operation CompletePropertyDescriptor is called with <a href=
-  "#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt>, the
-  following steps are taken:</p>
+  <p>When the abstract operation CompletePropertyDescriptor is called with <es-xref target=
+  "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+  the following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>LikeDesc</i> is either a <a href=
-      "#sec-property-descriptor-specification-type">Property Descriptor</a> or <b>undefined</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>LikeDesc</i> is either a
+    <es-xref target="sec-property-descriptor-specification-type">Property Descriptor</es-xref> or
+    <b>undefined</b>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>Desc</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>Desc</i>).</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>Desc</i> is a <a href=
-      "#sec-property-descriptor-specification-type">Property Descriptor</a>
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>Desc</i> is a
+    <es-xref target="sec-property-descriptor-specification-type">Property Descriptor</es-xref></li>
 
     <li>If <i>LikeDesc</i> is <b>undefined</b>, then set <i>LikeDesc</i> to Record{[[Value]]:
     <b>undefined</b>, [[Writable]]: <b>false</b>, [[Get]]: <b>undefined</b>, [[Set]]:
     <b>undefined</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}.</li>
 
-    <li>If either <a href="#sec-isgenericdescriptor">IsGenericDescriptor</a> (<i>Desc</i>) or
-    <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>Desc</i>) is <b>true</b>, then
+    <li>If either <es-xref target=
+    "sec-isgenericdescriptor">IsGenericDescriptor</es-xref>(<i>Desc</i>) or <es-xref target=
+    "sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>Desc</i>) is <b>true</b>, then
 
       <ol class="block">
         <li>If <i>Desc</i> does not have a [[Value]] field, then set <i>Desc</i>.[[Value]] to

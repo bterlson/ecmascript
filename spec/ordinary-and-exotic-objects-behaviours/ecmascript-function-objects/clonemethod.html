@@ -2,61 +2,53 @@
 <es-clause title="CloneMethod(function, newHome, newName) Abstract Operation" anchor=
 "sec-clonemethod">
   <p>The abstract operation Clone is called with a function object <es-nt>function</es-nt>, an
-  object <es-nt>newHome</es-nt>, and a <a href="#sec-object-type">property key</a>
+  object <es-nt>newHome</es-nt>, and a <es-xref target="sec-object-type">property key</es-xref>
   <es-nt>newName</es-nt> as its argument. It performs the following steps:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>function</i> is an <a href=
-      "#sec-ecmascript-function-objects">ECMAScript function object</a> .
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>function</i> is an
+    <es-xref target="sec-ecmascript-function-objects">ECMAScript function object</es-xref>.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>newHome</i>) is Object.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>newHome</i>) is Object.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (newName) one of Undefined, String, or
-      Symbol.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(newName) one of Undefined, String, or
+    Symbol.</li>
 
-    <li>Let <i>new</i> be a new <a href="#sec-ecmascript-function-objects">ECMAScript function
-    object</a> that has all of the same internal methods and internal slots as <i>function</i>.
-    </li>
+    <li>Let <i>new</i> be a new <es-xref target="sec-ecmascript-function-objects">ECMAScript
+    function object</es-xref> that has all of the same internal methods and internal slots as
+    <i>function</i>.</li>
 
     <li>Set the value of each of <i>new’s</i> internal slots, except for [[HomeObject]] and
-    [[MethodName]] to the value of <i>function’s</i> corresponding <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    [[MethodName]] to the value of <i>function’s</i> corresponding <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
   </ol>
 
-  <p>If the value of <i>function</i>’s [[NeedsSuper]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>true</b>, then</p>
+  <p>If the value of <i>function</i>’s [[NeedsSuper]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>true</b>, then</p>
 
   <ol class="proc">
-    <li>Set the value of <i>new’s</i> [[HomeObject]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>newHome</i>.
-    </li>
+    <li>Set the value of <i>new’s</i> [[HomeObject]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>newHome</i>.</li>
 
     <li>If <i>newName</i> is not <b>undefined</b>, then
 
       <ol class="block">
-        <li>Set the value of <i>new’s</i> [[MethodName]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>newName</i>.
-        </li>
+        <li>Set the value of <i>new’s</i> [[MethodName]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <i>newName</i>.</li>
       </ol>
     </li>
 
     <li>Else,
 
       <ol class="block">
-        <li>Set the value of <i>new’s</i> [[MethodName]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> to the value of
-        <i>functions’s</i> [[MethodName]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-        </li>
+        <li>Set the value of <i>new’s</i> [[MethodName]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to the value of
+        <i>functions’s</i> [[MethodName]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
       </ol>
     </li>
   </ol>
@@ -68,6 +60,6 @@
   <es-note>
     <p>The purpose of this abstract operation is to create a new function object that is identical
     to the argument object in all aways except for its identity and the value of its [[HomeObject]]
-    <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
   </es-note>
 </es-clause>

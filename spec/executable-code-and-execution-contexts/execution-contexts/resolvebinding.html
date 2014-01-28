@@ -1,27 +1,25 @@
 <!doctype html>
 <es-clause title="ResolveBinding(name)" anchor="sec-resolvebinding">
   <p>The ResolveBinding abstract operation is used to determine the binding of <es-nt>name</es-nt>
-  passed as a string value using the <a href="#sec-execution-contexts">LexicalEnvironment</a> of
-  <a href="#sec-execution-contexts">the running execution context</a> . During execution of
-  ECMAScript code, ResolveBinding is performed using the following algorithm:</p>
+  passed as a string value using the <es-xref target=
+  "sec-execution-contexts">LexicalEnvironment</es-xref> of <es-xref target=
+  "sec-execution-contexts">the running execution context</es-xref>. During execution of ECMAScript
+  code, ResolveBinding is performed using the following algorithm:</p>
 
   <ol class="proc">
-    <li>Let <i>env</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
-    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
-    </li>
+    <li>Let <i>env</i> be <es-xref target="sec-execution-contexts">the running execution
+    context</es-xref>’s <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
 
-    <li>If the syntactic production that is being evaluated is contained in <a href=
-    "#sec-strict-mode-code">strict mode code</a> , then let <i>strict</i> be <b>true</b>, else let
-    <i>strict</i> be <b>false</b>.
-    </li>
+    <li>If the syntactic production that is being evaluated is contained in <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>, then let <i>strict</i> be <b>true</b>, else
+    let <i>strict</i> be <b>false</b>.</li>
 
-    <li>Return the result of calling <a href=
-    "#sec-getidentifierreference">GetIdentifierReference</a> abstract operation passing <i>env</i>,
-    <i>name</i>, and <i>strict</i> as arguments.
-    </li>
+    <li>Return the result of calling <es-xref target=
+    "sec-getidentifierreference">GetIdentifierReference</es-xref> abstract operation passing
+    <i>env</i>, <i>name</i>, and <i>strict</i> as arguments.</li>
   </ol>
 
-  <p>The result of resolving name is always a <a href=
-  "#sec-reference-specification-type">Reference</a> value with its referenced name component equal
-  to the <es-nt>name</es-nt> argument.</p>
+  <p>The result of resolving name is always a <es-xref target=
+  "sec-reference-specification-type">Reference</es-xref> value with its referenced name component
+  equal to the <es-nt>name</es-nt> argument.</p>
 </es-clause>

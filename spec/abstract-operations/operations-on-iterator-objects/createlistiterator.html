@@ -1,25 +1,22 @@
 <!doctype html>
 <es-clause title="CreateListIterator (list)" anchor="sec-createlistiterator">
   <p>The abstract operation CreateListIterator with argument <es-nt>list</es-nt> creates an
-  Iterator (<a href="#sec-iterator-interface">25.1.2</a> ) object whose next method returns the
-  successive elements of <es-nt>list</es-nt>. It performs the following steps:</p>
+  Iterator (<es-xref target="sec-iterator-interface">25.1.2</es-xref>) object whose next method
+  returns the successive elements of <es-nt>list</es-nt>. It performs the following steps:</p>
 
   <ol class="proc">
-    <li>Let <i>iterator</i> be the result of <a href="#sec-objectcreate">ObjectCreate</a>
-    (%ObjectPrototype%, ([[IteratedList]], [[ListIteratorNextIndex]])).
-    </li>
+    <li>Let <i>iterator</i> be the result of <es-xref target=
+    "sec-objectcreate">ObjectCreate</es-xref>(%ObjectPrototype%, ([[IteratedList]],
+    [[ListIteratorNextIndex]])).</li>
 
-    <li>Set <i>iterator’s</i> [[IteratedList]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>list</i>.
-    </li>
+    <li>Set <i>iterator’s</i> [[IteratedList]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>list</i>.</li>
 
-    <li>Set <i>iterator’s</i> [[ListIteratorNextIndex]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to 0.
-    </li>
+    <li>Set <i>iterator’s</i> [[ListIteratorNextIndex]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to 0.</li>
 
-    <li>Define ListIterator <code>next</code> (<a href="#sec-listiterator-next">7.4.7.1</a> ) as an
-    own property of <i>iterator</i>.
-    </li>
+    <li>Define ListIterator <code>next</code> (<es-xref target=
+    "sec-listiterator-next">7.4.7.1</es-xref>) as an own property of <i>iterator</i>.</li>
 
     <li>Return <i>iterator</i>.</li>
   </ol>

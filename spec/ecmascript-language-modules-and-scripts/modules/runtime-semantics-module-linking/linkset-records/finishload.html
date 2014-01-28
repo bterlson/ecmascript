@@ -9,24 +9,22 @@
     <li>If <i>name</i> is not <b>undefined</b>, then
 
       <ol class="block">
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : There is no Record {[[key]], [[value]]}
-          <i>p</i> that is an element of <i>loader</i>.[[ Modules]], such that <a href=
-          "#sec-samevalue">SameValue</a> (<i>p</i>.[[key]], <i>load</i>.[[Name]]) is <b>true</b>.
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: There is no Record
+        {[[key]], [[value]]} <i>p</i> that is an element of <i>loader</i>.[[ Modules]], such that
+        <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>.[[key]], <i>load</i>.[[Name]])
+        is <b>true</b>.</li>
 
         <li>Append the Record {[[key]]: <i>load</i>.[[Name]], [[value]]: <i>load</i>.[[Module]]} as
         the last element of <i>loader</i>.[[ Modules]].</li>
       </ol>
     </li>
 
-    <li>If <i>load</i> is an element of the <a href=
-    "#sec-list-and-record-specification-type">List</a> <i>loader</i>.[[Loads]], then
+    <li>If <i>load</i> is an element of the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> <i>loader</i>.[[Loads]], then
 
       <ol class="block">
-        <li>Remove <i>load</i> from the <a href="#sec-list-and-record-specification-type">List</a>
-        <i>loader</i>.[[Loads]].
-        </li>
+        <li>Remove <i>load</i> from the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> <i>loader</i>.[[Loads]].</li>
       </ol>
     </li>
 
@@ -37,8 +35,7 @@
       </ol>
     </li>
 
-    <li>Remove all elements from the <a href="#sec-list-and-record-specification-type">List</a> <i>
-      load</i>.[[LinkSets]].
-    </li>
+    <li>Remove all elements from the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> <i>load</i>.[[LinkSets]].</li>
   </ol>
 </es-clause>

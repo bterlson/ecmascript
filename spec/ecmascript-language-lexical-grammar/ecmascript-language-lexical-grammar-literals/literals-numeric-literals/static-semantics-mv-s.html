@@ -384,14 +384,14 @@
 
   <p>Once the exact MV for a numeric literal has been determined, it is then rounded to a value of
   the Number type. If the MV is 0, then the rounded value is <span class="value">+0</span>;
-  otherwise, the rounded value must be the Number value for the MV (as specified in <a href=
-  "#sec-ecmascript-language-types-number-type">6.1.6</a> ), unless the literal is a
-  <es-nt>DecimalLiteral</es-nt> and the literal has more than 20 significant digits, in which case
-  the Number value may be either the Number value for the MV of a literal produced by replacing
-  each significant digit after the 20th with a <code>0</code> digit or the Number value for the MV
-  of a literal produced by replacing each significant digit after the 20th with a <code>0</code>
-  digit and then incrementing the literal at the 20th significant digit position. A digit is
-  <i>significant</i> if it is not part of an <es-nt>ExponentPart</es-nt> and</p>
+  otherwise, the rounded value must be the Number value for the MV (as specified in
+  <es-xref target="sec-ecmascript-language-types-number-type">6.1.6</es-xref>), unless the literal
+  is a <es-nt>DecimalLiteral</es-nt> and the literal has more than 20 significant digits, in which
+  case the Number value may be either the Number value for the MV of a literal produced by
+  replacing each significant digit after the 20th with a <code>0</code> digit or the Number value
+  for the MV of a literal produced by replacing each significant digit after the 20th with a
+  <code>0</code> digit and then incrementing the literal at the 20th significant digit position. A
+  digit is <i>significant</i> if it is not part of an <es-nt>ExponentPart</es-nt> and</p>
 
   <ul>
     <li>it is not <code>0</code>; or</li>

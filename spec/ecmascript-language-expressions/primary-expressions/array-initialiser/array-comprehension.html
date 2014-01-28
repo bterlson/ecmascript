@@ -64,16 +64,13 @@
     </es-production>
 
     <ol class="proc">
-      <li>Let <i>array</i> be the result of the abstract operation <a href=
-      "#sec-arraycreate">ArrayCreate</a> with argument 0.
-      </li>
+      <li>Let <i>array</i> be the result of the abstract operation <es-xref target=
+      "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
 
       <li>Let <i>status</i> be the result of performing ComprehensionEvaluation for
       <i>Comprehension</i> with argument <i>array</i>.</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
       <li>Return <i>array</i>.</li>
     </ol>

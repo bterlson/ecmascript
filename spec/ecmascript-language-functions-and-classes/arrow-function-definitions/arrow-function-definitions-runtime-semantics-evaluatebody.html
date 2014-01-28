@@ -3,38 +3,36 @@
 "sec-arrow-function-definitions-runtime-semantics-evaluatebody">
   <p>With parameter <es-nt>functionObject</es-nt>.</p>
 
-  <p>See also: <a href="#sec-function-definitions-runtime-semantics-evaluatebody">14.1.14</a> ,
-  <a href="#sec-generator-function-definitions-runtime-semantics-evaluatebody">14.4.11</a> .</p>
+  <p>See also: <es-xref target=
+  "sec-function-definitions-runtime-semantics-evaluatebody">14.1.14</es-xref>, <es-xref target=
+  "sec-generator-function-definitions-runtime-semantics-evaluatebody">14.4.11</es-xref>.</p>
 
   <es-production name="ConciseBody" class="inline">
     <es-rhs><es-nt>AssignmentExpression</es-nt></es-rhs>
   </es-production>
 
   <ol class="proc">
-    <li>The code of this <i>ConciseBody</i> is <a href="#sec-strict-mode-code">strict mode code</a>
-    if it is contained in <a href="#sec-strict-mode-code">strict mode code</a> or if any of the
-    conditions in <a href="#sec-strict-mode-code">10.2.1</a> apply. If the code of this
-    <i>ConciseBody</i> is <a href="#sec-strict-mode-code">strict mode code</a> ,
-    <i>AssignmentExpression</i> is evaluated in the following steps as <a href=
-    "#sec-strict-mode-code">strict mode code</a> . Otherwise, <i>AssignmentExpression</i> is
-    evaluated in the following steps as non-<a href="#sec-strict-mode-code">strict mode code</a> .
-    </li>
+    <li>The code of this <i>ConciseBody</i> is <es-xref target="sec-strict-mode-code">strict mode
+    code</es-xref> if it is contained in <es-xref target="sec-strict-mode-code">strict mode
+    code</es-xref> or if any of the conditions in <es-xref target=
+    "sec-strict-mode-code">10.2.1</es-xref> apply. If the code of this <i>ConciseBody</i> is
+    <es-xref target="sec-strict-mode-code">strict mode code</es-xref>, <i>AssignmentExpression</i>
+    is evaluated in the following steps as <es-xref target="sec-strict-mode-code">strict mode
+    code</es-xref>. Otherwise, <i>AssignmentExpression</i> is evaluated in the following steps as
+    non-<es-xref target="sec-strict-mode-code">strict mode code</es-xref>.</li>
 
     <li>Let <i>exprRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
 
-    <li>Let <i>exprValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprRef</i>).
-    </li>
+    <li>Let <i>exprValue</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>exprRef</i>).</li>
 
-    <li>If <i>exprValue</i>.[[type]] is return then return <a href=
-    "#sec-normalcompletion">NormalCompletion</a> (<i>exprValue</i>.[[value]]).
-    </li>
+    <li>If <i>exprValue</i>.[[type]] is return then return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<i>exprValue</i>.[[value]]).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exprValue</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>exprValue</i>).</li>
 
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<i>exprValue</i>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<i>exprValue</i>).</li>
   </ol>
 
   <es-note>

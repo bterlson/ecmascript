@@ -3,18 +3,21 @@
 "sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">
   <p>With arguments <es-nt>value</es-nt> and <es-nt>environment</es-nt>.</p>
 
-  <p>See also: <a href=
-  "#sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</a> , <a href=
-  "#sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</a> , <a href=
-  "#sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</a> ,
-  <a href="#sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</a> .</p>
+  <p>See also: <es-xref target=
+  "sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</es-xref>,
+  <es-xref target=
+  "sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</es-xref>,
+  <es-xref target=
+  "sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</es-xref>,
+  <es-xref target=
+  "sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</es-xref>.</p>
 
   <es-note>
-    <p><b>undefined</b> is passed for <es-nt>environment</es-nt> to indicate that a <a href=
-    "#sec-putvalue">PutValue</a> operation should be used to assign the initialisation value. This
-    is the case for <code>var</code> statements formal parameter lists of non-strict functions. In
-    those cases a lexical binding is hosted and preinitialised prior to evaluation of its
-    initialiser.</p>
+    <p><b>undefined</b> is passed for <es-nt>environment</es-nt> to indicate that a
+    <es-xref target="sec-putvalue">PutValue</es-xref> operation should be used to assign the
+    initialisation value. This is the case for <code>var</code> statements formal parameter lists
+    of non-strict functions. In those cases a lexical binding is hosted and preinitialised prior to
+    evaluation of its initialiser.</p>
   </es-note>
 
   <es-production name="BindingIdentifier" class="inline">
@@ -25,29 +28,28 @@
     <li>If <i>environment</i> is not <b>undefined</b>, then
 
       <ol class="block">
-        <li>Let <i>name</i> be <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
-        <i>Identifier</i>.
-        </li>
+        <li>Let <i>name</i> be <es-xref target=
+        "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>Identifier</i>.</li>
 
         <li>Let <i>env</i> be the environment record component of <i>environment</i>.</li>
 
         <li>Call the InitialiseBinding concrete method of <i>env</i> passing <i>name</i> and
         <i>value</i> as the arguments.</li>
 
-        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-        </li>
+        <li>Return <es-xref target=
+        "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
       </ol>
     </li>
 
     <li>Else
 
       <ol class="block">
-        <li>Let <i>lhs</i> be the result of <a href="#sec-resolvebinding">ResolveBinding</a>
-        (<a href="#sec-identifiers-and-identifier-names">StringValue</a> (<i>Identifier</i>)).
-        </li>
+        <li>Let <i>lhs</i> be the result of <es-xref target=
+        "sec-resolvebinding">ResolveBinding</es-xref>(<es-xref target=
+        "sec-identifiers-and-identifier-names">StringValue</es-xref>(<i>Identifier</i>)).</li>
 
-        <li>Return <a href="#sec-putvalue">PutValue</a> (<i>lhs</i>, <i>value</i>).
-        </li>
+        <li>Return <es-xref target="sec-putvalue">PutValue</es-xref>(<i>lhs</i>,
+        <i>value</i>).</li>
       </ol>
     </li>
   </ol>

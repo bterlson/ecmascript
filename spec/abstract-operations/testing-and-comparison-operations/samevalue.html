@@ -1,32 +1,27 @@
 <!doctype html>
 <es-clause title="SameValue(x, y)" anchor="sec-samevalue">
   <p>The internal comparison abstract operation SameValue(<es-nt>x</es-nt>, <es-nt>y</es-nt>),
-  where <es-nt>x</es-nt> and <es-nt>y</es-nt> are <a href=
-  "#sec-ecmascript-language-types">ECMAScript language values</a> , produces <b>true</b> or
+  where <es-nt>x</es-nt> and <es-nt>y</es-nt> are <es-xref target=
+  "sec-ecmascript-language-types">ECMAScript language values</es-xref>, produces <b>true</b> or
   <b>false</b>. Such a comparison is performed as follows:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>x</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>x</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>y</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>y</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is different from
-    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>), return <b>false</b>.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    different from <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>),
+    return <b>false</b>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Undefined, return
-    <b>true</b>.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    Undefined, return <b>true</b>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Null, return <b>
-      true</b>.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is Null,
+    return <b>true</b>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Number, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    Number, then
 
       <ol class="block">
         <li>If <i>x</i> is NaN and <i>y</i> is NaN, return <b>true</b>.</li>
@@ -41,7 +36,8 @@
       </ol>
     </li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is String, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    String, then
 
       <ol class="block">
         <li>If <i>x</i> and <i>y</i> are exactly the same sequence of code units (same length and
@@ -50,7 +46,8 @@
       </ol>
     </li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Boolean, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    Boolean, then
 
       <ol class="block">
         <li>If <i>x</i> and <i>y</i> are both <b>true</b> or both <b>false</b>, then return
@@ -58,7 +55,8 @@
       </ol>
     </li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Symbol, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    Symbol, then
 
       <ol class="block">
         <li>If <i>x</i> and <i>y</i> are both the same Symbol value, then return <b>true</b>;

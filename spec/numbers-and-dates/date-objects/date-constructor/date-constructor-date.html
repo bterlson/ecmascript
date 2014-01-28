@@ -7,22 +7,20 @@
   <ol class="proc">
     <li>Let <i>numberOfArgs</i> be the number of arguments passed to this constructor call.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>numberOfArgs</i> = 0.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>numberOfArgs</i> = 0.</li>
 
     <li>Let <i>O</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and
-    <i>O</i> has a [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> and the value of [[DateValue]] is <b>undefined</b>, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+    Object and <i>O</i> has a [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+    [[DateValue]] is <b>undefined</b>, then
 
       <ol class="block">
-        <li>Set the [[DateValue]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to the
-        <a href="#sec-time-values-and-time-range">time value</a> (UTC) identifying the current
-        time.
-        </li>
+        <li>Set the [[DateValue]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to the
+        <es-xref target="sec-time-values-and-time-range">time value</es-xref> (UTC) identifying the
+        current time.</li>
 
         <li>Return <i>O</i>.</li>
       </ol>
@@ -33,8 +31,8 @@
       <ol class="block">
         <li>Return the result computed as if by the expression <code>(new Date()).toString()</code>
         where <code>Date</code> is this function and <code>toString</code> is the standard built-in
-        method <code><a href="#sec-date.prototype.tostring">Date.prototype.toString</a></code>
-        .</li>
+        method <code><es-xref target=
+        "sec-date.prototype.tostring">Date.prototype.toString</es-xref></code>.</li>
       </ol>
     </li>
   </ol>

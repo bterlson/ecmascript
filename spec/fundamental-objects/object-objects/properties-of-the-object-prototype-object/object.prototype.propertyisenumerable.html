@@ -5,20 +5,14 @@
   the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>P</i> be <a href="#sec-tostring">ToString</a> (<i>V</i>).
-    </li>
+    <li>Let <i>P</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>V</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>P</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>P</i>).</li>
 
-    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
-      this</b> value as the argument.
-    </li>
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
     <li>Let <i>desc</i> be the result of calling the [[GetOwnProperty]] internal method of <i>O</i>
     passing <i>P</i> as the argument.</li>

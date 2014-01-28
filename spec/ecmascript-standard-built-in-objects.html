@@ -2,18 +2,19 @@
 <es-clause title="ECMAScript Standard Built-in Objects" anchor=
 "sec-ecmascript-standard-built-in-objects">
   <p>There are certain built-in objects available whenever an ECMAScript <es-nt>Script</es-nt>
-  begins execution. One, the global object, is part of the <a href=
-  "#sec-lexical-environments">lexical environment</a> of the executing program. Others are
+  begins execution. One, the global object, is part of the <es-xref target=
+  "sec-lexical-environments">lexical environment</es-xref> of the executing program. Others are
   accessible as initial properties of the global object or indirectly as properties of accessible
   built-in objects.</p>
 
   <p>Unless specified otherwise, a built-in object that is callable as a function is a Built-in
-  Function object with the characteristics described in <a href=
-  "#sec-built-in-function-objects">9.3</a> . Unless specified otherwise, the [[Extensible]]
-  <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> of a built-in object
-  initially has the value <b>true</b>. Every built-in object has a [[Realm]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> whose value is the code
-  <a href="#sec-code-realms">Realm</a> for which the object was initially created.</p>
+  Function object with the characteristics described in <es-xref target=
+  "sec-built-in-function-objects">9.3</es-xref>. Unless specified otherwise, the [[Extensible]]
+  <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of a
+  built-in object initially has the value <b>true</b>. Every built-in object has a [[Realm]]
+  <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> whose
+  value is the code <es-xref target="sec-code-realms">Realm</es-xref> for which the object was
+  initially created.</p>
 
   <p>Many built-in objects are functions: they can be invoked with arguments. Some of them
   furthermore are constructors: they are functions intended for use with the <code>new</code>
@@ -43,24 +44,25 @@
 
   <p>Unless otherwise specified every built-in function and every built-in constructor has the
   Function prototype object, which is the initial value of the expression
-  <code>Function.prototype</code> (<a href=
-  "#sec-properties-of-the-function-prototype-object">19.2.3</a> ), as the value of its
-  [[Prototype]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+  <code>Function.prototype</code> (<es-xref target=
+  "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>), as the value of its
+  [[Prototype]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref>.</p>
 
   <p>Unless otherwise specified every built-in prototype object has the Object prototype object,
-  which is the initial value of the expression <code>Object.prototype</code> (<a href=
-  "#sec-properties-of-the-object-prototype-object">19.1.3</a> ), as the value of its [[Prototype]]
-  <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> , except the Object
-  prototype object itself.</p>
+  which is the initial value of the expression <code>Object.prototype</code> (<es-xref target=
+  "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>), as the value of its
+  [[Prototype]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref>, except the Object prototype object itself.</p>
 
   <p>Built-in function objects that are not identified as constructors do not implement the
   [[Construct]] internal method unless otherwise specified in the description of a particular
   function.</p>
 
   <p>Unless otherwise specified, every built-in function defined in clauses 18 through 26 are
-  created as if by calling the <a href="#sec-createbuiltinfunction">CreateBuiltinFunction</a>
-  abstract operation (<a href=
-  "#sec-built-in-function-objects-call-thisargument-argumentslist">9.3.1</a> ).</p>
+  created as if by calling the <es-xref target=
+  "sec-createbuiltinfunction">CreateBuiltinFunction</es-xref> abstract operation (<es-xref target=
+  "sec-built-in-function-objects-call-thisargument-argumentslist">9.3.1</es-xref>).</p>
 
   <p>Every built-in Function object, including constructors, has a <code>length</code> property
   whose value is an integer. Unless otherwise specified, this value is equal to the largest number
@@ -69,8 +71,8 @@
 
   <es-note>
     <p>For example, the Function object that is the initial value of the slice property of the
-    String prototype object is described under the subclause heading “<a href=
-    "#sec-string.prototype.slice">String.prototype.slice</a> (start, end)” which shows the two
+    String prototype object is described under the subclause heading “<es-xref target=
+    "sec-string.prototype.slice">String.prototype.slice</es-xref> (start, end)” which shows the two
     named arguments start and end; therefore the value of the length property of that Function
     object is 2.</p>
   </es-note>
@@ -86,7 +88,7 @@
   the function. Functions that are specified as get or set accessor functions of built-in
   properties have "<code>get</code> " or "<code>set</code> " prepended to the property name string.
   The value of the <code>name</code> property is explicitly specified for each built-in functions
-  whose <a href="#sec-object-type">property key</a> is a symbols value.</p>
+  whose <es-xref target="sec-object-type">property key</es-xref> is a symbols value.</p>
 
   <p>Unless otherwise specified, the <code>name</code> property of a built-in Function object has
   the attributes {&nbsp;[[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:

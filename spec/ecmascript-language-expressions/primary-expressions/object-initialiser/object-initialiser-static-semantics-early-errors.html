@@ -2,10 +2,10 @@
 <es-clause title="Static Semantics: Early Errors" anchor=
 "sec-object-initialiser-static-semantics-early-errors">
   <p>In addition to describing an actual object initialiser the <es-nt>ObjectLiteral</es-nt>
-  productions are also used as a cover grammar for <es-nt>ObjectAssignmentPattern</es-nt> (<a href=
-  "#sec-destructuring-assignment">12.13.5</a> ). When <es-nt>ObjectLiteral</es-nt> appears in a
-  context where <es-nt>ObjectAssignmentPattern</es-nt> is required, the following Early Error rules
-  are <b>not</b> applied.</p>
+  productions are also used as a cover grammar for <es-nt>ObjectAssignmentPattern</es-nt>
+  (<es-xref target="sec-destructuring-assignment">12.13.5</es-xref>). When
+  <es-nt>ObjectLiteral</es-nt> appears in a context where <es-nt>ObjectAssignmentPattern</es-nt> is
+  required, the following Early Error rules are <b>not</b> applied.</p>
 
   <es-production name="ObjectLiteral" class="inline">
     <es-rhs><es-t>{</es-t> <es-nt>PropertyDefinitionList</es-nt> <es-t>}</es-t></es-rhs>
@@ -26,11 +26,11 @@
 
       <ol class="proc">
         <li>The source code corresponding to <es-nt>PropertyDefinitionList</es-nt> is not
-          <a href="#sec-strict-mode-code">strict code</a> and all occurrences in the list of the
-          duplicated entry were obtained from productions of the form <es-production name=
-          "PropertyDefinition" class="inline"><es-rhs><es-nt>PropertyName</es-nt> :
-          <es-nt>AssignmentExpression</es-nt></es-rhs></es-production> .
-        </li>
+        <es-xref target="sec-strict-mode-code">strict code</es-xref> and all occurrences in the
+        list of the duplicated entry were obtained from productions of the form
+        <es-production name="PropertyDefinition" class=
+        "inline"><es-rhs><es-nt>PropertyName</es-nt> :
+        <es-nt>AssignmentExpression</es-nt></es-rhs></es-production> .</li>
 
         <li>The duplicated entry occurs exactly twice in the list and one occurrence was obtained
         from a <code>get</code> accessor <es-nt>MethodDefinition</es-nt> and the other occurrence
@@ -45,11 +45,11 @@
 
   <ul>
     <li>
-      <p>It is a Syntax Error if the <es-nt>PropertyDefinition</es-nt> is contained in <a href=
-      "#sec-strict-mode-code">strict code</a> and if the <es-nt>IdentifierReference</es-nt> is:
-      <code>implements</code>, <code>interface</code>, <code>let</code>, <code>package</code>,
-      <code>private</code>, <code>protected</code>, <code>public</code>, <code>static</code>, or
-      <code>yield</code>.</p>
+      <p>It is a Syntax Error if the <es-nt>PropertyDefinition</es-nt> is contained in
+      <es-xref target="sec-strict-mode-code">strict code</es-xref> and if the
+      <es-nt>IdentifierReference</es-nt> is: <code>implements</code>, <code>interface</code>,
+      <code>let</code>, <code>package</code>, <code>private</code>, <code>protected</code>,
+      <code>public</code>, <code>static</code>, or <code>yield</code>.</p>
     </li>
 
     <li>
@@ -68,7 +68,8 @@
 
   <es-note>
     <p>This production exists so that <es-nt>ObjectLiteral</es-nt> can serve as a cover grammar for
-    <es-nt>ObjectAssignmentPattern</es-nt> (<a href="#sec-destructuring-assignment">12.13.5</a> ).
-    It cannot occur in an actual object initialiser.</p>
+    <es-nt>ObjectAssignmentPattern</es-nt> (<es-xref target=
+    "sec-destructuring-assignment">12.13.5</es-xref>). It cannot occur in an actual object
+    initialiser.</p>
   </es-note>
 </es-clause>

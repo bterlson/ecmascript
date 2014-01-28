@@ -3,7 +3,7 @@
 "sec-primary-expressions-regular-expression-literals">
   <h2>Syntax</h2>
 
-  <p>See <a href="#sec-literals-string-literals">11.8.4</a> .</p>
+  <p>See <es-xref target="sec-literals-string-literals">11.8.4</es-xref>.</p>
 
   <es-clause title="Static Semantics: Early Errors" anchor=
   "sec-primary-expressions-regular-expression-literals-static-semantics-early-errors">
@@ -15,7 +15,7 @@
       <li>
         <p>It is a Syntax Error if BodyText of <es-nt>RegularExpressionLiteral</es-nt> cannot be
         recognised using the goal symbol <es-nt>Pattern</es-nt> of the ECMAScript RegExp grammar
-        specified in <a href="#sec-patterns">21.2.1</a> <es-nt>.</es-nt></p>
+        specified in <es-xref target="sec-patterns">21.2.1</es-xref><es-nt>.</es-nt></p>
       </li>
 
       <li>
@@ -40,9 +40,8 @@
       <li>Let <i>flags</i> be the string value consisting of the UTF-16 encoding of each code point
       of FlagText of <i>RegularExpressionLiteral</i>.</li>
 
-      <li>Return the result of <a href="#sec-regexpcreate">RegExpCreate</a> (<i>pattern</i>,
-      <i>flags</i>).
-      </li>
+      <li>Return the result of <es-xref target=
+      "sec-regexpcreate">RegExpCreate</es-xref>(<i>pattern</i>, <i>flags</i>).</li>
     </ol>
   </es-clause>
 </es-clause>

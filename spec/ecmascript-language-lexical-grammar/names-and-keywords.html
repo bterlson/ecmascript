@@ -5,10 +5,10 @@
   Annex #31, Identifier and Pattern Syntax, with some small modifications.
   <es-nt>ReservedWord</es-nt> is is an enumerated subset of <es-nt>IdentifierName</es-nt> and
   <es-nt>Identifier</es-nt> is an <es-nt>IdentifierName</es-nt> that is not a
-  <es-nt>ReservedWord</es-nt> (see <a href="#sec-reserved-words">11.6.2</a> ). The Unicode
-  identifier grammar is based on character properties specified by the Unicode Standard. The
-  Unicode code points in the specified categories in version 5.1.0 of the Unicode standard must be
-  treated as in those categories by all conforming ECMAScript implementations. ECMAScript
+  <es-nt>ReservedWord</es-nt> (see <es-xref target="sec-reserved-words">11.6.2</es-xref>). The
+  Unicode identifier grammar is based on character properties specified by the Unicode Standard.
+  The Unicode code points in the specified categories in version 5.1.0 of the Unicode standard must
+  be treated as in those categories by all conforming ECMAScript implementations. ECMAScript
   implementations may recognise identifier characters defined in later editions of the Unicode
   Standard.</p>
 
@@ -23,9 +23,9 @@
   <p>Unicode escape sequences are permitted in an <es-nt>IdentifierName</es-nt>, where they
   contribute a single Unicode code point to the <es-nt>IdentifierName</es-nt>. The code point is
   expressed by the <es-nt>HexDigits</es-nt> of the <es-nt>UnicodeEscapeSequence</es-nt> (see
-  <a href="#sec-literals-string-literals">11.8.4</a> ). The <code>\</code> preceding the
-  <es-nt>UnicodeEscapeSequence</es-nt> and the <code>u</code> and <code>{ }</code> characters, if
-  they appear, do not contribute code points to the <es-nt>IdentifierName</es-nt>. A
+  <es-xref target="sec-literals-string-literals">11.8.4</es-xref>). The <code>\</code> preceding
+  the <es-nt>UnicodeEscapeSequence</es-nt> and the <code>u</code> and <code>{ }</code> characters,
+  if they appear, do not contribute code points to the <es-nt>IdentifierName</es-nt>. A
   <es-nt>UnicodeEscapeSequence</es-nt> cannot be used to put a code point into an
   <es-nt>IdentifierName</es-nt> that would otherwise be illegal. In other words, if a
   <code>\</code> <es-nt>UnicodeEscapeSequence</es-nt> sequence were replaced by the
@@ -88,8 +88,8 @@
     “ID_Continue”</es-gprose></es-rhs>
   </es-production>
 
-  <p>The definitions of the nonterminal <es-nt>UnicodeEscapeSequence</es-nt> is given in <a href=
-  "#sec-literals-string-literals">11.8.4</a> .</p>
+  <p>The definitions of the nonterminal <es-nt>UnicodeEscapeSequence</es-nt> is given in
+  <es-xref target="sec-literals-string-literals">11.8.4</es-xref>.</p>
   <link rel="import" href="names-and-keywords\identifiers-and-identifier-names.html">
   <link rel="import" href="names-and-keywords\reserved-words.html">
 </es-clause>

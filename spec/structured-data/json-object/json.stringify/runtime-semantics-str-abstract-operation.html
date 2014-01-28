@@ -6,33 +6,27 @@
   algorithm is as follows:</p>
 
   <ol class="proc">
-    <li>Let <i>value</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>holder</i>,
-    <i>key</i>).
-    </li>
+    <li>Let <i>value</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>holder</i>, <i>key</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is Object, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+    Object, then
 
       <ol class="block">
-        <li>Let <i>toJSON</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>value</i>, <code>
-          "toJSON"</code>).
-        </li>
+        <li>Let <i>toJSON</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>value</i>, <code>"toJSON"</code>).</li>
 
-        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>toJSON</i>) is <b>true</b>
+        <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>toJSON</i>) is <b>true</b>
 
           <ol class="block">
             <li>Let <i>value</i> be the result of calling the [[Call]] internal method of
-            <i>toJSON</i> passing <i>value</i> as <i>thisArgument</i> and a <a href=
-            "#sec-list-and-record-specification-type">List</a> containing <i>key</i> as
-            <i>argumentsList</i>.
-            </li>
+            <i>toJSON</i> passing <i>value</i> as <i>thisArgument</i> and a <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> containing <i>key</i> as
+            <i>argumentsList</i>.</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
-            </li>
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
           </ol>
         </li>
       </ol>
@@ -45,40 +39,39 @@
         <i>ReplacerFunction</i> passing <i>holder</i> as the <b>this</b> value and with an argument
         list consisting of <i>key</i> and <i>value</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
       </ol>
     </li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is Object then,
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+    Object then,
 
       <ol class="block">
-        <li>If <i>value</i> has a [[NumberData]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> then,
+        <li>If <i>value</i> has a [[NumberData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> then,
 
           <ol class="block">
-            <li>Let <i>value</i> be <a href="#sec-tonumber">ToNumber</a> (<i>value</i>).
-            </li>
+            <li>Let <i>value</i> be <es-xref target=
+            "sec-tonumber">ToNumber</es-xref>(<i>value</i>).</li>
           </ol>
         </li>
 
-        <li>Else if <i>value</i> has a [[StringData]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> then,
+        <li>Else if <i>value</i> has a [[StringData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> then,
 
           <ol class="block">
-            <li>Let <i>value</i> be <a href="#sec-tostring">ToString</a> (<i>value</i>).
-            </li>
+            <li>Let <i>value</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>value</i>).</li>
           </ol>
         </li>
 
-        <li>Else if <i>value</i> has a [[BooleanData]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> then,
+        <li>Else if <i>value</i> has a [[BooleanData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> then,
 
           <ol class="block">
-            <li>Let <i>value</i> be the value of the [[BooleanData]] <a href=
-            "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>value</i>.
-            </li>
+            <li>Let <i>value</i> be the value of the [[BooleanData]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+            <i>value</i>.</li>
 
             <li>If <i>value</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
           </ol>
@@ -92,24 +85,23 @@
 
     <li>If <i>value</i> is <b>false</b> then return <code>"false"</code>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is String, then
-    return the result of calling the abstract operation <a href="#sec-quote">Quote</a> with
-    argument <i>value</i>.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+    String, then return the result of calling the abstract operation <es-xref target=
+    "sec-quote">Quote</es-xref> with argument <i>value</i>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is Number
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+    Number
 
       <ol class="block">
-        <li>If <i>value</i> is finite then return <a href="#sec-tostring">ToString</a>
-        (<i>value</i>).
-        </li>
+        <li>If <i>value</i> is finite then return <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>value</i>).</li>
 
         <li>Else, return <code>"null"</code>.</li>
       </ol>
     </li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is Object, and
-    <a href="#sec-iscallable">IsCallable</a> (<i>value</i>) is <b>false</b>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+    Object, and <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>value</i>) is <b>false</b>
 
       <ol class="block">
         <li>If <i>value</i> is an exotic Array object then

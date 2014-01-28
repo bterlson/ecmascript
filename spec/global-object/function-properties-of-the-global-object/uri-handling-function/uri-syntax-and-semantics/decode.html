@@ -29,13 +29,14 @@
           <ol class="block">
             <li>Let <i>start</i> be <i>k</i>.</li>
 
-            <li>If <i>k</i> + 2 is greater than or equal to <i>strLen</i>, throw a <b><a href=
-            "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+            <li>If <i>k</i> + 2 is greater than or equal to <i>strLen</i>, throw a
+            <b><es-xref target=
+            "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
             exception.</li>
 
             <li>If the characters at position (<i>k</i>+1) and (<i>k</i> + 2) within <i>string</i>
-            do not represent hexadecimal digits, throw a <b><a href=
-            "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+            do not represent hexadecimal digits, throw a <b><es-xref target=
+            "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
             exception.</li>
 
             <li>Let <i>B</i> be the 8-bit value represented by the two hexadecimal digits at
@@ -71,8 +72,8 @@
                 <li>Let <i>n</i> be the smallest non-negative number such that (<i>B</i> &lt;&lt;
                 <i>n</i>) &amp; 0x80 is equal to 0.</li>
 
-                <li>If <i>n</i> equals 1 or <i>n</i> is greater than 4, throw a <b><a href=
-                "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+                <li>If <i>n</i> equals 1 or <i>n</i> is greater than 4, throw a <b><es-xref target=
+                "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
                 exception.</li>
 
                 <li>Let <i>Octets</i> be an array of 8-bit integers of size <i>n</i>.</li>
@@ -80,8 +81,8 @@
                 <li>Put <i>B</i> into <i>Octets</i> at position 0.</li>
 
                 <li>If <i>k</i> + (3 × (<i>n</i> – 1)) is greater than or equal to <i>strLen</i>,
-                throw a <b><a href=
-                "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+                throw a <b><es-xref target=
+                "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
                 exception.</li>
 
                 <li>Let <i>j</i> be 1.</li>
@@ -92,20 +93,21 @@
                     <li>Increment <i>k</i> by 1.</li>
 
                     <li>If the character at position <i>k</i> within <i>string</i> is not
-                    <code>"%″</code>, throw a <b><a href=
-                    "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+                    <code>"%″</code>, throw a <b><es-xref target=
+                    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
                     exception.</li>
 
                     <li>If the characters at position (<i>k</i> +1) and (<i>k</i> + 2) within
-                    <i>string</i> do not represent hexadecimal digits, throw a <b><a href=
-                    "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+                    <i>string</i> do not represent hexadecimal digits, throw a <b><es-xref target=
+                    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
                     exception.</li>
 
                     <li>Let <i>B</i> be the 8-bit value represented by the two hexadecimal digits
                     at position (<i>k</i> + 1) and (<i>k</i> + 2).</li>
 
                     <li>If the two most significant bits in <i>B</i> are not 10, throw a
-                    <b><a href="#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+                    <b><es-xref target=
+                    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
                     exception.</li>
 
                     <li>Increment <i>k</i> by 2.</li>
@@ -119,8 +121,8 @@
                 <li>Let <i>V</i> be the value obtained by applying the UTF-8 transformation to
                 <i>Octets</i>, that is, from an array of octets into a 21-bit value. If
                 <i>Octets</i> does not contain a valid UTF-8 encoding of a Unicode code point throw
-                a <b><a href=
-                "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+                a <b><es-xref target=
+                "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
                 exception.</li>
 
                 <li>If <i>V</i> &lt; 0x10000, then
@@ -289,8 +291,8 @@
           <p><code>0xDC00 – 0xDFFF</code></p>
         </td>
 
-        <td><i>causes</i> <b><a href=
-        "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b></td>
+        <td><i>causes</i> <b><es-xref target=
+        "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b></td>
 
         <td></td>
 
@@ -304,8 +306,8 @@
       <tr>
         <td><code>0xDC00 – 0xDFFF</code></td>
 
-        <td><i>causes</i> <b><a href=
-        "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b></td>
+        <td><i>causes</i> <b><es-xref target=
+        "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b></td>
 
         <td></td>
 
@@ -345,7 +347,7 @@
 
   <p>RFC 3629 prohibits the decoding of invalid UTF-8 octet sequences. For example, the invalid
   sequence C0 80 must not decode into the character U+0000. Implementations of the Decode algorithm
-  are required to throw a <b><a href=
-  "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b> when encountering
-  such invalid sequences.</p>
+  are required to throw a <b><es-xref target=
+  "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b> when
+  encountering such invalid sequences.</p>
 </es-clause>

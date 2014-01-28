@@ -6,13 +6,13 @@
   in year number <es-nt>y</es-nt> is therefore defined by</p>
 
   <div class="display">
-    DaysInYear(<i>y</i>) 	= 365 if (<i>y</i> <a href="#sec-algorithm-conventions">modulo</a> 4) ≠
-    0<br>
-    = 366 if (<i>y</i> <a href="#sec-algorithm-conventions">modulo</a> 4) = 0 and (<i>y</i>
-    <a href="#sec-algorithm-conventions">modulo</a> 100) ≠ 0<br>
-    = 365 if (<i>y</i> <a href="#sec-algorithm-conventions">modulo</a> 100) = 0 and (<i>y</i>
-    <a href="#sec-algorithm-conventions">modulo</a> 400) ≠ 0<br>
-    = 366 if (<i>y</i> <a href="#sec-algorithm-conventions">modulo</a> 400) = 0
+    DaysInYear(<i>y</i>) 	= 365 if (<i>y</i> <es-xref target=
+    "sec-algorithm-conventions">modulo</es-xref> 4) ≠ 0<br>
+    = 366 if (<i>y</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref> 4) = 0 and
+    (<i>y</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref> 100) ≠ 0<br>
+    = 365 if (<i>y</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref> 100) = 0 and
+    (<i>y</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref> 400) ≠ 0<br>
+    = 366 if (<i>y</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref> 400) = 0
   </div>
 
   <p>All non-leap years have 365 days with the usual number of days per month and leap years have
@@ -20,19 +20,22 @@
   by:</p>
 
   <div class="display">
-    DayFromYear(<i>y</i>)	= 365 × (<i>y</i>−1970) + <a href="#sec-algorithm-conventions">floor</a>
-    ((<i>y</i>−1969)/4) − <a href="#sec-algorithm-conventions">floor</a> ((<i>y</i>−1901)/100) +
-    <a href="#sec-algorithm-conventions">floor</a> ((<i>y</i>−1601)/400)
+    DayFromYear(<i>y</i>)	= 365 × (<i>y</i>−1970) + <es-xref target=
+    "sec-algorithm-conventions">floor</es-xref>((<i>y</i>−1969)/4) − <es-xref target=
+    "sec-algorithm-conventions">floor</es-xref>((<i>y</i>−1901)/100) + <es-xref target=
+    "sec-algorithm-conventions">floor</es-xref>((<i>y</i>−1601)/400)
   </div>
 
-  <p>The <a href="#sec-time-values-and-time-range">time value</a> of the start of a year is:</p>
+  <p>The <es-xref target="sec-time-values-and-time-range">time value</es-xref> of the start of a
+  year is:</p>
 
   <div class="display">
-    TimeFromYear(<i>y</i>)	= <a href="#sec-day-number-and-time-within-day">msPerDay</a> ×
-    DayFromYear(<i>y</i>)
+    TimeFromYear(<i>y</i>)	= <es-xref target=
+    "sec-day-number-and-time-within-day">msPerDay</es-xref> × DayFromYear(<i>y</i>)
   </div>
 
-  <p>A <a href="#sec-time-values-and-time-range">time value</a> determines a year by:</p>
+  <p>A <es-xref target="sec-time-values-and-time-range">time value</es-xref> determines a year
+  by:</p>
 
   <div class="display">
     YearFromTime(<i>t</i>)	= the largest integer <i>y</i> (closest to positive infinity) such that

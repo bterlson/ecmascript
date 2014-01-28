@@ -3,11 +3,13 @@
 "sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation">
   <p>With argument <es-nt>labelSet</es-nt>.</p>
 
-  <p>See also: <a href="#sec-statement-semantics-runtime-semantics-labelledevaluation">13.0.2</a> ,
-  <a href="#sec-do-while-statement-runtime-semantics-labelledevaluation">13.6.1.2</a> , <a href=
-  "#sec-while-statement-runtime-semantics-labelledevaluation">13.6.2.2</a> , <a href=
-  "#sec-for-statement-runtime-semantics-labelledevaluation">13.6.3.2</a> , <a href=
-  "#sec-labelled-statements-runtime-semantics-labelledevaluation">13.12.3</a> .</p>
+  <p>See also: <es-xref target=
+  "sec-statement-semantics-runtime-semantics-labelledevaluation">13.0.2</es-xref>, <es-xref target=
+  "sec-do-while-statement-runtime-semantics-labelledevaluation">13.6.1.2</es-xref>,
+  <es-xref target="sec-while-statement-runtime-semantics-labelledevaluation">13.6.2.2</es-xref>,
+  <es-xref target="sec-for-statement-runtime-semantics-labelledevaluation">13.6.3.2</es-xref>,
+  <es-xref target=
+  "sec-labelled-statements-runtime-semantics-labelledevaluation">13.12.3</es-xref>.</p>
 
   <es-production name="IterationStatement" class="inline">
     <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> in <es-nt>Expression</es-nt> )
@@ -18,9 +20,7 @@
     <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
     <i>Expression</i>, enumerate, and <i>labelSet</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keyResult</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
 
     <li>Return the result of performing ForIn/OfBodyEvaluation with <i>LeftHandSideExpression</i>,
     <i>Statement</i>, <i>keyResult</i>, assignment, and <i>labelSet</i>.</li>
@@ -35,9 +35,7 @@
     <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
     <i>Expression</i>, enumerate, and <i>labelSet</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keyResult</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
 
     <li>Return the result of performing ForIn/OfBodyEvaluation with <i>ForBinding</i>,
     <i>Statement</i>, <i>keyResult</i>, varBinding, and <i>labelSet</i>.</li>
@@ -52,9 +50,7 @@
     <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
     <i>Expression</i>, enumerate, and <i>labelSet</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keyResult</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
 
     <li>Return the result of performing ForIn/OfBodyEvaluation with <i>ForDeclaration</i>,
     <i>Statement</i>, <i>keyResult</i>, lexicalBinding, and <i>labelSet</i>.</li>
@@ -69,9 +65,7 @@
     <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
     <i>AssignmentExpression</i>, iterate, and <i>labelSet</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keyResult</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
 
     <li>Return the result of performing ForIn/OfBodyEvaluation with <i>LeftHandSideExpression</i>,
     <i>Statement</i>, <i>keyResult</i>, assignment, and <i>labelSet</i>.</li>
@@ -86,9 +80,7 @@
     <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
     <i>AssignmentExpression</i>, iterate, and <i>labelSet</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keyResult</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
 
     <li>Return the result of performing ForIn/OfBodyEvaluation with <i>ForBinding</i>,
     <i>Statement</i>, <i>keyResult</i>, varBinding, and <i>labelSet</i>.</li>
@@ -103,9 +95,7 @@
     <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
     <i>AssignmentExpression</i>, iterate, and <i>labelSet</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keyResult</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
 
     <li>Return the result of performing ForIn/OfBodyEvaluation with <i>ForDeclaration</i>,
     <i>Statement</i>, <i>keyResult</i>, lexicalBinding, and <i>labelSet</i>.</li>

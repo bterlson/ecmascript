@@ -8,37 +8,33 @@
   <ol class="proc">
     <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
 
-    <li>Let <i>switchValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprRef</i>).
-    </li>
+    <li>Let <i>switchValue</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>exprRef</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>switchValue</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>switchValue</i>).</li>
 
-    <li>Let <i>oldEnv</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
-    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
-    </li>
+    <li>Let <i>oldEnv</i> be <es-xref target="sec-execution-contexts">the running execution
+    context</es-xref>’s <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
 
-    <li>Let <i>blockEnv</i> be the result of calling <a href=
-    "#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a> passing <i>oldEnv</i> as the
-    argument.
-    </li>
+    <li>Let <i>blockEnv</i> be the result of calling <es-xref target=
+    "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing <i>oldEnv</i> as
+    the argument.</li>
 
     <li>Perform Block Declaration Instantiation using <i>CaseBlock</i> and <i>blockEnv</i>.</li>
 
     <li>Let <i>R</i> be the result of performing CaseBlockEvaluation of <i>CaseBlock</i> with
     argument <i>switchValue</i>.</li>
 
-    <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
-    "#sec-execution-contexts">LexicalEnvironment</a> to <i>oldEnv</i>.
-    </li>
+    <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+    <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>oldEnv</i>.</li>
 
     <li>Return <i>R</i>.</li>
   </ol>
 
   <es-note>
-    <p>No matter how control leaves the <es-nt>SwitchStatement</es-nt> the <a href=
-    "#sec-execution-contexts">LexicalEnvironment</a> is always restored to its former state.</p>
+    <p>No matter how control leaves the <es-nt>SwitchStatement</es-nt> the <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref> is always restored to its former
+    state.</p>
   </es-note>
 
   <es-production name="CaseClause" class="inline">
@@ -46,8 +42,7 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
-    </li>
+    <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
   </ol>
 
   <es-production name="CaseClause" class="inline">
@@ -63,8 +58,7 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
-    </li>
+    <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
   </ol>
 
   <es-production name="DefaultClause" class="inline">

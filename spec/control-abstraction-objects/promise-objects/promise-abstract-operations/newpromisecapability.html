@@ -10,27 +10,21 @@
   to any subclass.</p>
 
   <ol class="proc">
-    <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>C</i>) is <b>false</b>, throw a
-    <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is <b>false</b>,
+    throw a <b>TypeError</b> exception.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>C</i> is a constructor function that
-      supports the parameter conventions of the <code>Promise</code> constructor (see <a href=
-      "#sec-promise">25.4.3.1</a> ).
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>C</i> is a constructor
+    function that supports the parameter conventions of the <code>Promise</code> constructor (see
+    <es-xref target="sec-promise">25.4.3.1</es-xref>).</li>
 
-    <li>Let <i>promise</i> be <a href="#sec-createfromconstructor">CreateFromConstructor</a>
-    (<i>C</i>).
-    </li>
+    <li>Let <i>promise</i> be <es-xref target=
+    "sec-createfromconstructor">CreateFromConstructor</es-xref>(<i>C</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promise</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>promise</i>).</li>
 
-    <li>Return <a href="#sec-createpromisecapabilityrecord">CreatePromiseCapabilityRecord</a>
-    (<i>promise</i>, <i>C</i>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-createpromisecapabilityrecord">CreatePromiseCapabilityRecord</es-xref>(<i>promise</i>,
+    <i>C</i>).</li>
   </ol>
 
   <es-note>

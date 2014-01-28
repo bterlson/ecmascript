@@ -11,39 +11,31 @@
   <ol class="proc">
     <li>Let <i>loader</i> be this Loader.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>loader</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
 
-    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>name</i> be <a href="#sec-tostring">ToString</a> (<i>name</i>).
-    </li>
+    <li>Let <i>name</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>name</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>name</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
 
     <li>Let <i>modules</i> be the value of of <i>loaderRecord.</i>[[ Modules]],</li>
 
     <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>modules</i>,
 
       <ol class="block">
-        <li>If <a href="#sec-samevalue">SameValue</a> (<i>p</i>.[[key]], <i>name</i>) is
-        <b>true</b>, then
+        <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>.[[key]], <i>name</i>)
+        is <b>true</b>, then
 
           <ol class="block">
             <li>Let <i>module</i> be <i>p</i>.[[value]].</li>
 
-            <li>Let <i>result</i> be <a href="#sec-ensureevaluated">EnsureEvaluated</a>
-            (<i>module</i>, (),<i>loaderRecord</i>).
-            </li>
+            <li>Let <i>result</i> be <es-xref target=
+            "sec-ensureevaluated">EnsureEvaluated</es-xref>(<i>module</i>,
+            (),<i>loaderRecord</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>result</i>).
-            </li>
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
 
             <li>Return <i>p</i>.[[value]].</li>
           </ol>

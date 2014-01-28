@@ -1,37 +1,32 @@
 <!doctype html>
 <es-clause title="String.prototype.toLowerCase ( )" anchor="sec-string.prototype.tolowercase">
-  <p>This function interprets a string value as a sequence of code points, as described in <a href=
-  "#sec-ecmascript-language-types-string-type">6.1.4</a> . The following steps are taken:</p>
+  <p>This function interprets a string value as a sequence of code points, as described in
+  <es-xref target="sec-ecmascript-language-types-string-type">6.1.4</es-xref>. The following steps
+  are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-    value).
-    </li>
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
 
-    <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
-    </li>
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
 
-    <li>Let <i>cpList</i> be a <a href="#sec-list-and-record-specification-type">List</a>
-    containing in order the code points as defned in <a href=
-    "#sec-ecmascript-language-types-string-type">6.1.4</a> of <i>S</i>, starting at the first
-    element of <i>S</i>.
-    </li>
+    <li>Let <i>cpList</i> be a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> containing in order the code points as
+    defned in <es-xref target="sec-ecmascript-language-types-string-type">6.1.4</es-xref> of
+    <i>S</i>, starting at the first element of <i>S</i>.</li>
 
     <li>For each code point <i>c</i> in <i>cpList</i>, if the Unicode Character Database provides a
     language insensitive lower case equivalent of <i>c</i> then replace <i>c</i> in <i>cpList</i>
     with that equivalent code point(s).</li>
 
-    <li>Let <i>cuList</i> be a new <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>cuList</i> be a new <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>For each code point <i>c</i> in <i>cpList</i>, in order, append to <i>cuList</i> the
-    elements of the UTF-16 Encoding (<a href="#sec-static-semantics-utf-16-encoding">10.1.1</a> )
-    of <i>c</i>.
-    </li>
+    elements of the UTF-16 Encoding (<es-xref target=
+    "sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of <i>c</i>.</li>
 
     <li>Let <i>L</i> be a String whose elements are, in order, the elements of <i>cuList</i> .</li>
 

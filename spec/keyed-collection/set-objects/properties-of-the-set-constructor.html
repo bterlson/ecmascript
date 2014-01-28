@@ -1,17 +1,17 @@
 <!doctype html>
 <es-clause title="Properties of the Set Constructor" anchor=
 "sec-properties-of-the-set-constructor">
-  <p>The value of the [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the Set constructor is the
-  Function prototype object (<a href="#sec-properties-of-the-function-prototype-object">19.2.3</a>
-  ).</p>
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Set constructor
+  is the Function prototype object (<es-xref target=
+  "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
 
   <p>Besides the <code>length</code> property (whose value is <b>0</b>), the Set constructor has
   the following properties:</p>
 
   <es-clause title="Set.prototype" anchor="sec-set.prototype">
     <p>The initial value of <code>Set.prototype</code> is the intrinsic %SetPrototype% object
-    (<a href="#sec-properties-of-the-set-prototype-object">23.2.3</a> ).</p>
+    (<es-xref target="sec-properties-of-the-set-prototype-object">23.2.3</es-xref>).</p>
 
     <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
     [[Configurable]]: <b>false</b> }.</p>
@@ -24,10 +24,9 @@
     <ol class="proc">
       <li>Let <i>F</i> be the <b>this</b> value.</li>
 
-      <li>Let <i>obj</i> be the result of calling <a href=
-      "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>F</i>,
-      <code>"%SetPrototype%"</code>, ( [[SetData]] , [[SetComparator]] )).
-      </li>
+      <li>Let <i>obj</i> be the result of calling <es-xref target=
+      "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>F</i>,
+      <code>"%SetPrototype%"</code>, ( [[SetData]] , [[SetComparator]] )).</li>
 
       <li>Return <i>obj</i>.</li>
     </ol>

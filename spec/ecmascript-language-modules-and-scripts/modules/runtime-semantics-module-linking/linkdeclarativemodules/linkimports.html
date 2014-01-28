@@ -25,17 +25,15 @@
         <li>Otherwise, the following steps are taken:
 
           <ol class="block">
-            <li>Let <i>binding</i> be the result of calling the <a href=
-            "#sec-resolveexport">ResolveExport</a> abstract operation passing <i>def</i>.[[Module]]
-            and <i>def</i>.[[ImportName]] as the arguments.
-            </li>
+            <li>Let <i>binding</i> be the result of calling the <es-xref target=
+            "sec-resolveexport">ResolveExport</es-xref> abstract operation passing
+            <i>def</i>.[[Module]] and <i>def</i>.[[ImportName]] as the arguments.</li>
 
             <li>If <i>binding</i> is <b>undefined</b>, then the following steps are taken:
 
               <ol class="block">
-                <li>Let <i>error</i> be a new <a href=
-                "#sec-reference-specification-type">Reference</a> Error.
-                </li>
+                <li>Let <i>error</i> be a new <es-xref target=
+                "sec-reference-specification-type">Reference</es-xref> Error.</li>
 
                 <li>Add <i>error</i> to <i>M</i>.[[LinkErrors]].</li>
               </ol>

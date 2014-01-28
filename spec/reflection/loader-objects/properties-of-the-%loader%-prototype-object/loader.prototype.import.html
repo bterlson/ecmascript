@@ -12,27 +12,21 @@
   <ol class="proc">
     <li>Let <i>loader</i> be this Loader.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>loader</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
 
-    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>p</i> be the result of calling <a href="#sec-loadmodule">LoadModule</a>
-    (<i>loaderRecord</i>, <i>name</i>, <i>options</i>).
-    </li>
+    <li>Let <i>p</i> be the result of calling <es-xref target=
+    "sec-loadmodule">LoadModule</es-xref>(<i>loaderRecord</i>, <i>name</i>, <i>options</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>p</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>p</i>).</li>
 
     <li>Let <i>F</i> be a new function object as defined by EvaluateLoadedModule.</li>
 
-    <li>Set <i>F</i>’s [[Loader]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loaderRecord</i>.
-    </li>
+    <li>Set <i>F</i>’s [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>loaderRecord</i>.</li>
 
     <li>Let <i>p</i> be PromiseThen(<i>p</i>, <i>F</i>).</li>
 

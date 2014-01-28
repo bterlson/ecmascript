@@ -1,14 +1,15 @@
 <!doctype html>
 <es-clause title="Function Instances" anchor="sec-function-instances">
-  <p>Every function instance is an <a href="#sec-ecmascript-function-objects">ECMAScript function
-  object</a> and has the internal slots listed in <a href="#table-26">Table 26</a> .</p>
+  <p>Every function instance is an <es-xref target="sec-ecmascript-function-objects">ECMAScript
+  function object</es-xref> and has the internal slots listed in <a href="#table-26">Table 26</a>
+  .</p>
 
   <p>Function instances that correspond to strict mode functions and function instances created
-  using the <b><a href="#sec-function.prototype.bind">Function.prototype.bind</a> method</b>
-  (<a href="#sec-function.prototype.bind">19.2.3.2</a> ) have properties named <span class=
-  "value">caller</span> and <code>arguments</code> that throw a <b>TypeError</b> exception. An
-  ECMAScript implementation must not associate any implementation specific behaviour with accesses
-  of these properties from strict mode function code.</p>
+  using the <b><es-xref target="sec-function.prototype.bind">Function.prototype.bind</es-xref>
+  method</b> (<es-xref target="sec-function.prototype.bind">19.2.3.2</es-xref>) have properties
+  named <span class="value">caller</span> and <code>arguments</code> that throw a <b>TypeError</b>
+  exception. An ECMAScript implementation must not associate any implementation specific behaviour
+  with accesses of these properties from strict mode function code.</p>
 
   <p>The Function instances have the following properties:</p>
 
@@ -32,8 +33,8 @@
     specification do not have a <code>name</code> own property but inherit the <code>name</code>
     property of %FunctionPrototype%.</p>
 
-    <p class="Note">Function objects created using <code><a href=
-    "#sec-function.prototype.bind">Function.prototype.bind</a></code> do not have a
+    <p class="Note">Function objects created using <code><es-xref target=
+    "sec-function.prototype.bind">Function.prototype.bind</es-xref></code> do not have a
     <code>name</code> property.</p>
   </es-clause>
   <link rel="import" href="function-instances\function-instances-prototype.html">

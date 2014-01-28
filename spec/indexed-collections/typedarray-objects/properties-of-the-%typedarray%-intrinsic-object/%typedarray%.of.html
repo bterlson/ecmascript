@@ -4,24 +4,21 @@
   are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>lenValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>items</i>,
-    <code>"length"</code>).
-    </li>
+    <li>Let <i>lenValue</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>items</i>, <code>"length"</code>).</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenValue</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenValue</i>).</li>
 
     <li>Let <i>C</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>C</i>) is <b>true</b>, then
+    <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is <b>true</b>,
+    then
 
       <ol class="block">
         <li>Let <i>newObj</i> be the result of calling the [[Construct]] internal method of
         <i>C</i> with argument (<i>len</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>newObj</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>newObj</i>).</li>
       </ol>
     </li>
 
@@ -37,20 +34,16 @@
     <li>Repeat, while <i>k</i> &lt; <i>len</i>
 
       <ol class="block">
-        <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
-        </li>
+        <li>Let <i>Pk</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
 
-        <li>Let <i>kValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>items</i>,
-        <i>Pk</i>).
-        </li>
+        <li>Let <i>kValue</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>items</i>, <i>Pk</i>).</li>
 
-        <li>Let <i>status</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-        (<i>newObj</i>,<i>Pk</i>, <i>kValue</i>.[[value]], <b>true</b>).
-        </li>
+        <li>Let <i>status</i> be the result of <es-xref target=
+        "sec-put-o-p-v-throw">Put</es-xref>(<i>newObj</i>,<i>Pk</i>, <i>kValue</i>.[[value]],
+        <b>true</b>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
         <li>Increase <i>k</i> by 1.</li>
       </ol>

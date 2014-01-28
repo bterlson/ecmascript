@@ -1,28 +1,24 @@
 <!doctype html>
 <es-clause title="CreateMutableBinding (N, D)" anchor=
 "sec-declarative-environment-records-createmutablebinding-n-d">
-  <p>The concrete <a href="#sec-environment-records">Environment Record</a> method
+  <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
   CreateMutableBinding for declarative environment records creates a new mutable binding for the
-  name <es-nt>N</es-nt> that is uninitialised. A binding must not already exist in this <a href=
-  "#sec-environment-records">Environment Record</a> for <es-nt>N</es-nt>. If Boolean argument
-  <es-nt>D</es-nt> is provided and has the value <b>true</b> the new binding is marked as being
-  subject to deletion.</p>
+  name <es-nt>N</es-nt> that is uninitialised. A binding must not already exist in this
+  <es-xref target="sec-environment-records">Environment Record</es-xref> for <es-nt>N</es-nt>. If
+  Boolean argument <es-nt>D</es-nt> is provided and has the value <b>true</b> the new binding is
+  marked as being subject to deletion.</p>
 
   <ol class="proc">
-    <li>Let <i>envRec</i> be the <a href="#sec-declarative-environment-records">declarative
-    environment record</a> for which the method was invoked.
-    </li>
+    <li>Let <i>envRec</i> be the <es-xref target="sec-declarative-environment-records">declarative
+    environment record</es-xref> for which the method was invoked.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>envRec</i> does not already have a
-      binding for <i>N</i>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>envRec</i> does not
+    already have a binding for <i>N</i>.</li>
 
     <li>Create a mutable binding in <i>envRec</i> for <i>N</i> and record that it is uninitialised.
     If <i>D</i> is <b>true</b> record that the newly created binding may be deleted by a subsequent
     DeleteBinding call.</li>
 
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
-    </li>
+    <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
   </ol>
 </es-clause>

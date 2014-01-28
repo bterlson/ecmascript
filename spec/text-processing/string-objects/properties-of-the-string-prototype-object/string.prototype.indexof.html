@@ -11,31 +11,22 @@
   <es-nt>position</es-nt>, and performs the following steps:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-    value).
-    </li>
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
 
-    <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
-    </li>
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
 
-    <li>Let <i>searchStr</i> be <a href="#sec-tostring">ToString</a> (<i>searchString</i>).
-    </li>
+    <li>Let <i>searchStr</i> be <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>searchString</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>searchString</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>searchString</i>).</li>
 
-    <li>Let <i>pos</i> be <a href="#sec-tointeger">ToInteger</a> (<i>position</i>). (If
-    <i>position</i> is <b>undefined</b>, this step produces the value <code>0</code>).
-    </li>
+    <li>Let <i>pos</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>position</i>). (If
+    <i>position</i> is <b>undefined</b>, this step produces the value <code>0</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>pos</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>pos</i>).</li>
 
     <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
 

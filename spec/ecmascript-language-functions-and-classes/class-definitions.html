@@ -38,30 +38,11 @@
   </es-production>
 
   <es-note>
-    <p>A <es-nt>ClassBody</es-nt> is always <a href="#sec-strict-mode-code">strict code</a> .</p>
+    <p>A <es-nt>ClassBody</es-nt> is always <es-xref target="sec-strict-mode-code">strict
+    code</es-xref>.</p>
   </es-note>
   <link rel="import" href="class-definitions\class-definitions-static-semantics-early-errors.html">
-
-  <es-clause title="Static Semantics: BoundNames" anchor=
-  "sec-class-definitions-static-semantics-boundnames">
-    <p>See also: <a href="#sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</a>
-    , <a href="#sec-variable-statement-static-semantics-boundnames">13.2.2.1</a> , <a href=
-    "#sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</a> , <a href=
-    "#sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</a> , <a href=
-    "#sec-function-definitions-static-semantics-boundnames">14.1.3</a> , <a href=
-    "#sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</a> , <a href=
-    "#sec-generator-function-definitions-static-semantics-boundnames">14.4.2</a> , <a href=
-    "#sec-imports-static-semantics-boundnames">15.2.1.2</a> , <a href=
-    "#sec-exports-static-semantics-boundnames">15.2.2.1</a> .</p>
-
-    <es-production name="ClassDeclaration" class="inline">
-      <es-rhs>class <es-nt>BindingIdentifier</es-nt> <es-nt>ClassTail</es-nt></es-rhs>
-    </es-production>
-
-    <ol class="proc">
-      <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
-    </ol>
-  </es-clause>
+  <link rel="import" href="class-definitions\class-definitions-static-semantics-boundnames.html">
   <link rel="import" href="class-definitions\static-semantics-constructormethod.html">
   <link rel="import" href="class-definitions\class-definitions-static-semantics-contains.html">
   <link rel="import" href=
@@ -69,11 +50,12 @@
 
   <es-clause title="Static Semantics: IsConstantDeclaration" anchor=
   "sec-class-definitions-static-semantics-isconstantdeclaration">
-    <p>See also: <a href=
-    "#sec-let-and-const-declarations-static-semantics-isconstantdeclaration">13.2.1.3</a> ,
-    <a href="#sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</a> ,
-    <a href=
-    "#sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</a> .</p>
+    <p>See also: <es-xref target=
+    "sec-let-and-const-declarations-static-semantics-isconstantdeclaration">13.2.1.3</es-xref>,
+    <es-xref target=
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</es-xref>.</p>
 
     <es-production name="ClassDeclaration" class="inline">
       <es-rhs>class <es-nt>BindingIdentifier</es-nt> <es-nt>ClassTail</es-nt></es-rhs>
@@ -112,13 +94,18 @@
 
   <es-clause title="Static Semantics: LexicallyDeclaredNames" anchor=
   "sec-class-definitions-static-semantics-lexicallydeclarednames">
-    <p>See also: <a href="#sec-block-static-semantics-lexicallydeclarednames">13.1.3</a> , <a href=
-    "#sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</a> , <a href=
-    "#sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</a> , <a href=
-    "#sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</a> , <a href=
-    "#sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</a> ,
-    <a href="#sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</a> , <a href=
-    "#sec-module-static-semantics-static-semantics-lexicallydeclarednames">15.2.0.10</a> .</p>
+    <p>See also: <es-xref target=
+    "sec-block-static-semantics-lexicallydeclarednames">13.1.3</es-xref>, <es-xref target=
+    "sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</es-xref>,
+    <es-xref target=
+    "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</es-xref>,
+    <es-xref target=
+    "sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</es-xref>,
+    <es-xref target=
+    "sec-module-static-semantics-static-semantics-lexicallydeclarednames">15.2.0.10</es-xref>.</p>
 
     <es-production name="ClassDeclaration" class="inline">
       <es-rhs>class <es-nt>BindingIdentifier</es-nt> <es-nt>ClassTail</es-nt></es-rhs>
@@ -132,9 +119,10 @@
   <link rel="import" href="class-definitions\static-semantics-prototypepropertynamelist.html">
 
   <es-clause title="Static Semantics:" anchor="sec-class-definitions-static-semantics-propname">
-    <p><b>See also:</b> <a href="#sec-object-initialiser-static-semantics-propname">12.1.5.5</a> ,
-    <a href="#sec-method-definitions-static-semantics-propname">14.3.5</a> , <a href=
-    "#sec-generator-function-definitions-static-semantics-propname">14.4.8</a></p>
+    <p><b>See also:</b> <es-xref target=
+    "sec-object-initialiser-static-semantics-propname">12.1.5.5</es-xref>, <es-xref target=
+    "sec-method-definitions-static-semantics-propname">14.3.5</es-xref>, <es-xref target=
+    "sec-generator-function-definitions-static-semantics-propname">14.4.8</es-xref></p>
 
     <es-production name="ClassElement" class="inline">
       <es-rhs>;</es-rhs>

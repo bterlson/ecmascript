@@ -4,11 +4,11 @@
   ECMAScript computation is currently in progress. A Task abstract operation may be defined to
   accept an arbitrary set of task parameters.</p>
 
-  <p>Execution of a Task can be initiated only when there is no running <a href=
-  "#sec-execution-contexts">execution context</a> and <a href="#sec-execution-contexts">the
-  execution context stack</a> is empty. A PendingTask is a request for the future execution of a
-  Task. A PendingTask is an internal Record whose fields are specified in <a href="#table-24">Table
-  24</a> .</p>
+  <p>Execution of a Task can be initiated only when there is no running <es-xref target=
+  "sec-execution-contexts">execution context</es-xref> and <es-xref target=
+  "sec-execution-contexts">the execution context stack</es-xref> is empty. A PendingTask is a
+  request for the future execution of a Task. A PendingTask is an internal Record whose fields are
+  specified in <a href="#table-24">Table 24</a> .</p>
 
   <figure>
     <figcaption>
@@ -43,27 +43,20 @@
       <tr>
         <td>[[Arguments]]</td>
 
-        <td>
-          A <a href="#sec-list-and-record-specification-type">List</a> .
-        </td>
+        <td>A <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</td>
 
-        <td>
-          The <a href="#sec-list-and-record-specification-type">List</a> of argument values that
-          are to be passed to [[Task]] when it is activated.
-        </td>
+        <td>The <es-xref target="sec-list-and-record-specification-type">List</es-xref> of argument
+        values that are to be passed to [[Task]] when it is activated.</td>
       </tr>
 
       <tr>
         <td>[[Realm]]</td>
 
-        <td>
-          A <a href="#sec-code-realms">Realm</a> Record
-        </td>
+        <td>A <es-xref target="sec-code-realms">Realm</es-xref> Record</td>
 
-        <td>
-          The <a href="#sec-code-realms">Realm</a> that when for the initial <a href=
-          "#sec-execution-contexts">execution context</a> when this Pending Task is initiated.
-        </td>
+        <td>The <es-xref target="sec-code-realms">Realm</es-xref> that when for the initial
+        <es-xref target="sec-execution-contexts">execution context</es-xref> when this Pending Task
+        is initiated.</td>
       </tr>
     </table>
   </figure>
@@ -106,27 +99,27 @@
 
         <td style=
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
-        Tasks that are responses to the settlement of a Promise (see <a href=
-        "#sec-promise-objects">25.4</a> ).
-        </td>
+        Tasks that are responses to the settlement of a Promise (see <es-xref target=
+        "sec-promise-objects">25.4</es-xref>).</td>
       </tr>
     </table>
   </figure>
 
   <p>A request for the future execution of a Task is made by enqueueing on a Task Queue a
   PendingTask record that includes a Task abstract operation name and any necessary argument
-  values. When there is no running <a href="#sec-execution-contexts">execution context</a> and
-  <a href="#sec-execution-contexts">the execution context stack</a> is empty, the ECMAScript
-  implementation removes the first PendingTask from a Task Queue and uses the information contained
-  in it to create an <a href="#sec-execution-contexts">execution context</a> and starts execution
-  of associated Task abstraction operation.</p>
+  values. When there is no running <es-xref target="sec-execution-contexts">execution
+  context</es-xref> and <es-xref target="sec-execution-contexts">the execution context
+  stack</es-xref> is empty, the ECMAScript implementation removes the first PendingTask from a Task
+  Queue and uses the information contained in it to create an <es-xref target=
+  "sec-execution-contexts">execution context</es-xref> and starts execution of associated Task
+  abstraction operation.</p>
 
   <p>The PendingTask records from a single Task Queue are always initiated in FIFO order. This
   specification does not define the order in which multiple Task Queues are serviced. An ECMAScript
   implementation may interweave the FIFO evaluation of the PendingTask records of a Task Queue with
   the evaluation of the PendingTask records of one or more other Task Queues. An implementation
-  must define what occurs when there are no running <a href="#sec-execution-contexts">execution
-  context</a> and all Task Queues are empty.</p>
+  must define what occurs when there are no running <es-xref target=
+  "sec-execution-contexts">execution context</es-xref> and all Task Queues are empty.</p>
 
   <es-note>
     <p>Typically an ECMAScript implementation will have its Task Queues are preinitialised with at

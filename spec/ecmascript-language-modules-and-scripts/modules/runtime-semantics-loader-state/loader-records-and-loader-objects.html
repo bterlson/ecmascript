@@ -2,9 +2,9 @@
 <es-clause title="Loader Records and Loader Objects" anchor=
 "sec-loader-records-and-loader-objects">
   <p>Loader Records contain the state of a of distinct module loading context. Each Loader Record
-  has the fields defined in <b>Table 33</b>. Loader objects (<a href="#sec-loader-objects">26.3</a>
-  ) are ECMAScript objects that permit ECMAScript code to define and manage module loading
-  contexts.</p>
+  has the fields defined in <b>Table 33</b>. Loader objects (<es-xref target=
+  "sec-loader-objects">26.3</es-xref>) are ECMAScript objects that permit ECMAScript code to define
+  and manage module loading contexts.</p>
 
   <p><b>Table 33 — Loader Record Fields</b></p>
 
@@ -27,22 +27,18 @@
       <tr>
         <td>[[Realm]]</td>
 
-        <td>
-          <a href="#sec-code-realms">Realm</a> Record
-        </td>
+        <td><es-xref target="sec-code-realms">Realm</es-xref> Record</td>
 
-        <td>
-          The <a href="#sec-code-realms">Realm</a> associated with the loader. All scripts and
-          modules evaluated by this loader run in the scope of the global object associated with
-          this <a href="#sec-code-realms">Realm</a> .
-        </td>
+        <td>The <es-xref target="sec-code-realms">Realm</es-xref> associated with the loader. All
+        scripts and modules evaluated by this loader run in the scope of the global object
+        associated with this <es-xref target="sec-code-realms">Realm</es-xref>.</td>
       </tr>
 
       <tr>
         <td>[[Modules]]</td>
 
         <td>
-          <p><a href="#sec-list-and-record-specification-type">List</a> of</p>
+          <p><es-xref target="sec-list-and-record-specification-type">List</es-xref> of</p>
 
           <p>Record {[[Name]], [[Module]]} where [[Name]] is a String and [[Module]] is a Module
           Record</p>
@@ -56,9 +52,8 @@
       <tr>
         <td>[[Loads]]</td>
 
-        <td>
-          <a href="#sec-list-and-record-specification-type">List</a> of Load Record
-        </td>
+        <td><es-xref target="sec-list-and-record-specification-type">List</es-xref> of Load
+        Record</td>
 
         <td>Outstanding asynchronous module load requests that have been made to this loader.</td>
       </tr>
@@ -68,10 +63,8 @@
 
         <td>Object or Undefined</td>
 
-        <td>
-          The Loader object (<a href="#sec-loader-objects">26.3</a> ) that reflects this Loader
-          Record.
-        </td>
+        <td>The Loader object (<es-xref target="sec-loader-objects">26.3</es-xref>) that reflects
+        this Loader Record.</td>
       </tr>
     </table>
   </figure>
@@ -79,9 +72,9 @@
   <es-clause title="CreateLoaderRecord(realm, object) Abstract Operation" anchor=
   "sec-createloaderrecord">
     <p>The abstract operation CreateLoaderRecord creates and returns a new Loader Record. The
-    argument <es-nt>realm</es-nt> is the <a href="#sec-code-realms">Realm</a> record that will be
-    associated with Loader. The argument <es-nt>object</es-nt> is the either <code>undefined</code>
-    or the Loader object that will reflect this Loader record.</p>
+    argument <es-nt>realm</es-nt> is the <es-xref target="sec-code-realms">Realm</es-xref> record
+    that will be associated with Loader. The argument <es-nt>object</es-nt> is the either
+    <code>undefined</code> or the Loader object that will reflect this Loader record.</p>
 
     <p>The following steps are taken:</p>
 
@@ -90,13 +83,11 @@
 
       <li>Set <i>loader</i>.[[Realm]] to <i>realm</i>.</li>
 
-      <li>Set <i>loader</i>.[[ Modules]] to a new empty <a href=
-      "#sec-list-and-record-specification-type">List</a> .
-      </li>
+      <li>Set <i>loader</i>.[[ Modules]] to a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
 
-      <li>Set <i>loader</i>.[[Loads]] to a new empty <a href=
-      "#sec-list-and-record-specification-type">List</a> .
-      </li>
+      <li>Set <i>loader</i>.[[Loads]] to a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
 
       <li>Set <i>loader</i>.[[LoaderObj]] to <i>object</i>.</li>
 

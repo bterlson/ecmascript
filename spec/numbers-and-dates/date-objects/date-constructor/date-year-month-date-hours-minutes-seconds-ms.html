@@ -9,87 +9,63 @@ anchor="sec-date-year-month-date-hours-minutes-seconds-ms">
   <ol class="proc">
     <li>Let <i>numberOfArgs</i> be the number of arguments passed to this constructor call.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>numberOfArgs</i> ≥ 2.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>numberOfArgs</i> ≥ 2.</li>
 
     <li>Let <i>O</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and
-    <i>O</i> has a [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> and the value of [[DateValue]] is <b>undefined</b>, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+    Object and <i>O</i> has a [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+    [[DateValue]] is <b>undefined</b>, then
 
       <ol class="block">
-        <li>Let <i>y</i> be <a href="#sec-tonumber">ToNumber</a> (<i>year</i>).
-        </li>
+        <li>Let <i>y</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>year</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>year</i>).</li>
+
+        <li>Let <i>m</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>month</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>month</i>).</li>
+
+        <li>If <i>date</i> is supplied then let <i>dt</i> be <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>date</i>); else let <i>dt</i> be <b>1</b>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>dt</i>).</li>
+
+        <li>If <i>hours</i> is supplied then let <i>h</i> be <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>hours</i>); else let <i>h</i> be <b>0</b>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>h</i>).</li>
+
+        <li>If <i>minutes</i> is supplied then let <i>min</i> be <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>minutes</i>); else let <i>min</i> be <b>0</b>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>min</i>).</li>
+
+        <li>If <i>seconds</i> is supplied then let <i>s</i> be <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>seconds</i>); else let <i>s</i> be <b>0</b>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>s</i>).</li>
+
+        <li>If <i>ms</i> is supplied then let <i>milli</i> be <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>ms</i>); else let <i>milli</i> be <b>0</b>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>milli</i>).</li>
 
         <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>year</i>).
-        </li>
+        If&nbsp;<i>y</i>&nbsp;is&nbsp;not&nbsp;<b>NaN</b>&nbsp;and&nbsp;0&nbsp;≤&nbsp;<es-xref target="sec-tointeger">ToInteger</es-xref>(<i>y</i>)&nbsp;≤&nbsp;99,&nbsp;then
+        let <i>yr</i> be&nbsp;1900+<es-xref target="sec-tointeger">ToInteger</es-xref>(<i>y</i>);
+        otherwise, let <i>yr</i> be <i>y</i>.</li>
 
-        <li>Let <i>m</i> be <a href="#sec-tonumber">ToNumber</a> (<i>month</i>).
-        </li>
+        <li>Let <i>finalDate</i> be <es-xref target=
+        "sec-makedate">MakeDate</es-xref>(<es-xref target=
+        "sec-makeday">MakeDay</es-xref>(<i>yr</i>, <i>m</i>, <i>dt</i>), <es-xref target=
+        "sec-maketime">MakeTime</es-xref>(<i>h</i>, <i>min</i>, <i>s</i>, <i>milli</i>)).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>month</i>).
-        </li>
-
-        <li>If <i>date</i> is supplied then let <i>dt</i> be <a href="#sec-tonumber">ToNumber</a>
-        (<i>date</i>); else let <i>dt</i> be <b>1</b>.
-        </li>
-
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>dt</i>).
-        </li>
-
-        <li>If <i>hours</i> is supplied then let <i>h</i> be <a href="#sec-tonumber">ToNumber</a>
-        (<i>hours</i>); else let <i>h</i> be <b>0</b>.
-        </li>
-
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>h</i>).
-        </li>
-
-        <li>If <i>minutes</i> is supplied then let <i>min</i> be <a href=
-        "#sec-tonumber">ToNumber</a> (<i>minutes</i>); else let <i>min</i> be <b>0</b>.
-        </li>
-
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>min</i>).
-        </li>
-
-        <li>If <i>seconds</i> is supplied then let <i>s</i> be <a href="#sec-tonumber">ToNumber</a>
-        (<i>seconds</i>); else let <i>s</i> be <b>0</b>.
-        </li>
-
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>s</i>).
-        </li>
-
-        <li>If <i>ms</i> is supplied then let <i>milli</i> be <a href="#sec-tonumber">ToNumber</a>
-        (<i>ms</i>); else let <i>milli</i> be <b>0</b>.
-        </li>
-
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>milli</i>).
-        </li>
-
-        <li>
-          If&nbsp;<i>y</i>&nbsp;is&nbsp;not&nbsp;<b>NaN</b>&nbsp;and&nbsp;0&nbsp;≤&nbsp;<a href="#sec-tointeger">ToInteger</a>
-          (<i>y</i>)&nbsp;≤&nbsp;99,&nbsp;then let <i>yr</i> be&nbsp;1900+<a href=
-          "#sec-tointeger">ToInteger</a> (<i>y</i>); otherwise, let <i>yr</i> be <i>y</i>.
-        </li>
-
-        <li>Let <i>finalDate</i> be <a href="#sec-makedate">MakeDate</a> (<a href=
-        "#sec-makeday">MakeDay</a> (<i>yr</i>, <i>m</i>, <i>dt</i>), <a href=
-        "#sec-maketime">MakeTime</a> (<i>h</i>, <i>min</i>, <i>s</i>, <i>milli</i>)).
-        </li>
-
-        <li>Set the [[DateValue]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to
-          <a href="#sec-timeclip">TimeClip</a> (<a href="#sec-local-time">UTC</a>
-          (<i>finalDate</i>)).
-        </li>
+        <li>Set the [[DateValue]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+        <es-xref target="sec-timeclip">TimeClip</es-xref>(<es-xref target=
+        "sec-local-time">UTC</es-xref>(<i>finalDate</i>)).</li>
 
         <li>Return <i>O</i>.</li>
       </ol>
@@ -100,8 +76,8 @@ anchor="sec-date-year-month-date-hours-minutes-seconds-ms">
       <ol class="block">
         <li>Return the result computed as if by the expression <code>(new Date()).toString()</code>
         where <code>Date</code> is this function and <code>toString</code> is the standard built-in
-        method <code><a href="#sec-date.prototype.tostring">Date.prototype.toString</a></code>
-        .</li>
+        method <code><es-xref target=
+        "sec-date.prototype.tostring">Date.prototype.toString</es-xref></code>.</li>
       </ol>
     </li>
   </ol>

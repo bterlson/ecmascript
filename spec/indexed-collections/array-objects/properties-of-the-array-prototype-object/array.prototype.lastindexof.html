@@ -2,9 +2,9 @@
 <es-clause title="Array.prototype.lastIndexOf ( searchElement [ , fromIndex ] )" anchor=
 "sec-array.prototype.lastindexof">
   <p><code>lastIndexOf</code> compares <es-nt>searchElement</es-nt> to the elements of the array in
-  descending order using the Strict Equality Comparison algorithm (<a href=
-  "#sec-strict-equality-comparison">7.2.10</a> ), and if found at one or more positions, returns
-  the index of the last such position; otherwise, -1 is returned.</p>
+  descending order using the Strict Equality Comparison algorithm (<es-xref target=
+  "sec-strict-equality-comparison">7.2.10</es-xref>), and if found at one or more positions,
+  returns the index of the last such position; otherwise, -1 is returned.</p>
 
   <p>The optional second argument <es-nt>fromIndex</es-nt> defaults to the array's length minus one
   (i.e. the whole array is searched). If it is greater than or equal to the length of the array,
@@ -16,66 +16,53 @@
   steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
-      this</b> value as the argument.
-    </li>
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
-    <li>Let <i>lenValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"length"</code>)
-    </li>
+    <li>Let <i>lenValue</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>)</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenValue</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenValue</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
     <li>If <i>len</i> is 0, return -1.</li>
 
-    <li>If argument <i>fromIndex</i> was passed let <i>n</i> be <a href=
-    "#sec-tointeger">ToInteger</a> (<i>fromIndex</i>); else let <i>n</i> be <i>len</i>-1.
-    </li>
+    <li>If argument <i>fromIndex</i> was passed let <i>n</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>fromIndex</i>); else let <i>n</i> be <i>len</i>-1.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>n</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>n</i>).</li>
 
     <li>If <i>n</i> ≥ 0, then let <i>k</i> be min(<i>n</i>, <i>len</i> – 1).</li>
 
     <li>Else <i>n</i> &lt; 0,
 
       <ol class="block">
-        <li>Let <i>k</i> be <i>len</i> - <a href="#sec-algorithm-conventions">abs</a> (<i>n</i>).
-        </li>
+        <li>Let <i>k</i> be <i>len</i> - <es-xref target=
+        "sec-algorithm-conventions">abs</es-xref>(<i>n</i>).</li>
       </ol>
     </li>
 
     <li>Repeat, while <i>k</i>≥ 0
 
       <ol class="block">
-        <li>Let <i>kPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
-        (<i>O</i>, <a href="#sec-tostring">ToString</a> (<i>k</i>)).
-        </li>
+        <li>Let <i>kPresent</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>k</i>)).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kPresent</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kPresent</i>).</li>
 
         <li>If <i>kPresent</i> is <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>elementK</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-            <a href="#sec-tostring">ToString</a> (<i>k</i>)).
-            </li>
+            <li>Let <i>elementK</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>O</i>, <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>k</i>)).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>elementK</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>elementK</i>).</li>
 
             <li>Let <i>same</i> be the result of performing Strict Equality Comparison<br>
             <i>searchElement</i> === <i>elementK</i>.</li>

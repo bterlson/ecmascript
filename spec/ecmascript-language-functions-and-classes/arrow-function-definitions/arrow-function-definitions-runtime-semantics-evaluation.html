@@ -6,22 +6,20 @@
   </es-production>
 
   <ol class="proc">
-    <li>If the code of this <i>ArrowFunction</i> is contained in <a href=
-    "#sec-strict-mode-code">strict mode code</a> or if any of the conditions in <a href=
-    "#sec-strict-mode-code">10.2.1</a> apply, then let <i>strict</i> be <b>true</b>. Otherwise let
-    <i>strict</i> be <b>false</b>.
-    </li>
+    <li>If the code of this <i>ArrowFunction</i> is contained in <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref> or if any of the conditions in
+    <es-xref target="sec-strict-mode-code">10.2.1</es-xref> apply, then let <i>strict</i> be
+    <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
 
-    <li>Let <i>scope</i> be the <a href="#sec-execution-contexts">LexicalEnvironment</a> of
-      <a href="#sec-execution-contexts">the running execution context</a> .
-    </li>
+    <li>Let <i>scope</i> be the <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref> of <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>.</li>
 
     <li>Let <i>parameters</i> be CoveredFormalsList of <i>ArrowParameters</i>.</li>
 
-    <li>Let <i>closure</i> be the result of performing the <a href=
-    "#sec-functioncreate">FunctionCreate</a> abstract operation with arguments Arrow,
-    <i>parameters</i>, <i>ConciseBody, scope</i>, and <i>strict</i>.
-    </li>
+    <li>Let <i>closure</i> be the result of performing the <es-xref target=
+    "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Arrow,
+    <i>parameters</i>, <i>ConciseBody, scope</i>, and <i>strict</i>.</li>
 
     <li>Return <i>closure</i>.</li>
   </ol>
@@ -30,8 +28,8 @@
     <p>Any reference to <code>arguments</code>, <code>super</code>, or <code>this</code> within an
     <es-nt>ArrowFunction</es-nt> are resoved to their bindings in the lexically enclosing function.
     Even though an <es-nt>ArrowFunction</es-nt> may contain references to <code>super</code>, the
-    function object created in step 4 is not made into a method by performing <a href=
-    "#sec-makemethod">MakeMethod</a> . An <es-nt>ArrowFunction</es-nt> that references
+    function object created in step 4 is not made into a method by performing <es-xref target=
+    "sec-makemethod">MakeMethod</es-xref>. An <es-nt>ArrowFunction</es-nt> that references
     <code>super</code> is always contained within a non-<es-nt>ArrowFunction</es-nt> and the
     necessary state to implement <code>super</code> is accessible via the <es-nt>scope</es-nt> that
     is captured by the function object of the <i>ArrowFunction</i>.</p>

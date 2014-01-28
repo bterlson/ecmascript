@@ -2,68 +2,60 @@
 <es-clause title="%TypedArray%.prototype.sort ( comparefn )" anchor=
 "sec-%typedarray%.prototype.sort">
   <p>%TypedArray%<code>.prototype.sort</code> is a distinct function that, except as described
-  below, implements the same requirements as those of <code><a href=
-  "#sec-array.prototype.sort">Array.prototype.sort</a></code> as defined in <a href=
-  "#sec-array.prototype.sort">22.1.3.24</a> . The implementation of the
+  below, implements the same requirements as those of <code><es-xref target=
+  "sec-array.prototype.sort">Array.prototype.sort</es-xref></code> as defined in <es-xref target=
+  "sec-array.prototype.sort">22.1.3.24</es-xref>. The implementation of the
   %TypedArray%<code>.prototype.sort</code> specification may be optimized with the knowledge that
   the <b>this</b> value is an object that has a fixed length and whose integer indexed properties
   are not sparse. The only internal methods of the <b>this</b> object that the algorithm may call
   are [[Get]] and [[Set]].</p>
 
   <p>This function is not generic. If the <b>this</b> value is not a object with a
-  [[TypedArrayName]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> ,
-  a <span class="value">TypeError</span> exception is immediately thrown when it is called.</p>
+  [[TypedArrayName]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref>, a <span class="value">TypeError</span> exception is immediately thrown when it is
+  called.</p>
 
   <p>Upon entry, the following steps are performed to initialise evaluation of the
-  <code>sort</code> function. These steps are used instead of the entry steps in <a href=
-  "#sec-array.prototype.sort">22.1.3.24</a> :</p>
+  <code>sort</code> function. These steps are used instead of the entry steps in <es-xref target=
+  "sec-array.prototype.sort">22.1.3.24</es-xref>:</p>
 
   <ol class="proc">
     <li>Let <i>obj</i> be the <b>this</b> value as the argument.</li>
 
-    <li>If <i>obj</i> does not have a [[TypedArrayName]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
-    <b>TypeError</b> exception.
-    </li>
+    <li>If <i>obj</i> does not have a [[TypedArrayName]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+    <b>TypeError</b> exception.</li>
 
-    <li>Let <i>len</i> be the value of <i>obj</i>’s [[ArrayLength]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>len</i> be the value of <i>obj</i>’s [[ArrayLength]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
   </ol>
 
-  <p>The following version of <a href="#sec-sortcompare">SortCompare</a> is used by
+  <p>The following version of <es-xref target="sec-sortcompare">SortCompare</es-xref> is used by
   %TypedArray%<code>.prototype.sort</code>. It performs a numeric comparison rather than the string
-  comparsion used in <a href="#sec-array.prototype.sort">22.1.3.24</a> .</p>
+  comparsion used in <es-xref target="sec-array.prototype.sort">22.1.3.24</es-xref>.</p>
 
-  <p>The Typed Array <a href="#sec-sortcompare">SortCompare</a> abstract operation is called with
-  two arguments <es-nt>j</es-nt> and <es-nt>k</es-nt>, the following steps are taken:</p>
+  <p>The Typed Array <es-xref target="sec-sortcompare">SortCompare</es-xref> abstract operation is
+  called with two arguments <es-nt>j</es-nt> and <es-nt>k</es-nt>, the following steps are
+  taken:</p>
 
   <ol class="proc">
-    <li>Let <i>jString</i> be <a href="#sec-tostring">ToString</a> (<i>j</i>).
-    </li>
+    <li>Let <i>jString</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>j</i>).</li>
 
-    <li>Let <i>kString</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
-    </li>
+    <li>Let <i>kString</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
 
-    <li>Let <i>x</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>,<i>jString</i>).
-    </li>
+    <li>Let <i>x</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>obj</i>,<i>jString</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>x</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>x</i>).</li>
 
-    <li>Let <i>y</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>, <i>kString</i>).
-    </li>
+    <li>Let <i>y</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>obj</i>,
+    <i>kString</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>y</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>y</i>).</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : Both <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) and <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>) is Number.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: Both <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) and <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>) is Number.</li>
 
     <li>If <i>x</i> and <i>y</i> are both <b>NaN</b>, return <b>+0</b>.</li>
 
@@ -74,15 +66,13 @@
     <li>If the argument <i>comparefn</i> is not <b>undefined</b>, then
 
       <ol class="block">
-        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>comparefn</i>) is <b>false</b>, throw a
-        <b>TypeError</b> exception.
-        </li>
+        <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>comparefn</i>) is
+        <b>false</b>, throw a <b>TypeError</b> exception.</li>
 
         <li>Return the result of calling the [[Call]] internal method of <i>comparefn</i> passing
-        <b>undefined</b> as <i>thisArgument</i> and with a <a href=
-        "#sec-list-and-record-specification-type">List</a> containing the values of <i>x</i> and
-        <i>y</i> as the <i>argumentsList</i>.
-        </li>
+        <b>undefined</b> as <i>thisArgument</i> and with a <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> containing the values of <i>x</i>
+        and <i>y</i> as the <i>argumentsList</i>.</li>
       </ol>
     </li>
 

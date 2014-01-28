@@ -43,14 +43,12 @@
       <tr>
         <td style=
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
-        <a href="#sec-code-realms">Realm</a>
-        </td>
+        <es-xref target="sec-code-realms">Realm</es-xref></td>
 
         <td style=
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
-        The <a href="#sec-code-realms">Realm</a> from which associated code accesses ECMAScript
-        resources.
-        </td>
+        The <es-xref target="sec-code-realms">Realm</es-xref> from which associated code accesses
+        ECMAScript resources.</td>
       </tr>
     </table>
   </figure>
@@ -64,8 +62,9 @@
   last-in/first-out manner. However, some ECMAScript features require non-LIFO transitions of the
   running execution context.</p>
 
-  <p>The value is the <a href="#sec-code-realms">Realm</a> component of the running execution
-  context is also called the <i>current <a href="#sec-code-realms">Realm</a></i> .</p>
+  <p>The value is the <es-xref target="sec-code-realms">Realm</es-xref> component of the running
+  execution context is also called the <i>current <es-xref target=
+  "sec-code-realms">Realm</es-xref></i>.</p>
 
   <p>Execution contexts for ECMAScript code have the additional state components listed in <a href=
   "#table-22">Table 22</a> .</p>
@@ -94,9 +93,8 @@
 
         <td style=
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
-        Identifies the <a href="#sec-lexical-environments">Lexical Environment</a> used to resolve
-        identifier references made by code within this execution context.
-        </td>
+        Identifies the <es-xref target="sec-lexical-environments">Lexical Environment</es-xref>
+        used to resolve identifier references made by code within this execution context.</td>
       </tr>
 
       <tr>
@@ -106,10 +104,9 @@
 
         <td style=
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
-        Identifies the <a href="#sec-lexical-environments">Lexical Environment</a> whose
-        environment record holds bindings created by <es-nt>VariableStatements</es-nt> within this
-        execution context.
-        </td>
+        Identifies the <es-xref target="sec-lexical-environments">Lexical Environment</es-xref>
+        whose environment record holds bindings created by <es-nt>VariableStatements</es-nt> within
+        this execution context.</td>
       </tr>
     </table>
   </figure>
@@ -165,30 +162,30 @@
 
   <es-clause title="ResolveThisBinding" anchor="sec-resolvethisbinding">
     <p>The abstract operation ResolveThisBinding determines the binding of the keyword
-    <code>this</code> using the <a href="#sec-execution-contexts">LexicalEnvironment</a> of
-    <a href="#sec-execution-contexts">the running execution context</a> . ResolveThisBinding
-    performs the following steps:</p>
+    <code>this</code> using the <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref> of <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>. ResolveThisBinding performs
+    the following steps:</p>
 
     <ol class="proc">
-      <li>Let <i>env</i> be the result of performing the <a href=
-      "#sec-getthisenvironment">GetThisEnvironment</a> abstract operation.
-      </li>
+      <li>Let <i>env</i> be the result of performing the <es-xref target=
+      "sec-getthisenvironment">GetThisEnvironment</es-xref> abstract operation.</li>
 
       <li>Return the result of calling the GetThisBinding concrete method of <i>env</i>.</li>
     </ol>
   </es-clause>
 
   <es-clause title="GetGlobalObject" anchor="sec-getglobalobject">
-    <p>The abstract operation GetGlobalObject returns the global object used by <a href=
-    "#sec-execution-contexts">the currently running execution context</a> . GetGlobalObject
+    <p>The abstract operation GetGlobalObject returns the global object used by <es-xref target=
+    "sec-execution-contexts">the currently running execution context</es-xref>. GetGlobalObject
     performs the following steps:</p>
 
     <ol class="proc">
-      <li>Let <i>ctx</i> be <a href="#sec-execution-contexts">the running execution context</a> .
-      </li>
+      <li>Let <i>ctx</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>.</li>
 
-      <li>Let <i>currentRealm</i> be <i>ctx’s</i> <a href="#sec-code-realms">Realm</a> .
-      </li>
+      <li>Let <i>currentRealm</i> be <i>ctx’s</i> <es-xref target=
+      "sec-code-realms">Realm</es-xref>.</li>
 
       <li>Return <i>currentRealm</i>.[[globalThis]].</li>
     </ol>

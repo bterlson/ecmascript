@@ -4,37 +4,32 @@
   the creation of new exotic String objects. It performs the following steps:</p>
 
   <ol class="proc">
-    <li>Let <i>A</i> be a newly created <a href="#sec-string-exotic-objects">String exotic
-    object</a> .
-    </li>
+    <li>Let <i>A</i> be a newly created <es-xref target="sec-string-exotic-objects">String exotic
+    object</es-xref>.</li>
 
     <li>Set <i>A</i>’s essential internal methods to the default ordinary object definitions
-    specified in <a href="#sec-ordinary-object-internal-methods-and-internal-slots">9.1</a> .
-    </li>
+    specified in <es-xref target=
+    "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</li>
 
-    <li>Set the [[GetOwnProperty]] internal method of <i>A</i> as specified in <a href=
-    "#sec-string-exotic-objects-getownproperty-p">9.4.3.1</a> .
-    </li>
+    <li>Set the [[GetOwnProperty]] internal method of <i>A</i> as specified in <es-xref target=
+    "sec-string-exotic-objects-getownproperty-p">9.4.3.1</es-xref>.</li>
 
-    <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in <a href=
-    "#sec-string-exotic-objects-defineownproperty-p-desc">9.4.3.2</a> .
-    </li>
+    <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in <es-xref target=
+    "sec-string-exotic-objects-defineownproperty-p-desc">9.4.3.2</es-xref>.</li>
 
-    <li>Set the [[Enumerate]] internal method of <i>A</i> as specified in <a href=
-    "#sec-string-exotic-objects-enumerate">9.4.3.3</a> .
-    </li>
+    <li>Set the [[Enumerate]] internal method of <i>A</i> as specified in <es-xref target=
+    "sec-string-exotic-objects-enumerate">9.4.3.3</es-xref>.</li>
 
-    <li>Set the [[OwnPropertyKeys]] internal method of <i>A</i> as specified in <a href=
-    "#sec-string-exotic-objects-ownpropertykeys">9.4.3.4</a> .
-    </li>
+    <li>Set the [[OwnPropertyKeys]] internal method of <i>A</i> as specified in <es-xref target=
+    "sec-string-exotic-objects-ownpropertykeys">9.4.3.4</es-xref>.</li>
 
-    <li>Set the [[Prototype]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> of <i>A</i> to <i>prototype</i>.
-    </li>
+    <li>Set the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+    <i>prototype</i>.</li>
 
-    <li>Set the [[Extensible]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> of <i>A</i> to <b>true</b>.
-    </li>
+    <li>Set the [[Extensible]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+    <b>true</b>.</li>
 
     <li>Return <i>A</i>.</li>
   </ol>

@@ -34,14 +34,11 @@
       <tr>
         <td>[[Loads]]</td>
 
-        <td>
-          <a href="#sec-list-and-record-specification-type">List</a> of Load Record
-        </td>
+        <td><es-xref target="sec-list-and-record-specification-type">List</es-xref> of Load
+        Record</td>
 
-        <td>
-          A <a href="#sec-list-and-record-specification-type">List</a> of the Load Records that
-          must finish loading before the modules can be linked and evaluated.
-        </td>
+        <td>A <es-xref target="sec-list-and-record-specification-type">List</es-xref> of the Load
+        Records that must finish loading before the modules can be linked and evaluated.</td>
       </tr>
 
       <tr>
@@ -77,26 +74,23 @@
     following steps:</p>
 
     <ol class="proc">
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <i>loader</i> is a Loader Record.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>loader</i> is a Loader
+      Record.</li>
 
       <li>If <i>loader</i> does not have all of the internal properties of a Loader Instance, throw
       a TypeError exception.</li>
 
       <li>Let <i>promiseCapability</i> be PromiseBuiltinCapability().</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promiseCapability</i>).
-      </li>
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>promiseCapability</i>).</li>
 
       <li>Let <i>linkSet</i> be LinkSet {[[Loader]]: <i>loader</i>, [[Loads]]: ( ), [[Done]]:
       <i>promiseCapability</i>.[[Promise]], [[Resolve]]: <i>promiseCapability</i>.[[Resolve]],
       [[Reject]]: <i>promiseCapability</i>.[[Reject]] }.</li>
 
-      <li>Perform <a href="#sec-addloadtolinkset">AddLoadToLinkSet</a> (<i>linkSet</i>,
-      <i>startingLoad</i>).
-      </li>
+      <li>Perform <es-xref target="sec-addloadtolinkset">AddLoadToLinkSet</es-xref>(<i>linkSet</i>,
+      <i>startingLoad</i>).</li>
 
       <li>Return <i>linkSet</i>.</li>
     </ol>

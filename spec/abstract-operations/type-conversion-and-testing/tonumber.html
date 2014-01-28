@@ -20,15 +20,12 @@
       </tr>
 
       <tr>
-        <td>
-          <a href="#sec-completion-record-specification-type">Completion Record</a>
-        </td>
+        <td><es-xref target="sec-completion-record-specification-type">Completion
+        Record</es-xref></td>
 
-        <td>
-          If <i>argument</i> is an <a href="#sec-completion-record-specification-type">abrupt
-          completion</a> , return <i>argument</i>. Otherwise return
-          ToNumber(<i>argument</i>.[[value]])
-        </td>
+        <td>If <i>argument</i> is an <es-xref target=
+        "sec-completion-record-specification-type">abrupt completion</es-xref>, return
+        <i>argument</i>. Otherwise return ToNumber(<i>argument</i>.[[value]])</td>
       </tr>
 
       <tr>
@@ -75,9 +72,8 @@
           <p>Apply the following steps:</p>
 
           <ol class="proc">
-            <li>Let <i>primValue</i> be <a href="#sec-toprimitive">ToPrimitive</a>
-            (<i>argument</i>, hint Number).
-            </li>
+            <li>Let <i>primValue</i> be <es-xref target=
+            "sec-toprimitive">ToPrimitive</es-xref>(<i>argument</i>, hint Number).</li>
 
             <li>Return ToNumber(<i>primValue</i>).</li>
           </ol>

@@ -2,15 +2,15 @@
 <es-clause title="Lexical Environments" anchor="sec-lexical-environments">
   <p>A <i>Lexical Environment</i> is a specification type used to define the association of
   <es-nt>Identifiers</es-nt> to specific variables and functions based upon the lexical nesting
-  structure of ECMAScript code. A Lexical Environment consists of an <a href=
-  "#sec-environment-records">Environment Record</a> and a possibly null reference to an
+  structure of ECMAScript code. A Lexical Environment consists of an <es-xref target=
+  "sec-environment-records">Environment Record</es-xref> and a possibly null reference to an
   <i>outer</i> Lexical Environment. Usually a Lexical Environment is associated with some specific
   syntactic structure of ECMAScript code such as a <es-nt>FunctionDeclaration</es-nt>, a
   <es-nt>BlockStatement</es-nt>, or a <es-nt>Catch</es-nt> clause of a <es-nt>TryStatement</es-nt>
   and a new Lexical Environment is created each time such code is evaluated.</p>
 
-  <p>An <i><a href="#sec-environment-records">Environment Record</a></i> records the identifier
-  bindings that are created within the scope of its associated Lexical Environment.</p>
+  <p>An <i><es-xref target="sec-environment-records">Environment Record</es-xref></i> records the
+  identifier bindings that are created within the scope of its associated Lexical Environment.</p>
 
   <p>The outer environment reference is used to model the logical nesting of Lexical Environment
   values. The outer reference of a (inner) Lexical Environment is a reference to the Lexical
@@ -24,21 +24,21 @@
   <p>A <i>global environment</i> is a Lexical Environment which does not have an outer environment.
   The global environment’s outer environment reference is <b>null</b>. A global environment’s
   environment record may be prepopulated with identifier bindings and includes an associated
-  <i>global object</i> whose properties provide some of <a href=
-  "#sec-global-environment-records">the global environment</a> ’s identifier bindings. This global
-  object is the value of a global environment’s <code>this</code> binding. As ECMAScript code is
-  executed, additional properties may be added to the global object and the initial properties may
-  be modified.</p>
+  <i>global object</i> whose properties provide some of <es-xref target=
+  "sec-global-environment-records">the global environment</es-xref>’s identifier bindings. This
+  global object is the value of a global environment’s <code>this</code> binding. As ECMAScript
+  code is executed, additional properties may be added to the global object and the initial
+  properties may be modified.</p>
 
   <p>A method environment is a Lexical Environment that corresponds to the invocation of an
-  <a href="#sec-ecmascript-function-objects">ECMAScript function object</a> that establishes a new
-  <code>this</code> binding. A method environment also captures the state necessary to support
-  <code>super</code> method invocations.</p>
+  <es-xref target="sec-ecmascript-function-objects">ECMAScript function object</es-xref> that
+  establishes a new <code>this</code> binding. A method environment also captures the state
+  necessary to support <code>super</code> method invocations.</p>
 
-  <p>Lexical Environments and <a href="#sec-environment-records">Environment Record</a> values are
-  purely specification mechanisms and need not correspond to any specific artefact of an ECMAScript
-  implementation. It is impossible for an ECMAScript program to directly access or manipulate such
-  values.</p>
+  <p>Lexical Environments and <es-xref target="sec-environment-records">Environment
+  Record</es-xref> values are purely specification mechanisms and need not correspond to any
+  specific artefact of an ECMAScript implementation. It is impossible for an ECMAScript program to
+  directly access or manipulate such values.</p>
   <link rel="import" href="lexical-environments\environment-records.html">
   <link rel="import" href="lexical-environments\lexical-environment-operations.html">
 </es-clause>

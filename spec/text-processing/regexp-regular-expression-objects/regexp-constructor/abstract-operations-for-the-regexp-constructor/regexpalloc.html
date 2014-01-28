@@ -4,20 +4,17 @@
   the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>obj</i> be the result of calling <a href=
-    "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>constructor</i>,
-    <code>"%RegExpPrototype%"</code>, ( [[RegExpMatcher]], [[OriginalSource]], [[OriginalFlags]])).
-    </li>
+    <li>Let <i>obj</i> be the result of calling <es-xref target=
+    "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>constructor</i>,
+    <code>"%RegExpPrototype%"</code>, ( [[RegExpMatcher]], [[OriginalSource]],
+    [[OriginalFlags]])).</li>
 
-    <li>Let <i>status</i> be the result of <a href=
-    "#sec-definepropertyorthrow">DefinePropertyOrThrow</a> (<i>obj</i>, <code>"lastIndex"</code>,
-    PropertyDescriptor {[[Writable]]: <b>true</b>, [[Enumberable]]: <b>false</b>, [[Configurable]]:
-    <b>false}).</b>
-    </li>
+    <li>Let <i>status</i> be the result of <es-xref target=
+    "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>obj</i>,
+    <code>"lastIndex"</code>, PropertyDescriptor {[[Writable]]: <b>true</b>, [[Enumberable]]:
+    <b>false</b>, [[Configurable]]: <b>false}).</b></li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
     <li>Return <i>obj</i>.</li>
   </ol>

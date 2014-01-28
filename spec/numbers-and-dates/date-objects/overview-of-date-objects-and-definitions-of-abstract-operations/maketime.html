@@ -7,26 +7,22 @@
     <li>If <i>hour</i> is not finite or <i>min</i> is not finite or <i>sec</i> is not finite or
     <i>ms</i> is not finite, return <b>NaN</b>.</li>
 
-    <li>Let <i>h</i> be <a href="#sec-tointeger">ToInteger</a> (<i>hour</i>).
-    </li>
+    <li>Let <i>h</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>hour</i>).</li>
 
-    <li>Let <i>m</i> be <a href="#sec-tointeger">ToInteger</a> (<i>min</i>).
-    </li>
+    <li>Let <i>m</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>min</i>).</li>
 
-    <li>Let <i>s</i> be <a href="#sec-tointeger">ToInteger</a> (<i>sec</i>).
-    </li>
+    <li>Let <i>s</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>sec</i>).</li>
 
-    <li>Let <i>milli</i> be <a href="#sec-tointeger">ToInteger</a> (<i>ms</i>).
-    </li>
+    <li>Let <i>milli</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>ms</i>).</li>
 
-    <li>Let <i>t</i> be <i>h</i> <code>*</code> <a href=
-    "#sec-hours-minutes-second-and-milliseconds">msPerHour</a> <code>+</code> <i>m</i>
-    <code>*</code> <a href="#sec-hours-minutes-second-and-milliseconds">msPerMinute</a>
-    <code>+</code> <i>s</i> <code>*</code> <a href=
-    "#sec-hours-minutes-second-and-milliseconds">msPerSecond</a> <code>+</code> <i>milli</i>,
+    <li>Let <i>t</i> be <i>h</i> <code>*</code> <es-xref target=
+    "sec-hours-minutes-second-and-milliseconds">msPerHour</es-xref> <code>+</code> <i>m</i>
+    <code>*</code> <es-xref target=
+    "sec-hours-minutes-second-and-milliseconds">msPerMinute</es-xref> <code>+</code> <i>s</i>
+    <code>*</code> <es-xref target=
+    "sec-hours-minutes-second-and-milliseconds">msPerSecond</es-xref> <code>+</code> <i>milli</i>,
     performing the arithmetic according to IEEE 754 rules (that is, as if using the ECMAScript
-    operators <code>*</code> and <code>+</code>).
-    </li>
+    operators <code>*</code> and <code>+</code>).</li>
 
     <li>Return <i>t</i>.</li>
   </ol>

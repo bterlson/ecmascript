@@ -1,8 +1,8 @@
 <!doctype html>
 <es-clause title="ToString Applied to the Number Type" anchor=
 "sec-tostring-applied-to-the-number-type">
-  <p>The abstract operation <a href="#sec-tostring">ToString</a> converts a Number <es-nt>m</es-nt>
-  to String format as follows:</p>
+  <p>The abstract operation <es-xref target="sec-tostring">ToString</es-xref> converts a Number
+  <es-nt>m</es-nt> to String format as follows:</p>
 
   <ol class="proc">
     <li>If <i>m</i> is <b>NaN</b>, return the String <code>"NaN"</code>.</li>
@@ -10,8 +10,7 @@
     <li>If <i>m</i> is <b>+0</b> or <b>−0</b>, return the String <code>"0"</code>.</li>
 
     <li>If <i>m</i> is less than zero, return the String concatenation of the String
-    <code>"-"</code> and <a href="#sec-tostring">ToString</a> (−<i>m</i>).
-    </li>
+    <code>"-"</code> and <es-xref target="sec-tostring">ToString</es-xref>(−<i>m</i>).</li>
 
     <li>If <i>m</i> is +∞, return the String <code>"Infinity"</code>.</li>
 
@@ -38,17 +37,16 @@
     <li>Otherwise, if <i>k</i> = 1, return the String consisting of the single digit of <i>s</i>,
     followed by lowercase character ‘<code>e</code>’, followed by a plus sign ‘<code>+</code>’ or
     minus sign ‘<code>−</code>’ according to whether <i>n</i>−1 is positive or negative, followed
-    by the decimal representation of the integer <a href="#sec-algorithm-conventions">abs</a>
-    (<i>n</i>−1) (with no leading zeroes).
-    </li>
+    by the decimal representation of the integer <es-xref target=
+    "sec-algorithm-conventions">abs</es-xref>(<i>n</i>−1) (with no leading zeroes).</li>
 
     <li>Return the String consisting of the most significant digit of the decimal representation of
     <i>s</i>, followed by a decimal point ‘.’, followed by the remaining <i>k</i>−1 digits of the
     decimal representation of <i>s</i>, followed by the lowercase character ‘<code>e</code>’,
     followed by a plus sign ‘<code>+</code>’ or minus sign ‘<code>−</code>’ according to whether
     <i>n</i>−1 is positive or negative, followed by the decimal representation of the integer
-    <a href="#sec-algorithm-conventions">abs</a> (<i>n</i>−1) (with no leading zeroes).
-    </li>
+    <es-xref target="sec-algorithm-conventions">abs</es-xref>(<i>n</i>−1) (with no leading
+    zeroes).</li>
   </ol>
 
   <es-note>
@@ -57,8 +55,9 @@
 
     <ul>
       <li>
-        <p>If x is any Number value other than <b>−0</b>, then <a href="#sec-tonumber">ToNumber</a>
-        (<a href="#sec-tostring">ToString</a> (x)) is exactly the same Number value as x.</p>
+        <p>If x is any Number value other than <b>−0</b>, then <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<es-xref target="sec-tostring">ToString</es-xref>(x)) is
+        exactly the same Number value as x.</p>
       </li>
 
       <li>

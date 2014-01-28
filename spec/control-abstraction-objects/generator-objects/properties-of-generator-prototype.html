@@ -6,15 +6,15 @@
   GeneratorFrunction.prototype).</p>
 
   <p>The Generator prototype is an ordinary object. It is not a Generator instance and does not
-  have a [[GeneratorState]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-  slot</a> .</p>
+  have a [[GeneratorState]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
 
-  <p>The value of the [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the Generator prototype
-  object is the intrinsic object %ObjectPrototype% (<a href=
-  "#sec-properties-of-the-object-prototype-object">19.1.3</a> ). The initial value of the
-  [[Extensible]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> of the
-  Function prototype object is <b>true</b>.</p>
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Generator
+  prototype object is the intrinsic object %ObjectPrototype% (<es-xref target=
+  "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>). The initial value of the
+  [[Extensible]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref> of the Function prototype object is <b>true</b>.</p>
 
   <p>All Generator instances indirectly inherit properties of the Generator prototype object.</p>
 
@@ -33,9 +33,8 @@
     <ol class="proc">
       <li>Let <i>g</i> be the <b>this</b> value.</li>
 
-      <li>Return the result of <a href="#sec-generatorresume">GeneratorResume</a> (<i>g</i>,
-      <i>value</i>).
-      </li>
+      <li>Return the result of <es-xref target=
+      "sec-generatorresume">GeneratorResume</es-xref>(<i>g</i>, <i>value</i>).</li>
     </ol>
   </es-clause>
   <link rel="import" href="properties-of-generator-prototype\generator.prototype.throw.html">

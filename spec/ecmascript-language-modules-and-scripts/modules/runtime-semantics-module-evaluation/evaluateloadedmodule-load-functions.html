@@ -5,8 +5,8 @@
   <b>Loader.prototype.<i>module</i></b> and Loader<code>.prototype.import</code> to ensure that a
   <es-nt>module</es-nt> has been evaluated before it is passed to script code.</p>
 
-  <p>Each EvaluateLoadedModule function has a [[Loader]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+  <p>Each EvaluateLoadedModule function has a [[Loader]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
 
   <p>When a EvaluateLoadedModule function <es-nt>F</es-nt> is called with argument
   <es-nt>load</es-nt>, the following steps are taken:</p>
@@ -14,19 +14,15 @@
   <ol class="proc">
     <li>Let <i>loader</i> be <i>F</i>.[[Loader]].</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : load.[[Status]] is <code>"linked"</code>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: load.[[Status]] is
+    <code>"linked"</code>.</li>
 
     <li>Let <i>module</i> be load.[[Module]].</li>
 
-    <li>Let <i>result</i> be the result of <a href="#sec-ensureevaluated">EnsureEvaluated</a>
-    (<i>module</i>, (), <i>loader</i>).
-    </li>
+    <li>Let <i>result</i> be the result of <es-xref target=
+    "sec-ensureevaluated">EnsureEvaluated</es-xref>(<i>module</i>, (), <i>loader</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>result</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
 
     <li>Return <i>module</i>.</li>
   </ol>

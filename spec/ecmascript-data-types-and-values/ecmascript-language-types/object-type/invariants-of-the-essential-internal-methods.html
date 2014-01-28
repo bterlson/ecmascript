@@ -31,9 +31,9 @@
     </li>
 
     <li>
-      <p>Any references to <a href="#sec-samevalue">SameValue</a> are according to the definition
-      of <a href="#sec-samevalue">SameValue</a> algorithm specified in <a href=
-      "#sec-samevalue">7.2.3</a> .</p>
+      <p>Any references to <es-xref target="sec-samevalue">SameValue</es-xref> are according to the
+      definition of <es-xref target="sec-samevalue">SameValue</es-xref> algorithm specified in
+      <es-xref target="sec-samevalue">7.2.3</es-xref>.</p>
     </li>
   </ul>
 
@@ -46,8 +46,8 @@
 
     <li>
       <p>If target is non-extensible, and [[GetPrototypeOf]] returns a value v, then any future
-      calls to [[GetPrototypeOf]] should return the <a href="#sec-samevalue">SameValue</a> as
-      v.</p>
+      calls to [[GetPrototypeOf]] should return the <es-xref target=
+      "sec-samevalue">SameValue</es-xref> as v.</p>
     </li>
 
     <li>
@@ -66,7 +66,8 @@
 
     <li>
       <p>If target is non-extensible, [[SetPrototypeOf]] must return false, unless V is the
-      <a href="#sec-samevalue">SameValue</a> as the target’s observed [[GetPrototypeOf]] value.</p>
+      <es-xref target="sec-samevalue">SameValue</es-xref> as the target’s observed
+      [[GetPrototypeOf]] value.</p>
     </li>
   </ul>
 
@@ -93,7 +94,7 @@
 
     <li>
       <p>If the Type of the return value is Object, that object must be a complete property
-      descriptor (<a href="#sec-completepropertydescriptor">see 6.2.4.6</a> ).</p>
+      descriptor (<es-xref target="sec-completepropertydescriptor">see 6.2.4.6</es-xref>).</p>
     </li>
 
     <li>
@@ -106,8 +107,8 @@
     <li>
       <p>If a property P is described as a data property with Desc.[[Value]] equal to v and
       Desc.[[Writable]] and Desc.[[Configurable]] are both <span class="value">false</span>, then
-      the <a href="#sec-samevalue">SameValue</a> must be returned for the Desc.[[Value]] attribute
-      of the property on all future calls to [[GetOwnProperty]] ( P ).</p>
+      the <es-xref target="sec-samevalue">SameValue</es-xref> must be returned for the
+      Desc.[[Value]] attribute of the property on all future calls to [[GetOwnProperty]] ( P ).</p>
     </li>
 
     <li>
@@ -142,9 +143,8 @@
         <li>P is a non-configurable writable own data property. A non-configurable writable data
         property can be changed into a non-configurable non-writable data property.</li>
 
-        <li>All attributes in Desc are the <a href="#sec-samevalue">SameValue</a> as P’s
-        attributes.
-        </li>
+        <li>All attributes in Desc are the <es-xref target="sec-samevalue">SameValue</es-xref> as
+        P’s attributes.</li>
       </ol>
     </li>
 
@@ -169,7 +169,8 @@
   <ul>
     <li>
       <p>If P was previously observed as a non-configurable, non-writable own data property with
-      value v, then [[Get]] must return the <a href="#sec-samevalue">SameValue</a> .</p>
+      value v, then [[Get]] must return the <es-xref target=
+      "sec-samevalue">SameValue</es-xref>.</p>
     </li>
 
     <li>
@@ -187,8 +188,8 @@
 
     <li>
       <p>If P was previously observed as a non-configurable, non-writable own data property, then
-      [[Set]] must return <span class="value">false</span> unless V is the <a href=
-      "#sec-samevalue">SameValue</a> as P’s [[Value]] attribute.</p>
+      [[Set]] must return <span class="value">false</span> unless V is the <es-xref target=
+      "sec-samevalue">SameValue</es-xref> as P’s [[Value]] attribute.</p>
     </li>
 
     <li>

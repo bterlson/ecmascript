@@ -5,28 +5,21 @@
   property name <es-nt>P</es-nt> the following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
 
-    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
     <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
-    "<code>deleteProperty</code>").
-    </li>
+    <li>Let <i>trap</i> be the result of <es-xref target=
+    "sec-getmethod">GetMethod</es-xref>(<i>handler</i>, "<code>deleteProperty</code>").</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>trap</i>).</li>
 
     <li>If <i>trap</i> is <b>undefined</b>, then
 
@@ -37,25 +30,22 @@
     </li>
 
     <li>Let <i>trapResult</i> be the result of calling the [[Call]] internal method of <i>trap</i>
-    with <i>handler</i> as the <b>this</b> value and a new <a href=
-    "#sec-list-and-record-specification-type">List</a> containing <i>target</i> and <i>P</i>.
-    </li>
+    with <i>handler</i> as the <b>this</b> value and a new <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> containing <i>target</i> and
+    <i>P</i>.</li>
 
-    <li>Let <i>booleanTrapResult</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>trapResult</i>).
-    </li>
+    <li>Let <i>booleanTrapResult</i> be <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<i>trapResult</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>booleanTrapResult</i>).
-    </li>
+    <li><es-xref target=
+    "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>booleanTrapResult</i>).</li>
 
     <li>If <i>booleanTrapResult</i> is <b>false</b>, then return <b>false</b>.</li>
 
     <li>Let <i>targetDesc</i> be the result of calling the [[GetOwnProperty]] internal method of
     <i>target</i> with argument <i>P</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>targetDesc</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>targetDesc</i>).</li>
 
     <li>If <i>targetDesc</i> is <b>undefined</b>, then return <b>true</b>.</li>
 

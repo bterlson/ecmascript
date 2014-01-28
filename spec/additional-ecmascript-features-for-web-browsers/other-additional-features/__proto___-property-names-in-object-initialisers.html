@@ -1,8 +1,8 @@
 <!doctype html>
 <es-clause title="__proto___ Property Names in Object Initialisers" anchor=
 "sec-__proto___-property-names-in-object-initialisers">
-  <p>In <a href="#sec-object-initialiser">12.1.5</a> the PropertyDefinitionEvaluation algorithm for
-  the production <es-production name="PropertyDefinition" class=
+  <p>In <es-xref target="sec-object-initialiser">12.1.5</es-xref> the PropertyDefinitionEvaluation
+  algorithm for the production <es-production name="PropertyDefinition" class=
   "inline"><es-rhs><es-nt>PropertyName</es-nt> :
   <es-nt>AssignmentExpression</es-nt></es-rhs></es-production> is replaced with the
   following:</p>
@@ -14,25 +14,22 @@
   <ol class="proc">
     <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propKey</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propKey</i>).</li>
 
     <li>Let <i>exprValueRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
 
-    <li>Let <i>propValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprValueRef</i>).
-    </li>
+    <li>Let <i>propValue</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>exprValueRef</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propValue</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propValue</i>).</li>
 
     <li>If <i>propKey</i> is the string value <code>"__proto__"</code> and if
     IsComputedPropertyKey(<i>propKey</i>) is <b>false</b>, then
 
       <ol class="block">
-        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>propValue</i>) is
-        either Object or Null, then
+        <li>If <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>propValue</i>) is either Object or
+        Null, then
 
           <ol class="block">
             <li>Return the result of calling the [[SetPrototypeOf]] internal method of
@@ -40,49 +37,46 @@
           </ol>
         </li>
 
-        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
-        </li>
+        <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
       </ol>
     </li>
 
     <li>If IsAnonymousFunctionDefinition of <i>AssignmentExpression</i> is <b>true</b>, then
 
       <ol class="block">
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : <i>propValue</i> is an <a href=
-          "#sec-ecmascript-function-objects">ECMAScript function object</a> .
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>propValue</i> is an
+        <es-xref target="sec-ecmascript-function-objects">ECMAScript function
+        object</es-xref>.</li>
 
         <li>Let <i>referencesSuper</i> be the value of <i>propValue</i>’s [[[NeedsSuper]]
-          <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-        </li>
+        <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
 
         <li>If <i>referencesSuper</i> is <b>true</b>, then
 
           <ol class="block">
-            <li>Set the <i>propValue</i>’s [[HomeObject]] <a href=
-            "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>object</i>.
-            </li>
+            <li>Set the <i>propValue</i>’s [[HomeObject]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+            <i>object</i>.</li>
 
-            <li>Set the <i>propValue</i>’s [[MethodName]] <a href=
-            "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>propKey</i>.
-            </li>
+            <li>Set the <i>propValue</i>’s [[MethodName]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+            <i>propKey</i>.</li>
           </ol>
         </li>
 
-        <li>
-          <a href="#sec-setfunctionname">SetFunctionName</a> (<i>propValue</i>, <i>propKey</i>).
-        </li>
+        <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>propValue</i>,
+        <i>propKey</i>).</li>
       </ol>
     </li>
 
-    <li>Let <i>desc</i> be the <a href="#sec-property-descriptor-specification-type">Property
-    Descriptor</a> {[[Value]]: <i>propValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]:
-    <b>true</b>, [[Configurable]]: <b>true</b>}
-    </li>
+    <li>Let <i>desc</i> be the <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref>{[[Value]]:
+    <i>propValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
+    <b>true</b>}</li>
 
-    <li>Return the result of <a href="#sec-definepropertyorthrow">DefinePropertyOrThrow</a>
-    (<i>object</i>, <i>propKey</i>, <i>desc</i>).
-    </li>
+    <li>Return the result of <es-xref target=
+    "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>object</i>, <i>propKey</i>,
+    <i>desc</i>).</li>
   </ol>
 </es-clause>

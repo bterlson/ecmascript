@@ -8,16 +8,14 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>localName</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a>
-    of <i>ImportedBinding</i>.
-    </li>
+    <li>Let <i>localName</i> be the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>ImportedBinding</i>.</li>
 
     <li>Let <i>defaultEntry</i> be the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]:
     <code>"default"</code>, [[LocalName]]: <i>localName</i> }.</li>
 
-    <li>Let <i>entries</i> be a new <a href="#sec-list-and-record-specification-type">List</a>
-    containing <i>defaultEntry.</i>
-    </li>
+    <li>Let <i>entries</i> be a new <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> containing <i>defaultEntry.</i></li>
 
     <li>Append to <i>entries</i> the elements of the ImportEntriesForModule of <i>NamedImports</i>
     with argument <i>module</i>.</li>
@@ -30,8 +28,8 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Return a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 
   <es-production name="ImportsList" class="inline">
@@ -53,16 +51,14 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>localName</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a>
-    of <i>ImportedBinding</i>.
-    </li>
+    <li>Let <i>localName</i> be the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>ImportedBinding</i>.</li>
 
     <li>Let <i>entry</i> be the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]:
     <i>localName</i> , [[LocalName]]: <i>localName</i> }.</li>
 
-    <li>Return a new <a href="#sec-list-and-record-specification-type">List</a> containing
-    <i>entry</i>.
-    </li>
+    <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    containing <i>entry</i>.</li>
   </ol>
 
   <es-production name="ImportSpecifier" class="inline">
@@ -70,19 +66,16 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>importName</i> be the <a href=
-    "#sec-identifiers-and-identifier-names">StringValue</a> of <i>IdentifierName</i>.
-    </li>
+    <li>Let <i>importName</i> be the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>IdentifierName</i>.</li>
 
-    <li>Let <i>localName</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a>
-    of <i>ImportedBinding</i>.
-    </li>
+    <li>Let <i>localName</i> be the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>ImportedBinding</i>.</li>
 
     <li>Let <i>entry</i> be the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]:
     <i>importName</i>, [[LocalName]]: <i>localName</i> }.</li>
 
-    <li>Return a new <a href="#sec-list-and-record-specification-type">List</a> containing
-    <i>entry</i>.
-    </li>
+    <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    containing <i>entry</i>.</li>
   </ol>
 </es-clause>

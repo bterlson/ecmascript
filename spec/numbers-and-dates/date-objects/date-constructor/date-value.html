@@ -7,20 +7,19 @@
   <ol class="proc">
     <li>Let <i>numberOfArgs</i> be the number of arguments passed to this constructor call.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>numberOfArgs</i> = 1.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>numberOfArgs</i> = 1.</li>
 
     <li>Let <i>O</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and
-    <i>O</i> has a [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> and the value of [[DateValue]] is <b>undefined</b>, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+    Object and <i>O</i> has a [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+    [[DateValue]] is <b>undefined</b>, then
 
       <ol class="block">
-        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is Object
-        and <i>value</i> has a [[DateValue]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>)
+        is Object and <i>value</i> has a [[DateValue]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
 
           <ol class="block">
             <li>Let <i>tv</i> be thisTimeValue(<i>value</i>).</li>
@@ -30,40 +29,37 @@
         <li>Else,
 
           <ol class="block">
-            <li>Let <i>v</i> be <a href="#sec-toprimitive">ToPrimitive</a> (<i>value</i>).
-            </li>
+            <li>Let <i>v</i> be <es-xref target=
+            "sec-toprimitive">ToPrimitive</es-xref>(<i>value</i>).</li>
 
-            <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>v</i>) is String,
-            then
+            <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>)
+            is String, then
 
               <ol class="block">
                 <li>Let <i>tv</i> be the result of parsing <i>v</i> as a date, in exactly the same
-                manner as for the <code>parse</code> method (<a href="#sec-date.parse">20.3.3.2</a>
-                ). If the parse resulted in an <a href="#sec-completion-record-specification-type">
-                  abrupt completion</a> , <i>tv</i> is the <a href=
-                  "#sec-completion-record-specification-type">Completion Record</a> .
-                </li>
+                manner as for the <code>parse</code> method (<es-xref target=
+                "sec-date.parse">20.3.3.2</es-xref>). If the parse resulted in an <es-xref target=
+                "sec-completion-record-specification-type">abrupt completion</es-xref>, <i>tv</i>
+                is the <es-xref target="sec-completion-record-specification-type">Completion
+                Record</es-xref>.</li>
               </ol>
             </li>
 
             <li>Else,
 
               <ol class="block">
-                <li>Let <i>tv</i> be <a href="#sec-tonumber">ToNumber</a> (<i>v</i>).
-                </li>
+                <li>Let <i>tv</i> be <es-xref target=
+                "sec-tonumber">ToNumber</es-xref>(<i>v</i>).</li>
               </ol>
             </li>
           </ol>
         </li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>tv</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>tv</i>).</li>
 
-        <li>Set the [[DateValue]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to
-          <a href="#sec-timeclip">TimeClip</a> (<i>tv</i>).
-        </li>
+        <li>Set the [[DateValue]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+        <es-xref target="sec-timeclip">TimeClip</es-xref>(<i>tv</i>).</li>
 
         <li>Return <i>O</i>.</li>
       </ol>
@@ -74,8 +70,8 @@
       <ol class="block">
         <li>Return the result computed as if by the expression <code>(new Date()).toString()</code>
         where <code>Date</code> is this function and <code>toString</code> is the standard built-in
-        method <code><a href="#sec-date.prototype.tostring">Date.prototype.toString</a></code>
-        .</li>
+        method <code><es-xref target=
+        "sec-date.prototype.tostring">Date.prototype.toString</es-xref></code>.</li>
       </ol>
     </li>
   </ol>

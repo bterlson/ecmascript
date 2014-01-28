@@ -1,15 +1,15 @@
 <!doctype html>
 <es-clause title="Variable Statement" anchor="sec-variable-statement">
   <es-note>
-    <p>A <code>var</code> statement declares variables that are scoped to <a href=
-    "#sec-execution-contexts">the running execution context</a> ’s <a href=
-    "#sec-execution-contexts">VariableEnvironment</a> . Var variables are created when their
-    containing <a href="#sec-lexical-environments">Lexical Environment</a> is instantiated and are
-    initialised to <b>undefined</b> when created. Within the scope of any VariableEnvironemnt a
-    common <es-nt>Identifier</es-nt> may appear in more than one <es-nt>VariableDeclaration</es-nt>
-    but those declarations collective define only one variable. A variable defined by a
-    <es-nt>VariableDeclaration</es-nt> with an <es-nt>Initialiser</es-nt> is assigned the value of
-    its <i>Initialiser</i>’s <es-nt>AssignmentExpression</es-nt> when the
+    <p>A <code>var</code> statement declares variables that are scoped to <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>’s <es-xref target=
+    "sec-execution-contexts">VariableEnvironment</es-xref>. Var variables are created when their
+    containing <es-xref target="sec-lexical-environments">Lexical Environment</es-xref> is
+    instantiated and are initialised to <b>undefined</b> when created. Within the scope of any
+    VariableEnvironemnt a common <es-nt>Identifier</es-nt> may appear in more than one
+    <es-nt>VariableDeclaration</es-nt> but those declarations collective define only one variable.
+    A variable defined by a <es-nt>VariableDeclaration</es-nt> with an <es-nt>Initialiser</es-nt>
+    is assigned the value of its <i>Initialiser</i>’s <es-nt>AssignmentExpression</es-nt> when the
     <es-nt>VariableDeclaration</es-nt> is executed, not when the variable is created.</p>
   </es-note>
 

@@ -3,15 +3,16 @@
 "sec-destructuring-binding-patterns-runtime-semantics-iteratorbindinginitialisation">
   <p>With parameters <es-nt>iterator,</es-nt> and <es-nt>environment</es-nt>.</p>
 
-  <p>See also: <a href=
-  "#sec-function-definitions-runtime-semantics-iteratorbindinginitialisation">14.1.15</a> , .</p>
+  <p>See also: <es-xref target=
+  "sec-function-definitions-runtime-semantics-iteratorbindinginitialisation">14.1.15</es-xref>,
+  .</p>
 
   <es-note>
-    <p>When <b>undefined</b> is passed for <es-nt>environment</es-nt> it indicates that a <a href=
-    "#sec-putvalue">PutValue</a> operation should be used to assign the initialisation value. This
-    is the case for formal parameter lists of non-strict functions. In that case the formal
-    parameter bindings are preinitialised in order to deal with the possibility of multiple
-    parameters with the same name.</p>
+    <p>When <b>undefined</b> is passed for <es-nt>environment</es-nt> it indicates that a
+    <es-xref target="sec-putvalue">PutValue</es-xref> operation should be used to assign the
+    initialisation value. This is the case for formal parameter lists of non-strict functions. In
+    that case the formal parameter bindings are preinitialised in order to deal with the
+    possibility of multiple parameters with the same name.</p>
   </es-note>
 
   <es-production name="ArrayBindingPattern" class="inline">
@@ -19,8 +20,7 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
-    </li>
+    <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
   </ol>
 
   <es-production name="ArrayBindingPattern" class="inline">
@@ -43,9 +43,7 @@
         <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation
         of <i>Elision</i> with <i>iterator</i> as the argument.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
       </ol>
     </li>
 
@@ -77,9 +75,7 @@
     <li>Let <i>status</i> be the result of performing IteratorBindingInitialisation for
     <i>BindingElementList</i> using <i>iterator</i> and <i>environment</i> as arguments.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
     <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i>
     with <i>iterator</i> as the argument.</li>
@@ -93,9 +89,7 @@
     <li>Let <i>status</i> be the result of performing IteratorBindingInitialisation for
     <i>BindingElementList</i> using <i>iterator</i> and <i>environment</i> as arguments.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
     <li>If <i>Elision</i> is present, then
 
@@ -103,9 +97,7 @@
         <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation
         of <i>Elision</i> with <i>iterator</i> as the argument.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
       </ol>
     </li>
 
@@ -130,9 +122,7 @@
     <li>Let <i>status</i> be the result of performing IteratorBindingInitialisation for
     <i>BindingElementList</i> iterator and <i>environment</i> as arguments.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
     <li>Return the result of performing IteratorBindingInitialisation for <i>BindingElement</i>
     using <i>iterator</i> and <i>environment</i> as arguments.</li>
@@ -155,9 +145,7 @@
     <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of
     <i>Elision</i> with <i>iterator</i> as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
     <li>Return the result of performing IteratorBindingInitialisation of <i>BindingElement</i> with
     <i>iterator</i> as the argument.</li>
@@ -177,25 +165,20 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
-    (<i>iterator</i>).
-    </li>
+    <li>Let <i>next</i> be the result of <es-xref target=
+    "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
     <li>If <i>next</i> is <b>false</b>, then let <i>v</i> be <b>undefined</b></li>
 
     <li>Else
 
       <ol class="block">
-        <li>Let <i>v</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
-        </li>
+        <li>Let <i>v</i> be <es-xref target=
+        "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
       </ol>
     </li>
 
@@ -204,32 +187,26 @@
       <ol class="block">
         <li>Let <i>defaultValue</i> be the result of evaluating <i>Initialiser</i>.</li>
 
-        <li>Let <i>v</i> be <a href="#sec-getvalue">GetValue</a> (<i>defaultValue</i>).
-        </li>
+        <li>Let <i>v</i> be <es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>defaultValue</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
 
         <li>If IsAnonymousFunctionDefinition of <i>Initialiser</i> is <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>hasNameProperty</i> be the result of <a href=
-            "#sec-hasownproperty">HasOwnProperty</a> (<i>v</i>, <code>"name"</code>).
-            </li>
+            <li>Let <i>hasNameProperty</i> be the result of <es-xref target=
+            "sec-hasownproperty">HasOwnProperty</es-xref>(<i>v</i>, <code>"name"</code>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>hasNameProperty</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hasNameProperty</i>).</li>
 
             <li>If <i>hasNameProperty</i> is <b>false</b>, then
 
               <ol class="block">
-                <li>
-                  <a href="#sec-setfunctionname">SetFunctionName</a> (<i>v</i>, <a href=
-                  "#sec-identifiers-and-identifier-names">StringValue</a>
-                  (<i>BindingIdentifier</i>)).
-                </li>
+                <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>v</i>,
+                <es-xref target=
+                "sec-identifiers-and-identifier-names">StringValue</es-xref>(<i>BindingIdentifier</i>)).</li>
               </ol>
             </li>
           </ol>
@@ -246,25 +223,20 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
-    (<i>iterator</i>).
-    </li>
+    <li>Let <i>next</i> be the result of <es-xref target=
+    "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
     <li>If <i>next</i> is <b>false</b>, then let <i>v</i> be <b>undefined</b></li>
 
     <li>Else
 
       <ol class="block">
-        <li>Let <i>v</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
-        </li>
+        <li>Let <i>v</i> be <es-xref target=
+        "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
       </ol>
     </li>
 
@@ -273,18 +245,15 @@
       <ol class="block">
         <li>Let <i>defaultValue</i> be the result of evaluating <i>Initialiser</i>.</li>
 
-        <li>Let <i>v</i> be <a href="#sec-getvalue">GetValue</a> (<i>defaultValue</i>)
-        </li>
+        <li>Let <i>v</i> be <es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>defaultValue</i>)</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
       </ol>
     </li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>v</i>) is not Object, then
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>) is not
+    Object, then throw a <b>TypeError</b> exception.</li>
 
     <li>Return the result of performing BindingInitialisation of <i>nestedAssignmentPattern</i>
     with <i>v</i> as the argument.</li>
@@ -295,22 +264,18 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>A</i> be the result of the abstract operation <a href=
-    "#sec-arraycreate">ArrayCreate</a> with argument 0.
-    </li>
+    <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+    "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
 
     <li>Let <i>n</i>=0.</li>
 
     <li>Repeat,
 
       <ol class="block">
-        <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
-        (<i>iterator</i>).
-        </li>
+        <li>Let <i>next</i> be the result of <es-xref target=
+        "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
         <li>If <i>next</i> is <b>false</b>, then
 
@@ -320,22 +285,18 @@
           </ol>
         </li>
 
-        <li>Let <i>nextValue</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
-        </li>
+        <li>Let <i>nextValue</i> be <es-xref target=
+        "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextValue</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextValue</i>).</li>
 
-        <li>Let <i>defineStatus</i> be the result of <a href=
-        "#sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</a> (<i>A</i>, <a href=
-        "#sec-tostring">ToString</a> (<a href="#sec-touint32">ToUint32</a> (<i>n)</i>),
-        <i>nextValue</i>).
-        </li>
+        <li>Let <i>defineStatus</i> be the result of <es-xref target=
+        "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref>(<i>A</i>,
+        <es-xref target="sec-tostring">ToString</es-xref>(<es-xref target=
+        "sec-touint32">ToUint32</es-xref>(<i>n)</i>), <i>nextValue</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>defineStatus</i>).
-        </li>
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>defineStatus</i>).</li>
 
         <li>Increment <i>n</i> by 1.</li>
       </ol>

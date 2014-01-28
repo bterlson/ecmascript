@@ -1,16 +1,17 @@
 <!doctype html>
 <es-clause title="Static Semantics: LexicalDeclarations" anchor=
 "sec-switch-statement-static-semantics-lexicaldeclarations">
-  <p>See also: <a href="#sec-block-static-semantics-lexicaldeclarations">13.1.2</a> , <a href=
-  "#sec-module-static-semantics-static-semantics-lexicaldeclarations">15.2.0.11</a> .</p>
+  <p>See also: <es-xref target="sec-block-static-semantics-lexicaldeclarations">13.1.2</es-xref>,
+  <es-xref target=
+  "sec-module-static-semantics-static-semantics-lexicaldeclarations">15.2.0.11</es-xref>.</p>
 
   <es-production name="CaseBlock" class="inline">
     <es-rhs>{ }</es-rhs>
   </es-production>
 
   <ol class="proc">
-    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Return a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 
   <es-production name="CaseBlock" class="inline">
@@ -22,9 +23,8 @@
     <li>If the first <i>CaseClauses</i> is present, let <i>declarations</i> be the
     LexicalDeclarations of the first <i>CaseClauses</i>.</li>
 
-    <li>Else let <i>declarations</i> be a new empty <a href=
-    "#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Else let <i>declarations</i> be a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>Append to <i>declarations</i> the elements of the LexicalDeclarations of the
     <i>DefaultClause.</i></li>
@@ -56,8 +56,8 @@
     <li>If the <i>StatementList</i> is present, return the LexicalDeclarations of
     <i>StatementList</i>.</li>
 
-    <li>Else return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Else return a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 
   <es-production name="DefaultClause" class="inline">
@@ -68,7 +68,7 @@
     <li>If the <i>StatementList</i> is present, return the LexicalDeclarations of
     <i>StatementList</i>.</li>
 
-    <li>Else return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Else return a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 </es-clause>

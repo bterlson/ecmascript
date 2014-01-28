@@ -8,35 +8,23 @@
   <ol class="proc">
     <li>Let <i>lref</i> be the result of evaluating <i>ShiftExpression</i>.</li>
 
-    <li>Let <i>lval</i> be <a href="#sec-getvalue">GetValue</a> (<i>lref</i>).
-    </li>
+    <li>Let <i>lval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>lref</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lval</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lval</i>).</li>
 
     <li>Let <i>rref</i> be the result of evaluating <i>AdditiveExpression</i>.</li>
 
-    <li>Let <i>rval</i> be <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
-    </li>
+    <li>Let <i>rval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rref</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rval</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rval</i>).</li>
 
-    <li>Let <i>lnum</i> be <a href="#sec-touint32">ToUint32</a> (<i>lval</i>).
-    </li>
+    <li>Let <i>lnum</i> be <es-xref target="sec-touint32">ToUint32</es-xref>(<i>lval</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lnum</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lnum</i>).</li>
 
-    <li>Let <i>rnum</i> be <a href="#sec-touint32">ToUint32</a> (<i>rval</i>).
-    </li>
+    <li>Let <i>rnum</i> be <es-xref target="sec-touint32">ToUint32</es-xref>(<i>rval</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rnum</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rnum</i>).</li>
 
     <li>Let <i>shiftCount</i> be the result of masking out all but the least significant 5 bits of
     <i>rnum</i>, that is, compute <i>rnum</i> &amp; 0x1F.</li>

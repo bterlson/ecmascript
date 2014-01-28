@@ -1,8 +1,9 @@
 <!doctype html>
 <es-clause title="Static Semantics: VarScopedDeclarations" anchor=
 "sec-block-static-semantics-varscopeddeclarations">
-  <p>See also: <a href="#sec-scripts-static-semantics-varscopeddeclarations">15.1.6</a> , <a href=
-  "#sec-module-static-semantics-static-semantics-varscopeddeclarations">15.2.0.14</a> ..</p>
+  <p>See also: <es-xref target=
+  "sec-scripts-static-semantics-varscopeddeclarations">15.1.6</es-xref>, <es-xref target=
+  "sec-module-static-semantics-static-semantics-varscopeddeclarations">15.2.0.14</es-xref>..</p>
 
   <es-production name="StatementList" class="inline">
     <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
@@ -24,12 +25,11 @@
   <ol class="proc">
     <li>If <i>Statement</i> is <es-production name="Statement" class=
     "inline"><es-rhs><es-nt>VariableStatement</es-nt></es-rhs></es-production>
-    , then return a new <a href="#sec-list-and-record-specification-type">List</a> containing
-    <i>VariableStatement</i>.
-    </li>
+    , then return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    containing <i>VariableStatement</i>.</li>
 
-    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Return a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 
   <es-production name="StatementListItem" class="inline">
@@ -37,7 +37,7 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Return a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 </es-clause>

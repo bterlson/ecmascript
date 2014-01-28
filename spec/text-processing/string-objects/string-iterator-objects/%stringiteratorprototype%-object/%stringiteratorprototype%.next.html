@@ -3,40 +3,35 @@
   <ol class="proc">
     <li>Let <i>O</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, throw
-    a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is not
+    Object, throw a <b>TypeError</b> exception.</li>
 
     <li>If <i>O</i> does not have all of the internal slots of an String Iterator Instance
-      (<a href="#sec-properties-of-string-iterator-instances">21.1.5.3</a> ), throw a
-      <b>TypeError</b> exception.
-    </li>
+    (<es-xref target="sec-properties-of-string-iterator-instances">21.1.5.3</es-xref>), throw a
+    <b>TypeError</b> exception.</li>
 
-    <li>Let <i>s</i> be the value of the [[IteratedString]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>s</i> be the value of the [[IteratedString]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-    <li>If <i>s</i> is <b>undefined</b>, then return <a href=
-    "#sec-createiterresultobject">CreateIterResultObject</a> (<b>undefined</b>, <b>true</b>).
-    </li>
+    <li>If <i>s</i> is <b>undefined</b>, then return <es-xref target=
+    "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+    <b>true</b>).</li>
 
-    <li>Let <i>position</i> be the value of the [[StringIteratorNextIndex]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>position</i> be the value of the [[StringIteratorNextIndex]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
     <li>Let <i>len</i> be the number of elements in <i>s</i>.</li>
 
     <li>If <i>position</i> ≥ <i>len</i>, then
 
       <ol class="block">
-        <li>Set the value of the [[IteratedString]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to
-        <b>undefined</b>.
-        </li>
+        <li>Set the value of the [[IteratedString]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+        <b>undefined</b>.</li>
 
-        <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a>
-        (<b>undefined</b>, <b>true</b>).
-        </li>
+        <li>Return <es-xref target=
+        "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+        <b>true</b>).</li>
       </ol>
     </li>
 
@@ -63,13 +58,12 @@
 
     <li>Let <i>resultSize</i> be the number of code units in <i>resultString</i>.</li>
 
-    <li>Set the value of the [[StringIteratorNextIndex]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to
-    <i>position</i>+ <i>resultSize</i>.
-    </li>
+    <li>Set the value of the [[StringIteratorNextIndex]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+    <i>position</i>+ <i>resultSize</i>.</li>
 
-    <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a>
-    (<i>resultString</i>, <b>false</b>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>resultString</i>,
+    <b>false</b>).</li>
   </ol>
 </es-clause>

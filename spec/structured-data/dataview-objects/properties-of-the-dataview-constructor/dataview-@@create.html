@@ -6,15 +6,13 @@
   <ol class="proc">
     <li>Let <i>F</i> be the <b>this</b> value.</li>
 
-    <li>Let <i>obj</i> be the result of calling <a href=
-    "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>F</i>,
+    <li>Let <i>obj</i> be the result of calling <es-xref target=
+    "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>F</i>,
     <code>"%DataViewPrototype%"</code>, ( [[DataView]], [[ViewedArrayBuffer]] , [[ByteLength]],
-    [[ByteOffset]]) ).
-    </li>
+    [[ByteOffset]]) ).</li>
 
-    <li>Set the value of <i>obj’s</i> [[DataView]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <b>true</b>.
-    </li>
+    <li>Set the value of <i>obj’s</i> [[DataView]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <b>true</b>.</li>
 
     <li>Return <i>obj</i>.</li>
   </ol>
@@ -26,10 +24,10 @@
   [[Configurable]]: <b>true</b> }.</p>
 
   <es-note>
-    <p>The value of the [[DataView]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not used within this
-    specification. The simple presense of that <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is used within the
+    <p>The value of the [[DataView]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not used within
+    this specification. The simple presense of that <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is used within the
     specification to identify objects created using this @@create method.</p>
   </es-note>
 </es-clause>

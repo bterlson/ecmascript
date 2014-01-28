@@ -100,8 +100,8 @@
 
   <p>The production <es-production name="CharacterEscape" type="lexical" class=
   "inline"><es-rhs><es-nt>HexEscapeSequence</es-nt></es-rhs></es-production>
-  evaluates by evaluating the CV of the <es-nt>HexEscapeSequence</es-nt> (see <a href=
-  "#sec-literals-string-literals">11.8.4</a> ) and returning its character result.</p>
+  evaluates by evaluating the CV of the <es-nt>HexEscapeSequence</es-nt> (see <es-xref target=
+  "sec-literals-string-literals">11.8.4</es-xref>) and returning its character result.</p>
 
   <p>The production <es-production name="CharacterEscape" type="lexical" class=
   "inline"><es-rhs><es-nt>RegExpUnicodeEscapeSequence</es-nt></es-rhs></es-production>
@@ -120,34 +120,33 @@
 
     <li>Let <i>trail</i> be the result of evaluating <i>TrailSurragate</i>.</li>
 
-    <li>Let <i>cp</i> be the <a href="#sec-utf16decode">UTF16Decode</a> (<i>lead</i>,
-    <i>trail</i>).
-    </li>
+    <li>Let <i>cp</i> be the <es-xref target="sec-utf16decode">UTF16Decode</es-xref>(<i>lead</i>,
+    <i>trail</i>).</li>
 
     <li>Return the character whose character value is <i>cp</i>.</li>
   </ol>
 
   <p>The production <es-production name="RegExpUnicodeEscapeSequence" type="lexical" class=
   "inline"><es-rhs>u</es-rhs></es-production> <es-nt>Hex4Digits</es-nt>
-  evaluates by evaluating the CV of <es-nt>Hex4Digits</es-nt> (see <a href=
-  "#sec-string-literals-static-semantics-stringvalue">11.8.4.2</a> ) and returning its character
-  result.</p>
+  evaluates by evaluating the CV of <es-nt>Hex4Digits</es-nt> (see <es-xref target=
+  "sec-string-literals-static-semantics-stringvalue">11.8.4.2</es-xref>) and returning its
+  character result.</p>
 
   <p>The production <es-production name="RegExpUnicodeEscapeSequence" type="lexical" class=
   "inline"><es-rhs><es-t>u{</es-t> <es-nt>HexDigits</es-nt>
   <es-t>}</es-t></es-rhs></es-production> evaluates by evaluating the MV of the
-  <es-nt>HexDigits</es-nt> (see <a href="#sec-static-semantics-mv-s">11.8.3.1</a> ) and returning
-  its character result.</p>
+  <es-nt>HexDigits</es-nt> (see <es-xref target="sec-static-semantics-mv-s">11.8.3.1</es-xref>) and
+  returning its character result.</p>
 
   <p>The production <es-production name="LeadSurragate" type="lexical" class=
   "inline"><es-rhs></es-rhs></es-production> <es-nt>Hex4Digits</es-nt>
-  evaluates by evaluating the CV of <es-nt>Hex4Digits</es-nt> (see <a href=
-  "#sec-string-literals-static-semantics-stringvalue">11.8.4.2</a> ) and returning its character
-  result.</p>
+  evaluates by evaluating the CV of <es-nt>Hex4Digits</es-nt> (see <es-xref target=
+  "sec-string-literals-static-semantics-stringvalue">11.8.4.2</es-xref>) and returning its
+  character result.</p>
 
   <p>The production <es-production name="TailSurragate" type="lexical" class=
   "inline"><es-rhs></es-rhs></es-production> <es-nt>Hex4Digits</es-nt>
-  evaluates by evaluating the CV of <es-nt>Hex4Digits</es-nt> (see <a href=
-  "#sec-string-literals-static-semantics-stringvalue">11.8.4.2</a> ) and returning its character
-  result.</p>
+  evaluates by evaluating the CV of <es-nt>Hex4Digits</es-nt> (see <es-xref target=
+  "sec-string-literals-static-semantics-stringvalue">11.8.4.2</es-xref>) and returning its
+  character result.</p>
 </es-clause>

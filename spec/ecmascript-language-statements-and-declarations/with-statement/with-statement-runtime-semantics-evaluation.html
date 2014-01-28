@@ -8,43 +8,37 @@
   <ol class="proc">
     <li>Let <i>val</i> be the result of evaluating <i>Expression</i>.</li>
 
-    <li>Let <i>obj</i> be <a href="#sec-toobject">ToObject</a> (<a href=
-    "#sec-getvalue">GetValue</a> (<i>val</i>)).
-    </li>
+    <li>Let <i>obj</i> be <es-xref target="sec-toobject">ToObject</es-xref>(<es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>val</i>)).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
 
-    <li>Let <i>oldEnv</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
-    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
-    </li>
+    <li>Let <i>oldEnv</i> be <es-xref target="sec-execution-contexts">the running execution
+    context</es-xref>’s <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
 
-    <li>Let <i>newEnv</i> be the result of calling <a href=
-    "#sec-newobjectenvironment">NewObjectEnvironment</a> passing <i>obj</i> and <i>oldEnv</i> as
-    the arguments.
-    </li>
+    <li>Let <i>newEnv</i> be the result of calling <es-xref target=
+    "sec-newobjectenvironment">NewObjectEnvironment</es-xref> passing <i>obj</i> and <i>oldEnv</i>
+    as the arguments.</li>
 
     <li>Set the <i>withEnvironment</i> flag of <i>newEnv’s</i> environment record to
     <b>true</b>.</li>
 
-    <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
-    "#sec-execution-contexts">LexicalEnvironment</a> to <i>newEnv</i>.
-    </li>
+    <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+    <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>newEnv</i>.</li>
 
     <li>Let <i>C</i> be the result of evaluating <i>Statement</i>.</li>
 
-    <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
-    "#sec-lexical-environments">Lexical Environment</a> to <i>oldEnv</i>.
-    </li>
+    <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+    <es-xref target="sec-lexical-environments">Lexical Environment</es-xref> to <i>oldEnv</i>.</li>
 
     <li>Return <i>C</i>.</li>
   </ol>
 
   <es-note>
     <p>No matter how control leaves the embedded <es-nt>Statement</es-nt>, whether normally or by
-    some form of <a href="#sec-completion-record-specification-type">abrupt completion</a> or
-    exception, the <a href="#sec-execution-contexts">LexicalEnvironment</a> is always restored to
-    its former state.</p>
+    some form of <es-xref target="sec-completion-record-specification-type">abrupt
+    completion</es-xref> or exception, the <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref> is always restored to its former
+    state.</p>
   </es-note>
 </es-clause>

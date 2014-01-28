@@ -18,14 +18,11 @@
     <es-nt>size</es-nt>, the following steps are taken:</p>
 
     <ol class="proc">
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <i>size</i>≥0.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>size</i>≥0.</li>
 
-      <li>Let <i>db</i> be a new <a href="#sec-data-blocks">Data Block</a> value consisting of <i>
-        size</i> bytes. If it is impossible to create such a <a href="#sec-data-blocks">Data
-        Block</a> , then throw a <b>RangeError</b> exception.
-      </li>
+      <li>Let <i>db</i> be a new <es-xref target="sec-data-blocks">Data Block</es-xref> value
+      consisting of <i>size</i> bytes. If it is impossible to create such a <es-xref target=
+      "sec-data-blocks">Data Block</es-xref>, then throw a <b>RangeError</b> exception.</li>
 
       <li>Set all of the bytes of <i>db</i> to 0.</li>
 

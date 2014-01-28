@@ -8,18 +8,14 @@
   "value">undefined</span>. This operation performs the follow steps:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : There are sufficient bytes in
-      <i>arrayBuffer</i> starting at <i>byteIndex</i> to represent a value of <i>valueType</i>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: There are sufficient bytes in
+    <i>arrayBuffer</i> starting at <i>byteIndex</i> to represent a value of <i>valueType</i>.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>byteIndex</i> is a positive integer.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>byteIndex</i> is a
+    positive integer.</li>
 
-    <li>Let <i>block</i> be <i>arrayBuffer’s</i> [[ArrayBufferData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>block</i> be <i>arrayBuffer’s</i> [[ArrayBufferData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>If <i>block</i> is <b>undefined</b> or <b>null</b>, then throw a <b>TypeError</b>
     exception.</li>
@@ -33,31 +29,31 @@
     <b>true</b> or <b>false</b>. The choice is implementation dependent and should be the
     alternative that is most efficient for the implementation. An implementation must use the same
     value each time this step is executed and the same value must be used for the corresponding
-    step in the <a href="#sec-getvaluefrombuffer">GetValueFromBuffer</a> abstract operation.
-    </li>
+    step in the <es-xref target="sec-getvaluefrombuffer">GetValueFromBuffer</es-xref> abstract
+    operation.</li>
 
     <li>If <i>type</i> is “Float32” , then
 
       <ol class="block">
-        <li>Set <i>rawValue</i> to a <a href="#sec-list-and-record-specification-type">List</a>
-        containing the 4 bytes that are the result of converting <i>value</i> to IEEE-868-2005
-        binary32 format using “Round to nearest, ties to even” rounding mode. If
-        <i>isLittleEndian</i> is <b>false</b>, the bytes are arranged in big endian order.
-        Otherwise, the bytes are arranged in little endian order. If <i>value</i> is <b>NaN</b>,
-        <i>rawValue</i> may be set to any implementation choosen non-signaling NaN encoding.
-        </li>
+        <li>Set <i>rawValue</i> to a <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> containing the 4 bytes that are the
+        result of converting <i>value</i> to IEEE-868-2005 binary32 format using “Round to nearest,
+        ties to even” rounding mode. If <i>isLittleEndian</i> is <b>false</b>, the bytes are
+        arranged in big endian order. Otherwise, the bytes are arranged in little endian order. If
+        <i>value</i> is <b>NaN</b>, <i>rawValue</i> may be set to any implementation choosen
+        non-signaling NaN encoding.</li>
       </ol>
     </li>
 
     <li>Else, if <i>type</i> is “Float64” , then
 
       <ol class="block">
-        <li>Set <i>rawValue</i> to a <a href="#sec-list-and-record-specification-type">List</a>
-        containing the 8 bytes that are the IEEE-868-2005 binary64 format encoding of <i>value</i>.
-        If <i>isLittleEndian</i> is <b>false</b>, the bytes are arranged in big endian order.
-        Otherwise, the bytes are arranged in little endian order. If <i>value</i> is <b>NaN</b>,
-        <i>rawValue</i> may be set to any implementation choosen non-signaling NaN encoding.
-        </li>
+        <li>Set <i>rawValue</i> to a <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> containing the 8 bytes that are the
+        IEEE-868-2005 binary64 format encoding of <i>value</i>. If <i>isLittleEndian</i> is
+        <b>false</b>, the bytes are arranged in big endian order. Otherwise, the bytes are arranged
+        in little endian order. If <i>value</i> is <b>NaN</b>, <i>rawValue</i> may be set to any
+        implementation choosen non-signaling NaN encoding.</li>
       </ol>
     </li>
 
@@ -79,22 +75,22 @@
         <li>If <i>intValue</i> ≥ 0, then
 
           <ol class="block">
-            <li>Let <i>rawBytes</i> be a <a href="#sec-list-and-record-specification-type">List</a>
-            containing the <i>n</i>-byte binary encoding of <i>intValue</i>. If
-            <i>isLittleEndian</i> is <b>false</b>, the bytes are ordered in big endian order.
-            Otherwise, the bytes are ordered in little endian order.
-            </li>
+            <li>Let <i>rawBytes</i> be a <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> containing the <i>n</i>-byte
+            binary encoding of <i>intValue</i>. If <i>isLittleEndian</i> is <b>false</b>, the bytes
+            are ordered in big endian order. Otherwise, the bytes are ordered in little endian
+            order.</li>
           </ol>
         </li>
 
         <li>Else,
 
           <ol class="block">
-            <li>Let <i>rawBytes</i> be a <a href="#sec-list-and-record-specification-type">List</a>
-            containing the <i>n</i>-byte binary 2’s complement encoding of <i>intValue</i>. If <i>
-              isLittleEndian</i> is <b>false</b>, the bytes are ordered in big endian order.
-              Otherwise, the bytes are ordered in little endian order.
-            </li>
+            <li>Let <i>rawBytes</i> be a <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> containing the <i>n</i>-byte
+            binary 2’s complement encoding of <i>intValue</i>. If <i>isLittleEndian</i> is
+            <b>false</b>, the bytes are ordered in big endian order. Otherwise, the bytes are
+            ordered in little endian order.</li>
           </ol>
         </li>
       </ol>
@@ -103,7 +99,7 @@
     <li>Store the individual bytes of <i>rawBytes</i> in order starting at position
     <i>byteIndex</i> of <i>block</i>.</li>
 
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-    </li>
+    <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>
+    (<b>undefined</b>).</li>
   </ol>
 </es-clause>

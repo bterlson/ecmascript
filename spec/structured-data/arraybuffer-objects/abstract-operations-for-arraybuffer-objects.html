@@ -6,18 +6,16 @@
     to create an uninitialised ArrayBuffer object. It performs the following steps:</p>
 
     <ol class="proc">
-      <li>Let <i>obj</i> be the result of calling <a href=
-      "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>constructor</i>,
-      <code>"%ArrayBufferPrototype%"</code>, ( [[ArrayBufferData]], [[ArrayBufferByteLength]]) ).
-      </li>
+      <li>Let <i>obj</i> be the result of calling <es-xref target=
+      "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>constructor</i>,
+      <code>"%ArrayBufferPrototype%"</code>, ( [[ArrayBufferData]], [[ArrayBufferByteLength]])
+      ).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
 
-      <li>Set the [[ArrayBufferByteLength]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>obj</i> to 0.
-      </li>
+      <li>Set the [[ArrayBufferByteLength]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>obj</i> to
+      0.</li>
 
       <li>Return <i>obj</i>.</li>
     </ol>

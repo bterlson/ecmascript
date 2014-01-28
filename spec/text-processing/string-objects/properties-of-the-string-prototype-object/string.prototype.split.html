@@ -9,17 +9,14 @@
   <p>When the <code>split</code> method is called, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-    value).
-    </li>
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>separator</i>) is Object
-    and <a href="#sec-hasproperty">HasProperty</a> (<i>separator</i>, @@isRegExp) is <b>true</b> ,
-    then,
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>separator</i>)
+    is Object and <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>separator</i>,
+    @@isRegExp) is <b>true</b> , then,
 
       <ol class="block">
         <li>Return the result of Invoke(<i>separator</i>, <code>"split"</code>, (<i>O</i>,
@@ -27,47 +24,37 @@
       </ol>
     </li>
 
-    <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
-    </li>
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
 
-    <li>Let <i>A</i> be the result of the abstract operation <a href=
-    "#sec-arraycreate">ArrayCreate</a> with argument 0.
-    </li>
+    <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+    "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
 
     <li>Let <i>lengthA</i> be 0.</li>
 
     <li>If <i>limit</i> is <b>undefined</b>, let <i>lim</i> = 2<sup>53</sup> –1; else let
-    <i>lim</i> = <a href="#sec-tolength">ToLength</a> (<i>limit</i>).
-    </li>
+    <i>lim</i> = <es-xref target="sec-tolength">ToLength</es-xref>(<i>limit</i>).</li>
 
     <li>Let <i>s</i> be the number of elements in <i>S</i>.</li>
 
     <li>Let <i>p</i> = 0.</li>
 
-    <li>Let <i>R</i> be <a href="#sec-tostring">ToString</a> (<i>separator</i>).
-    </li>
+    <li>Let <i>R</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>separator</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>R</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>R</i>).</li>
 
     <li>If <i>lim</i> = 0, return <i>A</i>.</li>
 
     <li>If <i>separator</i> is <b>undefined</b>, then
 
       <ol class="block">
-        <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, "<b>0</b>",
-        <i>S</i>).
-        </li>
+        <li>Call <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref>(<i>A</i>,
+        "<b>0</b>", <i>S</i>).</li>
 
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : The above call will never result in an
-          <a href="#sec-completion-record-specification-type">abrupt completion</a> .
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The above call will never
+        result in an <es-xref target="sec-completion-record-specification-type">abrupt
+        completion</es-xref>.</li>
 
         <li>Return <i>A</i>.</li>
       </ol>
@@ -76,20 +63,17 @@
     <li>If <i>s</i> = 0, then
 
       <ol class="block">
-        <li>Let <i>z</i> be the result of <a href="#sec-splitmatch">SplitMatch</a> (<i>S</i>, 0,
-        <i>R</i>).
-        </li>
+        <li>Let <i>z</i> be the result of <es-xref target=
+        "sec-splitmatch">SplitMatch</es-xref>(<i>S</i>, 0, <i>R</i>).</li>
 
         <li>If <i>z</i> is not <b>false</b>, return <i>A</i>.</li>
 
-        <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, "<b>0</b>",
-        <i>S</i>).
-        </li>
+        <li>Call <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref>(<i>A</i>,
+        "<b>0</b>", <i>S</i>).</li>
 
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : The above call will never result in an
-          <a href="#sec-completion-record-specification-type">abrupt completion</a> .
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The above call will never
+        result in an <es-xref target="sec-completion-record-specification-type">abrupt
+        completion</es-xref>.</li>
 
         <li>Return <i>A</i>.</li>
       </ol>
@@ -100,9 +84,8 @@
     <li>Repeat, while <i>q</i> ≠ <i>s</i>
 
       <ol class="block">
-        <li>Let <i>e</i> be the result of <a href="#sec-splitmatch">SplitMatch</a> (<i>S, q,
-        R</i>).
-        </li>
+        <li>Let <i>e</i> be the result of <es-xref target=
+        "sec-splitmatch">SplitMatch</es-xref>(<i>S, q, R</i>).</li>
 
         <li>If <i>e</i> is <b>false</b>, then let <i>q</i> = <i>q</i>+1.</li>
 
@@ -117,15 +100,13 @@
                 <li>Let <i>T</i> be a String value equal to the substring of <i>S</i> consisting of
                 the code units at positions <i>p</i> (inclusive) through <i>q</i> (exclusive).</li>
 
-                <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>,
-                <a href="#sec-tostring">ToString</a> (<i>lengthA</i>), <i>T</i>).
-                </li>
+                <li>Call <es-xref target=
+                "sec-createdataproperty">CreateDataProperty</es-xref>(<i>A</i>, <es-xref target=
+                "sec-tostring">ToString</es-xref>(<i>lengthA</i>), <i>T</i>).</li>
 
-                <li>
-                  <a href="#sec-algorithm-conventions">Assert</a> : The above call will never
-                  result in an <a href="#sec-completion-record-specification-type">abrupt
-                  completion</a> .
-                </li>
+                <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The above call
+                will never result in an <es-xref target=
+                "sec-completion-record-specification-type">abrupt completion</es-xref>.</li>
 
                 <li>Increment <i>lengthA</i> by 1.</li>
 
@@ -144,14 +125,12 @@
     <li>Let <i>T</i> be a String value equal to the substring of <i>S</i> consisting of the code
     units at positions <i>p</i> (inclusive) through <i>s</i> (exclusive).</li>
 
-    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>A</i>, <a href=
-    "#sec-tostring">ToString</a> (<i>lengthA</i>), <i>T</i>).
-    </li>
+    <li>Call <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref>(<i>A</i>,
+    <es-xref target="sec-tostring">ToString</es-xref>(<i>lengthA</i>), <i>T</i>).</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : The above call will never result in an
-      <a href="#sec-completion-record-specification-type">abrupt completion</a> .
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The above call will never
+    result in an <es-xref target="sec-completion-record-specification-type">abrupt
+    completion</es-xref>.</li>
 
     <li>Return <i>A</i>.</li>
   </ol>

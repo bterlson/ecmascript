@@ -3,9 +3,8 @@
 "sec-function-definitions-runtime-semantics-instantiatefunctionobject">
   <p>With parameter <es-nt>scope</es-nt>.</p>
 
-  <p>See also: <a href=
-  "#sec-generator-function-definitions-runtime-semantics-instantiatefunctionobject">14.4.12</a>
-  .</p>
+  <p>See also: <es-xref target=
+  "sec-generator-function-definitions-runtime-semantics-instantiatefunctionobject">14.4.12</es-xref>.</p>
 
   <es-production name="FunctionDeclaration" class="inline">
     <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
@@ -13,36 +12,31 @@
   </es-production>
 
   <ol class="proc">
-    <li>If the <i>FunctionDeclaration</i> is contained in <a href="#sec-strict-mode-code">strict
-    code</a> or if its <i>FunctionBody</i> is <a href="#sec-strict-mode-code">strict code</a> ,
-    then let <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.
-    </li>
+    <li>If the <i>FunctionDeclaration</i> is contained in <es-xref target=
+    "sec-strict-mode-code">strict code</es-xref> or if its <i>FunctionBody</i> is <es-xref target=
+    "sec-strict-mode-code">strict code</es-xref>, then let <i>strict</i> be <b>true</b>. Otherwise
+    let <i>strict</i> be <b>false</b>.</li>
 
-    <li>Let <i>name</i> be <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
-    <i>BindingIdentifier.</i>
-    </li>
+    <li>Let <i>name</i> be <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>BindingIdentifier.</i></li>
 
-    <li>Let <i>F</i> be the result of performing the <a href=
-    "#sec-functioncreate">FunctionCreate</a> abstract operation with arguments Normal,
-    <i>FormalParameters</i>, <i>FunctionBody, scope</i>, and <i>strict</i>.
-    </li>
+    <li>Let <i>F</i> be the result of performing the <es-xref target=
+    "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Normal,
+    <i>FormalParameters</i>, <i>FunctionBody, scope</i>, and <i>strict</i>.</li>
 
     <li>If ReferencesSuper of <i>FunctionDeclaration</i> is <b>true</b>, then
 
       <ol class="block">
-        <li>Perform <a href="#sec-makemethod">MakeMethod</a> (<i>F</i>, <i>name</i>,
-        <b>undefined</b>).
-        </li>
+        <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>F</i>, <i>name</i>,
+        <b>undefined</b>).</li>
       </ol>
     </li>
 
-    <li>Perform the abstract operation <a href="#sec-makeconstructor">MakeConstructor</a> with
-    argument <i>F</i>.
-    </li>
+    <li>Perform the abstract operation <es-xref target=
+    "sec-makeconstructor">MakeConstructor</es-xref> with argument <i>F</i>.</li>
 
-    <li>
-      <a href="#sec-setfunctionname">SetFunctionName</a> (<i>F</i>, <i>name</i>).
-    </li>
+    <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>F</i>,
+    <i>name</i>).</li>
 
     <li>Return <i>F</i>.</li>
   </ol>

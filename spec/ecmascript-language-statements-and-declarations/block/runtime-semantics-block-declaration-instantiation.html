@@ -3,23 +3,22 @@
 "sec-runtime-semantics-block-declaration-instantiation">
   <es-note>
     <p>When a <es-nt>Block</es-nt> or <es-nt>CaseBlock</es-nt> production is evaluated a new
-    <a href="#sec-declarative-environment-records">Declarative Environment Record</a> is created
-    and bindings for each block scoped variable, constant, or function declarated in the block are
-    instantiated in the environment record.</p>
+    <es-xref target="sec-declarative-environment-records">Declarative Environment Record</es-xref>
+    is created and bindings for each block scoped variable, constant, or function declarated in the
+    block are instantiated in the environment record.</p>
   </es-note>
 
   <p>Block Declaration Instantiation is performed as follows using arguments <es-nt>code</es-nt>
   and <es-nt>env</es-nt>. <es-nt>code</es-nt> is the grammar production corresponding to the body
-  of the block. <es-nt>env</es-nt> is the <a href=
-  "#sec-declarative-environment-records">declarative environment record</a> in which bindings are
-  to be created.</p>
+  of the block. <es-nt>env</es-nt> is the <es-xref target=
+  "sec-declarative-environment-records">declarative environment record</es-xref> in which bindings
+  are to be created.</p>
 
   <ol class="proc">
     <li>Let <i>declarations</i> be the LexicalDeclarations of <i>code</i>.</li>
 
-    <li>Let <i>functionsToInitialise</i> be an empty <a href=
-    "#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>functionsToInitialise</i> be an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>For each element <i>d</i> in <i>declarations</i> do
 
@@ -41,10 +40,9 @@
                 <li>Let <i>status</i> be the result of calling <i>env</i>’s CreateMutableBinding
                 concrete method passing <i>dn</i> and <b>false</b> as the arguments.</li>
 
-                <li>
-                  <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is never an
-                  <a href="#sec-completion-record-specification-type">abrupt completion</a> .
-                </li>
+                <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is
+                never an <es-xref target="sec-completion-record-specification-type">abrupt
+                completion</es-xref>.</li>
               </ol>
             </li>
           </ol>

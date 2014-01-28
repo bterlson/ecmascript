@@ -6,14 +6,13 @@
   </es-production>
 
   <ol class="proc">
-    <li>If <i>GeneratorComprehension</i> is contained in <a href="#sec-strict-mode-code">strict
-    mode code</a> , then let <i>strict</i> be <b>true</b>; otherwise let <i>strict</i> be
-    <b>false</b>.
-    </li>
+    <li>If <i>GeneratorComprehension</i> is contained in <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>, then let <i>strict</i> be <b>true</b>;
+    otherwise let <i>strict</i> be <b>false</b>.</li>
 
-    <li>Let <i>scope</i> be the <a href="#sec-execution-contexts">LexicalEnvironment</a> of
-      <a href="#sec-execution-contexts">the running execution context</a> .
-    </li>
+    <li>Let <i>scope</i> be the <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref> of <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>.</li>
 
     <li>Let <i>parameters</i> be the production: <i>FormalParameters</i> <b>:</b> [empty].</li>
 
@@ -22,24 +21,21 @@
     class="inline"><es-rhs><es-nt>Comprehension</es-nt></es-rhs></es-production>
     .</li>
 
-    <li>Let <i>closure</i> be the result of performing the <a href="#sec-generatorfunctioncreate">
-      GeneratorFunctionCreate</a> abstract operation with arguments Arrow,
-      <es-nt>parameters</es-nt>, <i>body, scope</i>, and <es-nt>strict</es-nt>.
-    </li>
+    <li>Let <i>closure</i> be the result of performing the <es-xref target=
+    "sec-generatorfunctioncreate">GeneratorFunctionCreate</es-xref> abstract operation with
+    arguments Arrow, <es-nt>parameters</es-nt>, <i>body, scope</i>, and <es-nt>strict</es-nt>.</li>
 
-    <li>Let <i>prototype</i> be the result of the abstract operation <a href=
-    "#sec-objectcreate">ObjectCreate</a> with the intrinsic object %GeneratorPrototype% as its
-    argument.
-    </li>
+    <li>Let <i>prototype</i> be the result of the abstract operation <es-xref target=
+    "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %GeneratorPrototype% as its
+    argument.</li>
 
-    <li>Perform the abstract operation <a href="#sec-makeconstructor">MakeConstructor</a> with
-    arguments <i>closure</i>, <b>true</b>, and <i>prototype</i>.
-    </li>
+    <li>Perform the abstract operation <es-xref target=
+    "sec-makeconstructor">MakeConstructor</es-xref> with arguments <i>closure</i>, <b>true</b>, and
+    <i>prototype</i>.</li>
 
     <li>Let <i>iterator</i> be the result of calling the [[Call]] internal method of <i>closure</i>
-    with <b>undefined</b> as <i>thisArgument</i> and an empty <a href=
-    "#sec-list-and-record-specification-type">List</a> as <i>argumentsList</i>.
-    </li>
+    with <b>undefined</b> as <i>thisArgument</i> and an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> as <i>argumentsList</i>.</li>
 
     <li>Return <i>iterator</i>.</li>
   </ol>
@@ -50,7 +46,7 @@
     semantically equivalent means must be used to allocate and initialise the
     <es-nt>iterator</es-nt> object in step 8. In either case, the <es-nt>prototype</es-nt> object
     created in step 6 must be created because it is potentially observable as the value of the
-    <es-nt>iterator</es-nt> object’s [[Prototype]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+    <es-nt>iterator</es-nt> object’s [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
   </es-note>
 </es-clause>

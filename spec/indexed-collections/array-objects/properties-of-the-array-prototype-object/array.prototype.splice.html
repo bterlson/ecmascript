@@ -8,30 +8,22 @@ anchor="sec-array.prototype.splice">
   containing the deleted elements (if any) is returned. The following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
-      this</b> value as the argument.
-    </li>
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
-    <li>Let <i>lenVal</i> be <a href="#sec-get-o-p">Get</a> (<i>O</i>, <code>"length"</code>)
-    </li>
+    <li>Let <i>lenVal</i> be <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>)</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
-    <li>Let <i>relativeStart</i> be <a href="#sec-tointeger">ToInteger</a> (<i>start</i>).
-    </li>
+    <li>Let <i>relativeStart</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>start</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>relativeStart</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeStart</i>).</li>
 
     <li>If <i>relativeStart</i> is negative, let <i>actualStart</i> be max((<i>len</i> +
     <i>relativeStart</i>),0); else let <i>actualStart</i> be min(<i>relativeStart</i>,
@@ -54,12 +46,10 @@ anchor="sec-array.prototype.splice">
     <li>Else,
 
       <ol class="block">
-        <li>Let <i>dc</i> be <a href="#sec-tointeger">ToInteger</a> (<i>deleteCount</i>).
-        </li>
+        <li>Let <i>dc</i> be <es-xref target=
+        "sec-tointeger">ToInteger</es-xref>(<i>deleteCount</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>dc</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>dc</i>).</li>
 
         <li>Let <i>actualDeleteCount</i> be min(max(<i>dc</i>,0), <i>len</i> –
         <i>actualStart</i>).</li>
@@ -71,24 +61,21 @@ anchor="sec-array.prototype.splice">
     <li>If <i>O</i> is an exotic Array object, then
 
       <ol class="block">
-        <li>Let <i>C</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-        <code>"constructor"</code>).
-        </li>
+        <li>Let <i>C</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+        <code>"constructor"</code>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>C</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>C</i>).</li>
 
-        <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>C</i>) is <b>true</b>, then
+        <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is
+        <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>thisRealm</i> be <a href="#sec-execution-contexts">the running execution
-            context</a> ’s <a href="#sec-code-realms">Realm</a> .
-            </li>
+            <li>Let <i>thisRealm</i> be <es-xref target="sec-execution-contexts">the running
+            execution context</es-xref>’s <es-xref target="sec-code-realms">Realm</es-xref>.</li>
 
-            <li>If <i>thisRealm</i> and the value of <i>C’s</i> [[Realm]] <a href=
-            "#sec-object-internal-methods-and-internal-slots">internal slot</a> are the same value,
-            then
+            <li>If <i>thisRealm</i> and the value of <i>C’s</i> [[Realm]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> are the same
+            value, then
 
               <ol class="block">
                 <li>Let <i>A</i> be the result of calling the [[Construct]] internal method of
@@ -103,51 +90,40 @@ anchor="sec-array.prototype.splice">
     <li>If <i>A</i> is <b>undefined</b>, then
 
       <ol class="block">
-        <li>Let <i>A</i> be the result of the abstract operation <a href=
-        "#sec-arraycreate">ArrayCreate</a> with argument <i>actualDeleteCount</i>.
-        </li>
+        <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+        "sec-arraycreate">ArrayCreate</es-xref> with argument <i>actualDeleteCount</i>.</li>
       </ol>
     </li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>A</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>A</i>).</li>
 
     <li>Let <i>k</i> be 0.</li>
 
     <li>Repeat, while <i>k</i> &lt; <i>actualDeleteCount</i>
 
       <ol class="block">
-        <li>Let <i>from</i> be <a href="#sec-tostring">ToString</a> (<i>actualStart</i>+<i>k</i>).
-        </li>
+        <li>Let <i>from</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>actualStart</i>+<i>k</i>).</li>
 
-        <li>Let <i>fromPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
-        (<i>O</i>, <i>from</i>).
-        </li>
+        <li>Let <i>fromPresent</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>from</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fromPresent</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromPresent</i>).</li>
 
         <li>If <i>fromPresent</i> is <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>fromValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O,</i> <i>
-              from</i>).
-            </li>
+            <li>Let <i>fromValue</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>O,</i> <i>from</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fromValue</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromValue</i>).</li>
 
-            <li>Let <i>status</i> be the result of <a href=
-            "#sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</a> (<i>A</i>, <a href=
-            "#sec-tostring">ToString</a> (<i>k</i>), <i>fromValue</i>).
-            </li>
+            <li>Let <i>status</i> be the result of <es-xref target=
+            "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref>(<i>A</i>,
+            <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>), <i>fromValue</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-            </li>
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
           </ol>
         </li>
 
@@ -155,18 +131,16 @@ anchor="sec-array.prototype.splice">
       </ol>
     </li>
 
-    <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>A</i>,
-    <code>"length"</code>, <i>actualDeleteCount</i>, <b>true</b>).
-    </li>
+    <li>Let <i>putStatus</i> be the result of <es-xref target=
+    "sec-put-o-p-v-throw">Put</es-xref>(<i>A</i>, <code>"length"</code>, <i>actualDeleteCount</i>,
+    <b>true</b>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
-    <li>Let <i>items</i> be a <a href="#sec-list-and-record-specification-type">List</a> whose
-    elements are, in left to right order, the portion of the actual argument list starting with <i>
-      item1</i>. The list will be empty if no such items are present.
-    </li>
+    <li>Let <i>items</i> be a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> whose elements are, in left to right
+    order, the portion of the actual argument list starting with <i>item1</i>. The list will be
+    empty if no such items are present.</li>
 
     <li>Let <i>itemCount</i> be the number of elements in <i>items</i>.</li>
 
@@ -178,52 +152,45 @@ anchor="sec-array.prototype.splice">
         <li>Repeat, while <i>k</i> &lt; (<i>len</i> – <i>actualDeleteCount</i>)
 
           <ol class="block">
-            <li>Let <i>from</i> be <a href="#sec-tostring">ToString</a>
-            (<i>k</i>+<i>actualDeleteCount</i>).
-            </li>
+            <li>Let <i>from</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>k</i>+<i>actualDeleteCount</i>).</li>
 
-            <li>Let <i>to</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>+<i>itemCount</i>).
-            </li>
+            <li>Let <i>to</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>k</i>+<i>itemCount</i>).</li>
 
-            <li>Let <i>fromPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
-            (<i>O</i>, <i>from</i>).
-            </li>
+            <li>Let <i>fromPresent</i> be the result of <es-xref target=
+            "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>from</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fromPresent</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromPresent</i>).</li>
 
             <li>If <i>fromPresent</i> is <b>true</b>, then
 
               <ol class="block">
-                <li>Let <i>fromValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-                <i>from</i>).
-                </li>
+                <li>Let <i>fromValue</i> be the result of <es-xref target=
+                "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>from</i>).</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fromValue</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromValue</i>).</li>
 
-                <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-                (<i>O</i>, <i>to</i>, <i>fromValue</i>, <b>true</b>).
-                </li>
+                <li>Let <i>putStatus</i> be the result of <es-xref target=
+                "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>to</i>, <i>fromValue</i>,
+                <b>true</b>).</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
               </ol>
             </li>
 
             <li>Else <i>fromPresent</i> is <b>false</b>,
 
               <ol class="block">
-                <li>Let <i>deleteStatus</i> be the result of <a href="#sec-deletepropertyorthrow">
-                  DeletePropertyOrThrow</a> (<i>O</i>, <i>to</i>).
-                </li>
+                <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+                "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref>(<i>O</i>,
+                <i>to</i>).</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
               </ol>
             </li>
 
@@ -236,14 +203,12 @@ anchor="sec-array.prototype.splice">
         <li>Repeat, while <i>k</i> &gt; (<i>len</i> – <i>actualDeleteCount</i> + <i>itemCount</i>)
 
           <ol class="block">
-            <li>Let <i>deleteStatus</i> be the result of <a href=
-            "#sec-deletepropertyorthrow">DeletePropertyOrThrow</a> (<i>O</i>, <a href=
-            "#sec-tostring">ToString</a> (<i>k</i>–1)).
-            </li>
+            <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+            "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref>(<i>O</i>, <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>k</i>–1)).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
 
             <li>Decrease <i>k</i> by 1.</li>
           </ol>
@@ -259,53 +224,45 @@ anchor="sec-array.prototype.splice">
         <li>Repeat, while <i>k</i> &gt; <i>actualStart</i>
 
           <ol class="block">
-            <li>Let <i>from</i> be <a href="#sec-tostring">ToString</a> (<i>k</i> +
-            <i>actualDeleteCount</i> – 1).
-            </li>
+            <li>Let <i>from</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i> +
+            <i>actualDeleteCount</i> – 1).</li>
 
-            <li>Let <i>to</i> be <a href="#sec-tostring">ToString</a> (<i>k</i> + <i>itemCount</i>
-            – 1)
-            </li>
+            <li>Let <i>to</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i> +
+            <i>itemCount</i> – 1)</li>
 
-            <li>Let <i>fromPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
-            (<i>O</i>, <i>from</i>).
-            </li>
+            <li>Let <i>fromPresent</i> be the result of <es-xref target=
+            "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>from</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fromPresent</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromPresent</i>).</li>
 
             <li>If <i>fromPresent</i> is <b>true</b>, then
 
               <ol class="block">
-                <li>Let <i>fromValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-                <i>from</i>).
-                </li>
+                <li>Let <i>fromValue</i> be the result of <es-xref target=
+                "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>from</i>).</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fromValue</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromValue</i>).</li>
 
-                <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-                (<i>O</i>, <i>to</i>, <i>fromValue</i>, <b>true</b>).
-                </li>
+                <li>Let <i>putStatus</i> be the result of <es-xref target=
+                "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>to</i>, <i>fromValue</i>,
+                <b>true</b>).</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
               </ol>
             </li>
 
             <li>Else <i>fromPresent</i> is <b>false</b>,
 
               <ol class="block">
-                <li>Let <i>deleteStatus</i> be the result of <a href="#sec-deletepropertyorthrow">
-                  DeletePropertyOrThrow</a> (<i>O</i>, <i>to</i>).
-                </li>
+                <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+                "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref>(<i>O</i>,
+                <i>to</i>).</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
               </ol>
             </li>
 
@@ -323,25 +280,21 @@ anchor="sec-array.prototype.splice">
         <li>Remove the first element from <i>items</i> and let <i>E</i> be the value of that
         element.</li>
 
-        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
-        <a href="#sec-tostring">ToString</a> (<i>k</i>), <i>E</i>, <b>true</b>).
-        </li>
+        <li>Let <i>putStatus</i> be the result of <es-xref target=
+        "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>k</i>), <i>E</i>, <b>true</b>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
         <li>Increase <i>k</i> by 1.</li>
       </ol>
     </li>
 
-    <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
-    <code>"length"</code>, <i>len</i> – <i>actualDeleteCount</i> + <i>itemCount</i>, <b>true</b>).
-    </li>
+    <li>Let <i>putStatus</i> be the result of <es-xref target=
+    "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <code>"length"</code>, <i>len</i> –
+    <i>actualDeleteCount</i> + <i>itemCount</i>, <b>true</b>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
     <li>Return <i>A</i>.</li>
   </ol>

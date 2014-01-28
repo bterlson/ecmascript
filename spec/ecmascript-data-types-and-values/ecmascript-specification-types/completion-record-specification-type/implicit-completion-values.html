@@ -1,10 +1,10 @@
 <!doctype html>
 <es-clause title="Implicit Completion Values" anchor="sec-implicit-completion-values">
-  <p>The algorithms of this specification often implicitly return <a href=
-  "#sec-completion-record-specification-type">Completion</a> Records whose [[type]] is
+  <p>The algorithms of this specification often implicitly return <es-xref target=
+  "sec-completion-record-specification-type">Completion</es-xref> Records whose [[type]] is
   <b>normal</b>. Unless it is otherwise obvious from the context, an algorithm statement that
-  returns a value that is not a <a href="#sec-completion-record-specification-type">Completion
-  Record</a> , such as:</p>
+  returns a value that is not a <es-xref target=
+  "sec-completion-record-specification-type">Completion Record</es-xref>, such as:</p>
 
   <ol class="proc">
     <li>Return "Infinity".</li>
@@ -13,22 +13,23 @@
   <p>Generally means the same thing as:</p>
 
   <ol class="proc">
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<code>"Infinity"</code>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<code>"Infinity"</code>).</li>
   </ol>
 
   <p>A “return” statement without a value in an algorithm step means the same thing as:</p>
 
   <ol class="proc">
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
   </ol>
 
-  <p>Similarly, any reference to a <a href="#sec-completion-record-specification-type">Completion
-  Record</a> value that is in a context that does not explicitly require a complete <a href=
-  "#sec-completion-record-specification-type">Completion Record</a> value is equivalent to an
-  explicit reference to the [[value]] field of the <a href=
-  "#sec-completion-record-specification-type">Completion Record</a> value unless the <a href=
-  "#sec-completion-record-specification-type">Completion Record</a> is an <a href=
-  "#sec-completion-record-specification-type">abrupt completion</a> .</p>
+  <p>Similarly, any reference to a <es-xref target=
+  "sec-completion-record-specification-type">Completion Record</es-xref> value that is in a context
+  that does not explicitly require a complete <es-xref target=
+  "sec-completion-record-specification-type">Completion Record</es-xref> value is equivalent to an
+  explicit reference to the [[value]] field of the <es-xref target=
+  "sec-completion-record-specification-type">Completion Record</es-xref> value unless the
+  <es-xref target="sec-completion-record-specification-type">Completion Record</es-xref> is an
+  <es-xref target="sec-completion-record-specification-type">abrupt completion</es-xref>.</p>
 </es-clause>

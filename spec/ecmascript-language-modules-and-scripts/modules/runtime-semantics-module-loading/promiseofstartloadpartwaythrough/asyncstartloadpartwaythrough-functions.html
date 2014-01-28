@@ -5,9 +5,9 @@
   executor. When called it creates a new Load Record and populates it with some information
   provided by the caller, so that loading can proceed from either the <code>locate</code> hook, the
   <code>fetch</code> hook, or the <code>translate</code> hook. This functionality is used to
-  implement builtin methods like <code><a href=
-  "#sec-loader.prototype.load">Loader.prototype.load</a></code> , which permits the user to specify
-  both the normalized module <es-nt>name</es-nt> and the <es-nt>address</es-nt>.</p>
+  implement builtin methods like <code><es-xref target=
+  "sec-loader.prototype.load">Loader.prototype.load</es-xref></code>, which permits the user to
+  specify both the normalized module <es-nt>name</es-nt> and the <es-nt>address</es-nt>.</p>
 
   <p>Each AsyncStartLoadPartwayThrough function has internal slots [[StepState]].</p>
 
@@ -15,9 +15,8 @@
   <es-nt>resolve</es-nt> and <es-nt>reject</es-nt>, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>state</i> be the value of <i>F</i>’s [[StepState]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>state</i> be the value of <i>F</i>’s [[StepState]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>Let <i>loader</i> be <i>state</i>.[[Loader]].</li>
 
@@ -31,30 +30,26 @@
     Modules], do
 
       <ol class="block">
-        <li>If <a href="#sec-samevalue">SameValue</a> (<i>p</i>.[[key]], <i>name</i>) is
-        <b>true</b>, then throw a <b>TypeError</b> exception.
-        </li>
+        <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>.[[key]], <i>name</i>)
+        is <b>true</b>, then throw a <b>TypeError</b> exception.</li>
       </ol>
     </li>
 
     <li>Repeat for element of <i>load</i> or <i>loader</i>.[[ Modules], do
 
       <ol class="block">
-        <li>If <a href="#sec-samevalue">SameValue</a> (<i>loads</i>.[[Name]], <i>name</i>) is
-        <b>true</b>, then throw a <b>TypeError</b> exception.
-        </li>
+        <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>loads</i>.[[Name]],
+        <i>name</i>) is <b>true</b>, then throw a <b>TypeError</b> exception.</li>
       </ol>
     </li>
 
-    <li>Let <i>load</i> be the result of calling the <a href="#sec-createload">CreateLoad</a>
-    (<i>name</i>).
-    </li>
+    <li>Let <i>load</i> be the result of calling the <es-xref target=
+    "sec-createload">CreateLoad</es-xref>(<i>name</i>).</li>
 
     <li>Set <i>load</i>.[[Metadata]] to <i>state</i>.[[ModuleMetadata]].</li>
 
-    <li>Let <i>linkSet</i> be <a href="#sec-createlinkset">CreateLinkSet</a> (<i>loader,</i>
-    <i>load</i>).
-    </li>
+    <li>Let <i>linkSet</i> be <es-xref target=
+    "sec-createlinkset">CreateLinkSet</es-xref>(<i>loader,</i> <i>load</i>).</li>
 
     <li>Append <i>load</i> to the end of <i>loader</i>.[[Loads]].</li>
 
@@ -64,8 +59,8 @@
     <li>If <i>step</i> is <code>"locate"</code>,
 
       <ol class="block">
-        <li>Call <a href="#sec-proceedtolocate">ProceedToLocate</a> (<i>loader</i>, <i>load</i>).
-        </li>
+        <li>Call <es-xref target="sec-proceedtolocate">ProceedToLocate</es-xref>(<i>loader</i>,
+        <i>load</i>).</li>
       </ol>
     </li>
 
@@ -74,27 +69,24 @@
       <ol class="block">
         <li>Let <i>addressPromise</i> be PromiseOf(<i>state</i>.[[ModuleAddress]]).</li>
 
-        <li>Call <a href="#sec-proceedtofetch">ProceedToFetch</a> (<i>loader</i>, <i>load</i>, <i>
-          addressPromise</i>).
-        </li>
+        <li>Call <es-xref target="sec-proceedtofetch">ProceedToFetch</es-xref>(<i>loader</i>,
+        <i>load</i>, <i>addressPromise</i>).</li>
       </ol>
     </li>
 
     <li>Else,
 
       <ol class="block">
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : <i>step</i> is
-          <code>"translate"</code>.
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>step</i> is
+        <code>"translate"</code>.</li>
 
         <li>Set <i>load</i>.[[Address]] to <i>state</i>.[[ModuleAddress]].</li>
 
         <li>Let <i>sourcePromise</i> be PromiseOf(<i>state</i>.[[ModuleSource]]).</li>
 
-        <li>Call <a href="#sec-proceedtotranslate">ProceedToTranslate</a> (<i>loader</i>,
-        <i>load</i>, <i>sourcePromise</i>).
-        </li>
+        <li>Call <es-xref target=
+        "sec-proceedtotranslate">ProceedToTranslate</es-xref>(<i>loader</i>, <i>load</i>,
+        <i>sourcePromise</i>).</li>
       </ol>
     </li>
   </ol>

@@ -22,9 +22,9 @@
     </es-production>
 
     <ol class="proc">
-      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
-      return, [[value]]: <b>undefined</b>, [[target]]: empty}.
-      </li>
+      <li>Return <es-xref target=
+      "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: return, [[value]]:
+      <b>undefined</b>, [[target]]: empty}.</li>
     </ol>
 
     <es-production name="ReturnStatement" class="inline">
@@ -34,16 +34,14 @@
     <ol class="proc">
       <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
 
-      <li>Let <i>exprValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprRef</i>).
-      </li>
+      <li>Let <i>exprValue</i> be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>exprRef</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exprValue</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>exprValue</i>).</li>
 
-      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
-      return, [[value]]: <i>exprValue</i>, [[target]]: empty}.
-      </li>
+      <li>Return <es-xref target=
+      "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: return, [[value]]:
+      <i>exprValue</i>, [[target]]: empty}.</li>
     </ol>
   </es-clause>
 </es-clause>

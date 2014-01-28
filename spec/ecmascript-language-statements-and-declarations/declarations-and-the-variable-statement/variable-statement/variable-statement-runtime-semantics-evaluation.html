@@ -8,12 +8,9 @@
   <ol class="proc">
     <li>Let <i>next</i> be the result of evaluating <i>VariableDeclarationList</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> ( empty).
-    </li>
+    <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>( empty).</li>
   </ol>
 
   <es-production name="VariableDeclarationList" class="inline">
@@ -23,9 +20,7 @@
   <ol class="proc">
     <li>Let <i>next</i> be the result of evaluating <i>VariableDeclarationList</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
     <li>Return the result of evaluating <i>VariableDeclaration</i>.</li>
   </ol>
@@ -35,8 +30,7 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
-    </li>
+    <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
   </ol>
 
   <es-production name="VariableDeclaration" class="inline">
@@ -46,31 +40,25 @@
   <ol class="proc">
     <li>Let <i>rhs</i> be the result of evaluating <i>Initialiser</i>.</li>
 
-    <li>Let <i>value</i> be <a href="#sec-getvalue">GetValue</a> (<i>rhs</i>).
-    </li>
+    <li>Let <i>value</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rhs</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
 
     <li>If IsAnonymousFunctionDefinition of <i>Initialiser</i> is <b>true</b>, then
 
       <ol class="block">
-        <li>Let <i>hasNameProperty</i> be the result of <a href=
-        "#sec-hasownproperty">HasOwnProperty</a> (<i>value</i>, <code>"name"</code>).
-        </li>
+        <li>Let <i>hasNameProperty</i> be the result of <es-xref target=
+        "sec-hasownproperty">HasOwnProperty</es-xref>(<i>value</i>, <code>"name"</code>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>hasNameProperty</i>).
-        </li>
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hasNameProperty</i>).</li>
 
         <li>If <i>hasNameProperty</i> is <b>false</b>, then
 
           <ol class="block">
-            <li>
-              <a href="#sec-setfunctionname">SetFunctionName</a> (<i>value</i>, <a href=
-              "#sec-identifiers-and-identifier-names">StringValue</a> (<i>BindingIdentifier</i>)).
-            </li>
+            <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>value</i>,
+            <es-xref target=
+            "sec-identifiers-and-identifier-names">StringValue</es-xref>(<i>BindingIdentifier</i>)).</li>
           </ol>
         </li>
       </ol>
@@ -83,9 +71,10 @@
   <es-note>
     <p>If a <es-nt>VariableDeclaration</es-nt> is nested within a with statement and the
     <i>Identifier</i> in the <es-nt>VariableDeclaration</es-nt> is the same as a property name of
-    the binding object of the with statement’s <a href="#sec-object-environment-records">object
-    environment record</a> , then step 3 will assign value to the property instead of to the
-    <a href="#sec-execution-contexts">VariableEnvironment</a> binding of the
+    the binding object of the with statement’s <es-xref target=
+    "sec-object-environment-records">object environment record</es-xref>, then step 3 will assign
+    value to the property instead of to the <es-xref target=
+    "sec-execution-contexts">VariableEnvironment</es-xref> binding of the
     <es-nt>Identifier</es-nt>.</p>
   </es-note>
 
@@ -96,16 +85,12 @@
   <ol class="proc">
     <li>Let <i>rhs</i> be the result of evaluating <i>Initialiser</i>.</li>
 
-    <li>Let <i>rval</i> be <a href="#sec-getvalue">GetValue</a> (<i>rhs</i>).
-    </li>
+    <li>Let <i>rval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rhs</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rval</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rval</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>rval</i>) is not Object,
-    then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>rval</i>) is
+    not Object, then throw a <b>TypeError</b> exception.</li>
 
     <li>Return the result of performing BindingInitialisation for <i>BindingPattern</i> passing
     <i>rval</i> and <b>undefined</b> as arguments.</li>

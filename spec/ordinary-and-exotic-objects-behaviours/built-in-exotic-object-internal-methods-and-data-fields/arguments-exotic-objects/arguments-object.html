@@ -1,7 +1,7 @@
 <!doctype html>
 <es-clause title="Arguments Object" anchor="sec-arguments-object">
   <p>When function code is evaluated, an arguments object is created unless (as specified in
-  <a href="#sec-function-declaration-instantiation">9.2.14</a> ) the identifier
+  <es-xref target="sec-function-declaration-instantiation">9.2.14</es-xref>) the identifier
   <code>arguments</code> occurs as an <es-nt>Identifier</es-nt> in the function’s
   <es-nt>FormalParameters</es-nt> or occurs as the <es-nt>BindingIdentifier</es-nt> of a
   <es-nt>FunctionDeclaration</es-nt> contained in the outermost <es-nt>StatementList</es-nt> of the
@@ -13,10 +13,9 @@
   <ol class="proc">
     <li>Let <i>len</i> be the number of elements in <i>args</i>.</li>
 
-    <li>Let <i>obj</i> be the result of the abstract operation <a href=
-    "#sec-objectcreate">ObjectCreate</a> with the intrinsic object %ObjectPrototype% as its
-    argument.
-    </li>
+    <li>Let <i>obj</i> be the result of the abstract operation <es-xref target=
+    "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %ObjectPrototype% as its
+    argument.</li>
 
     <li>Call the [[DefineOwnProperty]] internal method on <i>obj</i> passing <b>"length"</b> and
     the PropertyDescriptor{[[Value]]: <i>len</i>, [[Writable]]: <b>true</b>, [[Enumerable]]:
@@ -30,11 +29,10 @@
         <li>Let <i>val</i> be the element of <i>args</i> at 0-origined list position
         <i>indx</i>.</li>
 
-        <li>Call the [[DefineOwnProperty]] internal method on <i>obj</i> passing <a href=
-        "#sec-tostring">ToString</a> (<i>indx</i>) and the PropertyDescriptor{[[Value]]:
+        <li>Call the [[DefineOwnProperty]] internal method on <i>obj</i> passing <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>indx</i>) and the PropertyDescriptor{[[Value]]:
         <i>val</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
-        <b>true</b>} as arguments.
-        </li>
+        <b>true</b>} as arguments.</li>
 
         <li>Let <i>indx</i> = <i>indx</i> - 1</li>
       </ol>
@@ -48,10 +46,9 @@
   InstantiateArgumentsObject. The following steps are performed:</p>
 
   <ol class="proc">
-    <li>Perform the <a href=
-    "#sec-addrestrictedfunctionproperties">AddRestrictedFunctionProperties</a> abstract operation
-    with argument <i>obj</i>.
-    </li>
+    <li>Perform the <es-xref target=
+    "sec-addrestrictedfunctionproperties">AddRestrictedFunctionProperties</es-xref> abstract
+    operation with argument <i>obj</i>.</li>
 
     <li>Return.</li>
   </ol>
@@ -62,20 +59,17 @@
   operation InstantiateArgumentsObject.The following steps are performed:</p>
 
   <ol class="proc">
-    <li>Let <i>len</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>,
-    <b>"length")</b>.
-    </li>
+    <li>Let <i>len</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>obj</i>,
+    <b>"length")</b>.</li>
 
-    <li>Let <i>mappedNames</i> be an empty <a href=
-    "#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>mappedNames</i> be an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>Let <i>numberOfNonRestFormals</i> be NumberOfParameters of <i>formals</i>.</li>
 
-    <li>Let <i>map</i> be the result of the abstract operation <a href=
-    "#sec-objectcreate">ObjectCreate</a> with the intrinsic object %ObjectPrototype% as its
-    argument.
-    </li>
+    <li>Let <i>map</i> be the result of the abstract operation <es-xref target=
+    "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %ObjectPrototype% as its
+    argument.</li>
 
     <li>Let <i>indx</i> = <i>len</i> - 1.</li>
 
@@ -104,10 +98,9 @@
                     with arguments <i>name</i> and <i>env</i>.</li>
 
                     <li>Call the [[DefineOwnProperty]] internal method of <i>map</i> passing
-                    <a href="#sec-tostring">ToString</a> (<i>indx</i>) and the
-                    PropertyDescriptor{[[Set]]: <i>p</i>, [[Get]]: <i>g,</i> [[Configurable]]: <b>
-                      true</b>} as arguments.
-                    </li>
+                    <es-xref target="sec-tostring">ToString</es-xref>(<i>indx</i>) and the
+                    PropertyDescriptor{[[Set]]: <i>p</i>, [[Get]]: <i>g,</i> [[Configurable]]:
+                    <b>true</b>} as arguments.</li>
                   </ol>
                 </li>
               </ol>
@@ -122,10 +115,9 @@
     <li>If <i>mappedNames</i> is not empty, then
 
       <ol class="block">
-        <li>Set the [[ParameterMap]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>obj</i> to
-        <i>map</i>.
-        </li>
+        <li>Set the [[ParameterMap]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>obj</i> to
+        <i>map</i>.</li>
 
         <li>Set the [[Get]], [[GetOwnProperty]], [[DefineOwnProperty]], and [[Delete]] internal
         methods of <i>obj</i> to the definitions provided below.</li>
@@ -154,10 +146,9 @@
     "inline"><es-rhs constraint="empty"></es-rhs></es-production>
     production.</li>
 
-    <li>Return the result of calling the abstract operation <a href=
-    "#sec-functioncreate">FunctionCreate</a> with arguments Normal, <i>parameters</i> , <i>body</i>
-    , <i>env</i> , and <b>true</b> .
-    </li>
+    <li>Return the result of calling the abstract operation <es-xref target=
+    "sec-functioncreate">FunctionCreate</es-xref> with arguments Normal, <i>parameters</i> ,
+    <i>body</i> , <i>env</i> , and <b>true</b> .</li>
   </ol>
 
   <p>The abstract operation MakeArgSetter called with String <es-nt>name</es-nt> and environment
@@ -177,10 +168,9 @@
     <li>Let <i>body</i> be the result of parsing <i>bodyText</i> using <i>FunctionBody</i> as the
     goal symbol.</li>
 
-    <li>Return the result of calling the abstract operation <a href=
-    "#sec-functioncreate">FunctionCreate</a> with arguments Normal , <i>parameters</i> ,
-    <i>body</i> for <i>FunctionBody</i>, <i>env</i> , and <b>true</b> .
-    </li>
+    <li>Return the result of calling the abstract operation <es-xref target=
+    "sec-functioncreate">FunctionCreate</es-xref> with arguments Normal , <i>parameters</i> ,
+    <i>body</i> for <i>FunctionBody</i>, <i>env</i> , and <b>true</b> .</li>
   </ol>
 
   <p>The [[Get]] internal method of an arguments object for a non-strict mode function with formal
@@ -189,9 +179,9 @@
   <ol class="proc">
     <li>Let <i>args</i> be the arguments object.</li>
 
-    <li>Let <i>map</i> be the value of the [[ParameterMap]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the arguments object.
-    </li>
+    <li>Let <i>map</i> be the value of the [[ParameterMap]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the arguments
+    object.</li>
 
     <li>Let <i>isMapped</i> be the result of calling the [[GetOwnProperty]] internal method of
     <i>map</i> passing <i>P</i> as the argument.</li>
@@ -200,10 +190,9 @@
 
       <ol class="block">
         <li>Let <i>v</i> be the result of calling the default ordinary object [[Get]] internal
-        method (<a href=
-        "#sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver">9.1.8</a> ) on
-        <i>args</i> passing <i>P</i> and <i>args</i> as the arguments.
-        </li>
+        method (<es-xref target=
+        "sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver">9.1.8</es-xref>)
+        on <i>args</i> passing <i>P</i> and <i>args</i> as the arguments.</li>
 
         <li>If <i>P</i> is <code>"caller"</code> and <i>v</i> is a strict mode Function object,
         throw a <b>TypeError</b> exception.</li>
@@ -215,8 +204,8 @@
     <li>Else <i>map</i> contains a formal parameter mapping for <i>P</i>,
 
       <ol class="block">
-        <li>Return the result of calling <a href="#sec-get-o-p">Get</a> (<i>map</i>, <i>P</i>).
-        </li>
+        <li>Return the result of calling <es-xref target="sec-get-o-p">Get</es-xref>(<i>map</i>,
+        <i>P</i>).</li>
       </ol>
     </li>
   </ol>
@@ -227,16 +216,15 @@
 
   <ol class="proc">
     <li>Let <i>desc</i> be the result of calling the default [[GetOwnProperty]] internal method for
-    ordinary objects (<a href=
-    "#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">9.1.5</a> ) on the
-    arguments object passing <i>P</i> as the argument.
-    </li>
+    ordinary objects (<es-xref target=
+    "sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">9.1.5</es-xref>) on
+    the arguments object passing <i>P</i> as the argument.</li>
 
     <li>If <i>desc</i> is <b>undefined</b> then return <i>desc</i>.</li>
 
-    <li>Let <i>map</i> be the value of the [[ParameterMap]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the arguments object.
-    </li>
+    <li>Let <i>map</i> be the value of the [[ParameterMap]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the arguments
+    object.</li>
 
     <li>Let <i>isMapped</i> be the result of calling the [[GetOwnProperty]] internal method of
     <i>map</i> passing <i>P</i> as the argument.</li>
@@ -244,9 +232,8 @@
     <li>If the value of <i>isMapped</i> is not <b>undefined</b>, then
 
       <ol class="block">
-        <li>Set <i>desc</i>.[[Value]] to the result of calling <a href="#sec-get-o-p">Get</a>
-        (<i>map</i>, <i>P</i>).
-        </li>
+        <li>Set <i>desc</i>.[[Value]] to the result of calling <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>map</i>, <i>P</i>).</li>
       </ol>
     </li>
 
@@ -254,35 +241,32 @@
   </ol>
 
   <p>The [[DefineOwnProperty]] internal method of an arguments object for a non-strict mode
-  function with formal parameters when called with a property name <es-nt>P</es-nt> and <a href=
-  "#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt>
-  performs the following steps:</p>
+  function with formal parameters when called with a property name <es-nt>P</es-nt> and
+  <es-xref target="sec-property-descriptor-specification-type">Property Descriptor</es-xref>
+  <es-nt>Desc</es-nt> performs the following steps:</p>
 
   <ol class="proc">
-    <li>Let <i>map</i> be the value of the [[ParameterMap]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the arguments object.
-    </li>
+    <li>Let <i>map</i> be the value of the [[ParameterMap]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the arguments
+    object.</li>
 
     <li>Let <i>isMapped</i> be the result of calling the [[GetOwnProperty]] internal method of
     <i>map</i> passing <i>P</i> as the argument.</li>
 
     <li>Let <i>allowed</i> be the result of calling the default [[DefineOwnProperty]] internal
-    method for ordinary objects (<a href=
-    "#sec-ordinary-object-internal-methods-and-internal-slots-defineownproperty-p-desc">9.1.6</a> )
-    on the arguments object passing <i>P</i> and <i>Desc</i> as the arguments.
-    </li>
+    method for ordinary objects (<es-xref target=
+    "sec-ordinary-object-internal-methods-and-internal-slots-defineownproperty-p-desc">9.1.6</es-xref>)
+    on the arguments object passing <i>P</i> and <i>Desc</i> as the arguments.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>allowed</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>allowed</i>).</li>
 
     <li>If <i>allowed</i> is <b>false</b>, then return <b>false</b>.</li>
 
     <li>If the value of <i>isMapped</i> is not <b>undefined</b>, then
 
       <ol class="block">
-        <li>If <a href="#sec-isaccessordescriptor">IsAccessorDescriptor</a> (<i>Desc</i>) is
-        <b>true</b>, then
+        <li>If <es-xref target=
+        "sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>Desc</i>) is <b>true</b>, then
 
           <ol class="block">
             <li>Call the [[Delete]] internal method of <i>map</i> passing <i>P</i> as the
@@ -296,14 +280,13 @@
             <li>If <i>Desc</i>.[[Value]] is present, then
 
               <ol class="block">
-                <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-                (<i>map</i>, <i>P</i>, <i>Desc</i>.[[Value]], <b>false</b>).
-                </li>
+                <li>Let <i>putStatus</i> be the result of <es-xref target=
+                "sec-put-o-p-v-throw">Put</es-xref>(<i>map</i>, <i>P</i>, <i>Desc</i>.[[Value]],
+                <b>false</b>).</li>
 
-                <li>
-                  <a href="#sec-algorithm-conventions">Assert</a> : <i>putStatus</i> is <b>true</b>
-                  because formal parameters mapped by argument objects are always writable.
-                </li>
+                <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>putStatus</i>
+                is <b>true</b> because formal parameters mapped by argument objects are always
+                writable.</li>
               </ol>
             </li>
 
@@ -323,22 +306,21 @@
   </ol>
 
   <p>The [[Delete]] internal method of an arguments object for a non-strict mode function with
-  formal parameters when called with a <a href="#sec-object-type">property key</a> <es-nt>P</es-nt>
-  performs the following steps:</p>
+  formal parameters when called with a <es-xref target="sec-object-type">property key</es-xref>
+  <es-nt>P</es-nt> performs the following steps:</p>
 
   <ol class="proc">
-    <li>Let <i>map</i> be the value of the [[ParameterMap]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the arguments object.
-    </li>
+    <li>Let <i>map</i> be the value of the [[ParameterMap]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the arguments
+    object.</li>
 
     <li>Let <i>isMapped</i> be the result of calling the [[GetOwnProperty]] internal method of
     <i>map</i> passing <i>P</i> as the argument.</li>
 
     <li>Let <i>result</i> be the result of calling the default [[Delete]] internal method for
-    ordinary objects (<a href=
-    "#sec-ordinary-object-internal-methods-and-internal-slots-delete-p">9.1.10</a> ) on the
-    arguments object passing <i>P</i> as the argument.
-    </li>
+    ordinary objects (<es-xref target=
+    "sec-ordinary-object-internal-methods-and-internal-slots-delete-p">9.1.10</es-xref>) on the
+    arguments object passing <i>P</i> as the argument.</li>
 
     <li>If <i>result</i> is <b>true</b> and the value of <i>isMapped</i> is not <b>undefined</b>,
     then
@@ -356,12 +338,12 @@
     <p>For non-strict mode functions the integer indexed data properties of an arguments object
     whose numeric name values are less than the number of formal parameters of the corresponding
     function object initially share their values with the corresponding argument bindings in the
-    function’s <a href="#sec-execution-contexts">execution context</a> . This means that changing
-    the property changes the corresponding value of the argument binding and vice-versa. This
-    correspondence is broken if such a property is deleted and then redefined or if the property is
-    changed into an accessor property. For strict mode functions, the values of the arguments
-    object’s properties are simply a copy of the arguments passed to the function and there is no
-    dynamic linkage between the property values and the formal parameter values.</p>
+    function’s <es-xref target="sec-execution-contexts">execution context</es-xref>. This means
+    that changing the property changes the corresponding value of the argument binding and
+    vice-versa. This correspondence is broken if such a property is deleted and then redefined or
+    if the property is changed into an accessor property. For strict mode functions, the values of
+    the arguments object’s properties are simply a copy of the arguments passed to the function and
+    there is no dynamic linkage between the property values and the formal parameter values.</p>
   </es-note>
 
   <es-note>

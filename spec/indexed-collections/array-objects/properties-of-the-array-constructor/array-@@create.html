@@ -5,18 +5,14 @@
   <ol class="proc">
     <li>Let <i>F</i> be the <b>this</b> value.</li>
 
-    <li>Let <i>proto</i> be the result of <a href=
-    "#sec-getprototypefromconstructor">GetPrototypeFromConstructor</a> (<i>F</i>,
-    <code>"%ArrayPrototype%"</code>).
-    </li>
+    <li>Let <i>proto</i> be the result of <es-xref target=
+    "sec-getprototypefromconstructor">GetPrototypeFromConstructor</es-xref>(<i>F</i>,
+    <code>"%ArrayPrototype%"</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>proto</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
 
-    <li>Let <i>obj</i> be the result of calling <a href="#sec-arraycreate">ArrayCreate</a> with
-    arguments <b>undefined</b> and <i>proto</i>.
-    </li>
+    <li>Let <i>obj</i> be the result of calling <es-xref target=
+    "sec-arraycreate">ArrayCreate</es-xref> with arguments <b>undefined</b> and <i>proto</i>.</li>
 
     <li>Return <i>obj</i>.</li>
   </ol>
@@ -28,13 +24,13 @@
   [[Configurable]]: <b>true</b> }.</p>
 
   <es-note>
-    <p>Passing <span class="value">undefined</span> as the first argument to <a href=
-    "#sec-arraycreate">ArrayCreate</a> causes the [[ArrayInitialisationState]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the array to be
-    initially assigned the value <b>false</b>. This is a flag used to indicate that the instance
-    has not yet been initialised by the <code>Array</code> constructor. This flag value is never
-    directly exposed to ECMAScript code; hence implementations may choose to encode the flag in any
-    unobservable manner.</p>
+    <p>Passing <span class="value">undefined</span> as the first argument to <es-xref target=
+    "sec-arraycreate">ArrayCreate</es-xref> causes the [[ArrayInitialisationState]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the
+    array to be initially assigned the value <b>false</b>. This is a flag used to indicate that the
+    instance has not yet been initialised by the <code>Array</code> constructor. This flag value is
+    never directly exposed to ECMAScript code; hence implementations may choose to encode the flag
+    in any unobservable manner.</p>
   </es-note>
 
   <es-note>

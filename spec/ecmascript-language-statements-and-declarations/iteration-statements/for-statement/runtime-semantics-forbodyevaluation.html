@@ -16,17 +16,16 @@
           <ol class="block">
             <li>Let <i>testExprRef</i> be the result of evaluating <i>testExpr</i>.</li>
 
-            <li>Let <i>testExprValue</i> be <a href="#sec-toboolean">ToBoolean</a> (<a href=
-            "#sec-getvalue">GetValue</a> (<i>testExprRef</i>))
-            </li>
+            <li>Let <i>testExprValue</i> be <es-xref target=
+            "sec-toboolean">ToBoolean</es-xref>(<es-xref target=
+            "sec-getvalue">GetValue</es-xref>(<i>testExprRef</i>))</li>
 
-            <li>If <i>testExprValue</i> is <b>false</b>, return <a href=
-            "#sec-normalcompletion">NormalCompletion</a> (<i>V</i>).
-            </li>
+            <li>If <i>testExprValue</i> is <b>false</b>, return <es-xref target=
+            "sec-normalcompletion">NormalCompletion</es-xref>(<i>V</i>).</li>
 
-            <li>Else if <a href="#sec-loopcontinues">LoopContinues</a>
-            (<i>testExprValue</i>,<i>labelSet</i>) is <b>false</b>, return <i>testExprValue.</i>
-            </li>
+            <li>Else if <es-xref target="sec-loopcontinues">LoopContinues</es-xref>
+            (<i>testExprValue</i>,<i>labelSet</i>) is <b>false</b>, return
+            <i>testExprValue.</i></li>
           </ol>
         </li>
 
@@ -34,22 +33,20 @@
 
         <li>If <i>result</i>.[[value]] is not empty, let <i>V</i> = <i>result</i>.[[value]].</li>
 
-        <li>If <a href="#sec-loopcontinues">LoopContinues</a> (<i>result</i>,<i>labelSet</i>) is
-        <b>false</b>, return <i>result</i>.
-        </li>
+        <li>If <es-xref target="sec-loopcontinues">LoopContinues</es-xref>
+        (<i>result</i>,<i>labelSet</i>) is <b>false</b>, return <i>result</i>.</li>
 
         <li>If <i>incrementExpr</i> is not [empty], then
 
           <ol class="block">
             <li>Let <i>incExprRef</i> be the result of evaluating <i>incrementExpr</i>.</li>
 
-            <li>Let <i>incExprValue</i> be <a href="#sec-getvalue">GetValue</a>
-            (<i>incExprRef</i>).
-            </li>
+            <li>Let <i>incExprValue</i> be <es-xref target=
+            "sec-getvalue">GetValue</es-xref>(<i>incExprRef</i>).</li>
 
-            <li>If <a href="#sec-loopcontinues">LoopContinues</a>
-            (<i>incExprValue</i>,<i>labelSet</i>) is <b>false</b>, return <i>incExprValue.</i>
-            </li>
+            <li>If <es-xref target=
+            "sec-loopcontinues">LoopContinues</es-xref>(<i>incExprValue</i>,<i>labelSet</i>) is
+            <b>false</b>, return <i>incExprValue.</i></li>
           </ol>
         </li>
       </ol>

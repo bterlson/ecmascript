@@ -4,27 +4,20 @@
   as the result of the call.</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
-      this</b> value as the argument.
-    </li>
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
-    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"length"</code>).
-    </li>
+    <li>Let <i>lenVal</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>).</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
-    <li>Let <i>middle</i> be <a href="#sec-algorithm-conventions">floor</a> (<i>len</i>/2).
-    </li>
+    <li>Let <i>middle</i> be <es-xref target=
+    "sec-algorithm-conventions">floor</es-xref>(<i>len</i>/2).</li>
 
     <li>Let <i>lower</i> be <b>0</b>.</li>
 
@@ -33,104 +26,86 @@
       <ol class="block">
         <li>Let <i>upper</i> be <i>len</i>− <i>lower</i> −1.</li>
 
-        <li>Let <i>upperP</i> be <a href="#sec-tostring">ToString</a> (<i>upper</i>).
-        </li>
+        <li>Let <i>upperP</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>upper</i>).</li>
 
-        <li>Let <i>lowerP</i> be <a href="#sec-tostring">ToString</a> (<i>lower</i>).
-        </li>
+        <li>Let <i>lowerP</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>lower</i>).</li>
 
-        <li>Let <i>lowerValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-        <i>lowerP</i>).
-        </li>
+        <li>Let <i>lowerValue</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>lowerP</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lowerValue</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lowerValue</i>).</li>
 
-        <li>Let <i>upperValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-        <i>upper</i>).
-        </li>
+        <li>Let <i>upperValue</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>upper</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>upperValue</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>upperValue</i>).</li>
 
-        <li>Let <i>lowerExists</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
-        (<i>O</i>, <i>lowerP</i>).
-        </li>
+        <li>Let <i>lowerExists</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>lowerP</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lowerExists</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lowerExists</i>).</li>
 
-        <li>Let <i>upperExists</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
-        (<i>O</i>, <i>upperP</i>).
-        </li>
+        <li>Let <i>upperExists</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>upperP</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>upperExists</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>upperExists</i>).</li>
 
         <li>If <i>lowerExists</i> is <b>true</b> and <i>upperExists</i> is <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-            (<i>O</i>, <i>lowerP</i>, <i>upperValue</i>, <b>true</b>).
-            </li>
+            <li>Let <i>putStatus</i> be the result of <es-xref target=
+            "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>lowerP</i>, <i>upperValue</i>,
+            <b>true</b>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
-            <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-            (<i>O</i>, <i>upperP</i>, <i>lowerValue</i>, <b>true</b>).
-            </li>
+            <li>Let <i>putStatus</i> be the result of <es-xref target=
+            "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>upperP</i>, <i>lowerValue</i>,
+            <b>true</b>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
           </ol>
         </li>
 
         <li>Else if <i>lowerExists</i> is <b>false</b> and <i>upperExists</i> is <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-            (<i>O</i>, <i>lowerP</i>, <i>upperValue</i>, <b>true</b>).
-            </li>
+            <li>Let <i>putStatus</i> be the result of <es-xref target=
+            "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>lowerP</i>, <i>upperValue</i>,
+            <b>true</b>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
-            <li>Let <i>deleteStatus</i> be the result of <a href=
-            "#sec-deletepropertyorthrow">DeletePropertyOrThrow</a> (<i>O</i>, <i>upperP</i>).
-            </li>
+            <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+            "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref> (<i>O</i>,
+            <i>upperP</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
           </ol>
         </li>
 
         <li>Else if <i>lowerExists</i> is <b>true</b> and <i>upperExists</i> is <b>false</b>, then
 
           <ol class="block">
-            <li>Let <i>deleteStatus</i> be the result of <a href=
-            "#sec-deletepropertyorthrow">DeletePropertyOrThrow</a> (<i>O</i>, <i>lowerP</i>).
-            </li>
+            <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+            "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref> (<i>O</i>,
+            <i>lowerP</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
 
-            <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-            (<i>O</i>, <i>upperP</i>, <i>lowerValue</i>, <b>true</b>).
-            </li>
+            <li>Let <i>putStatus</i> be the result of <es-xref target=
+            "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>upperP</i>, <i>lowerValue</i>,
+            <b>true</b>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
           </ol>
         </li>
 

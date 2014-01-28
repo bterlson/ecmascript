@@ -8,22 +8,18 @@
   <ol class="proc">
     <li>Let <i>propertyNameReference</i> be the result of evaluating <i>Expression</i>.</li>
 
-    <li>Let <i>propertyNameValue</i> be <a href="#sec-getvalue">GetValue</a>
-    (<i>propertyNameReference</i>).
-    </li>
+    <li>Let <i>propertyNameValue</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>propertyNameReference</i>).</li>
 
-    <li>Let <i>propertyKey</i> be <a href="#sec-topropertykey">ToPropertyKey</a>
-    (<i>propertyNameValue</i>).
-    </li>
+    <li>Let <i>propertyKey</i> be <es-xref target=
+    "sec-topropertykey">ToPropertyKey</es-xref>(<i>propertyNameValue</i>).</li>
 
-    <li>If the code matched by the syntactic production that is being evaluated is <a href=
-    "#sec-strict-mode-code">strict mode code</a> , let <i>strict</i> be <b>true</b>, else let
-    <i>strict</i> be <b>false</b>.
-    </li>
+    <li>If the code matched by the syntactic production that is being evaluated is <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>, let <i>strict</i> be <b>true</b>, else let
+    <i>strict</i> be <b>false</b>.</li>
 
-    <li>Return the result of <a href="#sec-makesuperreference">MakeSuperReference</a>
-    (<i>propertyKey</i>, <i>strict</i>).
-    </li>
+    <li>Return the result of <es-xref target=
+    "sec-makesuperreference">MakeSuperReference</es-xref>(<i>propertyKey</i>, <i>strict</i>).</li>
   </ol>
 
   <es-production name="MemberExpression" class="inline">
@@ -31,18 +27,15 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let propertyKey be <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
-    IdentifierName.
-    </li>
+    <li>Let propertyKey be <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of IdentifierName.</li>
 
-    <li>If the code matched by the syntactic production that is being evaluated is <a href=
-    "#sec-strict-mode-code">strict mode code</a> , let strict be <b>true</b>, else let strict be
-    <b>false</b>.
-    </li>
+    <li>If the code matched by the syntactic production that is being evaluated is <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>, let strict be <b>true</b>, else let strict
+    be <b>false</b>.</li>
 
-    <li>Return the result of <a href="#sec-makesuperreference">MakeSuperReference</a> (propertyKey,
-    strict).
-    </li>
+    <li>Return the result of <es-xref target=
+    "sec-makesuperreference">MakeSuperReference</es-xref>(propertyKey, strict).</li>
   </ol>
 
   <es-production name="MemberExpression" class="inline">
@@ -50,54 +43,45 @@
   </es-production>
 
   <ol class="proc">
-    <li>If the code matched by the syntactic production that is being evaluated is <a href=
-    "#sec-strict-mode-code">strict mode code</a> , let <i>strict</i> be <b>true</b>, else let
-    <i>strict</i> be <b>false</b>.
-    </li>
+    <li>If the code matched by the syntactic production that is being evaluated is <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>, let <i>strict</i> be <b>true</b>, else let
+    <i>strict</i> be <b>false</b>.</li>
 
-    <li>Let <i>ref</i> be the result of <a href="#sec-makesuperreference">MakeSuperReference</a>
-    (<b>undefined</b>, <i>strict</i>).
-    </li>
+    <li>Let <i>ref</i> be the result of <es-xref target=
+    "sec-makesuperreference">MakeSuperReference</es-xref>(<b>undefined</b>, <i>strict</i>).</li>
 
-    <li>Let <i>constructor</i> be <a href="#sec-getvalue">GetValue</a> (<i>ref</i>).
-    </li>
+    <li>Let <i>constructor</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>ref</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>constructor</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>constructor</i>).</li>
 
     <li>If <i>Arguments</i> is present, then
 
       <ol class="block">
-        <li>Let <i>argList</i> be the result of evaluating <i>Arguments</i>, producing a <a href=
-        "#sec-list-and-record-specification-type">List</a> of argument values (<a href=
-        "#sec-argument-lists">12.2.6</a> ).
-        </li>
+        <li>Let <i>argList</i> be the result of evaluating <i>Arguments</i>, producing a
+        <es-xref target="sec-list-and-record-specification-type">List</es-xref> of argument values
+        (<es-xref target="sec-argument-lists">12.2.6</es-xref>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>argList</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>argList</i>).</li>
       </ol>
     </li>
 
     <li>Else,
 
       <ol class="block">
-        <li>Let <i>argList</i> be a new empty <a href=
-        "#sec-list-and-record-specification-type">List</a> .
-        </li>
+        <li>Let <i>argList</i> be a new empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
       </ol>
     </li>
 
-    <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>constructor</i>) is <b>false</b>,
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref> (<i>constructor</i>) is
+    <b>false</b>, throw a <b>TypeError</b> exception.</li>
 
     <li>Let <i>thisCall</i> be this <i>MemberExpression</i>.</li>
 
-    <li>Let <i>tailCall</i> be <a href="#sec-intailposition">InTailPosition</a> (<i>thisCall</i>).
-    (See <a href="#sec-intailposition">14.6.1</a> )
-    </li>
+    <li>Let <i>tailCall</i> be <es-xref target=
+    "sec-intailposition">InTailPosition</es-xref>(<i>thisCall</i>). (See <es-xref target=
+    "sec-intailposition">14.6.1</es-xref>)</li>
 
     <li>If <i>tailCall</i> is <b>true</b>, then perform the PrepareForTailCall abstract
     operation.</li>
@@ -105,12 +89,10 @@
     <li>Let <i>result</i> be the result of calling the [[Construct]] internal method on
     <i>constructor</i>, passing <i>argList</i> as the argument.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : If <i>tailCall</i> is <b>true</b>, the
-      above call of [[Construct]] will not return here, but instead evaluation will continue with
-      the resumption of <i>leafCallerContext</i> as <a href="#sec-execution-contexts">the running
-      execution context</a> .
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: If <i>tailCall</i> is
+    <b>true</b>, the above call of [[Construct]] will not return here, but instead evaluation will
+    continue with the resumption of <i>leafCallerContext</i> as <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>.</li>
 
     <li>Return <i>result</i>.</li>
   </ol>
@@ -120,24 +102,20 @@
   </es-production>
 
   <ol class="proc">
-    <li>If the code matched by the syntactic production that is being evaluated is <a href=
-    "#sec-strict-mode-code">strict mode code</a> , let <i>strict</i> be <b>true</b>, else let
-    <i>strict</i> be <b>false</b>.
-    </li>
+    <li>If the code matched by the syntactic production that is being evaluated is <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>, let <i>strict</i> be <b>true</b>, else let
+    <i>strict</i> be <b>false</b>.</li>
 
-    <li>Let <i>ref</i> be the result of <a href="#sec-makesuperreference">MakeSuperReference</a>
-    (<b>undefined</b>, <i>strict</i>).
-    </li>
+    <li>Let <i>ref</i> be the result of <es-xref target=
+    "sec-makesuperreference">MakeSuperReference</es-xref>(<b>undefined</b>, <i>strict</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>ref</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>ref</i>).</li>
 
     <li>Let <i>thisCall</i> be this <i>CallExpression</i>.</li>
 
-    <li>Let <i>tailCall</i> be <a href="#sec-intailposition">InTailPosition</a> (<i>thisCall</i>).
-    (See <a href="#sec-intailposition">14.6.1</a> )
-    </li>
+    <li>Let <i>tailCall</i> be <es-xref target=
+    "sec-intailposition">InTailPosition</es-xref>(<i>thisCall</i>). (See <es-xref target=
+    "sec-intailposition">14.6.1</es-xref>)</li>
 
     <li>Return the result of the abstract operation EvaluateCall with arguments <i>ref</i>,
     <i>Arguments</i>, and <i>tailCall</i>.</li>

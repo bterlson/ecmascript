@@ -12,45 +12,36 @@
       <ol class="block">
         <li>Let <i>lref</i> be the result of evaluating <i>LeftHandSideExpression</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lref</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lref</i>).</li>
 
         <li>Let <i>rref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
 
-        <li>Let <i>rval</i> be <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
-        </li>
+        <li>Let <i>rval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rref</i>).</li>
 
         <li>If both IsAnonymousFunctionDefinition of <i>AssignmentExpression</i> and
         IsIdentifierRef of <i>LeftHandSideExpression</i> are <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>hasNameProperty</i> be the result of <a href=
-            "#sec-hasownproperty">HasOwnProperty</a> (<i>rval</i>, <code>"name"</code>).
-            </li>
+            <li>Let <i>hasNameProperty</i> be the result of <es-xref target=
+            "sec-hasownproperty">HasOwnProperty</es-xref>(<i>rval</i>, <code>"name"</code>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>hasNameProperty</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hasNameProperty</i>).</li>
 
             <li>If <i>hasNameProperty</i> is <b>false</b>, then
 
               <ol class="block">
-                <li>
-                  <a href="#sec-setfunctionname">SetFunctionName</a> (<i>rval</i>,
-                  GetReferenceName(<i>lref</i>)).
-                </li>
+                <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>rval</i>,
+                GetReferenceName(<i>lref</i>)).</li>
               </ol>
             </li>
           </ol>
         </li>
 
-        <li>Let <i>status</i> be <a href="#sec-putvalue">PutValue</a> (<i>lref</i>, <i>rval</i>).
-        </li>
+        <li>Let <i>status</i> be <es-xref target="sec-putvalue">PutValue</es-xref>(<i>lref</i>,
+        <i>rval</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
         <li>Return <i>rval</i>.</li>
       </ol>
@@ -62,23 +53,17 @@
 
     <li>Let <i>rref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
 
-    <li>Let <i>rval</i> be <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
-    </li>
+    <li>Let <i>rval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rref</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rval</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rval</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>rval</i>) is not Object,
-    then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>rval</i>) is
+    not Object, then throw a <b>TypeError</b> exception.</li>
 
     <li>Let <i>status</i> be the result of performing DestructuringAssignmentEvaluation of
     <i>AssignmentPattern</i> using <i>rval</i> as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
     <li>Return <i>rval</i>.</li>
   </ol>
@@ -91,45 +76,38 @@
   <ol class="proc">
     <li>Let <i>lref</i> be the result of evaluating <i>LeftHandSideExpression</i>.</li>
 
-    <li>Let <i>lval</i> be <a href="#sec-getvalue">GetValue</a> (<i>lref</i>).
-    </li>
+    <li>Let <i>lval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>lref</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lval</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lval</i>).</li>
 
     <li>Let <i>rref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
 
-    <li>Let <i>rval</i> be <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
-    </li>
+    <li>Let <i>rval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rref</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rval</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rval</i>).</li>
 
     <li>Let <i>operator</i> be the <code>@</code> where <i>AssignmentOperator</i> is
     <code>@=</code></li>
 
     <li>Let <i>r</i> be the result of applying operator @ to <i>lval</i> and <i>rval</i>.</li>
 
-    <li>Let <i>status</i> be <a href="#sec-putvalue">PutValue</a> (<i>lref</i>, <i>r</i>).
-    </li>
+    <li>Let <i>status</i> be <es-xref target="sec-putvalue">PutValue</es-xref>(<i>lref</i>,
+    <i>r</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
     <li>Return <i>r</i>.</li>
   </ol>
 
   <es-note>
-    <p>When an assignment occurs within <a href="#sec-strict-mode-code">strict mode code</a> , it
-    is an runtime error if <es-nt>lref</es-nt> in step 1.f.of the first algorithm or step 9 of the
-    second algorithm it is an unresolvable reference. If it is, a <b>ReferenceError</b> exception
-    is thrown. The <es-nt>LeftHandSide</es-nt> also may not be a reference to a data property with
-    the attribute value {[[Writable]]:<b>false</b>}, to an accessor property with the attribute
-    value {[[Set]]:<b>undefined</b>}, nor to a non-existent property of an object for which the
-    <a href="#sec-isextensible-o">IsExtensible</a> predicate returns the value <b>false</b>. In
-    these cases a <b>TypeError</b> exception is thrown.</p>
+    <p>When an assignment occurs within <es-xref target="sec-strict-mode-code">strict mode
+    code</es-xref>, it is an runtime error if <es-nt>lref</es-nt> in step 1.f.of the first
+    algorithm or step 9 of the second algorithm it is an unresolvable reference. If it is, a
+    <b>ReferenceError</b> exception is thrown. The <es-nt>LeftHandSide</es-nt> also may not be a
+    reference to a data property with the attribute value {[[Writable]]:<b>false</b>}, to an
+    accessor property with the attribute value {[[Set]]:<b>undefined</b>}, nor to a non-existent
+    property of an object for which the <es-xref target="sec-isextensible-o">IsExtensible</es-xref>
+    predicate returns the value <b>false</b>. In these cases a <b>TypeError</b> exception is
+    thrown.</p>
   </es-note>
 </es-clause>

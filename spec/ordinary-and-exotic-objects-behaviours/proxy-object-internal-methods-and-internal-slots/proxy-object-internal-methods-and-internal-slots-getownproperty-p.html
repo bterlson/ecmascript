@@ -2,32 +2,26 @@
 <es-clause title="[[GetOwnProperty]] (P)" anchor=
 "sec-proxy-object-internal-methods-and-internal-slots-getownproperty-p">
   <p>When the [[GetOwnProperty]] internal method of an exotic Proxy object <es-nt>O</es-nt> is
-  called with <a href="#sec-object-type">property key</a> <es-nt>P</es-nt>, the following steps are
-  taken:</p>
+  called with <es-xref target="sec-object-type">property key</es-xref> <es-nt>P</es-nt>, the
+  following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
 
-    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
     <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
-    "<code>getOwnPropertyDescriptor</code>").
-    </li>
+    <li>Let <i>trap</i> be the result of <es-xref target=
+    "sec-getmethod">GetMethod</es-xref>(<i>handler</i>,
+    "<code>getOwnPropertyDescriptor</code>").</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>trap</i>).</li>
 
     <li>If <i>trap</i> is <b>undefined</b>, then
 
@@ -38,24 +32,20 @@
     </li>
 
     <li>Let <i>trapResultObj</i> be the result of calling the [[Call]] internal method of
-    <i>trap</i> with <i>handler</i> as the <b>this</b> value and a new <a href=
-    "#sec-list-and-record-specification-type">List</a> containing <i>target</i> and <i>P</i>.
-    </li>
+    <i>trap</i> with <i>handler</i> as the <b>this</b> value and a new <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> containing <i>target</i> and
+    <i>P</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trapResultObj</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>trapResultObj</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>trapResultObj</i>) is
-    neither Object nor Undefined, then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>trapResultObj</i>) is neither Object
+    nor Undefined, then throw a <b>TypeError</b> exception.</li>
 
     <li>Let <i>targetDesc</i> be the result of calling the [[GetOwnProperty]] internal method of
     <i>target</i> with argument <i>P</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>targetDesc</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>targetDesc</i>).</li>
 
     <li>If <i>trapResultObj</i> is <b>undefined</b>, then
 
@@ -65,46 +55,37 @@
         <li>If <i>targetDesc</i>.[[Configurable]] is <b>false</b>, then throw a <b>TypeError</b>
         exception.</li>
 
-        <li>Let <i>extensibleTarget</i> be the result of <a href=
-        "#sec-isextensible-o">IsExtensible</a> (<i>target</i>).
-        </li>
+        <li>Let <i>extensibleTarget</i> be the result of <es-xref target=
+        "sec-isextensible-o">IsExtensible</es-xref>(<i>target</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>extensibleTarget</i>).
-        </li>
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>extensibleTarget</i>).</li>
 
-        <li>If <a href="#sec-toboolean">ToBoolean</a> (<i>extensibleTarget</i>) is <b>false</b>,
-        then throw a <b>TypeError</b> exception.
-        </li>
+        <li>If <es-xref target="sec-toboolean">ToBoolean</es-xref>(<i>extensibleTarget</i>) is
+        <b>false</b>, then throw a <b>TypeError</b> exception.</li>
 
         <li>Return <b>undefined</b>.</li>
       </ol>
     </li>
 
-    <li>Let <i>extensibleTarget</i> be the result of <a href="#sec-isextensible-o">IsExtensible</a>
-    (<i>target</i>).
-    </li>
+    <li>Let <i>extensibleTarget</i> be the result of <es-xref target=
+    "sec-isextensible-o">IsExtensible</es-xref>(<i>target</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>extensibleTarget</i>).
-    </li>
+    <li><es-xref target=
+    "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>extensibleTarget</i>).</li>
 
-    <li>Let <i>resultDesc</i> be <a href="#sec-topropertydescriptor">ToPropertyDescriptor</a>
-    (<i>trapResultObj</i>).
-    </li>
+    <li>Let <i>resultDesc</i> be <es-xref target=
+    "sec-topropertydescriptor">ToPropertyDescriptor</es-xref>(<i>trapResultObj</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>resultDesc</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>resultDesc</i>).</li>
 
-    <li>Call <a href="#sec-completepropertydescriptor">CompletePropertyDescriptor</a>
-    (<i>resultDesc, targetDesc</i>).
-    </li>
+    <li>Call <es-xref target=
+    "sec-completepropertydescriptor">CompletePropertyDescriptor</es-xref>(<i>resultDesc,
+    targetDesc</i>).</li>
 
-    <li>Let <i>valid</i> be the result of <a href=
-    "#sec-iscompatiblepropertydescriptor">IsCompatiblePropertyDescriptor</a>
-    (<i>extensibleTarget</i>, <i>resultDesc</i>, <i>targetDesc</i>).
-    </li>
+    <li>Let <i>valid</i> be the result of <es-xref target=
+    "sec-iscompatiblepropertydescriptor">IsCompatiblePropertyDescriptor</es-xref>
+    (<i>extensibleTarget</i>, <i>resultDesc</i>, <i>targetDesc</i>).</li>
 
     <li>If <i>valid</i> is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
 

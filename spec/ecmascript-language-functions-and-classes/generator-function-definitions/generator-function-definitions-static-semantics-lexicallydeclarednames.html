@@ -1,0 +1,23 @@
+<!doctype html>
+<es-clause title="Static Semantics: LexicallyDeclaredNames" anchor=
+"sec-generator-function-definitions-static-semantics-lexicallydeclarednames">
+  <p>See also: <es-xref target=
+  "sec-block-static-semantics-lexicallydeclarednames">13.1.3</es-xref>, <es-xref target=
+  "sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</es-xref>,
+  <es-xref target="sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</es-xref>,
+  <es-xref target=
+  "sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</es-xref>,
+  <es-xref target="sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</es-xref>,
+  <es-xref target="sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</es-xref>,
+  <es-xref target=
+  "sec-module-static-semantics-static-semantics-lexicallydeclarednames">15.2.0.10</es-xref>.</p>
+
+  <es-production name="GeneratorDeclaration" class="inline">
+    <es-rhs>function * <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+  </ol>
+</es-clause>

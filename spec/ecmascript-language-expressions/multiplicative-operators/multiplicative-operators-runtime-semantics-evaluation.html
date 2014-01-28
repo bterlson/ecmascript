@@ -9,37 +9,31 @@
   <ol class="proc">
     <li>Let <i>left</i> be the result of evaluating <i>MultiplicativeExpression</i>.</li>
 
-    <li>Let <i>leftValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>left</i>).
-    </li>
+    <li>Let <i>leftValue</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>left</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>leftValue</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>leftValue</i>).</li>
 
     <li>Let <i>right</i> be the result of evaluating <i>UnaryExpression</i>.</li>
 
-    <li>Let <i>rightValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>right</i>).
-    </li>
+    <li>Let <i>rightValue</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>right</i>).</li>
 
-    <li>Let <i>lnum</i> be <a href="#sec-tonumber">ToNumber</a> (<i>leftValue</i>).
-    </li>
+    <li>Let <i>lnum</i> be <es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>leftValue</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lnum</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lnum</i>).</li>
 
-    <li>Let <i>rnum</i> be <a href="#sec-tonumber">ToNumber</a> (<i>rightValue</i>).
-    </li>
+    <li>Let <i>rnum</i> be <es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>rightValue</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rnum</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rnum</i>).</li>
 
     <li>Return the result of applying the specified operation (*, /, or %) to <i>lnum</i> and
-    <i>rnum</i>. See the Notes below <a href="#sec-applying-the-mul-operator">12.5.3.1</a> ,
-    <a href="#sec-applying-the-div-operator">12.5.3.2</a> , <a href=
-    "#sec-applying-the-mod-operator">12.5.3.3</a> .
-    </li>
+    <i>rnum</i>. See the Notes below <es-xref target=
+    "sec-applying-the-mul-operator">12.5.3.1</es-xref>, <es-xref target=
+    "sec-applying-the-div-operator">12.5.3.2</es-xref>, <es-xref target=
+    "sec-applying-the-mod-operator">12.5.3.3</es-xref>.</li>
   </ol>
   <link rel="import" href=
   "multiplicative-operators-runtime-semantics-evaluation\applying-the-mul-operator.html">

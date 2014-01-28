@@ -6,10 +6,8 @@
   following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>name</i>) is String.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>name</i>) is String.</li>
 
     <li>Return <i>name</i>.</li>
   </ol>
@@ -17,8 +15,9 @@
   <p>This is a Loader hook that may be over-riden by an own property of Loader instances. The
   <code>normalize</code> hook is called once per distinct <es-nt>ModuleSpecifier</es-nt> String
   value in a <es-nt>ModuleBody</es-nt>, while the module <es-nt>ModuleBody</es-nt> with that is
-  being loaded. The <es-nt>name</es-nt> argument is the <a href=
-  "#sec-identifiers-and-identifier-names">StringValue</a> of a <es-nt>ModuleSpecifier</es-nt>.</p>
+  being loaded. The <es-nt>name</es-nt> argument is the <es-xref target=
+  "sec-identifiers-and-identifier-names">StringValue</es-xref> of a
+  <es-nt>ModuleSpecifier</es-nt>.</p>
 
   <p>The <code>normalize</code> hook returns an eventual String, the normalised module name, which
   is used for the rest of the import process. In particular, the [[Loads]] and [[Modules]] Lists of

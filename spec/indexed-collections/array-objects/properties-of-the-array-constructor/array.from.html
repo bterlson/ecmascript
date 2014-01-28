@@ -8,21 +8,18 @@
   <ol class="proc">
     <li>Let <i>C</i> be the <b>this</b> value.</li>
 
-    <li>Let <i>items</i> be <a href="#sec-toobject">ToObject</a> (<i>arrayLike</i>).
-    </li>
+    <li>Let <i>items</i> be <es-xref target=
+    "sec-toobject">ToObject</es-xref>(<i>arrayLike</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>items</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>items</i>).</li>
 
     <li>If <i>mapfn</i> is <b>undefined</b>, then let <i>mapping</i> be <b>false.</b></li>
 
     <li>else
 
       <ol class="block">
-        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>mapfn</i>) is <b>false</b>, throw a <b>
-          TypeError</b> exception.
-        </li>
+        <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>mapfn</i>) is <b>false</b>,
+        throw a <b>TypeError</b> exception.</li>
 
         <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be
         <b>undefined</b>.</li>
@@ -33,14 +30,13 @@
 
     <li>Let <i>usingIterator</i> be IsIterable(<i>items</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>usingIterator</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>usingIterator</i>).</li>
 
     <li>If <i>usingIterator</i> is <b>true</b>, then
 
       <ol class="block">
-        <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>C</i>) is <b>true</b>, then
+        <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is
+        <b>true</b>, then
 
           <ol class="block">
             <li>Let <i>A</i> be the result of calling the [[Construct]] internal method of <i>C</i>
@@ -51,87 +47,71 @@
         <li>Else,
 
           <ol class="block">
-            <li>Let <i>A</i> be the result of the abstract operation <a href=
-            "#sec-arraycreate">ArrayCreate</a> with argument 0.
-            </li>
+            <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+            "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
           </ol>
         </li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>A</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>A</i>).</li>
 
-        <li>Let <i>iterator</i> be the result of performing <a href=
-        "#sec-getiterator">GetIterator</a> (<i>items</i>).
-        </li>
+        <li>Let <i>iterator</i> be the result of performing <es-xref target=
+        "sec-getiterator">GetIterator</es-xref>(<i>items</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>iterator</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>).</li>
 
         <li>Let <i>k</i> be 0.</li>
 
         <li>Repeat
 
           <ol class="block">
-            <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
-            </li>
+            <li>Let <i>Pk</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
 
-            <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
-            (<i>iterator</i>).
-            </li>
+            <li>Let <i>next</i> be the result of <es-xref target=
+            "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-            </li>
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
             <li>If <i>next</i> is <b>false</b>, then
 
               <ol class="block">
-                <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-                (<i>A</i>, <code>"length"</code>, <i>k</i>, <b>true</b>).
-                </li>
+                <li>Let <i>putStatus</i> be the result of <es-xref target=
+                "sec-put-o-p-v-throw">Put</es-xref>(<i>A</i>, <code>"length"</code>, <i>k</i>,
+                <b>true</b>).</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
                 <li>Return <i>A</i>.</li>
               </ol>
             </li>
 
-            <li>Let <i>nextValue</i> be <a href="#sec-iteratorvalue">IteratorValue</a>
-            (<i>next</i>).
-            </li>
+            <li>Let <i>nextValue</i> be <es-xref target=
+            "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextValue</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextValue</i>).</li>
 
             <li>If <i>mapping</i> is <b>true</b>, then
 
               <ol class="block">
                 <li>Let <i>mappedValue</i> be the result of calling the [[Call]] internal method of
-                <i>mapfn</i> with <i>T</i> as <i>thisArgument</i> and a <a href=
-                "#sec-list-and-record-specification-type">List</a> containing <i>nextValue</i> as
-                <i>argumentsList</i>.
-                </li>
+                <i>mapfn</i> with <i>T</i> as <i>thisArgument</i> and a <es-xref target=
+                "sec-list-and-record-specification-type">List</es-xref> containing <i>nextValue</i>
+                as <i>argumentsList</i>.</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>mappedValue</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>mappedValue</i>).</li>
               </ol>
             </li>
 
             <li>Else, let <i>mappedValue</i> be <i>nextValue</i>.</li>
 
-            <li>Let <i>defineStatus</i> be the result of <a href="#sec-createdatapropertyorthrow">
-              CreateDataPropertyOrThrow</a> (<i>A</i>, <i>Pk</i>, <i>mappedValue</i>).
-            </li>
+            <li>Let <i>defineStatus</i> be the result of <es-xref target=
+            "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref>(<i>A</i>,
+            <i>Pk</i>, <i>mappedValue</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>defineStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>defineStatus</i>).</li>
 
             <li>Increase <i>k</i> by 1.</li>
           </ol>
@@ -139,23 +119,18 @@
       </ol>
     </li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>items</i> is not an Iterator so assume
-      it is an array-like object.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>items</i> is not an
+    Iterator so assume it is an array-like object.</li>
 
-    <li>Let <i>lenValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>items</i>,
-    <code>"length"</code>).
-    </li>
+    <li>Let <i>lenValue</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>items</i>, <code>"length"</code>).</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenValue</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenValue</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
-    <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>C</i>) is <b>true</b>, then
+    <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is <b>true</b>,
+    then
 
       <ol class="block">
         <li>Let <i>A</i> be the result of calling the [[Construct]] internal method of <i>C</i>
@@ -166,67 +141,54 @@
     <li>Else,
 
       <ol class="block">
-        <li>Let <i>A</i> be the result of the abstract operation <a href=
-        "#sec-arraycreate">ArrayCreate</a> with argument <i>len</i>.
-        </li>
+        <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+        "sec-arraycreate">ArrayCreate</es-xref> with argument <i>len</i>.</li>
       </ol>
     </li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>A</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>A</i>).</li>
 
     <li>Let <i>k</i> be 0.</li>
 
     <li>Repeat, while <i>k</i> &lt; <i>len</i>
 
       <ol class="block">
-        <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
-        </li>
+        <li>Let <i>Pk</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
 
-        <li>Let <i>kPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
-        (<i>items</i>, <i>Pk</i>).
-        </li>
+        <li>Let <i>kPresent</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>items</i>, <i>Pk</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kPresent</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kPresent</i>).</li>
 
         <li>If <i>kPresent</i> is <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>kValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>items</i>,
-            <i>Pk</i>).
-            </li>
+            <li>Let <i>kValue</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>items</i>, <i>Pk</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kValue</i>).
-            </li>
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kValue</i>).</li>
 
             <li>If <i>mapping</i> is <b>true</b>, then
 
               <ol class="block">
                 <li>Let <i>mappedValue</i> be the result of calling the [[Call]] internal method of
-                <i>mapfn</i> with <i>T</i> as <i>thisArgument</i> and a <a href=
-                "#sec-list-and-record-specification-type">List</a> containing <i>kValue</i>,
-                <i>k</i>, and <i>items</i> as <i>argumentsList</i>.
-                </li>
+                <i>mapfn</i> with <i>T</i> as <i>thisArgument</i> and a <es-xref target=
+                "sec-list-and-record-specification-type">List</es-xref> containing <i>kValue</i>,
+                <i>k</i>, and <i>items</i> as <i>argumentsList</i>.</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>mappedValue</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>mappedValue</i>).</li>
               </ol>
             </li>
 
             <li>Else, let <i>mappedValue</i> be <i>kValue</i>.</li>
 
-            <li>Let <i>defineStatus</i> be the result of <a href="#sec-createdatapropertyorthrow">
-              CreateDataPropertyOrThrow</a> (<i>A</i>, <i>Pk</i>, <i>mappedValue</i>).
-            </li>
+            <li>Let <i>defineStatus</i> be the result of <es-xref target=
+            "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref>(<i>A</i>,
+            <i>Pk</i>, <i>mappedValue</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>defineStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>defineStatus</i>).</li>
           </ol>
         </li>
 
@@ -234,13 +196,11 @@
       </ol>
     </li>
 
-    <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>A</i>,
-    <code>"length"</code>, <i>len</i>, <b>true</b>).
-    </li>
+    <li>Let <i>putStatus</i> be the result of <es-xref target=
+    "sec-put-o-p-v-throw">Put</es-xref>(<i>A</i>, <code>"length"</code>, <i>len</i>,
+    <b>true</b>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
     <li>Return <i>A</i>.</li>
   </ol>

@@ -13,50 +13,42 @@
   <ol class="proc">
     <li>Let <i>loader</i> be this Loader.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>loader</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
 
-    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>address</i> be <a href="#sec-getoption">GetOption</a> (<i>options</i>,
-    <code>"address"</code>).
-    </li>
+    <li>Let <i>address</i> be <es-xref target="sec-getoption">GetOption</es-xref>(<i>options</i>,
+    <code>"address"</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>address</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>address</i>).</li>
 
-    <li>Let <i>load</i> be <a href="#sec-createload">CreateLoad</a> (<b>undefined</b>).
-    </li>
+    <li>Let <i>load</i> be <es-xref target=
+    "sec-createload">CreateLoad</es-xref>(<b>undefined</b>).</li>
 
     <li>Set <i>load</i>.[[Address]] field of <i>load</i> to <i>address</i>.</li>
 
-    <li>Let <i>linkSet</i> be <a href="#sec-createlinkset">CreateLinkSet</a> (<i>loaderRecord</i>,
-    <i>load</i>).
-    </li>
+    <li>Let <i>linkSet</i> be <es-xref target=
+    "sec-createlinkset">CreateLinkSet</es-xref>(<i>loaderRecord</i>, <i>load</i>).</li>
 
     <li>Let <i>successCallback</i> be a new function object as defined by
     EvaluateLoadedModule.</li>
 
-    <li>Set <i>successCallback</i>’s [[Loader]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loaderRecord</i>.
-    </li>
+    <li>Set <i>successCallback</i>’s [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>loaderRecord</i>.</li>
 
-    <li>Set <i>successCallback</i>’s [[Load]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>load</i>.
-    </li>
+    <li>Set <i>successCallback</i>’s [[Load]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>load</i>.</li>
 
     <li>Let <i>p</i> be the result of calling PromiseThen(<i>linkSet</i>.[[Done]],
     <i>successCallback</i>).</li>
 
     <li>Let <i>sourcePromise</i> be PromiseOf(<i>source</i>).</li>
 
-    <li>Perform <a href="#sec-proceedtotranslate">ProceedToTranslate</a> (<i>loaderRecord</i>, <i>
-      load</i>, <i>sourcePromise</i>).
-    </li>
+    <li>Perform <es-xref target=
+    "sec-proceedtotranslate">ProceedToTranslate</es-xref>(<i>loaderRecord</i>, <i>load</i>,
+    <i>sourcePromise</i>).</li>
 
     <li>Return <i>p</i>.</li>
   </ol>

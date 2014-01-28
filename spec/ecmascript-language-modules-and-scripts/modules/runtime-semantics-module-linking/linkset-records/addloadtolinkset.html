@@ -8,24 +8,20 @@
   <p>The following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>load</i>.[[Status]] is either
-      <code>"loading"</code> or <code>"loaded"</code>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>load</i>.[[Status]] is
+    either <code>"loading"</code> or <code>"loaded"</code>.</li>
 
     <li>Let <i>loader</i> be <i>linkSet</i>.[[Loader]].</li>
 
-    <li>If <i>load</i> is not already an element of the <a href=
-    "#sec-list-and-record-specification-type">List</a> <i>linkSet</i>.[[Loads]],
+    <li>If <i>load</i> is not already an element of the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> <i>linkSet</i>.[[Loads]],
 
       <ol class="block">
-        <li>Append <i>load</i> to the end of the <a href="#sec-list-and-record-specification-type">
-          List</a> <i>linkSet</i>.[[Loads]].
-        </li>
+        <li>Append <i>load</i> to the end of the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> <i>linkSet</i>.[[Loads]].</li>
 
-        <li>Append <i>linkSet</i> to the end of the <a href=
-        "#sec-list-and-record-specification-type">List</a> <i>load</i>.[[LinkSets]].
-        </li>
+        <li>Append <i>linkSet</i> to the end of the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> <i>load</i>.[[LinkSets]].</li>
 
         <li>If <i>load</i>.[[Status]] is <code>"loaded"</code>, then
 

@@ -5,19 +5,18 @@
   taken:</p>
 
   <ol class="proc">
-    <li>Return an Iterator object (<a href="#sec-iterator-interface">25.1.2</a> ) whose next method
-    iterates over all the String valued keys of enumerable property keys of <i>O</i>. The mechanics
-    and order of enumerating the properties is not specified but must conform to the rules
-    specified below.
-    </li>
+    <li>Return an Iterator object (<es-xref target="sec-iterator-interface">25.1.2</es-xref>) whose
+    next method iterates over all the String valued keys of enumerable property keys of <i>O</i>.
+    The mechanics and order of enumerating the properties is not specified but must conform to the
+    rules specified below.</li>
   </ol>
 
-  <p>Enumerated properties do not include properties whose <a href="#sec-object-type">property
-  key</a> is a Symbol. Properties of the object being enumerated may be deleted during enumeration.
-  If a property that has not yet been visited during enumeration is deleted, then it will not be
-  visited. If new properties are added to the object being enumerated during enumeration, the newly
-  added properties are not guaranteed to be visited in the active enumeration. A property name must
-  not be visited more than once in any enumeration.</p>
+  <p>Enumerated properties do not include properties whose <es-xref target=
+  "sec-object-type">property key</es-xref> is a Symbol. Properties of the object being enumerated
+  may be deleted during enumeration. If a property that has not yet been visited during enumeration
+  is deleted, then it will not be visited. If new properties are added to the object being
+  enumerated during enumeration, the newly added properties are not guaranteed to be visited in the
+  active enumeration. A property name must not be visited more than once in any enumeration.</p>
 
   <p>Enumerating the properties of an object includes enumerating properties of its prototype, and
   the prototype of the prototype, and so on, recursively; but a property of a prototype is not
@@ -33,16 +32,13 @@
     <li>Let <i>proto</i> be the result of calling the [[GetPrototypeOf]] internal method of
     <i>O</i> with no arguments.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>proto</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
 
     <li>If <i>proto</i> is the value <b>null</b>, then
 
       <ol class="block">
-        <li>Let <i>propList</i> be a new empty <a href=
-        "#sec-list-and-record-specification-type">List</a> .
-        </li>
+        <li>Let <i>propList</i> be a new empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
       </ol>
     </li>
 
@@ -54,22 +50,19 @@
       </ol>
     </li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propList</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propList</i>).</li>
 
-    <li>For each <i>name</i> that is the <a href="#sec-object-type">property key</a> of an own
-    property of <i>O</i>
+    <li>For each <i>name</i> that is the <es-xref target="sec-object-type">property key</es-xref>
+    of an own property of <i>O</i>
 
       <ol class="block">
-        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>name</i>) is String,
-        then
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>name</i>)
+        is String, then
 
           <ol class="block">
-            <li>Let <i>desc</i> be the result of calling <a href=
-            "#sec-ordinarygetownproperty">OrdinaryGetOwnProperty</a> with arguments <i>O</i> and
-            <i>name</i>.
-            </li>
+            <li>Let <i>desc</i> be the result of calling <es-xref target=
+            "sec-ordinarygetownproperty">OrdinaryGetOwnProperty</es-xref> with arguments <i>O</i>
+            and <i>name</i>.</li>
 
             <li>If <i>name</i> is an element of <i>propList</i>, then remove <i>name</i> as an
             element of <i>propList</i>.</li>

@@ -1,22 +1,23 @@
 <!doctype html>
 <es-clause title="Function Environment Records" anchor="sec-function-environment-records">
-  <p>A function environment record is a <a href="#sec-declarative-environment-records">declarative
-  environment record</a> that is used to represent the outer most scope of a function that provides
-  a <code>this</code> binding. In addition to its identifier bindings, a function environment
-  record contains the <b>this</b> value used within its scope. If such a function references
-  <code>super</code>, its function environment record also contains the state that is used to
-  perform <code>super</code> method invocations from within the function.</p>
+  <p>A function environment record is a <es-xref target=
+  "sec-declarative-environment-records">declarative environment record</es-xref> that is used to
+  represent the outer most scope of a function that provides a <code>this</code> binding. In
+  addition to its identifier bindings, a function environment record contains the <b>this</b> value
+  used within its scope. If such a function references <code>super</code>, its function environment
+  record also contains the state that is used to perform <code>super</code> method invocations from
+  within the function.</p>
 
   <p>Function environment records store their <code>this</code> binding as the value of their
   <es-nt>thisValue</es-nt>. If the associated function references <code>super</code>, the
   environment record stores in <es-nt>HomeObject</es-nt> the object that the function is bound to
-  as a method and in <es-nt>MethodName</es-nt> the <a href="#sec-object-type">property key</a> used
-  for unqualified super invocations from within the function. The default value for
-  <es-nt>HomeObject</es-nt> and <es-nt>MethodName</es-nt> is <span class=
+  as a method and in <es-nt>MethodName</es-nt> the <es-xref target="sec-object-type">property
+  key</es-xref> used for unqualified super invocations from within the function. The default value
+  for <es-nt>HomeObject</es-nt> and <es-nt>MethodName</es-nt> is <span class=
   "value">undefined</span>.</p>
 
-  <p>Methods environment records support all of <a href=
-  "#sec-declarative-environment-records">Declarative Environment Record</a> methods listed in
+  <p>Methods environment records support all of <es-xref target=
+  "sec-declarative-environment-records">Declarative Environment Record</es-xref> methods listed in
   <a href="#table-16">Table 16</a> and share the same specifications for all of those methods
   except for HasThisBinding and HasSuperBinding. In addition, declarative environment records
   support the methods listed in <a href="#table-17">Table 17</a> :</p>
@@ -50,8 +51,7 @@
       <tr>
         <td style=
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
-        <a href="#sec-getsuperbase">GetSuperBase</a> ()
-        </td>
+        <es-xref target="sec-getsuperbase">GetSuperBase</es-xref>()</td>
 
         <td style=
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
@@ -63,8 +63,7 @@
       <tr>
         <td style=
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
-        <a href="#sec-getmethodname">GetMethodName</a> ()
-        </td>
+        <es-xref target="sec-getmethodname">GetMethodName</es-xref>()</td>
 
         <td style=
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
@@ -77,8 +76,8 @@
   Records is defined by the following algorithms:</p>
 
   <es-clause title="HasThisBinding ()" anchor="sec-function-environment-records-hasthisbinding">
-    <p><a href="#sec-function-environment-records">Function Environment Records</a> always provide
-    a <code>this</code> binding.</p>
+    <p><es-xref target="sec-function-environment-records">Function Environment Records</es-xref>
+    always provide a <code>this</code> binding.</p>
 
     <ol class="proc">
       <li>Return <b>true</b>.</li>
@@ -104,10 +103,8 @@
 
       <li>If <i>home</i> has the value Empty, then return <b>undefined</b>.</li>
 
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-        "#sec-ecmascript-data-types-and-values">Type</a> (<i>home</i>) is Object.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>home</i>) is Object.</li>
 
       <li>Return the result of calling <i>home’s</i> [[GetPrototypeOf]] internal method.</li>
     </ol>

@@ -11,9 +11,9 @@
   components, the <es-nt>base</es-nt> value, the <es-nt>referenced name</es-nt> and the Boolean
   valued <es-nt>strict reference</es-nt> flag. The <es-nt>base</es-nt> value is either
   <b>undefined</b>, an Object, a Boolean, a String, a Symbol, a Number, or an environment record
-  (<a href="#sec-environment-records">8.1.1</a> ). A <es-nt>base</es-nt> value of <b>undefined</b>
-  indicates that the Reference could not be resolved to a binding. The <es-nt>referenced
-  name</es-nt> is a String or Symbol value.</p>
+  (<es-xref target="sec-environment-records">8.1.1</es-xref>). A <es-nt>base</es-nt> value of
+  <b>undefined</b> indicates that the Reference could not be resolved to a binding. The
+  <es-nt>referenced name</es-nt> is a String or Symbol value.</p>
 
   <p>A Super Reference is a Reference that is used to represents a name binding that was expressed
   using the super keyword. A Super Reference has an additional <es-nt>thisValue</es-nt> component
@@ -38,9 +38,9 @@
     </li>
 
     <li>
-      <p>HasPrimitiveBase(V). Returns <span class="value">true</span> if <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>base</i>) is a Boolean, String, Symbol,
-      or Number.</p>
+      <p>HasPrimitiveBase(V). Returns <span class="value">true</span> if <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>base</i>) is a Boolean, String,
+      Symbol, or Number.</p>
     </li>
 
     <li>
@@ -66,27 +66,25 @@
 
   <es-clause title="GetThisValue (V)" anchor="sec-getthisvalue">
     <ol class="proc">
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>V</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>V</i>).</li>
 
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>V</i>) is not <a href=
-      "#sec-reference-specification-type">Reference</a> , return <i>V</i>.
-      </li>
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>V</i>) is not
+      <es-xref target="sec-reference-specification-type">Reference</es-xref>, return <i>V</i>.</li>
 
-      <li>If <a href="#sec-reference-specification-type">IsUnresolvableReference</a> (<i>V</i>),
-      throw a <b>ReferenceError</b> exception.
-      </li>
+      <li>If <es-xref target=
+      "sec-reference-specification-type">IsUnresolvableReference</es-xref>(<i>V</i>), throw a
+      <b>ReferenceError</b> exception.</li>
 
-      <li>If <a href="#sec-reference-specification-type">IsSuperReference</a> (<i>V</i>), then
+      <li>If <es-xref target=
+      "sec-reference-specification-type">IsSuperReference</es-xref>(<i>V</i>), then
 
         <ol class="block">
           <li>Return the value of the <i>thisValue</i> component of the reference <i>V</i>.</li>
         </ol>
       </li>
 
-      <li>Return <a href="#sec-reference-specification-type">GetBase</a> (<i>V</i>).
-      </li>
+      <li>Return <es-xref target=
+      "sec-reference-specification-type">GetBase</es-xref>(<i>V</i>).</li>
     </ol>
   </es-clause>
 </es-clause>

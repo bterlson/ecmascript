@@ -1,87 +1,83 @@
 <!doctype html>
 <es-clause title="FromPropertyDescriptor ( Desc )" anchor="sec-frompropertydescriptor">
-  <p>When the abstract operation FromPropertyDescriptor is called with <a href=
-  "#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt>, the
-  following steps are taken:</p>
+  <p>When the abstract operation FromPropertyDescriptor is called with <es-xref target=
+  "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+  the following steps are taken:</p>
 
   <ol class="proc">
     <li>If <i>Desc</i> is <b>undefined</b>, then return <b>undefined</b>.</li>
 
     <li>If <i>Desc</i> has an [[Origin]] field, then return <i>Desc</i>.[[Origin]].</li>
 
-    <li>Let <i>obj</i> be the result of the abstract operation <a href=
-    "#sec-objectcreate">ObjectCreate</a> with the intrinsic object %ObjectPrototype% as its
-    argument.
-    </li>
+    <li>Let <i>obj</i> be the result of the abstract operation <es-xref target=
+    "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %ObjectPrototype% as its
+    argument.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>obj</i> is an extensible ordinary object
-      with no own properties.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>obj</i> is an extensible
+    ordinary object with no own properties.</li>
 
     <li>If <i>Desc</i> has a [[Value]] field, then
 
       <ol class="block">
-        <li>Call <a href="#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> with
-        arguments <i>obj</i>, "<b>value"</b>, and PropertyDescriptor{[[Value]]:
-        <i>Desc</i>.[[Value]], [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
-        [[Configurable]]: <b>true</b>}
-        </li>
+        <li>Call <es-xref target=
+        "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+        <i>obj</i>, "<b>value"</b>, and PropertyDescriptor{[[Value]]: <i>Desc</i>.[[Value]],
+        [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]: <b>true</b>}</li>
       </ol>
     </li>
 
     <li>If <i>Desc</i> has a [[Writable]] field, then
 
       <ol class="block">
-        <li>Call <a href="#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> with
-        arguments <i>obj</i>, "<code>writable</code>", and PropertyDescriptor{[[Value]]:
+        <li>Call <es-xref target=
+        "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+        <i>obj</i>, "<code>writable</code>", and PropertyDescriptor{[[Value]]:
         <i>Desc</i>.[[Writable]], [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
-        [[Configurable]]: <b>true</b>}.
-        </li>
+        [[Configurable]]: <b>true</b>}.</li>
       </ol>
     </li>
 
     <li>If <i>Desc</i> has a [[Get]] field, then
 
       <ol class="block">
-        <li>Call <a href="#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> with
-        arguments <i>obj</i>, "<code>get",</code> and PropertyDescriptor{[[Value]]:
-        <i>Desc</i>.[[Get]], [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
-        [[Configurable]]: <b>true</b>}.
-        </li>
+        <li>Call <es-xref target=
+        "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+        <i>obj</i>, "<code>get",</code> and PropertyDescriptor{[[Value]]: <i>Desc</i>.[[Get]],
+        [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
+        <b>true</b>}.</li>
       </ol>
     </li>
 
     <li>If <i>Desc</i> has a [[Set]] field, then
 
       <ol class="block">
-        <li>Call <a href="#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> with
-        arguments <i>obj</i>, "<code>set</code>", and PropertyDescriptor{[[Value]]:
-        <i>Desc</i>.[[Set]], [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
-        [[Configurable]]: <b>true</b>}.
-        </li>
+        <li>Call <es-xref target=
+        "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+        <i>obj</i>, "<code>set</code>", and PropertyDescriptor{[[Value]]: <i>Desc</i>.[[Set]],
+        [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
+        <b>true</b>}.</li>
       </ol>
     </li>
 
     <li>If <i>Desc</i> has an [[Enumerable]] field, then
 
       <ol class="block">
-        <li>Call <a href="#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> with
-        arguments <i>obj</i>, "<code>enumerable</code>", and PropertyDescriptor{[[Value]]:
+        <li>Call <es-xref target=
+        "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+        <i>obj</i>, "<code>enumerable</code>", and PropertyDescriptor{[[Value]]:
         <i>Desc</i>.[[Enumerable]], [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
-        [[Configurable]]: <b>true</b>}.
-        </li>
+        [[Configurable]]: <b>true</b>}.</li>
       </ol>
     </li>
 
     <li>If <i>Desc</i> has a [[Configurable]] field, then
 
       <ol class="block">
-        <li>Call <a href="#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> with
-        arguments <i>obj</i> , "<code>configurable</code>", and PropertyDescriptor{[[Value]]:
+        <li>Call <es-xref target=
+        "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+        <i>obj</i> , "<code>configurable</code>", and PropertyDescriptor{[[Value]]:
         <i>Desc</i>.[[Configurable]], [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
-        [[Configurable]]: <b>true</b>}.
-        </li>
+        [[Configurable]]: <b>true</b>}.</li>
       </ol>
     </li>
 

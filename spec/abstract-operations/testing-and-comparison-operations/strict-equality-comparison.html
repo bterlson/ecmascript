@@ -5,19 +5,18 @@
   as follows:</p>
 
   <ol class="proc">
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is different from
-    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>y</i>), return <b>false</b>.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    different from <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>),
+    return <b>false</b>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Undefined, return
-    <b>true</b>.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    Undefined, return <b>true</b>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Null, return <b>
-      true</b>.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is Null,
+    return <b>true</b>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Number, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    Number, then
 
       <ol class="block">
         <li>If <i>x</i> is <b>NaN</b>, return <b>false</b>.</li>
@@ -34,7 +33,8 @@
       </ol>
     </li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is String, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    String, then
 
       <ol class="block">
         <li>If <i>x</i> and <i>y</i> are exactly the same sequence of characters (same length and
@@ -44,7 +44,8 @@
       </ol>
     </li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>x</i>) is Boolean, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+    Boolean, then
 
       <ol class="block">
         <li>If <i>x</i> and <i>y</i> are both <b>true</b> or both <b>false</b>, return
@@ -62,7 +63,8 @@
   </ol>
 
   <es-note>
-    <p>This algorithm differs from <a href="#sec-samevalue">the SameValue Algorithm</a> (<a href=
-    "#sec-samevalue">7.2.3</a> ) in its treatment of signed zeroes and NaNs.</p>
+    <p>This algorithm differs from <es-xref target="sec-samevalue">the SameValue
+    Algorithm</es-xref> (<es-xref target="sec-samevalue">7.2.3</es-xref>) in its treatment of
+    signed zeroes and NaNs.</p>
   </es-note>
 </es-clause>

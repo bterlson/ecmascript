@@ -6,59 +6,48 @@
   <ol class="proc">
     <li>Let <i>rx</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>rx)</i> is not Object, then
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>rx)</i> is not
+    Object, then throw a <b>TypeError</b> exception.</li>
 
-    <li>If <i>rx</i> does not have a [[RegExpMatcher]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
-    <b>TypeError</b> exception.
-    </li>
+    <li>If <i>rx</i> does not have a [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+    <b>TypeError</b> exception.</li>
 
-    <li>If the value of <i>rx’s</i> [[RegExpMatcher]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>, then
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If the value of <i>rx’s</i> [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>S</i> be the value of <a href="#sec-tostring">ToString</a> (<i>string</i>)
-    </li>
+    <li>Let <i>S</i> be the value of <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>string</i>)</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
 
-    <li>Let <i>global</i> be the result of <a href="#sec-toboolean">ToBoolean</a> (<a href=
-    "#sec-get-o-p">Get</a> (<i>rx</i>, <code>"global"</code>)).
-    </li>
+    <li>Let <i>global</i> be the result of <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<es-xref target="sec-get-o-p">Get</es-xref>(<i>rx</i>,
+    <code>"global"</code>)).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>global</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>global</i>).</li>
 
     <li>If <i>global</i> is not <b>true</b>, then
 
       <ol class="block">
-        <li>Return the result of calling the abstract operation <a href=
-        "#sec-regexpexec">RegExpExec</a> (see <a href="#sec-regexp.prototype.exec">21.2.5.2</a> )
-        with arguments <i>rx</i> and <i>S</i>.
-        </li>
+        <li>Return the result of calling the abstract operation <es-xref target=
+        "sec-regexpexec">RegExpExec</es-xref> (see <es-xref target=
+        "sec-regexp.prototype.exec">21.2.5.2</es-xref>) with arguments <i>rx</i> and <i>S</i>.</li>
       </ol>
     </li>
 
     <li>Else <i>global</i> is <b>true</b>,
 
       <ol class="block">
-        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-        (<i>rx</i>, <code>"lastIndex"</code>, 0, <b>true</b>).
-        </li>
+        <li>Let <i>putStatus</i> be the result of <es-xref target=
+        "sec-put-o-p-v-throw">Put</es-xref>(<i>rx</i>, <code>"lastIndex"</code>, 0,
+        <b>true</b>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
-        <li>Let <i>A</i> be the result of the abstract operation <a href=
-        "#sec-arraycreate">ArrayCreate</a> with argument 0.
-        </li>
+        <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+        "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
 
         <li>Let <i>previousLastIndex</i> be 0.</li>
 
@@ -69,38 +58,32 @@
         <li>Repeat, while <i>lastMatch</i> is <b>true</b>
 
           <ol class="block">
-            <li>Let <i>result</i> be the result of the abstract operation <a href=
-            "#sec-regexpexec">RegExpExec</a> with arguments <i>rx</i> and <i>S</i>.
-            </li>
+            <li>Let <i>result</i> be the result of the abstract operation <es-xref target=
+            "sec-regexpexec">RegExpExec</es-xref> with arguments <i>rx</i> and <i>S</i>.</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>result</i>).
-            </li>
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
 
             <li>If <i>result</i> is <b>null</b>, then set <i>lastMatch</i> to <b>false</b>.</li>
 
             <li>Else <i>result</i> is not <b>null</b>,
 
               <ol class="block">
-                <li>Let <i>thisIndex</i> be the result of <a href="#sec-tointeger">ToInteger</a>
-                (<a href="#sec-get-o-p">Get</a> (<i>rx</i>, <code>"lastIndex"</code>)).
-                </li>
+                <li>Let <i>thisIndex</i> be the result of <es-xref target=
+                "sec-tointeger">ToInteger</es-xref>(<es-xref target=
+                "sec-get-o-p">Get</es-xref>(<i>rx</i>, <code>"lastIndex"</code>)).</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>thisIndex</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>thisIndex</i>).</li>
 
                 <li>If <i>thisIndex</i> = <i>previousLastIndex</i> then
 
                   <ol class="block">
-                    <li>Let <i>putStatus</i> be the result of <a href=
-                    "#sec-put-o-p-v-throw">Put</a> (<i>rx</i>, <code>"lastIndex"</code>,
-                    <i>thisIndex</i>+1, <b>true</b>).
-                    </li>
+                    <li>Let <i>putStatus</i> be the result of <es-xref target=
+                    "sec-put-o-p-v-throw">Put</es-xref>(<i>rx</i>, <code>"lastIndex"</code>,
+                    <i>thisIndex</i>+1, <b>true</b>).</li>
 
-                    <li>
-                      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-                    </li>
+                    <li><es-xref target=
+                    "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
                     <li>Set <i>previousLastIndex</i> to <i>thisIndex</i>+1.</li>
                   </ol>
@@ -113,18 +96,15 @@
                   </ol>
                 </li>
 
-                <li>Let <i>matchStr</i> be the result of <a href="#sec-get-o-p">Get</a>
-                (<i>result</i>, <code>"0"</code>).
-                </li>
+                <li>Let <i>matchStr</i> be the result of <es-xref target=
+                "sec-get-o-p">Get</es-xref>(<i>result</i>, <code>"0"</code>).</li>
 
-                <li>Let <i>defineStatus</i> be the result of <a href=
-                "#sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</a> (<i>A</i>,
-                  <a href="#sec-tostring">ToString</a> (<i>n</i>), <i>matchStr</i>).
-                </li>
+                <li>Let <i>defineStatus</i> be the result of <es-xref target=
+                "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref>(<i>A</i>,
+                <es-xref target="sec-tostring">ToString</es-xref>(<i>n</i>), <i>matchStr</i>).</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>defineStatus</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>defineStatus</i>).</li>
 
                 <li>Increment <i>n</i>.</li>
               </ol>

@@ -1,0 +1,30 @@
+<!doctype html>
+<es-clause title="Runtime Semantics: Evaluation" anchor=
+"sec-grouping-operator-runtime-semantics-evaluation">
+  <es-production name="PrimaryExpression" class="inline">
+    <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Let <i>expr</i> be CoveredParenthesisedExpression of
+    <i>CoverParenthesisedExpressionAndArrowParameterList</i>.</li>
+
+    <li>Return the result of evaluating <i>expr</i>.</li>
+  </ol>
+
+  <es-production name="ParenthesisedExpression" class="inline">
+    <es-rhs><es-t>(</es-t> <es-nt>Expression</es-nt> <es-t>)</es-t></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>Return the result of evaluating <i>Expression</i>. This may be of type <es-xref target=
+    "sec-reference-specification-type">Reference</es-xref>.</li>
+  </ol>
+
+  <es-note>
+    <p>This algorithm does not apply <es-xref target="sec-getvalue">GetValue</es-xref> to the
+    result of evaluating <i>Expression</i>. The principal motivation for this is so that operators
+    such as <code>delete</code> and <code>typeof</code> may be applied to parenthesised
+    expressions.</p>
+  </es-note>
+</es-clause>

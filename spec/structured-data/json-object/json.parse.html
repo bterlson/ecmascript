@@ -13,12 +13,9 @@
   <b>undefined</b> then the property is deleted from the result.</p>
 
   <ol class="proc">
-    <li>Let <i>JText</i> be <a href="#sec-tostring">ToString</a> (<i>text</i>).
-    </li>
+    <li>Let <i>JText</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>text</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>JText</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>JText</i>).</li>
 
     <li>Parse <i>JText</i> interpreted as UTF-16 encoded Unicode points as a JSON text as specified
     in<br>
@@ -29,41 +26,36 @@
     <code>");"</code>.</li>
 
     <li>Let <i>completion</i> be the result of parsing and evaluating <i>scriptText</i> as if it
-    was the source text of an ECMAScript <i>Script</i>. but using the alternative definition of <i>
-      DoubleStringCharacter</i> provided below. The extended PropertyDefinitionEvaluation semantics
-      defined in <a href="#sec-__proto___-property-names-in-object-initialisers">B.3.1</a> must not
-      be used during the evaluation.
-    </li>
+    was the source text of an ECMAScript <i>Script</i>. but using the alternative definition of
+    <i>DoubleStringCharacter</i> provided below. The extended PropertyDefinitionEvaluation
+    semantics defined in <es-xref target=
+    "sec-__proto___-property-names-in-object-initialisers">B.3.1</es-xref> must not be used during
+    the evaluation.</li>
 
     <li>Let <i>unfiltered</i> be <i>completion</i>.[[value]].</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>unfiltered</i> will be either a
-      primitive value or an object that is defined by either an <i>ArrayLiteral</i> or an
-      <i>ObjectLiteral</i>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>unfiltered</i> will be
+    either a primitive value or an object that is defined by either an <i>ArrayLiteral</i> or an
+    <i>ObjectLiteral</i>.</li>
 
-    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>reviver</i>) is <b>true</b>, then
+    <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>reviver</i>) is <b>true</b>,
+    then
 
       <ol class="block">
-        <li>Let <i>root</i> be the result of the abstract operation <a href=
-        "#sec-objectcreate">ObjectCreate</a> with the intrinsic object %ObjectPrototype% as its
-        argument.
-        </li>
+        <li>Let <i>root</i> be the result of the abstract operation <es-xref target=
+        "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %ObjectPrototype% as
+        its argument.</li>
 
-        <li>Let <i>status</i> be the result of <a href=
-        "#sec-createdataproperty">CreateDataProperty</a> (<i>root</i>, the empty String,
-        <i>unfiltered</i>).
-        </li>
+        <li>Let <i>status</i> be the result of <es-xref target=
+        "sec-createdataproperty">CreateDataProperty</es-xref>(<i>root</i>, the empty String,
+        <i>unfiltered</i>).</li>
 
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is <b>true</b>.
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is
+        <b>true</b>.</li>
 
-        <li>Return the result of calling the abstract operation <a href="#sec-walk">Walk</a> ,
-        passing <i>root</i> and the empty String. The abstract operation <a href=
-        "#sec-walk">Walk</a> is described below.
-        </li>
+        <li>Return the result of calling the abstract operation <es-xref target=
+        "sec-walk">Walk</es-xref>, passing <i>root</i> and the empty String. The abstract operation
+        <es-xref target="sec-walk">Walk</es-xref> is described below.</li>
       </ol>
     </li>
 
@@ -94,8 +86,8 @@
       "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
       <es-t>"</es-t></es-gmod><es-gmod>or
       <es-t>\</es-t></es-gmod><es-gmod>or</es-gmod></es-rhs></es-production> U+0000
-      <b><i>through</i></b> U+001F is the UTF-16 Encoding (<a href=
-      "#sec-static-semantics-utf-16-encoding">10.1.1</a> ) of the code point value of
+      <b><i>through</i></b> U+001F is the UTF-16 Encoding (<es-xref target=
+      "sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of the code point value of
       <i>SourceCharacter</i>.</p>
     </li>
   </ul>

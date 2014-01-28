@@ -2,43 +2,41 @@
 <es-clause title="[[Get]] (P, Receiver)" anchor=
 "sec-integer-indexed-exotic-objects-get-p-receiver">
   <p>When the [[Get]] internal method of an Integer Indexed exotic object <es-nt>O</es-nt> is
-  called with <a href="#sec-object-type">property key</a> <es-nt>P</es-nt> and <a href=
-  "#sec-ecmascript-language-types">ECMAScript language value</a> <es-nt>Receiver</es-nt> the
-  following steps are taken:</p>
+  called with <es-xref target="sec-object-type">property key</es-xref> <es-nt>P</es-nt> and
+  <es-xref target="sec-ecmascript-language-types">ECMAScript language value</es-xref>
+  <es-nt>Receiver</es-nt> the following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>P</i>) is String and if
-    <a href="#sec-samevalue">SameValue</a> (<i>O</i>, <i>Receiver</i>) is <b>true</b>, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>P</i>) is
+    String and if <es-xref target="sec-samevalue">SameValue</es-xref>(<i>O</i>, <i>Receiver</i>) is
+    <b>true</b>, then
 
       <ol class="block">
-        <li>Let <i>intIndex</i> be <a href="#sec-tointeger">ToInteger</a> (<i>P</i>).
-        </li>
+        <li>Let <i>intIndex</i> be <es-xref target=
+        "sec-tointeger">ToInteger</es-xref>(<i>P</i>).</li>
 
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : <i>intIndex</i> is not an <a href=
-          "#sec-completion-record-specification-type">abrupt completion</a> .
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>intIndex</i> is not an
+        <es-xref target="sec-completion-record-specification-type">abrupt
+        completion</es-xref>.</li>
 
-        <li>If <a href="#sec-samevalue">SameValue</a> (<a href="#sec-tostring">ToString</a>
-        (<i>intIndex</i>), <i>P</i>) is <b>true</b>, then
+        <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>intIndex</i>), <i>P</i>) is <b>true</b>, then
 
           <ol class="block">
-            <li>Return <a href="#sec-integerindexedelementget">IntegerIndexedElementGet</a>
-            (<i>O</i>, <i>intIndex</i>).
-            </li>
+            <li>Return <es-xref target=
+            "sec-integerindexedelementget">IntegerIndexedElementGet</es-xref> (<i>O</i>,
+            <i>intIndex</i>).</li>
           </ol>
         </li>
       </ol>
     </li>
 
     <li>Return the result of calling the default ordinary object [[Get]] internal method
-      (<a href="#sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver">9.1.8</a>
-      ) on <i>O</i> passing <i>P</i> and <i>Receiver</i> as arguments.
-    </li>
+    (<es-xref target=
+    "sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver">9.1.8</es-xref>) on
+    <i>O</i> passing <i>P</i> and <i>Receiver</i> as arguments.</li>
   </ol>
 </es-clause>

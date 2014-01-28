@@ -5,18 +5,14 @@
   <ol class="proc">
     <li>Let <i>F</i> be the <b>this</b> value.</li>
 
-    <li>Let <i>proto</i> be the result of <a href=
-    "#sec-getprototypefromconstructor">GetPrototypeFromConstructor</a> (<i>F</i>,
-    <code>"%StringPrototype%"</code>).
-    </li>
+    <li>Let <i>proto</i> be the result of <es-xref target=
+    "sec-getprototypefromconstructor">GetPrototypeFromConstructor</es-xref>(<i>F</i>,
+    <code>"%StringPrototype%"</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>proto</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
 
-    <li>Let <i>obj</i> be the result of calling <a href="#sec-stringcreate">StringCreate</a>
-    (<i>proto</i>).
-    </li>
+    <li>Let <i>obj</i> be the result of calling <es-xref target=
+    "sec-stringcreate">StringCreate</es-xref> (<i>proto</i>).</li>
 
     <li>Return <i>obj</i>.</li>
   </ol>

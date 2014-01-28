@@ -5,24 +5,21 @@
   <ol class="proc">
     <li>Let <i>M</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>M)</i> is not Object, then
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is not
+    Object, then throw a <b>TypeError</b> exception.</li>
 
-    <li>If <i>M</i> does not have a [[MapData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> throw a <b>TypeError</b>
-    exception.
-    </li>
+    <li>If <i>M</i> does not have a [[MapData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+    <b>TypeError</b> exception.</li>
 
-    <li>If <i>M’s</i> [[MapData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>, then
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <i>M’s</i> [[MapData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>entries</i> be the <a href="#sec-list-and-record-specification-type">List</a> that
-    is the value of <i>M</i>’s [[MapData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>entries</i> be the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+    [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref>.</li>
 
     <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
 
@@ -37,9 +34,10 @@
   </ol>
 
   <es-note>
-    <p>The existing [[MapData]] <a href="#sec-list-and-record-specification-type">List</a> is
-    preserved because there may be existing MapIterator objects that are <a href=
-    "#sec-execution-contexts">suspended</a> midway through iterating over that <a href=
-    "#sec-list-and-record-specification-type">List</a> .</p>
+    <p>The existing [[MapData]] <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> is preserved because there may be
+    existing MapIterator objects that are <es-xref target=
+    "sec-execution-contexts">suspended</es-xref> midway through iterating over that
+    <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</p>
   </es-note>
 </es-clause>

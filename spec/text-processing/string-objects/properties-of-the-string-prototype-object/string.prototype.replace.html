@@ -5,20 +5,17 @@
   <es-nt>replaceValue</es-nt> the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-    value).
-    </li>
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
 
-    <li>Let <i>string</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
-    </li>
+    <li>Let <i>string</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>string</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>string</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>searchValue</i>) is Object
-    and <a href="#sec-hasproperty">HasProperty</a> (<i>searchValue</i>, @@isRegExp) is <b>true</b>,
-    then
+    <li>If <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>searchValue</i>) is Object and
+    <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>searchValue</i>, @@isRegExp) is <b>
+      true</b>, then
 
       <ol class="block">
         <li>Return the result of Invoke(<i>searchValue</i>, <code>"replace"</code>, (<i>string</i>,
@@ -26,47 +23,41 @@
       </ol>
     </li>
 
-    <li>Let <i>searchString</i> be <a href="#sec-tostring">ToString</a> (<i>searchValue</i>).
-    </li>
+    <li>Let <i>searchString</i> be <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>searchValue</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>searchString</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>searchString</i>).</li>
 
     <li>Search <i>string</i> for the first occurrence of <i>searchString</i> and let <i>pos</i> be
     the index position within <i>string</i> of the first code unit of the matched substring and let
     <i>matched</i> be <i>searchString</i>. If no occurrences of <i>searchString</i> were found,
     return <i>string</i>.</li>
 
-    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>replaceValue</i>) is <b>true</b>, then
+    <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>replaceValue</i>) is
+    <b>true</b>, then
 
       <ol class="block">
         <li>Let <i>replValue</i> be the result of calling the [[Call]] internal method of
-        <i>replaceValue</i> passing <b>undefined</b> as the <b>this</b> value and a <a href=
-        "#sec-list-and-record-specification-type">List</a> containing <i>matched</i>, <i>pos</i>,
-        and <i>string</i> as the argument list.
-        </li>
+        <i>replaceValue</i> passing <b>undefined</b> as the <b>this</b> value and a
+        <es-xref target="sec-list-and-record-specification-type">List</es-xref> containing
+        <i>matched</i>, <i>pos</i>, and <i>string</i> as the argument list.</li>
 
-        <li>Let <i>replStr</i> be <a href="#sec-tostring">ToString</a> (<i>replValue</i>).
-        </li>
+        <li>Let <i>replStr</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>replValue</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>replStr</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>replStr</i>).</li>
       </ol>
     </li>
 
     <li>Else,
 
       <ol class="block">
-        <li>Let <i>captures</i> be an empty <a href=
-        "#sec-list-and-record-specification-type">List</a> .
-        </li>
+        <li>Let <i>captures</i> be an empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
 
-        <li>Let <i>replStr</i> be the result of the abstract operation <a href=
-        "#sec-getreplacesubstitution">GetReplaceSubstitution</a> (<i>matched</i>, <i>string</i>,
-        <i>pos</i>, <i>captures</i>).
-        </li>
+        <li>Let <i>replStr</i> be the result of the abstract operation <es-xref target=
+        "sec-getreplacesubstitution">GetReplaceSubstitution</es-xref>(<i>matched</i>,
+        <i>string</i>, <i>pos</i>, <i>captures</i>).</li>
       </ol>
     </li>
 

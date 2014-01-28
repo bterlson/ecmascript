@@ -1,29 +1,30 @@
 <!doctype html>
 <es-clause title="Ordinary Object Internal Methods and Internal Slots" anchor=
 "sec-ordinary-object-internal-methods-and-internal-slots">
-  <p>All ordinary objects have an <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> called [[Prototype]]. The
-  value of this <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> is
-  either <b>null</b> or an object and is used for implementing inheritance. Data properties of the
-  [[Prototype]] object are inherited (are visible as properties of the child object) for the
-  purposes of get access, but not for set access. Accessor properties are inherited for both get
-  access and set access.</p>
+  <p>All ordinary objects have an <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> called [[Prototype]].
+  The value of this <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref> is either <b>null</b> or an object and is used for implementing inheritance. Data
+  properties of the [[Prototype]] object are inherited (are visible as properties of the child
+  object) for the purposes of get access, but not for set access. Accessor properties are inherited
+  for both get access and set access.</p>
 
-  <p>Every ordinary object has a Boolean-valued [[Extensible]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> that controls whether or not
-  properties may be added to the object. If the value of the [[Extensible]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>false</b> then
+  <p>Every ordinary object has a Boolean-valued [[Extensible]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> that controls whether or
+  not properties may be added to the object. If the value of the [[Extensible]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>false</b> then
   additional properties may not be added to the object. In addition, if [[Extensible]] is
-  <b>false</b> the value of the [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the object may not be
-  modified. Once the value of an object’s [[Extensible]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> has been set to <b>false</b>
-  it may not be subsequently changed to <b>true</b>.</p>
+  <b>false</b> the value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the object may not be
+  modified. Once the value of an object’s [[Extensible]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> has been set to
+  <b>false</b> it may not be subsequently changed to <b>true</b>.</p>
 
   <p>In the following algorithm descriptions, assume <es-nt>O</es-nt> is an ordinary object,
-  <es-nt>P</es-nt> is a <a href="#sec-object-type">property key value</a> , <es-nt>V</es-nt> is any
-  <a href="#sec-ecmascript-language-types">ECMAScript language value</a> , and <es-nt>Desc</es-nt>
-  is a <a href="#sec-property-descriptor-specification-type">Property Descriptor</a> record.</p>
+  <es-nt>P</es-nt> is a <es-xref target="sec-object-type">property key value</es-xref>,
+  <es-nt>V</es-nt> is any <es-xref target="sec-ecmascript-language-types">ECMAScript language
+  value</es-xref>, and <es-nt>Desc</es-nt> is a <es-xref target=
+  "sec-property-descriptor-specification-type">Property Descriptor</es-xref> record.</p>
 
   <es-clause title="[[GetPrototypeOf]] ( )" anchor=
   "sec-ordinary-object-internal-methods-and-internal-slots-getprototypeof">
@@ -31,9 +32,8 @@
     steps are taken:</p>
 
     <ol class="proc">
-      <li>Return the value of the [[Prototype]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-      </li>
+      <li>Return the value of the [[Prototype]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
     </ol>
   </es-clause>
   <link rel="import" href=
@@ -45,9 +45,8 @@
     are taken:</p>
 
     <ol class="proc">
-      <li>Return the value of the [[Extensible]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-      </li>
+      <li>Return the value of the [[Extensible]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
     </ol>
   </es-clause>
 
@@ -57,10 +56,9 @@
     steps are taken:</p>
 
     <ol class="proc">
-      <li>Set the value of the [[Extensible]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to
-      <b>false</b>.
-      </li>
+      <li>Set the value of the [[Extensible]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+      <b>false</b>.</li>
 
       <li>Return <b>true.</b></li>
     </ol>
@@ -78,14 +76,12 @@
 
   <es-clause title="[[Delete]] (P)" anchor=
   "sec-ordinary-object-internal-methods-and-internal-slots-delete-p">
-    <p>When the [[Delete]] internal method of <es-nt>O</es-nt> is called with <a href=
-    "#sec-object-type">property key</a> <es-nt>P</es-nt> the following steps are taken:</p>
+    <p>When the [[Delete]] internal method of <es-nt>O</es-nt> is called with <es-xref target=
+    "sec-object-type">property key</es-xref> <es-nt>P</es-nt> the following steps are taken:</p>
 
     <ol class="proc">
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-        "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
 
       <li>Let <i>desc</i> be the result of calling the [[GetOwnProperty]] internal method of
       <i>O</i> with argument <i>P</i>.</li>
@@ -113,19 +109,19 @@
     steps are taken:</p>
 
     <ol class="proc">
-      <li>Let <i>keys</i> be a new empty <a href="#sec-list-and-record-specification-type">List</a>
-      .
-      </li>
+      <li>Let <i>keys</i> be a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
 
-      <li>For each own <a href="#sec-object-type">property key</a> <i>P</i> of <i>O</i>
+      <li>For each own <es-xref target="sec-object-type">property key</es-xref> <i>P</i> of
+      <i>O</i>
 
         <ol class="block">
           <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
         </ol>
       </li>
 
-      <li>Return <a href="#sec-createlistiterator">CreateListIterator</a> (<i>keys</i>).
-      </li>
+      <li>Return <es-xref target=
+      "sec-createlistiterator">CreateListIterator</es-xref>(<i>keys</i>).</li>
     </ol>
   </es-clause>
   <link rel="import" href="ordinary-object-internal-methods-and-internal-slots\objectcreate.html">

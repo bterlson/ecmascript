@@ -3,8 +3,8 @@
   <p>A regular expression pattern is converted into an internal procedure using the process
   described below. An implementation is encouraged to use more efficient algorithms than the ones
   listed below, as long as the results are the same. The internal procedure is used as the value of
-  a RegExp object’s [[RegExpMatcher]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+  a RegExp object’s [[RegExpMatcher]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
 
   <p>A <es-nt>Pattern</es-nt> is either a BMP pattern or a Unicode pattern depending upon whether
   or not its associated flags contains a <code>"u"</code>. A BMP pattern matches against a String
@@ -15,28 +15,29 @@
   either context, “character value” means the numeric value of the code unit or code point.</p>
 
   <p>The semantics of <es-nt>Pattern</es-nt> is defined as if a <es-nt>Pattern</es-nt> was a
-  <a href="#sec-list-and-record-specification-type">List</a> of <es-nt>SourceCharacter</es-nt>
-  values. Each <es-nt>SourceCharacter</es-nt> corresponding to a Unicode code point. If a BMP
-  pattern contains a non-BMP <es-nt>SourceCharacter</es-nt> the entire pattern is encoded using
-  UTF-16 and the individual code units of that encoding are used as the elements of the <a href=
-  "#sec-list-and-record-specification-type">List</a> .</p>
+  <es-xref target="sec-list-and-record-specification-type">List</es-xref> of
+  <es-nt>SourceCharacter</es-nt> values. Each <es-nt>SourceCharacter</es-nt> corresponding to a
+  Unicode code point. If a BMP pattern contains a non-BMP <es-nt>SourceCharacter</es-nt> the entire
+  pattern is encoded using UTF-16 and the individual code units of that encoding are used as the
+  elements of the <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</p>
 
   <es-note>
     <p>For example, consider a pattern expressed in source code as the single non-BMP character
     U+1D11E (MUSICAL SYMBOL G CLEF). Interpreted as a Unicode pattern, it would be a single element
-    (character) <a href="#sec-list-and-record-specification-type">List</a> consisting of the single
-    code point 0x1D11E. However, interpreted as a BMP pattern, it is first UTF-16 encoded to
-    produce a two element <a href="#sec-list-and-record-specification-type">List</a> consisting the
-    code units 0xD834 and 0xDDE.</p>
+    (character) <es-xref target="sec-list-and-record-specification-type">List</es-xref> consisting
+    of the single code point 0x1D11E. However, interpreted as a BMP pattern, it is first UTF-16
+    encoded to produce a two element <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> consisting the code units 0xD834 and
+    0xDDE.</p>
 
     <p>Patterns are passed to the RegExp constructor as ECMAScript string values in which non-BMP
     characters are UTF-16 encoded. The single charcter MUSICAL SYMBOL G CLEF pattern, expressed as
     a string value, is a String of length 2 whose elements were the code units 0xD834 and 0xDDE. So
     no further translation of the string would be necessary to process it as a BMP pattern
     consisting of two pattern characters. However, to process it as a Unicode pattern the string
-    value must treated as if it was UTF-16 decoded into a <a href=
-    "#sec-list-and-record-specification-type">List</a> consisting of a single pattern character,
-    the code unit U+1D11E.</p>
+    value must treated as if it was UTF-16 decoded into a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> consisting of a single pattern
+    character, the code unit U+1D11E.</p>
   </es-note>
 
   <p>An implementation may not actually perform such translations to or from UTF-16, but the

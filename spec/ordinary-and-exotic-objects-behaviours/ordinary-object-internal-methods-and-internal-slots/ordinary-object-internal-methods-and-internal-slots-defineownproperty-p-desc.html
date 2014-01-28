@@ -1,37 +1,34 @@
 <!doctype html>
 <es-clause title="[[DefineOwnProperty]] (P, Desc)" anchor=
 "sec-ordinary-object-internal-methods-and-internal-slots-defineownproperty-p-desc">
-  <p>When the [[DefineOwnProperty]] internal method of <es-nt>O</es-nt> is called with <a href=
-  "#sec-object-type">property key</a> <es-nt>P</es-nt> and <a href=
-  "#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt>, the
-  following steps are taken:</p>
+  <p>When the [[DefineOwnProperty]] internal method of <es-nt>O</es-nt> is called with
+  <es-xref target="sec-object-type">property key</es-xref> <es-nt>P</es-nt> and <es-xref target=
+  "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+  the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Return the result of <a href="#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a>
-    with arguments <i>O</i>, <i>P</i>, and <i>Desc</i>.
-    </li>
+    <li>Return the result of <es-xref target=
+    "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments <i>O</i>,
+    <i>P</i>, and <i>Desc</i>.</li>
   </ol>
 
   <es-clause title="OrdinaryDefineOwnProperty (O, P, Desc)" anchor="sec-ordinarydefineownproperty">
     <p>When the abstract operation OrdinaryDefineOwnProperty is called with Object
-    <es-nt>O</es-nt>, <a href="#sec-object-type">property key</a> <i>P</i>, and <a href=
-    "#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt> the
-    following steps are taken:</p>
+    <es-nt>O</es-nt>, <es-xref target="sec-object-type">property key</es-xref> <i>P</i>, and
+    <es-xref target="sec-property-descriptor-specification-type">Property Descriptor</es-xref>
+    <es-nt>Desc</es-nt> the following steps are taken:</p>
 
     <ol class="proc">
-      <li>Let <i>current</i> be the result of calling <a href=
-      "#sec-ordinarygetownproperty">OrdinaryGetOwnProperty</a> with arguments <i>O</i> and
-      <i>P</i>.
-      </li>
+      <li>Let <i>current</i> be the result of calling <es-xref target=
+      "sec-ordinarygetownproperty">OrdinaryGetOwnProperty</es-xref> with arguments <i>O</i> and
+      <i>P</i>.</li>
 
-      <li>Let <i>extensible</i> be the value of the [[Extensible]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-      </li>
+      <li>Let <i>extensible</i> be the value of the [[Extensible]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-      <li>Return the result of <a href=
-      "#sec-validateandapplypropertydescriptor">ValidateAndApplyPropertyDescriptor</a> with
-      arguments <i>O</i>, <i>P</i>, <i>extensible</i>, <i>Desc</i>, and <i>current</i>.
-      </li>
+      <li>Return the result of <es-xref target=
+      "sec-validateandapplypropertydescriptor">ValidateAndApplyPropertyDescriptor</es-xref> with
+      arguments <i>O</i>, <i>P</i>, <i>extensible</i>, <i>Desc</i>, and <i>current</i>.</li>
     </ol>
   </es-clause>
 
@@ -42,11 +39,10 @@
     <es-nt>Current</es-nt> the following steps are taken:</p>
 
     <ol class="proc">
-      <li>Return the result of <a href=
-      "#sec-validateandapplypropertydescriptor">ValidateAndApplyPropertyDescriptor</a> with
+      <li>Return the result of <es-xref target=
+      "sec-validateandapplypropertydescriptor">ValidateAndApplyPropertyDescriptor</es-xref> with
       arguments <b>undefined</b>, <b>undefined</b>, <i>Extensible</i>, <i>Desc</i>, and
-      <i>Current</i>.
-      </li>
+      <i>Current</i>.</li>
     </ol>
   </es-clause>
   <link rel="import" href=

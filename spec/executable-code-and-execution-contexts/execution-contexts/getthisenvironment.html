@@ -1,13 +1,12 @@
 <!doctype html>
 <es-clause title="GetThisEnvironment" anchor="sec-getthisenvironment">
-  <p>The abstract operation GetThisEnvironment finds the <a href=
-  "#sec-lexical-environments">lexical environment</a> that currently supplies the binding of the
-  keyword <code>this</code>. GetThisEnvironment performs the following steps:</p>
+  <p>The abstract operation GetThisEnvironment finds the <es-xref target=
+  "sec-lexical-environments">lexical environment</es-xref> that currently supplies the binding of
+  the keyword <code>this</code>. GetThisEnvironment performs the following steps:</p>
 
   <ol class="proc">
-    <li>Let <i>lex</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
-    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
-    </li>
+    <li>Let <i>lex</i> be <es-xref target="sec-execution-contexts">the running execution
+    context</es-xref>’s <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
 
     <li>Repeat
 
@@ -19,9 +18,8 @@
 
         <li>If <i>exists</i> is <code>true</code>, then return <i>envRec</i>.</li>
 
-        <li>Let <i>outer</i> be the value of <i>lex’s</i> <a href="#sec-lexical-environments">outer
-        environment reference</a> .
-        </li>
+        <li>Let <i>outer</i> be the value of <i>lex’s</i> <es-xref target=
+        "sec-lexical-environments">outer environment reference</es-xref>.</li>
 
         <li>Let <i>lex</i> be <i>outer</i>.</li>
       </ol>
@@ -30,7 +28,7 @@
 
   <es-note>
     <p>The loop in step 2 will always terminate because the llst of environments always ends with
-    <a href="#sec-global-environment-records">the global environment</a> which has a
+    <es-xref target="sec-global-environment-records">the global environment</es-xref> which has a
     <code>this</code> binding.</p>
   </es-note>
 </es-clause>

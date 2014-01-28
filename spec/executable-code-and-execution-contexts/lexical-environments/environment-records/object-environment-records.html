@@ -12,38 +12,37 @@
   corresponding property has the value <b>false</b>. Immutable bindings do not exist for object
   environment records.</p>
 
-  <p>Object environment records also have a possibly empty <a href=
-  "#sec-list-and-record-specification-type">List</a> of strings called <es-nt>unscopables</es-nt>.
-  The strings in this <a href="#sec-list-and-record-specification-type">List</a> are excluded from
-  the environment records set of bound names, regardless of whether or not they exist as property
-  keys of its binding object.</p>
+  <p>Object environment records also have a possibly empty <es-xref target=
+  "sec-list-and-record-specification-type">List</es-xref> of strings called
+  <es-nt>unscopables</es-nt>. The strings in this <es-xref target=
+  "sec-list-and-record-specification-type">List</es-xref> are excluded from the environment records
+  set of bound names, regardless of whether or not they exist as property keys of its binding
+  object.</p>
 
-  <p>Object environment records created for <code>with</code> statements (<a href=
-  "#sec-with-statement">13.10</a> ) can provide their binding object as an implicit this value for
-  use in function calls. The capability is controlled by a <es-nt>withEnvironment</es-nt> Boolean
-  value that is associated with each object environment record. By default, the value of
+  <p>Object environment records created for <code>with</code> statements (<es-xref target=
+  "sec-with-statement">13.10</es-xref>) can provide their binding object as an implicit this value
+  for use in function calls. The capability is controlled by a <es-nt>withEnvironment</es-nt>
+  Boolean value that is associated with each object environment record. By default, the value of
   <es-nt>withEnvironment</es-nt> is <b>false</b> for any object environment record.</p>
 
   <p>The behaviour of the concrete specification methods for Object Environment Records is defined
   by the following algorithms.</p>
 
   <es-clause title="HasBinding(N)" anchor="sec-object-environment-records-hasbinding-n">
-    <p>The concrete <a href="#sec-environment-records">Environment Record</a> method HasBinding for
-    object environment records determines if its associated binding object has a property whose
-    name is the value of the argument <es-nt>N</es-nt>:</p>
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    HasBinding for object environment records determines if its associated binding object has a
+    property whose name is the value of the argument <es-nt>N</es-nt>:</p>
 
     <ol class="proc">
-      <li>Let <i>envRec</i> be the <a href="#sec-object-environment-records">object environment
-      record</a> for which the method was invoked.
-      </li>
+      <li>Let <i>envRec</i> be the <es-xref target="sec-object-environment-records">object
+      environment record</es-xref> for which the method was invoked.</li>
 
       <li>If <i>N</i> is an element of <i>envRec’s unscopables</i>, then return <b>false</b>.</li>
 
       <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
 
-      <li>Return the result of <a href="#sec-hasproperty">HasProperty</a> (<i>bindings</i>,
-      <i>N</i>).
-      </li>
+      <li>Return the result of <es-xref target=
+      "sec-hasproperty">HasProperty</es-xref>(<i>bindings</i>, <i>N</i>).</li>
     </ol>
   </es-clause>
   <link rel="import" href=
@@ -51,28 +50,25 @@
 
   <es-clause title="CreateImmutableBinding (N)" anchor=
   "sec-object-environment-records-createimmutablebinding-n">
-    <p>The concrete <a href="#sec-environment-records">Environment Record</a> method
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
     CreateImmutableBinding is never used within this specification in association with Object
     environment records.</p>
   </es-clause>
 
   <es-clause title="InitialiseBinding (N,V)" anchor=
   "sec-object-environment-records-initialisebinding-n-v">
-    <p>The concrete <a href="#sec-environment-records">Environment Record</a> method
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
     InitialiseBinding for object environment records is used to set the bound value of the current
     binding of the identifier whose name is the value of the argument <es-nt>N</es-nt> to the value
     of argument <es-nt>V</es-nt>. An uninitialised binding for <es-nt>N</es-nt> must already
     exist.</p>
 
     <ol class="proc">
-      <li>Let <i>envRec</i> be the <a href="#sec-object-environment-records">object environment
-      record</a> for which the method was invoked.
-      </li>
+      <li>Let <i>envRec</i> be the <es-xref target="sec-object-environment-records">object
+      environment record</es-xref> for which the method was invoked.</li>
 
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <i>envRec</i> must have an uninitialised
-        binding for <i>N</i>.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>envRec</i> must have an
+      uninitialised binding for <i>N</i>.</li>
 
       <li>Record that the binding for <i>N</i> in <i>envRec</i> has been initialised.</li>
 
@@ -83,7 +79,7 @@
 
   <es-clause title="SetMutableBinding (N,V,S)" anchor=
   "sec-object-environment-records-setmutablebinding-n-v-s">
-    <p>The concrete <a href="#sec-environment-records">Environment Record</a> method
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
     SetMutableBinding for object environment records attempts to set the value of the environment
     record’s associated binding object’s property whose name is the value of the argument
     <es-nt>N</es-nt> to the value of argument <es-nt>V</es-nt>. A property named <es-nt>N</es-nt>
@@ -91,29 +87,27 @@
     determined by the value of the Boolean argument <es-nt>S</es-nt>.</p>
 
     <ol class="proc">
-      <li>Let <i>envRec</i> be the <a href="#sec-object-environment-records">object environment
-      record</a> for which the method was invoked.
-      </li>
+      <li>Let <i>envRec</i> be the <es-xref target="sec-object-environment-records">object
+      environment record</es-xref> for which the method was invoked.</li>
 
       <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
 
-      <li>Return the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>bindings</i>, <i>N</i>,
-      <i>V</i>, and <i>S</i>).
-      </li>
+      <li>Return the result of <es-xref target="sec-put-o-p-v-throw">Put</es-xref>(<i>bindings</i>,
+      <i>N</i>, <i>V</i>, and <i>S</i>).</li>
     </ol>
   </es-clause>
   <link rel="import" href=
   "object-environment-records\object-environment-records-getbindingvalue-n-s.html">
 
   <es-clause title="DeleteBinding (N)" anchor="sec-object-environment-records-deletebinding-n">
-    <p>The concrete <a href="#sec-environment-records">Environment Record</a> method DeleteBinding
-    for object environment records can only delete bindings that correspond to properties of the
-    environment object whose [[Configurable]] attribute have the value <b>true</b>.</p>
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    DeleteBinding for object environment records can only delete bindings that correspond to
+    properties of the environment object whose [[Configurable]] attribute have the value
+    <b>true</b>.</p>
 
     <ol class="proc">
-      <li>Let <i>envRec</i> be the <a href="#sec-object-environment-records">object environment
-      record</a> for which the method was invoked.
-      </li>
+      <li>Let <i>envRec</i> be the <es-xref target="sec-object-environment-records">object
+      environment record</es-xref> for which the method was invoked.</li>
 
       <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
 
@@ -143,9 +137,8 @@
     <es-nt>withEnvironment</es-nt> flag is <b>true</b>.</p>
 
     <ol class="proc">
-      <li>Let <i>envRec</i> be the <a href="#sec-object-environment-records">object environment
-      record</a> for which the method was invoked.
-      </li>
+      <li>Let <i>envRec</i> be the <es-xref target="sec-object-environment-records">object
+      environment record</es-xref> for which the method was invoked.</li>
 
       <li>If the <i>withEnvironment</i> flag of <i>envRec</i> is <b>true</b>, return the binding
       object for <i>envRec</i>.</li>

@@ -2,14 +2,14 @@
 <es-clause title="Proxy Object Internal Methods and Internal Slots" anchor=
 "sec-proxy-object-internal-methods-and-internal-slots">
   <p>A proxy object is an exotic object whose essential internal methods are partially implemented
-  using ECMAScript code. Every proxy objects has an <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> called [[ProxyHandler]]. The
-  value of [[ProxyHandler]] is always an object, called the proxy’s <i>handler object</i>. Methods
-  of a handler object may be used to augment the implementation for one or more of the proxy
-  object’s internal methods. Every proxy object also has an <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> called [[ProxyTarget]] whose
-  value is either an object or the <b>null</b> value. This object is called the proxy’s <i>target
-  object</i>.</p>
+  using ECMAScript code. Every proxy objects has an <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> called [[ProxyHandler]].
+  The value of [[ProxyHandler]] is always an object, called the proxy’s <i>handler object</i>.
+  Methods of a handler object may be used to augment the implementation for one or more of the
+  proxy object’s internal methods. Every proxy object also has an <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> called [[ProxyTarget]]
+  whose value is either an object or the <b>null</b> value. This object is called the proxy’s
+  <i>target object</i>.</p>
 
   <p>When a handler method is called to provide the implementation of a proxy object internal
   method, the handler method is passed the proxy’s target object as a parameter. A proxy’s handler
@@ -27,18 +27,18 @@
 
   <p>Because proxy permit arbitrary ECMAScript code to be used to in the implementation of internal
   methods, it is possible to define a proxy object whose handler methods violates the invariants
-  defined in <a href="#sec-invariants-of-the-essential-internal-methods">6.1.7.3</a> . Some of the
-  internal method invariants defined in <a href=
-  "#sec-invariants-of-the-essential-internal-methods">6.1.7.3</a> are essential integrity
+  defined in <es-xref target="sec-invariants-of-the-essential-internal-methods">6.1.7.3</es-xref>.
+  Some of the internal method invariants defined in <es-xref target=
+  "sec-invariants-of-the-essential-internal-methods">6.1.7.3</es-xref> are essential integrity
   invariants. These invariants are explicitly enforced by the proxy internal methods specified in
   this section. An ECMAScript implementation must be robust in the presence of all possible
   invariant violations.</p>
 
   <p>In the following algorithm descriptions, assume <es-nt>O</es-nt> is an ECMAScript proxy
-  object, <es-nt>P</es-nt> is a <a href="#sec-object-type">property key value</a> ,
-  <es-nt>V</es-nt> is any <a href="#sec-ecmascript-language-types">ECMAScript language value</a> ,
-  Desc is a <a href="#sec-property-descriptor-specification-type">Property Descriptor</a> record,
-  and <es-nt>B</es-nt> is a Boolean flag.</p>
+  object, <es-nt>P</es-nt> is a <es-xref target="sec-object-type">property key value</es-xref>,
+  <es-nt>V</es-nt> is any <es-xref target="sec-ecmascript-language-types">ECMAScript language
+  value</es-xref>, Desc is a <es-xref target="sec-property-descriptor-specification-type">Property
+  Descriptor</es-xref> record, and <es-nt>B</es-nt> is a Boolean flag.</p>
   <link rel="import" href=
   "proxy-object-internal-methods-and-internal-slots\proxy-object-internal-methods-and-internal-slots-getprototypeof.html">
   <link rel="import" href=

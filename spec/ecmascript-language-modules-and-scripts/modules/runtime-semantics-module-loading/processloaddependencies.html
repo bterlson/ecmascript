@@ -11,30 +11,27 @@
   <ol class="proc">
     <li>Let <i>refererName</i> be <i>load</i>.[[Name]].</li>
 
-    <li>Set <i>load</i>. [[Dependencies]] to a new empty <a href=
-    "#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Set <i>load</i>. [[Dependencies]] to a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
-    <li>Let <i>loadPromises</i> be a new empty <a href=
-    "#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>loadPromises</i> be a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>For each <i>request</i> in <i>depsList</i>, do
 
       <ol class="block">
-        <li>Let <i>p</i> be <a href="#sec-requestload">RequestLoad</a> (<i>loader</i>,
-        <i>request</i>, <i>refererName</i>, <i>load</i>.[[Address]]).
-        </li>
+        <li>Let <i>p</i> be <es-xref target="sec-requestload">RequestLoad</es-xref>(<i>loader</i>,
+        <i>request</i>, <i>refererName</i>, <i>load</i>.[[Address]]).</li>
 
         <li>Let <i>F</i> be a new built-in function as defined by AddDependencyLoad.</li>
 
-        <li>Set the [[Load]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-        slot</a> of <i>F</i> to <i>load</i>.
-        </li>
+        <li>Set the [[Load]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to
+        <i>load</i>.</li>
 
-        <li>Set the [[Request]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-        slot</a> of <i>F</i> to <i>request</i>.
-        </li>
+        <li>Set the [[Request]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to
+        <i>request</i>.</li>
 
         <li>Let <i>p</i> be PromiseThen(<i>p</i>, <i>F</i>).</li>
 
@@ -46,9 +43,8 @@
 
     <li>Let <i>F</i> be a new built-in function as defined by LoadSucceeded.</li>
 
-    <li>Set the [[Load]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> of <i>F</i> to <i>load</i>.
-    </li>
+    <li>Set the [[Load]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref> of <i>F</i> to <i>load</i>.</li>
 
     <li>Return PromiseThen(<i>p</i>, <i>F</i>).</li>
   </ol>

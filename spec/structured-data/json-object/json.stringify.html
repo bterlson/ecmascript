@@ -12,18 +12,19 @@
   <p>These are the steps in stringifying an object:</p>
 
   <ol class="proc">
-    <li>Let <i>stack</i> be an empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>stack</i> be an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>Let <i>indent</i> be the empty String.</li>
 
     <li>Let <i>PropertyList</i> and <i>ReplacerFunction</i> be <b>undefined</b>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>replacer</i>) is Object,
-    then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>replacer</i>)
+    is Object, then
 
       <ol class="block">
-        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>replacer</i>) is <b>true</b>, then
+        <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>replacer</i>) is
+        <b>true</b>, then
 
           <ol class="block">
             <li>Let <i>ReplacerFunction</i> be <i>replacer</i>.</li>
@@ -33,9 +34,8 @@
         <li>Else if <i>replacer</i> is an exotic Array object, then
 
           <ol class="block">
-            <li>Let <i>PropertyList</i> be an empty <a href=
-            "#sec-list-and-record-specification-type">List</a>
-            </li>
+            <li>Let <i>PropertyList</i> be an empty <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref></li>
 
             <li>For each value <i>v</i> of a property of <i>replacer</i> that has an array index
             property name. The properties are enumerated in the ascending array index order of
@@ -44,22 +44,22 @@
               <ol class="block">
                 <li>Let <i>item</i> be <b>undefined</b>.</li>
 
-                <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>v</i>) is
-                String then let <i>item</i> be <i>v.</i>
-                </li>
+                <li>If <es-xref target=
+                "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>) is String then let
+                <i>item</i> be <i>v.</i></li>
 
-                <li>Else if <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>v</i>) is
-                Number then let <i>item</i> be <a href="#sec-tostring">ToString</a> (<i>v</i>).
-                </li>
+                <li>Else if <es-xref target=
+                "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>) is Number then let
+                <i>item</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>v</i>).</li>
 
-                <li>Else if <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>v</i>) is
-                Object then,
+                <li>Else if <es-xref target=
+                "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>) is Object then,
 
                   <ol class="block">
-                    <li>If <i>v</i> has a [[StringData]] or [[NumberData]] <a href=
-                    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then let
-                    <i>item</i> be <a href="#sec-tostring">ToString</a> (<i>v</i>).
-                    </li>
+                    <li>If <i>v</i> has a [[StringData]] or [[NumberData]] <es-xref target=
+                    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
+                    let <i>item</i> be <es-xref target=
+                    "sec-tostring">ToString</es-xref>(<i>v</i>).</li>
                   </ol>
                 </li>
 
@@ -77,34 +77,36 @@
       </ol>
     </li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>space</i>) is Object then,
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>space</i>) is
+    Object then,
 
       <ol class="block">
-        <li>If <i>space</i> has a [[NumberData]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> then,
+        <li>If <i>space</i> has a [[NumberData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> then,
 
           <ol class="block">
-            <li>Let <i>space</i> be <a href="#sec-tonumber">ToNumber</a> (<i>space</i>).
-            </li>
+            <li>Let <i>space</i> be <es-xref target=
+            "sec-tonumber">ToNumber</es-xref>(<i>space</i>).</li>
           </ol>
         </li>
 
-        <li>Else if <i>space</i> has a [[StringData]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> then,
+        <li>Else if <i>space</i> has a [[StringData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> then,
 
           <ol class="block">
-            <li>Let <i>space</i> be <a href="#sec-tostring">ToString</a> (<i>space</i>).
-            </li>
+            <li>Let <i>space</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>space</i>).</li>
           </ol>
         </li>
       </ol>
     </li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>space</i>) is Number
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>space</i>) is
+    Number
 
       <ol class="block">
-        <li>Let <i>space</i> be min(10, <a href="#sec-tointeger">ToInteger</a> (<i>space</i>)).
-        </li>
+        <li>Let <i>space</i> be min(10, <es-xref target=
+        "sec-tointeger">ToInteger</es-xref>(<i>space</i>)).</li>
 
         <li>Set <i>gap</i> to a String containing <i>space</i> occurrences of code unit 0x0020 (the
         Unicode space character). This will be the empty String if <i>space</i> is less than
@@ -112,7 +114,8 @@
       </ol>
     </li>
 
-    <li>Else if <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>space)</i> is String
+    <li>Else if <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>space)</i>
+    is String
 
       <ol class="block">
         <li>If the number of elements in <i>space</i> is 10 or less, set <i>gap</i> to <i>space</i>
@@ -128,18 +131,16 @@
       </ol>
     </li>
 
-    <li>Let <i>wrapper</i> be the result of the abstract operation <a href=
-    "#sec-objectcreate">ObjectCreate</a> with the intrinsic object %ObjectPrototype% as its
-    argument.
-    </li>
+    <li>Let <i>wrapper</i> be the result of the abstract operation <es-xref target=
+    "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %ObjectPrototype% as its
+    argument.</li>
 
-    <li>Let <i>status</i> be the result of <a href="#sec-createdataproperty">CreateDataProperty</a>
-    (<i>wrapper</i>, the empty String, <i>value</i>).
-    </li>
+    <li>Let <i>status</i> be the result of <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>wrapper</i>, the empty String,
+    <i>value</i>).</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is <b>true</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is
+    <b>true</b>.</li>
 
     <li>Return the result of calling the abstract operation Str(the empty String,
     <i>wrapper</i>).</li>
@@ -183,9 +184,9 @@ my_text = JSON.stringify(a); // This must throw a TypeError.
   </es-note>
 
   <es-note>
-    <p>Finite numbers are stringified as if by calling <a href="#sec-tostring">ToString</a>
-    <b>(</b><i>number</i><b>)</b>. <b>NaN</b> and Infinity regardless of sign are represented as
-    the String <code>null</code>.</p>
+    <p>Finite numbers are stringified as if by calling <es-xref target=
+    "sec-tostring">ToString</es-xref><b>(</b><i>number</i><b>)</b>. <b>NaN</b> and Infinity
+    regardless of sign are represented as the String <code>null</code>.</p>
   </es-note>
 
   <es-note>

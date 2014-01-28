@@ -8,11 +8,12 @@
 
   <es-clause title="Properties of Error Instances" anchor="sec-properties-of-error-instances">
     <p>Error instances are ordinary objects that inherit properties from the Error prototype object
-    and have an [[ErrorData]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> whose initial value is <span class="value">undefined</span>. The only specified uses
-    of [[ErrorData]] is to flag whether or not an Error instance has been initialised by the Error
-    constructor and to identify them as Error objects within <code><a href=
-    "#sec-object.prototype.tostring">Object.prototype.toString</a></code> .</p>
+    and have an [[ErrorData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> whose initial value is
+    <span class="value">undefined</span>. The only specified uses of [[ErrorData]] is to flag
+    whether or not an Error instance has been initialised by the Error constructor and to identify
+    them as Error objects within <code><es-xref target=
+    "sec-object.prototype.tostring">Object.prototype.toString</es-xref></code>.</p>
   </es-clause>
   <link rel="import" href="error-objects\native-error-types-used-in-this-standard.html">
   <link rel="import" href="error-objects\nativeerror-object-structure.html">

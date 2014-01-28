@@ -4,9 +4,8 @@
   <es-nt>loader</es-nt> performs the following steps:</p>
 
   <ol class="proc">
-    <li>Let <i>unlinked</i> be a new empty <a href=
-    "#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>unlinked</i> be a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>For each <i>load</i> in <i>loads</i>, do
 
@@ -14,10 +13,9 @@
         <li>If <i>load</i>.[[Status]] is not <b>linked</b>, then
 
           <ol class="block">
-            <li>Let <i>module</i> be <a href=
-            "#sec-createmodulelinkagerecord">CreateModuleLinkageRecord</a> (<i>loader</i>,
-            <i>load</i>.[[Body]]).
-            </li>
+            <li>Let <i>module</i> be <es-xref target=
+            "sec-createmodulelinkagerecord">CreateModuleLinkageRecord</es-xref> (<i>loader</i>,
+            <i>load</i>.[[Body]]).</li>
 
             <li>Let <i>pair</i> be the record {[[Module]]: <i>module</i>, [[Load]]:
             <i>load</i>}.</li>
@@ -31,13 +29,11 @@
     <li>For each <i>pair</i> in <i>unlinked</i>, do
 
       <ol class="block">
-        <li>Let <i>resolvedDeps</i> be a new empty <a href=
-        "#sec-list-and-record-specification-type">List</a> .
-        </li>
+        <li>Let <i>resolvedDeps</i> be a new empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
 
-        <li>Let <i>unlinkedDeps</i> be a new empty <a href=
-        "#sec-list-and-record-specification-type">List</a> .
-        </li>
+        <li>Let <i>unlinkedDeps</i> be a new empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
 
         <li>For each element <i>dep</i> in <i>pair</i>.[[Load]].[[Dependencies]], do
 
@@ -107,25 +103,23 @@
     <li>For each <i>pair</i> in <i>unlinked</i>, do
 
       <ol class="block">
-        <li>Perform <a href="#sec-resolveexportentries">ResolveExportEntries</a>
-        (<i>pair</i>.[[Module]], a new empty <a href=
-        "#sec-list-and-record-specification-type">List</a> .
-        </li>
+        <li>Perform <es-xref target=
+        "sec-resolveexportentries">ResolveExportEntries</es-xref>(<i>pair</i>.[[Module]], a new
+        empty <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
 
-        <li>Perform <a href="#sec-resolveexports">ResolveExports</a> (<i>pair</i>.[[Module]]).
-        </li>
+        <li>Perform <es-xref target=
+        "sec-resolveexports">ResolveExports</es-xref>(<i>pair</i>.[[Module]]).</li>
       </ol>
     </li>
 
     <li>For each <i>pair</i> in <i>unlinked</i>, do
 
       <ol class="block">
-        <li>Perform <a href="#sec-resolveimportentries">ResolveImportEntries</a>
-        (<i>pair</i>.[[Module]]).
-        </li>
+        <li>Perform <es-xref target=
+        "sec-resolveimportentries">ResolveImportEntries</es-xref>(<i>pair</i>.[[Module]]).</li>
 
-        <li>Perform <a href="#sec-linkimports">LinkImports</a> (<i>pair</i>.[[Module]]).
-        </li>
+        <li>Perform <es-xref target=
+        "sec-linkimports">LinkImports</es-xref>(<i>pair</i>.[[Module]]).</li>
       </ol>
     </li>
 
@@ -142,9 +136,7 @@
 
         <li>Let <i>r</i> beFinishLoad(<i>loader</i>, <i>pair</i>.[[Load]]).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>r</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>r</i>).</li>
       </ol>
     </li>
   </ol>

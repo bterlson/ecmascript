@@ -1,0 +1,25 @@
+<!doctype html>
+<es-clause title="CanDeclareGlobalVar (N)" anchor="sec-candeclareglobalvar">
+  <p>The concrete environment record method CanDeclareGlobalVar for global environment records
+  determines if a corresponding <es-xref target=
+  "sec-createglobalvarbinding">CreateGlobalVarBinding</es-xref> call would succeed if called for
+  the same argument <es-nt>N</es-nt>. Redundent var declarations and var declarations for
+  pre-existing global object properties are allowed.</p>
+
+  <ol class="proc">
+    <li>Let <i>envRec</i> be <es-xref target="sec-global-environment-records">the global
+    environment record</es-xref> for which the method was invoked.</li>
+
+    <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+    <li>If the result of calling <i>ObjRec’s</i> HasBinding concrete method with argument <i>N</i>
+    is <b>true</b>, return <b>true</b>.</li>
+
+    <li>Let <i>bindings</i> be the binding object for <i>ObjRec</i>.</li>
+
+    <li>Let <i>extensible</i> be the result of <es-xref target=
+    "sec-isextensible-o">IsExtensible</es-xref>(<i>bindings</i>).</li>
+
+    <li>Return <i>extensible</i>.</li>
+  </ol>
+</es-clause>

@@ -5,14 +5,15 @@
   white space characters, line terminators have some influence over the behaviour of the syntactic
   grammar. In general, line terminators may occur between any two tokens, but there are a few
   places where they are forbidden by the syntactic grammar. Line terminators also affect the
-  process of <a href="#sec-automatic-semicolon-insertion">automatic semicolon insertion</a>
-  (<a href="#sec-automatic-semicolon-insertion">11.9</a> ). A line terminator cannot occur within
-  any token except a <es-nt>StringLiteral</es-nt>, <es-nt>Template</es-nt>, or
-  <es-nt>TemplateSubstitutionTail</es-nt>. Line terminators may only occur within a
-  <es-nt>StringLiteral</es-nt> token as part of a <es-nt>LineContinuation</es-nt>.</p>
+  process of <es-xref target="sec-automatic-semicolon-insertion">automatic semicolon
+  insertion</es-xref> (<es-xref target="sec-automatic-semicolon-insertion">11.9</es-xref>). A line
+  terminator cannot occur within any token except a <es-nt>StringLiteral</es-nt>,
+  <es-nt>Template</es-nt>, or <es-nt>TemplateSubstitutionTail</es-nt>. Line terminators may only
+  occur within a <es-nt>StringLiteral</es-nt> token as part of a
+  <es-nt>LineContinuation</es-nt>.</p>
 
-  <p>A line terminator can occur within a <es-nt>MultiLineComment</es-nt> (<a href=
-  "#sec-comments">11.4</a> ) but cannot occur within a <es-nt>SingleLineComment</es-nt>.</p>
+  <p>A line terminator can occur within a <es-nt>MultiLineComment</es-nt> (<es-xref target=
+  "sec-comments">11.4</es-xref>) but cannot occur within a <es-nt>SingleLineComment</es-nt>.</p>
 
   <p>Line terminators are included in the set of white space characters that are matched by the
   <code>\s</code> class in regular expressions.</p>

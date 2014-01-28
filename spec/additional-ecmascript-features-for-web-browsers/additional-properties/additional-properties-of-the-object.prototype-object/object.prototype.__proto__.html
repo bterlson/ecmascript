@@ -9,49 +9,13 @@
     performs the following steps:</p>
 
     <ol class="proc">
-      <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the
-      <b>this</b> value as the argument.
-      </li>
+      <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+      passing the <b>this</b> value as the argument.</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
       <li>Return the result of calling the [[GetPrototypeOf]] internal method of <i>O</i>.</li>
     </ol>
   </es-clause>
-
-  <es-clause title="set Object.prototype.__proto__" anchor="sec-set-object.prototype.__proto__">
-    <p>The value of the [[Set]] attribute is a built-in function that takes an argument
-    <es-nt>proto</es-nt>. It performs the following steps:</p>
-
-    <ol class="proc">
-      <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-      value)<i>.</i>
-      </li>
-
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-      </li>
-
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>proto</i>) is neither
-      Object nor Null, then return <i>proto</i>.
-      </li>
-
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O)</i> is not Object,
-      then return <i>proto</i>.
-      </li>
-
-      <li>Let <i>status</i> be the result of calling the [[SetPrototypeOf]] internal method of
-      <i>O</i> with argument <i>proto</i>.</li>
-
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-      </li>
-
-      <li>If <i>status</i> is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
-
-      <li>Return <i>proto</i>.</li>
-    </ol>
-  </es-clause>
+  <link rel="import" href="object.prototype.__proto__\set-object.prototype.__proto__.html">
 </es-clause>

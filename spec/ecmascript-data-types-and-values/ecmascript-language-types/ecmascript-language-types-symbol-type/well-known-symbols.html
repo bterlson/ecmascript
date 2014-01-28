@@ -3,7 +3,7 @@
   <p>Well-known symbols are built-in Symbol values that are explicitly referenced by algorithms of
   this specification. They are typically used as the keys of properties whose values serve as
   extension points of a specification algorithm. Unless otherwise specified, well-known symbols
-  values are shared by all Code Realms (<a href="#sec-code-realms">8.2</a> ).</p>
+  values are shared by all Code Realms (<es-xref target="sec-code-realms">8.2</es-xref>).</p>
 
   <p>Within this specification a well-known symbol is referred to by using a notation of the form
   @@name, where “name” is one of the values listed in <a href="#table-1">Table 1</a> .</p>
@@ -52,10 +52,9 @@
 
         <td><code>"Symbol.isConcatSpreadable"</code></td>
 
-        <td>
-          A Boolean value that if true indicates that an object should be flatten to its array
-          elements by <a href="#sec-array.prototype.concat">Array.prototype.concat</a> .
-        </td>
+        <td>A Boolean value that if true indicates that an object should be flatten to its array
+        elements by <es-xref target=
+        "sec-array.prototype.concat">Array.prototype.concat</es-xref>.</td>
       </tr>
 
       <tr>
@@ -81,10 +80,8 @@
 
         <td><code>"Symbol.toPrimitive"</code></td>
 
-        <td>
-          A method that converts an object to a corresponding primitive value. Called by the
-          <a href="#sec-toprimitive">ToPrimitive</a> abstract operation.
-        </td>
+        <td>A method that converts an object to a corresponding primitive value. Called by the
+        <es-xref target="sec-toprimitive">ToPrimitive</es-xref> abstract operation.</td>
       </tr>
 
       <tr>
@@ -92,11 +89,9 @@
 
         <td><code>"Symbol.toStringTag"</code></td>
 
-        <td>
-          A string value that is used in the creation of the default string description of an
-          object. Called by the built-in method <a href=
-          "#sec-object.prototype.tostring">Object.prototype.toString</a> .
-        </td>
+        <td>A string value that is used in the creation of the default string description of an
+        object. Called by the built-in method <es-xref target=
+        "sec-object.prototype.tostring">Object.prototype.toString</es-xref>.</td>
       </tr>
 
       <tr>

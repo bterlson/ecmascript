@@ -1,48 +1,45 @@
 <!doctype html>
 <es-clause title="[[Call]] ( thisArgument, argumentsList)" anchor=
 "sec-ecmascript-function-objects-call-thisargument-argumentslist">
-  <p>The [[Call]] internal method for an <a href="#sec-ecmascript-function-objects">ECMAScript
-  function object</a> <es-nt>F</es-nt> is called with parameters <es-nt>thisArgument</es-nt> and
-  <es-nt>argumentsList</es-nt>, a <a href="#sec-list-and-record-specification-type">List</a> of
-  <a href="#sec-ecmascript-language-types">ECMAScript language values</a> . The following steps are
+  <p>The [[Call]] internal method for an <es-xref target=
+  "sec-ecmascript-function-objects">ECMAScript function object</es-xref> <es-nt>F</es-nt> is called
+  with parameters <es-nt>thisArgument</es-nt> and <es-nt>argumentsList</es-nt>, a <es-xref target=
+  "sec-list-and-record-specification-type">List</es-xref> of <es-xref target=
+  "sec-ecmascript-language-types">ECMAScript language values</es-xref>. The following steps are
   taken:</p>
 
   <ol class="proc">
-    <li>If <i>F</i>’s [[Code]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> has the value <b>undefined</b>, then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <i>F</i>’s [[Code]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> has the value
+    <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>callerContext</i> be <a href="#sec-execution-contexts">the running execution
-    context</a> .
-    </li>
+    <li>Let <i>callerContext</i> be <es-xref target="sec-execution-contexts">the running execution
+    context</es-xref>.</li>
 
-    <li>If <i>callerContext</i> is not already <a href="#sec-execution-contexts">suspended</a> ,
-    then <a href="#sec-execution-contexts">Suspend</a> <i>callerContext</i>.
-    </li>
+    <li>If <i>callerContext</i> is not already <es-xref target=
+    "sec-execution-contexts">suspended</es-xref>, then <es-xref target=
+    "sec-execution-contexts">Suspend</es-xref> <i>callerContext</i>.</li>
 
-    <li>Let <i>calleeContext</i> be a new <a href="#sec-execution-contexts">ECMAScript Code
-    execution context</a> .
-    </li>
+    <li>Let <i>calleeContext</i> be a new <es-xref target="sec-execution-contexts">ECMAScript Code
+    execution context</es-xref>.</li>
 
-    <li>Let <i>calleeRealm</i> be the value of <i>F’s</i> [[Realm]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>calleeRealm</i> be the value of <i>F’s</i> [[Realm]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Set <i>calleeContext’s</i> <a href="#sec-code-realms">Realm</a> to <i>calleeRealm</i>.
-    </li>
+    <li>Set <i>calleeContext’s</i> <es-xref target="sec-code-realms">Realm</es-xref> to
+    <i>calleeRealm</i>.</li>
 
-    <li>Let <i>thisMode</i> be the value of <i>F</i>’s [[ThisMode]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>thisMode</i> be the value of <i>F</i>’s [[ThisMode]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>If <i>thisMode</i> is lexical, then
 
       <ol class="block">
-        <li>Let <i>localEnv</i> be the result of calling <a href="#sec-newdeclarativeenvironment">
-          NewDeclarativeEnvironment</a> passing the value of the [[Environment]] <a href=
-          "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>F</i> as the
-          argument.
-        </li>
+        <li>Let <i>localEnv</i> be the result of calling <es-xref target=
+        "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing the value of
+        the [[Environment]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> as the
+        argument.</li>
       </ol>
     </li>
 
@@ -61,83 +58,74 @@
               </ol>
             </li>
 
-            <li>Else if <a href="#sec-ecmascript-data-types-and-values">Type</a>
-            (<i>thisArgument</i>) is not Object, set the <i>thisValue</i> to <a href=
-            "#sec-toobject">ToObject</a> (<i>thisArgument</i>).
-            </li>
+            <li>Else if <es-xref target=
+            "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>thisArgument</i>) is not
+            Object, set the <i>thisValue</i> to <es-xref target=
+            "sec-toobject">ToObject</es-xref>(<i>thisArgument</i>).</li>
 
             <li>Else set the <i>thisValue</i> to <i>thisArgument</i>.</li>
           </ol>
         </li>
 
-        <li>Let <i>localEnv</i> be the result of calling <a href=
-        "#sec-newfunctionenvironment">NewFunctionEnvironment</a> passing <i>F</i> and
-        <i>thisValue</i> as the arguments.
-        </li>
+        <li>Let <i>localEnv</i> be the result of calling <es-xref target=
+        "sec-newfunctionenvironment">NewFunctionEnvironment</es-xref> passing <i>F</i> and
+        <i>thisValue</i> as the arguments.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>localEnv</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>localEnv</i>).</li>
       </ol>
     </li>
 
-    <li>Set the <a href="#sec-execution-contexts">LexicalEnvironment</a> of <i>calleeContext</i> to
-    <i>localEnv</i>.
-    </li>
+    <li>Set the <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> of
+    <i>calleeContext</i> to <i>localEnv</i>.</li>
 
-    <li>Set the <a href="#sec-execution-contexts">VariableEnvironment</a> of <i>calleeContext</i>
-    to <i>localEnv</i>.
-    </li>
+    <li>Set the <es-xref target="sec-execution-contexts">VariableEnvironment</es-xref> of
+    <i>calleeContext</i> to <i>localEnv</i>.</li>
 
-    <li>Push <i>calleeContext</i> onto <a href="#sec-execution-contexts">the execution context
-    stack</a> ; <i>calleeContext</i> is now <a href="#sec-execution-contexts">the running execution
-    context</a> .
-    </li>
+    <li>Push <i>calleeContext</i> onto <es-xref target="sec-execution-contexts">the execution
+    context stack</es-xref>; <i>calleeContext</i> is now <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>.</li>
 
-    <li>Let <i>status</i> be the result of performing <a href=
-    "#sec-function-declaration-instantiation">Function Declaration Instantiation</a> using the
-    function <i>F</i>, <i>argumentsList</i> , and <i>localEnv</i> as described in <a href=
-    "#sec-function-declaration-instantiation">9.2.14</a> .
-    </li>
+    <li>Let <i>status</i> be the result of performing <es-xref target=
+    "sec-function-declaration-instantiation">Function Declaration Instantiation</es-xref> using the
+    function <i>F</i>, <i>argumentsList</i> , and <i>localEnv</i> as described in <es-xref target=
+    "sec-function-declaration-instantiation">9.2.14</es-xref>.</li>
 
-    <li>If <i>status</i> is an <a href="#sec-completion-record-specification-type">abrupt
-    completion</a> , then
+    <li>If <i>status</i> is an <es-xref target="sec-completion-record-specification-type">abrupt
+    completion</es-xref>, then
 
       <ol class="block">
-        <li>Remove <i>calleeContext</i> from <a href="#sec-execution-contexts">the execution
-        context stack</a> and restore <i>callerContext</i> as <a href="#sec-execution-contexts">the
-        running execution context</a> .
-        </li>
+        <li>Remove <i>calleeContext</i> from <es-xref target="sec-execution-contexts">the execution
+        context stack</es-xref> and restore <i>callerContext</i> as <es-xref target=
+        "sec-execution-contexts">the running execution context</es-xref>.</li>
 
         <li>Return <i>status</i>.</li>
       </ol>
     </li>
 
-    <li>Let <i>result</i> be the result of EvaluateBody of the production that is the value of <i>
-      F</i>'s [[Code]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a>
-      passing <i>F</i> as the argument.
-    </li>
+    <li>Let <i>result</i> be the result of EvaluateBody of the production that is the value of
+    <i>F</i>'s [[Code]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref> passing <i>F</i> as the argument.</li>
 
-    <li>Remove <i>calleeContext</i> from <a href="#sec-execution-contexts">the execution context
-    stack</a> and restore <i>callerContext</i> as <a href="#sec-execution-contexts">the running
-    execution context</a> .
-    </li>
+    <li>Remove <i>calleeContext</i> from <es-xref target="sec-execution-contexts">the execution
+    context stack</es-xref> and restore <i>callerContext</i> as <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>.</li>
 
     <li>Return <i>result</i>.</li>
   </ol>
 
   <es-note>
-    <p>Most ECMAScript functions use a <a href="#sec-function-environment-records">Function
-    Environment Record</a> as their <a href="#sec-execution-contexts">LexicalEnvironment</a> .
-    ECMAScript functions that are arrow functions use a <a href=
-    "#sec-declarative-environment-records">Declarative Environment Record</a> as their <a href=
-    "#sec-execution-contexts">LexicalEnvironment</a> .</p>
+    <p>Most ECMAScript functions use a <es-xref target="sec-function-environment-records">Function
+    Environment Record</es-xref> as their <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref>. ECMAScript functions that are arrow
+    functions use a <es-xref target="sec-declarative-environment-records">Declarative Environment
+    Record</es-xref> as their <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref>.</p>
   </es-note>
 
   <es-note>
-    <p>When <es-nt>calleeContext</es-nt> is removed from <a href="#sec-execution-contexts">the
-    execution context stack</a> it must not be destroyed because it may have been <a href=
-    "#sec-execution-contexts">suspended</a> and retained by a generator object for later
-    resumption<i>.</i></p>
+    <p>When <es-nt>calleeContext</es-nt> is removed from <es-xref target=
+    "sec-execution-contexts">the execution context stack</es-xref> it must not be destroyed because
+    it may have been <es-xref target="sec-execution-contexts">suspended</es-xref> and retained by a
+    generator object for later resumption<i>.</i></p>
   </es-note>
 </es-clause>

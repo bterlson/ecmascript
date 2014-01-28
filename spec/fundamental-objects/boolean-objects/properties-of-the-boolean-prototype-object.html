@@ -2,29 +2,27 @@
 <es-clause title="Properties of the Boolean Prototype Object" anchor=
 "sec-properties-of-the-boolean-prototype-object">
   <p>The Boolean prototype object is an ordinary object. It is not a Boolean instance and does not
-  have a [[BooleanData]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-  slot</a> .</p>
+  have a [[BooleanData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref>.</p>
 
-  <p>The value of the [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the Boolean prototype
-  object is the standard built-in Object prototype object (<a href=
-  "#sec-properties-of-the-object-prototype-object">19.1.3</a> ).</p>
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Boolean prototype
+  object is the standard built-in Object prototype object (<es-xref target=
+  "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>).</p>
 
   <p>The abstract operation thisBooleanValue(<i>value</i>) performs the following steps:</p>
 
   <ol class="proc">
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is Boolean,
-    return <i>value</i>.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+    Boolean, return <i>value</i>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value)</i> is Object and
-    <i>value</i> has a [[BooleanData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value)</i> is
+    Object and <i>value</i> has a [[BooleanData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
 
       <ol class="block">
-        <li>Let <i>b</i> be the value of <i>value’s</i> [[BooleanData]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-        </li>
+        <li>Let <i>b</i> be the value of <i>value’s</i> [[BooleanData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
         <li>If <i>b</i> is not <b>undefined</b>, then return <i>b</i>.</li>
       </ol>
@@ -44,9 +42,7 @@
     <ol class="proc">
       <li>Let <i>b</i> be thisBooleanValue(<b>this</b> value).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>b</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>b</i>).</li>
 
       <li>If <i>b</i> is <b>true</b>, then return <code>"true"</code>; else return
       <code>"false"</code>.</li>

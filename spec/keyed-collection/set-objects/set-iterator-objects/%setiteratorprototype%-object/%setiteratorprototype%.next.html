@@ -3,46 +3,38 @@
   <ol class="proc">
     <li>Let <i>O</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, throw
-    a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is not
+    Object, throw a <b>TypeError</b> exception.</li>
 
-    <li>If <i>O</i> does not have all of the internal slots of a Set Iterator Instance (<a href=
-    "#sec-properties-of-set-iterator-instances">23.2.5.3</a> ), throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <i>O</i> does not have all of the internal slots of a Set Iterator Instance
+    (<es-xref target="sec-properties-of-set-iterator-instances">23.2.5.3</es-xref>), throw a
+    <b>TypeError</b> exception.</li>
 
-    <li>Let <i>s</i> be the value of the [[IteratedSet]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>s</i> be the value of the [[IteratedSet]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-    <li>Let <i>index</i> be the value of the [[SetNextIndex]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>index</i> be the value of the [[SetNextIndex]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-    <li>Let <i>itemKind</i> be the value of the [[SetIterationKind]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>itemKind</i> be the value of the [[SetIterationKind]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>s</i> has a [[SetData]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> and <i>s</i> has been
-      initialised so the value of [[SetData]] is not <b>undefined</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>s</i> has a [[SetData]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and
+    <i>s</i> has been initialised so the value of [[SetData]] is not <b>undefined</b>.</li>
 
-    <li>If <i>s</i> is <b>undefined</b>, then return <a href=
-    "#sec-createiterresultobject">CreateIterResultObject</a> (<b>undefined</b>, <b>true</b>).
-    </li>
+    <li>If <i>s</i> is <b>undefined</b>, then return <es-xref target=
+    "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+    <b>true</b>).</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>s</i> has a [[SetData]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> and <i>s</i> has been
-      initialised so the value of [[SetData]] is not <b>undefined</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>s</i> has a [[SetData]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and
+    <i>s</i> has been initialised so the value of [[SetData]] is not <b>undefined</b>.</li>
 
-    <li>Let <i>entries</i> be the <a href="#sec-list-and-record-specification-type">List</a> that
-    is the value of the [[SetData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>s</i>.
-    </li>
+    <li>Let <i>entries</i> be the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> that is the value of the [[SetData]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+    <i>s</i>.</li>
 
     <li>Repeat while <i>index</i> is less than the total number of elements of <i>entries</i>. The
     number of elements must be redetermined each time this method is evaluated.
@@ -52,10 +44,9 @@
 
         <li>Set <i>index</i> to <i>index</i>+1;</li>
 
-        <li>Set the [[SetNextIndex]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to
-        <i>index</i>.
-        </li>
+        <li>Set the [[SetNextIndex]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+        <i>index</i>.</li>
 
         <li>If <i>e</i> is not empty, then
 
@@ -63,43 +54,40 @@
             <li>If <i>itemKind</i> is <b>"key+value"</b> then,
 
               <ol class="block">
-                <li>Let <i>result</i> be the result of performing <a href=
-                "#sec-arraycreate">ArrayCreate</a> (2).
-                </li>
+                <li>Let <i>result</i> be the result of performing <es-xref target=
+                "sec-arraycreate">ArrayCreate</es-xref>(2).</li>
 
-                <li>
-                  <a href="#sec-algorithm-conventions">Assert</a> : <i>result</i> is a new,
-                  well-formed Array object so the following operations will never fail.
-                </li>
+                <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>result</i> is
+                a new, well-formed Array object so the following operations will never fail.</li>
 
-                <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>result</i>,
-                <b>"0"</b>, <i>e</i>) .
-                </li>
+                <li>Call <es-xref target=
+                "sec-createdataproperty">CreateDataProperty</es-xref>(<i>result</i>, <b>"0"</b>,
+                <i>e</i>) .</li>
 
-                <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>result</i>,
-                <b>"1"</b>, <i>e</i>).
-                </li>
+                <li>Call <es-xref target=
+                "sec-createdataproperty">CreateDataProperty</es-xref>(<i>result</i>, <b>"1"</b>,
+                <i>e</i>).</li>
 
-                <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a>
-                (<i>result</i>, <b>false</b>).
-                </li>
+                <li>Return <es-xref target=
+                "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>result</i>,
+                <b>false</b>).</li>
               </ol>
             </li>
 
-            <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a> (<i>e</i>,
-            <b>false</b>).
-            </li>
+            <li>Return <es-xref target=
+            "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>e</i>,
+            <b>false</b>).</li>
           </ol>
         </li>
       </ol>
     </li>
 
-    <li>Set the [[IteratedSet]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> of <i>O</i> to <b>undefined</b>.
-    </li>
+    <li>Set the [[IteratedSet]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+    <b>undefined</b>.</li>
 
-    <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a> (<b>undefined</b>,
-    <b>true</b>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+    <b>true</b>).</li>
   </ol>
 </es-clause>

@@ -10,30 +10,25 @@
   <ol class="proc">
     <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>propKey</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propKey</i>).</li>
 
     <li>Let <i>strict</i> be IsStrict of <i>FunctionBody</i>.</li>
 
-    <li>Let <i>scope</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
-    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
-    </li>
+    <li>Let <i>scope</i> be <es-xref target="sec-execution-contexts">the running execution
+    context</es-xref>’s <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
 
-    <li>Let <i>closure</i> be the result of performing the <a href=
-    "#sec-functioncreate">FunctionCreate</a> abstract operation with arguments Method,
+    <li>Let <i>closure</i> be the result of performing the <es-xref target=
+    "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Method,
     <i>StrictFormalParameters</i>, <i>FunctionBody, scope</i>, and <i>strict</i>. If
     <i>functionPrototype</i> was passed as a parameter then pass its value as the
-    <i>functionPrototype</i> optional argument of <a href="#sec-functioncreate">FunctionCreate</a>
-    .
-    </li>
+    <i>functionPrototype</i> optional argument of <es-xref target=
+    "sec-functioncreate">FunctionCreate</es-xref>.</li>
 
     <li>If ReferencesSuper of <i>MethodDefinition</i> is <b>true</b>, then
 
       <ol class="block">
-        <li>Perform <a href="#sec-makemethod">MakeMethod</a> (<i>closure</i>, <i>propKey</i>,
-        <i>object</i>).
-        </li>
+        <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>closure</i>,
+        <i>propKey</i>, <i>object</i>).</li>
       </ol>
     </li>
 

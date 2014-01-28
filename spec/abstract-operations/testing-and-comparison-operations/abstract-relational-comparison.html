@@ -14,53 +14,37 @@
   is performed as follows:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>x</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>x</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>y</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>y</i>).</li>
 
     <li>If the <i>LeftFirst</i> flag is <b>true</b>, then
 
       <ol class="block">
-        <li>Let <i>px</i> be the result of calling <a href="#sec-toprimitive">ToPrimitive</a>
-        (<i>x</i>, hint Number).
-        </li>
+        <li>Let <i>px</i> be the result of calling <es-xref target=
+        "sec-toprimitive">ToPrimitive</es-xref>(<i>x</i>, hint Number).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>px</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>px</i>).</li>
 
-        <li>Let <i>py</i> be the result of calling <a href="#sec-toprimitive">ToPrimitive</a>
-        (<i>y</i>, hint Number).
-        </li>
+        <li>Let <i>py</i> be the result of calling <es-xref target=
+        "sec-toprimitive">ToPrimitive</es-xref>(<i>y</i>, hint Number).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>py</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>py</i>).</li>
       </ol>
     </li>
 
     <li>Else the order of evaluation needs to be reversed to preserve left to right evaluation
 
       <ol class="block">
-        <li>Let <i>py</i> be the result of calling <a href="#sec-toprimitive">ToPrimitive</a>
-        (<i>y</i>, hint Number).
-        </li>
+        <li>Let <i>py</i> be the result of calling <es-xref target=
+        "sec-toprimitive">ToPrimitive</es-xref>(<i>y</i>, hint Number).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>py</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>py</i>).</li>
 
-        <li>Let <i>px</i> be the result of calling <a href="#sec-toprimitive">ToPrimitive</a>
-        (<i>x</i>, hint Number).
-        </li>
+        <li>Let <i>px</i> be the result of calling <es-xref target=
+        "sec-toprimitive">ToPrimitive</es-xref>(<i>x</i>, hint Number).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>px</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>px</i>).</li>
       </ol>
     </li>
 
@@ -92,14 +76,12 @@
     <li>Else,
 
       <ol class="block">
-        <li>Let <i>nx</i> be the result of calling <a href="#sec-tonumber">ToNumber</a>
-        (<i>px</i>). Because <i>px</i> and <i>py</i> are primitive values evaluation order is not
-        important.
-        </li>
+        <li>Let <i>nx</i> be the result of calling <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>px</i>). Because <i>px</i> and <i>py</i> are primitive
+        values evaluation order is not important.</li>
 
-        <li>Let <i>ny</i> be the result of calling <a href="#sec-tonumber">ToNumber</a>
-        (<i>py</i>).
-        </li>
+        <li>Let <i>ny</i> be the result of calling <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>py</i>).</li>
 
         <li>If <i>nx</i> is <b>NaN</b>, return <b>undefined</b>.</li>
 
@@ -128,7 +110,8 @@
 
   <es-note>
     <p>Step 5 differs from step 11 in the algorithm for the addition operator <code>+</code>
-    (<a href="#sec-addition-operator-plus">12.6.3</a> ) in using “and” instead of “or”.</p>
+    (<es-xref target="sec-addition-operator-plus">12.6.3</es-xref>) in using “and” instead of
+    “or”.</p>
   </es-note>
 
   <es-note>

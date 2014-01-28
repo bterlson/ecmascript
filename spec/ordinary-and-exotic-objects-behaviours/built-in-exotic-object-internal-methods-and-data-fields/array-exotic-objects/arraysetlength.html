@@ -1,28 +1,26 @@
 <!doctype html>
 <es-clause title="ArraySetLength(A, Desc) Abstract Operation" anchor="sec-arraysetlength">
   <p>When the abstract operation ArraySetLength is called with an exotic Array object <i>A</i>, and
-  <a href="#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt>
-  the following steps are taken:</p>
+  <es-xref target="sec-property-descriptor-specification-type">Property Descriptor</es-xref>
+  <es-nt>Desc</es-nt> the following steps are taken:</p>
 
   <ol class="proc">
     <li>If the [[Value]] field of <i>Desc</i> is absent, then
 
       <ol class="block">
-        <li>Return the result of calling <a href=
-        "#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> passing <i>A</i>,
-        <b>"length"</b>, and <i>Desc</i> as arguments.
-        </li>
+        <li>Return the result of calling <es-xref target=
+        "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+        <b>"length"</b>, and <i>Desc</i> as arguments.</li>
       </ol>
     </li>
 
     <li>Let <i>newLenDesc</i> be a copy of <i>Desc</i>.</li>
 
-    <li>Let <i>newLen</i> be <a href="#sec-touint32">ToUint32</a> (<i>Desc</i>.[[Value]]).
-    </li>
+    <li>Let <i>newLen</i> be <es-xref target=
+    "sec-touint32">ToUint32</es-xref>(<i>Desc</i>.[[Value]]).</li>
 
-    <li>If <i>newLen</i> is not equal to <a href="#sec-tonumber">ToNumber</a> (
-    <i>Desc</i>.[[Value]]), throw a <b>RangeError</b> exception.
-    </li>
+    <li>If <i>newLen</i> is not equal to <es-xref target="sec-tonumber">ToNumber</es-xref>(
+    <i>Desc</i>.[[Value]]), throw a <b>RangeError</b> exception.</li>
 
     <li>Set <i>newLenDesc</i>.[[Value]] to <i>newLen</i>.</li>
 
@@ -36,10 +34,9 @@
     <li>If <i>newLen</i> ≥<i>oldLen</i>, then
 
       <ol class="block">
-        <li>Return the result of calling <a href=
-        "#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> passing <i>A</i>,
-        <b>"length"</b>, and <i>newLenDesc</i> as arguments.
-        </li>
+        <li>Return the result of calling <es-xref target=
+        "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+        <b>"length"</b>, and <i>newLenDesc</i> as arguments.</li>
       </ol>
     </li>
 
@@ -60,14 +57,11 @@
       </ol>
     </li>
 
-    <li>Let <i>succeeded</i> be the result of calling <a href=
-    "#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> passing <i>A</i>,
-    <b>"length"</b>, and <i>newLenDesc</i> as arguments.
-    </li>
+    <li>Let <i>succeeded</i> be the result of calling <es-xref target=
+    "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+    <b>"length"</b>, and <i>newLenDesc</i> as arguments.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>succeeded</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>succeeded</i>).</li>
 
     <li>If <i>succeeded</i> is <b>false</b>, return <b>false</b>.</li>
 
@@ -77,12 +71,9 @@
         <li>Set <i>oldLen</i> to <i>oldLen</i> – 1.</li>
 
         <li>Let <i>deleteSucceeded</i> be the result of calling the [[Delete]] internal method of
-        <i>A</i> passing <a href="#sec-tostring">ToString</a> (<i>oldLen</i>).
-        </li>
+        <i>A</i> passing <es-xref target="sec-tostring">ToString</es-xref>(<i>oldLen</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>succeeded</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>succeeded</i>).</li>
 
         <li>If <i>deleteSucceeded</i> is <b>false</b>, then
 
@@ -92,14 +83,12 @@
             <li>If <i>newWritable</i> is <b>false</b>, set <i>newLenDesc</i>.[[Writable]] to
             <b>false</b>.</li>
 
-            <li>Let <i>succeeded</i> be the result of calling <a href=
-            "#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> passing <i>A</i>,
-            <b>"length"</b>, and <i>newLenDesc</i> as arguments.
-            </li>
+            <li>Let <i>succeeded</i> be the result of calling <es-xref target=
+            "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+            <b>"length"</b>, and <i>newLenDesc</i> as arguments.</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>succeeded</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>succeeded</i>).</li>
 
             <li>Return <b>false</b>.</li>
           </ol>
@@ -110,10 +99,10 @@
     <li>If <i>newWritable</i> is <b>false</b>, then
 
       <ol class="block">
-        <li>Call <a href="#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> passing <i>
-          A</i>, <b>"length"</b>, and PropertyDescriptor{[[Writable]]: <b>false</b>} as arguments.
-          This call will always return <b>true</b>.
-        </li>
+        <li>Call <es-xref target=
+        "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+        <b>"length"</b>, and PropertyDescriptor{[[Writable]]: <b>false</b>} as arguments. This call
+        will always return <b>true</b>.</li>
       </ol>
     </li>
 

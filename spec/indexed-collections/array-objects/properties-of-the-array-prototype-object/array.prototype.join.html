@@ -8,44 +8,33 @@
   following steps:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
-      this</b> value as the argument.
-    </li>
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
-    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"length"</code>).
-    </li>
+    <li>Let <i>lenVal</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>).</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
     <li>If <i>separator</i> is <b>undefined</b>, let <i>separator</i> be the single-character
     String <code>","</code>.</li>
 
-    <li>Let <i>sep</i> be <a href="#sec-tostring">ToString</a> (<i>separator</i>).
-    </li>
+    <li>Let <i>sep</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>separator</i>).</li>
 
     <li>If <i>len</i> is zero, return the empty String.</li>
 
-    <li>Let <i>element0</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"0"</code>).
-    </li>
+    <li>Let <i>element0</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"0"</code>).</li>
 
     <li>If <i>element0</i> is <b>undefined</b> or <b>null</b>, let <i>R</i> be the empty String;
-    otherwise, let <i>R</i> be <a href="#sec-tostring">ToString</a> (<i>element0</i>).
-    </li>
+    otherwise, let <i>R</i> be <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>element0</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>R</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>R</i>).</li>
 
     <li>Let <i>k</i> be <code>1</code>.</li>
 
@@ -55,18 +44,15 @@
         <li>Let <i>S</i> be the String value produced by concatenating <i>R</i> and
         <i>sep</i>.</li>
 
-        <li>Let <i>element</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-          <a href="#sec-tostring">ToString</a> (<i>k</i>)).
-        </li>
+        <li>Let <i>element</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>O</i>, <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>k</i>)).</li>
 
         <li>If <i>element</i> is <b>undefined</b> or <b>null</b>, then let <i>next</i> be the empty
-        String; otherwise, let <i>next</i> be <a href="#sec-tostring">ToString</a>
-        (<i>element</i>).
-        </li>
+        String; otherwise, let <i>next</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>element</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
         <li>Let <i>R</i> be a String value produced by concatenating <i>S</i> and <i>next</i>.</li>
 

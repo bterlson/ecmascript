@@ -7,11 +7,11 @@
 
   <ul>
     <li>
-      <p>It is a Syntax Error if <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
-      <es-nt>NonResolvedIdentifier</es-nt> <es-nt>
-        does not statically resolve to a <a href="#sec-declarative-environment-records">declarative
-        environment record</a> binding.
-      </es-nt></p>
+      <p>It is a Syntax Error if <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <es-nt>NonResolvedIdentifier</es-nt> <es-nt>does not statically resolve to a <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref>
+      binding.</es-nt></p>
     </li>
   </ul>
 
@@ -21,9 +21,9 @@
 
   <ul>
     <li>
-      <p>It is a Syntax Error if this <es-nt>NonResolvedIdentifier</es-nt> is contained in <a href=
-      "#sec-strict-mode-code">strict code</a> and if the <a href=
-      "#sec-identifiers-and-identifier-names">StringValue</a> of <es-nt>Identifier</es-nt> is:
+      <p>It is a Syntax Error if this <es-nt>NonResolvedIdentifier</es-nt> is contained in
+      <es-xref target="sec-strict-mode-code">strict code</es-xref> and if the <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <es-nt>Identifier</es-nt> is:
       <code>"implements"</code>, <code>"interface"</code>, <code>"let"</code>,
       <code>"package"</code>, <code>"private"</code>, <code>"protected"</code>,
       <code>"public"</code>, <code>"static"</code>, or <code>"yield"</code>.</p>
@@ -31,7 +31,7 @@
 
     <li>
       <p>It is a Syntax Error if this <es-nt>NonResolvedIdentifier</es-nt> has a <sub>[Yield]</sub>
-      and the <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
+      and the <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref> of
       <es-nt>Identifier</es-nt> is <code>"yield"</code>.</p>
     </li>
   </ul>
@@ -41,15 +41,15 @@
   </es-production>
 
   <ul>
-    <li>It is a Syntax Error if the <es-nt>IdentifierReference</es-nt> is contained in <a href=
-    "#sec-strict-mode-code">strict code</a> <es-nt>.</es-nt>
-    </li>
+    <li>It is a Syntax Error if the <es-nt>IdentifierReference</es-nt> is contained in
+    <es-xref target="sec-strict-mode-code">strict code</es-xref><es-nt>.</es-nt></li>
   </ul>
 
   <es-note>
-    <p>Unlike a <es-nt>BindingIdentifier</es-nt> (<a href=
-    "#sec-let-and-const-declarations-static-semantics-early-errors">13.2.1.1</a> ), an
-    <es-nt>IdentifierReference</es-nt> in <a href="#sec-strict-mode-code">strict code</a> may be
-    the <es-nt>Identifier</es-nt> <code>eval</code> or <code>arguments</code>.</p>
+    <p>Unlike a <es-nt>BindingIdentifier</es-nt> (<es-xref target=
+    "sec-let-and-const-declarations-static-semantics-early-errors">13.2.1.1</es-xref>), an
+    <es-nt>IdentifierReference</es-nt> in <es-xref target="sec-strict-mode-code">strict
+    code</es-xref> may be the <es-nt>Identifier</es-nt> <code>eval</code> or
+    <code>arguments</code>.</p>
   </es-note>
 </es-clause>

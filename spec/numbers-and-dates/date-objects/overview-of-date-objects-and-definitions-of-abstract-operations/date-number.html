@@ -1,43 +1,44 @@
 <!doctype html>
 <es-clause title="Date Number" anchor="sec-date-number">
   <p>A date number is identified by an integer in the range 1 through 31, inclusive. The mapping
-  DateFromTime(<i>t</i>) from a <a href="#sec-time-values-and-time-range">time value</a> <i>t</i>
-  to a month number is defined by:</p>
+  DateFromTime(<i>t</i>) from a <es-xref target="sec-time-values-and-time-range">time
+  value</es-xref> <i>t</i> to a month number is defined by:</p>
 
   <div class="display">
-    DateFromTime(<i>t</i>)	= <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)+1	if <a href=
-    "#sec-month-number">MonthFromTime</a> (<i>t</i>)=0<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−30	if <a href=
-    "#sec-month-number">MonthFromTime</a> (<i>t</i>)=1<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−58−<a href=
-    "#sec-year-number">InLeapYear</a> (<i>t</i>)	if <a href="#sec-month-number">MonthFromTime</a>
-    (<i>t</i>)=2<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−89−<a href=
-    "#sec-year-number">InLeapYear</a> (<i>t</i>)	if <a href="#sec-month-number">MonthFromTime</a>
-    (<i>t</i>)=3<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−119−<a href=
-    "#sec-year-number">InLeapYear</a> (<i>t</i>)	if <a href="#sec-month-number">MonthFromTime</a>
-    (<i>t</i>)=4<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−150−<a href=
-    "#sec-year-number">InLeapYear</a> (<i>t</i>)	if <a href="#sec-month-number">MonthFromTime</a>
-    (<i>t</i>)=5<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−180−<a href=
-    "#sec-year-number">InLeapYear</a> (<i>t</i>)	if <a href="#sec-month-number">MonthFromTime</a>
-    (<i>t</i>)=6<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−211−<a href=
-    "#sec-year-number">InLeapYear</a> (<i>t</i>)	if <a href="#sec-month-number">MonthFromTime</a>
-    (<i>t</i>)=7<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−242−<a href=
-    "#sec-year-number">InLeapYear</a> (<i>t</i>)	if <a href="#sec-month-number">MonthFromTime</a>
-    (<i>t</i>)=8<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−272−<a href=
-    "#sec-year-number">InLeapYear</a> (<i>t</i>)	if <a href="#sec-month-number">MonthFromTime</a>
-    (<i>t</i>)=9<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−303−<a href=
-    "#sec-year-number">InLeapYear</a> (<i>t</i>)	if <a href="#sec-month-number">MonthFromTime</a>
-    (<i>t</i>)=10<br>
-    = <a href="#sec-month-number">DayWithinYear</a> (<i>t</i>)−333−<a href=
-    "#sec-year-number">InLeapYear</a> (<i>t</i>)	if <a href="#sec-month-number">MonthFromTime</a>
-    (<i>t</i>)=11
+    DateFromTime(<i>t</i>)	= <es-xref target=
+    "sec-month-number">DayWithinYear</es-xref>(<i>t</i>)+1	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=0<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−30	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=1<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−58−<es-xref target=
+    "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=2<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−89−<es-xref target=
+    "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=3<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−119−<es-xref target=
+    "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=4<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−150−<es-xref target=
+    "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=5<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−180−<es-xref target=
+    "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=6<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−211−<es-xref target=
+    "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=7<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−242−<es-xref target=
+    "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=8<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−272−<es-xref target=
+    "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=9<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−303−<es-xref target=
+    "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=10<br>
+    = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−333−<es-xref target=
+    "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=11
   </div>
 </es-clause>

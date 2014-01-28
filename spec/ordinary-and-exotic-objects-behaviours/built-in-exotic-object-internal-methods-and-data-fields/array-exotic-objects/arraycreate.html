@@ -8,44 +8,39 @@
     <li>If the <i>proto</i> argument was not passed, then let <i>proto</i> be the intrinsic object
     %ArrayPrototype%.</li>
 
-    <li>Let <i>A</i> be a newly created <a href="#sec-array-exotic-objects">Array exotic object</a>
-    .
-    </li>
+    <li>Let <i>A</i> be a newly created <es-xref target="sec-array-exotic-objects">Array exotic
+    object</es-xref>.</li>
 
     <li>Set <i>A</i>’s essential internal methods except for [[DefineOwnProperty]] to the default
-    ordinary object definitions specified in <a href=
-    "#sec-ordinary-object-internal-methods-and-internal-slots">9.1</a> .
-    </li>
+    ordinary object definitions specified in <es-xref target=
+    "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</li>
 
-    <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in <a href=
-    "#sec-array-exotic-objects-defineownproperty-p-desc">9.4.2.1</a> .
-    </li>
+    <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in <es-xref target=
+    "sec-array-exotic-objects-defineownproperty-p-desc">9.4.2.1</es-xref>.</li>
 
-    <li>Set the [[Prototype]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> of <i>A</i> to <i>proto</i>.
-    </li>
+    <li>Set the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+    <i>proto</i>.</li>
 
-    <li>Set the [[Extensible]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> of <i>A</i> to <b>true</b>.
-    </li>
+    <li>Set the [[Extensible]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+    <b>true</b>.</li>
 
     <li>If <i>length</i> is not <b>undefined</b>, then
 
       <ol class="block">
-        <li>Set the [[ArrayInitialisationState]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>A</i> to
-        <b>true</b>.
-        </li>
+        <li>Set the [[ArrayInitialisationState]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+        <b>true</b>.</li>
       </ol>
     </li>
 
     <li>Else
 
       <ol class="block">
-        <li>Set the [[ArrayInitialisationState]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>A</i> to
-        <b>false</b>.
-        </li>
+        <li>Set the [[ArrayInitialisationState]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+        <b>false</b>.</li>
 
         <li>Let <i>length</i> be 0.</li>
       </ol>
@@ -53,10 +48,9 @@
 
     <li>If <i>length</i>&gt;2<sup>32</sup> -1, then throw a <b>RangeError</b> exception.</li>
 
-    <li>Call <a href="#sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</a> with arguments
-    <i>A</i>, <code>"length"</code> and PropertyDescriptor{[[Value]]: <i>length</i>, [[Writable]]:
-    <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}.
-    </li>
+    <li>Call <es-xref target="sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref>
+    with arguments <i>A</i>, <code>"length"</code> and PropertyDescriptor{[[Value]]: <i>length</i>,
+    [[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}.</li>
 
     <li>Return <i>A</i>.</li>
   </ol>

@@ -25,33 +25,30 @@
     <li>Else
 
       <ol class="block">
-        <li>Let <i>K</i> be a <a href="#sec-list-and-record-specification-type">List</a> of Strings
-        consisting of the keys of all the own properties of <i>value</i> whose [[Enumerable]]
-        attribute is <b>true</b> and whose <a href="#sec-object-type">property key</a> is a String
-        value. The ordering of the Strings is the same as that used by the <b><a href=
-        "#sec-object.keys">Object.keys</a></b> standard built-in function.
-        </li>
+        <li>Let <i>K</i> be a <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> of Strings consisting of the keys
+        of all the own properties of <i>value</i> whose [[Enumerable]] attribute is <b>true</b> and
+        whose <es-xref target="sec-object-type">property key</es-xref> is a String value. The
+        ordering of the Strings is the same as that used by the <b><es-xref target=
+        "sec-object.keys">Object.keys</es-xref></b> standard built-in function.</li>
       </ol>
     </li>
 
-    <li>Let <i>partial</i> be an empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>partial</i> be an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>For each element <i>P</i> of <i>K</i>,
 
       <ol class="block">
         <li>Let <i>strP</i> be the result of Str(<i>P</i>, <i>value</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>strP</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>strP</i>).</li>
 
         <li>If <i>strP</i> is not <b>undefined</b>
 
           <ol class="block">
-            <li>Let <i>member</i> be the result of calling the abstract operation <a href=
-            "#sec-quote">Quote</a> with argument <i>P</i>.
-            </li>
+            <li>Let <i>member</i> be the result of calling the abstract operation <es-xref target=
+            "sec-quote">Quote</es-xref> with argument <i>P</i>.</li>
 
             <li>Let <i>member</i> be the concatenation of <i>member</i> and the string
             <code>":</code>".</li>

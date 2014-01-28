@@ -9,37 +9,27 @@
   <p>The result is calculated as follows:</p>
 
   <ol class="proc">
-    <li>Let <i>array</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the
-    <b>this</b> value as the argument.
-    </li>
+    <li>Let <i>array</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>array</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>array</i>).</li>
 
-    <li>Let <i>arrayLen</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>array</i>,
-    <code>"length"</code>).
-    </li>
+    <li>Let <i>arrayLen</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>array</i>, <code>"length"</code>).</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>arrayLen</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>arrayLen</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
     <li>Let <i>separator</i> be the String value for the list-separator String appropriate for the
     host environment’s current locale (this is derived in an implementation-defined way).</li>
 
     <li>If <i>len</i> is zero, return the empty String.</li>
 
-    <li>Let <i>firstElement</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>array</i>,
-    <code>"0"</code>).
-    </li>
+    <li>Let <i>firstElement</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>array</i>, <code>"0"</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>firstElement</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>firstElement</i>).</li>
 
     <li>If <i>firstElement</i> is <b>undefined</b> or <b>null</b>, then
 
@@ -54,12 +44,9 @@
         <li>Let <i>R</i> be the result of Invoke(<i>firstElement</i>,
         <code>"toLocaleString"</code>).</li>
 
-        <li>Let <i>R</i> be <a href="#sec-tostring">ToString</a> (<i>R</i>).
-        </li>
+        <li>Let <i>R</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>R</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>R</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>R</i>).</li>
       </ol>
     </li>
 
@@ -71,13 +58,11 @@
         <li>Let <i>S</i> be a String value produced by concatenating <i>R</i> and
         <i>separator</i>.</li>
 
-        <li>Let <i>nextElement</i> be the result of <a href="#sec-get-o-p">Get</a>
-        (<i>array</i>,<a href="#sec-tostring">ToString</a> (<i>k</i>)).
-        </li>
+        <li>Let <i>nextElement</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>array</i>,<es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>k</i>)).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextElement</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextElement</i>).</li>
 
         <li>If <i>nextElement</i> is <b>undefined</b> or <b>null</b>, then
 
@@ -92,12 +77,9 @@
             <li>Let <i>R</i> be the result of Invoke(<i>nextElement</i>,
             <code>"toLocaleString"</code>).</li>
 
-            <li>Let <i>R</i> be <a href="#sec-tostring">ToString</a> (<i>R</i>).
-            </li>
+            <li>Let <i>R</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>R</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>R</i>).
-            </li>
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>R</i>).</li>
           </ol>
         </li>
 

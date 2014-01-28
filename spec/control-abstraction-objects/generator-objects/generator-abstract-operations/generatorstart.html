@@ -4,66 +4,59 @@
   performs the following steps:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : The value of <i>generator’s</i>
-      [[GeneratorState]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-      slot</a> is <b>undefined</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The value of
+    <i>generator’s</i> [[GeneratorState]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+    <b>undefined</b>.</li>
 
-    <li>Let <i>genContext</i> be <a href="#sec-execution-contexts">the running execution
-    context</a> .
-    </li>
+    <li>Let <i>genContext</i> be <es-xref target="sec-execution-contexts">the running execution
+    context</es-xref>.</li>
 
     <li>Set the Generator component of <i>genContext</i> to <i>generator.</i></li>
 
     <li>Set the code evaluation state of <i>genContext</i> such that when evaluation is resumed for
-    that <a href="#sec-execution-contexts">execution context</a> the following steps will be
-    performed:
+    that <es-xref target="sec-execution-contexts">execution context</es-xref> the following steps
+    will be performed:
 
       <ol class="block">
         <li>Let <i>result</i> be the result of evaluating <i>generatorBody</i>.</li>
 
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : If we return here, the generator either
-          threw an exception or performed either an implicit or explicit return.
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: If we return here, the
+        generator either threw an exception or performed either an implicit or explicit
+        return.</li>
 
-        <li>Remove <i>genContext</i> from <a href="#sec-execution-contexts">the execution context
-        stack</a> and restore the <a href="#sec-execution-contexts">execution context</a> that is
-        at the top of <a href="#sec-execution-contexts">the execution context stack</a> as
-          <a href="#sec-execution-contexts">the running execution context</a> .
-        </li>
+        <li>Remove <i>genContext</i> from <es-xref target="sec-execution-contexts">the execution
+        context stack</es-xref> and restore the <es-xref target="sec-execution-contexts">execution
+        context</es-xref> that is at the top of <es-xref target="sec-execution-contexts">the
+        execution context stack</es-xref> as <es-xref target="sec-execution-contexts">the running
+        execution context</es-xref>.</li>
 
-        <li>Set <i>generator’s</i> [[GeneratorState]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> to
-        <code>"completed"</code>.
-        </li>
+        <li>Set <i>generator’s</i> [[GeneratorState]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <code>"completed"</code>.</li>
 
         <li>Once a generator enters the <code>"completed"</code> state it never leaves it and its
-        associated <a href="#sec-execution-contexts">execution context</a> is never resumed. Any
-        execution state associated with <i>generator</i> can be discard at this point.
-        </li>
+        associated <es-xref target="sec-execution-contexts">execution context</es-xref> is never
+        resumed. Any execution state associated with <i>generator</i> can be discard at this
+        point.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>result</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
 
-        <li>Return <a href="#sec-createiterresultobject">CreateIterResultObject</a> (<i>result</i>,
-        <b>true</b>).
-        </li>
+        <li>Return <es-xref target=
+        "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>result</i>,
+        <b>true</b>).</li>
       </ol>
     </li>
 
-    <li>Set <i>generator’s</i> [[GeneratorContext]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>genContext</i>.
-    </li>
+    <li>Set <i>generator’s</i> [[GeneratorContext]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>genContext</i>.</li>
 
-    <li>Set <i>generator’s</i> [[GeneratorState]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to
-    <code>"suspendedStart"</code>.
-    </li>
+    <li>Set <i>generator’s</i> [[GeneratorState]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <code>"suspendedStart"</code>.</li>
 
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<i>generator</i>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<i>generator</i>).</li>
   </ol>
 </es-clause>

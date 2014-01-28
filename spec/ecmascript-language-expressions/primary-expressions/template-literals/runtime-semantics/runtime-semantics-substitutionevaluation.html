@@ -6,8 +6,8 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return an empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Return an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 
   <es-production name="TemplateSpans" class="inline">
@@ -25,13 +25,10 @@
   <ol class="proc">
     <li>Let <i>sub</i> be the result of evaluating <i>Expression</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>sub</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>sub</i>).</li>
 
-    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing only
-    <i>sub</i>.
-    </li>
+    <li>Return a <es-xref target="sec-list-and-record-specification-type">List</es-xref> containing
+    only <i>sub</i>.</li>
   </ol>
 
   <es-production name="TemplateMiddleList" class="inline">
@@ -43,19 +40,14 @@
     <li>Let <i>preceeding</i> be the result of SubstitutionEvaluation of <i>TemplateMiddleList</i>
     .</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>preceeding</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>preceeding</i>).</li>
 
     <li>Let <i>next</i> be the result of evaluating <i>Expression</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
-    <li>Append <i>next</i> as the last element of the <a href=
-    "#sec-list-and-record-specification-type">List</a> <i>preceeding</i>.
-    </li>
+    <li>Append <i>next</i> as the last element of the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> <i>preceeding</i>.</li>
 
     <li>Return <i>preceeding</i>.</li>
   </ol>

@@ -3,8 +3,8 @@
   <p>When the translate method is called, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Return the result of <a href="#sec-get-o-p">Get</a> (<i>load</i>, <code>"source"</code>).
-    </li>
+    <li>Return the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>load</i>,
+    <code>"source"</code>).</li>
   </ol>
 
   <p>This is a <code>Loader</code> hook that may be over-riden by an own property of Loader
@@ -19,8 +19,8 @@
   </es-note>
 
   <p>When a <code>translate</code> hook is called by an Loader object the argument
-  <es-nt>loadRequest</es-nt> is a LoadRequest object (<a href=
-  "#sec-load-records-and-loadrequest-objects">15.2.3.2</a> ) with <code>address</code> and
+  <es-nt>loadRequest</es-nt> is a LoadRequest object (<es-xref target=
+  "sec-load-records-and-loadrequest-objects">15.2.3.2</es-xref>) with <code>address</code> and
   <code>source</code> properties. The value of the <code>address</code> property identifies the
   module source code to fetch. The value of the <code>source</code> property is the resolved value
   returned from the <code>fetch</code> hook. The <code>translate</code> hook returns either an

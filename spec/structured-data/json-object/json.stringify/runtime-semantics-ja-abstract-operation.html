@@ -18,37 +18,28 @@
 
     <li>Let <i>indent</i> be the concatenation of <i>indent</i> and <i>gap</i>.</li>
 
-    <li>Let <i>partial</i> be an empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>partial</i> be an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>value</i> is a standard array object and
-      hence its <code>"length"</code> property is a non-negative integer.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>value</i> is a standard
+    array object and hence its <code>"length"</code> property is a non-negative integer.</li>
 
-    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>value</i>,
-    <code>"length"</code>)
-    </li>
+    <li>Let <i>lenVal</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>value</i>, <code>"length"</code>)</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
     <li>Let <i>index</i> be 0.</li>
 
     <li>Repeat while <i>index</i> &lt; <i>len</i>
 
       <ol class="block">
-        <li>Let <i>strP</i> be the result of calling the abstract operation Str(<a href=
-        "#sec-tostring">ToString</a> (<i>index</i>), <i>value</i>).
-        </li>
+        <li>Let <i>strP</i> be the result of calling the abstract operation Str(<es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>index</i>), <i>value</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>strP</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>strP</i>).</li>
 
         <li>If <i>strP</i> is <b>undefined</b>
 

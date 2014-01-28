@@ -6,20 +6,14 @@
   <ol class="proc">
     <li>Let <i>loader</i> be this Loader.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>loader</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
 
-    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>name</i> be <a href="#sec-tostring">ToString</a> (<i>name</i>).
-    </li>
+    <li>Let <i>name</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>name</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>name</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
 
     <li>Let <i>modules</i> be the value of of <i>loaderRecord</i>. [[Modules]],</li>
 
@@ -27,7 +21,8 @@
     <i>modules</i>,
 
       <ol class="block">
-        <li>If <a href="#sec-samevalue">SameValue</a> (<i>p</i>.[[key]], <i>name</i>), then
+        <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>.[[key]], <i>name</i>),
+        then
 
           <ol class="block">
             <li>Set <i>p</i>.[[key]] to empty.</li>

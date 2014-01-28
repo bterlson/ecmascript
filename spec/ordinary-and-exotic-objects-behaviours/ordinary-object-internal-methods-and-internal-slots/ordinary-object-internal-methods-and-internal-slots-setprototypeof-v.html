@@ -5,23 +5,18 @@
   <es-nt>V</es-nt> the following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : Either <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>V</i>) is Object or <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>V</i>) is Null.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: Either <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>V</i>) is Object or <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>V</i>) is Null.</li>
 
-    <li>Let <i>extensible</i> be the value of the [[Extensible]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>extensible</i> be the value of the [[Extensible]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-    <li>Let <i>current</i> be the value of the [[Prototype]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>current</i> be the value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-    <li>If <a href="#sec-samevalue">SameValue</a> (<i>V</i>, <i>current</i>), then return
-    <b>true.</b>
-    </li>
+    <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>V</i>, <i>current</i>), then
+    return <b>true.</b></li>
 
     <li>If <i>extensible</i> is <b>false</b>, then return <b>false</b>.</li>
 
@@ -33,16 +28,13 @@
         <li>Repeat, while <i>p</i> is not <b>null</b>
 
           <ol class="block">
-            <li>If <a href="#sec-samevalue">SameValue</a> (<i>p</i>, <i>O</i>) is <b>true</b>, then
-            return <b>false</b>.
-            </li>
+            <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>, <i>O</i>) is
+            <b>true</b>, then return <b>false</b>.</li>
 
             <li>Let <i>nextp</i> be the result of calling the [[GetPrototypeOf]] internal method of
             <i>p</i> with no arguments.</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextp</i>).
-            </li>
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextp</i>).</li>
 
             <li>Let <i>p</i> be <i>nextp</i>.</li>
           </ol>
@@ -50,9 +42,9 @@
       </ol>
     </li>
 
-    <li>Set the value of the [[Prototype]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i> to <i>V</i>.
-    </li>
+    <li>Set the value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+    <i>V</i>.</li>
 
     <li>Return <b>true</b>.</li>
   </ol>

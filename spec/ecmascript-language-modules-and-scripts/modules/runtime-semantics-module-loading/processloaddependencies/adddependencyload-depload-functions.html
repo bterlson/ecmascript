@@ -10,38 +10,32 @@
   <es-nt>depLoad</es-nt>, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>parentLoad</i> be the value of <i>F</i>’s [[ParentLoad]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>parentLoad</i> be the value of <i>F</i>’s [[ParentLoad]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>request</i> be the value of <i>F</i>’s [[Request]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>request</i> be the value of <i>F</i>’s [[Request]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : There is no Record in the <a href=
-      "#sec-list-and-record-specification-type">List</a> <i>parentLoad</i>.[[Dependencies]] whose
-      [[key]] field is equal to <i>request</i>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: There is no Record in the
+    <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    <i>parentLoad</i>.[[Dependencies]] whose [[key]] field is equal to <i>request</i>.</li>
 
     <li>Append the Record {[[key]]: <i>request</i>, [[value]]: <i>depLoad</i>.[[Name]]} to the end
-    of the <a href="#sec-list-and-record-specification-type">List</a>
-    <i>parentLoad</i>.[[Dependencies]].
-    </li>
+    of the <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    <i>parentLoad</i>.[[Dependencies]].</li>
 
     <li>If <i>depLoad</i>.[[Status]] is not <code>"linked"</code>, then
 
       <ol class="block">
-        <li>Let <i>linkSets</i> be a copy of the <a href="#sec-list-and-record-specification-type">
-          List</a> <i>parentLoad</i>.[[LinkSets]].
-        </li>
+        <li>Let <i>linkSets</i> be a copy of the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>
+        <i>parentLoad</i>.[[LinkSets]].</li>
 
         <li>For each <i>linkSet</i> in <i>linkSets</i>, do
 
           <ol class="block">
-            <li>Call <a href="#sec-addloadtolinkset">AddLoadToLinkSet</a> (<i>linkSet</i>,
-            <i>depLoad</i>).
-            </li>
+            <li>Call <es-xref target=
+            "sec-addloadtolinkset">AddLoadToLinkSet</es-xref>(<i>linkSet</i>, <i>depLoad</i>).</li>
           </ol>
         </li>
       </ol>

@@ -6,44 +6,42 @@
   specification has not yet been update.</p>
 
   <es-note>
-    <p>When an <a href="#sec-execution-contexts">execution context</a> is established for
-    evaluating function code a new <a href="#sec-declarative-environment-records">Declarative
-    Environment Record</a> is created and bindings for each formal parameter, and each function
-    level variable, constant, or function declarated in the function are instantiated in the
-    environment record. Formal parameters and functions are initialised as part of this process.
-    All other bindings are initialised during execution of the function code.</p>
+    <p>When an <es-xref target="sec-execution-contexts">execution context</es-xref> is established
+    for evaluating function code a new <es-xref target=
+    "sec-declarative-environment-records">Declarative Environment Record</es-xref> is created and
+    bindings for each formal parameter, and each function level variable, constant, or function
+    declarated in the function are instantiated in the environment record. Formal parameters and
+    functions are initialised as part of this process. All other bindings are initialised during
+    execution of the function code.</p>
   </es-note>
 
   <p>Function Declaration Instantiation is performed as follows using arguments
   <es-nt>func,</es-nt> <es-nt>argumentsList</es-nt>, and <es-nt>env</es-nt>. <es-nt>func</es-nt> is
-  the function object that for which the <a href="#sec-execution-contexts">execution context</a> is
-  being established. <es-nt>env</es-nt> is the <a href=
-  "#sec-declarative-environment-records">declarative environment record</a> in which bindings are
-  to be created.</p>
+  the function object that for which the <es-xref target="sec-execution-contexts">execution
+  context</es-xref> is being established. <es-nt>env</es-nt> is the <es-xref target=
+  "sec-declarative-environment-records">declarative environment record</es-xref> in which bindings
+  are to be created.</p>
 
   <ol class="proc">
-    <li>Let <i>code</i> be the value of the [[Code]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>func</i>.
-    </li>
+    <li>Let <i>code</i> be the value of the [[Code]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>func</i>.</li>
 
-    <li>Let <i>strict</i> be the value of the [[Strict]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>func</i>.
-    </li>
+    <li>Let <i>strict</i> be the value of the [[Strict]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>func</i>.</li>
 
-    <li>Let <i>formals</i> be the value of the [[FormalParameters]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>func</i>.
-    </li>
+    <li>Let <i>formals</i> be the value of the [[FormalParameters]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>func</i>.</li>
 
     <li>Let <i>parameterNames</i> be the BoundNames of <i>formals</i>.</li>
 
     <li>Let <i>varDeclarations</i> be the VarScopedDeclarations of <i>code</i>.</li>
 
-    <li>Let <i>functionsToInitialise</i> be an empty <a href=
-    "#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>functionsToInitialise</i> be an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
-    <li>If the value of the [[ThisMode]] <a href="#sec-object-internal-methods-and-internal-slots">
-      internal slot</a> of <i>func</i> is lexical, then
+    <li>If the value of the [[ThisMode]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>func</i> is
+    lexical, then
 
       <ol class="block">
         <li>Let <i>argumentsObjectNeeded</i> be <b>false</b>.</li>
@@ -75,10 +73,9 @@
                 <li>Let <i>status</i> be the result of calling <i>env’s</i> CreateMutableBinding
                 concrete method passing <i>fn</i> as the argument.</li>
 
-                <li>
-                  <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is never an
-                  <a href="#sec-completion-record-specification-type">abrupt completion</a> .
-                </li>
+                <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is
+                never an <es-xref target="sec-completion-record-specification-type">abrupt
+                completion</es-xref>.</li>
 
                 <li>Append <i>d</i> to <i>functionsToInitialise</i>.</li>
               </ol>
@@ -107,10 +104,9 @@
             <li>Let <i>status</i> be the result of calling <i>env’s</i> CreateMutableBinding
             concrete method passing <i>paramName</i> as the argument.</li>
 
-            <li>
-              <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is never an <a href=
-              "#sec-completion-record-specification-type">abrupt completion</a>
-            </li>
+            <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is
+            never an <es-xref target="sec-completion-record-specification-type">abrupt
+            completion</es-xref></li>
 
             <li>Call <i>env</i>’s InitialiseBinding concrete method passing <i>paramName</i>, and
             <b>undefined</b> as the arguments.</li>
@@ -139,10 +135,9 @@
             <li>Let <i>status</i> be the result of calling <i>env</i>’s CreateMutableBinding
             concrete method passing the String "<code>arguments</code>" as the argument.</li>
 
-            <li>
-              <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is never an <a href=
-              "#sec-completion-record-specification-type">abrupt completion</a> .
-            </li>
+            <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is
+            never an <es-xref target="sec-completion-record-specification-type">abrupt
+            completion</es-xref>.</li>
           </ol>
         </li>
       </ol>
@@ -165,10 +160,9 @@
             <li>Let <i>status</i> be the result of calling <i>env’s</i> CreateMutableBinding
             concrete method passing <i>varName</i> as the argument.</li>
 
-            <li>
-              <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is never an <a href=
-              "#sec-completion-record-specification-type">abrupt completion</a> .
-            </li>
+            <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is
+            never an <es-xref target="sec-completion-record-specification-type">abrupt
+            completion</es-xref>.</li>
           </ol>
         </li>
       </ol>
@@ -200,10 +194,9 @@
                 <li>Let <i>status</i> be the result of calling <i>env</i>’s CreateMutableBinding
                 concrete method passing <i>dn</i> and <b>false</b> as the arguments.</li>
 
-                <li>
-                  <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is never an
-                  <a href="#sec-completion-record-specification-type">abrupt completion</a> .
-                </li>
+                <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is
+                never an <es-xref target="sec-completion-record-specification-type">abrupt
+                completion</es-xref>.</li>
               </ol>
             </li>
           </ol>
@@ -229,10 +222,9 @@
         <li>Let <i>status</i> be the result of calling <i>env</i>’s SetMutableBinding concrete
         method passing <i>fn</i>, <i>fo</i>, and <b>false</b> as the arguments.</li>
 
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : <i>status</i> is never an <a href=
-          "#sec-completion-record-specification-type">abrupt completion</a> .
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is never an
+        <es-xref target="sec-completion-record-specification-type">abrupt
+        completion</es-xref>.</li>
       </ol>
     </li>
 
@@ -241,13 +233,11 @@
     parameter initialisation.</li>
 
     <li>Let <i>formalStatus</i> be the result of performing IteratorBindingInitialisation for
-    <i>formals</i> with <a href="#sec-createlistiterator">CreateListIterator</a>
-    (<i>argumentsList</i>) and <b>undefined</b> as arguments.
-    </li>
+    <i>formals</i> with <es-xref target=
+    "sec-createlistiterator">CreateListIterator</es-xref>(<i>argumentsList</i>) and
+    <b>undefined</b> as arguments.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>formalStatus</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>formalStatus</i>).</li>
 
     <li>If <i>argumentsObjectNeeded</i> is <b>true</b>, then
 
@@ -276,7 +266,6 @@
       </ol>
     </li>
 
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
-    </li>
+    <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
   </ol>
 </es-clause>

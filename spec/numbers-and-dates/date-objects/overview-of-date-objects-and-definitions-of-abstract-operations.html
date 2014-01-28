@@ -2,17 +2,18 @@
 <es-clause title="Overview of Date Objects and Definitions of Abstract Operations" anchor=
 "sec-overview-of-date-objects-and-definitions-of-abstract-operations">
   <p>The following functions are abstract operations that operate on time values (defined in
-  <a href="#sec-time-values-and-time-range">20.3.1.1</a> ). Note that, in every case, if any
-  argument to one of these functions is <b>NaN</b>, the result will be <b>NaN</b>.</p>
+  <es-xref target="sec-time-values-and-time-range">20.3.1.1</es-xref>). Note that, in every case,
+  if any argument to one of these functions is <b>NaN</b>, the result will be <b>NaN</b>.</p>
   <link rel="import" href=
   "overview-of-date-objects-and-definitions-of-abstract-operations\time-values-and-time-range.html">
 
   <es-clause title="Day Number and Time within Day" anchor="sec-day-number-and-time-within-day">
-    <p>A given <a href="#sec-time-values-and-time-range">time value</a> <i>t</i> belongs to day
-    number</p>
+    <p>A given <es-xref target="sec-time-values-and-time-range">time value</es-xref> <i>t</i>
+    belongs to day number</p>
 
     <div class="display">
-      Day(<i>t</i>) = <a href="#sec-algorithm-conventions">floor</a> (<i>t</i> / msPerDay)
+      Day(<i>t</i>) = <es-xref target="sec-algorithm-conventions">floor</es-xref>(<i>t</i> /
+      msPerDay)
     </div>
 
     <p>where the number of milliseconds per day is</p>
@@ -24,7 +25,8 @@
     <p>The remainder is called the time within the day:</p>
 
     <div class="display">
-      TimeWithinDay(<i>t</i>) = <i>t</i> <a href="#sec-algorithm-conventions">modulo</a> msPerDay
+      TimeWithinDay(<i>t</i>) = <i>t</i> <es-xref target=
+      "sec-algorithm-conventions">modulo</es-xref> msPerDay
     </div>
   </es-clause>
   <link rel="import" href=
@@ -35,12 +37,13 @@
   "overview-of-date-objects-and-definitions-of-abstract-operations\date-number.html">
 
   <es-clause title="Week Day" anchor="sec-week-day">
-    <p>The weekday for a particular <a href="#sec-time-values-and-time-range">time value</a>
-    <es-nt>t</es-nt> is defined as</p>
+    <p>The weekday for a particular <es-xref target="sec-time-values-and-time-range">time
+    value</es-xref> <es-nt>t</es-nt> is defined as</p>
 
     <div class="display">
-      WeekDay(<i>t</i>)	 = (<a href="#sec-day-number-and-time-within-day">Day</a> (<i>t</i>) + 4)
-      <a href="#sec-algorithm-conventions">modulo</a> 7
+      WeekDay(<i>t</i>)	 = (<es-xref target=
+      "sec-day-number-and-time-within-day">Day</es-xref>(<i>t</i>) + 4) <es-xref target=
+      "sec-algorithm-conventions">modulo</es-xref> 7
     </div>
 
     <p>A weekday value of 0 specifies Sunday; 1 specifies Monday; 2 specifies Tuesday; 3 specifies
@@ -71,16 +74,18 @@
     <p>Conversion from UTC to local time is defined by</p>
 
     <div class="display">
-      LocalTime(<i>t</i>) = <i>t</i> + <a href="#sec-local-time-zone-adjustment">LocalTZA</a> +
-      <a href="#sec-daylight-saving-time-adjustment">DaylightSavingTA</a> (<i>t</i>)
+      LocalTime(<i>t</i>) = <i>t</i> + <es-xref target=
+      "sec-local-time-zone-adjustment">LocalTZA</es-xref> + <es-xref target=
+      "sec-daylight-saving-time-adjustment">DaylightSavingTA</es-xref>(<i>t</i>)
     </div>
 
     <p>Conversion from local time to UTC is defined by</p>
 
     <div class="display">
-      UTC(<i>t</i>) = <i>t</i> – <a href="#sec-local-time-zone-adjustment">LocalTZA</a> – <a href=
-      "#sec-daylight-saving-time-adjustment">DaylightSavingTA</a> (<i>t</i> – <a href=
-      "#sec-local-time-zone-adjustment">LocalTZA</a> )
+      UTC(<i>t</i>) = <i>t</i> – <es-xref target=
+      "sec-local-time-zone-adjustment">LocalTZA</es-xref> – <es-xref target=
+      "sec-daylight-saving-time-adjustment">DaylightSavingTA</es-xref>(<i>t</i> – <es-xref target=
+      "sec-local-time-zone-adjustment">LocalTZA</es-xref>)
     </div>
 
     <p>Note that UTC(LocalTime(<i>t</i>)) is not necessarily always equal to <i>t</i>.</p>
@@ -99,9 +104,8 @@
     <ol class="proc">
       <li>If <i>day</i> is not finite or <i>time</i> is not finite, return <b>NaN</b>.</li>
 
-      <li>Return <i>day</i> × <a href="#sec-day-number-and-time-within-day">msPerDay</a> +
-      <i>time</i>.
-      </li>
+      <li>Return <i>day</i> × <es-xref target=
+      "sec-day-number-and-time-within-day">msPerDay</es-xref> + <i>time</i>.</li>
     </ol>
   </es-clause>
 
@@ -112,13 +116,11 @@
     <ol class="proc">
       <li>If <i>time</i> is not finite, return <b>NaN</b>.</li>
 
-      <li>If <a href="#sec-algorithm-conventions">abs</a> (<i>time</i>) &gt;
-      8.64&nbsp;×&nbsp;10<sup>15</sup> , return <b>NaN</b>.
-      </li>
+      <li>If <es-xref target="sec-algorithm-conventions">abs</es-xref>(<i>time</i>) &gt;
+      8.64&nbsp;×&nbsp;10<sup>15</sup> , return <b>NaN</b>.</li>
 
-      <li>Return <a href="#sec-tointeger">ToInteger</a> (<i>time</i>) + (<b>+0</b>). (Adding a
-      positive zero converts <b>−0</b> to <b>+0</b>.)
-      </li>
+      <li>Return <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>time</i>) + (<b>+0</b>).
+      (Adding a positive zero converts <b>−0</b> to <b>+0</b>.)</li>
     </ol>
 
     <es-note>

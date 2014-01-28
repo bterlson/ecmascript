@@ -1,16 +1,18 @@
 <!doctype html>
 <es-clause title="Properties of theConstructors" anchor=
 "sec-properties-of-the-nativeerror-constructors">
-  <p>The value of the [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of a <i>NativeError</i>
-  constructor is the Error constructor object (<a href="#sec-error-constructor">19.5.1</a> ).</p>
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of a <i>NativeError</i>
+  constructor is the Error constructor object (<es-xref target=
+  "sec-error-constructor">19.5.1</es-xref>).</p>
 
   <p>Besides the <code>length</code> property (whose value is <b>1</b>), each <i>NativeError</i>
   constructor has the following properties:</p>
 
   <es-clause title="NativeError.prototype" anchor="sec-nativeerror.prototype">
     <p>The initial value of <b><i>NativeError</i>.prototype</b> is a <i>NativeError</i> prototype
-    object (<a href="#sec-properties-of-the-nativeerror-prototype-objects">19.5.6.3</a> ). Each
+    object (<es-xref target=
+    "sec-properties-of-the-nativeerror-prototype-objects">19.5.6.3</es-xref>). Each
     <i>NativeError</i> constructor has a separate prototype object.</p>
 
     <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,

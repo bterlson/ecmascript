@@ -8,18 +8,15 @@
 
   <es-clause title="IsConstructor" anchor="sec-isconstructor">
     <p>The abstract operation IsConstructor determines if its <es-nt>argument</es-nt>, which must
-    be an <a href="#sec-ecmascript-language-types">ECMAScript language value</a> or a <a href=
-    "#sec-completion-record-specification-type">Completion Record</a> , is a function object with a
-    [[Construct]] internal method.</p>
+    be an <es-xref target="sec-ecmascript-language-types">ECMAScript language value</es-xref> or a
+    <es-xref target="sec-completion-record-specification-type">Completion Record</es-xref>, is a
+    function object with a [[Construct]] internal method.</p>
 
     <ol class="proc">
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>argument</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>argument</i>).</li>
 
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>argument</i>) is not
-      Object, return <b>false</b>.
-      </li>
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>argument</i>)
+      is not Object, return <b>false</b>.</li>
 
       <li>If <i>argument</i> has a [[Construct]] internal method, return <b>true</b>.</li>
 
@@ -29,22 +26,18 @@
 
   <es-clause title="IsPropertyKey" anchor="sec-ispropertykey">
     <p>The abstract operation IsPropertyKey determines if its <es-nt>argument</es-nt>, which must
-    be an <a href="#sec-ecmascript-language-types">ECMAScript language value</a> or a <a href=
-    "#sec-completion-record-specification-type">Completion Record</a> , is a value that may be used
-    as a <a href="#sec-object-type">property key</a> .</p>
+    be an <es-xref target="sec-ecmascript-language-types">ECMAScript language value</es-xref> or a
+    <es-xref target="sec-completion-record-specification-type">Completion Record</es-xref>, is a
+    value that may be used as a <es-xref target="sec-object-type">property key</es-xref>.</p>
 
     <ol class="proc">
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>argument</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>argument</i>).</li>
 
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>argument</i>) is String,
-      return <b>true</b>.
-      </li>
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>argument</i>)
+      is String, return <b>true</b>.</li>
 
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>argument</i>) is Symbol,
-      return <b>true</b>.
-      </li>
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>argument</i>)
+      is Symbol, return <b>true</b>.</li>
 
       <li>Return <b>false</b>.</li>
     </ol>
@@ -56,10 +49,8 @@
     operation performs the following steps:</p>
 
     <ol class="proc">
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-        "#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
 
       <li>Return the result of calling the [[IsExtensible]] internal method of <i>O</i>.</li>
     </ol>

@@ -1,30 +1,33 @@
 <!doctype html>
 <es-clause title="Built-in Function Objects" anchor="sec-built-in-function-objects">
   <p>The built-in function objects defined in this specification may be implemented as either
-  ECMAScript function objects (<a href="#sec-ordinarycreatefromconstructor">9.1.14</a> ) whose
-  behaviour is provided using ECMAScript code or as implementation provided exotic function objects
-  whose behaviour is provided in some other manner. In either case, the effect of calling such
-  functions must conform to their specifications.</p>
+  ECMAScript function objects (<es-xref target=
+  "sec-ordinarycreatefromconstructor">9.1.14</es-xref>) whose behaviour is provided using
+  ECMAScript code or as implementation provided exotic function objects whose behaviour is provided
+  in some other manner. In either case, the effect of calling such functions must conform to their
+  specifications.</p>
 
   <p>If a built-in function object is implemented as an exotic object it must have the ordinary
-  object behaviour specified in <a href=
-  "#sec-ordinary-object-internal-methods-and-internal-slots">9.1</a> except [[GetOwnProperty]]
-  which must be as specified in <a href="#sec-ordinarycreatefromconstructor">9.1.14</a> . All such
-  exotic function objects also have [[Prototype]] and [[Extensible]] internal slots.</p>
+  object behaviour specified in <es-xref target=
+  "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref> except [[GetOwnProperty]]
+  which must be as specified in <es-xref target=
+  "sec-ordinarycreatefromconstructor">9.1.14</es-xref>. All such exotic function objects also have
+  [[Prototype]] and [[Extensible]] internal slots.</p>
 
   <p>Unless otherwise specified every built-in function object initially has the
-  %FunctionPrototype% object (<a href="#sec-properties-of-the-function-prototype-object">19.2.3</a>
-  ) as the initial value of its [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+  %FunctionPrototype% object (<es-xref target=
+  "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>) as the initial value of its
+  [[Prototype]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref>.</p>
 
   <p>The behaviour specified for each built-in function via algorithm steps or other means is the
   specification of the [[Call]] behaviour for that function with the [[Call]]
   <es-nt>thisArgument</es-nt> providing the <span class="value">this</span> value and the [[Call]]
   <es-nt>argumentsList</es-nt> providing the named parameters for each built-in function. If the
-  built-in function is implemented as an <a href="#sec-ecmascript-function-objects">ECMAScript
-  function object</a> then this specified behaviour must be implemented by the ECMAScript code that
-  is the body of the function. Built-in functions that are ECMAScript function objects must be
-  strict mode functions.</p>
+  built-in function is implemented as an <es-xref target=
+  "sec-ecmascript-function-objects">ECMAScript function object</es-xref> then this specified
+  behaviour must be implemented by the ECMAScript code that is the body of the function. Built-in
+  functions that are ECMAScript function objects must be strict mode functions.</p>
 
   <p>Built-in function objects that are not identified as constructors do not implement the
   [[Construct]] internal method unless otherwise specified in the description of a particular
@@ -36,8 +39,8 @@
   unless otherwise specified in the description of a particular function.</p>
 
   <p>If a built-in function object is not implemented as an ECMAScript function it must have a
-  [[Realm]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> and a
-  [[Call]] internal method that conforms to the following definition:</p>
+  [[Realm]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref> and a [[Call]] internal method that conforms to the following definition:</p>
   <link rel="import" href=
   "built-in-function-objects\built-in-function-objects-call-thisargument-argumentslist.html">
   <link rel="import" href="built-in-function-objects\createbuiltinfunction.html">

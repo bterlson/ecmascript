@@ -5,33 +5,24 @@
   <ol class="proc">
     <li>Let <i>O</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, throw
-    a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is not
+    Object, throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>name</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"name"</code>).
-    </li>
+    <li>Let <i>name</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"name"</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>name</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
 
     <li>If <i>name</i> is <b>undefined</b>, then let <i>name</i> be "<b>Error</b>"; else let
-    <i>name</i> be <a href="#sec-tostring">ToString</a> (<i>name</i>).
-    </li>
+    <i>name</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>name</i>).</li>
 
-    <li>Let <i>msg</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"message"</code>).
-    </li>
+    <li>Let <i>msg</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"message"</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>msg</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>msg</i>).</li>
 
     <li>If <i>msg</i> is <b>undefined</b>, then let <i>msg</i> be the empty String; else let
-    <i>msg</i> be <a href="#sec-tostring">ToString</a> (<i>msg</i>).
-    </li>
+    <i>msg</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>msg</i>).</li>
 
     <li>If <i>name</i> is the empty String, return <i>msg</i>.</li>
 

@@ -2,13 +2,13 @@
 <es-clause title="ValidateAndApplyPropertyDescriptor (O, P, extensible, Desc, current)" anchor=
 "sec-validateandapplypropertydescriptor">
   <p>When the abstract operation ValidateAndApplyPropertyDescriptor is called with Object
-  <es-nt>O</es-nt>, <a href="#sec-object-type">property key</a> <i>P</i>, Boolean value
-  <es-nt>extensible</es-nt>, and Property Descriptors <es-nt>Desc</es-nt>, and
+  <es-nt>O</es-nt>, <es-xref target="sec-object-type">property key</es-xref> <i>P</i>, Boolean
+  value <es-nt>extensible</es-nt>, and Property Descriptors <es-nt>Desc</es-nt>, and
   <es-nt>current</es-nt> the following steps are taken:</p>
 
-  <p>This algorithm contains steps that test various fields of the <a href=
-  "#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt> for
-  specific values. The fields that are tested in this manner need not actually exist in
+  <p>This algorithm contains steps that test various fields of the <es-xref target=
+  "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>
+  for specific values. The fields that are tested in this manner need not actually exist in
   <es-nt>Desc</es-nt>. If a field is absent then its value is considered to be <b>false</b>.</p>
 
   <es-note>
@@ -17,22 +17,21 @@
   </es-note>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : If <i>O</i> is not <b>undefined</b> then
-      <i>P</i> is a valid <a href="#sec-object-type">property key</a> .
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: If <i>O</i> is not
+    <b>undefined</b> then <i>P</i> is a valid <es-xref target="sec-object-type">property
+    key</es-xref>.</li>
 
     <li>If <i>current</i> is <b>undefined</b>, then
 
       <ol class="block">
         <li>If <i>extensible</i> is <b>false</b>, then return <b>false</b>.</li>
 
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : <i>extensible</i> is <b>true</b>.
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>extensible</i> is
+        <b>true</b>.</li>
 
-        <li>If <a href="#sec-isgenericdescriptor">IsGenericDescriptor</a> (<i>Desc</i>) or
-          <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>Desc</i>) is <b>true</b>, then
+        <li>If <es-xref target="sec-isgenericdescriptor">IsGenericDescriptor</es-xref>(<i>Desc</i>)
+        or <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>Desc</i>) is
+        <b>true</b>, then
 
           <ol class="block">
             <li>If <i>O</i> is not <b>undefined</b>, then create an own data property named
@@ -43,8 +42,8 @@
           </ol>
         </li>
 
-        <li>Else <i>Desc</i> must be an accessor <a href=
-        "#sec-property-descriptor-specification-type">Property Descriptor</a> ,
+        <li>Else <i>Desc</i> must be an accessor <es-xref target=
+        "sec-property-descriptor-specification-type">Property Descriptor</es-xref>,
 
           <ol class="block">
             <li>If <i>O</i> is not <b>undefined</b>, then create an own accessor property named
@@ -63,8 +62,8 @@
 
     <li>Return <b>true</b>, if every field in <i>Desc</i> also occurs in <i>current</i> and the
     value of every field in <i>Desc</i> is the same value as the corresponding field in
-    <i>current</i> when compared using <a href="#sec-samevalue">the SameValue algorithm</a> .
-    </li>
+    <i>current</i> when compared using <es-xref target="sec-samevalue">the SameValue
+    algorithm</es-xref>.</li>
 
     <li>If the [[Configurable]] field of <i>current</i> is <b>false</b> then
 
@@ -77,19 +76,18 @@
       </ol>
     </li>
 
-    <li>If <a href="#sec-isgenericdescriptor">IsGenericDescriptor</a> (<i>Desc</i>) is <b>true</b>,
-    then no further validation is required.
-    </li>
+    <li>If <es-xref target="sec-isgenericdescriptor">IsGenericDescriptor</es-xref>(<i>Desc</i>) is
+    <b>true</b>, then no further validation is required.</li>
 
-    <li>Else if <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>current</i>) and
-      <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>Desc</i>) have different results,
-      then
+    <li>Else if <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>current</i>)
+    and <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>Desc</i>) have
+    different results, then
 
       <ol class="block">
         <li>Return <b>false</b>, if the [[Configurable]] field of <i>current</i> is
         <b>false</b>.</li>
 
-        <li>If <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>current</i>) is
+        <li>If <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>current</i>) is
         <b>true</b>, then
 
           <ol class="block">
@@ -112,8 +110,9 @@
       </ol>
     </li>
 
-    <li>Else if <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>current</i>) and
-      <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>Desc</i>) are both <b>true</b>, then
+    <li>Else if <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>current</i>)
+    and <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>Desc</i>) are both <b>
+      true</b>, then
 
       <ol class="block">
         <li>If the [[Configurable]] field of <i>current</i> is <b>false</b>, then
@@ -126,9 +125,8 @@
 
               <ol class="block">
                 <li>Return <b>false</b>, if the [[Value]] field of <i>Desc</i> is present and
-                <a href="#sec-samevalue">SameValue</a> (<i>Desc</i>.[[Value]],
-                <i>current</i>.[[Value]]) is <b>false</b>.
-                </li>
+                <es-xref target="sec-samevalue">SameValue</es-xref>(<i>Desc</i>.[[Value]],
+                <i>current</i>.[[Value]]) is <b>false</b>.</li>
               </ol>
             </li>
           </ol>
@@ -139,23 +137,22 @@
       </ol>
     </li>
 
-    <li>Else <a href="#sec-isaccessordescriptor">IsAccessorDescriptor</a> (<i>current</i>) and
-    <a href="#sec-isaccessordescriptor">IsAccessorDescriptor</a> (<i>Desc</i>) are both
-    <b>true</b>,
+    <li>Else <es-xref target=
+    "sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>current</i>) and
+      <es-xref target="sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>Desc</i>) are
+      both <b>true</b>,
 
       <ol class="block">
         <li>If the [[Configurable]] field of <i>current</i> is <b>false</b>, then
 
           <ol class="block">
-            <li>Return <b>false</b>, if the [[Set]] field of <i>Desc</i> is present and <a href=
-            "#sec-samevalue">SameValue</a> (<i>Desc</i>.[[Set]], <i>current</i>.[[Set]]) is
-            <b>false</b>.
-            </li>
+            <li>Return <b>false</b>, if the [[Set]] field of <i>Desc</i> is present and
+            <es-xref target="sec-samevalue">SameValue</es-xref>(<i>Desc</i>.[[Set]],
+            <i>current</i>.[[Set]]) is <b>false</b>.</li>
 
-            <li>Return <b>false</b>, if the [[Get]] field of <i>Desc</i> is present and <a href=
-            "#sec-samevalue">SameValue</a> (<i>Desc</i>.[[Get]], <i>current</i>.[[Get]]) is
-            <b>false</b>.
-            </li>
+            <li>Return <b>false</b>, if the [[Get]] field of <i>Desc</i> is present and
+            <es-xref target="sec-samevalue">SameValue</es-xref>(<i>Desc</i>.[[Get]],
+            <i>current</i>.[[Get]]) is <b>false</b>.</li>
           </ol>
         </li>
       </ol>

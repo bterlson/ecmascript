@@ -8,29 +8,25 @@
   <ol class="proc">
     <li>Let <i>loader</i> be <i>linkSet</i>.[[Loader]].</li>
 
-    <li>Let <i>loads</i> be a copy of the <a href=
-    "#sec-list-and-record-specification-type">List</a> <i>linkSet</i>.[[Loads]].
-    </li>
+    <li>Let <i>loads</i> be a copy of the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> <i>linkSet</i>.[[Loads]].</li>
 
     <li>For each <i>load</i> in <i>loads</i>,
 
       <ol class="block">
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : <i>linkSet</i> is an element of the
-          <a href="#sec-list-and-record-specification-type">List</a> <i>load</i>.[[LinkSets]].
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>linkSet</i> is an
+        element of the <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+        <i>load</i>.[[LinkSets]].</li>
 
-        <li>Remove <i>linkSet</i> from the <a href=
-        "#sec-list-and-record-specification-type">List</a> <i>load</i>.[[LinkSets]].
-        </li>
+        <li>Remove <i>linkSet</i> from the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> <i>load</i>.[[LinkSets]].</li>
 
         <li>If <i>load</i>.[[LinkSets]] is empty and <i>load</i> is an element of
         <i>loader</i>.[[Loads]], then
 
           <ol class="block">
-            <li>Remove <i>load</i> from the <a href=
-            "#sec-list-and-record-specification-type">List</a> <i>loader</i>.[[Loads]].
-            </li>
+            <li>Remove <i>load</i> from the <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> <i>loader</i>.[[Loads]].</li>
           </ol>
         </li>
       </ol>
@@ -39,9 +35,7 @@
     <li>Return the result of calling [[Call]] internal method of <i>linkSet</i>.[[Reject]] passing
     <b>undefined</b> and (<i>exc</i>) as arguments.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : The call performed by step 4 completed
-      normally.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The call performed by step 4
+    completed normally.</li>
   </ol>
 </es-clause>

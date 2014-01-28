@@ -5,35 +5,32 @@
   steps are performed:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : The value of <i>F’s</i> [[ThisMode]]
-      <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> is not lexical.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The value of <i>F’s</i>
+    [[ThisMode]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref> is not lexical.</li>
 
-    <li>Let <i>env</i> be a new <a href="#sec-lexical-environments">Lexical Environment</a> .
-    </li>
+    <li>Let <i>env</i> be a new <es-xref target="sec-lexical-environments">Lexical
+    Environment</es-xref>.</li>
 
-    <li>Let <i>envRec</i> be a new <a href="#sec-function-environment-records">Function environment
-    record</a> containing containing no bindings.
-    </li>
+    <li>Let <i>envRec</i> be a new <es-xref target="sec-function-environment-records">Function
+    environment record</es-xref> containing containing no bindings.</li>
 
     <li>Set <i>envRec’s</i> <i>thisValue</i> to <i>T</i>.</li>
 
-    <li>If <i>F</i>’s [[NeedsSuper]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>true</b>, then
+    <li>If <i>F</i>’s [[NeedsSuper]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>true</b>, then
 
       <ol class="block">
-        <li>Let <i>home</i> be the value of <i>F’s</i> [[HomeObject]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-        </li>
+        <li>Let <i>home</i> be the value of <i>F’s</i> [[HomeObject]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
         <li>If <i>home</i> is <b>undefined</b>, then throw a <b>ReferenceError</b> exception.</li>
 
         <li>Set <i>envRec’s</i> <i>HomeObject</i> to <i>home</i>.</li>
 
         <li>Set <i>envRec’s</i> <i>MethodName</i> to the value of <i>F’s</i> [[MethodName]]
-          <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-        </li>
+        <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
       </ol>
     </li>
 
@@ -46,10 +43,9 @@
 
     <li>Set <i>env’s</i> environment record to be <i>envRec</i>.</li>
 
-    <li>Set the <a href="#sec-lexical-environments">outer lexical environment reference</a> of <i>
-      env</i> to the value of <i>F’s</i> [[Environment]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Set the <es-xref target="sec-lexical-environments">outer lexical environment
+    reference</es-xref> of <i>env</i> to the value of <i>F’s</i> [[Environment]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>Return <i>env</i>.</li>
   </ol>

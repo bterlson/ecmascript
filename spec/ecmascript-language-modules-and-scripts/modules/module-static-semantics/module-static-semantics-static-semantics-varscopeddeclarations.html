@@ -1,16 +1,16 @@
 <!doctype html>
 <es-clause title="Static Semantics: VarScopedDeclarations" anchor=
 "sec-module-static-semantics-static-semantics-varscopeddeclarations">
-  <p>See also: <a href="#sec-block-static-semantics-varscopeddeclarations">13.1.9</a> , <a href=
-  "#sec-scripts-static-semantics-varscopeddeclarations">15.1.6</a> .</p>
+  <p>See also: <es-xref target="sec-block-static-semantics-varscopeddeclarations">13.1.9</es-xref>,
+  <es-xref target="sec-scripts-static-semantics-varscopeddeclarations">15.1.6</es-xref>.</p>
 
   <es-production name="ModuleItemList" class="inline">
     <es-rhs constraint="empty"></es-rhs>
   </es-production>
 
   <ol class="proc">
-    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Return a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 
   <es-production name="ModuleItemList" class="inline">
@@ -31,8 +31,8 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Return a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 
   <es-production name="ModuleItem" class="inline">
@@ -41,11 +41,10 @@
 
   <ol class="proc">
     <li>If <i>ExportDeclaration</i> is <code>export</code> <i>VariableStatement</i><code>;</code>
-    then return a new <a href="#sec-list-and-record-specification-type">List</a> containing
-    <i>VariableStatement</i>.
-    </li>
+    then return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    containing <i>VariableStatement</i>.</li>
 
-    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Return a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 </es-clause>

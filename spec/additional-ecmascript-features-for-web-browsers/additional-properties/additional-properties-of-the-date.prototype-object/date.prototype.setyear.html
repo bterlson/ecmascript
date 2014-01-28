@@ -9,40 +9,37 @@
   steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>t</i> be the result of <a href="#sec-local-time">LocalTime</a> (<a href=
-    "#sec-properties-of-the-date-prototype-object">this time value</a> ); but if <a href=
-    "#sec-properties-of-the-date-prototype-object">this time value</a> is <b>NaN</b>, let <i>t</i>
-    be <b>+0</b>.
-    </li>
+    <li>Let <i>t</i> be the result of <es-xref target=
+    "sec-local-time">LocalTime</es-xref>(<es-xref target=
+    "sec-properties-of-the-date-prototype-object">this time value</es-xref>); but if
+    <es-xref target="sec-properties-of-the-date-prototype-object">this time value</es-xref> is
+    <b>NaN</b>, let <i>t</i> be <b>+0</b>.</li>
 
-    <li>Let <i>y</i> be <a href="#sec-tonumber">ToNumber</a> (<i>year</i>).
-    </li>
+    <li>Let <i>y</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>year</i>).</li>
 
-    <li>If <i>y</i> is <b>NaN</b>, set the [[DateValue]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of this Date object to <b>
-      NaN</b> and return <b>NaN</b>.
-    </li>
+    <li>If <i>y</i> is <b>NaN</b>, set the [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date object to
+    <b>NaN</b> and return <b>NaN</b>.</li>
 
-    <li>If <i>y</i> is not <b>NaN</b> and 0 ≤ <a href="#sec-tointeger">ToInteger</a> (<i>y</i>) ≤
-    99 then let <i>yyyy</i> be <a href="#sec-tointeger">ToInteger</a> (<i>y</i>) +&nbsp;1900.
-    Otherwise, let <i>yyyy</i> be <i>y</i>.
-    </li>
+    <li>If <i>y</i> is not <b>NaN</b> and 0 ≤ <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>y</i>) ≤ 99 then let <i>yyyy</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>y</i>) +&nbsp;1900. Otherwise, let <i>yyyy</i> be
+    <i>y</i>.</li>
 
-    <li>Let <i>d</i> be <a href="#sec-makeday">MakeDay</a> (<i>yyyy</i>, <a href=
-    "#sec-month-number">MonthFromTime</a> (<i>t</i>), <a href="#sec-date-number">DateFromTime</a>
-    (<i>t</i>)).
-    </li>
+    <li>Let <i>d</i> be <es-xref target="sec-makeday">MakeDay</es-xref>(<i>yyyy</i>,
+    <es-xref target="sec-month-number">MonthFromTime</es-xref>(<i>t</i>), <es-xref target=
+    "sec-date-number">DateFromTime</es-xref>(<i>t</i>)).</li>
 
-    <li>Let <i>date</i> be <a href="#sec-local-time">UTC</a> (<a href="#sec-makedate">MakeDate</a>
-    (<i>d</i>, <a href="#sec-day-number-and-time-within-day">TimeWithinDay</a> (<i>t</i>))).
-    </li>
+    <li>Let <i>date</i> be <es-xref target="sec-local-time">UTC</es-xref>(<es-xref target=
+    "sec-makedate">MakeDate</es-xref>(<i>d</i>, <es-xref target=
+    "sec-day-number-and-time-within-day">TimeWithinDay</es-xref>(<i>t</i>))).</li>
 
-    <li>Set the [[DateValue]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> of this Date object to <a href="#sec-timeclip">TimeClip</a> (<i>date</i>).
-    </li>
+    <li>Set the [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date object to
+    <es-xref target="sec-timeclip">TimeClip</es-xref>(<i>date</i>).</li>
 
-    <li>Return the value of the [[DateValue]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of this Date object.
-    </li>
+    <li>Return the value of the [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date
+    object.</li>
   </ol>
 </es-clause>

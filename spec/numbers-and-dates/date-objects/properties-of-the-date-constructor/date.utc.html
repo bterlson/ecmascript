@@ -8,77 +8,56 @@ anchor="sec-date.utc">
   <es-nt>ms</es-nt>. The following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>y</i> be <a href="#sec-tonumber">ToNumber</a> (<i>year</i>).
-    </li>
+    <li>Let <i>y</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>year</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>y</i>).</li>
+
+    <li>Let <i>m</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>month</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>m</i>).</li>
+
+    <li>If <i>date</i> is supplied then let <i>dt</i> be <es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>date</i>); else let <i>dt</i> be <b>1</b>.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>dt</i>).</li>
+
+    <li>If <i>hours</i> is supplied then let <i>h</i> be <es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>hours</i>); else let <i>h</i> be <b>0</b>.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>h</i>).</li>
+
+    <li>If <i>minutes</i> is supplied then let <i>min</i> be <es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>minutes</i>); else let <i>min</i> be <b>0</b>.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>min</i>).</li>
+
+    <li>If <i>seconds</i> is supplied then let <i>s</i> be <es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>seconds</i>); else let <i>s</i> be <b>0</b>.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>s</i>).</li>
+
+    <li>If <i>ms</i> is supplied then let <i>milli</i> be <es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>ms</i>); else let <i>milli</i> be <b>0</b>.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>milli</i>).</li>
 
     <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>y</i>).
-    </li>
+    If&nbsp;<i>y</i>&nbsp;is&nbsp;not&nbsp;<b>NaN</b>&nbsp;and&nbsp;0&nbsp;≤&nbsp;<es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>y</i>)&nbsp;≤&nbsp;99,&nbsp;then let <i>yr</i>
+    be&nbsp;1900+<es-xref target="sec-tointeger">ToInteger</es-xref>(<i>y</i>); otherwise, let
+    <i>yr</i> be <i>y</i>.</li>
 
-    <li>Let <i>m</i> be <a href="#sec-tonumber">ToNumber</a> (<i>month</i>).
-    </li>
-
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>m</i>).
-    </li>
-
-    <li>If <i>date</i> is supplied then let <i>dt</i> be <a href="#sec-tonumber">ToNumber</a>
-    (<i>date</i>); else let <i>dt</i> be <b>1</b>.
-    </li>
-
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>dt</i>).
-    </li>
-
-    <li>If <i>hours</i> is supplied then let <i>h</i> be <a href="#sec-tonumber">ToNumber</a>
-    (<i>hours</i>); else let <i>h</i> be <b>0</b>.
-    </li>
-
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>h</i>).
-    </li>
-
-    <li>If <i>minutes</i> is supplied then let <i>min</i> be <a href="#sec-tonumber">ToNumber</a>
-    (<i>minutes</i>); else let <i>min</i> be <b>0</b>.
-    </li>
-
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>min</i>).
-    </li>
-
-    <li>If <i>seconds</i> is supplied then let <i>s</i> be <a href="#sec-tonumber">ToNumber</a>
-    (<i>seconds</i>); else let <i>s</i> be <b>0</b>.
-    </li>
-
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>s</i>).
-    </li>
-
-    <li>If <i>ms</i> is supplied then let <i>milli</i> be <a href="#sec-tonumber">ToNumber</a>
-    (<i>ms</i>); else let <i>milli</i> be <b>0</b>.
-    </li>
-
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>milli</i>).
-    </li>
-
-    <li>If&nbsp;<i>y</i>&nbsp;is&nbsp;not&nbsp;<b>NaN</b>&nbsp;and&nbsp;0&nbsp;≤&nbsp;<a href=
-    "#sec-tointeger">ToInteger</a> (<i>y</i>)&nbsp;≤&nbsp;99,&nbsp;then let <i>yr</i>
-    be&nbsp;1900+<a href="#sec-tointeger">ToInteger</a> (<i>y</i>); otherwise, let <i>yr</i> be <i>
-      y</i>.
-    </li>
-
-    <li>Return <a href="#sec-timeclip">TimeClip</a> (<a href="#sec-makedate">MakeDate</a>
-      (<a href="#sec-makeday">MakeDay</a> (<i>yr</i>, <i>m</i>, <i>dt</i>), <a href=
-      "#sec-maketime">MakeTime</a> (<i>h</i>, <i>min</i>, <i>s</i>, <i>milli</i>))).
-    </li>
+    <li>Return <es-xref target="sec-timeclip">TimeClip</es-xref>(<es-xref target=
+    "sec-makedate">MakeDate</es-xref>(<es-xref target="sec-makeday">MakeDay</es-xref>(<i>yr</i>,
+    <i>m</i>, <i>dt</i>), <es-xref target="sec-maketime">MakeTime</es-xref>(<i>h</i>, <i>min</i>,
+    <i>s</i>, <i>milli</i>))).</li>
   </ol>
 
   <p>The <code>length</code> property of the <code>UTC</code> function is <b>7</b>.</p>
 
   <es-note>
-    <p>The UTC function differs from the Date constructor in two ways: it returns a <a href=
-    "#sec-time-values-and-time-range">time value</a> as a Number, rather than creating a Date
-    object, and it interprets the arguments in UTC rather than as local time.</p>
+    <p>The UTC function differs from the Date constructor in two ways: it returns a
+    <es-xref target="sec-time-values-and-time-range">time value</es-xref> as a Number, rather than
+    creating a Date object, and it interprets the arguments in UTC rather than as local time.</p>
   </es-note>
 </es-clause>

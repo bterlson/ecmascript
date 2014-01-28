@@ -5,23 +5,18 @@
   the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
     <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
-    "<code>isExtensible</code>").
-    </li>
+    <li>Let <i>trap</i> be the result of <es-xref target=
+    "sec-getmethod">GetMethod</es-xref>(<i>handler</i>, "<code>isExtensible</code>").</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>trap</i>).</li>
 
     <li>If <i>trap</i> is <b>undefined</b>, then
 
@@ -32,27 +27,22 @@
     </li>
 
     <li>Let <i>trapResult</i> be the result of calling the [[Call]] internal method of <i>trap</i>
-    with <i>handler</i> as the <b>this</b> value and a new <a href=
-    "#sec-list-and-record-specification-type">List</a> containing <i>target</i>.
-    </li>
+    with <i>handler</i> as the <b>this</b> value and a new <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> containing <i>target</i>.</li>
 
-    <li>Let <i>booleanTrapResult</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>trapResult</i>).
-    </li>
+    <li>Let <i>booleanTrapResult</i> be <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<i>trapResult</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>booleanTrapResult</i>).
-    </li>
+    <li><es-xref target=
+    "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>booleanTrapResult</i>).</li>
 
     <li>Let <i>targetResult</i> be the result of calling the [[IsExtensible]] internal method of
     <i>target</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>targetResult</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>targetResult</i>).</li>
 
-    <li>If <a href="#sec-samevalue">SameValue</a> (<i>booleanTrapResult</i>, <i>targetResult</i>)
-    is <b>false</b>, then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>booleanTrapResult</i>,
+    <i>targetResult</i>) is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
 
     <li>Return <i>booleanTrapResult</i>.</li>
   </ol>

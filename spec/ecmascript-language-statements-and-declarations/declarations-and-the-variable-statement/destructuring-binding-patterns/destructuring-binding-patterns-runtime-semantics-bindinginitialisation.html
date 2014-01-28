@@ -3,18 +3,21 @@
 "sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">
   <p>With parameters <es-nt>value</es-nt> and <es-nt>environment</es-nt>.</p>
 
-  <p>See also: <a href=
-  "#sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</a> , <a href=
-  "#sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</a> , <a href=
-  "#sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</a> , <a href=
-  "#sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</a> .</p>
+  <p>See also: <es-xref target=
+  "sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</es-xref>,
+  <es-xref target=
+  "sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</es-xref>,
+  <es-xref target=
+  "sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</es-xref>,
+  <es-xref target=
+  "sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</es-xref>.</p>
 
   <es-note>
-    <p>When <b>undefined</b> is passed for <es-nt>environment</es-nt> it indicates that a <a href=
-    "#sec-putvalue">PutValue</a> operation should be used to assign the initialisation value. This
-    is the case for formal parameter lists of non-strict functions. In that case the formal
-    parameter bindings are preinitialised in order to deal with the possibility of multiple
-    parameters with the same name.</p>
+    <p>When <b>undefined</b> is passed for <es-nt>environment</es-nt> it indicates that a
+    <es-xref target="sec-putvalue">PutValue</es-xref> operation should be used to assign the
+    initialisation value. This is the case for formal parameter lists of non-strict functions. In
+    that case the formal parameter bindings are preinitialised in order to deal with the
+    possibility of multiple parameters with the same name.</p>
   </es-note>
 
   <es-production name="BindingPattern" class="inline">
@@ -22,10 +25,8 @@
   </es-production>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is Object
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is Object</li>
 
     <li>Return the result of performing BindingInitialisation for <i>ObjectBindingPattern</i> using
     <i>value</i> and <i>environment</i> as arguments.</li>
@@ -36,18 +37,13 @@
   </es-production>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is Object
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is Object</li>
 
-    <li>Let <i>iterator</i> be the result of performing <a href="#sec-getiterator">GetIterator</a>
-    (<i>obj</i>).
-    </li>
+    <li>Let <i>iterator</i> be the result of performing <es-xref target=
+    "sec-getiterator">GetIterator</es-xref>(<i>obj</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>iterator</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>).</li>
 
     <li>Return the result of performing IteratorBindingInitialisation for
     <i>ArrayBindingPattern</i> using <i>iterator</i>, and <i>environment</i> as arguments.</li>
@@ -58,8 +54,7 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty).
-    </li>
+    <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
   </ol>
 
   <es-production name="BindingPropertyList" class="inline">
@@ -70,9 +65,7 @@
     <li>Let <i>status</i> be the result of performing BindingInitialisation for
     <i>BindingPropertyList</i> using <i>value</i> and <i>environment</i> as arguments.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
     <li>Return the result of performing BindingInitialisation for <i>BindingProperty</i> using
     <i>value</i> and <i>environment</i> as arguments.</li>
@@ -97,9 +90,7 @@
   <ol class="proc">
     <li>Let <i>P</i> be the result of evaluating <i>PropertyName</i></li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>P</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>P</i>).</li>
 
     <li>Return the result of performing KeyedBindingInitialisation for <i>BindingElement</i> using
     <i>value</i>, <i>environment</i>, and <i>P</i> as arguments.</li>

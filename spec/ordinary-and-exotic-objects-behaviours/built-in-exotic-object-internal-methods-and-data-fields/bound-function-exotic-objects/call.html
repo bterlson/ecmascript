@@ -1,27 +1,25 @@
 <!doctype html>
 <es-clause title="[[Call]]" anchor="sec-call">
-  <p>When the [[Call]] internal method of an exotic <a href=
-  "#sec-bound-function-exotic-objects">bound function</a> object, <es-nt>F</es-nt>, which was
+  <p>When the [[Call]] internal method of an exotic <es-xref target=
+  "sec-bound-function-exotic-objects">bound function</es-xref> object, <es-nt>F</es-nt>, which was
   created using the bind function is called with parameters <es-nt>thisArgument</es-nt> and
-  <es-nt>argumentsList</es-nt>, a <a href="#sec-list-and-record-specification-type">List</a> of
-  <a href="#sec-ecmascript-language-types">ECMAScript language values</a> , the following steps are
+  <es-nt>argumentsList</es-nt>, a <es-xref target=
+  "sec-list-and-record-specification-type">List</es-xref> of <es-xref target=
+  "sec-ecmascript-language-types">ECMAScript language values</es-xref>, the following steps are
   taken:</p>
 
   <ol class="proc">
-    <li>Let <i>boundArgs</i> be the value of <i>F’s</i> <a href=
-    "#sec-bound-function-exotic-objects">[[BoundArguments]]</a> <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>boundArgs</i> be the value of <i>F’s</i> <es-xref target=
+    "sec-bound-function-exotic-objects">[[BoundArguments]]</es-xref> <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>boundThis</i> be the value of <i>F’s</i> <a href=
-    "#sec-bound-function-exotic-objects">[[BoundThis]]</a> <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>boundThis</i> be the value of <i>F’s</i> <es-xref target=
+    "sec-bound-function-exotic-objects">[[BoundThis]]</es-xref> <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>target</i> be the value of <i>F’s</i> <a href="#sec-bound-function-exotic-objects">
-      [[BoundTargetFunction]]</a> <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>target</i> be the value of <i>F’s</i> <es-xref target=
+    "sec-bound-function-exotic-objects">[[BoundTargetFunction]]</es-xref> <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>Let <i>args</i> be a new list containing the same values as the list <i>boundArgs</i> in
     the same order followed by the same values as the list <i>argumentsList</i> in the same

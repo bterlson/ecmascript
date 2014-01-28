@@ -8,64 +8,53 @@
   <ol class="proc">
     <li>Let <i>lref</i> be the result of evaluating <i>AdditiveExpression</i>.</li>
 
-    <li>Let <i>lval</i> be <a href="#sec-getvalue">GetValue</a> (<i>lref</i>).
-    </li>
+    <li>Let <i>lval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>lref</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lval</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lval</i>).</li>
 
     <li>Let <i>rref</i> be the result of evaluating <i>MultiplicativeExpression</i>.</li>
 
-    <li>Let <i>rval</i> be <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
-    </li>
+    <li>Let <i>rval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rref</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rval</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rval</i>).</li>
 
-    <li>Let <i>lprim</i> be <a href="#sec-toprimitive">ToPrimitive</a> (<i>lval</i>).
-    </li>
+    <li>Let <i>lprim</i> be <es-xref target=
+    "sec-toprimitive">ToPrimitive</es-xref>(<i>lval</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lprim</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lprim</i>).</li>
 
-    <li>Let <i>rprim</i> be <a href="#sec-toprimitive">ToPrimitive</a> (<i>rval</i>).
-    </li>
+    <li>Let <i>rprim</i> be <es-xref target=
+    "sec-toprimitive">ToPrimitive</es-xref>(<i>rval</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rprim</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rprim</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>lprim</i>) is String or
-    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>rprim</i>) is String, then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>lprim</i>) is
+    String or <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>rprim</i>)
+    is String, then
 
       <ol class="block">
-        <li>Return the String that is the result of concatenating <a href=
-        "#sec-tostring">ToString</a> (<i>lprim</i>) followed by <a href=
-        "#sec-tostring">ToString</a> (<i>rprim</i>)
-        </li>
+        <li>Return the String that is the result of concatenating <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>lprim</i>) followed by <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>rprim</i>)</li>
       </ol>
     </li>
 
-    <li>Return the result of applying the addition operation to <a href=
-    "#sec-tonumber">ToNumber</a> (<i>lprim</i>) and <a href="#sec-tonumber">ToNumber</a>
-    (<i>rprim</i>). See the Note below <a href=
-    "#sec-applying-the-additive-operators-to-numbers">12.6.5</a> .
-    </li>
+    <li>Return the result of applying the addition operation to <es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>lprim</i>) and <es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>rprim</i>). See the Note below <es-xref target=
+    "sec-applying-the-additive-operators-to-numbers">12.6.5</es-xref>.</li>
   </ol>
 
   <es-note>
-    <p>No hint is provided in the calls to <a href="#sec-toprimitive">ToPrimitive</a> in steps 7
-    and 9. All standard objects except Date objects handle the absence of a hint as if the hint
-    Number were given; Date objects handle the absence of a hint as if the hint String were given.
-    Exotic objects may handle the absence of a hint in some other manner.</p>
+    <p>No hint is provided in the calls to <es-xref target="sec-toprimitive">ToPrimitive</es-xref>
+    in steps 7 and 9. All standard objects except Date objects handle the absence of a hint as if
+    the hint Number were given; Date objects handle the absence of a hint as if the hint String
+    were given. Exotic objects may handle the absence of a hint in some other manner.</p>
   </es-note>
 
   <es-note>
-    <p>Step 11 differs from step 5 of the Abstract Relational Comparison algorithm (<a href=
-    "#sec-abstract-relational-comparison">7.2.8</a> ), by using the logical-or operation instead of
-    the logical-and operation.</p>
+    <p>Step 11 differs from step 5 of the Abstract Relational Comparison algorithm
+    (<es-xref target="sec-abstract-relational-comparison">7.2.8</es-xref>), by using the logical-or
+    operation instead of the logical-and operation.</p>
   </es-note>
 </es-clause>

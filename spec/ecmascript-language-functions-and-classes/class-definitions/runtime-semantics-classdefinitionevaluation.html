@@ -22,9 +22,7 @@
       <ol class="block">
         <li>Let <i>superclass</i> be the result of evaluating <i>ClassHeritage</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>superclass</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>superclass</i>).</li>
 
         <li>If <i>superclass</i> is <b>null</b>, then
 
@@ -35,24 +33,21 @@
           </ol>
         </li>
 
-        <li>Else if <a href="#sec-isconstructor">IsConstructor</a> (<i>superclass</i>) is
-        <b>false</b>, then throw a <b>TypeError</b> exception.
-        </li>
+        <li>Else if <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>superclass</i>)
+        is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
 
         <li>Else
 
           <ol class="block">
-            <li>Let <i>protoParent</i> be the result of <a href="#sec-get-o-p">Get</a>
-            (<i>superclass</i>, <code>"prototype"</code>).
-            </li>
+            <li>Let <i>protoParent</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>superclass</i>, <code>"prototype"</code>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>protoParent</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>protoParent</i>).</li>
 
-            <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>protoParent</i>) is
-            neither Object nor Null, throw a <b>TypeError</b> exception.
-            </li>
+            <li>If <es-xref target=
+            "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>protoParent</i>) is neither
+            Object nor Null, throw a <b>TypeError</b> exception.</li>
 
             <li>Let <i>constructorParent</i> be <i>superclass</i>.</li>
           </ol>
@@ -60,30 +55,26 @@
       </ol>
     </li>
 
-    <li>Let <i>proto</i> be the result of the abstract operation <a href=
-    "#sec-objectcreate">ObjectCreate</a> with argument <i>protoParent</i>.
-    </li>
+    <li>Let <i>proto</i> be the result of the abstract operation <es-xref target=
+    "sec-objectcreate">ObjectCreate</es-xref> with argument <i>protoParent</i>.</li>
 
-    <li>Let <i>lex</i> be the <a href="#sec-execution-contexts">LexicalEnvironment</a> of
-      <a href="#sec-execution-contexts">the running execution context</a> .
-    </li>
+    <li>Let <i>lex</i> be the <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref>
+    of <es-xref target="sec-execution-contexts">the running execution context</es-xref>.</li>
 
     <li>If <i>className</i> is not <b>undefined</b>, then
 
       <ol class="block">
-        <li>Let <i>scope</i> be the result of calling <a href=
-        "#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a> passing <i>lex</i> as the
-        argument
-        </li>
+        <li>Let <i>scope</i> be the result of calling <es-xref target=
+        "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing <i>lex</i> as
+        the argument</li>
 
         <li>Let <i>envRec</i> be <i>scope’s</i> environment record.</li>
 
         <li>Call the CreateImmutableBinding concrete method of <i>envRec</i> passing
         <i>className</i> as the argument.</li>
 
-        <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
-        "#sec-execution-contexts">LexicalEnvironment</a> to <i>scope</i>.
-        </li>
+        <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+        <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>scope</i>.</li>
       </ol>
     </li>
 
@@ -120,10 +111,10 @@
 
     <li>Let <i>F</i> be <i>constructorInfo</i>.[[closure]]</li>
 
-    <li>Perform the abstract operation <a href="#sec-makeconstructor">MakeConstructor</a> with
-    argument <i>F</i> and <b>false</b> as the optional <i>writablePrototype</i> argument and
-    <i>proto</i> as the optional <i>prototype</i> argument.
-    </li>
+    <li>Perform the abstract operation <es-xref target=
+    "sec-makeconstructor">MakeConstructor</es-xref> with argument <i>F</i> and <b>false</b> as the
+    optional <i>writablePrototype</i> argument and <i>proto</i> as the optional <i>prototype</i>
+    argument.</li>
 
     <li>If <i>className</i> is not <b>undefined</b>, then
 
@@ -147,9 +138,7 @@
         <li>Let <i>status</i> be the result of performing PropertyDefinitionEvaluation for <i>m</i>
         with argument <i>proto</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
       </ol>
     </li>
 
@@ -161,15 +150,12 @@
         <li>Let <i>status</i> be the result of performing PropertyDefinitionEvaluation for <i>s</i>
         with argument <i>F</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
       </ol>
     </li>
 
-    <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
-    "#sec-execution-contexts">LexicalEnvironment</a> to <i>lex</i>.
-    </li>
+    <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+    <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>lex</i>.</li>
 
     <li>Return <i>F</i>.</li>
   </ol>

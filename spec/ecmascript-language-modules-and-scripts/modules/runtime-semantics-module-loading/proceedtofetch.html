@@ -6,23 +6,19 @@
   <ol class="proc">
     <li>Let <i>F</i> be a new built-in function object as defined in CallFetch.</li>
 
-    <li>Set <i>F</i>’s [[Loader]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loader</i>.
-    </li>
+    <li>Set <i>F</i>’s [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>loader</i>.</li>
 
-    <li>Set <i>F</i>’s [[Load]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> to <i>load</i>.
-    </li>
+    <li>Set <i>F</i>’s [[Load]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>load</i>.</li>
 
-    <li>Set <i>F</i>’s [[AddressPromise]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>p</i>.
-    </li>
+    <li>Set <i>F</i>’s [[AddressPromise]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>p</i>.</li>
 
     <li>Let <i>p</i> be PromiseThen(<i>p</i>, <i>F</i>).</li>
 
-    <li>Return <a href="#sec-proceedtotranslate">ProceedToTranslate</a> (<i>loader</i>,
-    <i>load</i>, <i>p</i>).
-    </li>
+    <li>Return <es-xref target="sec-proceedtotranslate">ProceedToTranslate</es-xref>(<i>loader</i>,
+    <i>load</i>, <i>p</i>).</li>
   </ol>
   <link rel="import" href="proceedtofetch\callfetch-address-functions.html">
 </es-clause>

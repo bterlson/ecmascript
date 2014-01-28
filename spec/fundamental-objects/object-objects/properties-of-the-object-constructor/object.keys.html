@@ -4,59 +4,47 @@
   are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>obj</i> be <a href="#sec-toobject">ToObject</a> (<i>O</i>).
-    </li>
+    <li>Let <i>obj</i> be <es-xref target="sec-toobject">ToObject</es-xref>(<i>O</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>obj</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
 
     <li>Let <i>keys</i> be the result of calling the [[OwnPropertyKeys]] internal method of
     <i>obj</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>keys</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keys</i>).</li>
 
-    <li>Let <i>nameList</i> be a new empty <a href=
-    "#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>nameList</i> be a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>Let <i>gotAllNames</i> be <b>false</b>.</li>
 
     <li>Repeat while <i>gotAllNames</i> is <b>false</b>,
 
       <ol class="block">
-        <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
-        (<i>keys</i>).
-        </li>
+        <li>Let <i>next</i> be the result of <es-xref target=
+        "sec-iteratorstep">IteratorStep</es-xref>(<i>keys</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
         <li>If <i>next</i> is <b>false</b>, then let <i>gotAllNames</i> be <b>true</b>.</li>
 
         <li>Else,
 
           <ol class="block">
-            <li>Let <i>nextKey</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
-            </li>
+            <li>Let <i>nextKey</i> be <es-xref target=
+            "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextKey</i>).
-            </li>
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextKey</i>).</li>
 
-            <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>nextKey</i>) is
-            String, then
+            <li>If <es-xref target=
+            "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>nextKey</i>) is String, then
 
               <ol class="block">
                 <li>Let <i>desc</i> be the result of calling the [[GetOwnProperty]] internal method
                 of <i>O</i> with argument <i>nextKey</i>.</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>desc</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>desc</i>).</li>
 
                 <li>If <i>desc</i> is not <b>undefined</b> and <i>desc</i>.[[Enumerable]] is
                 <b>true</b>, then
@@ -72,8 +60,8 @@
       </ol>
     </li>
 
-    <li>Return <a href="#sec-createarrayfromlist">CreateArrayFromList</a> (<i>nameList</i>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-createarrayfromlist">CreateArrayFromList</es-xref>(<i>nameList</i>).</li>
   </ol>
 
   <p>If an implementation defines a specific order of enumeration for the for-in statement, the

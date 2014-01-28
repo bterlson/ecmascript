@@ -13,23 +13,19 @@
 
     <li>Let <i>initResult</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
 
-    <li>Let <i>initValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>initResult</i>).
-    </li>
+    <li>Let <i>initValue</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>initResult</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>initValue</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>initValue</i>).</li>
 
     <li>Let <i>created</i> be the result of calling the [[DefineOwnProperty]] internal method of
-    <i>array</i> with arguments <a href="#sec-tostring">ToString</a> (<a href=
-    "#sec-touint32">ToUint32</a> (<i>nextIndex+padding</i>)) and the PropertyDescriptor{ [[Value]]:
-    <i>initValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]: <b>
-      true</b>}.
-    </li>
+    <i>array</i> with arguments <es-xref target="sec-tostring">ToString</es-xref>(<es-xref target=
+    "sec-touint32">ToUint32</es-xref>(<i>nextIndex+padding</i>)) and the PropertyDescriptor{
+    [[Value]]: <i>initValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
+    [[Configurable]]: <b>true</b>}.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>created</i> is <b>true</b><i>.</i>
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>created</i> is
+    <b>true</b><i>.</i></li>
 
     <li>Return <i>nextIndex+padding+</i>1.</li>
   </ol>
@@ -55,32 +51,26 @@
     <li>Let <i>postIndex</i> be the result of performing Array Accumulation for <i>ElementList</i>
     with arguments <i>array</i> and <i>nextIndex</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>postIndex</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>postIndex</i>).</li>
 
     <li>Let <i>padding</i> be the Elision Width of <i>Elision</i>; if <i>Elision</i> is not
     present, use the numeric value zero.</li>
 
     <li>Let <i>initResult</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
 
-    <li>Let <i>initValue</i> be <a href="#sec-getvalue">GetValue</a> (<i>initResult</i>).
-    </li>
+    <li>Let <i>initValue</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>initResult</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>initValue</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>initValue</i>).</li>
 
     <li>Let <i>created</i> be the result of calling the [[DefineOwnProperty]] internal method of
-    <i>array</i> with arguments <a href="#sec-tostring">ToString</a> (<a href=
-    "#sec-touint32">ToUint32</a> (<i>postIndex</i>+<i>padding</i>)) and the PropertyDescriptor{
+    <i>array</i> with arguments <es-xref target="sec-tostring">ToString</es-xref>(<es-xref target=
+    "sec-touint32">ToUint32</es-xref>(<i>postIndex</i>+<i>padding</i>)) and the PropertyDescriptor{
     [[Value]]: <i>initValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
-    [[Configurable]]: <b>true</b>}.
-    </li>
+    [[Configurable]]: <b>true</b>}.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>created</i> is <b>true</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>created</i> is
+    <b>true</b>.</li>
 
     <li>Return <i>postIndex</i>+<i>padding+</i>1.</li>
   </ol>
@@ -94,9 +84,7 @@
     <li>Let <i>postIndex</i> be the result of performing Array Accumulation for <i>ElementList</i>
     with arguments <i>array</i> and <i>nextIndex</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>postIndex</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>postIndex</i>).</li>
 
     <li>Let <i>padding</i> be the Elision Width of <i>Elision</i>; if <i>Elision</i> is not
     present, use the numeric value zero.</li>
@@ -112,54 +100,41 @@
   <ol class="proc">
     <li>Let <i>spreadRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
 
-    <li>Let <i>spreadObj</i> be <a href="#sec-getvalue">GetValue</a> (<i>spreadRef</i>).
-    </li>
+    <li>Let <i>spreadObj</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>spreadRef</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>spreadObj</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>spreadObj</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>spreadObj</i>) is not
-    Object, then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>spreadObj</i>)
+    is not Object, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>iterator</i> be the result of performing <a href="#sec-getiterator">GetIterator</a>
-    (<i>spreadObj</i>).
-    </li>
+    <li>Let <i>iterator</i> be the result of performing <es-xref target=
+    "sec-getiterator">GetIterator</es-xref>(<i>spreadObj</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>iterator</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>).</li>
 
     <li>Repeat
 
       <ol class="block">
-        <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
-        (<i>iterator</i>).
-        </li>
+        <li>Let <i>next</i> be the result of <es-xref target=
+        "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
         <li>If <i>next</i> is <b>false</b>, then return <i>nextIndex</i>.</li>
 
-        <li>Let <i>nextValue</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
-        </li>
+        <li>Let <i>nextValue</i> be <es-xref target=
+        "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextValue</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextValue</i>).</li>
 
-        <li>Let <i>defineStatus</i> be the result of <a href=
-        "#sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</a> (<i>A</i>, <a href=
-        "#sec-tostring">ToString</a> (<a href="#sec-touint32">ToUint32</a> (<i>nextIndex</i>)), <i>
-          nextValue</i>).
-        </li>
+        <li>Let <i>defineStatus</i> be the result of <es-xref target=
+        "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref>(<i>A</i>,
+        <es-xref target="sec-tostring">ToString</es-xref>(<es-xref target=
+        "sec-touint32">ToUint32</es-xref>(<i>nextIndex</i>)), <i>nextValue</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>defineStatus</i>).
-        </li>
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>defineStatus</i>).</li>
 
         <li>Let <i>nextIndex</i> = <i>nextIndex</i> +1.</li>
       </ol>

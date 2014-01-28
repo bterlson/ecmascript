@@ -1,7 +1,7 @@
 <!doctype html>
 <es-clause title="CreateMutableBinding (N, D)" anchor=
 "sec-object-environment-records-createmutablebinding-n-d">
-  <p>The concrete <a href="#sec-environment-records">Environment Record</a> method
+  <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
   CreateMutableBinding for object environment records creates in an environment record’s associated
   binding object a property whose name is the String value and initialises it to the value
   <b>undefined</b>. If Boolean argument <es-nt>D</es-nt> is provided and has the value <b>true</b>
@@ -9,24 +9,23 @@
   <b>false</b>.</p>
 
   <ol class="proc">
-    <li>Let <i>envRec</i> be the <a href="#sec-object-environment-records">object environment
-    record</a> for which the method was invoked.
-    </li>
+    <li>Let <i>envRec</i> be the <es-xref target="sec-object-environment-records">object
+    environment record</es-xref> for which the method was invoked.</li>
 
     <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
 
     <li>If <i>D</i> is <b>true</b> then let <i>configValue</i> be <b>true</b> otherwise let
     <i>configValue</i> be <b>false</b>.</li>
 
-    <li>Return the result of <a href="#sec-definepropertyorthrow">DefinePropertyOrThrow</a>
-    (<i>bindings</i>, <i>N</i>, PropertyDescriptor{[[Value]]:<b>undefined</b>, [[Writable]]:
-    <b>true</b>, [[Enumerable]]: <b>true</b> , [[Configurable]]: <i>configValue</i>}).
-    </li>
+    <li>Return the result of <es-xref target=
+    "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>bindings</i>, <i>N</i>,
+    PropertyDescriptor{[[Value]]:<b>undefined</b>, [[Writable]]: <b>true</b>, [[Enumerable]]:
+    <b>true</b> , [[Configurable]]: <i>configValue</i>}).</li>
   </ol>
 
   <es-note>
     <p>Normally <i>envRec</i> will not have a binding for <i>N</i> but if it does, the semantics of
-    <a href="#sec-definepropertyorthrow">DefinePropertyOrThrow</a> may result in an existing
-    binding being replaced or shadowed or cause an abrupt completion to be returned.</p>
+    <es-xref target="sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref> may result in an
+    existing binding being replaced or shadowed or cause an abrupt completion to be returned.</p>
   </es-note>
 </es-clause>

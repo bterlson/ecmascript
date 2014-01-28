@@ -8,22 +8,19 @@
   <ol class="proc">
     <li>Let <i>val</i> be the result of evaluating <i>UnaryExpression</i>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>val</i>) is <a href=
-    "#sec-reference-specification-type">Reference</a> , then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>val</i>) is
+    <es-xref target="sec-reference-specification-type">Reference</es-xref>, then
 
       <ol class="block">
-        <li>If <a href="#sec-reference-specification-type">IsUnresolvableReference</a> (<i>val</i>)
-        is <b>true</b>, return <code>"undefined"</code>.
-        </li>
+        <li>If <es-xref target=
+        "sec-reference-specification-type">IsUnresolvableReference</es-xref>(<i>val</i>) is
+        <b>true</b>, return <code>"undefined"</code>.</li>
 
-        <li>Let <i>val</i> be <a href="#sec-getvalue">GetValue</a> (<i>val</i>).
-        </li>
+        <li>Let <i>val</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>val</i>).</li>
       </ol>
     </li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>val</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>val</i>).</li>
 
     <li>Return a String according to <a href="#table-32">Table 32</a> .
     </li>

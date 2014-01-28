@@ -8,24 +8,20 @@
   <ol class="proc">
     <li>Let <i>C</i> be the <b>this</b> value.</li>
 
-    <li>Let <i>promiseCapability</i> be <a href=
-    "#sec-newpromisecapability">NewPromiseCapability</a> (<i>C</i>).
-    </li>
+    <li>Let <i>promiseCapability</i> be <es-xref target=
+    "sec-newpromisecapability">NewPromiseCapability</es-xref> (<i>C</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promiseCapability</i>).
-    </li>
+    <li><es-xref target=
+    "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>promiseCapability</i>).</li>
 
-    <li>Let <i>iterator</i> be <a href="#sec-getiterator">GetIterator</a> (<i>iterable</i>).
-    </li>
+    <li>Let <i>iterator</i> be <es-xref target=
+    "sec-getiterator">GetIterator</es-xref>(<i>iterable</i>).</li>
 
-    <li>
-      <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>iterator</i>,
-      <i>promiseCapability</i>).
-    </li>
+    <li><es-xref target=
+    "sec-ifabruptrejectpromise">IfAbruptRejectPromise</es-xref>(<i>iterator</i>,
+    <i>promiseCapability</i>).</li>
 
-    <li>Let <i>values</i> be <a href="#sec-arraycreate">ArrayCreate</a> (0).
-    </li>
+    <li>Let <i>values</i> be <es-xref target="sec-arraycreate">ArrayCreate</es-xref>(0).</li>
 
     <li>Let <i>remainingElementsCount</i> be a new Record { [[value]]: 0 }.</li>
 
@@ -34,13 +30,12 @@
     <li>Repeat
 
       <ol class="block">
-        <li>Let <i>next</i> be <a href="#sec-iteratorstep">IteratorStep</a> (<i>iterator</i>).
-        </li>
+        <li>Let <i>next</i> be <es-xref target=
+        "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
 
-        <li>
-          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>next</i>,
-          <i>promiseCapability</i>).
-        </li>
+        <li><es-xref target=
+        "sec-ifabruptrejectpromise">IfAbruptRejectPromise</es-xref>(<i>next</i>,
+        <i>promiseCapability</i>).</li>
 
         <li>If <i>next</i> is <b>false</b>,
 
@@ -52,9 +47,8 @@
                 of <i>promiseCapability</i>.[[Resolve]] with <b>undefined</b> as
                 <i>thisArgument</i> and (<i>values</i>) as <i>argumentsList</i>.</li>
 
-                <li>
-                  <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>resolveResult</i>).
-                </li>
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>resolveResult</i>).</li>
               </ol>
             </li>
 
@@ -62,50 +56,45 @@
           </ol>
         </li>
 
-        <li>Let <i>nextValue</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
-        </li>
+        <li>Let <i>nextValue</i> be <es-xref target=
+        "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
 
-        <li>
-          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>nextValue</i>,
-          <i>promiseCapability</i>).
-        </li>
+        <li><es-xref target=
+        "sec-ifabruptrejectpromise">IfAbruptRejectPromise</es-xref>(<i>nextValue</i>,
+        <i>promiseCapability</i>).</li>
 
         <li>Let <i>nextPromise</i> be Invoke(<i>C</i>, <code>"cast"</code>,
         (<i>nextValue</i>)).</li>
 
-        <li>
-          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>nextPromise</i>,
-          <i>promiseCapability</i>).
-        </li>
+        <li><es-xref target=
+        "sec-ifabruptrejectpromise">IfAbruptRejectPromise</es-xref>(<i>nextPromise</i>,
+        <i>promiseCapability</i>).</li>
 
         <li>Let <i>resolveElement</i> be a new built-in function object as defined in Promise.all
         Resolve Element Functions.</li>
 
-        <li>Set the [[Index]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-        slot</a> of <i>resolveElement</i> to <i>index</i>.
-        </li>
+        <li>Set the [[Index]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+        <i>resolveElement</i> to <i>index</i>.</li>
 
-        <li>Set the [[Values]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-        slot</a> of <i>resolveElement</i> to <i>values</i>.
-        </li>
+        <li>Set the [[Values]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+        <i>resolveElement</i> to <i>values</i>.</li>
 
-        <li>Set the [[Capabilities]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of
-        <i>resolveElementFunction</i> to <i>promiseCapability</i>.
-        </li>
+        <li>Set the [[Capabilities]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+        <i>resolveElementFunction</i> to <i>promiseCapability</i>.</li>
 
-        <li>Set the [[RemainingElements]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> of
-        <i>resolveElement</i> to <i>remainingElementsCount</i>.
-        </li>
+        <li>Set the [[RemainingElements]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+        <i>resolveElement</i> to <i>remainingElementsCount</i>.</li>
 
         <li>Let <i>result</i> be Invoke(<i>nextPromise</i>, <code>"then"</code>,
         (<i>resolveElement</i>, <i>promiseCapability</i>.[[Reject]])).</li>
 
-        <li>
-          <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>result</i>,
-          <i>promiseCapability</i>).
-        </li>
+        <li><es-xref target=
+        "sec-ifabruptrejectpromise">IfAbruptRejectPromise</es-xref>(<i>result</i>,
+        <i>promiseCapability</i>).</li>
 
         <li>Set <i>index</i> to <i>index</i> + 1.</li>
 

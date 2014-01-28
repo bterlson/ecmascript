@@ -10,36 +10,29 @@
   <ol class="proc">
     <li>Let <i>O</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is not Object, throw
-    a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is not
+    Object, throw a <b>TypeError</b> exception.</li>
 
-    <li>If <i>O</i> does not have a [[TypedArrayName]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
-    <b>TypeError</b> exception.
-    </li>
+    <li>If <i>O</i> does not have a [[TypedArrayName]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+    <b>TypeError</b> exception.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>O</i> has [[ViewedArrayBuffer]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>O</i> has
+    [[ViewedArrayBuffer]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref>.</li>
 
-    <li>Let <i>buffer</i> be the value of <i>O</i>’s [[ViewedArrayBuffer]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>buffer</i> be the value of <i>O</i>’s [[ViewedArrayBuffer]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>If <i>buffer</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>srcLength</i> be the value of <i>O</i>’s [[ArrayLength]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>srcLength</i> be the value of <i>O</i>’s [[ArrayLength]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>beginInt</i> be <a href="#sec-tointeger">ToInteger</a> (<i>begin</i>)
-    </li>
+    <li>Let <i>beginInt</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>begin</i>)</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>beginInt</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>beginInt</i>).</li>
 
     <li>If <i>beginInt</i> &lt; 0, then let <i>beginInt</i> be <i>srcLength</i> +
     <i>beginInt</i>.</li>
@@ -48,12 +41,9 @@
 
     <li>If <i>end</i> is <b>undefined</b>, then let <i>end</i> be <i>srcLength</i>.</li>
 
-    <li>Let <i>endInt</i> be <a href="#sec-tointeger">ToInteger</a> (<i>end</i>).
-    </li>
+    <li>Let <i>endInt</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>end</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>endInt</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>endInt</i>).</li>
 
     <li>If <i>endInt</i> &lt; 0, then let <i>endInt</i> be <i>srcLength</i> + <i>endInt</i>.</li>
 
@@ -64,9 +54,8 @@
 
     <li>Let <i>newLength</i> be <i>endIndex</i> - <i>beginIndex</i>.</li>
 
-    <li>Let <i>constructorName</i> be the string value <i>O</i>’s [[TypedArrayName]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>constructorName</i> be the string value <i>O</i>’s [[TypedArrayName]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>Let <i>elementType</i> be the string value of the Element Type value in <a href=
     "#table-43">Table 43</a> for <i>constructorName</i>.
@@ -76,28 +65,23 @@
       <a href="#table-43">Table 43</a> for <i>constructorName</i>.
     </li>
 
-    <li>Let <i>srcByteOffset</i> be the value of <i>O</i>’s [[ByteOffset]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>srcByteOffset</i> be the value of <i>O</i>’s [[ByteOffset]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>Let <i>beginByteOffset</i> be <i>srcByteOffset</i> + <i>beginIndex</i> ×
     <i>elementSize</i>.</li>
 
-    <li>Let <i>constructor</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"constructor"</code>).
-    </li>
+    <li>Let <i>constructor</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>O</i>, <code>"constructor"</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>constructor</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>constructor</i>).</li>
 
-    <li>If <a href="#sec-isconstructor">IsConstructor</a> (<i>constructor</i>) is <b>false</b>,
-    then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>constructor</i>) is
+    <b>false</b>, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>argumentsList</i> be a <a href="#sec-list-and-record-specification-type">List</a>
-    consisting of <i>buffer</i>, <i>beginByteOffset</i>, and <i>newLength</i>.
-    </li>
+    <li>Let <i>argumentsList</i> be a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> consisting of <i>buffer</i>,
+    <i>beginByteOffset</i>, and <i>newLength</i>.</li>
 
     <li>Return the result of calling the [[Construct]] internal method of <i>constructor</i> with
     <i>argumentsList</i> as the argument.</li>

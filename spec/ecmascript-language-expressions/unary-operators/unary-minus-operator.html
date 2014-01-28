@@ -14,13 +14,10 @@
     <ol class="proc">
       <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
 
-      <li>Let <i>oldValue</i> be <a href="#sec-tonumber">ToNumber</a> (<a href=
-      "#sec-getvalue">GetValue</a> (<i>expr</i>)).
-      </li>
+      <li>Let <i>oldValue</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>expr</i>)).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>oldValue</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>oldValue</i>).</li>
 
       <li>If <i>oldValue</i> is <b>NaN</b>, return <b>NaN</b>.</li>
 

@@ -1,9 +1,9 @@
 <!doctype html>
 <es-clause title="IsCallable" anchor="sec-iscallable">
   <p>The abstract operation IsCallable determines if its <es-nt>argument</es-nt>, which must be an
-  <a href="#sec-ecmascript-language-types">ECMAScript language value</a> or a <a href=
-  "#sec-completion-record-specification-type">Completion Record</a> , is a callable function Object
-  according to <a href="#table-15">Table 15</a> :</p>
+  <es-xref target="sec-ecmascript-language-types">ECMAScript language value</es-xref> or a
+  <es-xref target="sec-completion-record-specification-type">Completion Record</es-xref>, is a
+  callable function Object according to <a href="#table-15">Table 15</a> :</p>
 
   <figure>
     <figcaption>
@@ -22,15 +22,13 @@
       </tr>
 
       <tr>
-        <td>
-          <a href="#sec-completion-record-specification-type">Completion Record</a>
-        </td>
+        <td><es-xref target="sec-completion-record-specification-type">Completion
+        Record</es-xref></td>
 
-        <td>
-          If <es-nt>argument</es-nt> is an <a href=
-          "#sec-completion-record-specification-type">abrupt completion</a> , return
-          <es-nt>argument</es-nt>. Otherwise return IsCallable(<es-nt>argument</es-nt>.[[value]])
-        </td>
+        <td>If <es-nt>argument</es-nt> is an <es-xref target=
+        "sec-completion-record-specification-type">abrupt completion</es-xref>, return
+        <es-nt>argument</es-nt>. Otherwise return
+        IsCallable(<es-nt>argument</es-nt>.[[value]])</td>
       </tr>
 
       <tr>

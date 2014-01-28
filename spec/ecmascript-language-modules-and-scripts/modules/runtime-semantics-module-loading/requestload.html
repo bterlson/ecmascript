@@ -26,29 +26,27 @@ anchor="sec-requestload">
   <ol class="proc">
     <li>Let <i>F</i> be a new anonymous function as defined by CallNormalize.</li>
 
-    <li>Set <i>F</i>’s [[Loader]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loader</i>.
-    </li>
+    <li>Set <i>F</i>’s [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>loader</i>.</li>
 
-    <li>Set <i>F</i>’s [[Request]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>request</i>.
-    </li>
+    <li>Set <i>F</i>’s [[Request]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>request</i>.</li>
 
-    <li>Set <i>F</i>’s [[RefererName]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>refererName</i>.
-    </li>
+    <li>Set <i>F</i>’s [[RefererName]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>refererName</i>.</li>
 
-    <li>Set <i>F</i>’s [[RefererAddress]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>refererAddress</i>.
-    </li>
+    <li>Set <i>F</i>’s [[RefererAddress]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>refererAddress</i>.</li>
 
     <li>Let <i>p</i> be PromiseNew(<i>F</i>).</li>
 
     <li>Let <i>G</i> be a new built-in function as defined by GetOrCreateLoad.</li>
 
-    <li>Set <i>G</i>’s [[Loader]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>loader</i>.
-    </li>
+    <li>Set <i>G</i>’s [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>loader</i>.</li>
 
     <li>Return PromiseThen(<i>p</i>, <i>G</i>).</li>
   </ol>

@@ -7,8 +7,7 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (empty)
-    </li>
+    <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty)</li>
   </ol>
 
   <es-production name="FunctionExpression" class="inline">
@@ -16,32 +15,29 @@
   </es-production>
 
   <ol class="proc">
-    <li>If the <i>FunctionExpression</i> is contained in <a href="#sec-strict-mode-code">strict
-    code</a> or if its <i>FunctionBody</i> is <a href="#sec-strict-mode-code">strict code</a> ,
-    then let <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.
-    </li>
+    <li>If the <i>FunctionExpression</i> is contained in <es-xref target=
+    "sec-strict-mode-code">strict code</es-xref> or if its <i>FunctionBody</i> is <es-xref target=
+    "sec-strict-mode-code">strict code</es-xref>, then let <i>strict</i> be <b>true</b>. Otherwise
+    let <i>strict</i> be <b>false</b>.</li>
 
-    <li>Let <i>scope</i> be the <a href="#sec-execution-contexts">LexicalEnvironment</a> of
-      <a href="#sec-execution-contexts">the running execution context</a> .
-    </li>
+    <li>Let <i>scope</i> be the <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref> of <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>.</li>
 
-    <li>Let <i>closure</i> be the result of performing the <a href=
-    "#sec-functioncreate">FunctionCreate</a> abstract operation with arguments Normal,
-    <i>FormalParameters</i>, <i>FunctionBody, scope</i>, and <i>strict</i>.
-    </li>
+    <li>Let <i>closure</i> be the result of performing the <es-xref target=
+    "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Normal,
+    <i>FormalParameters</i>, <i>FunctionBody, scope</i>, and <i>strict</i>.</li>
 
     <li>If ReferencesSuper of <i>FunctionExpression</i> is <b>true</b>, then
 
       <ol class="block">
-        <li>Perform <a href="#sec-makemethod">MakeMethod</a> (<i>closure</i>, <b>undefined</b>, <b>
-          undefined</b>).
-        </li>
+        <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>closure</i>,
+        <b>undefined</b>, <b>undefined</b>).</li>
       </ol>
     </li>
 
-    <li>Perform the abstract operation <a href="#sec-makeconstructor">MakeConstructor</a> with
-    argument <i>closure</i>.
-    </li>
+    <li>Perform the abstract operation <es-xref target=
+    "sec-makeconstructor">MakeConstructor</es-xref> with argument <i>closure</i>.</li>
 
     <li>Return <i>closure</i>.</li>
   </ol>
@@ -52,53 +48,47 @@
   </es-production>
 
   <ol class="proc">
-    <li>If the <i>FunctionExpression</i> is contained in <a href="#sec-strict-mode-code">strict
-    code</a> or if its <i>FunctionBody</i> is <a href="#sec-strict-mode-code">strict code</a> ,
-    then let <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.
-    </li>
+    <li>If the <i>FunctionExpression</i> is contained in <es-xref target=
+    "sec-strict-mode-code">strict code</es-xref> or if its <i>FunctionBody</i> is <es-xref target=
+    "sec-strict-mode-code">strict code</es-xref>, then let <i>strict</i> be <b>true</b>. Otherwise
+    let <i>strict</i> be <b>false</b>.</li>
 
-    <li>Let <i>funcEnv</i> be the result of calling <a href=
-    "#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a> passing <a href=
-    "#sec-execution-contexts">the running execution context</a> ’s <a href=
-    "#sec-lexical-environments">Lexical Environment</a> as the argument
-    </li>
+    <li>Let <i>funcEnv</i> be the result of calling <es-xref target=
+    "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>’s <es-xref target=
+    "sec-lexical-environments">Lexical Environment</es-xref> as the argument</li>
 
     <li>Let <i>envRec</i> be <i>funcEnv’s</i> environment record.</li>
 
-    <li>Let <i>name</i> be <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
-    <i>BindingIdentifier</i>.
-    </li>
+    <li>Let <i>name</i> be <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>BindingIdentifier</i>.</li>
 
     <li>Call the CreateImmutableBinding concrete method of <i>envRec</i> passing <i>name</i> as the
     argument.</li>
 
-    <li>Let <i>closure</i> be the result of performing the <a href=
-    "#sec-functioncreate">FunctionCreate</a> abstract operation with arguments Normal,
-    <i>FormalParameters</i>, <i>FunctionBody, funcEnv</i>, <i>strict</i>.
-    </li>
+    <li>Let <i>closure</i> be the result of performing the <es-xref target=
+    "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Normal,
+    <i>FormalParameters</i>, <i>FunctionBody, funcEnv</i>, <i>strict</i>.</li>
 
     <li>If ReferencesSuper of <i>FunctionExpression</i> is <b>true</b>, then
 
       <ol class="block">
-        <li>Perform <a href="#sec-makemethod">MakeMethod</a> (<i>closure</i>, <i>name</i>,
-        <b>undefined</b>).
-        </li>
+        <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>closure</i>,
+        <i>name</i>, <b>undefined</b>).</li>
       </ol>
     </li>
 
-    <li>Perform the abstract operation <a href="#sec-makeconstructor">MakeConstructor</a> with
-    argument <i>closure</i>.
-    </li>
+    <li>Perform the abstract operation <es-xref target=
+    "sec-makeconstructor">MakeConstructor</es-xref> with argument <i>closure</i>.</li>
 
-    <li>
-      <a href="#sec-setfunctionname">SetFunctionName</a> (<i>closure</i>, <i>name</i>).
-    </li>
+    <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>closure</i>,
+    <i>name</i>).</li>
 
     <li>Call the InitialiseBinding concrete method of <i>envRec</i> passing <i>name</i> and
     <i>closure</i> as the arguments.</li>
 
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<i>closure</i>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<i>closure</i>).</li>
   </ol>
 
   <es-note>
@@ -121,7 +111,7 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
   </ol>
 </es-clause>

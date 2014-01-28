@@ -1,37 +1,32 @@
 <!doctype html>
 <es-clause title="Date.prototype.toJSON ( key )" anchor="sec-date.prototype.tojson">
-  <p>This function provides a String representation of a Date object for use by <code><a href=
-  "#sec-json.stringify">JSON.stringify</a></code> (<a href="#sec-json.stringify">24.3.2</a> ).</p>
+  <p>This function provides a String representation of a Date object for use by
+  <code><es-xref target="sec-json.stringify">JSON.stringify</es-xref></code> (<es-xref target=
+  "sec-json.stringify">24.3.2</es-xref>).</p>
 
   <p>When the <code>toJSON</code> method is called with argument <es-nt>key</es-nt>, the following
   steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> , giving it the
-    <b>this</b> value as its argument.
-    </li>
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>,
+    giving it the <b>this</b> value as its argument.</li>
 
-    <li>Let <i>tv</i> be <a href="#sec-toprimitive">ToPrimitive</a> (<i>O</i>, hint Number).
-    </li>
+    <li>Let <i>tv</i> be <es-xref target="sec-toprimitive">ToPrimitive</es-xref>(<i>O</i>, hint
+    Number).</li>
 
     <li>If <i>tv</i> is a Number and is not finite, return <b>null</b>.</li>
 
-    <li>Let <i>toISO</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"toISOString"</code>).
-    </li>
+    <li>Let <i>toISO</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"toISOString"</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>toISO</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>toISO</i>).</li>
 
-    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>toISO</i>) is <b>false</b>, throw a
-    <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>toISO</i>) is <b>false</b>,
+    throw a <b>TypeError</b> exception.</li>
 
     <li>Return the result of calling the [[Call]] internal method of <i>toISO</i> with <i>O</i> as
-    <i>thisArgument</i> and an empty <a href="#sec-list-and-record-specification-type">List</a> as
-    <i>argumentsList</i>.
-    </li>
+    <i>thisArgument</i> and an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> as <i>argumentsList</i>.</li>
   </ol>
 
   <es-note>

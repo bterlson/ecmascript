@@ -6,8 +6,8 @@
 
   <p>The %Realm% constructor is designed to be subclassable. It may be used as the value in an
   <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit
-  the specified <a href="#sec-code-realms">Realm</a> behaviour must include a <code>super</code>
-  call to %Realm%.</p>
+  the specified <es-xref target="sec-code-realms">Realm</es-xref> behaviour must include a
+  <code>super</code> call to %Realm%.</p>
   <link rel="import" href="%realm%-constructor\%realm%.html">
 
   <es-clause title="new %Realm% ( ... argumentsList )" anchor="sec-new-%realm%-argumentslist">
@@ -21,12 +21,11 @@
       <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
       internal method that was invoked by the <code>new</code> operator.</li>
 
-      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
-      <i>argumentsList</i>).
-      </li>
+      <li>Return the result of <es-xref target=
+      "sec-construct-f-argumentslist">Construct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
     </ol>
 
-    <p>If %Realm% is implemented as an <a href="#sec-ecmascript-function-objects">ECMAScript
-    function object</a> , its [[Construct]] internal method will perform the above steps.</p>
+    <p>If %Realm% is implemented as an <es-xref target="sec-ecmascript-function-objects">ECMAScript
+    function object</es-xref>, its [[Construct]] internal method will perform the above steps.</p>
   </es-clause>
 </es-clause>

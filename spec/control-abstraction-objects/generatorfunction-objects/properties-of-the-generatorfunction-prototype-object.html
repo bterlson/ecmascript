@@ -2,16 +2,17 @@
 <es-clause title="Properties of the GeneratorFunction Prototype Object" anchor=
 "sec-properties-of-the-generatorfunction-prototype-object">
   <p>The GeneratorFunction prototype object is an ordinary object. It is not a function object and
-  does not have a [[Code]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-  slot</a> or any other of the internal slots listed in <a href="#table-26">Table 26</a> or
-  <a href="#table-46">Table 46</a> . In addition to being the value of the prototype property of
-  the %GeneratorFunction% intrinsic and is itself the %Generator% intrinsic.</p>
+  does not have a [[Code]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> or any other of the
+  internal slots listed in <a href="#table-26">Table 26</a> or <a href="#table-46">Table 46</a> .
+  In addition to being the value of the prototype property of the %GeneratorFunction% intrinsic and
+  is itself the %Generator% intrinsic.</p>
 
-  <p>The value of the [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the GeneratorFunction
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the GeneratorFunction
   prototype object is the %FunctionPrototype% intrinsic object. The initial value of the
-  [[Extensible]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> of the
-  GeneratorFunction prototype object is <b>true</b>.</p>
+  [[Extensible]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref> of the GeneratorFunction prototype object is <b>true</b>.</p>
 
   <es-clause title="GeneratorFunction.prototype.constructor" anchor=
   "sec-generatorfunction.prototype.constructor">
@@ -50,10 +51,9 @@
     <ol class="proc">
       <li>Let <i>F</i> be the <b>this</b> value.</li>
 
-      <li>Let <i>obj</i> be the result of calling <a href=
-      "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>F</i>,
-      <code>"%GeneratorPrototype%"</code>, ( [[GeneratorState]], [[GeneratorContext]]) ).
-      </li>
+      <li>Let <i>obj</i> be the result of calling <es-xref target=
+      "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>F</i>,
+      <code>"%GeneratorPrototype%"</code>, ( [[GeneratorState]], [[GeneratorContext]]) ).</li>
 
       <li>Return <i>obj</i>.</li>
     </ol>

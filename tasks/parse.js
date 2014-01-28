@@ -479,7 +479,8 @@ function emitContents(node) {
         return '';
     }
 
-    if(node.name === 'a' && node.attribs.href.match(/~jorendorf/)) {
+    if(node.name === 'a' &&
+       (node.attribs.href.match(/~jorendorf/) || node.attribs.href.match(/sec-/))) {
         return emitXref(node);
     }
 

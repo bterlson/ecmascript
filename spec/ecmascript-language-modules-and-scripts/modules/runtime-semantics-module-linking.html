@@ -9,20 +9,19 @@
     steps:</p>
 
     <ol class="proc">
-      <li>Let <i>groups</i> be <a href="#sec-linkagegroups">LinkageGroups</a> (<i>start</i>).
-      </li>
+      <li>Let <i>groups</i> be <es-xref target=
+      "sec-linkagegroups">LinkageGroups</es-xref>(<i>start</i>).</li>
 
       <li>For each <i>group</i> in <i>groups</i>:
 
         <ol class="block">
           <li>If the [[Kind]] of each element of <i>group</i> is declarative, then perfrom
-            <a href="#sec-linkdeclarativemodules">LinkDeclarativeModules</a> (<i>group</i>,
-            <i>loader</i>).
-          </li>
+          <es-xref target=
+          "sec-linkdeclarativemodules">LinkDeclarativeModules</es-xref>(<i>group</i>,
+          <i>loader</i>).</li>
 
-          <li>Else, perfrom <a href="#sec-linkdynamicmodules">LinkDynamicModules</a> (<i>group</i>,
-          <i>loader</i>).
-          </li>
+          <li>Else, perfrom <es-xref target=
+          "sec-linkdynamicmodules">LinkDynamicModules</es-xref>(<i>group</i>, <i>loader</i>).</li>
         </ol>
       </li>
     </ol>
@@ -41,9 +40,7 @@
 
           <li>Let <i>module</i> be the result of calling <i>factory</i> with no arguments.</li>
 
-          <li>
-            <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>module</i>).
-          </li>
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>module</i>).</li>
 
           <li>If <i>module</i> does not have all the internal data properties of a Module Instance
           Object, then throw a <b>TypeError</b> exception.</li>
@@ -52,13 +49,11 @@
 
           <li>Set <i>load</i>.[[Status]] to <b>linked</b>.</li>
 
-          <li>Let <i>r</i> be the result of calling the <a href="#sec-finishload">FinishLoad</a>
-          abstract operation passing <i>loader</i> and <i>load</i> as the arguments.
-          </li>
+          <li>Let <i>r</i> be the result of calling the <es-xref target=
+          "sec-finishload">FinishLoad</es-xref> abstract operation passing <i>loader</i> and
+          <i>load</i> as the arguments.</li>
 
-          <li>
-            <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>r</i>).
-          </li>
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>r</i>).</li>
         </ol>
       </li>
     </ol>
@@ -73,10 +68,9 @@
       <li>For each <i>def</i> in <i>M</i>.[[ExportDefinitions]], do
 
         <ol class="block">
-          <li>Call the <a href="#sec-resolveexport">ResolveExport</a> abstract operation with
-          arguments <i>M</i>, <i>def</i>.[[ExportName]], and a new empty <a href=
-          "#sec-list-and-record-specification-type">List</a> .
-          </li>
+          <li>Call the <es-xref target="sec-resolveexport">ResolveExport</es-xref> abstract
+          operation with arguments <i>M</i>, <i>def</i>.[[ExportName]], and a new empty
+          <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
         </ol>
       </li>
     </ol>
@@ -90,19 +84,17 @@
     <ol class="proc">
       <li>Let <i>entries</i> be <i>M</i>.[[ImportEntries]].</li>
 
-      <li>Let <i>defs</i> be a new empty <a href="#sec-list-and-record-specification-type">List</a>
-      .
-      </li>
+      <li>Let <i>defs</i> be a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
 
       <li>For each <i>entry</i> in <i>entries</i>, do
 
         <ol class="block">
           <li>Let <i>modReq</i> be <i>entry</i>.[[ModuleRequest]].</li>
 
-          <li>Let <i>otherMod</i> be the result of calling the <a href=
-          "#sec-lookupmoduledependency">LookupModuleDependency</a> abstract operation passing
-          <i>M</i> and <i>modReq</i> as arguments.
-          </li>
+          <li>Let <i>otherMod</i> be the result of calling the <es-xref target=
+          "sec-lookupmoduledependency">LookupModuleDependency</es-xref> abstract operation passing
+          <i>M</i> and <i>modReq</i> as arguments.</li>
 
           <li>Add the record {[[Module]]: <i>otherMod</i>, [[ImportName]]:
           <i>entry</i>.[[ImportName]], [[LocalName]]: <i>entry</i>.[[LocalName]]} to

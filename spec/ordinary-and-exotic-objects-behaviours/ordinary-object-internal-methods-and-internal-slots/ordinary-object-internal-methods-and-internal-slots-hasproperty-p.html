@@ -1,21 +1,17 @@
 <!doctype html>
 <es-clause title="[[HasProperty]](P)" anchor=
 "sec-ordinary-object-internal-methods-and-internal-slots-hasproperty-p">
-  <p>When the [[HasProperty]] internal method of <es-nt>O</es-nt> is called with <a href=
-  "#sec-object-type">property key</a> <es-nt>P</es-nt>, the following steps are taken:</p>
+  <p>When the [[HasProperty]] internal method of <es-nt>O</es-nt> is called with <es-xref target=
+  "sec-object-type">property key</es-xref> <es-nt>P</es-nt>, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
 
     <li>Let <i>hasOwn</i> be the result of calling the [[GetOwnProperty]] internal method of
     <i>O</i> with argument <i>P</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>hasOwn</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hasOwn</i>).</li>
 
     <li>If <i>hasOwn</i> is <b>undefined</b>, then
 
@@ -23,9 +19,7 @@
         <li>Let <i>parent</i> be the result of calling the [[GetPrototypeOf]] internal method of
         <i>O</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>parent</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>parent</i>).</li>
 
         <li>If <i>parent</i> is not <b>null</b>, then
 

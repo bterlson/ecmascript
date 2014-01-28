@@ -1,17 +1,16 @@
 <!doctype html>
 <es-clause title="GetBindingValue(N,S)" anchor=
 "sec-global-environment-records-getbindingvalue-n-s">
-  <p>The concrete <a href="#sec-environment-records">Environment Record</a> method GetBindingValue
-  for global environment records simply returns the value of its bound identifier whose name is the
-  value of the argument <es-nt>N</es-nt>. If <es-nt>S</es-nt> is <b>true</b> and the binding is an
-  uninitialised binding throw a <b>ReferenceError</b> exception. A property named <es-nt>N</es-nt>
-  normally already exists but if it does not or is not currently writable, error handling is
-  determined by the value of the Boolean argument <es-nt>S</es-nt>.</p>
+  <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+  GetBindingValue for global environment records simply returns the value of its bound identifier
+  whose name is the value of the argument <es-nt>N</es-nt>. If <es-nt>S</es-nt> is <b>true</b> and
+  the binding is an uninitialised binding throw a <b>ReferenceError</b> exception. A property named
+  <es-nt>N</es-nt> normally already exists but if it does not or is not currently writable, error
+  handling is determined by the value of the Boolean argument <es-nt>S</es-nt>.</p>
 
   <ol class="proc">
-    <li>Let <i>envRec</i> be the <a href="#sec-declarative-environment-records">declarative
-    environment record</a> for which the method was invoked.
-    </li>
+    <li>Let <i>envRec</i> be the <es-xref target="sec-declarative-environment-records">declarative
+    environment record</es-xref> for which the method was invoked.</li>
 
     <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
 

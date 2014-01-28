@@ -10,25 +10,19 @@
   <p>The following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>args</i> is a well-formed rest parameter
-      object.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>args</i> is a well-formed
+    rest parameter object.</li>
 
-    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-    value).
-    </li>
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
 
-    <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
-    </li>
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
 
-    <li>Let <i>args</i> be a <a href="#sec-list-and-record-specification-type">List</a> that is a
-    copy of the argument list passed to this function.
-    </li>
+    <li>Let <i>args</i> be a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> that is a copy of the argument list
+    passed to this function.</li>
 
     <li>Let <i>R</i> be <i>S</i>.</li>
 
@@ -38,12 +32,10 @@
         <li>Remove the first element from <i>args</i> and let <i>next</i> be the value of that
         element.</li>
 
-        <li>Let <i>nextString</i> be <a href="#sec-tostring">ToString</a> (<i>next</i>)
-        </li>
+        <li>Let <i>nextString</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>next</i>)</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>nextString</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextString</i>).</li>
 
         <li>Let <i>R</i> be the String value consisting of the string elements in the previous
         value of <i>R</i> followed by the string elements of <i>nextString</i>.</li>

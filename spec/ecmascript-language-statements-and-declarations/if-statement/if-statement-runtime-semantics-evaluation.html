@@ -9,13 +9,10 @@
   <ol class="proc">
     <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
 
-    <li>Let <i>exprValue</i> be <a href="#sec-toboolean">ToBoolean</a> (<a href=
-    "#sec-getvalue">GetValue</a> (<i>exprRef</i>)).
-    </li>
+    <li>Let <i>exprValue</i> be <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<es-xref target="sec-getvalue">GetValue</es-xref>(<i>exprRef</i>)).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exprValue</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>exprValue</i>).</li>
 
     <li>If <i>exprValue</i> is <b>true</b>, then
 
@@ -34,8 +31,8 @@
     <li>If <i>stmtValue</i>.[[type]] is normal and <i>stmtValue</i>.[[value]] is empty, then
 
       <ol class="block">
-        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-        </li>
+        <li>Return <es-xref target=
+        "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
       </ol>
     </li>
 
@@ -49,19 +46,16 @@
   <ol class="proc">
     <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
 
-    <li>Let <i>exprValue</i> be <a href="#sec-toboolean">ToBoolean</a> (<a href=
-    "#sec-getvalue">GetValue</a> (<i>exprRef</i>)).
-    </li>
+    <li>Let <i>exprValue</i> be <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<es-xref target="sec-getvalue">GetValue</es-xref>(<i>exprRef</i>)).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>exprValue</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>exprValue</i>).</li>
 
     <li>If <i>exprValue</i> is <b>false</b>, then
 
       <ol class="block">
-        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-        </li>
+        <li>Return <es-xref target=
+        "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
       </ol>
     </li>
 
@@ -75,8 +69,8 @@
     <li>If <i>stmtValue</i>.[[type]] is normal and <i>stmtValue</i>.[[value]] is empty, then
 
       <ol class="block">
-        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-        </li>
+        <li>Return <es-xref target=
+        "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
       </ol>
     </li>
 

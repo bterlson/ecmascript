@@ -6,14 +6,15 @@
   <es-nt>load</es-nt> in <i>load</i><sub>1</sub>.[[UnlinkedDependencies]] such that
   <es-nt>load</es-nt> has a linkage dependency on <i>load</i><sub>2</sub>.</p>
 
-  <p>The <b><i>linkage graph</i></b> of a <a href=
-  "#sec-list-and-record-specification-type">List</a> , <i>list,</i> of load records is the set of
-  load records <es-nt>load</es-nt> such that some load record in <es-nt>list</es-nt> has a linkage
-  dependency on <es-nt>load</es-nt>.</p>
+  <p>The <b><i>linkage graph</i></b> of a <es-xref target=
+  "sec-list-and-record-specification-type">List</es-xref>, <i>list,</i> of load records is the set
+  of load records <es-nt>load</es-nt> such that some load record in <es-nt>list</es-nt> has a
+  linkage dependency on <es-nt>load</es-nt>.</p>
 
   <p>A <b><i>dependency chain</i></b> from <i>load</i><sub>1</sub> to <i>load</i><sub>2</sub> is a
-  <a href="#sec-list-and-record-specification-type">List</a> of load records demonstrating the
-  transitive linkage dependency from <i>load</i><sub>1</sub> to <i>load</i><sub>2</sub>.</p>
+  <es-xref target="sec-list-and-record-specification-type">List</es-xref> of load records
+  demonstrating the transitive linkage dependency from <i>load</i><sub>1</sub> to
+  <i>load</i><sub>2</sub>.</p>
 
   <p>A <b><i>dependency cycle</i></b> is a dependency chain whose first and last elements’ [[Name]]
   fields have the same value.</p>

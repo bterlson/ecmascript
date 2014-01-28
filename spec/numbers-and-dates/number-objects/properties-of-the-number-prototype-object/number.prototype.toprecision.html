@@ -4,27 +4,21 @@
   <p>Return a String containing this Number value represented either in decimal exponential
   notation with one digit before the significand's decimal point and <i>precision</i>–1 digits
   after the significand's decimal point or in decimal fixed notation with <es-nt>precision</es-nt>
-  significant digits. If <es-nt>precision</es-nt> is <b>undefined</b>, call <a href=
-  "#sec-tostring">ToString</a> (<a href="#sec-toint8">7.1.9</a> ) instead. Specifically, perform
-  the following steps:</p>
+  significant digits. If <es-nt>precision</es-nt> is <b>undefined</b>, call <es-xref target=
+  "sec-tostring">ToString</es-xref> (<es-xref target="sec-toint8">7.1.9</es-xref>) instead.
+  Specifically, perform the following steps:</p>
 
   <ol class="proc">
     <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>x</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>x</i>).</li>
 
-    <li>If <i>precision</i> is <b>undefined</b>, return <a href="#sec-tostring">ToString</a>
-    (<i>x</i>).
-    </li>
+    <li>If <i>precision</i> is <b>undefined</b>, return <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>x</i>).</li>
 
-    <li>Let <i>p</i> be <a href="#sec-tointeger">ToInteger</a> (<i>precision</i>).
-    </li>
+    <li>Let <i>p</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>precision</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>p</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>p</i>).</li>
 
     <li>If <i>x</i> is <b>NaN</b>, return the String <code>"NaN"</code>.</li>
 
@@ -73,9 +67,7 @@
         <li>If <i>e</i> &lt; –6 or <i>e</i> ≥ <i>p</i>, then
 
           <ol class="block">
-            <li>
-              <a href="#sec-algorithm-conventions">Assert</a> : <i>e</i> ≠ 0
-            </li>
+            <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>e</i> ≠ 0</li>
 
             <li>Let <i>a</i> be the first element of <i>m</i>, and let <i>b</i> be the remaining
             <i>p</i>–1 elements of <i>m</i>.</li>
@@ -136,8 +128,8 @@
   <p>The <code>length</code> property of the <code>toPrecision</code> method is <b>1</b>.</p>
 
   <p>If the <code>toPrecision</code> method is called with more than one argument, then the
-  behaviour is undefined (see <a href="#sec-ecmascript-standard-built-in-objects">clause 17</a>
-  ).</p>
+  behaviour is undefined (see <es-xref target="sec-ecmascript-standard-built-in-objects">clause
+  17</es-xref>).</p>
 
   <p>An implementation is permitted to extend the behaviour of <code>toPrecision</code> for values
   of <es-nt>precision</es-nt> less than 1 or greater than 21. In this case <code>toPrecision</code>

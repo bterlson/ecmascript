@@ -45,17 +45,14 @@
       <tr>
         <td>[[LinkSets]]</td>
 
-        <td>
-          <a href="#sec-list-and-record-specification-type">List</a> of LinkSet Record
-        </td>
+        <td><es-xref target="sec-list-and-record-specification-type">List</es-xref> of LinkSet
+        Record</td>
 
-        <td>
-          A <a href="#sec-list-and-record-specification-type">List</a> of all LinkSets that require
-          this Load request to succeed. There is a many-to-many relation between Load records and
-          LinkSets. A single <code>import()</code> call can have a large dependency tree, involving
-          many Load records. Many <code>import()</code> calls, if they depend on the same module,
-          can be waiting for a single Load to complete.
-        </td>
+        <td>A <es-xref target="sec-list-and-record-specification-type">List</es-xref> of all
+        LinkSets that require this Load request to succeed. There is a many-to-many relation
+        between Load records and LinkSets. A single <code>import()</code> call can have a large
+        dependency tree, involving many Load records. Many <code>import()</code> calls, if they
+        depend on the same module, can be waiting for a single Load to complete.</td>
       </tr>
 
       <tr>
@@ -114,16 +111,13 @@
       <tr>
         <td>[[Dependencies]]</td>
 
-        <td>
-          Undefined or <a href="#sec-list-and-record-specification-type">List</a> of Records
-        </td>
+        <td>Undefined or <es-xref target="sec-list-and-record-specification-type">List</es-xref> of
+        Records</td>
 
-        <td>
-          If [[Status]] is not <code>"loading"</code>, a <a href=
-          "#sec-list-and-record-specification-type">List</a> of pairs. Each pair consists of two
-          strings: a module name as it appears in a module, import, or export from declaration in
-          load.[[Body]], and the corresponding normalized module name.
-        </td>
+        <td>If [[Status]] is not <code>"loading"</code>, a <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> of pairs. Each pair consists of two
+        strings: a module name as it appears in a module, import, or export from declaration in
+        load.[[Body]], and the corresponding normalized module name.</td>
       </tr>
 
       <tr>
@@ -167,13 +161,11 @@
 
       <li>Set <i>load</i>.[[Name]] to <i>name</i>.</li>
 
-      <li>Set <i>load</i>.[[LinkSets]] to a new empty <a href=
-      "#sec-list-and-record-specification-type">List</a> .
-      </li>
+      <li>Set <i>load</i>.[[LinkSets]] to a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
 
-      <li>Set <i>load</i>.[[Metadata]] to <i>metadata</i> <a href=
-      "#sec-objectcreate">ObjectCreate</a> (%ObjectPrototype%).
-      </li>
+      <li>Set <i>load</i>.[[Metadata]] to <i>metadata</i> <es-xref target=
+      "sec-objectcreate">ObjectCreate</es-xref>(%ObjectPrototype%).</li>
 
       <li>Set all other fields of <i>load</i> to <b>undefined</b>.</li>
 

@@ -4,42 +4,34 @@
   <p>The following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-    value).
-    </li>
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
 
-    <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
-    </li>
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>searchString</i>) is Object
-    and <a href="#sec-hasproperty">HasProperty</a> (<i>searchString</i>, @@isRegExp) is
-    <b>true</b>, then
+    <li>If <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>searchString</i>) is Object and
+    <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>searchString</i>, @@isRegExp) is <b>
+      true</b>, then
 
       <ol class="block">
         <li>Throw a <b>TypeError</b> exception.</li>
       </ol>
     </li>
 
-    <li>Let <i>searchStr</i> be <a href="#sec-tostring">ToString</a> (<i>searchString</i>).
-    </li>
+    <li>Let <i>searchStr</i> be <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>searchString</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>searchStr</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>searchStr</i>).</li>
 
     <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
 
     <li>If <i>endPosition</i> is <b>undefined</b>, let <i>pos</i> be <i>len</i>, else let
-    <i>pos</i> be <a href="#sec-tointeger">ToInteger</a> (<i>endPosition</i>).
-    </li>
+    <i>pos</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>endPosition</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>pos</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>pos</i>).</li>
 
     <li>Let <i>end</i> be min(max(<i>pos</i>, 0), <i>len</i>).</li>
 

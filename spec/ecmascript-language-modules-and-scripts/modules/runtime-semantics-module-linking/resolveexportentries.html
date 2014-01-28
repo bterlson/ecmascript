@@ -7,8 +7,8 @@
     <li>If <i>M</i>.[[ExportDefinitions]] is not <b>undefined</b>, then return
     <i>M</i>.[[ExportDefinitions]].</li>
 
-    <li>Let <i>defs</i> be a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>defs</i> be a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>Let <i>boundNames</i> be <i>M</i>.[[BoundNames]].</li>
 
@@ -17,19 +17,17 @@
       <ol class="block">
         <li>Let <i>modReq</i> be <i>entry</i>.[[ModuleRequest]].</li>
 
-        <li>Let <i>otherMod</i> be the result of calling the <a href="#sec-lookupmoduledependency">
-          LookupModuleDependency</a> abstract operation passing <i>M</i> and <i>modReq</i> as
-          arguments.
-        </li>
+        <li>Let <i>otherMod</i> be the result of calling the <es-xref target=
+        "sec-lookupmoduledependency">LookupModuleDependency</es-xref> abstract operation passing
+        <i>M</i> and <i>modReq</i> as arguments.</li>
 
         <li>If <i>entry</i>.[[Module]] is <b>null</b> and <i>entry</i>.[[LocalName]] is not
         <b>null</b> and <i>boundNames</i> does not contain <i>entry</i>.[[LocalName]], then the
         following steps are taken:
 
           <ol class="block">
-            <li>Let <i>error</i> be a new <a href="#sec-reference-specification-type">Reference</a>
-            Error.
-            </li>
+            <li>Let <i>error</i> be a new <es-xref target=
+            "sec-reference-specification-type">Reference</es-xref> Error.</li>
 
             <li>Add <i>error</i> to <i>M</i>.[[LinkErrors]].</li>
           </ol>
@@ -44,10 +42,9 @@
     <li>For each <i>modReq</i> in <i>M</i>.[[UnknownExportEntries]], do
 
       <ol class="block">
-        <li>Let <i>otherMod</i> be the result of calling the <a href="#sec-lookupmoduledependency">
-          LookupModuleDependency</a> abstract operation passing <i>M</i> and <i>modReq</i> as
-          arguments.
-        </li>
+        <li>Let <i>otherMod</i> be the result of calling the <es-xref target=
+        "sec-lookupmoduledependency">LookupModuleDependency</es-xref> abstract operation passing
+        <i>M</i> and <i>modReq</i> as arguments.</li>
 
         <li>If <i>otherMod</i> is in <i>visited</i>, then the following steps are taken:
 

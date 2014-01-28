@@ -1,23 +1,19 @@
 <!doctype html>
 <es-clause title="[[Set]] ( P, V, Receiver)" anchor=
 "sec-ordinary-object-internal-methods-and-internal-slots-set-p-v-receiver">
-  <p>When the [[Set]] internal method of <es-nt>O</es-nt> is called with <a href=
-  "#sec-object-type">property key</a> <es-nt>P</es-nt>, value <es-nt>V</es-nt>, and <a href=
-  "#sec-ecmascript-language-types">ECMAScript language value</a> <es-nt>Receiver</es-nt>, the
-  following steps are taken:</p>
+  <p>When the [[Set]] internal method of <es-nt>O</es-nt> is called with <es-xref target=
+  "sec-object-type">property key</es-xref> <es-nt>P</es-nt>, value <es-nt>V</es-nt>, and
+  <es-xref target="sec-ecmascript-language-types">ECMAScript language value</es-xref>
+  <es-nt>Receiver</es-nt>, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
 
     <li>Let <i>ownDesc</i> be the result of calling the [[GetOwnProperty]] internal method of
     <i>O</i> with argument <i>P</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>ownDesc</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>ownDesc</i>).</li>
 
     <li>If <i>ownDesc</i> is <b>undefined</b>, then
 
@@ -25,9 +21,7 @@
         <li>Let <i>parent</i> be the result of calling the [[GetPrototypeOf]] internal method of
         <i>O</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>parent</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>parent</i>).</li>
 
         <li>If <i>parent</i> is not <b>null</b>, then
 
@@ -48,22 +42,21 @@
       </ol>
     </li>
 
-    <li>If <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>ownDesc</i>) is <b>true</b>,
-    then
+    <li>If <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>ownDesc</i>) is <b>
+      true</b>, then
 
       <ol class="block">
         <li>If <i>ownDesc</i>.[[Writable]] is <b>false</b>, return <b>false</b>.</li>
 
-        <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>Receiver</i>) is not
-        Object, return <b>false</b>.
-        </li>
+        <li>If <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>Receiver</i>) is not Object,
+        return <b>false</b>.</li>
 
         <li>Let <i>existingDescriptor</i> be the result of calling the [[GetOwnProperty]] internal
         method of <i>Receiver</i> with argument <i>P</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>existingDescriptor</i>).
-        </li>
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>existingDescriptor</i>).</li>
 
         <li>If <i>existingDescriptor</i> is not <b>undefined</b>, then
 
@@ -78,16 +71,16 @@
         <li>Else <i>Receiver</i> does not currently have a property <i>P</i>,
 
           <ol class="block">
-            <li>Return the result of performing <a href=
-            "#sec-createdataproperty">CreateDataProperty</a> (<i>Receiver</i>, <i>P</i>, <i>V</i>).
-            </li>
+            <li>Return the result of performing <es-xref target=
+            "sec-createdataproperty">CreateDataProperty</es-xref>(<i>Receiver</i>, <i>P</i>,
+            <i>V</i>).</li>
           </ol>
         </li>
       </ol>
     </li>
 
-    <li>If <a href="#sec-isaccessordescriptor">IsAccessorDescriptor</a> (<i>ownDesc</i>) is
-    <b>true</b>, then
+    <li>If <es-xref target=
+    "sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>ownDesc</i>) is <b>true</b>, then
 
       <ol class="block">
         <li>Let <i>setter</i> be <i>ownDesc</i>.[[Set]].</li>
@@ -95,14 +88,12 @@
         <li>If <i>setter</i> is <b>undefined</b>, return <b>false</b>.</li>
 
         <li>Let <i>setterResult</i> be the result of calling the [[Call]] internal method of
-        <i>setter</i> providing <i>Receiver</i> as <i>thisArgument</i> and a new <a href=
-        "#sec-list-and-record-specification-type">List</a> containing <i>V</i> as
-        <i>argumentsList</i>.
-        </li>
+        <i>setter</i> providing <i>Receiver</i> as <i>thisArgument</i> and a new <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> containing <i>V</i> as
+        <i>argumentsList</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>setterResult</i>).
-        </li>
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>setterResult</i>).</li>
 
         <li>Return <b>true</b>.</li>
       </ol>

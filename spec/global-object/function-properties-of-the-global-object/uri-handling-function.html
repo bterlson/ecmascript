@@ -3,9 +3,11 @@
   <p>Uniform Resource Identifiers, or URIs, are Strings that identify resources (e.g. web pages or
   files) and transport protocols by which to access them (e.g. HTTP or FTP) on the Internet. The
   ECMAScript language itself does not provide any support for using URIs except for functions that
-  encode and decode URIs as described in <a href="#sec-decodeuri-encodeduri">18.2.6.2</a> ,
-  <a href="#sec-decodeuricomponent-encodeduricomponent">18.2.6.3</a> , <a href=
-  "#sec-encodeuri-uri">18.2.6.4</a> and <a href="#sec-encodeuri-uri">18.2.6.4</a> .</p>
+  encode and decode URIs as described in <es-xref target=
+  "sec-decodeuri-encodeduri">18.2.6.2</es-xref>, <es-xref target=
+  "sec-decodeuricomponent-encodeduricomponent">18.2.6.3</es-xref>, <es-xref target=
+  "sec-encodeuri-uri">18.2.6.4</es-xref> and <es-xref target=
+  "sec-encodeuri-uri">18.2.6.4</es-xref>.</p>
 
   <es-note>
     <p>Many implementations of ECMAScript provide additional functions and methods that manipulate
@@ -24,51 +26,19 @@
     <es-nt>encodedURIComponent</es-nt>, the following steps are taken:</p>
 
     <ol class="proc">
-      <li>Let <i>componentString</i> be <a href="#sec-tostring">ToString</a>
-      (<i>encodedURIComponent</i>).
-      </li>
+      <li>Let <i>componentString</i> be <es-xref target=
+      "sec-tostring">ToString</es-xref>(<i>encodedURIComponent</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>componentString</i>).
-      </li>
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>componentString</i>).</li>
 
       <li>Let <i>reservedURIComponentSet</i> be the empty String.</li>
 
-      <li>Return the result of calling <a href="#sec-decode">Decode</a> (<i>componentString</i>,
-      <i>reservedURIComponentSet</i>)
-      </li>
+      <li>Return the result of calling <es-xref target=
+      "sec-decode">Decode</es-xref>(<i>componentString</i>, <i>reservedURIComponentSet</i>)</li>
     </ol>
   </es-clause>
-
-  <es-clause title="encodeURI (uri)" anchor="sec-encodeuri-uri">
-    <p>The <code>encodeURI</code> function computes a new version of a URI in which each instance
-    of certain characters is replaced by one, two, three, or four escape sequences representing the
-    UTF-8 encoding of the character.</p>
-
-    <p>When the <code>encodeURI</code> function is called with one argument <es-nt>uri</es-nt>, the
-    following steps are taken:</p>
-
-    <ol class="proc">
-      <li>Let <i>uriString</i> be <a href="#sec-tostring">ToString</a> (<i>uri</i>).
-      </li>
-
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>uriString</i>).
-      </li>
-
-      <li>Let <i>unescapedURISet</i> be a String containing one instance of each character valid in
-      <i>uriReserved</i> and <i>uriUnescaped</i> plus "<code>#</code>".</li>
-
-      <li>Return the result of calling <a href="#sec-encode">Encode</a> (<i>uriString</i>,
-      unescapedURISet)
-      </li>
-    </ol>
-
-    <es-note>
-      <p>The character "<code>#</code>" is not encoded to an escape sequence even though it is not
-      a reserved or unescaped URI character.</p>
-    </es-note>
-  </es-clause>
+  <link rel="import" href="uri-handling-function\encodeuri-uri.html">
 
   <es-clause title="encodeURIComponent (uriComponent)" anchor=
   "sec-encodeuricomponent-uricomponent">
@@ -80,19 +50,17 @@
     <es-nt>uriComponent</es-nt>, the following steps are taken:</p>
 
     <ol class="proc">
-      <li>Let <i>componentString</i> be <a href="#sec-tostring">ToString</a> (<i>uriComponent</i>).
-      </li>
+      <li>Let <i>componentString</i> be <es-xref target=
+      "sec-tostring">ToString</es-xref>(<i>uriComponent</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>componentString</i>).
-      </li>
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>componentString</i>).</li>
 
       <li>Let <i>unescapedURIComponentSet</i> be a String containing one instance of each character
       valid in <i>uriUnescaped</i>.</li>
 
-      <li>Return the result of calling <a href="#sec-encode">Encode</a> (<i>componentString</i>,
-      <i>unescapedURIComponentSet</i>)
-      </li>
+      <li>Return the result of calling <es-xref target=
+      "sec-encode">Encode</es-xref>(<i>componentString</i>, <i>unescapedURIComponentSet</i>)</li>
     </ol>
   </es-clause>
 </es-clause>

@@ -4,19 +4,16 @@
   taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-    value).
-    </li>
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
 
-    <li>Let <i>string</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
-    </li>
+    <li>Let <i>string</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>string</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>string</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>regexp</i>) is Object and
-    <a href="#sec-hasproperty">HasProperty</a> (<i>regexp</i>, @@isRegExp) is <b>true</b> , then,
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>regexp</i>) is
+    Object and <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>regexp</i>, @@isRegExp)
+    is <b>true</b> , then,
 
       <ol class="block">
         <li>Let <i>rx</i> be <i>regexp</i>;</li>
@@ -26,17 +23,14 @@
     <li>Else,
 
       <ol class="block">
-        <li>Let <i>rx</i> be the result of the abstract operation <a href=
-        "#sec-regexpcreate">RegExpCreate</a> (<a href=
-        "#sec-abstract-operations-for-the-regexp-constructor">21.2.3.3</a> ) with arguments
-        <i>regexp</i> and <b>undefined</b>.
-        </li>
+        <li>Let <i>rx</i> be the result of the abstract operation <es-xref target=
+        "sec-regexpcreate">RegExpCreate</es-xref> (<es-xref target=
+        "sec-abstract-operations-for-the-regexp-constructor">21.2.3.3</es-xref>) with arguments
+        <i>regexp</i> and <b>undefined</b>.</li>
       </ol>
     </li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rx</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rx</i>).</li>
 
     <li>Return the result of Invoke(<i>rx</i>, <code>"search"</code>, (<i>string</i>)).</li>
   </ol>

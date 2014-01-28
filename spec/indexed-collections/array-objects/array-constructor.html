@@ -5,11 +5,11 @@
   rather than as a constructor, it creates and initialises a new Array object. Thus the function
   call <b>Array(</b>…<b>)</b> is equivalent to the object creation expression
   <b>new&nbsp;Array(</b>…<b>)</b> with the same arguments. However, if the <b>this</b> value passed
-  in the call is an Object with an [[ArrayInitialisationState]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> whose value is <span class=
-  "value">undefined</span>, it initialises the <b>this</b> value using the argument values. This
-  permits <code>Array</code> to be used both as factory method and to perform constructor instance
-  initialisation.</p>
+  in the call is an Object with an [[ArrayInitialisationState]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> whose value is
+  <span class="value">undefined</span>, it initialises the <b>this</b> value using the argument
+  values. This permits <code>Array</code> to be used both as factory method and to perform
+  constructor instance initialisation.</p>
 
   <p>The <code>Array</code> constructor is designed to be subclassable. It may be used as the value
   of an <code>extends</code> clause of a class declaration. Subclass constructors that intended to
@@ -29,13 +29,12 @@
       <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
       internal method that was invoked by the <code>new</code> operator.</li>
 
-      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
-      <i>argumentsList</i>).
-      </li>
+      <li>Return the result of <es-xref target="sec-construct-f-argumentslist">Construct</es-xref>
+      (<i>F</i>, <i>argumentsList</i>).</li>
     </ol>
 
-    <p>If <code>Array</code> is implemented as an <a href=
-    "#sec-ecmascript-function-objects">ECMAScript function object</a> , its [[Construct]] internal
-    method will perform the above steps.</p>
+    <p>If <code>Array</code> is implemented as an <es-xref target=
+    "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+    internal method will perform the above steps.</p>
   </es-clause>
 </es-clause>

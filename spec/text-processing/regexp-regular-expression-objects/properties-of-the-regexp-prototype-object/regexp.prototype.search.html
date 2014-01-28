@@ -6,36 +6,30 @@
   <ol class="proc">
     <li>Let <i>rx</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>rx)</i> is not Object, then
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>rx)</i> is not
+    Object, then throw a <b>TypeError</b> exception.</li>
 
-    <li>If <i>rx</i> does not have a [[RegExpMatcher]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then throw a
-    <b>TypeError</b> exception.
-    </li>
+    <li>If <i>rx</i> does not have a [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+    <b>TypeError</b> exception.</li>
 
-    <li>If the value of <i>rx’s</i> [[RegExpMatcher]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>, then
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If the value of <i>rx’s</i> [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>string</i> be <a href="#sec-tostring">ToString</a> (<i>S</i>).
-    </li>
+    <li>Let <i>string</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>S</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>string</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>string</i>).</li>
 
     <li>Search the value <i>string</i> from its beginning for an occurrence of the regular
     expression pattern <i>rx</i>. Let <i>result</i> be a Number indicating the offset within
-    <i>string</i> where the pattern matched, or –1 if there was no match. If an <a href=
-    "#sec-completion-record-specification-type">abrupt completion</a> occurs during the search, <i>
-      result</i> is that <a href="#sec-completion-record-specification-type">Completion Record</a>
-      . The <code>lastIndex</code> and <code>global</code> properties of <i>regexp</i> are ignored
-      when performing the search. The <code>lastIndex</code> property of <i>regexp</i> is left
-      unchanged.
-    </li>
+    <i>string</i> where the pattern matched, or –1 if there was no match. If an <es-xref target=
+    "sec-completion-record-specification-type">abrupt completion</es-xref> occurs during the
+    search, <i>result</i> is that <es-xref target=
+    "sec-completion-record-specification-type">Completion Record</es-xref>. The
+    <code>lastIndex</code> and <code>global</code> properties of <i>regexp</i> are ignored when
+    performing the search. The <code>lastIndex</code> property of <i>regexp</i> is left
+    unchanged.</li>
 
     <li>Return <i>result</i>.</li>
   </ol>

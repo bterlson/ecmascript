@@ -9,42 +9,30 @@
   treated as <i>length</i>+<i>end</i>. The following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
-      this</b> value as the argument.
-    </li>
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
-    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"length"</code>).
-    </li>
+    <li>Let <i>lenVal</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>).</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
-    <li>Let <i>relativeStart</i> be <a href="#sec-tointeger">ToInteger</a> (<i>start</i>).
-    </li>
+    <li>Let <i>relativeStart</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>start</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>relativeStart</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeStart</i>).</li>
 
     <li>If <i>relativeStart</i> is negative, let <i>k</i> be max((<i>len</i> +
     <i>relativeStart</i>),0); else let <i>k</i> be min(<i>relativeStart</i>, <i>len</i>).</li>
 
     <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let
-    <i>relativeEnd</i> be <a href="#sec-tointeger">ToInteger</a> (<i>end</i>).
-    </li>
+    <i>relativeEnd</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>end</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>relativeEnd</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeEnd</i>).</li>
 
     <li>If <i>relativeEnd</i> is negative, let <i>final</i> be max((<i>len</i> +
     <i>relativeEnd</i>),0); else let <i>final</i> be min(<i>relativeEnd</i>, <i>len</i>).</li>
@@ -52,16 +40,12 @@
     <li>Repeat, while <i>k</i> &lt; <i>final</i>
 
       <ol class="block">
-        <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
-        </li>
+        <li>Let <i>Pk</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
 
-        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
-        <i>Pk</i>, <i>value</i>, <b>true</b>).
-        </li>
+        <li>Let <i>putStatus</i> be the result of <es-xref target=
+        "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>Pk</i>, <i>value</i>, <b>true</b>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
         <li>Increase <i>k</i> by 1.</li>
       </ol>

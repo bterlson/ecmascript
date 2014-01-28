@@ -5,26 +5,21 @@
   create such iterator objects. It performs the following steps:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>loader</i> is an initialized Loader
-      instance object.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>loader</i> is an
+    initialized Loader instance object.</li>
 
-    <li>Let <i>iterator</i> be the result of <a href="#sec-objectcreate">ObjectCreate</a>
-    (%LoaderIteratorPrototype%, ([[Loader]], [[LoaderNextIndex]], [[LoaderIterationKind]])).
-    </li>
+    <li>Let <i>iterator</i> be the result of <es-xref target=
+    "sec-objectcreate">ObjectCreate</es-xref>(%LoaderIteratorPrototype%, ([[Loader]],
+    [[LoaderNextIndex]], [[LoaderIterationKind]])).</li>
 
-    <li>Set <i>iterator’s</i> [[Loader]] <a href="#sec-object-internal-methods-and-internal-slots">
-      internal slot</a> to <i>loader</i>.
-    </li>
+    <li>Set <i>iterator’s</i> [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>loader</i>.</li>
 
-    <li>Set <i>iterator’s</i> [[Loader NextIndex]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to 0.
-    </li>
+    <li>Set <i>iterator’s</i> [[Loader NextIndex]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to 0.</li>
 
-    <li>Set <i>iterator’s</i> [[Loader IterationKind]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>kind</i>.
-    </li>
+    <li>Set <i>iterator’s</i> [[Loader IterationKind]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>kind</i>.</li>
 
     <li>Return <i>iterator</i>.</li>
   </ol>

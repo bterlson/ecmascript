@@ -1,10 +1,10 @@
 <!doctype html>
 <es-clause title="Properties of the Array Constructor" anchor=
 "sec-properties-of-the-array-constructor">
-  <p>The value of the [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the Array constructor is
-  the Function prototype object (<a href=
-  "#sec-properties-of-the-function-prototype-object">19.2.3</a> ).</p>
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Array constructor
+  is the Function prototype object (<es-xref target=
+  "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
 
   <p>Besides the <code>length</code> property (whose value is <b>1</b>), the Array constructor has
   the following properties:</p>
@@ -15,9 +15,8 @@
     following:</p>
 
     <ol class="proc">
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>arg</i>) is not Object,
-      return <b>false</b>.
-      </li>
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>arg</i>) is
+      not Object, return <b>false</b>.</li>
 
       <li>If <i>arg</i> is an exotic Array object, then return <b>true</b>.</li>
 
@@ -28,7 +27,7 @@
 
   <es-clause title="Array.prototype" anchor="sec-array.prototype">
     <p>The value of <code>Array.prototype</code> is %ArrayPrototype%, the intrinsic Array prototype
-    object (<a href="#sec-properties-of-the-array-prototype-object">22.1.3</a> ).</p>
+    object (<es-xref target="sec-properties-of-the-array-prototype-object">22.1.3</es-xref>).</p>
 
     <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
     [[Configurable]]: <b>false</b> }.</p>

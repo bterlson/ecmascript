@@ -1,8 +1,8 @@
 <!doctype html>
 <es-clause title="Runtime Semantics: ArgumentListEvaluation" anchor=
 "sec-runtime-semantics-runtime-semantics-argumentlistevaluation">
-  <p>See also: <a href=
-  "#sec-argument-lists-runtime-semantics-argumentlistevaluation">12.2.6.1</a></p>
+  <p>See also: <es-xref target=
+  "sec-argument-lists-runtime-semantics-argumentlistevaluation">12.2.6.1</es-xref></p>
 
   <es-production name="TemplateLiteral" class="inline">
     <es-rhs><es-nt>NoSubstitutionTemplate</es-nt></es-rhs>
@@ -12,9 +12,8 @@
     <li>Let <i>siteObj</i> be the result of the abstract operation GetTemplateCallSite passing this
     <i>TemplateLiteral</i> production as the argument.</li>
 
-    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the one
-    element which is <i>siteObj</i>.
-    </li>
+    <li>Return a <es-xref target="sec-list-and-record-specification-type">List</es-xref> containing
+    the one element which is <i>siteObj</i>.</li>
   </ol>
 
   <es-production name="TemplateLiteral" class="inline">
@@ -28,24 +27,18 @@
 
     <li>Let <i>firstSub</i> be the result of evaluating <i>Expression</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>firstSub</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>firstSub</i>).</li>
 
     <li>Let <i>restSub</i> be SubstitutionEvaluation of <i>TemplateSpans</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>restSub</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>restSub</i>).</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>restSub</i> is a <a href=
-      "#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>restSub</i> is a
+    <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
 
-    <li>Return a <a href="#sec-list-and-record-specification-type">List</a> whose first element is
-    <i>siteObj</i>, whose second elements is <i>firstSub</i>, and whose subsequent elements are the
-    elements of <i>restSub</i>, in order. <i>restSub</i> may contain no elements.
-    </li>
+    <li>Return a <es-xref target="sec-list-and-record-specification-type">List</es-xref> whose
+    first element is <i>siteObj</i>, whose second elements is <i>firstSub</i>, and whose subsequent
+    elements are the elements of <i>restSub</i>, in order. <i>restSub</i> may contain no
+    elements.</li>
   </ol>
 </es-clause>

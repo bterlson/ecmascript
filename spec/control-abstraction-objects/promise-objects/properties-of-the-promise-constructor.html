@@ -1,10 +1,10 @@
 <!doctype html>
 <es-clause title="Properties of the Promise Constructor" anchor=
 "sec-properties-of-the-promise-constructor">
-  <p>The value of the [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the <code>Promise</code>
-  constructor is the <code>Function</code> prototype object (<a href=
-  "#sec-properties-of-the-function-prototype-object">19.2.3</a> ).</p>
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the
+  <code>Promise</code> constructor is the <code>Function</code> prototype object (<es-xref target=
+  "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
 
   <p>Besides the length <code>property</code> (whose value is 1), the Promise constructor has the
   following properties:</p>
@@ -13,7 +13,8 @@
 
   <es-clause title="Promise.prototype" anchor="sec-promise.prototype">
     <p>The initial value of <code>Promise.prototype</code> is the Promise prototype object
-    (<a href="#sec-allocatepromise-constructor-abstraction-operation">25.4.4.7.1</a> ).</p>
+    (<es-xref target=
+    "sec-allocatepromise-constructor-abstraction-operation">25.4.4.7.1</es-xref>).</p>
 
     <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
     [[Configurable]]: <b>false</b> }.</p>
@@ -27,21 +28,17 @@
     <ol class="proc">
       <li>Let <i>C</i> be the <b>this</b> value.</li>
 
-      <li>Let <i>promiseCapability</i> be <a href=
-      "#sec-newpromisecapability">NewPromiseCapability</a> (<i>C</i>).
-      </li>
+      <li>Let <i>promiseCapability</i> be <es-xref target=
+      "sec-newpromisecapability">NewPromiseCapability</es-xref>(<i>C</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promiseCapability</i>).
-      </li>
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>promiseCapability</i>).</li>
 
       <li>Let <i>rejectResult</i> be the result of calling the [[Call]] internal method of
       <i>promiseCapability</i>.[[Reject]] with <b>undefined</b> as <i>thisArgument</i> and (r) as
       <i>argumentsList</i>.</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>rejectResult</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rejectResult</i>).</li>
 
       <li>Return <i>promiseCapability</i>.[[Promise]].</li>
     </ol>
@@ -59,21 +56,17 @@
     <ol class="proc">
       <li>Let <i>C</i> be the <b>this</b> value.</li>
 
-      <li>Let <i>promiseCapability</i> be <a href=
-      "#sec-newpromisecapability">NewPromiseCapability</a> (<i>C</i>).
-      </li>
+      <li>Let <i>promiseCapability</i> be <es-xref target=
+      "sec-newpromisecapability">NewPromiseCapability</es-xref>(<i>C</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>promiseCapability</i>).
-      </li>
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>promiseCapability</i>).</li>
 
       <li>Let <i>resolveResult</i> be the result of calling the [[Call]] internal method of
       <i>promiseCapability</i>.[[Resolve]] with <b>undefined</b> as <i>thisArgument</i> and
       (<i>x</i>) as <i>argumentsList</i>.</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>resolveResult</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>resolveResult</i>).</li>
 
       <li>Return <i>promiseCapability</i>.[[Promise]].</li>
     </ol>

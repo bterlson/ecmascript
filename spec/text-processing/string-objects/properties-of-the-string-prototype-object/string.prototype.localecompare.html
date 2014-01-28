@@ -19,23 +19,16 @@ anchor="sec-string.prototype.localecompare">
   <p>Before perform the comparisons the following steps are performed to prepare the Strings:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-    value).
-    </li>
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
 
-    <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
-    </li>
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
 
-    <li>Let <i>That</i> be <a href="#sec-tostring">ToString</a> (<i>that</i>).
-    </li>
+    <li>Let <i>That</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>that</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>That</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>That</i>).</li>
   </ol>
 
   <p>The meaning of the optional second and third parameters to this method are defined in the
@@ -43,8 +36,8 @@ anchor="sec-string.prototype.localecompare">
   parameter position for anything else.</p>
 
   <p>The <code>localeCompare</code> method, if considered as a function of two arguments
-  <b>this</b> and <es-nt>that</es-nt>, is a consistent comparison function (as defined in <a href=
-  "#sec-array.prototype.sort">22.1.3.24</a> ) on the set of all Strings.</p>
+  <b>this</b> and <es-nt>that</es-nt>, is a consistent comparison function (as defined in
+  <es-xref target="sec-array.prototype.sort">22.1.3.24</es-xref>) on the set of all Strings.</p>
 
   <p>The actual return values are implementation-defined to permit implementers to encode
   additional information in the value, but the function is required to define a total ordering on
@@ -59,8 +52,8 @@ anchor="sec-string.prototype.localecompare">
 
   <es-note>
     <p>The <code>localeCompare</code> method itself is not directly suitable as an argument to
-    <code><a href="#sec-array.prototype.sort">Array.prototype.sort</a></code> because the latter
-    requires a function of two arguments.</p>
+    <code><es-xref target="sec-array.prototype.sort">Array.prototype.sort</es-xref></code> because
+    the latter requires a function of two arguments.</p>
   </es-note>
 
   <es-note>

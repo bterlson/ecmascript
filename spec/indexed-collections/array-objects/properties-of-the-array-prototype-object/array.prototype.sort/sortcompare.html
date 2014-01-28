@@ -4,27 +4,19 @@
   <es-nt>k</es-nt>, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>jString</i> be <a href="#sec-tostring">ToString</a> (<i>j</i>).
-    </li>
+    <li>Let <i>jString</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>j</i>).</li>
 
-    <li>Let <i>kString</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
-    </li>
+    <li>Let <i>kString</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
 
-    <li>Let <i>hasj</i> be the result of <a href="#sec-hasproperty">HasProperty</a> (<i>obj</i>,
-    <i>jString</i>).
-    </li>
+    <li>Let <i>hasj</i> be the result of <es-xref target=
+    "sec-hasproperty">HasProperty</es-xref>(<i>obj</i>, <i>jString</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>hasj</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hasj</i>).</li>
 
-    <li>Let <i>hask</i> be the result of <a href="#sec-hasproperty">HasProperty</a> (<i>obj</i>,
-    <i>kString</i>).
-    </li>
+    <li>Let <i>hask</i> be the result of <es-xref target=
+    "sec-hasproperty">HasProperty</es-xref>(<i>obj</i>, <i>kString</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>hask</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hask</i>).</li>
 
     <li>If <i>hasj</i> and <i>hask</i> are both <b>false</b>, then return <b>+0</b>.</li>
 
@@ -32,19 +24,15 @@
 
     <li>If <i>hask</i> is <b>false</b>, then return –1.</li>
 
-    <li>Let <i>x</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>,<i>jString</i>).
-    </li>
+    <li>Let <i>x</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>obj</i>,<i>jString</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>x</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>x</i>).</li>
 
-    <li>Let <i>y</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>obj</i>, <i>kString</i>).
-    </li>
+    <li>Let <i>y</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>obj</i>,
+    <i>kString</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>y</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>y</i>).</li>
 
     <li>If <i>x</i> and <i>y</i> are both <b>undefined</b>, return <b>+0</b>.</li>
 
@@ -55,31 +43,23 @@
     <li>If the argument <i>comparefn</i> is not <b>undefined</b>, then
 
       <ol class="block">
-        <li>If <a href="#sec-iscallable">IsCallable</a> (<i>comparefn</i>) is <b>false</b>, throw a
-        <b>TypeError</b> exception.
-        </li>
+        <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>comparefn</i>) is
+        <b>false</b>, throw a <b>TypeError</b> exception.</li>
 
         <li>Return the result of calling the [[Call]] internal method of <i>comparefn</i> passing
-        <b>undefined</b> as <i>thisArgument</i> and with a <a href=
-        "#sec-list-and-record-specification-type">List</a> containing the values of <i>x</i> and
-        <i>y</i> as the <i>argumentsList</i>.
-        </li>
+        <b>undefined</b> as <i>thisArgument</i> and with a <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> containing the values of <i>x</i>
+        and <i>y</i> as the <i>argumentsList</i>.</li>
       </ol>
     </li>
 
-    <li>Let <i>xString</i> be <a href="#sec-tostring">ToString</a> (<i>x</i>).
-    </li>
+    <li>Let <i>xString</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>x</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>xString</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>xString</i>).</li>
 
-    <li>Let <i>yString</i> be <a href="#sec-tostring">ToString</a> (<i>y</i>).
-    </li>
+    <li>Let <i>yString</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>y</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>yString</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>yString</i>).</li>
 
     <li>If <i>xString</i> &lt; <i>yString</i>, return −1.</li>
 

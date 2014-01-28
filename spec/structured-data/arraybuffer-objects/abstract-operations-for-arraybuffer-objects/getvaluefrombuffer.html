@@ -8,18 +8,14 @@
   follow steps:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : There are sufficient bytes in
-      <i>arrayBuffer</i> starting at <i>byteIndex</i> to represent a value of <i>valueType</i>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: There are sufficient bytes in
+    <i>arrayBuffer</i> starting at <i>byteIndex</i> to represent a value of <i>valueType</i>.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>byteIndex</i> is a positive integer.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>byteIndex</i> is a
+    positive integer.</li>
 
-    <li>Let <i>block</i> be <i>arrayBuffer’s</i> [[ArrayBufferData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>block</i> be <i>arrayBuffer’s</i> [[ArrayBufferData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>If <i>block</i> is <b>undefined</b> or <b>null</b>, then throw a <b>TypeError</b>
     exception.</li>
@@ -28,17 +24,16 @@
       <a href="#table-43">Table 43</a> for <i>valueType</i>.
     </li>
 
-    <li>Let <i>rawValue</i> be a <a href="#sec-list-and-record-specification-type">List</a> of <i>
-      elementSize containing, in order,</i> the <i>elementSize</i> bytes starting at
-      <i>byteIndex</i> of <i>block</i>.
-    </li>
+    <li>Let <i>rawValue</i> be a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> of <i>elementSize containing, in
+    order,</i> the <i>elementSize</i> bytes starting at <i>byteIndex</i> of <i>block</i>.</li>
 
     <li>If <i>isLittleEndian</i> is <b>undefined</b>, set <i>isLittleEndian</i> to either
     <b>true</b> or <b>false</b>. The choice is implementation dependent and should be the
     alternative that is most efficient for the implementation. An implementation must use the same
     value each time this step is executed and the same value must be used for the corresponding
-    step in the <a href="#sec-setvalueinbuffer">SetValueInBuffer</a> abstract operation.
-    </li>
+    step in the <es-xref target="sec-setvalueinbuffer">SetValueInBuffer</es-xref> abstract
+    operation.</li>
 
     <li>If <i>isLittleEndian</i> is <b>false</b>, reverse the order of the elements of
     <i>rawValue</i>.</li>

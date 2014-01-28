@@ -5,24 +5,19 @@
   follows:</p>
 
   <ol class="proc">
-    <li>Let <i>number</i> be the result of calling <a href="#sec-tonumber">ToNumber</a> on the
-    input argument.
-    </li>
+    <li>Let <i>number</i> be the result of calling <es-xref target=
+    "sec-tonumber">ToNumber</es-xref> on the input argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>number</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>number</i>).</li>
 
     <li>If <i>number</i> is <b>NaN</b>, +0, −0, +<b>∞</b>, or −<b>∞</b>, return <b>+0</b>.</li>
 
-    <li>Let <i>int</i> be <a href="#sec-algorithm-conventions">sign</a> (<i>number</i>) ×
-      <a href="#sec-algorithm-conventions">floor</a> (<a href="#sec-algorithm-conventions">abs</a>
-      (<i>number</i>)).
-    </li>
+    <li>Let <i>int</i> be <es-xref target="sec-algorithm-conventions">sign</es-xref>(<i>number</i>)
+    × <es-xref target="sec-algorithm-conventions">floor</es-xref>(<es-xref target=
+    "sec-algorithm-conventions">abs</es-xref>(<i>number</i>)).</li>
 
-    <li>Let <i>int32bit</i> be <i>int</i> <a href="#sec-algorithm-conventions">modulo</a>
-    2<sup>32</sup> .
-    </li>
+    <li>Let <i>int32bit</i> be <i>int</i> <es-xref target=
+    "sec-algorithm-conventions">modulo</es-xref> 2<sup>32</sup> .</li>
 
     <li>Return <i>int32bit</i>.</li>
   </ol>
@@ -32,8 +27,8 @@
 
     <ul>
       <li>
-        <p>Step 6 is the only difference between ToUint32 and <a href="#sec-toint32">ToInt32</a>
-        .</p>
+        <p>Step 6 is the only difference between ToUint32 and <es-xref target=
+        "sec-toint32">ToInt32</es-xref>.</p>
       </li>
 
       <li>
@@ -42,9 +37,9 @@
       </li>
 
       <li>
-        <p>ToUint32(<a href="#sec-toint32">ToInt32</a> (<i>x</i>)) is equal to ToUint32(<i>x</i>)
-        for all values of <es-nt>x</es-nt>. (It is to preserve this latter property that <b>+∞</b>
-        and <b>−∞</b> are mapped to <b>+0</b>.)</p>
+        <p>ToUint32(<es-xref target="sec-toint32">ToInt32</es-xref>(<i>x</i>)) is equal to
+        ToUint32(<i>x</i>) for all values of <es-nt>x</es-nt>. (It is to preserve this latter
+        property that <b>+∞</b> and <b>−∞</b> are mapped to <b>+0</b>.)</p>
       </li>
 
       <li>

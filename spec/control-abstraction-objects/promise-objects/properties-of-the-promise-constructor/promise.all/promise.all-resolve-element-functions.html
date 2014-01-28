@@ -1,39 +1,34 @@
 <!doctype html>
 <es-clause title="Promise.all Resolve Element Functions" anchor=
 "sec-promise.all-resolve-element-functions">
-  <p>A <a href="#sec-promise.all">Promise.all</a> resolve element function is an anonymous built-in
-  function that is used to resolve a specific <a href="#sec-promise.all">Promise.all</a> element..
-  Each <a href="#sec-promise.all">Promise.all</a> resolve element function has [[Index]],
-  [[Values]], [[Capabilities]], and [[RemainingElements]] internal slots.</p>
+  <p>A <es-xref target="sec-promise.all">Promise.all</es-xref> resolve element function is an
+  anonymous built-in function that is used to resolve a specific <es-xref target=
+  "sec-promise.all">Promise.all</es-xref> element.. Each <es-xref target=
+  "sec-promise.all">Promise.all</es-xref> resolve element function has [[Index]], [[Values]],
+  [[Capabilities]], and [[RemainingElements]] internal slots.</p>
 
-  <p>When a <a href="#sec-promise.all">Promise.all</a> resolve element function <es-nt>F</es-nt> is
-  called with argument <es-nt>x</es-nt>, the following steps are taken:</p>
+  <p>When a <es-xref target="sec-promise.all">Promise.all</es-xref> resolve element function
+  <es-nt>F</es-nt> is called with argument <es-nt>x</es-nt>, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>index</i> be the value of <i>F</i>'s [[Index]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>index</i> be the value of <i>F</i>'s [[Index]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>values</i> be the value of <i>F</i>'s [[Values]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>values</i> be the value of <i>F</i>'s [[Values]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>promiseCapability</i> be the value of <i>F</i>'s [[Capabilities]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>promiseCapability</i> be the value of <i>F</i>'s [[Capabilities]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
     <li>Let <i>remainingElementsCount</i> be the value of <i>F</i>'s [[RemainingElements]]
-      <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>result</i> be <a href="#sec-createdataproperty">CreateDataProperty</a>
-    (<i>values</i>, <a href="#sec-tostring">ToString</a> (<i>index</i>), <i>x</i>).
-    </li>
+    <li>Let <i>result</i> be <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>values</i>, <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>index</i>), <i>x</i>).</li>
 
-    <li>
-      <a href="#sec-ifabruptrejectpromise">IfAbruptRejectPromise</a> (<i>result</i>,
-      <i>promiseCapability</i>).
-    </li>
+    <li><es-xref target="sec-ifabruptrejectpromise">IfAbruptRejectPromise</es-xref>(<i>result</i>,
+    <i>promiseCapability</i>).</li>
 
     <li>Set <i>remainingElementsCount</i>.[[value]] to <i>remainingElementsCount</i>.[[value]] -
     1.</li>

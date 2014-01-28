@@ -1,9 +1,9 @@
 <!doctype html>
 <es-clause title="Map Objects" anchor="sec-map-objects">
   <p>Map objects are collections of key/value pairs where both the keys and values may be arbitrary
-  <a href="#sec-ecmascript-language-types">ECMAScript language values</a> . A distinct key value
-  may only occur in one key/value pair within the Map’s collection. Distinct key values as
-  discriminated using the a comparision algorithm that is selected when the Map is created.</p>
+  <es-xref target="sec-ecmascript-language-types">ECMAScript language values</es-xref>. A distinct
+  key value may only occur in one key/value pair within the Map’s collection. Distinct key values
+  as discriminated using the a comparision algorithm that is selected when the Map is created.</p>
 
   <p>A Map object can iterate its elements in insertion order. Map object must be implemented using
   either hash tables or other mechanisms that, on average, provide access times that are sublinear
@@ -16,8 +16,8 @@
 
   <es-clause title="Properties of Map Instances" anchor="sec-properties-of-map-instances">
     <p>Map instances are ordinary objects that inherit properties from the Map prototype. Map
-    instances also have a [[MapData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+    instances also have a [[MapData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
   </es-clause>
   <link rel="import" href="map-objects\map-iterator-objects.html">
 </es-clause>

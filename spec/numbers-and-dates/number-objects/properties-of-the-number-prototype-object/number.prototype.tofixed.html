@@ -9,17 +9,13 @@
   <ol class="proc">
     <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>x</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>x</i>).</li>
 
-    <li>Let <i>f</i> be <a href="#sec-tointeger">ToInteger</a> (<i>fractionDigits</i>). (If
-    <i>fractionDigits</i> is <b>undefined</b>, this step produces the value <code>0</code>).
-    </li>
+    <li>Let <i>f</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>fractionDigits</i>).
+    (If <i>fractionDigits</i> is <b>undefined</b>, this step produces the value
+    <code>0</code>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>f</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>f</i>).</li>
 
     <li>If <i>f</i> &lt; 0 or <i>f</i> &gt; 20, throw a <b>RangeError</b> exception.</li>
 
@@ -39,8 +35,7 @@
     <li>If <i>x</i> ≥ 10<sup>21</sup> , then
 
       <ol class="block">
-        <li>Let <i>m</i> = <a href="#sec-tostring">ToString</a> (<i>x</i>).
-        </li>
+        <li>Let <i>m</i> = <es-xref target="sec-tostring">ToString</es-xref>(<i>x</i>).</li>
       </ol>
     </li>
 
@@ -88,7 +83,8 @@
   <p>The <code>length</code> property of the <code>toFixed</code> method is <b>1</b>.</p>
 
   <p>If the <code>toFixed</code> method is called with more than one argument, then the behaviour
-  is undefined (see <a href="#sec-ecmascript-standard-built-in-objects">clause&nbsp;17</a> ).</p>
+  is undefined (see <es-xref target=
+  "sec-ecmascript-standard-built-in-objects">clause&nbsp;17</es-xref>).</p>
 
   <p>An implementation is permitted to extend the behaviour of <code>toFixed</code> for values of
   <es-nt>fractionDigits</es-nt> less than 0 or greater than 20. In this case <code>toFixed</code>

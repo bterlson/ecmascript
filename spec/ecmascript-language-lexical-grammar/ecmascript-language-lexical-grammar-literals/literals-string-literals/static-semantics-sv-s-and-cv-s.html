@@ -3,8 +3,8 @@
   <p>A string literal stands for a value of the String type. The String value (SV) of the literal
   is described in terms of code unit values (CV) contributed by the various parts of the string
   literal. As part of this process, some Unicode code points within the string literal are
-  interpreted as having a mathematical value (MV), as described below or in <a href=
-  "#sec-literals-numeric-literals">11.8.3</a> .</p>
+  interpreted as having a mathematical value (MV), as described below or in <es-xref target=
+  "sec-literals-numeric-literals">11.8.3</es-xref>.</p>
 
   <ul>
     <li>
@@ -66,8 +66,8 @@
       "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
       <es-t>"</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
       <es-nt>LineTerminator</es-nt></es-gmod></es-rhs></es-production> is the UTF-16
-      Encoding (<a href="#sec-static-semantics-utf-16-encoding">10.1.1</a> ) of the code point
-      value of <i>SourceCharacter</i>.</p>
+      Encoding (<es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of the
+      code point value of <i>SourceCharacter</i>.</p>
     </li>
 
     <li>
@@ -88,8 +88,8 @@
       "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
       <es-t>'</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
       <es-nt>LineTerminator</es-nt></es-gmod></es-rhs></es-production> is the UTF-16
-      Encoding (<a href="#sec-static-semantics-utf-16-encoding">10.1.1</a> ) of the code point
-      value of <i>SourceCharacter</i> .</p>
+      Encoding (<es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of the
+      code point value of <i>SourceCharacter</i> .</p>
     </li>
 
     <li>
@@ -264,8 +264,8 @@
       "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
       <es-nt>EscapeCharacter</es-nt></es-gmod><es-gmod>or
       <es-nt>LineTerminator</es-nt></es-gmod></es-rhs></es-production> is the UTF-16
-      Encoding (<a href="#sec-static-semantics-utf-16-encoding">10.1.1</a> ) of the code point
-      value of <i>SourceCharacter</i> .</p>
+      Encoding (<es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of the
+      code point value of <i>SourceCharacter</i> .</p>
     </li>
 
     <li>
@@ -293,8 +293,9 @@
     <li>
       <p>The CV of <es-production name="UnicodeEscapeSequence" type="lexical" class=
       "inline"><es-rhs><es-t>u{</es-t> <es-nt>HexDigits</es-nt>
-      <es-t>}</es-t></es-rhs></es-production> is the UTF-16 Encoding (<a href=
-      "#sec-static-semantics-utf-16-encoding">10.1.1</a> ) of the MV of <i>HexDigits</i>.</p>
+      <es-t>}</es-t></es-rhs></es-production> is the UTF-16 Encoding
+      (<es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of the MV of
+      <i>HexDigits</i>.</p>
     </li>
   </ul>
 </es-clause>

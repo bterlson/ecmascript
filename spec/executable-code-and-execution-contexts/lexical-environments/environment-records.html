@@ -4,24 +4,24 @@
   <i>declarative environment records</i> and <i>object environment records</i>. Declarative
   environment records are used to define the effect of ECMAScript language syntactic elements such
   as <es-nt>FunctionDeclarations</es-nt>, <es-nt>VariableDeclarations</es-nt>, and
-  <es-nt>Catch</es-nt> clauses that directly associate identifier bindings with <a href=
-  "#sec-ecmascript-language-types">ECMAScript language values</a> . Object environment records are
-  used to define the effect of ECMAScript elements such as <es-nt>WithStatement</es-nt> that
-  associate identifier bindings with the properties of some object. <a href=
-  "#sec-global-environment-records">Global Environment Records</a> and <a href=
-  "#sec-function-environment-records">Function Environment Records</a> are specializations that are
-  used for specifically for <es-nt>Script</es-nt> global declarations and for top-level
+  <es-nt>Catch</es-nt> clauses that directly associate identifier bindings with <es-xref target=
+  "sec-ecmascript-language-types">ECMAScript language values</es-xref>. Object environment records
+  are used to define the effect of ECMAScript elements such as <es-nt>WithStatement</es-nt> that
+  associate identifier bindings with the properties of some object. <es-xref target=
+  "sec-global-environment-records">Global Environment Records</es-xref> and <es-xref target=
+  "sec-function-environment-records">Function Environment Records</es-xref> are specializations
+  that are used for specifically for <es-nt>Script</es-nt> global declarations and for top-level
   declarations within functions.</p>
 
   <p>For specification purposes Environment Record values can be thought of as existing in a simple
   object-oriented hierarchy where Environment Record is an abstract class with three concrete
-  subclasses, <a href="#sec-declarative-environment-records">declarative environment record</a> ,
-  <a href="#sec-object-environment-records">object environment record</a> , and <a href=
-  "#sec-global-environment-records">global environment record</a> . Function environment records
-  are a subclass of <a href="#sec-declarative-environment-records">declarative environment
-  record</a> . The abstract class includes the abstract specification methods defined in <a href=
-  "#table-16">Table 16</a> . These abstract methods have distinct concrete algorithms for each of
-  the concrete subclasses.</p>
+  subclasses, <es-xref target="sec-declarative-environment-records">declarative environment
+  record</es-xref>, <es-xref target="sec-object-environment-records">object environment
+  record</es-xref>, and <es-xref target="sec-global-environment-records">global environment
+  record</es-xref>. Function environment records are a subclass of <es-xref target=
+  "sec-declarative-environment-records">declarative environment record</es-xref>. The abstract
+  class includes the abstract specification methods defined in <a href="#table-16">Table 16</a> .
+  These abstract methods have distinct concrete algorithms for each of the concrete subclasses.</p>
 
   <figure>
     <figcaption>
@@ -83,8 +83,8 @@
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
         Set the value of an already existing but uninitialised binding in an environment record.
         The String value N is the text of the bound name. V is the value for the binding and is a
-        value of any <a href="#sec-ecmascript-language-types">ECMAScript language type</a> .
-        </td>
+        value of any <es-xref target="sec-ecmascript-language-types">ECMAScript language
+        type</es-xref>.</td>
       </tr>
 
       <tr>
@@ -96,11 +96,11 @@
         "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
         Set the value of an already existing mutable binding in an environment record. The String
         value <es-nt>N</es-nt> is the text of the bound name. <es-nt>V</es-nt> is the value for the
-        binding and may be a value of any <a href="#sec-ecmascript-language-types">ECMAScript
-        language type</a> . <es-nt>S</es-nt> is a Boolean flag. If <es-nt>S</es-nt> is <b>true</b>
-        and the binding cannot be set throw a <b>TypeError</b> exception. <es-nt>S</es-nt> is used
-        to identify strict mode references.
-        </td>
+        binding and may be a value of any <es-xref target=
+        "sec-ecmascript-language-types">ECMAScript language type</es-xref>. <es-nt>S</es-nt> is a
+        Boolean flag. If <es-nt>S</es-nt> is <b>true</b> and the binding cannot be set throw a
+        <b>TypeError</b> exception. <es-nt>S</es-nt> is used to identify strict mode
+        references.</td>
       </tr>
 
       <tr>

@@ -2,9 +2,9 @@
 <es-clause title="Array Exotic Objects" anchor="sec-array-exotic-objects">
   <p>An <i>Array object</i> is an exotic object that gives special treatment to a certain class of
   property names. A property name <es-nt>P</es-nt> (in the form of a String value) is an <i>array
-  index</i> if and only if <a href="#sec-tostring">ToString</a> (<a href=
-  "#sec-touint32">ToUint32</a> (<i>P</i>)) is equal to <es-nt>P</es-nt> and <a href=
-  "#sec-touint32">ToUint32</a> (<i>P</i>) is not equal to 2<sup>32</sup> −1. A property whose
+  index</i> if and only if <es-xref target="sec-tostring">ToString</es-xref>(<es-xref target=
+  "sec-touint32">ToUint32</es-xref>(<i>P</i>)) is equal to <es-nt>P</es-nt> and <es-xref target=
+  "sec-touint32">ToUint32</es-xref>(<i>P</i>) is not equal to 2<sup>32</sup> −1. A property whose
   property name is an array index is also called an <i>element</i>. Every Array object has a
   <code>length</code> property whose value is always a nonnegative integer less than 2<sup>32</sup>
   . The value of the <code>length</code> property is numerically greater than the name of every
@@ -24,8 +24,8 @@
 
   <p>Exotic Array objects provide an alternative definition for the [[DefineOwnProperty]] internal
   method. Except for that internal method, exotic Array objects provide all of the other essential
-  internal methods as specified in <a href=
-  "#sec-ordinary-object-internal-methods-and-internal-slots">9.1</a> .</p>
+  internal methods as specified in <es-xref target=
+  "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</p>
   <link rel="import" href=
   "array-exotic-objects\array-exotic-objects-defineownproperty-p-desc.html">
   <link rel="import" href="array-exotic-objects\arraycreate.html">

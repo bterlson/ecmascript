@@ -2,16 +2,16 @@
 <es-clause title="Let and Const Declarations" anchor="sec-let-and-const-declarations">
   <es-note>
     <p>A <code>let</code> and <code>const</code> declarations define variables that are scoped to
-    <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
-    "#sec-execution-contexts">LexicalEnvironment</a> . The variables are created when their
-    containing <a href="#sec-lexical-environments">Lexical Environment</a> is instantiated but may
-    not be accessed in any way until the variable’s <es-nt>LexicalBinding</es-nt> is evaluated. A
-    variable defined by a <es-nt>LexicalBinding</es-nt> with an <es-nt>Initialiser</es-nt> is
-    assigned the value of its <i>Initialiser</i>’s <es-nt>AssignmentExpression</es-nt> when the
-    <es-nt>LexicalBinding</es-nt> is evaluated, not when the variable is created. If a
-    <es-nt>LexicalBinding</es-nt> in a <code>let</code> declaration does not have an
-    <es-nt>Initialiser</es-nt> the variable is assigned the value <b>undefined</b> when the
-    <es-nt>LexicalBinding</es-nt> is evaluated.</p>
+    <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+    <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref>. The variables are
+    created when their containing <es-xref target="sec-lexical-environments">Lexical
+    Environment</es-xref> is instantiated but may not be accessed in any way until the variable’s
+    <es-nt>LexicalBinding</es-nt> is evaluated. A variable defined by a
+    <es-nt>LexicalBinding</es-nt> with an <es-nt>Initialiser</es-nt> is assigned the value of its
+    <i>Initialiser</i>’s <es-nt>AssignmentExpression</es-nt> when the <es-nt>LexicalBinding</es-nt>
+    is evaluated, not when the variable is created. If a <es-nt>LexicalBinding</es-nt> in a
+    <code>let</code> declaration does not have an <es-nt>Initialiser</es-nt> the variable is
+    assigned the value <b>undefined</b> when the <es-nt>LexicalBinding</es-nt> is evaluated.</p>
   </es-note>
 
   <h2>Syntax</h2>
@@ -55,11 +55,12 @@
 
   <es-clause title="Static Semantics: IsConstantDeclaration" anchor=
   "sec-let-and-const-declarations-static-semantics-isconstantdeclaration">
-    <p>See also: <a href=
-    "#sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</a> ,
-    <a href="#sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</a>
-    , <a href="#sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</a>
-    .</p>
+    <p>See also: <es-xref target=
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</es-xref>,
+    <es-xref target=
+    "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
 
     <es-production name="LexicalDeclaration" class="inline">
       <es-rhs><es-nt>LetOrConst</es-nt> <es-nt>BindingList</es-nt> ;</es-rhs>
@@ -88,19 +89,18 @@
 
   <es-clause title="Static Semantics:" anchor=
   "sec-let-and-const-declarations-static-semantics-stringvalue">
-    <p>See also: <a href=
-    "#sec-identifiers-and-identifier-names-static-semantics-stringvalue">11.6.1.2</a> , <a href=
-    "#sec-string-literals-static-semantics-stringvalue">11.8.4.2</a> , <a href=
-    "#sec-identifier-reference-static-semantics-stringvalue">12.1.2.2</a> .</p>
+    <p>See also: <es-xref target=
+    "sec-identifiers-and-identifier-names-static-semantics-stringvalue">11.6.1.2</es-xref>,
+    <es-xref target="sec-string-literals-static-semantics-stringvalue">11.8.4.2</es-xref>,
+    <es-xref target="sec-identifier-reference-static-semantics-stringvalue">12.1.2.2</es-xref>.</p>
 
     <es-production name="BindingIdentifier" class="inline">
       <es-rhs><es-nt>Identifier</es-nt></es-rhs>
     </es-production>
 
     <ol class="proc">
-      <li>Return the <a href="#sec-identifiers-and-identifier-names">StringValue</a> of
-      <i>Identifier</i>.
-      </li>
+      <li>Return the <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref>
+      of <i>Identifier</i>.</li>
     </ol>
 
     <es-production name="BindingIdentifier" class="inline">

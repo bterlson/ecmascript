@@ -43,70 +43,55 @@
   <ol class="proc">
     <li>Let <i>valueRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
 
-    <li>Let <i>value</i> be <a href="#sec-getvalue">GetValue</a> (<i>valueRef</i>).
-    </li>
+    <li>Let <i>value</i> be <es-xref target=
+    "sec-getvalue">GetValue</es-xref>(<i>valueRef</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
 
     <li>If <i>accumulator</i> is not <b>undefined</b>, then
 
       <ol class="block">
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : this is part of an array comprehension.
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: this is part of an array
+        comprehension.</li>
 
-        <li>
-          <a href="#sec-algorithm-conventions">Assert</a> : <i>accumulator</i> is an exotic array
-          object so access to its <code>length</code> property should never fail.
-        </li>
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>accumulator</i> is an
+        exotic array object so access to its <code>length</code> property should never fail.</li>
 
-        <li>Let <i>len</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>accumulator</i>,
-        <code>"length"</code>).
-        </li>
+        <li>Let <i>len</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>accumulator</i>, <code>"length"</code>).</li>
 
         <li>If <i>len</i>≥2<sup>32</sup> -1, then throw a <b>RangeError</b> exception.</li>
 
-        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-        (<i>accumulator</i>, <a href="#sec-tostring">ToString</a> (<i>len</i>), <i>value</i>,
-        <b>true</b>).
-        </li>
+        <li>Let <i>putStatus</i> be the result of <es-xref target=
+        "sec-put-o-p-v-throw">Put</es-xref>(<i>accumulator</i>, <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>len</i>), <i>value</i>, <b>true</b>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
         <li>Increase <i>len</i> by 1.</li>
 
-        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-        (<i>accumulator</i>, <code>"length"</code>, <i>len</i>, <b>true</b>).
-        </li>
+        <li>Let <i>putStatus</i> be the result of <es-xref target=
+        "sec-put-o-p-v-throw">Put</es-xref>(<i>accumulator</i>, <code>"length"</code>, <i>len</i>,
+        <b>true</b>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
-        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-        </li>
+        <li>Return <es-xref target=
+        "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
       </ol>
     </li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>accumulator</i> is <b>undefined</b>, so
-      this is part of a generator comprehension.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>accumulator</i> is
+    <b>undefined</b>, so this is part of a generator comprehension.</li>
 
-    <li>Let <i>yieldStatus</i> be the result of <a href="#sec-generatoryield">GeneratorYield</a>
-    (<a href="#sec-createiterresultobject">CreateIterResultObject</a> (<i>value</i>,
-    <b>false</b>)).
-    </li>
+    <li>Let <i>yieldStatus</i> be the result of <es-xref target=
+    "sec-generatoryield">GeneratorYield</es-xref>(<es-xref target=
+    "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>value</i>,
+    <b>false</b>)).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>yieldStatus</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>yieldStatus</i>).</li>
 
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
   </ol>
 </es-clause>

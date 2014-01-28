@@ -9,19 +9,16 @@
     <ol class="proc">
       <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
 
-      <li>Let <i>status</i> be <a href="#sec-getvalue">GetValue</a> (<i>expr</i>).
-      </li>
+      <li>Let <i>status</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>expr</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
       <li>Return <b>undefined</b>.</li>
     </ol>
 
     <es-note>
-      <p><a href="#sec-getvalue">GetValue</a> must be called even though its value is not used
-      because it may have observable side-effects.</p>
+      <p><es-xref target="sec-getvalue">GetValue</es-xref> must be called even though its value is
+      not used because it may have observable side-effects.</p>
     </es-note>
   </es-clause>
 </es-clause>

@@ -4,42 +4,39 @@
   steps:</p>
 
   <ol class="proc">
-    <li>Let <i>blackList</i> be the result of calling <a href="#sec-arraycreate">ArrayCreate</a>
-    (7, %ArrayPrototype%).
-    </li>
+    <li>Let <i>blackList</i> be the result of calling <es-xref target=
+    "sec-arraycreate">ArrayCreate</es-xref>(7, %ArrayPrototype%).</li>
 
-    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>blackList</i>,
-    <code>"0"</code>, <code>"find"</code>).
-    </li>
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"0"</code>,
+    <code>"find"</code>).</li>
 
-    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>blackList</i>,
-    <code>"1"</code>, <code>"findIndex"</code>).
-    </li>
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"1"</code>,
+    <code>"findIndex"</code>).</li>
 
-    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>blackList</i>,
-    <code>"2"</code>, <code>"fill"</code>).
-    </li>
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"2"</code>,
+    <code>"fill"</code>).</li>
 
-    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>blackList</i>,
-    <code>"3"</code>, <code>"copyWithin"</code>).
-    </li>
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"3"</code>,
+    <code>"copyWithin"</code>).</li>
 
-    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>blackList</i>,
-    <code>"4"</code>, <code>"entries"</code>).
-    </li>
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"4"</code>,
+    <code>"entries"</code>).</li>
 
-    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>blackList</i>,
-    <code>"5"</code>, <code>"keys"</code>).
-    </li>
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"5"</code>,
+    <code>"keys"</code>).</li>
 
-    <li>Call <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>blackList</i>,
-    <b>"6"</b>, <b>"values"</b>).
-    </li>
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <b>"6"</b>,
+    <b>"values"</b>).</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : Each of the above calls will return
-      <b>true</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: Each of the above calls will
+    return <b>true</b>.</li>
 
     <li>Return <i>blackList</i>.</li>
   </ol>

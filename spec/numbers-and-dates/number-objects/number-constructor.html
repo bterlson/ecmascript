@@ -3,8 +3,8 @@
   <p>The Number constructor is the %Number% intrinsic object and the initial value of the
   <code>Number</code> property of the global object. When <code>Number</code> is called as a
   function rather than as a constructor, it performs a type conversion. However, if the <b>this</b>
-  value passed in the call is an Object with an uninitialised [[NumberData]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> , it initialises the
+  value passed in the call is an Object with an uninitialised [[NumberData]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, it initialises the
   <b>this</b> value using the argument value. This permits <code>Number</code> to be used both to
   perform type conversion and to perform constructor instance initialisation.</p>
 
@@ -23,22 +23,20 @@
 
       <li>If no arguments were passed to this function invocation, then let <i>n</i> be +0.</li>
 
-      <li>Else, let <i>n</i> be <a href="#sec-tonumber">ToNumber</a> (<i>value</i>).
-      </li>
+      <li>Else, let <i>n</i> be <es-xref target=
+      "sec-tonumber">ToNumber</es-xref>(<i>value</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>n</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>n</i>).</li>
 
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>O</i>) is Object and <i>
-        O</i> has a [[NumberData]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> and the value of
-        [[NumberData]] is <b>undefined</b>, then
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+      Object and <i>O</i> has a [[NumberData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+      [[NumberData]] is <b>undefined</b>, then
 
         <ol class="block">
-          <li>Set the value of <i>O’s</i> [[NumberData]] <a href=
-          "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>n</i>.
-          </li>
+          <li>Set the value of <i>O’s</i> [[NumberData]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+          <i>n</i>.</li>
 
           <li>Return <i>O</i>.</li>
         </ol>
@@ -59,13 +57,12 @@
       <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
       internal method that was invoked by the <code>new</code> operator.</li>
 
-      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
-      <i>argumentsList</i>).
-      </li>
+      <li>Return the result of <es-xref target="sec-construct-f-argumentslist">Construct</es-xref>
+      (<i>F</i>, <i>argumentsList</i>).</li>
     </ol>
 
-    <p>If <code>Number</code> is implemented as an <a href=
-    "#sec-ecmascript-function-objects">ECMAScript function object</a> , its [[Construct]] internal
-    method will perform the above steps.</p>
+    <p>If <code>Number</code> is implemented as an <es-xref target=
+    "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+    internal method will perform the above steps.</p>
   </es-clause>
 </es-clause>

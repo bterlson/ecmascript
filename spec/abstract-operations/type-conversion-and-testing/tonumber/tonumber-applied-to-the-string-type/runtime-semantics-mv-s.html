@@ -1,11 +1,11 @@
 <!doctype html>
 <es-clause title="Runtime Semantics: MV’s" anchor="sec-runtime-semantics-mv-s">
   <p>The conversion of a String to a Number value is similar overall to the determination of the
-  Number value for a numeric literal (see <a href="#sec-literals-numeric-literals">11.8.3</a> ),
-  but some of the details are different, so the process for converting a String numeric literal to
-  a value of Number type is given here in full. This value is determined in two steps: first, a
-  mathematical value (MV) is derived from the String numeric literal; second, this mathematical
-  value is rounded as described below.</p>
+  Number value for a numeric literal (see <es-xref target=
+  "sec-literals-numeric-literals">11.8.3</es-xref>), but some of the details are different, so the
+  process for converting a String numeric literal to a value of Number type is given here in full.
+  This value is determined in two steps: first, a mathematical value (MV) is derived from the
+  String numeric literal; second, this mathematical value is rounded as described below.</p>
 
   <ul>
     <li>
@@ -310,13 +310,13 @@
   value of the Number type. If the MV is 0, then the rounded value is +0 unless the first non white
   space character in the String numeric literal is ‘<code>-</code>’, in which case the rounded
   value is −0. Otherwise, the rounded value must be the Number value for the MV (in the sense
-  defined in <a href="#sec-ecmascript-language-types-number-type">6.1.6</a> ), unless the literal
-  includes a <es-nt>StrUnsignedDecimalLiteral</es-nt> and the literal has more than 20 significant
-  digits, in which case the Number value may be either the Number value for the MV of a literal
-  produced by replacing each significant digit after the 20th with a 0 digit or the Number value
-  for the MV of a literal produced by replacing each significant digit after the 20th with a 0
-  digit and then incrementing the literal at the 20th digit position. A digit is <i>significant</i>
-  if it is not part of an <es-nt>ExponentPart</es-nt> and</p>
+  defined in <es-xref target="sec-ecmascript-language-types-number-type">6.1.6</es-xref>), unless
+  the literal includes a <es-nt>StrUnsignedDecimalLiteral</es-nt> and the literal has more than 20
+  significant digits, in which case the Number value may be either the Number value for the MV of a
+  literal produced by replacing each significant digit after the 20th with a 0 digit or the Number
+  value for the MV of a literal produced by replacing each significant digit after the 20th with a
+  0 digit and then incrementing the literal at the 20th digit position. A digit is
+  <i>significant</i> if it is not part of an <es-nt>ExponentPart</es-nt> and</p>
 
   <ul>
     <li>it is not <b>0</b>; or</li>

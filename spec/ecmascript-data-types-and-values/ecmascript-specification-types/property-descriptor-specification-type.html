@@ -4,9 +4,9 @@
   <p>The Property Descriptor type is used to explain the manipulation and reification of Object
   property attributes. Values of the Property Descriptor type are Records composed of named fields
   where each field’s name is an attribute name and its value is a corresponding attribute value as
-  specified in <a href="#sec-property-attributes">6.1.7.1</a> . In addition, any field may be
-  present or absent. The schema name used within this specification to tag literal descriptions of
-  Property Descriptor records is “PropertyDescriptor”.</p>
+  specified in <es-xref target="sec-property-attributes">6.1.7.1</es-xref>. In addition, any field
+  may be present or absent. The schema name used within this specification to tag literal
+  descriptions of Property Descriptor records is “PropertyDescriptor”.</p>
 
   <p>Property Descriptor values may be further classified as data Property Descriptors and accessor
   Property Descriptors based upon the existence or use of certain fields. A data Property
@@ -29,9 +29,9 @@
   Descriptor values:</p>
 
   <es-clause title="IsAccessorDescriptor ( Desc )" anchor="sec-isaccessordescriptor">
-    <p>When the abstract operation IsAccessorDescriptor is called with <a href=
-    "#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt>, the
-    following steps are taken:</p>
+    <p>When the abstract operation IsAccessorDescriptor is called with <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+    the following steps are taken:</p>
 
     <ol class="proc">
       <li>If <i>Desc</i> is <b>undefined</b>, then return <b>false</b>.</li>
@@ -44,9 +44,9 @@
   </es-clause>
 
   <es-clause title="IsDataDescriptor ( Desc )" anchor="sec-isdatadescriptor">
-    <p>When the abstract operation IsDataDescriptor is called with <a href=
-    "#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt>, the
-    following steps are taken:</p>
+    <p>When the abstract operation IsDataDescriptor is called with <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+    the following steps are taken:</p>
 
     <ol class="proc">
       <li>If <i>Desc</i> is <b>undefined</b>, then return <b>false</b>.</li>
@@ -59,17 +59,16 @@
   </es-clause>
 
   <es-clause title="IsGenericDescriptor ( Desc )" anchor="sec-isgenericdescriptor">
-    <p>When the abstract operation IsGenericDescriptor is called with <a href=
-    "#sec-property-descriptor-specification-type">Property Descriptor</a> <es-nt>Desc</es-nt>, the
-    following steps are taken:</p>
+    <p>When the abstract operation IsGenericDescriptor is called with <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+    the following steps are taken:</p>
 
     <ol class="proc">
       <li>If <i>Desc</i> is <b>undefined</b>, then return <b>false</b>.</li>
 
-      <li>If <a href="#sec-isaccessordescriptor">IsAccessorDescriptor</a> (<i>Desc</i>) and
-        <a href="#sec-isdatadescriptor">IsDataDescriptor</a> (<i>Desc</i>) are both <b>false</b>,
-        then return <b>true</b>.
-      </li>
+      <li>If <es-xref target="sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>Desc</i>)
+      and <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>Desc</i>) are both
+      <b>false</b>, then return <b>true</b>.</li>
 
       <li>Return <b>false</b>.</li>
     </ol>

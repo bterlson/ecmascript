@@ -2,35 +2,33 @@
 <es-clause title="Properties of the String Prototype Object" anchor=
 "sec-properties-of-the-string-prototype-object">
   <p>The String prototype object is itself an ordinary object. It is not a String instance and does
-  not have a [[StringData]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-  slot</a> .</p>
+  not have a [[StringData]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
 
-  <p>The value of the [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the String prototype
-  object is the standard built-in Object prototype object (<a href=
-  "#sec-properties-of-the-object-prototype-object">19.1.3</a> ).</p>
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the String prototype
+  object is the standard built-in Object prototype object (<es-xref target=
+  "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>).</p>
 
   <p>Unless explicitly stated otherwise, the methods of the String prototype object defined below
   are not generic and the <b>this</b> value passed to them must be either a String value or an
-  object that has a [[StringData]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> that has been initialised to
-  a String value.</p>
+  object that has a [[StringData]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> that has been
+  initialised to a String value.</p>
 
   <p>The abstract operation thisStringValue(<i>value</i>) performs the following steps:</p>
 
   <ol class="proc">
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value</i>) is String,
-    return <i>value</i>.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+    String, return <i>value</i>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value)</i> is Object and
-    <i>value</i> has a [[StringData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> , then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value)</i> is
+    Object and <i>value</i> has a [[StringData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
 
       <ol class="block">
-        <li>Let <i>s</i> be the value of <i>value’s</i> [[StringData]] <a href=
-        "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-        </li>
+        <li>Let <i>s</i> be the value of <i>value’s</i> [[StringData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
         <li>If <i>s</i> is not <b>undefined</b>, then return <i>s</i>.</li>
       </ol>
@@ -100,12 +98,12 @@
 
   <es-clause title="String.prototype.toUpperCase ( )" anchor="sec-string.prototype.touppercase">
     <p>This function interprets a string value as a sequence of code points, as described in
-    <a href="#sec-ecmascript-language-types-string-type">6.1.4</a> .</p>
+    <es-xref target="sec-ecmascript-language-types-string-type">6.1.4</es-xref>.</p>
 
-    <p>This function behaves in exactly the same way as <code><a href=
-    "#sec-string.prototype.tolowercase">String.prototype.toLowerCase</a></code> , except that code
-    points are mapped to their <es-nt>uppercase</es-nt> equivalents as specified in the Unicode
-    Character Database.</p>
+    <p>This function behaves in exactly the same way as <code><es-xref target=
+    "sec-string.prototype.tolowercase">String.prototype.toLowerCase</es-xref></code>, except that
+    code points are mapped to their <es-nt>uppercase</es-nt> equivalents as specified in the
+    Unicode Character Database.</p>
 
     <es-note>
       <p>The <code>toUpperCase</code> function is intentionally generic; it does not require that
@@ -126,28 +124,23 @@
   </es-clause>
 
   <es-clause title="String.prototype [ @@iterator ]( )" anchor="sec-string.prototype-@@iterator">
-    <p>When the @@iterator method is called it returns an Iterator object (<a href=
-    "#sec-iterator-interface">25.1.2</a> ) that iterates over the code points of a String value,
-    returning each code point as a String value. The following steps are taken:</p>
+    <p>When the @@iterator method is called it returns an Iterator object (<es-xref target=
+    "sec-iterator-interface">25.1.2</es-xref>) that iterates over the code points of a String
+    value, returning each code point as a String value. The following steps are taken:</p>
 
     <p>The following steps are taken:</p>
 
     <ol class="proc">
-      <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-      value).
-      </li>
+      <li>Let <i>O</i> be <es-xref target=
+      "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
 
-      <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
-      </li>
+      <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>S</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
 
-      <li>Return the result of calling the <a href=
-      "#sec-createstringiterator">CreateStringIterator</a> abstract operation with argument
-      <i>S</i>.
-      </li>
+      <li>Return the result of calling the <es-xref target=
+      "sec-createstringiterator">CreateStringIterator</es-xref> abstract operation with argument
+      <i>S</i>.</li>
     </ol>
 
     <p>The value of the <code>name</code> property of this function is

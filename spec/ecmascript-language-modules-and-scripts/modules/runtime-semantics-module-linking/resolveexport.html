@@ -24,17 +24,15 @@
 
     <li>Let <i>defs</i> be <i>M</i>.[[ExportDefinitions]].</li>
 
-    <li>Let <i>overlappingDefs</i> be the <a href=
-    "#sec-list-and-record-specification-type">List</a> of records <i>def</i> in <i>defs</i> such
-    that <i>def</i>.[[ExportName]] is equal to <i>exportName</i>.
-    </li>
+    <li>Let <i>overlappingDefs</i> be the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> of records <i>def</i> in <i>defs</i>
+    such that <i>def</i>.[[ExportName]] is equal to <i>exportName</i>.</li>
 
     <li>If <i>overlappingDefs</i> is empty, then the following steps are taken:
 
       <ol class="block">
-        <li>Let <i>error</i> be a new <a href="#sec-reference-specification-type">Reference</a>
-        Error.
-        </li>
+        <li>Let <i>error</i> be a new <es-xref target=
+        "sec-reference-specification-type">Reference</es-xref> Error.</li>
 
         <li>Add <i>error</i> to <i>M</i>.[[LinkErrors]].</li>
 

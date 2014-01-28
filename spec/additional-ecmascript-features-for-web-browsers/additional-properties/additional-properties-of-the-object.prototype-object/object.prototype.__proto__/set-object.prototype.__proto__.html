@@ -1,0 +1,27 @@
+<!doctype html>
+<es-clause title="set Object.prototype.__proto__" anchor="sec-set-object.prototype.__proto__">
+  <p>The value of the [[Set]] attribute is a built-in function that takes an argument
+  <es-nt>proto</es-nt>. It performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value)<i>.</i></li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>proto</i>) is
+    neither Object nor Null, then return <i>proto</i>.</li>
+
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O)</i> is not
+    Object, then return <i>proto</i>.</li>
+
+    <li>Let <i>status</i> be the result of calling the [[SetPrototypeOf]] internal method of
+    <i>O</i> with argument <i>proto</i>.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+    <li>If <i>status</i> is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Return <i>proto</i>.</li>
+  </ol>
+</es-clause>

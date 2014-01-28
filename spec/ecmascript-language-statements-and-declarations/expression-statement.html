@@ -28,15 +28,13 @@
     <ol class="proc">
       <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
 
-      <li>Let <i>value</i> be <a href="#sec-getvalue">GetValue</a> (<i>exprRef</i>).
-      </li>
+      <li>Let <i>value</i> be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>exprRef</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
 
-      <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<i>value</i>).
-      </li>
+      <li>Return <es-xref target=
+      "sec-normalcompletion">NormalCompletion</es-xref>(<i>value</i>).</li>
     </ol>
   </es-clause>
 </es-clause>

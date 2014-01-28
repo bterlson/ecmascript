@@ -2,24 +2,25 @@
 <es-clause title="Regular Expression Literals" anchor="sec-literals-regular-expression-literals">
   <es-note>
     <p>A regular expression literal is an input element that is converted to a RegExp object (see
-    <a href="#sec-string-iterator-objects">21.1.5</a> ) each time the literal is evaluated. Two
-    regular expression literals in a program evaluate to regular expression objects that never
-    compare as <code>===</code> to each other even if the two literals' contents are identical. A
-    RegExp object may also be created at runtime by <code>new RegExp</code> (see <a href=
-    "#sec-new-regexp-...argumentslist">21.2.3.2</a> ) or calling the <code>RegExp</code>
-    constructor as a function (<a href="#sec-regexp-pattern-flags">21.2.3.1</a> ).</p>
+    <es-xref target="sec-string-iterator-objects">21.1.5</es-xref>) each time the literal is
+    evaluated. Two regular expression literals in a program evaluate to regular expression objects
+    that never compare as <code>===</code> to each other even if the two literals' contents are
+    identical. A RegExp object may also be created at runtime by <code>new RegExp</code> (see
+    <es-xref target="sec-new-regexp-...argumentslist">21.2.3.2</es-xref>) or calling the
+    <code>RegExp</code> constructor as a function (<es-xref target=
+    "sec-regexp-pattern-flags">21.2.3.1</es-xref>).</p>
   </es-note>
 
   <p>The productions below describe the syntax for a regular expression literal and are used by the
   input element scanner to find the end of the regular expression literal. The source code
   comprising the <es-nt>RegularExpressionBody</es-nt> and the <es-nt>RegularExpressionFlags</es-nt>
-  are subsequently parsed using the more stringent ECMAScript Regular Expression grammar (<a href=
-  "#sec-patterns">21.2.1</a> ).</p>
+  are subsequently parsed using the more stringent ECMAScript Regular Expression grammar
+  (<es-xref target="sec-patterns">21.2.1</es-xref>).</p>
 
-  <p>An implementation may extend the ECMAScript Regular Expression grammar defined in <a href=
-  "#sec-patterns">21.2.1</a> , but it must not extend the <es-nt>RegularExpressionBody</es-nt> and
-  <es-nt>RegularExpressionFlags</es-nt> productions defined below or the productions used by these
-  productions.</p>
+  <p>An implementation may extend the ECMAScript Regular Expression grammar defined in
+  <es-xref target="sec-patterns">21.2.1</es-xref>, but it must not extend the
+  <es-nt>RegularExpressionBody</es-nt> and <es-nt>RegularExpressionFlags</es-nt> productions
+  defined below or the productions used by these productions.</p>
 
   <h2>Syntax</h2>
 

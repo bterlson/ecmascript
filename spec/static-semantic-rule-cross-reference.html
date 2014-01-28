@@ -21,12 +21,12 @@
         <td>Produces a list of the Identifiers bound by a production. Does not include Identifiers
         that are bound within inner environments associated with the production.</td>
 
-        <td>
-          <a href="#sec-left-hand-side-expressions-static-semantics">12.2.1</a> , <a href=
-          "#sec-property-accessors">12.2.2</a> , <a href="#sec-function-calls">12.2.4</a> ,
-          <a href="#sec-subtraction-operator-minus">12.6.4</a> , <a href="#sec-block">13.1</a> ,
-          <a href="#sec-declarations-and-the-variable-statement">13.2</a> , 13.5
-        </td>
+        <td><es-xref target="sec-left-hand-side-expressions-static-semantics">12.2.1</es-xref>,
+        <es-xref target="sec-property-accessors">12.2.2</es-xref>, <es-xref target=
+        "sec-function-calls">12.2.4</es-xref>, <es-xref target=
+        "sec-subtraction-operator-minus">12.6.4</es-xref>, <es-xref target=
+        "sec-block">13.1</es-xref>, <es-xref target=
+        "sec-declarations-and-the-variable-statement">13.2</es-xref>, 13.5</td>
 
         <td></td>
       </tr>
@@ -49,10 +49,9 @@
         <td>Determine if a grammar production either directly or indirectly includes a grammar
         symbol.</td>
 
-        <td>
-          <a href="#sec-static-semantic-rules">5.3</a> , <a href="#sec-block">13.1</a> , <a href=
-          "#sec-declarations-and-the-variable-statement">13.2</a> , 13.5
-        </td>
+        <td><es-xref target="sec-static-semantic-rules">5.3</es-xref>, <es-xref target=
+        "sec-block">13.1</es-xref>, <es-xref target=
+        "sec-declarations-and-the-variable-statement">13.2</es-xref>, 13.5</td>
 
         <td></td>
       </tr>
@@ -94,10 +93,8 @@
         <td>Determine the “length” of an argument list for the purpose of initialising the “length”
         property of a function object.</td>
 
-        <td>
-          <a href="#sec-block">13.1</a> , <a href=
-          "#sec-declarations-and-the-variable-statement">13.2</a> , 13.3
-        </td>
+        <td><es-xref target="sec-block">13.1</es-xref>, <es-xref target=
+        "sec-declarations-and-the-variable-statement">13.2</es-xref>, 13.3</td>
 
         <td></td>
       </tr>
@@ -108,9 +105,7 @@
         <td>Determines whether the production contains an <es-nt>Initialiser</es-nt>
         production.</td>
 
-        <td>
-          <a href="#sec-function-calls">12.2.4</a> , 13.1
-        </td>
+        <td><es-xref target="sec-function-calls">12.2.4</es-xref>, 13.1</td>
 
         <td></td>
       </tr>
@@ -121,9 +116,8 @@
         <td>Determines whether the production introduces an immutable environment record
         binding</td>
 
-        <td>
-          <a href="#sec-left-hand-side-expressions">12.2</a> , <a href="#sec-block">13.1</a> , 13.5
-        </td>
+        <td><es-xref target="sec-left-hand-side-expressions">12.2</es-xref>, <es-xref target=
+        "sec-block">13.1</es-xref>, 13.5</td>
 
         <td></td>
       </tr>
@@ -142,15 +136,11 @@
       <tr>
         <td>LexicalDeclarations</td>
 
-        <td>
-          Return a <a href="#sec-list-and-record-specification-type">List</a> containing the
-          components of a production that are processed as lexical declarations
-        </td>
+        <td>Return a <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+        containing the components of a production that are processed as lexical declarations</td>
 
-        <td>
-          <a href="#sec-primary-expressions">12.1</a> , <a href=
-          "#sec-binary-logical-operators">12.11</a> , 12.5
-        </td>
+        <td><es-xref target="sec-primary-expressions">12.1</es-xref>, <es-xref target=
+        "sec-binary-logical-operators">12.11</es-xref>, 12.5</td>
 
         <td></td>
       </tr>
@@ -160,10 +150,9 @@
 
         <td>Returns a list of the lexically scoped identifiers declared by a production.</td>
 
-        <td>
-          <a href="#sec-primary-expressions">12.1</a> , <a href="#sec-block">13.1</a> , <a href=
-          "#sec-declarations-and-the-variable-statement">13.2</a> , 13.5
-        </td>
+        <td><es-xref target="sec-primary-expressions">12.1</es-xref>, <es-xref target=
+        "sec-block">13.1</es-xref>, <es-xref target=
+        "sec-declarations-and-the-variable-statement">13.2</es-xref>, 13.5</td>
 
         <td></td>
       </tr>
@@ -195,9 +184,7 @@
 
         <td>Determines the string value of the property name referenced by a production.</td>
 
-        <td>
-          , <a href="#sec-empty-statement">13.3</a> , 13.5
-        </td>
+        <td>, <es-xref target="sec-empty-statement">13.3</es-xref>, 13.5</td>
 
         <td></td>
       </tr>
@@ -205,11 +192,9 @@
       <tr>
         <td>PropNameList</td>
 
-        <td>
-          Returns a <a href="#sec-list-and-record-specification-type">List</a> of the string values
-          of the property names referenced by a production. The list reflects the order of the
-          references in the source text. The list may contain duplicate elements.
-        </td>
+        <td>Returns a <es-xref target="sec-list-and-record-specification-type">List</es-xref> of
+        the string values of the property names referenced by a production. The list reflects the
+        order of the references in the source text. The list may contain duplicate elements.</td>
 
         <td>, 13.5</td>
 
@@ -287,16 +272,15 @@
         <td>Returns a list of the local top-level scoped identifiers declared by a production.
         These are identifier that are scoped as if by a var statement.</td>
 
-        <td>
-          <a href="#sec-primary-expressions">12.1</a> , <a href=
-          "#sec-multiplicative-operators">12.5</a> , <a href=
-          "#sec-additive-operators-static-semantics-isanonymousfunctiondefinition">12.6.1</a> ,
-          <a href=
-          "#sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget">12.6.2</a> ,
-          <a href="#sec-addition-operator-plus">12.6.3</a> , <a href=
-          "#sec-subtraction-operator-minus">12.6.4</a> , <a href=
-          "#sec-conditional-operator">12.12</a> , <a href="#sec-block">13.1</a> , 13.5
-        </td>
+        <td><es-xref target="sec-primary-expressions">12.1</es-xref>, <es-xref target=
+        "sec-multiplicative-operators">12.5</es-xref>, <es-xref target=
+        "sec-additive-operators-static-semantics-isanonymousfunctiondefinition">12.6.1</es-xref>,
+        <es-xref target=
+        "sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget">12.6.2</es-xref>,
+        <es-xref target="sec-addition-operator-plus">12.6.3</es-xref>, <es-xref target=
+        "sec-subtraction-operator-minus">12.6.4</es-xref>, <es-xref target=
+        "sec-conditional-operator">12.12</es-xref>, <es-xref target="sec-block">13.1</es-xref>,
+        13.5</td>
 
         <td></td>
       </tr>

@@ -5,34 +5,31 @@
     <li>Let <i>promiseCapability</i> be a new PromiseCapability { [[Promise]]: <i>promise</i>,
     [[Resolve]]: <b>undefined</b>, [[Reject]]: <b>undefined</b> }.</li>
 
-    <li>Let <i>executor</i> be a new built-in function object as defined in <a href=
-    "#sec-getcapabilitiesexecutor-functions">GetCapabilitiesExecutor Functions</a> (<a href=
-    "#sec-createpromisecapabilityrecord">25.4.1.5.1</a> ).
-    </li>
+    <li>Let <i>executor</i> be a new built-in function object as defined in <es-xref target=
+    "sec-getcapabilitiesexecutor-functions">GetCapabilitiesExecutor Functions</es-xref>
+    (<es-xref target="sec-createpromisecapabilityrecord">25.4.1.5.1</es-xref>).</li>
 
-    <li>Set the [[Capability]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-    slot</a> of <i>executor</i> to <i>promiseCapability</i>.
-    </li>
+    <li>Set the [[Capability]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>executor</i> to
+    <i>promiseCapability</i>.</li>
 
     <li>Let <i>constructorResult</i> be the result of calling the [[Call]] internal method of
     <i>constructor</i>, passing <i>promise</i> and (<i>executor</i>) as the arguments.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>constructorResult</i>).
-    </li>
+    <li><es-xref target=
+    "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>constructorResult</i>).</li>
 
-    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>promiseCapability</i>.[[Resolve]]) is
-    <b>false</b>, then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target=
+    "sec-iscallable">IsCallable</es-xref>(<i>promiseCapability</i>.[[Resolve]]) is <b>false</b>,
+    then throw a <b>TypeError</b> exception.</li>
 
-    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>promiseCapability</i>. [[Reject]]) is
-    <b>false</b>, then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>promiseCapability</i>.
+    [[Reject]]) is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>constructorResult</i>) is
-    Object and SameAs(<i>promise</i>, <i>constructorResult</i>) is <b>false</b>, then throw a
-    <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>constructorResult</i>) is Object and
+    SameAs(<i>promise</i>, <i>constructorResult</i>) is <b>false</b>, then throw a <b>TypeError</b>
+    exception.</li>
 
     <li>Return <i>promiseCapability</i>.</li>
   </ol>

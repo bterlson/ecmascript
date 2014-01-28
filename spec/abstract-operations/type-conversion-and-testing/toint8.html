@@ -1,31 +1,23 @@
 <!doctype html>
 <es-clause title="ToInt8: (Signed 8 Bit Integer)" anchor="sec-toint8">
-  <p>The abstract operation ToInt8 converts its argument to one of <span style=
-  "font-family: Times New Roman">2<sup>8</sup></span> integer values in the range <span style=
-  "font-family: Times New Roman">−128</span> through <span style=
-  "font-family: Times New Roman">127</span>, inclusive. This abstract operation functions as
-  follows:</p>
+  <p>The abstract operation ToInt8 converts its argument to one of 2<sup>8</sup> integer values in
+  the range −128 through 127, inclusive. This abstract operation functions as follows:</p>
 
   <ol class="proc">
-    <li>Let <i>number</i> be the result of calling <a href="#sec-tonumber">ToNumber</a> on the
-    input argument.
-    </li>
+    <li>Let <i>number</i> be the result of calling <es-xref target=
+    "sec-tonumber">ToNumber</es-xref> on the input argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>number</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>number</i>).</li>
 
     <li>If <i>number</i> is <b>NaN</b>, <b>+0</b>, <b>−0</b>, <b>+∞</b>, or <b>−∞</b>, return
     <b>+0</b>.</li>
 
-    <li>Let <i>int</i> be <a href="#sec-algorithm-conventions">sign</a> (<i>number</i>) ×
-      <a href="#sec-algorithm-conventions">floor</a> (<a href="#sec-algorithm-conventions">abs</a>
-      (<i>number</i>)).
-    </li>
+    <li>Let <i>int</i> be <es-xref target="sec-algorithm-conventions">sign</es-xref>(<i>number</i>)
+    × <es-xref target="sec-algorithm-conventions">floor</es-xref>(<es-xref target=
+    "sec-algorithm-conventions">abs</es-xref>(<i>number</i>)).</li>
 
-    <li>Let <i>int8bit</i> be <i>int</i> <a href="#sec-algorithm-conventions">modulo</a>
-    2<sup>8</sup> .
-    </li>
+    <li>Let <i>int8bit</i> be <i>int</i> <es-xref target=
+    "sec-algorithm-conventions">modulo</es-xref> 2<sup>8</sup> .</li>
 
     <li>If <i>int8bit</i> ≥ 2<sup>7</sup> , return <i>int8bit</i> − 2<sup>8</sup> , otherwise
     return <i>int8bit</i>.</li>

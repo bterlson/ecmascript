@@ -1,26 +1,22 @@
 <!doctype html>
 <es-clause title="GetBindingValue(N,S)" anchor=
 "sec-object-environment-records-getbindingvalue-n-s">
-  <p>The concrete <a href="#sec-environment-records">Environment Record</a> method GetBindingValue
-  for object environment records returns the value of its associated binding object’s property
-  whose name is the String value of the argument identifier <es-nt>N</es-nt>. The property should
-  already exist but if it does not the result depends upon the value of the <es-nt>S</es-nt>
-  argument:</p>
+  <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+  GetBindingValue for object environment records returns the value of its associated binding
+  object’s property whose name is the String value of the argument identifier <es-nt>N</es-nt>. The
+  property should already exist but if it does not the result depends upon the value of the
+  <es-nt>S</es-nt> argument:</p>
 
   <ol class="proc">
-    <li>Let <i>envRec</i> be the <a href="#sec-object-environment-records">object environment
-    record</a> for which the method was invoked.
-    </li>
+    <li>Let <i>envRec</i> be the <es-xref target="sec-object-environment-records">object
+    environment record</es-xref> for which the method was invoked.</li>
 
     <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
 
-    <li>Let <i>value</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
-    (<i>bindings</i>, <i>N</i>).
-    </li>
+    <li>Let <i>value</i> be the result of <es-xref target=
+    "sec-hasproperty">HasProperty</es-xref>(<i>bindings</i>, <i>N</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>value</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
 
     <li>If <i>value</i> is <b>false</b>, then
 
@@ -30,7 +26,7 @@
       </ol>
     </li>
 
-    <li>Return the result of <a href="#sec-get-o-p">Get</a> (<i>bindings</i>, <i>N</i>).
-    </li>
+    <li>Return the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>bindings</i>,
+    <i>N</i>).</li>
   </ol>
 </es-clause>

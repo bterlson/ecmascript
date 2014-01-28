@@ -10,17 +10,14 @@
   <es-nt>instantiateResult</es-nt>, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>loader</i> be the value of <i>F</i>’s [[Loader]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>loader</i> be the value of <i>F</i>’s [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Let <i>load</i> be the value of <i>F</i>’s [[Load]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>load</i> be the value of <i>F</i>’s [[Load]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>If <i>load</i>.[[LinkSets]] is an empty <a href="#sec-list-and-record-specification-type">
-      List</a> , return <b>undefined</b>.
-    </li>
+    <li>If <i>load</i>.[[LinkSets]] is an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>, return <b>undefined</b>.</li>
 
     <li>If <i>instantiateResult</i> is <b>undefined</b>, then
 
@@ -38,21 +35,17 @@
       </ol>
     </li>
 
-    <li>Else if <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>instantiateResult</i>)
-    is Object, then
+    <li>Else if <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>instantiateResult</i>) is Object, then
 
       <ol class="block">
-        <li>Let <i>deps</i> be the result of <a href="#sec-get-o-p">Get</a>
-        (<i>instantiateResult</i>, <code>"deps"</code>).
-        </li>
+        <li>Let <i>deps</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>instantiateResult</i>, <code>"deps"</code>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deps</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deps</i>).</li>
 
-        <li>If <i>deps</i> is undefined, then let <i>depsList</i> be a new empty <a href=
-        "#sec-list-and-record-specification-type">List</a> .
-        </li>
+        <li>If <i>deps</i> is undefined, then let <i>depsList</i> be a new empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
 
         <li>Else,
 
@@ -60,19 +53,15 @@
             <li>Let <i>depsList</i> be the result of calling the IterableToArray abstract operation
             passing <i>deps</i> as the single argument.</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>depsList</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>depsList</i>).</li>
           </ol>
         </li>
 
-        <li>Let <i>execute</i> be the result of <a href="#sec-get-o-p">Get</a>
-        (<i>instantiateResult</i>, <code>"execute"</code>).
-        </li>
+        <li>Let <i>execute</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>instantiateResult</i>, <code>"execute"</code>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>execute</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>execute</i>).</li>
 
         <li>Set <i>load</i>.[[Execute]] to <i>execute</i>.</li>
 
@@ -87,8 +76,8 @@
       </ol>
     </li>
 
-    <li>Return <a href="#sec-processloaddependencies">ProcessLoadDependencies</a> (<i>load</i>, <i>
-      loader</i>, <i>depsList</i>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-processloaddependencies">ProcessLoadDependencies</es-xref>(<i>load</i>, <i>loader</i>,
+    <i>depsList</i>).</li>
   </ol>
 </es-clause>

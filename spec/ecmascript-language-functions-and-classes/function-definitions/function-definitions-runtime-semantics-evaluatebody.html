@@ -3,39 +3,38 @@
 "sec-function-definitions-runtime-semantics-evaluatebody">
   <p>With parameter <es-nt>functionObject</es-nt>.</p>
 
-  <p>See also: <a href="#sec-arrow-function-definitions-runtime-semantics-evaluatebody">14.2.9</a>
-  , <a href="#sec-generator-function-definitions-runtime-semantics-evaluatebody">14.4.11</a> .</p>
+  <p>See also: <es-xref target=
+  "sec-arrow-function-definitions-runtime-semantics-evaluatebody">14.2.9</es-xref>,
+  <es-xref target="sec-generator-function-definitions-runtime-semantics-evaluatebody">14.4.11</es-xref>.</p>
 
   <es-production name="FunctionBody" class="inline">
     <es-rhs><es-nt>FunctionStatementList</es-nt></es-rhs>
   </es-production>
 
   <ol class="proc">
-    <li>The code of this <i>FunctionBody</i> is <a href="#sec-strict-mode-code">strict mode
-    code</a> if it is contained in <a href="#sec-strict-mode-code">strict mode code</a> or if the
-    <a href="#sec-directive-prologues-and-the-use-strict-directive">Directive Prologue</a>
-      (<a href="#sec-directive-prologues-and-the-use-strict-directive">14.1.1</a> ) of its
-      <i>FunctionStatementList</i> contains a <a href=
-      "#sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</a> or if any of
-      the conditions in <a href="#sec-strict-mode-code">10.2.1</a> apply. If the code of this
-      <i>FunctionBody</i> is <a href="#sec-strict-mode-code">strict mode code</a> ,
-      <i>FunctionStatementList</i> is evaluated in the following steps as <a href=
-      "#sec-strict-mode-code">strict mode code</a> . Otherwise, <i>StatementList</i> is evaluated
-      in the following steps as non-<a href="#sec-strict-mode-code">strict mode code</a> .
-    </li>
+    <li>The code of this <i>FunctionBody</i> is <es-xref target="sec-strict-mode-code">strict mode
+    code</es-xref> if it is contained in <es-xref target="sec-strict-mode-code">strict mode
+    code</es-xref> or if the <es-xref target=
+    "sec-directive-prologues-and-the-use-strict-directive">Directive Prologue</es-xref>
+    (<es-xref target="sec-directive-prologues-and-the-use-strict-directive">14.1.1</es-xref>) of
+    its <i>FunctionStatementList</i> contains a <es-xref target=
+    "sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</es-xref> or if any
+    of the conditions in <es-xref target="sec-strict-mode-code">10.2.1</es-xref> apply. If the code
+    of this <i>FunctionBody</i> is <es-xref target="sec-strict-mode-code">strict mode
+    code</es-xref>, <i>FunctionStatementList</i> is evaluated in the following steps as
+    <es-xref target="sec-strict-mode-code">strict mode code</es-xref>. Otherwise,
+    <i>StatementList</i> is evaluated in the following steps as non-<es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>.</li>
 
     <li>Let <i>result</i> be the result of evaluating <i>FunctionStatementList</i>.</li>
 
-    <li>If <i>result</i>.[[type]] is return then return <a href=
-    "#sec-normalcompletion">NormalCompletion</a> (<i>result</i>.[[value]])
-    </li>
+    <li>If <i>result</i>.[[type]] is return then return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<i>result</i>.[[value]])</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>result</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
 
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
   </ol>
 
   <es-production name="FunctionBody" class="inline">

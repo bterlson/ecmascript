@@ -69,38 +69,6 @@
   <link rel="import" href="imports\imports-static-semantics-boundnames.html">
   <link rel="import" href="imports\imports-static-semantics-importentries.html">
   <link rel="import" href="imports\static-semantics-importentriesformodule.html">
-
-  <es-clause title="Static Semantics: ModuleRequests" anchor=
-  "sec-imports-static-semantics-modulerequests">
-    <p>See also: <a href=
-    "#sec-module-static-semantics-static-semantics-modulerequests">15.2.0.9</a> , <a href=
-    "#sec-exports-static-semantics-modulerequests">15.2.2.5</a> .</p>
-
-    <es-production name="ImportDeclaration" class="inline">
-      <es-rhs>import <es-nt>ImportClause</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
-    </es-production>
-
-    <ol class="proc">
-      <li>Return ModuleRequests of <i>FromClause</i>.</li>
-    </ol>
-
-    <es-production name="ModuleImport" class="inline">
-      <es-rhs>module <es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
-    </es-production>
-
-    <ol class="proc">
-      <li>Return ModuleRequests of <i>FromClause</i>.</li>
-    </ol>
-
-    <es-production name="ModuleSpecifier" class="inline">
-      <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
-    </es-production>
-
-    <ol class="proc">
-      <li>Return a <a href="#sec-list-and-record-specification-type">List</a> containing the
-      <a href="#sec-identifiers-and-identifier-names">StringValue</a> of <i>StringLiteral</i>.
-      </li>
-    </ol>
-  </es-clause>
+  <link rel="import" href="imports\imports-static-semantics-modulerequests.html">
   <link rel="import" href="imports\runtime-semantics-module-objects.html">
 </es-clause>

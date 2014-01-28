@@ -3,20 +3,19 @@
 "sec-arrow-function-definitions-runtime-semantics-iteratorbindinginitialisation">
   <p>With parameters <es-nt>iterator</es-nt> and <es-nt>environment</es-nt>.</p>
 
-  <p>See also: <a href=
-  "#sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</a> , <a href=
-  "#sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</a> ,<a href=
-  "#sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</a> ,<a href=
-  "#sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</a>
-  ,<a href="#sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</a> , <a href=
-  "#sec-function-definitions-runtime-semantics-iteratorbindinginitialisation">14.1.15</a> .</p>
+  <p>See also: <es-xref target=
+  "sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</es-xref>,
+  <es-xref target=
+  "sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</es-xref>,<es-xref target="sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</es-xref>,<es-xref target="sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</es-xref>,<es-xref target="sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</es-xref>,
+  <es-xref target=
+  "sec-function-definitions-runtime-semantics-iteratorbindinginitialisation">14.1.15</es-xref>.</p>
 
   <es-note>
-    <p>When <b>undefined</b> is passed for <es-nt>environment</es-nt> it indicates that a <a href=
-    "#sec-putvalue">PutValue</a> operation should be used to assign the initialisation value. This
-    is the case for formal parameter lists of non-strict functions. In that case the formal
-    parameter bindings are preinitialised in order to deal with the possibility of multiple
-    parameters with the same name.</p>
+    <p>When <b>undefined</b> is passed for <es-nt>environment</es-nt> it indicates that a
+    <es-xref target="sec-putvalue">PutValue</es-xref> operation should be used to assign the
+    initialisation value. This is the case for formal parameter lists of non-strict functions. In
+    that case the formal parameter bindings are preinitialised in order to deal with the
+    possibility of multiple parameters with the same name.</p>
   </es-note>
 
   <es-production name="ArrowParameters" class="inline">
@@ -24,25 +23,20 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>next</i> be the result of <a href="#sec-iteratorstep">IteratorStep</a>
-    (<i>iterator</i>).
-    </li>
+    <li>Let <i>next</i> be the result of <es-xref target=
+    "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>next</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
 
     <li>If <i>next</i> is <b>false</b>, then let <i>v</i> be <b>undefined</b></li>
 
     <li>Else
 
       <ol class="block">
-        <li>Let <i>v</i> be <a href="#sec-iteratorvalue">IteratorValue</a> (<i>next</i>).
-        </li>
+        <li>Let <i>v</i> be <es-xref target=
+        "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>v</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
       </ol>
     </li>
 

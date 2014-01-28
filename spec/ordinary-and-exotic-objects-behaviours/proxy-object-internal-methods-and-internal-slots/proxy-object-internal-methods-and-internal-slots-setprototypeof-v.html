@@ -5,29 +5,22 @@
   called with argument <i>V</i> the following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : Either <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>V</i>) is Object or <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>V</i>) is Null.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: Either <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>V</i>) is Object or <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>V</i>) is Null.</li>
 
-    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
     <li>If <i>handler</i> is <b>null</b>, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of <i>O</i>.
-    </li>
+    <li>Let <i>target</i> be the value of the [[ProxyTarget]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-    <li>Let <i>trap</i> be the result of <a href="#sec-getmethod">GetMethod</a> (<i>handler</i>,
-    "<code>setPrototypeOf</code>").
-    </li>
+    <li>Let <i>trap</i> be the result of <es-xref target=
+    "sec-getmethod">GetMethod</es-xref>(<i>handler</i>, "<code>setPrototypeOf</code>").</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>trap</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>trap</i>).</li>
 
     <li>If <i>trap</i> is <b>undefined</b>, then
 
@@ -38,37 +31,32 @@
     </li>
 
     <li>Let <i>trapResult</i> be the result of calling the [[Call]] internal method of <i>trap</i>
-    with <i>handler</i> as the <b>this</b> value and a new <a href=
-    "#sec-list-and-record-specification-type">List</a> containing <i>target</i> and <i>V</i>.
-    </li>
+    with <i>handler</i> as the <b>this</b> value and a new <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> containing <i>target</i> and
+    <i>V</i>.</li>
 
-    <li>Let <i>booleanTrapResult</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>trapResult</i>).
-    </li>
+    <li>Let <i>booleanTrapResult</i> be <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<i>trapResult</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>booleanTrapResult</i>).
-    </li>
+    <li><es-xref target=
+    "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>booleanTrapResult</i>).</li>
 
-    <li>Let <i>extensibleTarget</i> be the result of <a href="#sec-isextensible-o">IsExtensible</a>
-    (<i>target</i>).
-    </li>
+    <li>Let <i>extensibleTarget</i> be the result of <es-xref target=
+    "sec-isextensible-o">IsExtensible</es-xref>(<i>target</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>extensibleTarget</i>).
-    </li>
+    <li><es-xref target=
+    "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>extensibleTarget</i>).</li>
 
     <li>If <i>extensibleTarget</i> is <b>true</b>, then return <i>booleanTrapResult</i>.</li>
 
     <li>Let <i>targetProto</i> be the result of calling the [[GetPrototypeOf]] internal method of
     <i>target</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>targetProto</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>targetProto</i>).</li>
 
-    <li>If <i>booleanTrapResult</i> is <b>true</b> and <a href="#sec-samevalue">SameValue</a>
-    (<i>V</i>, <i>targetProto</i>) is <b>false</b>, then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <i>booleanTrapResult</i> is <b>true</b> and <es-xref target=
+    "sec-samevalue">SameValue</es-xref>(<i>V</i>, <i>targetProto</i>) is <b>false</b>, then throw a
+    <b>TypeError</b> exception.</li>
 
     <li>Return <i>booleanTrapResult</i>.</li>
   </ol>

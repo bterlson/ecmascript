@@ -1,24 +1,22 @@
 <!doctype html>
 <es-clause title="Array Objects" anchor="sec-array-objects">
   <p>Array objects are exotic objects that give special treatment to a certain class of property
-  names. See <a href="#sec-array-exotic-objects">9.4.2</a> for a definition of this special
-  treatment.</p>
+  names. See <es-xref target="sec-array-exotic-objects">9.4.2</es-xref> for a definition of this
+  special treatment.</p>
 
   <p>An Array object, <es-nt>O</es-nt>, is said to be <i>sparse</i> if the following algorithm
   returns <b>true</b>:</p>
 
   <ol class="proc">
-    <li>Let <i>len</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"length"</code>).
-    </li>
+    <li>Let <i>len</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>).</li>
 
-    <li>For each integer <i>i</i> in the range 0≤<i>i</i>&lt;<a href="#sec-touint32">ToUint32</a>
-    (<i>len</i>)
+    <li>For each integer <i>i</i> in the range 0≤<i>i</i>&lt;<es-xref target=
+    "sec-touint32">ToUint32</es-xref>(<i>len</i>)
 
       <ol class="block">
-        <li>Let <i>elem</i> be the result of calling the [[GetOwnProperty]] internal method of <i>
-          O</i> with argument <a href="#sec-tostring">ToString</a> (<i>i</i>).
-        </li>
+        <li>Let <i>elem</i> be the result of calling the [[GetOwnProperty]] internal method of
+        <i>O</i> with argument <es-xref target="sec-tostring">ToString</es-xref>(<i>i</i>).</li>
 
         <li>If <i>elem</i> is <b>undefined</b>, return <b>true</b>.</li>
       </ol>

@@ -3,54 +3,49 @@
 "sec-generator-function-definitions-runtime-semantics-evaluatebody">
   <p>With parameter <es-nt>functionObject</es-nt>.</p>
 
-  <p>See also: <a href="#sec-function-definitions-runtime-semantics-evaluatebody">14.1.14</a> ,
-  <a href="#sec-arrow-function-definitions-runtime-semantics-evaluatebody">14.2.9</a> .</p>
+  <p>See also: <es-xref target=
+  "sec-function-definitions-runtime-semantics-evaluatebody">14.1.14</es-xref>, <es-xref target=
+  "sec-arrow-function-definitions-runtime-semantics-evaluatebody">14.2.9</es-xref>.</p>
 
   <es-production name="GeneratorBody" class="inline">
     <es-rhs><es-nt>FunctionBody</es-nt></es-rhs>
   </es-production>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : A <a href=
-      "#sec-function-environment-records">Function Environment Record</a> containing a this binding
-      has already been activated as the current environment.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: A <es-xref target=
+    "sec-function-environment-records">Function Environment Record</es-xref> containing a this
+    binding has already been activated as the current environment.</li>
 
-    <li>Let <i>env</i> be the result of the <a href=
-    "#sec-getthisenvironment">GetThisEnvironment</a> abstract operation.
-    </li>
+    <li>Let <i>env</i> be the result of the <es-xref target=
+    "sec-getthisenvironment">GetThisEnvironment</es-xref> abstract operation.</li>
 
     <li>Let <i>G</i> be the result of calling the GetThisBinding concrete method of
     <i>env</i>.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>G</i>) is not Object or if
-    <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>G</i>) is Object and <i>G</i> does
-    not have a [[GeneratorState]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> or if <a href=
-    "#sec-ecmascript-data-types-and-values">Type</a> (<i>G</i>) is Object and <i>G</i> has a
-    [[GeneratorState]] <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a>
-    and the value of <i>G’s</i> [[GeneratorState]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is not <b>undefined</b>,
-    then
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>G</i>) is not
+    Object or if <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>G</i>) is
+    Object and <i>G</i> does not have a [[GeneratorState]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> or if
+      <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>G</i>) is Object and
+      <i>G</i> has a [[GeneratorState]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+      <i>G’s</i> [[GeneratorState]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not
+      <b>undefined</b>, then
 
       <ol class="block">
-        <li>Let <i>newG</i> be the result of calling <a href="#sec-ordinarycreatefromconstructor">
-          OrdinaryCreateFromConstructor</a> (<i>functionObject</i>,
-          <code>"%GeneratorPrototype%"</code>, ( [[GeneratorState]], [[GeneratorContext]]) ).
-        </li>
+        <li>Let <i>newG</i> be the result of calling <es-xref target=
+        "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>functionObject</i>,
+        <code>"%GeneratorPrototype%"</code>, ( [[GeneratorState]], [[GeneratorContext]]) ).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>newG</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>newG</i>).</li>
 
         <li>Let <i>G</i> be <i>newG.</i></li>
       </ol>
     </li>
 
-    <li>Return the result of <a href="#sec-generatorstart">GeneratorStart</a> (<i>G</i>,
-    <i>FunctionBody</i>).
-    </li>
+    <li>Return the result of <es-xref target=
+    "sec-generatorstart">GeneratorStart</es-xref>(<i>G</i>, <i>FunctionBody</i>).</li>
   </ol>
 
   <es-production name="GeneratorBody" class="inline">
@@ -58,27 +53,20 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>G</i> be the result of <a href="#sec-objectcreate">ObjectCreate</a>
-    (<b>%</b>GeneratorPrototype<b>%</b>, ( [[GeneratorState]], [[GeneratorContext]]) ).
-    </li>
+    <li>Let <i>G</i> be the result of <es-xref target=
+    "sec-objectcreate">ObjectCreate</es-xref>(<b>%</b>GeneratorPrototype<b>%</b>, (
+    [[GeneratorState]], [[GeneratorContext]]) ).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>G</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>G</i>).</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : the value of <i>G’s</i> [[GeneratorState]]
-      <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> is
-      <b>undefined</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: the value of <i>G’s</i>
+    [[GeneratorState]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref> is <b>undefined</b>.</li>
 
-    <li>Let <i>startStatus</i> be the result of <a href="#sec-generatorstart">GeneratorStart</a>
-    (<i>G</i>, <i>Comprehension</i>).
-    </li>
+    <li>Let <i>startStatus</i> be the result of <es-xref target=
+    "sec-generatorstart">GeneratorStart</es-xref>(<i>G</i>, <i>Comprehension</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>startStatus</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>startStatus</i>).</li>
 
     <li>Return <i>G</i>.</li>
   </ol>

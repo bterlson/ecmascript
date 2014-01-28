@@ -1,14 +1,14 @@
 <!doctype html>
 <es-clause title="Static Semantics:" anchor="sec-static-semantics-tv-s-and-trv-s">
   <p>A template literal component is interpreted as a sequence of Unicode code points. The Template
-  Value (TV) of a literal component is described in terms of code unit values (CV, <a href=
-  "#sec-literals-string-literals">11.8.4</a> ) contributed by the various parts of the template
+  Value (TV) of a literal component is described in terms of code unit values (CV, <es-xref target=
+  "sec-literals-string-literals">11.8.4</es-xref>) contributed by the various parts of the template
   literal component. As part of this process, some Unicode code points within the template
-  component are interpreted as having a mathematical value (MV, <a href=
-  "#sec-literals-numeric-literals">11.8.3</a> ). In determining a TV, escape sequences are replaced
-  by the UTF-16 code unit(s) of the Unicode code point represented by the escape sequence. The
-  Template Raw Value (TRV) is similar to a Template Value with the difference that in TRVs escape
-  sequences are interpreted literally.</p>
+  component are interpreted as having a mathematical value (MV, <es-xref target=
+  "sec-literals-numeric-literals">11.8.3</es-xref>). In determining a TV, escape sequences are
+  replaced by the UTF-16 code unit(s) of the Unicode code point represented by the escape sequence.
+  The Template Raw Value (TRV) is similar to a Template Value with the difference that in TRVs
+  escape sequences are interpreted literally.</p>
 
   <ul>
     <li>
@@ -83,8 +83,8 @@
       <es-t>`</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
       <es-t>$</es-t></es-gmod><es-gmod>or
       <es-nt>LineTerminatorSequence</es-nt></es-gmod></es-rhs></es-production> is the
-      UTF-16 Encoding (<a href="#sec-static-semantics-utf-16-encoding">10.1.1</a> ) of the code
-      point value of <i>SourceCharacter</i>.</p>
+      UTF-16 Encoding (<es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of
+      the code point value of <i>SourceCharacter</i>.</p>
     </li>
 
     <li>
@@ -167,8 +167,8 @@
       <es-t>`</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
       <es-t>$</es-t></es-gmod><es-gmod>or
       <es-nt>LineTerminatorSequence</es-nt></es-gmod></es-rhs></es-production> is the
-      UTF-16 Encoding (<a href="#sec-static-semantics-utf-16-encoding">10.1.1</a> ) of the code
-      point value of <i>SourceCharacter</i>.</p>
+      UTF-16 Encoding (<es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of
+      the code point value of <i>SourceCharacter</i>.</p>
     </li>
 
     <li>

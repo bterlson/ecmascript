@@ -11,12 +11,10 @@
   <p>When the <code>parseInt</code> function is called, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>inputString</i> be <a href="#sec-tostring">ToString</a> (<i>string</i>).
-    </li>
+    <li>Let <i>inputString</i> be <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>string</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>string</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>string</i>).</li>
 
     <li>Let <i>S</i> be a newly created substring of <i>inputString</i> consisting of the first
     character that is not a <i>StrWhiteSpaceChar</i> and all characters following that character.
@@ -31,12 +29,9 @@
     <li>If <i>S</i> is not empty and the first character of <i>S</i> is a plus sign <b>+</b> or a
     minus sign <b>-</b>, then remove the first character from <i>S</i>.</li>
 
-    <li>Let <i>R</i> = <a href="#sec-toint32">ToInt32</a> (<i>radix</i>).
-    </li>
+    <li>Let <i>R</i> = <es-xref target="sec-toint32">ToInt32</es-xref>(<i>radix</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>R</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>R</i>).</li>
 
     <li>Let <i>stripPrefix</i> be <b>true</b>.</li>
 

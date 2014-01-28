@@ -21,15 +21,14 @@
     using the <es-nt>constructor</es-nt> argument.</p>
 
     <ol class="proc">
-      <li>Let <i>obj</i> be <a href=
-      "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>constructor</i>,
+      <li>Let <i>obj</i> be <es-xref target=
+      "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>constructor</i>,
       <code>"%PromisePrototype%"</code>, ( [[PromiseStatus]], [PromiseConstructor]],
-      [[PromiseResult]], [[PromiseResolveReactions]], [PromiseRejectReactions]]) ).
-      </li>
+      [[PromiseResult]], [[PromiseResolveReactions]], [PromiseRejectReactions]]) ).</li>
 
-      <li>Set the value of <i>obj’s</i> [[PromiseConstructor]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>constructor</i>.
-      </li>
+      <li>Set the value of <i>obj’s</i> [[PromiseConstructor]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+      <i>constructor</i>.</li>
 
       <li>Return <i>obj</i>.</li>
     </ol>

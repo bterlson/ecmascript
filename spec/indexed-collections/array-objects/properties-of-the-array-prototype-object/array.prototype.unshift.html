@@ -8,24 +8,17 @@
   <es-nt>item1</es-nt>, <es-nt>item2</es-nt>, etc., the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
-      this</b> value as the argument.
-    </li>
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
-    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"length"</code>)
-    </li>
+    <li>Let <i>lenVal</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>)</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
     <li>Let <i>argCount</i> be the number of actual arguments.</li>
 
@@ -34,51 +27,42 @@
     <li>Repeat, while <i>k</i> &gt; 0,
 
       <ol class="block">
-        <li>Let <i>from</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>–1).
-        </li>
+        <li>Let <i>from</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>–1).</li>
 
-        <li>Let <i>to</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>+<i>argCount</i> –1).
-        </li>
+        <li>Let <i>to</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>k</i>+<i>argCount</i> –1).</li>
 
-        <li>Let <i>fromPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
-        (<i>O</i>, <i>from</i>).
-        </li>
+        <li>Let <i>fromPresent</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>from</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fromPresent</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromPresent</i>).</li>
 
         <li>If <i>fromPresent</i> is <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>fromValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>, <i>
-              from</i>).
-            </li>
+            <li>Let <i>fromValue</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>from</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>fromValue</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromValue</i>).</li>
 
-            <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a>
-            (<i>O</i>, <i>to</i>, <i>fromValue</i>, <b>true</b>).
-            </li>
+            <li>Let <i>putStatus</i> be the result of <es-xref target=
+            "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>to</i>, <i>fromValue</i>,
+            <b>true</b>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
           </ol>
         </li>
 
         <li>Else <i>fromPresent</i> is <b>false</b>,
 
           <ol class="block">
-            <li>Let <i>deleteStatus</i> be the result of <a href=
-            "#sec-deletepropertyorthrow">DeletePropertyOrThrow</a> (<i>O</i>, <i>to</i>).
-            </li>
+            <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+            "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref>(<i>O</i>, <i>to</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
           </ol>
         </li>
 
@@ -88,10 +72,9 @@
 
     <li>Let <i>j</i> be 0.</li>
 
-    <li>Let <i>items</i> be a <a href="#sec-list-and-record-specification-type">List</a> whose
-    elements are, in left to right order, the arguments that were passed to this function
-    invocation.
-    </li>
+    <li>Let <i>items</i> be a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> whose elements are, in left to right
+    order, the arguments that were passed to this function invocation.</li>
 
     <li>Repeat, while <i>items</i> is not empty
 
@@ -99,25 +82,21 @@
         <li>Remove the first element from <i>items</i> and let <i>E</i> be the value of that
         element.</li>
 
-        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
-        <a href="#sec-tostring">ToString</a> (<i>j</i>), <i>E</i>, <b>true</b>).
-        </li>
+        <li>Let <i>putStatus</i> be the result of <es-xref target=
+        "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>j</i>), <i>E</i>, <b>true</b>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
         <li>Increase <i>j</i> by 1.</li>
       </ol>
     </li>
 
-    <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
-    <code>"length"</code>, <i>len</i>+<i>argCount</i>, <b>true</b>).
-    </li>
+    <li>Let <i>putStatus</i> be the result of <es-xref target=
+    "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <code>"length"</code>,
+    <i>len</i>+<i>argCount</i>, <b>true</b>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
     <li>Return <i>len</i>+<i>argCount</i>.</li>
   </ol>

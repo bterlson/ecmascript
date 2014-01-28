@@ -3,35 +3,25 @@
   <p>The last element of the array is removed from the array and returned.</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
-      this</b> value as the argument.
-    </li>
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
-    <li>Let <i>lenVal</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"length"</code>).
-    </li>
+    <li>Let <i>lenVal</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>).</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenVal</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
     <li>If <i>len</i> is zero,
 
       <ol class="block">
-        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
-        <code>"length"</code>, 0, <b>true</b>).
-        </li>
+        <li>Let <i>putStatus</i> be the result of <es-xref target=
+        "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <code>"length"</code>, 0, <b>true</b>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
         <li>Return <b>undefined</b>.</li>
       </ol>
@@ -42,32 +32,25 @@
       <ol class="block">
         <li>Let <i>newLen</i> be <i>len</i>–1.</li>
 
-        <li>Let <i>indx</i> be <a href="#sec-tostring">ToString</a> (<i>newLen</i>).
-        </li>
+        <li>Let <i>indx</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>newLen</i>).</li>
 
-        <li>Let <i>element</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-        <i>indx</i>).
-        </li>
+        <li>Let <i>element</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>indx</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>element</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>element</i>).</li>
 
-        <li>Let <i>deleteStatus</i> be the result of <a href=
-        "#sec-deletepropertyorthrow">DeletePropertyOrThrow</a> (<i>O</i>, <i>indx</i>).
-        </li>
+        <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+        "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref>(<i>O</i>, <i>indx</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
-        </li>
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
 
-        <li>Let <i>putStatus</i> be the result of <a href="#sec-put-o-p-v-throw">Put</a> (<i>O</i>,
-        <code>"length"</code>, <i>newLen</i>, <b>true</b>).
-        </li>
+        <li>Let <i>putStatus</i> be the result of <es-xref target=
+        "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <code>"length"</code>, <i>newLen</i>,
+        <b>true</b>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>putStatus</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
 
         <li>Return <i>element</i>.</li>
       </ol>

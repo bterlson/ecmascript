@@ -33,28 +33,20 @@
   are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be the result of calling <a href="#sec-toobject">ToObject</a> passing the <b>
-      this</b> value as the argument.
-    </li>
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>O</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
 
-    <li>Let <i>lenValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-    <code>"length"</code>)
-    </li>
+    <li>Let <i>lenValue</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>)</li>
 
-    <li>Let <i>len</i> be <a href="#sec-tolength">ToLength</a> (<i>lenValue</i>).
-    </li>
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenValue</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>len</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
 
-    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>callbackfn</i>) is <b>false</b>, throw a
-    <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>callbackfn</i>) is
+    <b>false</b>, throw a <b>TypeError</b> exception.</li>
 
     <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be
     <b>undefined</b>.</li>
@@ -64,41 +56,31 @@
     <li>Repeat, while <i>k</i> &lt; <i>len</i>
 
       <ol class="block">
-        <li>Let <i>Pk</i> be <a href="#sec-tostring">ToString</a> (<i>k</i>).
-        </li>
+        <li>Let <i>Pk</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
 
-        <li>Let <i>kPresent</i> be the result of <a href="#sec-hasproperty">HasProperty</a>
-        (<i>O</i>, <i>Pk</i>).
-        </li>
+        <li>Let <i>kPresent</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>Pk</i>).</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kPresent</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kPresent</i>).</li>
 
         <li>If <i>kPresent</i> is <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>kValue</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>O</i>,
-            <i>Pk</i>).
-            </li>
+            <li>Let <i>kValue</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>Pk</i>).</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>kValue</i>).
-            </li>
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kValue</i>).</li>
 
-            <li>Let <i>testResult</i> be the result of calling the [[Call]] internal method of <i>
-              callbackfn</i> with <i>T</i> as <i>thisArgument</i> and a <a href=
-              "#sec-list-and-record-specification-type">List</a> containing <i>kValue</i>,
-              <i>k</i>, and <i>O</i> as <i>argumentsList</i>.
-            </li>
+            <li>Let <i>testResult</i> be the result of calling the [[Call]] internal method of
+            <i>callbackfn</i> with <i>T</i> as <i>thisArgument</i> and a <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> containing <i>kValue</i>,
+            <i>k</i>, and <i>O</i> as <i>argumentsList</i>.</li>
 
-            <li>
-              <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>testResult</i>).
-            </li>
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>testResult</i>).</li>
 
-            <li>If <a href="#sec-toboolean">ToBoolean</a> (<i>testResult)</i> is <b>false</b>,
-            return <b>false</b>.
-            </li>
+            <li>If <es-xref target="sec-toboolean">ToBoolean</es-xref>(<i>testResult)</i> is
+            <b>false</b>, return <b>false</b>.</li>
           </ol>
         </li>
 

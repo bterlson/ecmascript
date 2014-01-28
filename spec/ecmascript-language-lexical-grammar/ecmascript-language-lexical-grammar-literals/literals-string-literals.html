@@ -6,10 +6,10 @@
     literally in a string literal except for the closing quote character, backslash, carriage
     return, line separator, paragraph separator, and line feed. Any character may appear in the
     form of an escape sequence. String literals evaluate to ECAMScript String values. When
-    generating these string values Unicode code points are UTF-16 encoded as defined in <a href=
-    "#sec-static-semantics-utf-16-encoding">10.1.1</a> . Code points belonging to Basic
-    Multilingual Plane are encoded as a single code unit element of the string. All other code
-    points are encoded as two code unit elements of the string.</p>
+    generating these string values Unicode code points are UTF-16 encoded as defined in
+    <es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>. Code points belonging
+    to Basic Multilingual Plane are encoded as a single code unit element of the string. All other
+    code points are encoded as two code unit elements of the string.</p>
   </es-note>
 
   <h2>Syntax</h2>
@@ -64,10 +64,10 @@
     <es-rhs><es-nt>UnicodeEscapeSequence</es-nt></es-rhs>
   </es-production>
 
-  <p>A conforming implementation, when processing <a href="#sec-strict-mode-code">strict mode
-  code</a> (see <a href="#sec-strict-mode-code">10.2.1</a> ), must not extend the syntax of
-  <es-nt>EscapeSequence</es-nt> to include <i>LegacyOctalEscapeSequence</i> as described in
-  <a href="#sec-additional-syntax-string-literals">B.1.2</a> .</p>
+  <p>A conforming implementation, when processing <es-xref target="sec-strict-mode-code">strict
+  mode code</es-xref> (see <es-xref target="sec-strict-mode-code">10.2.1</es-xref>), must not
+  extend the syntax of <es-nt>EscapeSequence</es-nt> to include <i>LegacyOctalEscapeSequence</i> as
+  described in <es-xref target="sec-additional-syntax-string-literals">B.1.2</es-xref>.</p>
 
   <es-production name="CharacterEscapeSequence" type="lexical">
     <es-rhs><es-nt>SingleEscapeCharacter</es-nt></es-rhs>
@@ -110,9 +110,9 @@
     <es-nt>HexDigit</es-nt></es-rhs>
   </es-production>
 
-  <p>The definition of the nonterminal <es-nt>HexDigit</es-nt> is given in <a href=
-  "#sec-literals-numeric-literals">11.8.3</a> . <es-nt>SourceCharacter</es-nt> is defined in
-  <a href="#sec-source-text">10.1</a> .</p>
+  <p>The definition of the nonterminal <es-nt>HexDigit</es-nt> is given in <es-xref target=
+  "sec-literals-numeric-literals">11.8.3</es-xref>. <es-nt>SourceCharacter</es-nt> is defined in
+  <es-xref target="sec-source-text">10.1</es-xref>.</p>
 
   <es-note>
     <p>A line terminator character cannot appear in a string literal, except as part of a
@@ -133,10 +133,11 @@
   </es-clause>
 
   <es-clause title="Static Semantics:" anchor="sec-string-literals-static-semantics-stringvalue">
-    <p>See also: <a href=
-    "#sec-identifiers-and-identifier-names-static-semantics-stringvalue">11.6.1.2</a> , <a href=
-    "#sec-identifier-reference-static-semantics-stringvalue">12.1.2.2</a> , <a href=
-    "#sec-let-and-const-declarations-static-semantics-stringvalue">13.2.1.4</a> .</p>
+    <p>See also: <es-xref target=
+    "sec-identifiers-and-identifier-names-static-semantics-stringvalue">11.6.1.2</es-xref>,
+    <es-xref target="sec-identifier-reference-static-semantics-stringvalue">12.1.2.2</es-xref>,
+    <es-xref target=
+    "sec-let-and-const-declarations-static-semantics-stringvalue">13.2.1.4</es-xref>.</p>
 
     <es-production name="StringLiteral" type="lexical">
       <es-rhs><es-t>"</es-t> <es-nt optional>DoubleStringCharacters</es-nt> <es-t>"</es-t></es-rhs>

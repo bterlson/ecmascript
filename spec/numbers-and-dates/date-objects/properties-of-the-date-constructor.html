@@ -1,24 +1,24 @@
 <!doctype html>
 <es-clause title="Properties of the Date Constructor" anchor=
 "sec-properties-of-the-date-constructor">
-  <p>The value of the [[Prototype]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> of the Date constructor is
-  the Function prototype object (<a href=
-  "#sec-properties-of-the-function-prototype-object">19.2.3</a> ).</p>
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Date constructor
+  is the Function prototype object (<es-xref target=
+  "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
 
   <p>Besides the <code>length</code> property (whose value is <code>7</code>), the Date constructor
   has the following properties:</p>
 
   <es-clause title="Date.now ( )" anchor="sec-date.now">
-    <p>The <code>now</code> function return a Number value that is the <a href=
-    "#sec-time-values-and-time-range">time value</a> designating the UTC date and time of the
+    <p>The <code>now</code> function return a Number value that is the <es-xref target=
+    "sec-time-values-and-time-range">time value</es-xref> designating the UTC date and time of the
     occurrence of the call to <code>now</code>.</p>
   </es-clause>
   <link rel="import" href="properties-of-the-date-constructor\date.parse.html">
 
   <es-clause title="Date.prototype" anchor="sec-date.prototype">
     <p>The initial value of <code>Date.prototype</code> is the built-in Date prototype object
-    (<a href="#sec-properties-of-the-date-prototype-object">20.3.4</a> ).</p>
+    (<es-xref target="sec-properties-of-the-date-prototype-object">20.3.4</es-xref>).</p>
 
     <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
     [[Configurable]]: <b>false</b> }.</p>
@@ -29,10 +29,9 @@
     <p>The @@create method of an object <es-nt>F</es-nt> performs the following steps:</p>
 
     <ol class="proc">
-      <li>Let <i>obj</i> be the result of calling <a href=
-      "#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a> (<i>F</i>,
-      <code>"%DatePrototype%"</code>, ( [[DateValue]])).
-      </li>
+      <li>Let <i>obj</i> be the result of calling <es-xref target=
+      "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>F</i>,
+      <code>"%DatePrototype%"</code>, ( [[DateValue]])).</li>
 
       <li>Return <i>obj</i>.</li>
     </ol>

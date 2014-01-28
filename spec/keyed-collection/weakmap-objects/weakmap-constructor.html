@@ -3,8 +3,8 @@
   <p>The WeakMap constructor is the %WeakMap% intrinsic object and the initial value of the
   <code>WeakMap</code> property of the global object. When <code>WeakMap</code> is called as a
   function rather than as a constructor, it initialises its <b>this</b> value with the internal
-  state necessary to support the <code><a href=
-  "#sec-weakmap.prototype">WeakMap.prototype</a></code> built-in methods.</p>
+  state necessary to support the <code><es-xref target=
+  "sec-weakmap.prototype">WeakMap.prototype</es-xref></code> built-in methods.</p>
 
   <p>The <code>WeakMap</code> constructor is designed to be subclassable. It may be used as the
   value in an <code>extends</code> clause of a class definition. Subclass constructors that intend
@@ -26,12 +26,11 @@
       <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
       internal method that was invoked by the <code>new</code> operator.</li>
 
-      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
-      <i>argumentsList</i>).
-      </li>
+      <li>Return the result of <es-xref target=
+      "sec-construct-f-argumentslist">Construct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
     </ol>
 
-    <p>If WeakMap is implemented as an <a href="#sec-ecmascript-function-objects">ECMAScript
-    function object</a> , its [[Construct]] internal method will perform the above steps.</p>
+    <p>If WeakMap is implemented as an <es-xref target="sec-ecmascript-function-objects">ECMAScript
+    function object</es-xref>, its [[Construct]] internal method will perform the above steps.</p>
   </es-clause>
 </es-clause>

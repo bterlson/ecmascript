@@ -1,49 +1,43 @@
 <!doctype html>
 <es-clause title="Promise Reject Functions" anchor="sec-promise-reject-functions">
-  <p>A promise reject function is an anonymous built-in function that has a [[Promise]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> .</p>
+  <p>A promise reject function is an anonymous built-in function that has a [[Promise]]
+  <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
 
   <p>When a promise reject function <es-nt>F</es-nt> is called with argument <es-nt>reason</es-nt>,
   the following steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>F</i> has a [[Promise]] <a href=
-      "#sec-object-internal-methods-and-internal-slots">internal slot</a> whose value is an Object.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>F</i> has a [[Promise]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> whose
+    value is an Object.</li>
 
-    <li>Let <i>promise</i> be the value of <i>F</i>'s [[Promise]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>promise</i> be the value of <i>F</i>'s [[Promise]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>If the value of <i>promise</i>'s <a href="#sec-object-internal-methods-and-internal-slots">
-      internal slot</a> [[PromiseStatus]] is not <code>"unresolved"</code>, then return
-      <b>undefined</b>.
-    </li>
+    <li>If the value of <i>promise</i>'s <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> [[PromiseStatus]] is
+    not <code>"unresolved"</code>, then return <b>undefined</b>.</li>
 
-    <li>Let <i>reactions</i> be the value of <i>promise</i>'s [[RejectReactions]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>reactions</i> be the value of <i>promise</i>'s [[RejectReactions]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>Set the value of <i>promise</i>'s [[PromiseResult]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>reason</i>.
-    </li>
+    <li>Set the value of <i>promise</i>'s [[PromiseResult]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>reason</i>.</li>
 
-    <li>Set the value of <i>promise</i>'s [[PromiseResolveReactions]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <b>undefined</b>.
-    </li>
+    <li>Set the value of <i>promise</i>'s [[PromiseResolveReactions]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <b>undefined</b>.</li>
 
-    <li>Set the value of <i>promise</i>'s [[PromiseRejectReactions]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <b>undefined</b>.
-    </li>
+    <li>Set the value of <i>promise</i>'s [[PromiseRejectReactions]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <b>undefined</b>.</li>
 
-    <li>Set the value of <i>promise</i>'s [[PromiseStatus]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to
-    <code>"has-rejection"</code>.
-    </li>
+    <li>Set the value of <i>promise</i>'s [[PromiseStatus]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <code>"has-rejection"</code>.</li>
 
-    <li>Return <a href="#sec-triggerpromisereactions">TriggerPromiseReactions</a>
-    (<i>reactions</i>, <i>reason</i>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-triggerpromisereactions">TriggerPromiseReactions</es-xref>(<i>reactions</i>,
+    <i>reason</i>).</li>
   </ol>
 </es-clause>

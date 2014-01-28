@@ -1,26 +1,40 @@
 <!doctype html>
 <es-clause title="Static Semantics: IsAnonymousFunctionDefinition" anchor=
 "sec-comma-operator-static-semantics-isanonymousfunctiondefinition">
-  <p>See also: <a href="#sec-semantics-static-semantics-isanonymousfunctiondefinition">12.1.0.2</a>
-  , <a href="#sec-grouping-operator-static-semantics-isanonymousfunctiondefinition">12.1.10.2</a> ,
-  <a href="#sec-static-semantics-static-semantics-isanonymousfunctiondefinition">12.2.1.2</a> ,
-  <a href="#sec-postfix-expressions-static-semantics-isanonymousfunctiondefinition">12.3.2</a> ,
-  <a href="#sec-unary-operators-static-semantics-isanonymousfunctiondefinition">12.4.2</a> ,
-  <a href="#sec-multiplicative-operators-static-semantics-isanonymousfunctiondefinition">12.5.1</a>
-  , <a href="#sec-additive-operators-static-semantics-isanonymousfunctiondefinition">12.6.1</a> ,
-  <a href="#sec-bitwise-shift-operators-static-semantics-isanonymousfunctiondefinition">12.7.1</a>
-  , <a href="#sec-relational-operators-static-semantics-isanonymousfunctiondefinition">12.8.1</a> ,
-  <a href="#sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</a> ,
-  <a href=
-  "#sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</a> ,
-  <a href=
-  "#sec-binary-logical-operators-static-semantics-isanonymousfunctiondefinition">12.11.1</a> ,
-  <a href="#sec-conditional-operator-static-semantics-isanonymousfunctiondefinition">12.12.1</a> ,
-  <a href="#sec-assignment-operators-static-semantics-isanonymousfunctiondefinition">12.13.2</a> ,
-  <a href="#sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</a> ,
-  <a href=
-  "#sec-generator-function-definitions-static-semantics-isanonymousfunctiondefinition">14.4.5</a> ,
-  <a href="#sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</a> .</p>
+  <p>See also: <es-xref target=
+  "sec-semantics-static-semantics-isanonymousfunctiondefinition">12.1.0.2</es-xref>,
+  <es-xref target=
+  "sec-grouping-operator-static-semantics-isanonymousfunctiondefinition">12.1.10.2</es-xref>,
+  <es-xref target=
+  "sec-static-semantics-static-semantics-isanonymousfunctiondefinition">12.2.1.2</es-xref>,
+  <es-xref target=
+  "sec-postfix-expressions-static-semantics-isanonymousfunctiondefinition">12.3.2</es-xref>,
+  <es-xref target=
+  "sec-unary-operators-static-semantics-isanonymousfunctiondefinition">12.4.2</es-xref>,
+  <es-xref target=
+  "sec-multiplicative-operators-static-semantics-isanonymousfunctiondefinition">12.5.1</es-xref>,
+  <es-xref target=
+  "sec-additive-operators-static-semantics-isanonymousfunctiondefinition">12.6.1</es-xref>,
+  <es-xref target=
+  "sec-bitwise-shift-operators-static-semantics-isanonymousfunctiondefinition">12.7.1</es-xref>,
+  <es-xref target=
+  "sec-relational-operators-static-semantics-isanonymousfunctiondefinition">12.8.1</es-xref>,
+  <es-xref target=
+  "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</es-xref>,
+  <es-xref target=
+  "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</es-xref>,
+  <es-xref target=
+  "sec-binary-logical-operators-static-semantics-isanonymousfunctiondefinition">12.11.1</es-xref>,
+  <es-xref target=
+  "sec-conditional-operator-static-semantics-isanonymousfunctiondefinition">12.12.1</es-xref>,
+  <es-xref target=
+  "sec-assignment-operators-static-semantics-isanonymousfunctiondefinition">12.13.2</es-xref>,
+  <es-xref target=
+  "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+  <es-xref target=
+  "sec-generator-function-definitions-static-semantics-isanonymousfunctiondefinition">14.4.5</es-xref>,
+  <es-xref target=
+  "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
 
   <es-production name="Expression" class="inline">
     <es-rhs><es-nt>Expression</es-nt> , <es-nt>AssignmentExpression</es-nt></es-rhs>

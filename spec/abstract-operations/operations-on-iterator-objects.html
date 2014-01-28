@@ -1,6 +1,7 @@
 <!doctype html>
 <es-clause title="Operations on Iterator Objects" anchor="sec-operations-on-iterator-objects">
-  <p>See Commmon Iteration Interfaces(<a href="#sec-common-iteration-interfaces">25.1</a> ).</p>
+  <p>See Commmon Iteration Interfaces(<es-xref target=
+  "sec-common-iteration-interfaces">25.1</es-xref>).</p>
 
   <es-clause title="GetIterator ( obj )" anchor="sec-getiterator">
     <p>The abstract operation GetIterator with argument <es-nt>obj</es-nt> performs the following
@@ -8,16 +9,14 @@
 
     <ol class="proc">
       <li>Let <i>iterator</i> be the result of performing Invoke with arguments <i>obj</i>,
-      @@iterator and an empty <a href="#sec-list-and-record-specification-type">List</a> .
-      </li>
+      @@iterator and an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>iterator</i>)<i>.</i>
-      </li>
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>)<i>.</i></li>
 
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>iterator</i>) is not
-      Object, then throw a <b>TypeError</b> exception.
-      </li>
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>iterator</i>)
+      is not Object, then throw a <b>TypeError</b> exception.</li>
 
       <li>Return <i>iterator</i>.</li>
     </ol>
@@ -44,13 +43,10 @@
         </ol>
       </li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>result</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
 
-      <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>result</i>) is not
-      Object, then throw a <b>TypeError</b> exception.
-      </li>
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>result</i>)
+      is not Object, then throw a <b>TypeError</b> exception.</li>
 
       <li>Return <i>result</i>.</li>
     </ol>
@@ -61,17 +57,13 @@
     following steps:</p>
 
     <ol class="proc">
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-        "#sec-ecmascript-data-types-and-values">Type</a> (<i>iterResult</i>) is Object.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>iterResult</i>) is Object.</li>
 
-      <li>Let <i>done</i> be the result of <a href="#sec-get-o-p">Get</a> (<i>iterResult</i>,
-      <code>"done"</code>).
-      </li>
+      <li>Let <i>done</i> be the result of <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>iterResult</i>, <code>"done"</code>).</li>
 
-      <li>Return <a href="#sec-toboolean">ToBoolean</a> (<i>done</i>).
-      </li>
+      <li>Return <es-xref target="sec-toboolean">ToBoolean</es-xref>(<i>done</i>).</li>
     </ol>
   </es-clause>
 
@@ -80,14 +72,11 @@
     following steps:</p>
 
     <ol class="proc">
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-        "#sec-ecmascript-data-types-and-values">Type</a> (<i>iterResult</i>) is Object.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>iterResult</i>) is Object.</li>
 
-      <li>Return the result of <a href="#sec-get-o-p">Get</a> (<i>iterResult</i>,
-      <code>"value"</code>).
-      </li>
+      <li>Return the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>iterResult</i>,
+      <code>"value"</code>).</li>
     </ol>
   </es-clause>
 
@@ -98,21 +87,15 @@
     is available. IteratorStep performs the following steps:</p>
 
     <ol class="proc">
-      <li>Let <i>result</i> be the result of <a href="#sec-iteratornext">IteratorNext</a>
-      (<i>iterator</i>).
-      </li>
+      <li>Let <i>result</i> be the result of <es-xref target=
+      "sec-iteratornext">IteratorNext</es-xref>(<i>iterator</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>result</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
 
-      <li>Let <i>done</i> be the result of <a href="#sec-iteratorcomplete">IteratorComplete</a>
-      (<i>result</i>).
-      </li>
+      <li>Let <i>done</i> be the result of <es-xref target=
+      "sec-iteratorcomplete">IteratorComplete</es-xref>(<i>result</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>done</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>done</i>).</li>
 
       <li>If <i>done</i> is <b>true</b>, then return <b>false</b>.</li>
 
@@ -126,22 +109,17 @@
     the following steps:</p>
 
     <ol class="proc">
-      <li>
-        <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-        "#sec-ecmascript-data-types-and-values">Type</a> (<i>done</i>) is Boolean.
-      </li>
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>done</i>) is Boolean.</li>
 
-      <li>Let <i>obj</i> be the result of performing <a href="#sec-objectcreate">ObjectCreate</a>
-      (%ObjectPrototype%).
-      </li>
+      <li>Let <i>obj</i> be the result of performing <es-xref target=
+      "sec-objectcreate">ObjectCreate</es-xref>(%ObjectPrototype%).</li>
 
-      <li>Perform <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>obj</i>,
-      <code>"value"</code>, <i>value</i>).
-      </li>
+      <li>Perform <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref>(<i>obj</i>,
+      <code>"value"</code>, <i>value</i>).</li>
 
-      <li>Perform <a href="#sec-createdataproperty">CreateDataProperty</a> (<i>obj</i>,
-      <code>"done"</code>, <i>done</i>).
-      </li>
+      <li>Perform <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref>(<i>obj</i>,
+      <code>"done"</code>, <i>done</i>).</li>
 
       <li>Return <i>obj</i>.</li>
     </ol>
@@ -154,13 +132,11 @@
     steps:</p>
 
     <ol class="proc">
-      <li>Let <i>empty</i> be a <a href="#sec-list-and-record-specification-type">List</a> with no
-      elements.
-      </li>
+      <li>Let <i>empty</i> be a <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> with no elements.</li>
 
-      <li>Return the result of <a href="#sec-createlistiterator">CreateListIterator</a>
-      (<i>empty</i>).
-      </li>
+      <li>Return the result of <es-xref target=
+      "sec-createlistiterator">CreateListIterator</es-xref>(<i>empty</i>).</li>
     </ol>
   </es-clause>
 </es-clause>

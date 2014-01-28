@@ -17,12 +17,10 @@
       <li>If <i>description</i> is <b>undefined</b>, then let <i>descString</i> be
       <b>undefined</b>.</li>
 
-      <li>Else, let <i>descString</i> be <a href="#sec-tostring">ToString</a> (<i>description</i>).
-      </li>
+      <li>Else, let <i>descString</i> be <es-xref target=
+      "sec-tostring">ToString</es-xref>(<i>description</i>).</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>descString</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>descString</i>).</li>
 
       <li>Return a new unique Symbol value whose [[Description]] is <i>descString</i>.</li>
     </ol>
@@ -39,14 +37,13 @@
       <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
       internal method that was invoked by the <code>new</code> operator.</li>
 
-      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
-      <i>argumentsList</i>).
-      </li>
+      <li>Return the result of <es-xref target="sec-construct-f-argumentslist">Construct</es-xref>
+      (<i>F</i>, <i>argumentsList</i>).</li>
     </ol>
 
-    <p>If <code>Symbol</code> is implemented as an <a href=
-    "#sec-ecmascript-function-objects">ECMAScript function object</a> , its [[Construct]] internal
-    method will perform the above steps.</p>
+    <p>If <code>Symbol</code> is implemented as an <es-xref target=
+    "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+    internal method will perform the above steps.</p>
 
     <es-note>
       <p>Symbol has ordinary [[Construct]] behaviour but the definition of its @@create method

@@ -4,43 +4,38 @@
   following steps:</p>
 
   <ol class="proc">
-    <li>Let <i>stringKey</i> be <a href="#sec-tostring">ToString</a> (<i>key</i>).
-    </li>
+    <li>Let <i>stringKey</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>key</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>stringKey)</i>.
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>stringKey)</i>.</li>
 
-    <li>For each element <i>e</i> of the GlobalSymbolRegistry <a href=
-    "#sec-list-and-record-specification-type">List</a> ,
+    <li>For each element <i>e</i> of the GlobalSymbolRegistry <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>,
 
       <ol class="block">
-        <li>If <a href="#sec-samevalue">SameValue</a> (<i>e</i>.[[key]], <i>stringKey</i>) is
-        <b>true</b>, then return <i>e</i>.[[symbol]].
-        </li>
+        <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>e</i>.[[key]],
+        <i>stringKey</i>) is <b>true</b>, then return <i>e</i>.[[symbol]].</li>
       </ol>
     </li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : GlobalSymbolRegistry does not current
-      contain an entry for <i>stringKey</i>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: GlobalSymbolRegistry does not
+    current contain an entry for <i>stringKey</i>.</li>
 
     <li>Let <i>newSymbol</i> be a new unique Symbol value whose [[Description]] is
     <i>stringKey</i>.</li>
 
     <li>Append the record { [[key]]: <i>stringKey</i>, [[symbol]]: <i>newSymbol</i>) to the
-    GlobalSymbolRegistry <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    GlobalSymbolRegistry <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>Return <i>newSumbol</i>.</li>
   </ol>
 
-  <p>The GlobalSymbolRegistry is a <a href="#sec-list-and-record-specification-type">List</a> that
-  is globally available. It is shared by all Code Realms. Prior to the evaluation of any ECMAScript
-  code it is initialised as an empty <a href="#sec-list-and-record-specification-type">List</a> .
-  Elements of the GlobalSymbolRegistry are Records with the structure defined in <a href=
-  "#table-38">Table 38</a> .</p>
+  <p>The GlobalSymbolRegistry is a <es-xref target=
+  "sec-list-and-record-specification-type">List</es-xref> that is globally available. It is shared
+  by all Code Realms. Prior to the evaluation of any ECMAScript code it is initialised as an empty
+  <es-xref target="sec-list-and-record-specification-type">List</es-xref>. Elements of the
+  GlobalSymbolRegistry are Records with the structure defined in <a href="#table-38">Table 38</a>
+  .</p>
 
   <figure>
     <figcaption>
@@ -75,9 +70,8 @@
 
         <td>A Symbol</td>
 
-        <td>
-          A symbol that can be retrieved from any <a href="#sec-code-realms">Realm</a> .
-        </td>
+        <td>A symbol that can be retrieved from any <es-xref target=
+        "sec-code-realms">Realm</es-xref>.</td>
       </tr>
     </table>
   </figure>

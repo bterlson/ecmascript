@@ -10,19 +10,18 @@
       Table 7</a> . Each intrinsic object is a new object value fully and recursively populated
       with properties values as defined by the specification of each object in clauses 17-26. All
       object property values are newly created object values. All values that are built-in function
-      objects are created by performing <a href=
-      "#sec-createbuiltinfunction">CreateBuiltinFunction</a> (<i>realmRec</i>, &lt;steps&gt;) where
-      &lt;steps&gt; is the definition of that function provided by this specification.
+      objects are created by performing <es-xref target=
+      "sec-createbuiltinfunction">CreateBuiltinFunction</es-xref>(<i>realmRec</i>, &lt;steps&gt;)
+      where &lt;steps&gt; is the definition of that function provided by this specification.
     </li>
 
     <li>Set <i>realmRec</i>.[[intrinsics]] be <i>intrinsics</i>.</li>
 
-    <li>Let <i>newGlobal</i> be <a href="#sec-objectcreate">ObjectCreate</a> (<b>null</b>).
-    </li>
+    <li>Let <i>newGlobal</i> be <es-xref target=
+    "sec-objectcreate">ObjectCreate</es-xref>(<b>null</b>).</li>
 
-    <li>Define the Global Object properties specified in <a href="#sec-global-object">clause 18</a>
-    on <i>newGlobal</i> using <i>intrinsics</i> as the source of the values.
-    </li>
+    <li>Define the Global Object properties specified in <es-xref target="sec-global-object">clause
+    18</es-xref> on <i>newGlobal</i> using <i>intrinsics</i> as the source of the values.</li>
 
     <li>Set <i>realmRec</i>.[[globalThis]] be <i>newGlobal</i>.</li>
 

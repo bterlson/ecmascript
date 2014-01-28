@@ -6,11 +6,11 @@
 
   <p>When a <i>TypedArray</i> constructor is called as a function rather than as a constructor, it
   initialises a new <i>TypedArray</i> object. The <b>this</b> value passed in the call must be an
-  Object with a [[TypedArrayName]] <a href=
-  "#sec-object-internal-methods-and-internal-slots">internal slot</a> and a [[ViewedArrayBuffer]]
-  <a href="#sec-object-internal-methods-and-internal-slots">internal slot</a> whose value is
-  <span class="value">undefined</span>. The constructor function initialises the <b>this</b> value
-  using the argument values.</p>
+  Object with a [[TypedArrayName]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and a
+  [[ViewedArrayBuffer]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref> whose value is <span class="value">undefined</span>. The constructor function
+  initialises the <b>this</b> value using the argument values.</p>
 
   <p>The <i>TypedArray</i> constructors are designed to be subclassable. They may be used as the
   value of an <code>extends</code> clause of a class declaration. Subclass constructors that
@@ -29,9 +29,8 @@
       <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
       internal method that was invoked by the <code>new</code> operator.</li>
 
-      <li>Return the result of <a href="#sec-construct-f-argumentslist">Construct</a> (<i>F</i>,
-      <i>argumentsList</i>).
-      </li>
+      <li>Return the result of <es-xref target=
+      "sec-construct-f-argumentslist">Construct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
     </ol>
   </es-clause>
 </es-clause>

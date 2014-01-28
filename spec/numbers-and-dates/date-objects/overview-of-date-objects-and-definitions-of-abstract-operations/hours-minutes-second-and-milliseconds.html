@@ -4,22 +4,23 @@
   <p>The following functions are useful in decomposing time values:</p>
 
   <div class="display">
-    HourFromTime(<i>t</i>)	= <a href="#sec-algorithm-conventions">floor</a> (<i>t</i> / msPerHour)
-    <a href="#sec-algorithm-conventions">modulo</a> HoursPerDay
+    HourFromTime(<i>t</i>)	= <es-xref target="sec-algorithm-conventions">floor</es-xref>(<i>t</i> /
+    msPerHour) <es-xref target="sec-algorithm-conventions">modulo</es-xref> HoursPerDay
   </div>
 
   <div class="display">
-    MinFromTime(<i>t</i>)	= <a href="#sec-algorithm-conventions">floor</a> (<i>t</i> / msPerMinute)
-    <a href="#sec-algorithm-conventions">modulo</a> MinutesPerHour
+    MinFromTime(<i>t</i>)	= <es-xref target="sec-algorithm-conventions">floor</es-xref>(<i>t</i> /
+    msPerMinute) <es-xref target="sec-algorithm-conventions">modulo</es-xref> MinutesPerHour
   </div>
 
   <div class="display">
-    SecFromTime(<i>t</i>)	= <a href="#sec-algorithm-conventions">floor</a> (<i>t</i> / msPerSecond)
-    <a href="#sec-algorithm-conventions">modulo</a> SecondsPerMinute
+    SecFromTime(<i>t</i>)	= <es-xref target="sec-algorithm-conventions">floor</es-xref>(<i>t</i> /
+    msPerSecond) <es-xref target="sec-algorithm-conventions">modulo</es-xref> SecondsPerMinute
   </div>
 
   <div class="display">
-    msFromTime(<i>t</i>)	= <i>t</i> <a href="#sec-algorithm-conventions">modulo</a> msPerSecond
+    msFromTime(<i>t</i>)	= <i>t</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref>
+    msPerSecond
   </div>
 
   <p>where</p>

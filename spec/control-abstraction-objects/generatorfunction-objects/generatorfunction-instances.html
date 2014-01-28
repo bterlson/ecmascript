@@ -1,9 +1,10 @@
 <!doctype html>
 <es-clause title="GeneratorFunction Instances" anchor="sec-generatorfunction-instances">
-  <p>Every GeneratorFunction instance is an <a href="#sec-ecmascript-function-objects">ECMAScript
-  function object</a> and has the internal slots listed in <a href="#table-26">Table 26</a> . The
-  value of the [[FunctionKind]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-  slot</a> for all such instances is "<code>generator</code>".</p>
+  <p>Every GeneratorFunction instance is an <es-xref target=
+  "sec-ecmascript-function-objects">ECMAScript function object</es-xref> and has the internal slots
+  listed in <a href="#table-26">Table 26</a> . The value of the [[FunctionKind]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> for all such instances
+  is "<code>generator</code>".</p>
 
   <p>The GeneratorFunction instances have the following own properties:</p>
 
@@ -21,8 +22,8 @@
   <es-clause title="prototype" anchor="sec-generatorfunction-instances-prototype">
     <p>Whenever a GeneratorFunction instance is created another ordinary object is also created and
     is the initial value of the generator function’s <code>prototype</code> property. The value of
-    the prototype property is used to initialise the [[Prototype]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> of a newly created
+    the prototype property is used to initialise the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of a newly created
     Generator object before the generator function object is invoked as a constructor for that
     newly created object.</p>
 

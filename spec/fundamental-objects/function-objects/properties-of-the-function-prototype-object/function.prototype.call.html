@@ -6,12 +6,11 @@
   following steps are taken:</p>
 
   <ol class="proc">
-    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>func</i>) is <b>false</b>, then throw a <b>
-      TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>func</i>) is <b>false</b>, then
+    throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>argList</i> be an empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Let <i>argList</i> be an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
 
     <li>If this method was called with more than one argument then in left to right order starting
     with <i>arg1</i> append each argument as the last element of <i>argList</i></li>
@@ -27,7 +26,7 @@
   <es-note>
     <p>The thisArg value is passed without modification as the <b>this</b> value. This is a change
     from Edition 3, where an <b>undefined</b> or <b>null</b> thisArg is replaced with the global
-    object and <a href="#sec-toobject">ToObject</a> is applied to all other values and that result
-    is passed as the <b>this</b> value.</p>
+    object and <es-xref target="sec-toobject">ToObject</es-xref> is applied to all other values and
+    that result is passed as the <b>this</b> value.</p>
   </es-note>
 </es-clause>

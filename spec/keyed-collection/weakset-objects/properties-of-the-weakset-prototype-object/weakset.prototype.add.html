@@ -5,34 +5,30 @@
   <ol class="proc">
     <li>Let <i>S</i> be the <b>this</b> value.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>S)</i> is not Object, then
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>S)</i> is not
+    Object, then throw a <b>TypeError</b> exception.</li>
 
-    <li>If <i>S</i> does not have a [[WeakSetData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> throw a <b>TypeError</b>
-    exception.
-    </li>
+    <li>If <i>S</i> does not have a [[WeakSetData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+    <b>TypeError</b> exception.</li>
 
-    <li>If <i>S’s</i> [[WeakSetData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> is <b>undefined</b>, then
-    throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <i>S’s</i> [[WeakSetData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>value)</i> is not Object,
-    then throw a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value)</i> is
+    not Object, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>entries</i> be the <a href="#sec-list-and-record-specification-type">List</a> that
-    is the value of <i>S</i>’s [[WeakSetData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> .
-    </li>
+    <li>Let <i>entries</i> be the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>S</i>’s
+    [[WeakSetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref>.</li>
 
     <li>Repeat for each <i>e</i> that is an element of <i>entries,</i> in original insertion order
 
       <ol class="block">
-        <li>If <i>e</i> is not empty and <a href="#sec-samevalue">SameValue</a> (<i>e</i>,
-        <i>value</i>) is <b>true</b>, then
+        <li>If <i>e</i> is not empty and <es-xref target=
+        "sec-samevalue">SameValue</es-xref>(<i>e</i>, <i>value</i>) is <b>true</b>, then
 
           <ol class="block">
             <li>Return <i>S</i>.</li>

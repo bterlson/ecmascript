@@ -5,39 +5,31 @@
   constructor <es-nt>C</es-nt>. This abstract operation performs the following steps:</p>
 
   <ol class="proc">
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>C</i>) is not Object, throw
-    a <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>C</i>) is not
+    Object, throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>instOfHandler</i> be the result of <a href="#sec-getmethod">GetMethod</a>
-    (<i>C</i>,@@hasInstance).
-    </li>
+    <li>Let <i>instOfHandler</i> be the result of <es-xref target=
+    "sec-getmethod">GetMethod</es-xref>(<i>C</i>,@@hasInstance).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>instOfHandler</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>instOfHandler</i>).</li>
 
     <li>If <i>instOfHandler</i> is not <b>undefined</b>, then
 
       <ol class="block">
         <li>Let <i>result</i> be the result of calling the [[Call]] internal method of
-        <i>instOfHandler</i> passing <i>C</i> as <i>thisArgument</i> and a new <a href=
-        "#sec-list-and-record-specification-type">List</a> containing <i>O</i> as
-        <i>argumentsList</i>.
-        </li>
+        <i>instOfHandler</i> passing <i>C</i> as <i>thisArgument</i> and a new <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> containing <i>O</i> as
+        <i>argumentsList</i>.</li>
 
-        <li>Return <a href="#sec-toboolean">ToBoolean</a> (<i>result</i>).
-        </li>
+        <li>Return <es-xref target="sec-toboolean">ToBoolean</es-xref>(<i>result</i>).</li>
       </ol>
     </li>
 
-    <li>If <a href="#sec-iscallable">IsCallable</a> (<i>C</i>) is <b>false</b>, then throw a
-    <b>TypeError</b> exception.
-    </li>
+    <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>C</i>) is <b>false</b>, then
+    throw a <b>TypeError</b> exception.</li>
 
-    <li>Return the result of <a href="#sec-ordinaryhasinstance">OrdinaryHasInstance</a> (<i>C</i>,
-    <i>O</i>).
-    </li>
+    <li>Return the result of <es-xref target=
+    "sec-ordinaryhasinstance">OrdinaryHasInstance</es-xref>(<i>C</i>, <i>O</i>).</li>
   </ol>
 
   <es-note>

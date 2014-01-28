@@ -5,34 +5,25 @@
   following steps:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (arrayBuffer).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(arrayBuffer).</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ecmascript-data-types-and-values">Type</a> (<i>arrayBuffer</i>) is Object and it has an
-      [[ArrayBufferData]] <a href="#sec-object-internal-methods-and-internal-slots">internal
-      slot</a> .
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>arrayBuffer</i>) is Object and it has
+    an [[ArrayBufferData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <i>bytes</i> is positive integer.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>bytes</i> is positive
+    integer.</li>
 
-    <li>Let <i>block</i> be the result of <a href=
-    "#sec-createbytedatablock">CreateByteDataBlock</a> (<i>bytes</i>).
-    </li>
+    <li>Let <i>block</i> be the result of <es-xref target=
+    "sec-createbytedatablock">CreateByteDataBlock</es-xref>(<i>bytes</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>block</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>block</i>).</li>
 
     <li>Set <i>arrayBuffer’s</i> [[ArrayBufferData]] to <i>block</i>.</li>
 
-    <li>Set <i>arrayBuffer</i>’s [[ArrayBufferByteLength]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> to <i>bytes</i>.
-    </li>
+    <li>Set <i>arrayBuffer</i>’s [[ArrayBufferByteLength]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>bytes</i>.</li>
 
     <li>Return <i>arrayBuffer</i>.</li>
   </ol>

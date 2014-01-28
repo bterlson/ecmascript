@@ -31,8 +31,8 @@
 
           <ol class="block">
             <li>If the code unit value of <i>C</i> is not less than 0xDC00 and not greater than
-            0xDFFF, throw a <b><a href=
-            "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+            0xDFFF, throw a <b><es-xref target=
+            "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
             exception.</li>
 
             <li>If the code unit value of <i>C</i> is less than 0xD800 or greater than 0xDBFF, then
@@ -47,15 +47,16 @@
               <ol class="block">
                 <li>Increase <i>k</i> by 1.</li>
 
-                <li>If <i>k</i> equals <i>strLen</i>, throw a <b><a href=
-                "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+                <li>If <i>k</i> equals <i>strLen</i>, throw a <b><es-xref target=
+                "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
                 exception.</li>
 
                 <li>Let <i>kChar</i> be the code unit value of the character at position <i>k</i>
                 within <i>string</i>.</li>
 
-                <li>If <i>kChar</i> is less than 0xDC00 or greater than 0xDFFF, throw a <b><a href=
-                "#sec-constructor-properties-of-the-global-object-urierror">URIError</a></b>
+                <li>If <i>kChar</i> is less than 0xDC00 or greater than 0xDFFF, throw a
+                <b><es-xref target=
+                "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
                 exception.</li>
 
                 <li>Let <i>V</i> be (((the code unit value of <i>C</i>) – 0xD800) × 0x400 +

@@ -5,8 +5,8 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-    </li>
+    <li>Return <es-xref target=
+    "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
   </ol>
 
   <es-production name="Block" class="inline">
@@ -14,33 +14,29 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>oldEnv</i> be <a href="#sec-execution-contexts">the running execution context</a> ’s
-    <a href="#sec-execution-contexts">LexicalEnvironment</a> .
-    </li>
+    <li>Let <i>oldEnv</i> be <es-xref target="sec-execution-contexts">the running execution
+    context</es-xref>’s <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
 
-    <li>Let <i>blockEnv</i> be the result of calling <a href=
-    "#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a> passing <i>oldEnv</i> as the
-    argument.
-    </li>
+    <li>Let <i>blockEnv</i> be the result of calling <es-xref target=
+    "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing <i>oldEnv</i> as
+    the argument.</li>
 
     <li>Perform Block Declaration Instantiation using <i>StatementList</i> and
     <i>blockEnv</i>.</li>
 
-    <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
-    "#sec-execution-contexts">LexicalEnvironment</a> to <i>blockEnv</i>.
-    </li>
+    <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+    <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>blockEnv</i>.</li>
 
     <li>Let <i>blockValue</i> be the result of evaluating <i>StatementList</i>.</li>
 
-    <li>Set <a href="#sec-execution-contexts">the running execution context</a> ’s <a href=
-    "#sec-execution-contexts">LexicalEnvironment</a> to <i>oldEnv</i>.
-    </li>
+    <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+    <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>oldEnv</i>.</li>
 
     <li>If <i>blockValue</i>.[[type]] is normal and <i>blockValue</i>.[[value]] is empty, then
 
       <ol class="block">
-        <li>Return <a href="#sec-normalcompletion">NormalCompletion</a> (<b>undefined</b>).
-        </li>
+        <li>Return <es-xref target=
+        "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
       </ol>
     </li>
 
@@ -48,8 +44,9 @@
   </ol>
 
   <es-note>
-    <p>No matter how control leaves the <es-nt>Block</es-nt> the <a href=
-    "#sec-execution-contexts">LexicalEnvironment</a> is always restored to its former state.</p>
+    <p>No matter how control leaves the <es-nt>Block</es-nt> the <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref> is always restored to its former
+    state.</p>
   </es-note>
 
   <es-production name="StatementList" class="inline">
@@ -59,9 +56,7 @@
   <ol class="proc">
     <li>Let <i>sl</i> be the result of evaluating <i>StatementList</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>sl</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>sl</i>).</li>
 
     <li>Let <i>s</i> be the result of evaluating <i>StatementListItem</i>.</li>
 
@@ -70,9 +65,9 @@
     <li>If <i>s</i>.[[value]] is empty, let <i>V</i> = <i>sl</i>.[[value]], otherwise let <i>V</i>
     = <i>s</i>.[[value]].</li>
 
-    <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
-    <i>s</i>.[[type]], [[value]]: <i>V</i>, [[target]]: <i>s</i>.[[target]]}.
-    </li>
+    <li>Return <es-xref target=
+    "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: <i>s</i>.[[type]],
+    [[value]]: <i>V</i>, [[target]]: <i>s</i>.[[target]]}.</li>
   </ol>
 
   <es-note>

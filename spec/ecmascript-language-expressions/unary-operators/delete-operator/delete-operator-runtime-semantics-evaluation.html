@@ -8,75 +8,72 @@
   <ol class="proc">
     <li>Let <i>ref</i> be the result of evaluating <i>UnaryExpression</i>.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>ref</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>ref</i>).</li>
 
-    <li>If <a href="#sec-ecmascript-data-types-and-values">Type</a> (<i>ref</i>) is not <a href=
-    "#sec-reference-specification-type">Reference</a> , return <b>true</b>.
-    </li>
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>ref</i>) is not
+    <es-xref target="sec-reference-specification-type">Reference</es-xref>, return
+    <b>true</b>.</li>
 
-    <li>If <a href="#sec-reference-specification-type">IsUnresolvableReference</a> (<i>ref</i>) is
+    <li>If <es-xref target=
+    "sec-reference-specification-type">IsUnresolvableReference</es-xref>(<i>ref</i>) is
     <b>true</b>, then,
 
       <ol class="block">
-        <li>If <a href="#sec-reference-specification-type">IsStrictReference</a> (<i>ref</i>) is
-        <b>true</b>, then throw a <b>SyntaxError</b> exception.
-        </li>
+        <li>If <es-xref target=
+        "sec-reference-specification-type">IsStrictReference</es-xref>(<i>ref</i>) is <b>true</b>,
+        then throw a <b>SyntaxError</b> exception.</li>
 
         <li>Return <b>true</b>.</li>
       </ol>
     </li>
 
-    <li>If <a href="#sec-reference-specification-type">IsPropertyReference</a> (<i>ref</i>) is <b>
-      true</b>, then
+    <li>If <es-xref target=
+    "sec-reference-specification-type">IsPropertyReference</es-xref>(<i>ref</i>) is <b>true</b>,
+    then
 
       <ol class="block">
-        <li>If <a href="#sec-reference-specification-type">IsSuperReference</a> (<i>ref</i>), then
-        throw a <b>ReferenceError</b> exception.
-        </li>
+        <li>If <es-xref target=
+        "sec-reference-specification-type">IsSuperReference</es-xref>(<i>ref</i>), then throw a
+        <b>ReferenceError</b> exception.</li>
 
         <li>Let <i>deleteStatus</i> be the result of calling the [[Delete]] internal method on
-        <a href="#sec-toobject">ToObject</a> (<a href=
-        "#sec-reference-specification-type">GetBase</a> (<i>ref)</i>), providing <a href=
-        "#sec-reference-specification-type">GetReferencedName</a> (<i>ref</i>) as the argument.
-        </li>
+        <es-xref target="sec-toobject">ToObject</es-xref>(<es-xref target=
+        "sec-reference-specification-type">GetBase</es-xref>(<i>ref)</i>), providing
+        <es-xref target="sec-reference-specification-type">GetReferencedName</es-xref>(<i>ref</i>)
+        as the argument.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>deleteStatus</i>).
-        </li>
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
 
-        <li>If <i>deleteStatus</i> is <b>false</b> and <a href="#sec-reference-specification-type">
-          IsStrictReference</a> (<i>ref</i>) is <b>true</b>, then throw a <b>TypeError</b>
-          exception.
-        </li>
+        <li>If <i>deleteStatus</i> is <b>false</b> and <es-xref target=
+        "sec-reference-specification-type">IsStrictReference</es-xref>(<i>ref</i>) is <b>true</b>,
+        then throw a <b>TypeError</b> exception.</li>
 
         <li>Return <i>deleteStatus</i>.</li>
       </ol>
     </li>
 
-    <li>Else <i>ref</i> is a <a href="#sec-reference-specification-type">Reference</a> to an
-    <a href="#sec-environment-records">Environment Record</a> binding,
+    <li>Else <i>ref</i> is a <es-xref target="sec-reference-specification-type">Reference</es-xref>
+    to an <es-xref target="sec-environment-records">Environment Record</es-xref> binding,
 
       <ol class="block">
-        <li>Let <i>bindings</i> be <a href="#sec-reference-specification-type">GetBase</a>
-        (<i>ref</i>).
-        </li>
+        <li>Let <i>bindings</i> be <es-xref target=
+        "sec-reference-specification-type">GetBase</es-xref>(<i>ref</i>).</li>
 
         <li>Return the result of calling the DeleteBinding concrete method of <i>bindings</i>,
-        providing <a href="#sec-reference-specification-type">GetReferencedName</a> (<i>ref</i>) as
-        the argument.
-        </li>
+        providing <es-xref target=
+        "sec-reference-specification-type">GetReferencedName</es-xref>(<i>ref</i>) as the
+        argument.</li>
       </ol>
     </li>
   </ol>
 
   <es-note>
-    <p>When a <code>delete</code> operator occurs within <a href="#sec-strict-mode-code">strict
-    mode code</a> , a <b>SyntaxError</b> exception is thrown if its <es-nt>UnaryExpression</es-nt>
-    is a direct reference to a variable, function argument, or function name. In addition, if a
-    <code>delete</code> operator occurs within <a href="#sec-strict-mode-code">strict mode code</a>
-    and the property to be deleted has the attribute { [[Configurable]]: <b>false</b> }, a
-    <b>TypeError</b> exception is thrown.</p>
+    <p>When a <code>delete</code> operator occurs within <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>, a <b>SyntaxError</b> exception is thrown if
+    its <es-nt>UnaryExpression</es-nt> is a direct reference to a variable, function argument, or
+    function name. In addition, if a <code>delete</code> operator occurs within <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref> and the property to be deleted has the
+    attribute { [[Configurable]]: <b>false</b> }, a <b>TypeError</b> exception is thrown.</p>
   </es-note>
 </es-clause>

@@ -9,27 +9,20 @@
   The result is a String value, not a String object. The following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>O</i> be <a href="#sec-checkobjectcoercible">CheckObjectCoercible</a> (<b>this</b>
-    value).
-    </li>
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
 
-    <li>Let <i>S</i> be <a href="#sec-tostring">ToString</a> (<i>O</i>).
-    </li>
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
 
-    <li>Let <i>intStart</i> be <a href="#sec-tointeger">ToInteger</a> (<i>start</i>).
-    </li>
+    <li>Let <i>intStart</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>start</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>intStart</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>intStart</i>).</li>
 
     <li>If <i>length</i> is <b>undefined</b>, let <i>end</i> be <b>+∞</b>; otherwise let <i>end</i>
-    be <a href="#sec-tointeger">ToInteger</a> (<i>length</i>).
-    </li>
+    be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>length</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>end</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>end</i>).</li>
 
     <li>Let <i>size</i> be the number of characters in <i>S</i>.</li>
 

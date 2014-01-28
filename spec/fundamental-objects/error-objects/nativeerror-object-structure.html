@@ -1,15 +1,15 @@
 <!doctype html>
 <es-clause title="Object Structure" anchor="sec-nativeerror-object-structure">
   <p>When an ECMAScript implementation detects a runtime error, it throws a new instance of one of
-  the <i>NativeError</i> objects defined in <a href=
-  "#sec-native-error-types-used-in-this-standard">19.5.5</a> . Each of these objects has the
+  the <i>NativeError</i> objects defined in <es-xref target=
+  "sec-native-error-types-used-in-this-standard">19.5.5</es-xref>. Each of these objects has the
   structure described below, differing only in the name used as the constructor name instead of
   <i>NativeError</i>, in the <b>name</b> property of the prototype object, and in the
   implementation-defined <code>message</code> property of the prototype object.</p>
 
   <p>For each error object, references to <i>NativeError</i> in the definition should be replaced
-  with the appropriate error object name from <a href=
-  "#sec-native-error-types-used-in-this-standard">19.5.5</a> .</p>
+  with the appropriate error object name from <es-xref target=
+  "sec-native-error-types-used-in-this-standard">19.5.5</es-xref>.</p>
   <link rel="import" href="nativeerror-object-structure\nativeerror-constructors.html">
   <link rel="import" href=
   "nativeerror-object-structure\properties-of-the-nativeerror-constructors.html">
@@ -18,8 +18,8 @@
 
   <es-clause title="Properties ofInstances" anchor="sec-properties-of-nativeerror-instances">
     <p><i>NativeError</i> instances are ordinary objects that inherit properties from their
-    <i>NativeError</i> prototype object and have an [[ErrorData]] <a href=
-    "#sec-object-internal-methods-and-internal-slots">internal slot</a> whose initial value is
+    <i>NativeError</i> prototype object and have an [[ErrorData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> whose initial value is
     <span class="value">undefined</span>. The only specified use of [[ErrorData]] is to flag
     whether or not an Error or <i>NativeError</i> instance has been initialised by its
     constructor.</p>

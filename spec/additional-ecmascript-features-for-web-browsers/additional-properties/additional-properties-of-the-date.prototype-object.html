@@ -11,19 +11,15 @@
     taken:</p>
 
     <ol class="proc">
-      <li>Let <i>t</i> be <a href="#sec-properties-of-the-date-prototype-object">this time
-      value</a> .
-      </li>
+      <li>Let <i>t</i> be <es-xref target="sec-properties-of-the-date-prototype-object">this time
+      value</es-xref>.</li>
 
-      <li>
-        <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>t</i>).
-      </li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>t</i>).</li>
 
       <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
 
-      <li>Return <a href="#sec-year-number">YearFromTime</a> (<a href=
-      "#sec-local-time">LocalTime</a> (<i>t</i>)) − 1900.
-      </li>
+      <li>Return <es-xref target="sec-year-number">YearFromTime</es-xref>(<es-xref target=
+      "sec-local-time">LocalTime</es-xref>(<i>t</i>)) − 1900.</li>
     </ol>
   </es-clause>
   <link rel="import" href=
@@ -37,7 +33,7 @@
     </es-note>
 
     <p>The Function object that is the initial value of <code>Date.prototype.toGMTString</code> is
-    the same Function object that is the initial value of <code><a href=
-    "#sec-date.prototype.toutcstring">Date.prototype.toUTCString</a></code> .</p>
+    the same Function object that is the initial value of <code><es-xref target=
+    "sec-date.prototype.toutcstring">Date.prototype.toUTCString</es-xref></code>.</p>
   </es-clause>
 </es-clause>

@@ -28,10 +28,10 @@
 
     <ul>
       <li>
-        <p>It is a Syntax Error if <a href="#sec-identifiers-and-identifier-names">StringValue</a>
-        (<es-nt>NonResolvedIdentifier</es-nt>) does not appear in the
-        <es-nt>CurrentLabelSet</es-nt> of an enclosing (but not crossing function boundaries)
-        <es-nt>IterationStatement</es-nt>.</p>
+        <p>It is a Syntax Error if <es-xref target=
+        "sec-identifiers-and-identifier-names">StringValue</es-xref>(<es-nt>NonResolvedIdentifier</es-nt>)
+        does not appear in the <es-nt>CurrentLabelSet</es-nt> of an enclosing (but not crossing
+        function boundaries) <es-nt>IterationStatement</es-nt>.</p>
       </li>
     </ul>
   </es-clause>
@@ -43,9 +43,9 @@
     </es-production>
 
     <ol class="proc">
-      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
-      continue, [[value]]: empty, [[target]]: empty}.
-      </li>
+      <li>Return <es-xref target=
+      "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: continue,
+      [[value]]: empty, [[target]]: empty}.</li>
     </ol>
 
     <es-production name="ContinueStatement" class="inline">
@@ -53,13 +53,13 @@
     </es-production>
 
     <ol class="proc">
-      <li>Let <i>label</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a>
-      of <i>NonResolvedIdentifier</i>.
-      </li>
+      <li>Let <i>label</i> be the <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>NonResolvedIdentifier</i>.</li>
 
-      <li>Return <a href="#sec-completion-record-specification-type">Completion</a> {[[type]]:
-      continue, [[value]]: empty, [[target]]: <i>label</i> }.
-      </li>
+      <li>Return <es-xref target=
+      "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: continue,
+      [[value]]: empty, [[target]]: <i>label</i> }.</li>
     </ol>
   </es-clause>
 </es-clause>

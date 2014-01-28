@@ -5,23 +5,22 @@
   <link rel="import" href="lexical-environment-operations\getidentifierreference.html">
 
   <es-clause title="NewDeclarativeEnvironment (E)" anchor="sec-newdeclarativeenvironment">
-    <p>When the abstract operation NewDeclarativeEnvironment is called with either a <a href=
-    "#sec-lexical-environments">Lexical Environment</a> or <b>null</b> as argument <es-nt>E</es-nt>
-    the following steps are performed:</p>
+    <p>When the abstract operation NewDeclarativeEnvironment is called with either a
+    <es-xref target="sec-lexical-environments">Lexical Environment</es-xref> or <b>null</b> as
+    argument <es-nt>E</es-nt> the following steps are performed:</p>
 
     <ol class="proc">
-      <li>Let <i>env</i> be a new <a href="#sec-lexical-environments">Lexical Environment</a> .
-      </li>
+      <li>Let <i>env</i> be a new <es-xref target="sec-lexical-environments">Lexical
+      Environment</es-xref>.</li>
 
-      <li>Let <i>envRec</i> be a new <a href="#sec-declarative-environment-records">declarative
-      environment record</a> containing no bindings.
-      </li>
+      <li>Let <i>envRec</i> be a new <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> containing no
+      bindings.</li>
 
       <li>Set <i>env’s</i> environment record to be <i>envRec</i>.</li>
 
-      <li>Set the <a href="#sec-lexical-environments">outer lexical environment reference</a> of
-      <i>env</i> to <i>E</i>.
-      </li>
+      <li>Set the <es-xref target="sec-lexical-environments">outer lexical environment
+      reference</es-xref> of <i>env</i> to <i>E</i>.</li>
 
       <li>Return <i>env</i>.</li>
     </ol>
@@ -29,26 +28,23 @@
 
   <es-clause title="NewObjectEnvironment (O, E)" anchor="sec-newobjectenvironment">
     <p>When the abstract operation NewObjectEnvironment is called with an Object <es-nt>O</es-nt>
-    and a <a href="#sec-lexical-environments">Lexical Environment</a> <es-nt>E</es-nt> (or
-    <b>null)</b> as arguments, the following steps are performed:</p>
+    and a <es-xref target="sec-lexical-environments">Lexical Environment</es-xref> <es-nt>E</es-nt>
+    (or <b>null)</b> as arguments, the following steps are performed:</p>
 
     <ol class="proc">
-      <li>Let <i>env</i> be a new <a href="#sec-lexical-environments">Lexical Environment</a> .
-      </li>
+      <li>Let <i>env</i> be a new <es-xref target="sec-lexical-environments">Lexical
+      Environment</es-xref>.</li>
 
-      <li>Let <i>envRec</i> be a new <a href="#sec-object-environment-records">object environment
-      record</a> containing <i>O</i> as the binding object.
-      </li>
+      <li>Let <i>envRec</i> be a new <es-xref target="sec-object-environment-records">object
+      environment record</es-xref> containing <i>O</i> as the binding object.</li>
 
-      <li>Set <i>envRec’s</i> <i>unscopables</i> to an empty <a href=
-      "#sec-list-and-record-specification-type">List</a> .
-      </li>
+      <li>Set <i>envRec’s</i> <i>unscopables</i> to an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
 
       <li>Set <i>env’s</i> environment record to <i>envRec</i>.</li>
 
-      <li>Set the <a href="#sec-lexical-environments">outer lexical environment reference</a> of
-      <i>env</i> to <i>E</i>.
-      </li>
+      <li>Set the <es-xref target="sec-lexical-environments">outer lexical environment
+      reference</es-xref> of <i>env</i> to <i>E</i>.</li>
 
       <li>Return <i>env</i>.</li>
     </ol>

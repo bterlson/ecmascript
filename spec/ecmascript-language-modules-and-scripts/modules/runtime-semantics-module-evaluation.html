@@ -2,9 +2,10 @@
 <es-clause title="Runtime Semantics: Module Evaluation" anchor=
 "sec-runtime-semantics-module-evaluation">
   <p>Module bodies are evaluated on demand, as late as possible. The loader uses the function
-  <code><a href="#sec-ensureevaluated">EnsureEvaluated</a></code> , defined below, to run scripts.
-  The loader always calls <code><a href="#sec-ensureevaluated">EnsureEvaluated</a></code> before
-  returning a Module object to user code.</p>
+  <code><es-xref target="sec-ensureevaluated">EnsureEvaluated</es-xref></code>, defined below, to
+  run scripts. The loader always calls <code><es-xref target=
+  "sec-ensureevaluated">EnsureEvaluated</es-xref></code> before returning a Module object to user
+  code.</p>
 
   <p>There is one way a module can be exposed to script before its body has been evaluated. In the
   case of an import cycle, whichever module is evaluated first can observe the others before they

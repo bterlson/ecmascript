@@ -5,9 +5,9 @@
   <es-nt>stmt</es-nt>, and <es-nt>labelSet</es-nt> is performed as follows:</p>
 
   <ol class="proc">
-    <li>Let <i>newLabelSet</i> be a new <a href="#sec-list-and-record-specification-type">List</a>
-    containing <i>label</i> and the elements of <i>labelSet</i>.
-    </li>
+    <li>Let <i>newLabelSet</i> be a new <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> containing <i>label</i> and the
+    elements of <i>labelSet</i>.</li>
 
     <li>If <i>stmt</i> is either <i>LabelledStatement</i> or <i>BreakableStatement</i>, then
 
@@ -24,13 +24,12 @@
       </ol>
     </li>
 
-    <li>If <i>stmtResult</i>.[[type]] is <b>break</b> and <a href="#sec-samevalue">SameValue</a>
-    (<i>stmtResult</i>.[[target]], <i>label</i>), then
+    <li>If <i>stmtResult</i>.[[type]] is <b>break</b> and <es-xref target=
+    "sec-samevalue">SameValue</es-xref>(<i>stmtResult</i>.[[target]], <i>label</i>), then
 
       <ol class="block">
-        <li>Let <i>result</i> be <a href="#sec-normalcompletion">NormalCompletion</a>
-        (<i>stmtResult</i>.[[value]]).
-        </li>
+        <li>Let <i>result</i> be <es-xref target=
+        "sec-normalcompletion">NormalCompletion</es-xref>(<i>stmtResult</i>.[[value]]).</li>
       </ol>
     </li>
 

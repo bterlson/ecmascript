@@ -1,20 +1,17 @@
 <!doctype html>
 <es-clause title="OrdinaryGetOwnProperty (O, P)" anchor="sec-ordinarygetownproperty">
   <p>When the abstract operation OrdinaryGetOwnProperty is called with Object <es-nt>O</es-nt> and
-  with <a href="#sec-object-type">property key</a> <es-nt>P</es-nt>, the following steps are
-  taken:</p>
+  with <es-xref target="sec-object-type">property key</es-xref> <es-nt>P</es-nt>, the following
+  steps are taken:</p>
 
   <ol class="proc">
-    <li>
-      <a href="#sec-algorithm-conventions">Assert</a> : <a href=
-      "#sec-ispropertykey">IsPropertyKey</a> (<i>P</i>) is <b>true</b>.
-    </li>
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
 
     <li>If <i>O</i> does not have an own property with key <i>P</i>, return <b>undefined</b>.</li>
 
-    <li>Let <i>D</i> be a newly created <a href=
-    "#sec-property-descriptor-specification-type">Property Descriptor</a> with no fields.
-    </li>
+    <li>Let <i>D</i> be a newly created <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> with no fields.</li>
 
     <li>Let <i>X</i> be <i>O</i>’s own property whose key is <i>P</i>.</li>
 

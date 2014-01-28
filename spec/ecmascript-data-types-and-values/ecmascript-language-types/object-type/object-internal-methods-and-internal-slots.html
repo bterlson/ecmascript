@@ -17,13 +17,13 @@
   <p>Internal slots correspond to internal state that is associated with objects and used by
   various ECMAScript specification algorithms. Internal slots are not object properties and they
   are not inherited. Depending upon the specific internal slot specification, such state may
-  consist of values of any <a href="#sec-ecmascript-language-types">ECMAScript language type</a> or
-  of specific ECMA specification type values. Unless explicitly specified otherwise, internal slots
-  are allocated as part of the process of creating an object and may not be dynamically added to an
-  object. Unless specified otherwise, the initial value of an internal slot is the value
-  <span class="value">undefined</span>. Various algorithms within this specification create objects
-  that have internal slots. However, the ECMAScript language provides no direct way to associate
-  internal slots with an object.</p>
+  consist of values of any <es-xref target="sec-ecmascript-language-types">ECMAScript language
+  type</es-xref> or of specific ECMA specification type values. Unless explicitly specified
+  otherwise, internal slots are allocated as part of the process of creating an object and may not
+  be dynamically added to an object. Unless specified otherwise, the initial value of an internal
+  slot is the value <span class="value">undefined</span>. Various algorithms within this
+  specification create objects that have internal slots. However, the ECMAScript language provides
+  no direct way to associate internal slots with an object.</p>
 
   <p>Internal methods and internal slots are identified within this specification using names
   enclosed in double square brackets [[ ]].</p>
@@ -40,11 +40,11 @@
   internal method explicitly returns a value, its parameter list is followed by the symbol “→” and
   the type name of the returned value. The type names used in signatures refer to the types defined
   in clause 6 augmented by the following additional names. “<i>any</i>” means the value may be any
-  <a href="#sec-ecmascript-language-types">ECMAScript language type</a> . An internal method
-  implicitly returns a <a href="#sec-completion-record-specification-type">Completion Record</a> as
-  described in <a href="#sec-completion-record-specification-type">6.2.2</a> . In addition to its
-  parameters, an internal method always has access to the object upon which it is invoked as a
-  method.</p>
+  <es-xref target="sec-ecmascript-language-types">ECMAScript language type</es-xref>. An internal
+  method implicitly returns a <es-xref target="sec-completion-record-specification-type">Completion
+  Record</es-xref> as described in <es-xref target=
+  "sec-completion-record-specification-type">6.2.2</es-xref>. In addition to its parameters, an
+  internal method always has access to the object upon which it is invoked as a method.</p>
 
   <figure>
     <figcaption>
@@ -111,16 +111,15 @@
         "border-bottom: 1px solid #808080; border-left: 1px solid #808080; border-right: 1px solid #808080; border-top: 1px solid #808080">
         <p>(<i>propertyKey</i>) →</p>
 
-          <p>Undefined or <a href="#sec-property-descriptor-specification-type">Property
-          Descriptor</a></p>
+          <p>Undefined or <es-xref target="sec-property-descriptor-specification-type">Property
+          Descriptor</es-xref></p>
         </td>
 
         <td style=
         "border-bottom: 1px solid #808080; border-left: 1px solid #808080; border-right: 1px solid #808080; border-top: 1px solid #808080">
-        Returns a <a href="#sec-property-descriptor-specification-type">Property Descriptor</a> for
-        the own property of this object whose key is <i>propertyKey</i>, or <b>undefined</b> if no
-        such property exists.
-        </td>
+        Returns a <es-xref target="sec-property-descriptor-specification-type">Property
+        Descriptor</es-xref> for the own property of this object whose key is <i>propertyKey</i>,
+        or <b>undefined</b> if no such property exists.</td>
       </tr>
 
       <tr>
@@ -170,13 +169,11 @@
 
         <td>(<i>propertyKey, PropertyDescriptor</i>) <b><i>→</i></b> Boolean</td>
 
-        <td>
-          Creates or alters the named own property to have the state described by a <a href=
-          "#sec-property-descriptor-specification-type">Property Descriptor</a> . Returns
-          <span class="value">true</span> indicating that the property was successfully
-          created/updated or <b>false</b> indicating that the property could not be created or
-          updated.
-        </td>
+        <td>Creates or alters the named own property to have the state described by a
+        <es-xref target="sec-property-descriptor-specification-type">Property Descriptor</es-xref>.
+        Returns <span class="value">true</span> indicating that the property was successfully
+        created/updated or <b>false</b> indicating that the property could not be created or
+        updated.</td>
       </tr>
 
       <tr>
@@ -223,10 +220,8 @@
       <tr>
         <td>[[Call]]</td>
 
-        <td>
-          (<i>any</i>, a <a href="#sec-list-and-record-specification-type">List</a> of <i>any</i>)
-          <b><i>→</i></b> <i>any</i>
-        </td>
+        <td>(<i>any</i>, a <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+        of <i>any</i>) <b><i>→</i></b> <i>any</i></td>
 
         <td>Executes code associated with the object. Invoked via a function call expression. The
         arguments to the internal method are a <b>this</b> value and a list containing the
@@ -237,10 +232,8 @@
       <tr>
         <td>[[Construct]]</td>
 
-        <td>
-          (a <a href="#sec-list-and-record-specification-type">List</a> of <i>any</i>)
-          <b><i>→</i></b> Object
-        </td>
+        <td>(a <es-xref target="sec-list-and-record-specification-type">List</es-xref> of
+        <i>any</i>) <b><i>→</i></b> Object</td>
 
         <td>Creates an object. Invoked via the <code>new</code> operator. The arguments to the
         internal method are the arguments passed to the <b>new</b> operator. Objects that implement

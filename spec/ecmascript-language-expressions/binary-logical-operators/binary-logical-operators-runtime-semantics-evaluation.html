@@ -9,22 +9,17 @@
   <ol class="proc">
     <li>Let <i>lref</i> be the result of evaluating <i>LogicalANDExpression</i>.</li>
 
-    <li>Let <i>lval</i> be <a href="#sec-getvalue">GetValue</a> (<i>lref</i>).
-    </li>
+    <li>Let <i>lval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>lref</i>).</li>
 
-    <li>Let <i>lbool</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>lval</i>).
-    </li>
+    <li>Let <i>lbool</i> be <es-xref target="sec-toboolean">ToBoolean</es-xref>(<i>lval</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lbool</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lbool</i>).</li>
 
     <li>If <i>lbool</i> is <b>false</b>, return <i>lval</i>.</li>
 
     <li>Let <i>rref</i> be the result of evaluating <i>BitwiseORExpression</i>.</li>
 
-    <li>Return <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
-    </li>
+    <li>Return <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rref</i>).</li>
   </ol>
 
   <es-production name="LogicalORExpression" class="inline">
@@ -34,21 +29,16 @@
   <ol class="proc">
     <li>Let <i>lref</i> be the result of evaluating <i>LogicalORExpression</i>.</li>
 
-    <li>Let <i>lval</i> be <a href="#sec-getvalue">GetValue</a> (<i>lref</i>).
-    </li>
+    <li>Let <i>lval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>lref</i>).</li>
 
-    <li>Let <i>lbool</i> be <a href="#sec-toboolean">ToBoolean</a> (<i>lval</i>).
-    </li>
+    <li>Let <i>lbool</i> be <es-xref target="sec-toboolean">ToBoolean</es-xref>(<i>lval</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>lbool</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lbool</i>).</li>
 
     <li>If <i>lbool</i> is <b>true</b>, return <i>lval</i>.</li>
 
     <li>Let <i>rref</i> be the result of evaluating <i>LogicalANDExpression</i>.</li>
 
-    <li>Return <a href="#sec-getvalue">GetValue</a> (<i>rref</i>).
-    </li>
+    <li>Return <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rref</i>).</li>
   </ol>
 </es-clause>

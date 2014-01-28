@@ -80,8 +80,8 @@
 
   <es-clause title="Static Semantics: HasInitialiser" anchor=
   "sec-function-definitions-static-semantics-hasinitialiser">
-    <p>See also: <a href=
-    "#sec-destructuring-binding-patterns-static-semantics-hasinitialiser">13.2.3.2</a> .</p>
+    <p>See also: <es-xref target=
+    "sec-destructuring-binding-patterns-static-semantics-hasinitialiser">13.2.3.2</es-xref>.</p>
 
     <es-production name="FormalsList" class="inline">
       <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FormalParameter</es-nt></es-rhs>
@@ -98,11 +98,12 @@
 
   <es-clause title="Static Semantics: IsConstantDeclaration" anchor=
   "sec-function-definitions-static-semantics-isconstantdeclaration">
-    <p>See also: <a href=
-    "#sec-let-and-const-declarations-static-semantics-isconstantdeclaration">13.2.1.3</a> ,
-    <a href="#sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</a>
-    , <a href="#sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</a>
-    .</p>
+    <p>See also: <es-xref target=
+    "sec-let-and-const-declarations-static-semantics-isconstantdeclaration">13.2.1.3</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</es-xref>,
+    <es-xref target=
+    "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
 
     <es-production name="FunctionDeclaration" class="inline">
       <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
@@ -118,19 +119,18 @@
 
   <es-clause title="Static Semantics: IsStrict" anchor=
   "sec-function-definitions-static-semantics-isstrict">
-    <p>See also: <a href="#sec-scripts-static-semantics-isstrict">15.1.2</a> , <a href=
-    "#sec-module-static-semantics-static-semantics-isstrict">15.2.0.7</a> .</p>
+    <p>See also: <es-xref target="sec-scripts-static-semantics-isstrict">15.1.2</es-xref>,
+    <es-xref target="sec-module-static-semantics-static-semantics-isstrict">15.2.0.7</es-xref>.</p>
 
     <es-production name="FunctionStatementList" class="inline">
       <es-rhs><es-nt optional>StatementList</es-nt></es-rhs>
     </es-production>
 
     <ol class="proc">
-      <li>If this <i>FunctionStatementList</i> is contained in <a href=
-      "#sec-strict-mode-code">strict code</a> or if <i>StatementList</i> is <a href=
-      "#sec-strict-mode-code">strict code</a> , then return <b>true</b>. Otherwise, return
-      <b>false</b>.
-      </li>
+      <li>If this <i>FunctionStatementList</i> is contained in <es-xref target=
+      "sec-strict-mode-code">strict code</es-xref> or if <i>StatementList</i> is <es-xref target=
+      "sec-strict-mode-code">strict code</es-xref>, then return <b>true</b>. Otherwise, return
+      <b>false</b>.</li>
     </ol>
   </es-clause>
   <link rel="import" href=

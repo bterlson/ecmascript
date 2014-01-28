@@ -9,19 +9,16 @@
   <es-nt>encodedURI</es-nt>, the following steps are taken:</p>
 
   <ol class="proc">
-    <li>Let <i>uriString</i> be <a href="#sec-tostring">ToString</a> (<i>encodedURI</i>).
-    </li>
+    <li>Let <i>uriString</i> be <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>encodedURI</i>).</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>uriString</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>uriString</i>).</li>
 
     <li>Let <i>reservedURISet</i> be a String containing one instance of each character valid in
     <i>uriReserved</i> plus “<code>#</code>”.</li>
 
-    <li>Return the result of calling <a href="#sec-decode">Decode</a> (<i>uriString</i>,
-    <i>reservedURISet</i>)
-    </li>
+    <li>Return the result of calling <es-xref target=
+    "sec-decode">Decode</es-xref>(<i>uriString</i>, <i>reservedURISet</i>)</li>
   </ol>
 
   <es-note>

@@ -6,15 +6,16 @@
 { 1 2 } 3
 </pre>
 
-  <p>is not a valid sentence in the ECMAScript grammar, even with the <a href=
-  "#sec-automatic-semicolon-insertion">automatic semicolon insertion</a> rules. In contrast, the
-  source</p>
+  <p>is not a valid sentence in the ECMAScript grammar, even with the <es-xref target=
+  "sec-automatic-semicolon-insertion">automatic semicolon insertion</es-xref> rules. In contrast,
+  the source</p>
   <pre>
 { 1<br>2 } 3
 </pre>
 
-  <p>is also not a valid ECMAScript sentence, but is transformed by <a href=
-  "#sec-automatic-semicolon-insertion">automatic semicolon insertion</a> into the following:</p>
+  <p>is also not a valid ECMAScript sentence, but is transformed by <es-xref target=
+  "sec-automatic-semicolon-insertion">automatic semicolon insertion</es-xref> into the
+  following:</p>
   <pre>
 { 1<br>;2 ;} 3;
 </pre>
@@ -26,9 +27,9 @@
 for (a; b<br>)
 </pre>
 
-  <p>is not a valid ECMAScript sentence and is not altered by <a href=
-  "#sec-automatic-semicolon-insertion">automatic semicolon insertion</a> because the semicolon is
-  needed for the header of a <code>for</code> statement. Automatic semicolon insertion never
+  <p>is not a valid ECMAScript sentence and is not altered by <es-xref target=
+  "sec-automatic-semicolon-insertion">automatic semicolon insertion</es-xref> because the semicolon
+  is needed for the header of a <code>for</code> statement. Automatic semicolon insertion never
   inserts one of the two semicolons in the header of a <code>for</code> statement.</p>
 
   <p>The source</p>
@@ -36,8 +37,8 @@ for (a; b<br>)
 return<br>a + b
 </pre>
 
-  <p>is transformed by <a href="#sec-automatic-semicolon-insertion">automatic semicolon
-  insertion</a> into the following:</p>
+  <p>is transformed by <es-xref target="sec-automatic-semicolon-insertion">automatic semicolon
+  insertion</es-xref> into the following:</p>
   <pre>
 return;<br>a + b;
 </pre>
@@ -53,8 +54,8 @@ return;<br>a + b;
 a = b<br>++c
 </pre>
 
-  <p>is transformed by <a href="#sec-automatic-semicolon-insertion">automatic semicolon
-  insertion</a> into the following:</p>
+  <p>is transformed by <es-xref target="sec-automatic-semicolon-insertion">automatic semicolon
+  insertion</es-xref> into the following:</p>
   <pre>
 a = b;<br>++c;
 </pre>
@@ -70,8 +71,8 @@ a = b;<br>++c;
 if (a &gt; b)<br>else c = d
 </pre>
 
-  <p>is not a valid ECMAScript sentence and is not altered by <a href=
-  "#sec-automatic-semicolon-insertion">automatic semicolon insertion</a> before the
+  <p>is not a valid ECMAScript sentence and is not altered by <es-xref target=
+  "sec-automatic-semicolon-insertion">automatic semicolon insertion</es-xref> before the
   <code>else</code> token, even though no production of the grammar applies at that point, because
   an automatically inserted semicolon would then be parsed as an empty statement.</p>
 
@@ -80,15 +81,15 @@ if (a &gt; b)<br>else c = d
 a = b + c<br>(d + e).print()
 </pre>
 
-  <p>is <i>not</i> transformed by <a href="#sec-automatic-semicolon-insertion">automatic semicolon
-  insertion</a> , because the parenthesised expression that begins the second line can be
-  interpreted as an argument list for a function call:</p>
+  <p>is <i>not</i> transformed by <es-xref target="sec-automatic-semicolon-insertion">automatic
+  semicolon insertion</es-xref>, because the parenthesised expression that begins the second line
+  can be interpreted as an argument list for a function call:</p>
   <pre>
 a = b + c(d + e).print()
 </pre>
 
   <p>In the circumstance that an assignment statement must begin with a left parenthesis, it is a
   good idea for the programmer to provide an explicit semicolon at the end of the preceding
-  statement rather than to rely on <a href="#sec-automatic-semicolon-insertion">automatic semicolon
-  insertion</a> .</p>
+  statement rather than to rely on <es-xref target="sec-automatic-semicolon-insertion">automatic
+  semicolon insertion</es-xref>.</p>
 </es-clause>

@@ -8,8 +8,8 @@
   </es-production>
 
   <ol class="proc">
-    <li>Return a new empty <a href="#sec-list-and-record-specification-type">List</a> .
-    </li>
+    <li>Return a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
   </ol>
 
   <es-production name="ExportsList" class="inline">
@@ -31,14 +31,13 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>localName</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a>
-    of <i>IdentifierReference</i>.
-    </li>
+    <li>Let <i>localName</i> be the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of
+    <i>IdentifierReference</i>.</li>
 
-    <li>Return a new <a href="#sec-list-and-record-specification-type">List</a> containing the
-    Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]: <b>null</b>, [[LocalName]]:
-    <i>localName</i>, [[ExportName]]: <i>localName</i> }.
-    </li>
+    <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    containing the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]: <b>null</b>,
+    [[LocalName]]: <i>localName</i>, [[ExportName]]: <i>localName</i> }.</li>
   </ol>
 
   <es-production name="ExportSpecifier" class="inline">
@@ -46,18 +45,16 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>localName</i> be the <a href="#sec-identifiers-and-identifier-names">StringValue</a>
-    of <i>IdentifierReference</i>.
-    </li>
+    <li>Let <i>localName</i> be the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of
+    <i>IdentifierReference</i>.</li>
 
-    <li>Let <i>exportName</i> be the <a href=
-    "#sec-identifiers-and-identifier-names">StringValue</a> of <i>IdentifierName</i>.
-    </li>
+    <li>Let <i>exportName</i> be the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>IdentifierName</i>.</li>
 
-    <li>Return a new <a href="#sec-list-and-record-specification-type">List</a> containing the
-    Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]: <b>null</b>, {[[LocalName]]:
-    <i>localName</i>, [[ExportName]]: <i>exportName</i> }.
-    </li>
+    <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    containing the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]: <b>null</b>,
+    {[[LocalName]]: <i>localName</i>, [[ExportName]]: <i>exportName</i> }.</li>
   </ol>
 
   <es-production name="ExportSpecifier" class="inline">
@@ -65,14 +62,12 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>sourceName</i> be the <a href=
-    "#sec-identifiers-and-identifier-names">StringValue</a> of <i>IdentifierName</i>.
-    </li>
+    <li>Let <i>sourceName</i> be the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>IdentifierName</i>.</li>
 
-    <li>Return a new <a href="#sec-list-and-record-specification-type">List</a> containing the
-    Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]: <i>sourceName</i>, [[LocalName]]: <b>
-      null</b>, [[ExportName]]: <i>sourceName</i> }.
-    </li>
+    <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    containing the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]: <i>sourceName</i>,
+    [[LocalName]]: <b>null</b>, [[ExportName]]: <i>sourceName</i> }.</li>
   </ol>
 
   <es-production name="ExportSpecifier" class="inline">
@@ -80,17 +75,16 @@
   </es-production>
 
   <ol class="proc">
-    <li>Let <i>sourceName</i> be the <a href=
-    "#sec-identifiers-and-identifier-names">StringValue</a> of the first <i>IdentifierName</i>.
-    </li>
+    <li>Let <i>sourceName</i> be the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of the first
+    <i>IdentifierName</i>.</li>
 
-    <li>Let <i>exportName</i> be the <a href=
-    "#sec-identifiers-and-identifier-names">StringValue</a> of the second <i>IdentifierName</i>.
-    </li>
+    <li>Let <i>exportName</i> be the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of the second
+    <i>IdentifierName</i>.</li>
 
-    <li>Return a new <a href="#sec-list-and-record-specification-type">List</a> containing the
-    Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]: <i>sourceName</i>, [[LocalName]]: <b>
-      null</b>, [[ExportName]]: <i>exportName</i> }.
-    </li>
+    <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    containing the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]: <i>sourceName</i>,
+    [[LocalName]]: <b>null</b>, [[ExportName]]: <i>exportName</i> }.</li>
   </ol>
 </es-clause>

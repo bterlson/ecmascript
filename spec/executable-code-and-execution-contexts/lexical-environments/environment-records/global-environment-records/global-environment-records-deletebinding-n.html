@@ -1,13 +1,12 @@
 <!doctype html>
 <es-clause title="DeleteBinding (N)" anchor="sec-global-environment-records-deletebinding-n">
-  <p>The concrete <a href="#sec-environment-records">Environment Record</a> method DeleteBinding
-  for global environment records can only delete bindings that have been explicitly designated as
-  being subject to deletion.</p>
+  <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+  DeleteBinding for global environment records can only delete bindings that have been explicitly
+  designated as being subject to deletion.</p>
 
   <ol class="proc">
-    <li>Let <i>envRec</i> be the <a href="#sec-declarative-environment-records">declarative
-    environment record</a> for which the method was invoked.
-    </li>
+    <li>Let <i>envRec</i> be the <es-xref target="sec-declarative-environment-records">declarative
+    environment record</es-xref> for which the method was invoked.</li>
 
     <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
 
@@ -29,16 +28,13 @@
         <li>Let <i>status</i> be the result of calling the DeleteBinding concrete method of
         <i>ObjRec</i> with argument <i>N</i>.</li>
 
-        <li>
-          <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>status</i>).
-        </li>
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
         <li>If <i>status</i> is <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>varNames</i> be <i>envRec’s</i> VarNames <a href=
-            "#sec-list-and-record-specification-type">List</a> .
-            </li>
+            <li>Let <i>varNames</i> be <i>envRec’s</i> VarNames <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref>.</li>
 
             <li>If <i>N</i> is an element of <i>varNames</i>, then remove that element from the
             <i>varNames</i>.</li>
