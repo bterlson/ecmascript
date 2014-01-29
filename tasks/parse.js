@@ -610,7 +610,7 @@ function writeSection(section, currentPath) {
         if(sectionId === 'index') {
             subpath = sub.id.replace('sec-', '');
         } else {
-            subpath = Path.join(sectionId, sub.id.replace('sec-', '')).replace(/\\/g, '/');
+            subpath = Path.join(sectionId, sub.id.replace('sec-', '')).replace(/\\/g, '/').replace(/%/g, '%25');
         }
 
         if(sub.subsections.length === 0 && sub.contents.length < 1000) {
