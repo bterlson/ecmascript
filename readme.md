@@ -5,7 +5,8 @@
 Clone the repository, and run:
 
 ```
-> npm tasks/build.js
+> npm install
+> node tasks/build.js
 ```
 
 After running build, `output/spec.html` can be opened in your browser.
