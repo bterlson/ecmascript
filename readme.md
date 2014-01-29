@@ -5,12 +5,10 @@
 Clone the repository, and run:
 
 ```
-> npm run-script parse
-> npm run-script build
+> npm tasks/build.js
 ```
 
-After running parse, `./spec` will contain all the spec files. After running
-build, `output/spec.html` can be opened in your browser.
+After running build, `output/spec.html` can be opened in your browser.
 
 ### Introduction
 The document format for the specification uses Custom Elements and
