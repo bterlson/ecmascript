@@ -2,7 +2,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="./x-tag-components.js"></script>
 <script>
 
 var slugToName = {};
@@ -12,9 +11,10 @@ function setAnchorText(a, text) {
     a.textContent = text;
 }
 
-xtag.register('es-xref', {
-    lifecycle: {
-        created: function() {
+document.registerElement('es-xref', {
+    prototype: {
+        __proto__: HTMLElement.prototype,
+        createdCallback: function() {
             var target = this.getAttribute('target');
 
             var a = document.createElement('a');
@@ -39,9 +39,10 @@ xtag.register('es-xref', {
     }
 });
 
-xtag.register('es-note', {
-    lifecycle: {
-        created: function() {
+document.registerElement('es-note', {
+    prototype: {
+        __proto__: HTMLElement.prototype,
+        createdCallback: function() {
             var noteNode = document.createElement('span');
             noteNode.setAttribute('class', 'note');
             noteNode.textContent = 'Note'
@@ -50,9 +51,10 @@ xtag.register('es-note', {
         }
     }
 });
-xtag.register('es-production', {
-    lifecycle: {
-        created: function() {
+document.registerElement('es-production', {
+    prototype: {
+        __proto__: HTMLElement.prototype,
+        createdCallback: function() {
             var type = this.getAttribute('type');
 
             var nt = document.createElement('es-nt');
@@ -85,9 +87,10 @@ xtag.register('es-production', {
     }
 });
 
-xtag.register('es-rhs', {
-    lifecycle: {
-        created: function() {
+document.registerElement('es-rhs', {
+    prototype: {
+        __proto__: HTMLElement.prototype,
+        createdCallback: function() {
             if(this.textContent === '') {
                 this.textContent = '[empty]'
 
@@ -108,9 +111,10 @@ xtag.register('es-rhs', {
     }
 });
 
-xtag.register('es-gann', {
-    lifecycle: {
-        created: function() {
+document.registerElement('es-gann', {
+    prototype: {
+        __proto__: HTMLElement.prototype,
+        createdCallback: function() {
             if(this.firstChild.nodeType === 3) {
                 this.firstChild.textContent = '[' + this.firstChild.textContent;
             } else {
@@ -125,9 +129,10 @@ xtag.register('es-gann', {
     }
 });
 
-xtag.register('es-clause', {
-    lifecycle: {
-        created: function() {
+document.registerElement('es-clause', {
+    prototype: {
+        __proto__: HTMLElement.prototype,
+        createdCallback: function() {
             var anchor = this.getAttribute('anchor');
             var name = this.getAttribute('title');
 
@@ -141,7 +146,7 @@ xtag.register('es-clause', {
 
             if(name) {
                 var id = this.getAttribute('id')
-                if(id === "") {
+                if(!id) {  // WebKit/Blink return null (should have been fixed in Blink ToT)
                     var header = document.createElement('h1');
                 } else {
                     var header = document.createElement('h' + (id.split('.').length + 1));
@@ -204,9 +209,10 @@ function createModifiersNode(node) {
 
 }
 
-xtag.register('es-nt', {
-    lifecycle: {
-        created: function() {
+document.registerElement('es-nt', {
+    prototype: {
+        __proto__: HTMLElement.prototype,
+        createdCallback: function() {
             this.insertBefore(createModifiersNode(this), null);
         }
     }
