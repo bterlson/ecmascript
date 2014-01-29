@@ -2,14 +2,7 @@
 
 ### Just give me the spec
 
-Clone the repository, and run:
-
-```
-> npm install
-> node tasks/build.js
-```
-
-After running build, `output/spec.html` can be opened in your browser.
+Clone the repository, and open `spec/index.html` in a modern browser.
 
 ### Introduction
 The document format for the specification uses Custom Elements and
