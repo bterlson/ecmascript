@@ -5,6 +5,9 @@ function setAnchorText(a, text) {
     a.textContent = text;
 }
 
+if (!document.registerElement && document.register)
+    document.registerElement = document.register;
+
 document.registerElement('es-xref', {
     prototype: {
         __proto__: HTMLElement.prototype,
