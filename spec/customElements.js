@@ -143,7 +143,7 @@ document.registerElement('es-clause', {
     prototype: {
         __proto__: HTMLElement.prototype,
 
-        attachedCallback: function() {
+        createdCallback: function() {
             var anchor = this.getAttribute('anchor');
             var name = this.getAttribute('title');
 
@@ -154,6 +154,7 @@ document.registerElement('es-clause', {
             }
 
             slugToName[anchor] = name;
+
 
             if(name) {
                 var idNumber;
@@ -300,8 +301,7 @@ function generateToc(depth, current, level) {
     return markup;
 }
 
-document.addEventListener('HTMLImportsLoaded', function() {
-    inlineImports(document);
+function appendToc() {
     var toc = generateToc(3);
     var ol = document.createElement('ol');
     ol.setAttribute('class', 'toc');
@@ -314,4 +314,14 @@ document.addEventListener('HTMLImportsLoaded', function() {
     container.appendChild(ol);
 
     document.body.insertBefore(container, document.body.children[0]);
+}
+
+document.addEventListener('HTMLImportsLoaded', function() {
+    inlineImports(document);
+
+    // Wait for all the inlined elements to be upgraded
+    // setTimeout of 0ms doesn't work with IE for reasons unknown
+    // but 100ms seems to work reliably on my machine. This should
+    // be made more reliable...
+    setTimeout(appendToc, 100);
 });
