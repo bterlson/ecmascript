@@ -158,13 +158,13 @@ document.registerElement('es-clause', {
         },
 
         updateChildrenId: function() {
+            var sectionNumber = this.sectionNumber;
             var counter = 1;
-            var base = this.id ? this.id + '.' : '';
             var children = this.children;
             var length = children.length;
-            for (var i = 0; i < length; i++) {
+            for(var i = 0; i < length; i++) {
                 if(children[i].localName === 'es-clause') {
-                    children[i].sectionNumber = base + counter++;
+                    children[i].sectionNumber = sectionNumber + '.' + counter++;
                 }
             }
         },
@@ -218,6 +218,9 @@ document.registerElement('es-clause', {
                     }
                 } else {
                     sectionNumber = this.parentNode.id;
+                    if(!sectionNumber) {
+                        return;
+                    }
 
                     if(sibling) {
                         sectionNumber += '.' + (parseFloat(sibling.id.split('.').reverse()[0]) + 1);
