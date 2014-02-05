@@ -5,7 +5,7 @@ function setAnchorText(a, text) {
     a.textContent = text;
 }
 
-if (!document.registerElement && document.register)
+if(!document.registerElement && document.register)
     document.registerElement = document.register;
 
 document.registerElement('es-xref', {
@@ -64,11 +64,11 @@ document.registerElement('es-production', {
 
             var geq = document.createElement('es-geq');
             if(type === 'lexical') {
-                geq.innerText = '::';
+                geq.textContent = '::';
             } else if(type === 'numeric') {
-                geq.innerText = ':::';
+                geq.textContent = ':::';
             } else {
-                geq.innerText = ':';
+                geq.textContent = ':';
             }
 
             this.insertBefore(geq, nt.nextSibling);
@@ -76,7 +76,7 @@ document.registerElement('es-production', {
 
             if(this.hasAttribute('oneof')) {
                 var elem = document.createElement('es-oneof');
-                elem.innerText = 'one of'
+                elem.textContent = 'one of'
 
                 this.insertBefore(elem, geq.nextSibling)
             }
@@ -131,7 +131,7 @@ function previousClauseSibling(node) {
     while(node !== null) {
         node = node.previousSibling;
 
-        if(node && node.nodeType === 1 && node.nodeName.toLowerCase() === 'es-clause')
+        if(node && node.nodeType === 1 && node.localName === 'es-clause')
             break;
     }
 
@@ -151,50 +151,85 @@ document.registerElement('es-clause', {
                 awaitingClause[anchor].forEach(function(fn) {
                     fn(name);
                 });
+                awaitingClause[anchor] = null;
             }
 
             slugToName[anchor] = name;
+        },
 
-
-            if(name) {
-                var idNumber;
-
-                var sibling = previousClauseSibling(this);
-
-                if(this.parentNode.nodeName.toLowerCase() !== 'es-clause') {
-                    if(sibling) {
-                        idNumber = "" + (parseFloat(sibling.getAttribute('id')) + 1);
-                    } else {
-                        idNumber = "1";
-                    }
-                } else {
-                    idNumber = this.parentNode.getAttribute('id');
-
-                    if(sibling) {
-                        idNumber = idNumber + '.' + (parseFloat(sibling.getAttribute('id').split('.').reverse()[0]) + 1);
-                    } else {
-                        idNumber = idNumber + '.1';
-                    }
+        updateChildrenId: function() {
+            var sectionNumber = this.sectionNumber;
+            var counter = 1;
+            var children = this.children;
+            var length = children.length;
+            for(var i = 0; i < length; i++) {
+                if(children[i].localName === 'es-clause') {
+                    children[i].sectionNumber = sectionNumber + '.' + counter++;
                 }
+            }
+        },
 
-                this.setAttribute('id', idNumber);
+        set sectionNumber(sectionNumber) {
+            if(sectionNumber !== this.id) {
+                this.id = sectionNumber;
 
-                if(!idNumber) {  // WebKit/Blink return null (should have been fixed in Blink ToT)
+                if(!sectionNumber) {  // WebKit/Blink return null (should have been fixed in Blink ToT)
                     var header = document.createElement('h1');
                 } else {
-                    var header = document.createElement('h' + (idNumber.split('.').length + 1));
+                    var header = document.createElement('h' + (sectionNumber.split('.').length + 1));
                 }
 
+                var anchor = this.getAttribute('anchor');
+                var name = this.getAttribute('title');
+
                 var secnum = document.createElement('a');
-                secnum.setAttribute('name', anchor);
-                secnum.setAttribute('class', 'secnum');
-                secnum.textContent = idNumber;
+                secnum.name = anchor;
+                secnum.className = 'secnum';
+                secnum.textContent = sectionNumber;
                 header.appendChild(secnum);
 
                 var text = document.createTextNode(name);
                 header.appendChild(text);
 
                 this.insertBefore(header, this.firstChild);
+
+                this.updateChildrenId();
+            }
+            // Else this will get updated by the parent as needed.
+        },
+
+        get sectionNumber() {
+            return this.id;
+        },
+
+        attachedCallback: function() {
+            var name = this.getAttribute('title');
+
+            if(name) {
+                var sectionNumber;
+
+                var sibling = previousClauseSibling(this);
+
+                if(this.parentNode.localName !== 'es-clause') {
+                    if(sibling) {
+                        sectionNumber = "" + (parseFloat(sibling.id) + 1);
+                    } else {
+                        sectionNumber = "1";
+                    }
+                } else {
+                    sectionNumber = this.parentNode.id;
+                    if(!sectionNumber) {
+                        return;
+                    }
+
+                    if(sibling) {
+                        sectionNumber += '.' + (parseFloat(sibling.id.split('.').reverse()[0]) + 1);
+                    } else {
+                        sectionNumber += '.1';
+                    }
+                }
+
+                this.sectionNumber = sectionNumber;
             }
         }
     }
@@ -256,7 +291,7 @@ function adoptBody(body) {
     var children = [].slice.apply(body.childNodes);
 
     children.forEach(function(child) {
-        child = document.adoptNode(child);
+        child = document.importNode(child, true);
         frag.appendChild(child);
     })
 
@@ -289,8 +324,8 @@ function generateToc(depth, current, level) {
     for(var i = 0; i < current.children.length; i++) {
         c = current.children[i];
 
-        if(c.nodeName.toLowerCase() === 'es-clause' && level < depth) {
-          markup += '<li><span class="secnum">' + c.getAttribute('id') + '</span> <es-xref target="' + c.getAttribute('anchor') + '"></es-xref>';
+        if(c.localName === 'es-clause' && level < depth) {
+          markup += '<li><span class="secnum">' + c.sectionNumber + '</span> <es-xref target="' + c.getAttribute('anchor') + '"></es-xref>';
           markup += generateToc(depth, c, level + 1);
           markup += '</li>'
         }
@@ -313,7 +348,7 @@ function appendToc() {
     container.appendChild(header);
     container.appendChild(ol);
 
-    document.body.insertBefore(container, document.body.children[0]);
+    document.body.insertBefore(container, document.body.firstChild);
 }
 
 document.addEventListener('HTMLImportsLoaded', function() {
@@ -323,5 +358,5 @@ document.addEventListener('HTMLImportsLoaded', function() {
     // setTimeout of 0ms doesn't work with IE for reasons unknown
     // but 100ms seems to work reliably on my machine. This should
     // be made more reliable...
-    setTimeout(appendToc, 100);
+    (window.setImmediate || window.setTimeout)(appendToc);
 });
