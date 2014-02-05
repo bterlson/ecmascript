@@ -351,12 +351,12 @@ function appendToc() {
     document.body.insertBefore(container, document.body.firstChild);
 }
 
-document.addEventListener('HTMLImportsLoaded', function() {
-    inlineImports(document);
+document.addEventListener('load', function(e) {
+    var el = e.target;
+    if (el.rel === 'import') {
+        inlineImports(el.import);
+        el.parentNode.replaceChild(adoptBody(el.import.body), el);
+    }
+}, true);
 
-    // Wait for all the inlined elements to be upgraded
-    // setTimeout of 0ms doesn't work with IE for reasons unknown
-    // but 100ms seems to work reliably on my machine. This should
-    // be made more reliable...
-    (window.setImmediate || window.setTimeout)(appendToc);
-});
+document.addEventListener('HTMLImportsLoaded', appendToc);
