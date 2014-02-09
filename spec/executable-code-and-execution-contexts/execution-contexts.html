@@ -157,8 +157,67 @@
   <p>An execution context is purely a specification mechanism and need not correspond to any
   particular artefact of an ECMAScript implementation. It is impossible for ECMAScript code to
   directly access or observe an execution context.</p>
-  <link rel="import" href="execution-contexts/resolvebinding.html">
-  <link rel="import" href="execution-contexts/getthisenvironment.html">
+
+  <es-clause title="ResolveBinding(name)" anchor="sec-resolvebinding">
+    <p>The ResolveBinding abstract operation is used to determine the binding of
+    <es-nt>name</es-nt> passed as a string value using the <es-xref target=
+    "sec-execution-contexts">LexicalEnvironment</es-xref> of <es-xref target=
+    "sec-execution-contexts">the running execution context</es-xref>. During execution of
+    ECMAScript code, ResolveBinding is performed using the following algorithm:</p>
+
+    <ol class="proc">
+      <li>Let <i>env</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>’s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+      <li>If the syntactic production that is being evaluated is contained in <es-xref target=
+      "sec-strict-mode-code">strict mode code</es-xref>, then let <i>strict</i> be <b>true</b>,
+      else let <i>strict</i> be <b>false</b>.</li>
+
+      <li>Return the result of calling <es-xref target=
+      "sec-getidentifierreference">GetIdentifierReference</es-xref> abstract operation passing
+      <i>env</i>, <i>name</i>, and <i>strict</i> as arguments.</li>
+    </ol>
+
+    <p>The result of resolving name is always a <es-xref target=
+    "sec-reference-specification-type">Reference</es-xref> value with its referenced name component
+    equal to the <es-nt>name</es-nt> argument.</p>
+  </es-clause>
+
+  <es-clause title="GetThisEnvironment" anchor="sec-getthisenvironment">
+    <p>The abstract operation GetThisEnvironment finds the <es-xref target=
+    "sec-lexical-environments">lexical environment</es-xref> that currently supplies the binding of
+    the keyword <code>this</code>. GetThisEnvironment performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>lex</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>’s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+      <li>Repeat
+
+        <ol class="block">
+          <li>Let <i>envRec</i> be <i>lex</i>’s environment record.</li>
+
+          <li>Let <i>exists</i> be the result of calling the HasThisBinding concrete method of
+          <i>envRec</i>.</li>
+
+          <li>If <i>exists</i> is <code>true</code>, then return <i>envRec</i>.</li>
+
+          <li>Let <i>outer</i> be the value of <i>lex’s</i> <es-xref target=
+          "sec-lexical-environments">outer environment reference</es-xref>.</li>
+
+          <li>Let <i>lex</i> be <i>outer</i>.</li>
+        </ol>
+      </li>
+    </ol>
+
+    <es-note>
+      <p>The loop in step 2 will always terminate because the llst of environments always ends with
+      <es-xref target="sec-global-environment-records">the global environment</es-xref> which has a
+      <code>this</code> binding.</p>
+    </es-note>
+  </es-clause>
 
   <es-clause title="ResolveThisBinding" anchor="sec-resolvethisbinding">
     <p>The abstract operation ResolveThisBinding determines the binding of the keyword

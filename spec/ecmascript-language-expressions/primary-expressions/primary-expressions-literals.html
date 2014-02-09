@@ -15,6 +15,48 @@
 
     <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
   </es-production>
-  <link rel="import" href=
-  "primary-expressions-literals/literals-runtime-semantics-evaluation.html">
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-literals-runtime-semantics-evaluation">
+    <es-production name="Literal" class="inline">
+      <es-rhs><es-nt>NullLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>null</b>.</li>
+    </ol>
+
+    <es-production name="ValueLiteral" class="inline">
+      <es-rhs><es-nt>BooleanLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b> if <i>BooleanLiteral</i> is the token <es-production name=
+      "BooleanLiteral" type="lexical" class=
+      "inline"><es-rhs>false</es-rhs></es-production></li>
+
+      <li>Return <b>true</b> if <i>BooleanLiteral</i> is the token <es-production name=
+      "BooleanLiteral" type="lexical" class=
+      "inline"><es-rhs>true</es-rhs></es-production></li>
+    </ol>
+
+    <es-production name="ValueLiteral" class="inline">
+      <es-rhs><es-nt>NumericLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the number whose value is MV of <i>NumericLiteral</i> as defined in
+      <es-xref target="sec-literals-numeric-literals">11.8.3</es-xref>.</li>
+    </ol>
+
+    <es-production name="ValueLiteral" class="inline">
+      <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref>
+      of <i>StringLiteral</i> as defined in <es-xref target=
+      "sec-string-literals-static-semantics-stringvalue">11.8.4.2</es-xref>.</li>
+    </ol>
+  </es-clause>
 </es-clause>

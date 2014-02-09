@@ -48,10 +48,137 @@
 
     <es-rhs><es-nt>Identifier</es-nt></es-rhs>
   </es-production>
-  <link rel="import" href=
-  "let-and-const-declarations/let-and-const-declarations-static-semantics-early-errors.html">
-  <link rel="import" href=
-  "let-and-const-declarations/let-and-const-declarations-static-semantics-boundnames.html">
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-let-and-const-declarations-static-semantics-early-errors">
+    <es-production name="LexicalBinding" class="inline">
+      <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt optional>Initialiser</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if the BoundNames of <es-nt>BindingIdentifier</es-nt> contains
+        <code>"let"</code>.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if <es-nt>Initialiser</es-nt> is not present and
+        IsConstantDeclaration of the <es-nt>LexicalDeclaration</es-nt> containing this production
+        is <span class="value">true</span>.</p>
+      </li>
+    </ul>
+
+    <es-production name="BindingIdentifier" class="inline">
+      <es-rhs>yield</es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if this production is contained in <es-xref target=
+        "sec-strict-mode-code">strict code</es-xref>.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if this production is contained within the
+        <es-nt>FunctionBody</es-nt> of a <i>GeneratorMethod, GeneratorDeclaration,</i> or
+        <es-nt>GeneratorExpression</es-nt>.</p>
+      </li>
+    </ul>
+
+    <es-production name="BindingIdentifier" class="inline">
+      <es-rhs><es-nt>Identifier</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if the <es-nt>BindingIdentifier</es-nt> is contained in
+        <es-xref target="sec-strict-mode-code">strict code</es-xref> and if the
+        <es-nt>Identifier</es-nt> is: <code>arguments</code>, <code>eval</code>,
+        <code>implements</code>, <code>interface</code>, <code>let</code>, <code>package</code>,
+        <code>private</code>, <code>protected</code>, <code>public</code>, or
+        <code>static</code>.</p>
+      </li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Static Semantics: BoundNames" anchor=
+  "sec-let-and-const-declarations-static-semantics-boundnames">
+    <p>See also:, <es-xref target=
+    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</es-xref>,
+    <es-xref target=
+    "sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.3</es-xref>,
+    <es-xref target="sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-boundnames">14.4.2</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-boundnames">14.5.2</es-xref>,
+    <es-xref target="sec-imports-static-semantics-boundnames">15.2.1.2</es-xref>, <es-xref target=
+    "sec-exports-static-semantics-boundnames">15.2.2.1</es-xref>.</p>
+
+    <es-production name="LexicalDeclaration" class="inline">
+      <es-rhs><es-nt>LetOrConst</es-nt> <es-nt>BindingList</es-nt> ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>BindingList</i>.</li>
+    </ol>
+
+    <es-production name="BindingList" class="inline">
+      <es-rhs><es-nt>BindingList</es-nt> , <es-nt>LexicalBinding</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be the BoundNames of <i>BindingList</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the BoundNames of <i>LexicalBinding.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+
+    <es-production name="LexicalBinding" class="inline">
+      <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt optional>Initialiser</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+    </ol>
+
+    <es-production name="LexicalBinding" class="inline">
+      <es-rhs><es-nt>BindingPattern</es-nt> <es-nt>Initialiser</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>BindingPattern</i>.</li>
+    </ol>
+
+    <es-production name="BindingIdentifier" class="inline">
+      <es-rhs><es-nt>Identifier</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing the <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref>
+      of <i>Identifier</i>.</li>
+    </ol>
+
+    <es-production name="BindingIdentifier" class="inline">
+      <es-rhs>default</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing the string "<code>default</code>".</li>
+    </ol>
+
+    <es-production name="BindingIdentifier" class="inline">
+      <es-rhs>yield</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing the string "<code>yield</code>".</li>
+    </ol>
+  </es-clause>
 
   <es-clause title="Static Semantics: IsConstantDeclaration" anchor=
   "sec-let-and-const-declarations-static-semantics-isconstantdeclaration">
@@ -119,8 +246,166 @@
       <li>Return the string "<code>yield</code>".</li>
     </ol>
   </es-clause>
-  <link rel="import" href=
-  "let-and-const-declarations/let-and-const-declarations-runtime-semantics-bindinginitialisation.html">
-  <link rel="import" href=
-  "let-and-const-declarations/let-and-const-declarations-runtime-semantics-evaluation.html">
+
+  <es-clause title="Runtime Semantics: BindingInitialisation" anchor=
+  "sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">
+    <p>With arguments <es-nt>value</es-nt> and <es-nt>environment</es-nt>.</p>
+
+    <p>See also: <es-xref target=
+    "sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</es-xref>,
+    <es-xref target=
+    "sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</es-xref>,
+    <es-xref target=
+    "sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</es-xref>,
+    <es-xref target=
+    "sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</es-xref>.</p>
+
+    <es-note>
+      <p><b>undefined</b> is passed for <es-nt>environment</es-nt> to indicate that a
+      <es-xref target="sec-putvalue">PutValue</es-xref> operation should be used to assign the
+      initialisation value. This is the case for <code>var</code> statements formal parameter lists
+      of non-strict functions. In those cases a lexical binding is hosted and preinitialised prior
+      to evaluation of its initialiser.</p>
+    </es-note>
+
+    <es-production name="BindingIdentifier" class="inline">
+      <es-rhs><es-nt>Identifier</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>environment</i> is not <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>name</i> be <es-xref target=
+          "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>Identifier</i>.</li>
+
+          <li>Let <i>env</i> be the environment record component of <i>environment</i>.</li>
+
+          <li>Call the InitialiseBinding concrete method of <i>env</i> passing <i>name</i> and
+          <i>value</i> as the arguments.</li>
+
+          <li>Return <es-xref target=
+          "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
+        </ol>
+      </li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>Let <i>lhs</i> be the result of <es-xref target=
+          "sec-resolvebinding">ResolveBinding</es-xref>(<es-xref target=
+          "sec-identifiers-and-identifier-names">StringValue</es-xref>(<i>Identifier</i>)).</li>
+
+          <li>Return <es-xref target="sec-putvalue">PutValue</es-xref>(<i>lhs</i>,
+          <i>value</i>).</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-let-and-const-declarations-runtime-semantics-evaluation">
+    <es-production name="LexicalDeclaration" class="inline">
+      <es-rhs><es-nt>LetOrConst</es-nt> <es-nt>BindingList</es-nt> ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>next</i> be the result of evaluating <i>BindingList</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+      <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
+    </ol>
+
+    <es-production name="BindingList" class="inline">
+      <es-rhs><es-nt>BindingList</es-nt> , <es-nt>LexicalBinding</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>next</i> be the result of evaluating <i>BindingList</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+      <li>Return the result of evaluating <i>LexicalBinding</i>.</li>
+    </ol>
+
+    <es-production name="LexicalBinding" class="inline">
+      <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>env</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>’s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+      <li>Return the result of performing BindingInitialisation for <i>BindingIdentifier</i>
+      passing <b>undefined</b> and <i>env</i> as the arguments.</li>
+    </ol>
+
+    <es-note>
+      <p>A static semantics rule ensures that this form of <es-nt>LexicalBinding</es-nt> never
+      occurs in a <code>const</code> declaration.</p>
+    </es-note>
+
+    <es-production name="LexicalBinding" class="inline">
+      <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt>Initialiser</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>rhs</i> be the result of evaluating <i>Initialiser</i>.</li>
+
+      <li>Let <i>value</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rhs</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
+
+      <li>If IsAnonymousFunctionDefinition of <i>Initialiser</i> is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>hasNameProperty</i> be the result of <es-xref target=
+          "sec-hasownproperty">HasOwnProperty</es-xref>(<i>value</i>, <code>"name"</code>).</li>
+
+          <li><es-xref target=
+          "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hasNameProperty</i>).</li>
+
+          <li>If <i>hasNameProperty</i> is <b>false</b>, then
+
+            <ol class="block">
+              <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>value</i>,
+              <es-xref target=
+              "sec-identifiers-and-identifier-names">StringValue</es-xref>(<i>BindingIdentifier</i>)).</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Let <i>env</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>’s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+      <li>Return the result of performing BindingInitialisation for <i>BindingIdentifier</i>
+      passing <i>value</i> and <i>env</i> as the arguments.</li>
+    </ol>
+
+    <es-production name="LexicalBinding" class="inline">
+      <es-rhs><es-nt>BindingPattern</es-nt> <es-nt>Initialiser</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>rhs</i> be the result of evaluating <i>Initialiser</i>.</li>
+
+      <li>Let <i>value</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rhs</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+      not Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>env</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>’s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+      <li>Return the result of performing BindingInitialisation for <i>BindingPattern</i> using
+      <i>value</i> and <i>env</i> as the <i>arguments</i>.</li>
+    </ol>
+  </es-clause>
 </es-clause>

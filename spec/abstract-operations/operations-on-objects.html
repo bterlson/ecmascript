@@ -18,12 +18,182 @@
       <i>O</i> as the arguments.</li>
     </ol>
   </es-clause>
-  <link rel="import" href="operations-on-objects/put-o-p-v-throw.html">
-  <link rel="import" href="operations-on-objects/createdataproperty.html">
-  <link rel="import" href="operations-on-objects/createdatapropertyorthrow.html">
-  <link rel="import" href="operations-on-objects/definepropertyorthrow.html">
-  <link rel="import" href="operations-on-objects/deletepropertyorthrow.html">
-  <link rel="import" href="operations-on-objects/getmethod.html">
+
+  <es-clause title="Put (O, P, V, Throw)" anchor="sec-put-o-p-v-throw">
+    <p>The abstract operation Put is used to set the value of a specific property of an object. The
+    operation is called with arguments <es-nt>O</es-nt>, <es-nt>P</es-nt>, <es-nt>V</es-nt>, and
+    <es-nt>Throw</es-nt> where <es-nt>O</es-nt> is the object, <es-nt>P</es-nt> is the
+    <es-xref target="sec-object-type">property key</es-xref>, <es-nt>V</es-nt> is the new value for
+    the property and <es-nt>Throw</es-nt> is a Boolean flag. This abstract operation performs the
+    following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>Throw</i>) is Boolean.</li>
+
+      <li>Let <i>success</i> be the result of calling the [[Set]] internal method of <i>O</i>
+      passing <i>P</i>, <i>V</i>, and <i>O</i> as the arguments.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>success</i>).</li>
+
+      <li>If <i>success</i> is <b>false</b> and <i>Throw</i> is <b>true</b>, then throw a
+      <b>TypeError</b> exception.</li>
+
+      <li>Return <i>success</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CreateDataProperty (O, P, V)" anchor="sec-createdataproperty">
+    <p>The abstract operation CreateDataProperty is used to create a new own property of an object.
+    The operation is called with arguments <es-nt>O</es-nt>, <es-nt>P</es-nt>, and <es-nt>V</es-nt>
+    where <es-nt>O</es-nt> is the object, <es-nt>P</es-nt> is the <es-xref target=
+    "sec-object-type">property key</es-xref>, and <es-nt>V</es-nt> is the value for the property.
+    This abstract operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>Let <i>newDesc</i> be the PropertyDescriptor{[[Value]]: <i>V</i>, [[Writable]]:
+      <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]: <b>true</b>}.</li>
+
+      <li>Return the result of calling the [[DefineOwnProperty]] internal method of <i>O</i>
+      passing <i>P</i> and <i>newDesc</i> as arguments.</li>
+    </ol>
+
+    <es-note>
+      <p>This abstract operation creates a property whose attributes are set to the same defaults
+      used for properties created by the ECMAScript language assignment operator. Normally, the
+      property will not already exist. If it does exist and is not configurable or <span class=
+      "value">O</span> is not extensible [[DefineOwnProperty]] will return <span class=
+      "value">false</span>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="CreateDataPropertyOrThrow (O, P, V)" anchor="sec-createdatapropertyorthrow">
+    <p>The abstract operation CreateDataPropertyOrThrow is used to create a new own property of an
+    object. It throws a <span class="value">TypeError</span> exception if the requested property
+    update cannot be performed. The operation is called with arguments <es-nt>O</es-nt>,
+    <es-nt>P</es-nt>, and <es-nt>V</es-nt> where <es-nt>O</es-nt> is the object, <es-nt>P</es-nt>
+    is the <es-xref target="sec-object-type">property key</es-xref>, and <es-nt>V</es-nt> is the
+    value for the property. This abstract operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>Let <i>success</i> be the result of <es-xref target=
+      "sec-createdataproperty">CreateDataProperty</es-xref>(<i>O</i>, <i>P</i>, <i>V</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>success</i>).</li>
+
+      <li>If <i>success</i> is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Return <i>success</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>This abstract operation creates a property whose attributes are set to the same defaults
+      used for properties created by the ECMAScript language assignment operator. Normally, the
+      property will not already exist. If it does exist and is not configurable or <span class=
+      "value">O</span> is not extensible [[DefineOwnProperty]] will return <span class=
+      "value">false</span> causing this operation to throw a <span class="value">TypeError</span>
+      exception.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="DefinePropertyOrThrow (O, P, desc)" anchor="sec-definepropertyorthrow">
+    <p>The abstract operation DefinePropertyOrThrow is used to call the [[DefineOwnProperlty]]
+    internal method of an object in a manner that will throw a <b>TypeError</b> exception if the
+    requested property update cannot be performed. The operation is called with arguments
+    <es-nt>O</es-nt>, <es-nt>P</es-nt>, and <es-nt>desc</es-nt> where <es-nt>O</es-nt> is the
+    object, <es-nt>P</es-nt> is the <es-xref target="sec-object-type">property key</es-xref>, and
+    <es-nt>desc</es-nt> is the <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> for the property.
+    This abstract operation perform, the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>Let <i>success</i> be the result of calling the [[DefineOwnProperty]] internal method of
+      <i>O</i> passing <i>P</i> and <i>desc</i> as arguments.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>success</i>).</li>
+
+      <li>If <i>success</i> is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Return <i>success</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="DeletePropertyOrThrow (O, P)" anchor="sec-deletepropertyorthrow">
+    <p>The abstract operation DeletePropertyOrThrow is used to remove a specific own property of an
+    object. It throws an exception if the property is not configurable. The operation is called
+    with arguments <es-nt>O</es-nt> and <es-nt>P</es-nt> where <es-nt>O</es-nt> is the object and
+    <es-nt>P</es-nt> is the <es-xref target="sec-object-type">property key</es-xref>. This abstract
+    operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>Let <i>success</i> be the result of calling the [[Delete]] internal method of <i>O</i>
+      passing <i>P</i> as the argument.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>success</i>).</li>
+
+      <li>If <i>success</i> is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Return <i>success</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="GetMethod (O, P)" anchor="sec-getmethod">
+    <p>The abstract operation GetMethod is used to get the value of a specific property of an
+    object when the value of the property is expected to be a function. The operation is called
+    with arguments <es-nt>O</es-nt> and <es-nt>P</es-nt> where <es-nt>O</es-nt> is the object,
+    <es-nt>P</es-nt> is the <es-xref target="sec-object-type">property key</es-xref>. This abstract
+    operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>Let <i>func</i> be the result of calling the [[Get]] internal method of <i>O</i> passing
+      <i>P</i> and <i>O</i> as the arguments.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>func</i>).</li>
+
+      <li>If <i>func</i> is <b>undefined</b>, then return <b>undefined</b>.</li>
+
+      <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>func</i>) is <b>false</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li>Return <i>func</i>.</li>
+    </ol>
+  </es-clause>
 
   <es-clause title="HasProperty (O, P)" anchor="sec-hasproperty">
     <p>The abstract operation HasProperty is used to determine whether an object has a property
@@ -44,15 +214,523 @@
       argument <i>P</i>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href="operations-on-objects/hasownproperty.html">
-  <link rel="import" href="operations-on-objects/setintegritylevel.html">
-  <link rel="import" href="operations-on-objects/testintegritylevel.html">
-  <link rel="import" href="operations-on-objects/createarrayfromlist.html">
-  <link rel="import" href="operations-on-objects/createlistfromarraylike.html">
-  <link rel="import" href="operations-on-objects/ordinaryhasinstance.html">
-  <link rel="import" href="operations-on-objects/getprototypefromconstructor.html">
-  <link rel="import" href="operations-on-objects/createfromconstructor.html">
-  <link rel="import" href="operations-on-objects/construct-f-argumentslist.html">
+
+  <es-clause title="HasOwnProperty (O, P)" anchor="sec-hasownproperty">
+    <p>The abstract operation HasOwnProperty is used to determine whether an object has an own
+    property with the specified <es-xref target="sec-object-type">property key</es-xref>. A Boolean
+    value is returned. The operation is called with arguments <es-nt>O</es-nt> and <es-nt>P</es-nt>
+    where <es-nt>O</es-nt> is the object and <es-nt>P</es-nt> is the <es-xref target=
+    "sec-object-type">property key</es-xref>. This abstract operation performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>Let <i>desc</i> be the result of calling the [[GetOwnProperty]] internal method of
+      <i>O</i> passing <i>P</i> as the argument.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>desc</i>).</li>
+
+      <li>If <i>desc</i> is <b>undefined</b>, return <b>false</b>.</li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+
+    <p><span class="marker">7.3.10	</span><b>Invoke(O,P, [args])</b></p>
+
+    <p>The abstract operation Invoke is used to call a method property of an object. The operation
+    is called with arguments <es-nt>O</es-nt>, <es-nt>P</es-nt> , and optionally
+    <es-nt>args</es-nt> where <es-nt>O</es-nt> serves as both the lookup point for the property and
+    the <b>this</b> value of the call, <es-nt>P</es-nt> is the <es-xref target=
+    "sec-object-type">property key</es-xref>, and <es-nt>args</es-nt> is the list of arguments
+    values passed to the method. If <es-nt>args</es-nt> is not present, an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> is used as its value. This abstract
+    operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>P</i> is a valid
+      <es-xref target="sec-object-type">property key</es-xref>.</li>
+
+      <li>If <i>args</i> was not passed, then let <i>args</i> be a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>Let <i>obj</i> be <es-xref target="sec-toobject">ToObject</es-xref>(<i>O</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
+
+      <li>Let <i>func</i> be the result of calling the [[Get]] internal method of <i>obj</i>
+      passing <i>P</i> and <i>O</i> as the arguments.</li>
+
+      <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>func</i>) is <b>false</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>func</i>).</li>
+
+      <li>Return the result of calling the [[Call]] internal method of <i>func</i> passing <i>O</i>
+      as <i>thisArgument</i> and <i>args</i> as <i>argumentsList</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="SetIntegrityLevel (O, level)" anchor="sec-setintegritylevel">
+    <p>The abstract operation SetIntegrityLevel is used to fix the set of own properties of an
+    object. This abstract operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>level</i> is either
+      "<code>sealed</code>" or "<code>frozen</code>".</li>
+
+      <li>Let <i>keys</i> be the result of calling the [[OwnPropertyKeys]] internal method of
+      <i>O</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keys</i>).</li>
+
+      <li>Let <i>pendingException</i> be <b>undefined</b>.</li>
+
+      <li>If <i>level</i> is "<code>sealed</code>", then
+
+        <ol class="block">
+          <li>Repeat for each element <i>k</i> of <i>keys</i>,
+
+            <ol class="block">
+              <li>Let <i>status</i> be the result of <es-xref target=
+              "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>O</i>, <i>k</i>,
+              PropertyDescriptor{ [[Configurable]]: <b>false</b>}).</li>
+
+              <li>If <i>status</i> is an <es-xref target=
+              "sec-completion-record-specification-type">abrupt completion</es-xref>, then
+
+                <ol class="block">
+                  <li>If <i>pendingException</i> is <b>undefined</b>, then set
+                  <i>pendingException</i> to <i>status</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Else <i>level</i> is "<code>frozen</code>",
+
+        <ol class="block">
+          <li>Repeat for each element <i>k</i> of <i>keys</i>,
+
+            <ol class="block">
+              <li>Let <i>status</i> be the result of calling the [[GetOwnProperty]] internal method
+              of <i>O</i> with <i>k</i>.</li>
+
+              <li>If <i>status</i> is an <es-xref target=
+              "sec-completion-record-specification-type">abrupt completion</es-xref>, then
+
+                <ol class="block">
+                  <li>If <i>pendingException</i> is <b>undefined</b>, then set
+                  <i>pendingException</i> to <i>status</i>.</li>
+                </ol>
+              </li>
+
+              <li>Else,
+
+                <ol class="block">
+                  <li>Let <i>currentDesc</i> be <i>status</i>.[[value]].</li>
+
+                  <li>If <i>currentDesc</i> is not <b>undefined</b>, then
+
+                    <ol class="block">
+                      <li>If <es-xref target=
+                      "sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>currentDesc</i>)
+                      is <b>true</b>, then
+
+                        <ol class="block">
+                          <li>Let <i>desc</i> be the PropertyDescriptor{[[Configurable]]:
+                          <b>false</b>}.</li>
+                        </ol>
+                      </li>
+
+                      <li>Else,
+
+                        <ol class="block">
+                          <li>Let <i>desc</i> be the PropertyDescriptor { [[Configurable]]:
+                          <b>false</b>, [[Writable]]: <b>false</b> }.</li>
+                        </ol>
+                      </li>
+
+                      <li>Let <i>status</i> be the result of <es-xref target=
+                      "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>O</i>,
+                      <i>k</i>, <i>desc</i>).</li>
+
+                      <li>If <i>status</i> is an <es-xref target=
+                      "sec-completion-record-specification-type">abrupt completion</es-xref>, then
+
+                        <ol class="block">
+                          <li>If <i>pendingException</i> is <b>undefined</b>, then set
+                          <i>pendingException</i> to <i>status</i>.</li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>If <i>pendingException</i> is not <b>undefined</b>, then return
+      <i>pendingException</i>.</li>
+
+      <li>Return the result of calling the [[PreventExtensions]] internal method of <i>O</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="TestIntegrityLevel (O, level)" anchor="sec-testintegritylevel">
+    <p>The abstract operation TestIntegrityLevel is used to determine if the set of own properties
+    of an object are fixed. This abstract operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>level</i> is either
+      "<code>sealed</code>" or "<code>frozen</code>".</li>
+
+      <li>Let <i>status</i> be the result of <es-xref target=
+      "sec-isextensible-o">IsExtensible</es-xref>(<i>O</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>If <i>status</i> is <b>true</b>, then return <b>false</b></li>
+
+      <li>NOTE If the object is extensible, none of its properties are examined.</li>
+
+      <li>Let <i>keys</i> be the result of calling the [[OwnPropertyKeys]] internal method of
+      <i>O</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keys</i>).</li>
+
+      <li>Let <i>pendingException</i> be <b>undefined</b>.</li>
+
+      <li>Let <i>configurable</i> be <b>false</b>.</li>
+
+      <li>Let <i>writable</i> be <b>false</b>.</li>
+
+      <li>Repeat for each element <i>k</i> of <i>keys</i>,
+
+        <ol class="block">
+          <li>Let <i>status</i> be the result of calling the [[GetOwnProperty]] internal method of
+          <i>O</i> with <i>k</i>.</li>
+
+          <li>If <i>status</i> is an <es-xref target=
+          "sec-completion-record-specification-type">abrupt completion</es-xref>, then
+
+            <ol class="block">
+              <li>If <i>pendingException</i> is <b>undefined</b>, then set <i>pendingException</i>
+              to <i>status</i>.</li>
+
+              <li>Let <i>configurable</i> be <b>true</b>.</li>
+            </ol>
+          </li>
+
+          <li>Else,
+
+            <ol class="block">
+              <li>Let <i>currentDesc</i> be <i>status</i>.[[value]].</li>
+
+              <li>If <i>currentDesc</i> is not <b>undefined</b>, then
+
+                <ol class="block">
+                  <li>Set <i>configurable</i> to <i>configurable</i> logically ored with
+                  <i>currentDesc</i>.[[Configurable]].</li>
+
+                  <li>If <es-xref target=
+                  "sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>currentDesc</i>) is
+                  <b>true</b>, then
+
+                    <ol class="block">
+                      <li>Set <i>writable</i> to <i>writable</i> logically ored with
+                      <i>currentDesc</i>.[[Writable]].</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>If <i>pendingException</i> is not <b>undefined</b>, then return
+      <i>pendingException</i>.</li>
+
+      <li>If <i>level</i> is "<code>frozen</code>" and <i>writable</i> is <b>true</b>, then return
+      <b>false</b>.</li>
+
+      <li>If <i>configurable</i> is <b>true</b>, then return <b>false</b>.</li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CreateArrayFromList (elements)" anchor="sec-createarrayfromlist">
+    <p>The abstract operation CreateArrayFromList is used to create an Array object whose elements
+    are provided by a <es-xref target="sec-list-and-record-specification-type">List</es-xref>. This
+    abstract operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>elements</i> is a
+      <es-xref target="sec-list-and-record-specification-type">List</es-xref> whose elements are
+      all <es-xref target="sec-ecmascript-language-types">ECMAScript language
+      values</es-xref>.</li>
+
+      <li>Let <i>array</i> be the result of the abstract operation <es-xref target=
+      "sec-arraycreate">ArrayCreate</es-xref> (see <es-xref target=
+      "sec-arraycreate">9.4.2.2</es-xref>) with argument 0.</li>
+
+      <li>Let <i>n</i> be 0.</li>
+
+      <li>For each element <i>e</i> of <i>elements</i>
+
+        <ol class="block">
+          <li>Let <i>status</i> be the result of <es-xref target=
+          "sec-createdataproperty">CreateDataProperty</es-xref>(<i>array</i>, <es-xref target=
+          "sec-tostring">ToString</es-xref>(<i>n</i>), <i>e</i>).</li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is
+          <b>true</b>.</li>
+
+          <li>Increment <i>n</i> by 1.</li>
+        </ol>
+      </li>
+
+      <li>Return <i>array</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CreateListFromArrayLike (obj)" anchor="sec-createlistfromarraylike">
+    <p>The abstract operation CreateListFromArrayLike is used to create a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> value whose elements are provided by
+    the indexed properties of an array-like object. This abstract operation performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>obj</i>) is
+      not Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>len</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>obj</i>,
+      <code>"length"</code>).</li>
+
+      <li>Let <i>n</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>len</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>n</i>).</li>
+
+      <li>Let <i>list</i> be an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>Let <i>index</i> be 0.</li>
+
+      <li>Repeat while <i>index</i> &lt; <i>n</i>
+
+        <ol class="block">
+          <li>Let <i>indexName</i> be <es-xref target=
+          "sec-tostring">ToString</es-xref>(<i>index</i>).</li>
+
+          <li>Let <i>next</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>obj</i>, <i>indexName</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+          <li>Append <i>next</i> as the last element of <i>list</i>.</li>
+
+          <li>Set <i>index</i> to <i>index</i> + 1.</li>
+        </ol>
+      </li>
+
+      <li>Return <i>list</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="OrdinaryHasInstance (C, O)" anchor="sec-ordinaryhasinstance">
+    <p>The abstract operation OrdinaryHasInstance implements the default algorithm for determining
+    if an object <es-nt>O</es-nt> inherits from the instance object inheritance path provided by
+    constructor <es-nt>C</es-nt>. This abstract operation performs the following steps:</p>
+
+    <ol class="proc">
+      <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>C</i>) is <b>false</b>,
+      return <b>false</b>.</li>
+
+      <li>If <i>C</i> has a <es-xref target=
+      "sec-bound-function-exotic-objects">[[BoundTargetFunction]]</es-xref> <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
+
+        <ol class="block">
+          <li>Let <i>BC</i> be the value of <i>C’s</i> <es-xref target=
+          "sec-bound-function-exotic-objects">[[BoundTargetFunction]]</es-xref> <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+          <li>Return the result of <es-xref target=
+          "sec-instanceofoperator">InstanceofOperator</es-xref>(<i>O</i>,<i>BC</i>) (see
+          <es-xref target="sec-instanceofoperator">12.8.4</es-xref>).</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is not
+      Object, return <b>false</b>.</li>
+
+      <li>Let <i>P</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>C</i>,
+      <code>"prototype"</code>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>P</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>P</i>) is not
+      Object, throw a <b>TypeError</b> exception.</li>
+
+      <li>Repeat
+
+        <ol class="block">
+          <li>Set <i>O</i> to the result of calling the [[GetPrototypeOf]] internal method of
+          <i>O</i> with no arguments.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+
+          <li>If <i>O</i> is <code>null</code>, return <b>false</b>.</li>
+
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>P</i>, <i>O</i>) is
+          <b>true</b>, return <b>true</b>.</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="GetPrototypeFromConstructor ( constructor, intrinsicDefaultProto )" anchor=
+  "sec-getprototypefromconstructor">
+    <p>The abstract operation GetPrototypeFromConstructor determines the [[Prototype]] value that
+    should be used to create an object corresponding to a specific constructor. The value is
+    retrieved from the constructor’s <code>prototype</code> property, if it exists. Otherwise the
+    supplied default is used for [[Prototype]]. This abstract operation performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>:
+      <i>intrinsicDefaultProto</i> is a string value that is this specification’s name of an
+      intrinsic object. The corresponding object must be an intrinsic that is intended to be used
+      as the [[Prototype]] value of an object.</li>
+
+      <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref> (<i>constructor</i>) is
+      <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>proto</i> be the result of <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>constructor</i>, <code>"prototype"</code>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>proto</i>) is
+      not Object, then
+
+        <ol class="block">
+          <li>If <i>constructor</i> has a [[Realm]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, let
+          <i>realm</i> be <i>constructor’s</i> [[Realm]].</li>
+
+          <li>Else,
+
+            <ol class="block">
+              <li>Let <i>ctx</i> be <es-xref target="sec-execution-contexts">the running execution
+              context</es-xref>.</li>
+
+              <li>Let <i>realm</i> be <i>ctx’s</i> <es-xref target=
+              "sec-code-realms">Realm</es-xref>.</li>
+            </ol>
+          </li>
+
+          <li>Let <i>proto</i> be <i>realm’s</i> intrinsic object named
+          <i>intrinsicDefaultProto</i>.</li>
+        </ol>
+      </li>
+
+      <li>Return <i>proto</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>If <es-nt>constructor</es-nt> does not supply a [[Prototype]] value, the default value
+      that is used is obtained from the <es-xref target="sec-code-realms">Code Realm</es-xref> of
+      the <es-nt>constructor</es-nt> function rather than from <es-xref target=
+      "sec-execution-contexts">the running execution context</es-xref>. This accounts for the
+      possibility that a built-in @@create method from a different <es-xref target=
+      "sec-code-realms">Code Realm</es-xref> might be installed on <es-nt>constructor</es-nt>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="CreateFromConstructor (F)" anchor="sec-createfromconstructor">
+    <p>When the abstract operation CreateFromConstructor is called with Object <es-nt>F</es-nt> the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>creator</i> be <es-xref target="sec-get-o-p">Get</es-xref>(<i>F</i>,
+      @@create).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>creator</i>).</li>
+
+      <li>If <i>creator</i> is <b>undefined</b>, then return <b>undefined</b>.</li>
+
+      <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>creator</i>) is <b>false</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>obj</i> be the result of calling the [[Call]] internal method of <i>creator</i>
+      with arguments <i>F</i> and an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>obj</i>) is
+      not Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Construct (F, argumentsList)" anchor="sec-construct-f-argumentslist">
+    <p>When the abstract operation Construct is called with Object <es-nt>F</es-nt> and
+    <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    <es-nt>argumentsList</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>F</i>) is Object.</li>
+
+      <li>Let <i>obj</i> be <es-xref target=
+      "sec-createfromconstructor">CreateFromConstructor</es-xref>(<i>F</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
+
+      <li>If <i>obj</i> is <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>obj</i> be the result of calling <es-xref target=
+          "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>F</i>,
+          <code>"%ObjectPrototype%"</code>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
+
+          <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>obj</i>)
+          is not Object, then throw a <b>TypeError</b> exception.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>result</i> be the result of calling the [[Call]] internal method of <i>F</i>,
+      providing <i>obj</i> and <i>argumentsList</i> as the arguments.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>result</i>)
+      is Object then return <i>result</i>.</li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+  </es-clause>
 
   <es-clause title="GetOption (options, P)" anchor="sec-getoption">
     <p>The abstract operation GetOption is used to retrieve the value of a specific property of an

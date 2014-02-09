@@ -7,8 +7,212 @@
   the source text. For convenience, however, such semicolons may be omitted from the source text in
   certain situations. These situations are described by saying that semicolons are automatically
   inserted into the source code token stream in those situations.</p>
-  <link rel="import" href=
-  "automatic-semicolon-insertion/rules-of-automatic-semicolon-insertion.html">
-  <link rel="import" href=
-  "automatic-semicolon-insertion/examples-of-automatic-semicolon-insertion.html">
+
+  <es-clause title="Rules of Automatic Semicolon Insertion" anchor=
+  "sec-rules-of-automatic-semicolon-insertion">
+    <p>There are three basic rules of semicolon insertion:</p>
+
+    <ol class="proc">
+      <li>When, as the script is parsed from left to right, a token (called the <i>offending
+      token</i>) is encountered that is not allowed by any production of the grammar, then a
+      semicolon is automatically inserted before the offending token if one or more of the
+      following conditions is true:
+
+        <ul>
+          <li>The offending token is separated from the previous token by at least one
+          <es-nt>LineTerminator</es-nt>.</li>
+
+          <li>The offending token is <code>}</code>.</li>
+        </ul>
+      </li>
+
+      <li>When, as the script is parsed from left to right, the end of the input stream of tokens
+      is encountered and the parser is unable to parse the input token stream as a single complete
+      ECMAScript <es-nt>script</es-nt>, then a semicolon is automatically inserted at the end of
+      the input stream.</li>
+
+      <li>When, as the script is parsed from left to right, a token is encountered that is allowed
+      by some production of the grammar, but the production is a <i>restricted production</i> and
+      the token would be the first token for a terminal or nonterminal immediately following the
+      annotation “[no <i>LineTerminator</i> here]” within the restricted production (and therefore
+      such a token is called a restricted token), and the restricted token is separated from the
+      previous token by at least one <es-nt>LineTerminator</es-nt>, then a semicolon is
+      automatically inserted before the restricted token.</li>
+    </ol>
+
+    <p>However, there is an additional overriding condition on the preceding rules: a semicolon is
+    never inserted automatically if the semicolon would then be parsed as an empty statement or if
+    that semicolon would become one of the two semicolons in the header of a <code>for</code>
+    statement (see <es-xref target="sec-for-statement">13.6.3</es-xref>).</p>
+
+    <es-note>
+      <p>The following are the only restricted productions in the grammar:</p>
+    </es-note>
+
+    <es-production name="PostfixExpression" params="Yield">
+      <es-rhs><es-nt params="?Yield">LeftHandSideExpression</es-nt> <es-gann>no
+      <es-nt>LineTerminator</es-nt> here</es-gann><es-t>++</es-t></es-rhs>
+
+      <es-rhs><es-nt params="?Yield">LeftHandSideExpression</es-nt> <es-gann>no
+      <es-nt>LineTerminator</es-nt> here</es-gann><es-t>--</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="ContinueStatement">
+      <es-rhs>continue;</es-rhs>
+
+      <es-rhs><es-t>continue</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+      here</es-gann><es-nt>NonResolvedIdentifier</es-nt> <es-t>;</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="BreakStatement" params="Yield">
+      <es-rhs>break ;</es-rhs>
+
+      <es-rhs><es-t>break</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+      here</es-gann><es-nt>NonResolvedIdentifier</es-nt> <es-t>;</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="ReturnStatement" params="Yield">
+      <es-rhs><es-t>return</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+      here</es-gann><es-nt>Expression</es-nt> <es-t>;</es-t></es-rhs>
+
+      <es-rhs><es-t>return</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+      here</es-gann><es-nt params="In, ?Yield">Expression</es-nt> <es-t>;</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="ThrowStatement" params="Yield">
+      <es-rhs><es-t>throw</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+      here</es-gann><es-nt params="In, ?Yield">Expression</es-nt> <es-t>;</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="YieldExpression" params="In">
+      <es-rhs><es-t>yield</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+      here</es-gann><es-nt params="?In, Yield">AssignmentExpression</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ModuleImport">
+      <es-rhs>module <es-gann>no <es-nt>LineTerminator</es-nt>
+      here</es-gann><es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+    </es-production>
+
+    <p>The practical effect of these restricted productions is as follows:</p>
+
+    <p>When a <code>++</code> or <code>--</code> token is encountered where the parser would treat
+    it as a postfix operator, and at least one <es-nt>LineTerminator</es-nt> occurred between the
+    preceding token and the <code>++</code> or <code>--</code> token, then a semicolon is
+    automatically inserted before the <code>++</code> or <code>--</code> token.</p>
+
+    <p>When a <code>continue</code>, <code>break</code>, <code>return</code>, <code>throw</code>,
+    or <code>yield</code> token is encountered and a <es-nt>LineTerminator</es-nt> is encountered
+    before the next token, a semicolon is automatically inserted after the <code>continue</code>,
+    <code>break</code>, <code>return</code>, <code>throw</code>, or <code>yield</code> token.</p>
+
+    <p>The resulting practical advice to ECMAScript programmers is:</p>
+
+    <p>A postfix <code>++</code> or <code>--</code> operator should appear on the same line as its
+    operand.</p>
+
+    <p>An <es-nt>Expression</es-nt> in a <code>return</code> or <code>throw</code> statement or an
+    <es-nt>AssignmentExpression</es-nt> in a <code>yield</code> expression should start on the same
+    line as the <code>return</code>, <code>throw</code>, or <code>yield</code> token.</p>
+
+    <p>An <es-nt>IdentifierReference</es-nt> in a <code>break</code> or <code>continue</code>
+    statement should be on the same line as the <code>break</code> or <code>continue</code>
+    token.</p>
+  </es-clause>
+
+  <es-clause title="Examples of Automatic Semicolon Insertion" anchor=
+  "sec-examples-of-automatic-semicolon-insertion">
+    <p>The source</p>
+    <pre>
+{ 1 2 } 3
+</pre>
+
+    <p>is not a valid sentence in the ECMAScript grammar, even with the <es-xref target=
+    "sec-automatic-semicolon-insertion">automatic semicolon insertion</es-xref> rules. In contrast,
+    the source</p>
+    <pre>
+{ 1<br>2 } 3
+</pre>
+
+    <p>is also not a valid ECMAScript sentence, but is transformed by <es-xref target=
+    "sec-automatic-semicolon-insertion">automatic semicolon insertion</es-xref> into the
+    following:</p>
+    <pre>
+{ 1<br>;2 ;} 3;
+</pre>
+
+    <p>which is a valid ECMAScript sentence.</p>
+
+    <p>The source</p>
+    <pre>
+for (a; b<br>)
+</pre>
+
+    <p>is not a valid ECMAScript sentence and is not altered by <es-xref target=
+    "sec-automatic-semicolon-insertion">automatic semicolon insertion</es-xref> because the
+    semicolon is needed for the header of a <code>for</code> statement. Automatic semicolon
+    insertion never inserts one of the two semicolons in the header of a <code>for</code>
+    statement.</p>
+
+    <p>The source</p>
+    <pre>
+return<br>a + b
+</pre>
+
+    <p>is transformed by <es-xref target="sec-automatic-semicolon-insertion">automatic semicolon
+    insertion</es-xref> into the following:</p>
+    <pre>
+return;<br>a + b;
+</pre>
+
+    <es-note>
+      <p>The expression <code>a + b</code> is not treated as a value to be returned by the
+      <code>return</code> statement, because a <es-nt>LineTerminator</es-nt> separates it from the
+      token <code>return</code>.</p>
+    </es-note>
+
+    <p>The source</p>
+    <pre>
+a = b<br>++c
+</pre>
+
+    <p>is transformed by <es-xref target="sec-automatic-semicolon-insertion">automatic semicolon
+    insertion</es-xref> into the following:</p>
+    <pre>
+a = b;<br>++c;
+</pre>
+
+    <es-note>
+      <p>The token <code>++</code> is not treated as a postfix operator applying to the variable
+      <code>b</code>, because a <es-nt>LineTerminator</es-nt> occurs between <code>b</code> and
+      <code>++</code>.</p>
+    </es-note>
+
+    <p>The source</p>
+    <pre>
+if (a &gt; b)<br>else c = d
+</pre>
+
+    <p>is not a valid ECMAScript sentence and is not altered by <es-xref target=
+    "sec-automatic-semicolon-insertion">automatic semicolon insertion</es-xref> before the
+    <code>else</code> token, even though no production of the grammar applies at that point,
+    because an automatically inserted semicolon would then be parsed as an empty statement.</p>
+
+    <p>The source</p>
+    <pre>
+a = b + c<br>(d + e).print()
+</pre>
+
+    <p>is <i>not</i> transformed by <es-xref target="sec-automatic-semicolon-insertion">automatic
+    semicolon insertion</es-xref>, because the parenthesised expression that begins the second line
+    can be interpreted as an argument list for a function call:</p>
+    <pre>
+a = b + c(d + e).print()
+</pre>
+
+    <p>In the circumstance that an assignment statement must begin with a left parenthesis, it is a
+    good idea for the programmer to provide an explicit semicolon at the end of the preceding
+    statement rather than to rely on <es-xref target="sec-automatic-semicolon-insertion">automatic
+    semicolon insertion</es-xref>.</p>
+  </es-clause>
 </es-clause>

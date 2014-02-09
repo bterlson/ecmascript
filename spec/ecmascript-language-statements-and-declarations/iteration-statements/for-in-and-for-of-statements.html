@@ -1,17 +1,539 @@
 <!doctype html>
 <es-clause title="The-and-Statements" anchor="sec-for-in-and-for-of-statements">
-  <link rel="import" href=
-  "for-in-and-for-of-statements/for-in-and-for-of-statements-static-semantics-early-errors.html">
-  <link rel="import" href=
-  "for-in-and-for-of-statements/for-in-and-for-of-statements-static-semantics-boundnames.html">
-  <link rel="import" href=
-  "for-in-and-for-of-statements/for-in-and-for-of-statements-static-semantics-vardeclarednames.html">
-  <link rel="import" href=
-  "for-in-and-for-of-statements/runtime-semantics-bindinginstantiation.html">
-  <link rel="import" href=
-  "for-in-and-for-of-statements/for-in-and-for-of-statements-runtime-semantics-labelledevaluation.html">
-  <link rel="import" href=
-  "for-in-and-for-of-statements/runtime-semantics-forin-div-ofexpressionevaluation-abstract-operation.html">
-  <link rel="import" href=
-  "for-in-and-for-of-statements/runtime-semantics-forin-div-ofbodyevaluation.html">
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-for-in-and-for-of-statements-static-semantics-early-errors">
+    <es-production name="IterationStatement">
+      <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> in <es-nt>Expression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+
+      <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if <es-nt>LeftHandSideExpression</es-nt> is either an
+        <es-nt>ObjectLiteral</es-nt> or an <es-nt>ArrayLiteral</es-nt> and if the lexical token
+        sequence matched by <es-nt>LeftHandSideExpression</es-nt> cannot be parsed with no tokens
+        left over using <es-nt>AssignmentPattern</es-nt> as the goal symbol.</p>
+      </li>
+
+      <li>
+        <p>If <es-nt>LeftHandSideExpression</es-nt> is either an <es-nt>ObjectLiteral</es-nt> or an
+        <es-nt>ArrayLiteral</es-nt> and if the lexical token sequence matched by
+        <es-nt>LeftHandSideExpression</es-nt> can be parsed with no tokens left over using
+        <es-nt>AssignmentPattern</es-nt> as the goal symbol then the following rules are not
+        applied. Instead, the Early Error rules for <es-nt>AssignmentPattern</es-nt> are used.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if <es-nt>LeftHandSideExpression</es-nt> is a
+        <es-nt>IdentifierReference</es-nt> that can be statically determined to always resolve to a
+        <es-xref target="sec-declarative-environment-records">declarative environment
+        record</es-xref> binding and the resolved binding is an immutable binding.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if <es-nt>LeftHandSideExpression</es-nt> is neither an
+        <es-nt>ObjectLiteral</es-nt> nor an <es-nt>ArrayLiteral</es-nt> and
+        IsValidSimpleAssignmentTarget of <es-nt>LeftHandSideExpression</es-nt> is <span class=
+        "value">false</span>.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if the <es-nt>LeftHandSideExpression</es-nt> is
+        <es-production name="CoverParenthesisedExpressionAndArrowParameterList" class=
+        "inline"><es-rhs><es-t>(</es-t> <es-nt>Expression</es-nt>
+        <es-t>)</es-t></es-rhs></es-production> and <es-nt>Expression</es-nt> derives
+        a production that would produce a Syntax Error according to these rules if that production
+        is substituted for <es-nt>LeftHandSideExpression</es-nt>. This rule is recursively
+        applied.</p>
+      </li>
+    </ul>
+
+    <es-note>
+      <p>The last rule means that the other rules are applied even if multiple levels of nested
+      parenthesises surround <es-nt>Expression</es-nt>.</p>
+    </es-note>
+
+    <es-production name="IterationStatement">
+      <es-rhs>for ( <es-nt>ForDeclaration</es-nt> in <es-nt>Expression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+
+      <es-rhs>for ( <es-nt>ForDeclaration</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if any element of the BoundNames of <es-nt>ForDeclaration</es-nt>
+        also occurs in the VarDeclaredNames of <es-nt>Statement</es-nt>.</p>
+      </li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Static Semantics: BoundNames" anchor=
+  "sec-for-in-and-for-of-statements-static-semantics-boundnames">
+    <p>See also: <es-xref target=
+    "sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</es-xref>,
+    <es-xref target="sec-variable-statement-static-semantics-boundnames">13.2.2.1</es-xref>,
+    <es-xref target=
+    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.3</es-xref>,
+    <es-xref target="sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-boundnames">14.4.2</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-boundnames">14.5.2</es-xref>,
+    <es-xref target="sec-imports-static-semantics-boundnames">15.2.1.2</es-xref>, <es-xref target=
+    "sec-exports-static-semantics-boundnames">15.2.2.1</es-xref>.</p>
+
+    <es-production name="ForDeclaration" class="inline">
+      <es-rhs><es-nt>LetOrConst</es-nt> <es-nt>ForBinding</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>ForBinding</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: VarDeclaredNames" anchor=
+  "sec-for-in-and-for-of-statements-static-semantics-vardeclarednames">
+    <p>See also: <es-xref target=
+    "sec-statement-semantics-static-semantics-vardeclarednames">13.0.1</es-xref>, <es-xref target=
+    "sec-block-static-semantics-vardeclarednames">13.1.8</es-xref>, <es-xref target=
+    "sec-if-statement-static-semantics-vardeclarednames">13.5.1</es-xref>, <es-xref target=
+    "sec-do-while-statement-static-semantics-vardeclarednames">13.6.1.1</es-xref>, <es-xref target=
+    "sec-while-statement-static-semantics-vardeclarednames">13.6.2.1</es-xref>, <es-xref target=
+    "sec-for-statement-static-semantics-vardeclarednames">13.6.3.1</es-xref>, <es-xref target=
+    "sec-with-statement-static-semantics-vardeclarednames">13.10.2</es-xref>, <es-xref target=
+    "sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>, <es-xref target=
+    "sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>, <es-xref target=
+    "sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>, <es-xref target=
+    "sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>, <es-xref target=
+    "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.1.5</es-xref>,
+    <es-xref target=
+    "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> in <es-nt>Expression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the VarDeclaredNames of <i>Statement</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( var <es-nt>ForBinding</es-nt> in <es-nt>Expression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be the BoundNames of <i>ForBinding</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Statement.</i></li>
+
+      <li>Return <i>names</i></li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt>ForDeclaration</es-nt> in <es-nt>Expression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the VarDeclaredNames of <i>Statement</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the VarDeclaredNames of <i>Statement</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( var <es-nt>ForBinding</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be the BoundNames of <i>ForBinding</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Statement.</i></li>
+
+      <li>Return <i>names</i></li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt>ForDeclaration</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the VarDeclaredNames of <i>Statement</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: BindingInstantiation" anchor=
+  "sec-runtime-semantics-bindinginstantiation">
+    <p>With arguments <es-nt>value</es-nt> and <es-nt>environment</es-nt>.</p>
+
+    <p>See also: <es-xref target=
+    "sec-statement-semantics-runtime-semantics-labelledevaluation">13.0.2</es-xref>,
+    <es-xref target=
+    "sec-do-while-statement-runtime-semantics-labelledevaluation">13.6.1.2</es-xref>,
+    <es-xref target="sec-while-statement-runtime-semantics-labelledevaluation">13.6.2.2</es-xref>,
+    <es-xref target="sec-for-statement-runtime-semantics-labelledevaluation">13.6.3.2</es-xref>,
+    <es-xref target=
+    "sec-labelled-statements-runtime-semantics-labelledevaluation">13.12.3</es-xref>.</p>
+
+    <es-production name="ForDeclaration" class="inline">
+      <es-rhs><es-nt>LetOrConst</es-nt> <es-nt>ForBinding</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>For each element <i>name</i> of the BoundNames of <i>ForBinding</i> do
+
+        <ol class="block">
+          <li>If IsConstantDeclaration of <i>LetOrConst</i> is <b>false</b>, then
+
+            <ol class="block">
+              <li>Call <i>environment</i>’s CreateMutableBinding concrete method with argument
+              <i>name</i>.</li>
+
+              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The above call to
+              CreateMutableBinding will never return an <es-xref target=
+              "sec-completion-record-specification-type">abrupt completion</es-xref>.</li>
+            </ol>
+          </li>
+
+          <li>Else,
+
+            <ol class="block">
+              <li>Call <i>environment</i>’s CreateImmutableBinding concrete method with argument
+              <i>name</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return the result of performing BindingInitialisation for <i>ForBinding</i> passing
+      <i>value</i> and <i>environment</i> as the arguments.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: LabelledEvaluation" anchor=
+  "sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation">
+    <p>With argument <es-nt>labelSet</es-nt>.</p>
+
+    <p>See also: <es-xref target=
+    "sec-statement-semantics-runtime-semantics-labelledevaluation">13.0.2</es-xref>,
+    <es-xref target=
+    "sec-do-while-statement-runtime-semantics-labelledevaluation">13.6.1.2</es-xref>,
+    <es-xref target="sec-while-statement-runtime-semantics-labelledevaluation">13.6.2.2</es-xref>,
+    <es-xref target="sec-for-statement-runtime-semantics-labelledevaluation">13.6.3.2</es-xref>,
+    <es-xref target=
+    "sec-labelled-statements-runtime-semantics-labelledevaluation">13.12.3</es-xref>.</p>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> in <es-nt>Expression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
+      <i>Expression</i>, enumerate, and <i>labelSet</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
+
+      <li>Return the result of performing ForIn/OfBodyEvaluation with
+      <i>LeftHandSideExpression</i>, <i>Statement</i>, <i>keyResult</i>, assignment, and
+      <i>labelSet</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( var <es-nt>ForBinding</es-nt> in <es-nt>Expression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
+      <i>Expression</i>, enumerate, and <i>labelSet</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
+
+      <li>Return the result of performing ForIn/OfBodyEvaluation with <i>ForBinding</i>,
+      <i>Statement</i>, <i>keyResult</i>, varBinding, and <i>labelSet</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt>ForDeclaration</es-nt> in <es-nt>Expression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
+      <i>Expression</i>, enumerate, and <i>labelSet</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
+
+      <li>Return the result of performing ForIn/OfBodyEvaluation with <i>ForDeclaration</i>,
+      <i>Statement</i>, <i>keyResult</i>, lexicalBinding, and <i>labelSet</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
+      <i>AssignmentExpression</i>, iterate, and <i>labelSet</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
+
+      <li>Return the result of performing ForIn/OfBodyEvaluation with
+      <i>LeftHandSideExpression</i>, <i>Statement</i>, <i>keyResult</i>, assignment, and
+      <i>labelSet</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( var <es-nt>ForBinding</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
+      <i>AssignmentExpression</i>, iterate, and <i>labelSet</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
+
+      <li>Return the result of performing ForIn/OfBodyEvaluation with <i>ForBinding</i>,
+      <i>Statement</i>, <i>keyResult</i>, varBinding, and <i>labelSet</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt>ForDeclaration</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>keyResult</i> be the result of performing ForIn/OfExpressionEvaluation with
+      <i>AssignmentExpression</i>, iterate, and <i>labelSet</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keyResult</i>).</li>
+
+      <li>Return the result of performing ForIn/OfBodyEvaluation with <i>ForDeclaration</i>,
+      <i>Statement</i>, <i>keyResult</i>, lexicalBinding, and <i>labelSet</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: ForIn/OfExpressionEvaluation Abstract Operation" anchor=
+  "sec-runtime-semantics-forin-div-ofexpressionevaluation-abstract-operation">
+    <p>The abstract operation ForIn/OfExpressionEvaluation is called with arguments
+    <es-nt>expr</es-nt>, <es-nt>iterationKind</es-nt>, and <i>labelSet</i>. The value of
+    <es-nt>iterationKind</es-nt> is either <b>enumerate</b> or <b>iterate</b>.</p>
+
+    <ol class="proc">
+      <li>Let <i>exprRef</i> be the result of evaluating the production that is <i>expr</i>.</li>
+
+      <li>Let <i>exprValue</i> be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>exprRef</i>).</li>
+
+      <li>If <i>exprValue</i> is an <es-xref target=
+      "sec-completion-record-specification-type">abrupt completion</es-xref>,
+
+        <ol class="block">
+          <li>If <es-xref target=
+          "sec-loopcontinues">LoopContinues</es-xref>(<i>exprValue</i>,<i>labelSet</i>) is
+          <b>false</b>, then return <i>exprValue</i>.</li>
+
+          <li>Else, return <es-xref target=
+          "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: break,
+          [[value]]: empty, [[target]]: empty}.</li>
+        </ol>
+      </li>
+
+      <li>If <i>exprValue</i>.[[value]] is <b>null</b> or <b>undefined</b>, return <es-xref target=
+      "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: break, [[value]]:
+      empty, [[target]]: empty}.</li>
+
+      <li>Let <i>obj</i> be <es-xref target=
+      "sec-toobject">ToObject</es-xref>(<i>exprValue</i>).</li>
+
+      <li>If <i>iterationKind</i> is enumerate, then
+
+        <ol class="block">
+          <li>Let <i>keys</i> be the result of calling the [[Enumerate]] internal method of
+          <i>obj</i> with no arguments.</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>iterationKind</i> is
+          iterate.</li>
+
+          <li>Let <i>keys</i> be <es-xref target=
+          "sec-getiterator">GetIterator</es-xref>(<i>obj</i>).</li>
+        </ol>
+      </li>
+
+      <li>If <i>keys</i> is an <es-xref target="sec-completion-record-specification-type">abrupt
+      completion</es-xref>, then
+
+        <ol class="block">
+          <li>If <es-xref target=
+          "sec-loopcontinues">LoopContinues</es-xref>(<i>keys</i>,<i>labelSet</i>) is <b>false</b>,
+          then return <i>keys</i>.</li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>keys</i>.[[type]] is
+          continue</li>
+
+          <li>Return <es-xref target=
+          "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: break,
+          [[value]]: empty, [[target]]: empty}.</li>
+        </ol>
+      </li>
+
+      <li>Return <i>keys</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: ForIn/OfBodyEvaluation" anchor=
+  "sec-runtime-semantics-forin-div-ofbodyevaluation">
+    <p>The abstract operation ForIn/OfBodyEvaluation is called with arguments <es-nt>lhs</es-nt>,
+    <es-nt>stmt, keys,</es-nt> <es-nt>lhsKind</es-nt>, and <es-nt>labelSet.</es-nt> The value of
+    <es-nt>lhsKind</es-nt> is either <b>assignment</b>, <b>varBinding</b> or
+    <b>lexicalBinding</b>.</p>
+
+    <ol class="proc">
+      <li>Let <i>oldEnv</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>’s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+      <li>Let <i>V</i> = <b>undefined</b> .</li>
+
+      <li>Repeat
+
+        <ol class="block">
+          <li>Let <i>nextResult</i> be the result of <es-xref target=
+          "sec-iteratorstep">IteratorStep</es-xref>(<i>keys</i>).</li>
+
+          <li><es-xref target=
+          "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextResult</i>).</li>
+
+          <li>If <i>nextResult</i> is <b>false</b>, then return <es-xref target=
+          "sec-normalcompletion">NormalCompletion</es-xref>(<i>V</i>).</li>
+
+          <li>Let <i>nextValue</i> be the result of <es-xref target=
+          "sec-iteratorvalue">IteratorValue</es-xref>(<i>nextResult</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextValue</i>).</li>
+
+          <li>If <i>lhsKind</i> is assignment, then
+
+            <ol class="block">
+              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>lhs</i> is a
+              <i>LeftHandSideExpression</i>.</li>
+
+              <li>If <i>lhs</i> is neither an <i>ObjectLiteral</i> nor an <i>ArrayLiteral</i> then
+
+                <ol class="block">
+                  <li>Let <i>lhsRef</i> be the result of evaluating <i>lhs</i> ( it may be
+                  evaluated repeatedly).</li>
+
+                  <li>Let <i>status</i> be the result of performing <es-xref target=
+                  "sec-putvalue">PutValue</es-xref>(<i>lhsRef</i>, <i>nextValue</i>).</li>
+                </ol>
+              </li>
+
+              <li>Else
+
+                <ol class="block">
+                  <li>Let <i>assignmentPattern</i> be the parse of the source code corresponding to
+                  <i>lhs</i> using <i>AssignmentPattern</i> as the goal symbol.</li>
+
+                  <li>If <es-xref target=
+                  "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>nextValue</i>) is not
+                  Object, then throw a <b>TypeError</b> exception.</li>
+
+                  <li>Let <i>status</i> be the result of performing
+                  DestructuringAssignmentEvaluation of <i>AssignmentPattern</i> using
+                  <i>nextValue</i> as the argument.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+
+          <li>Else if <i>lhsKind</i> is varBinding, then
+
+            <ol class="block">
+              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>lhs</i> is a
+              <i>ForBinding</i>.</li>
+
+              <li>Let <i>status</i> be the result of performing BindingInitialisation for
+              <i>lhs</i> passing <i>nextValue</i> and <b>undefined</b> as the arguments.</li>
+            </ol>
+          </li>
+
+          <li>Else,
+
+            <ol class="block">
+              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>lhsKind</i> is
+              lexicalBinding.</li>
+
+              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>lhs</i> is a
+              <i>ForDeclaration</i>.</li>
+
+              <li>Let <i>iterationEnv</i> be the result of calling <es-xref target=
+              "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing
+              <i>oldEnv</i> as the argument.</li>
+
+              <li>Perform BindingInstantiation for <i>lhs</i> passing <i>nextValue</i> and
+              <i>iterationEnv</i> as arguments.</li>
+
+              <li>Let <i>status</i> be <es-xref target=
+              "sec-normalcompletion">NormalCompletion</es-xref>(empty)</li>
+
+              <li>Set <es-xref target="sec-execution-contexts">the running execution
+              context</es-xref>’s <es-xref target=
+              "sec-execution-contexts">LexicalEnvironment</es-xref> to <i>iterationEnv</i>.</li>
+            </ol>
+          </li>
+
+          <li>If <i>status</i>.[[type]] is normal, then
+
+            <ol class="block">
+              <li>Let <i>status</i> be the result of evaluating <i>stmt</i>.</li>
+
+              <li>If <i>status</i>.[[type]] is normal and <i>status</i>.[[value]] is not empty,
+              then
+
+                <ol class="block">
+                  <li>Let <i>V</i> = <i>status</i>.[[value]].</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+
+          <li>Set <es-xref target="sec-execution-contexts">the running execution
+          context</es-xref>’s <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref>
+          to <i>oldEnv</i>.</li>
+
+          <li>If <i>status</i> is an <es-xref target=
+          "sec-completion-record-specification-type">abrupt completion</es-xref> and
+          <es-xref target=
+          "sec-loopcontinues">LoopContinues</es-xref>(<i>status</i>,<i>labelSet</i>) is
+          <b>false</b>, then return <i>status</i>.</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
 </es-clause>

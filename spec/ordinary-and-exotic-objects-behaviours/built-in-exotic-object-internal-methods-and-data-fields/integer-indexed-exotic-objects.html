@@ -11,21 +11,404 @@
   methods. All of the other Integer Indexed exotic object essential internal methods that are not
   defined below are as specified in <es-xref target=
   "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</p>
-  <link rel="import" href=
-  "integer-indexed-exotic-objects/integer-indexed-exotic-objects-getownproperty-p.html">
-  <link rel="import" href=
-  "integer-indexed-exotic-objects/integer-indexed-exotic-objects-defineownproperty-p-desc.html">
-  <link rel="import" href=
-  "integer-indexed-exotic-objects/integer-indexed-exotic-objects-get-p-receiver.html">
-  <link rel="import" href=
-  "integer-indexed-exotic-objects/integer-indexed-exotic-objects-set-p-v-receiver.html">
+
+  <es-clause title="[[GetOwnProperty]] ( P )" anchor=
+  "sec-integer-indexed-exotic-objects-getownproperty-p">
+    <p>When the [[GetOwnProperty]] internal method of an Integer Indexed exotic object
+    <es-nt>O</es-nt> is called with <es-xref target="sec-object-type">property key</es-xref>
+    <es-nt>P</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>O</i> is an Object that
+      has a [[ViewedArrayBuffer]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>P</i>) is
+      String, then
+
+        <ol class="block">
+          <li>Let <i>intIndex</i> be <es-xref target=
+          "sec-tointeger">ToInteger</es-xref>(<i>P</i>).</li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>intIndex</i> is not
+          an <es-xref target="sec-completion-record-specification-type">abrupt
+          completion</es-xref>.</li>
+
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<es-xref target=
+          "sec-tostring">ToString</es-xref>(<i>intIndex</i>), <i>P</i>) is <b>true</b>, then
+
+            <ol class="block">
+              <li>Let <i>value</i> be the result of <es-xref target=
+              "sec-integerindexedelementget">IntegerIndexedElementGet</es-xref> (<i>O</i>,
+              <i>intIndex</i>).</li>
+
+              <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
+
+              <li>If <i>value</i> is <b>undefined</b>, then return <b>undefined</b>.</li>
+
+              <li>Let <i>writable</i> be <b>true</b> if the integer indexed properties of <i>O</i>
+              are writable and <b>false</b> if they are not.</li>
+
+              <li>Return a PropertyDescriptor{ [[Value]]: <i>value</i>, [[Enumerable]]:
+              <b>true</b>, [[Writable]]: <i>writable</i>, [[Configurable]]: <b>false</b> }.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return the result of <es-xref target=
+      "sec-ordinarygetownproperty">OrdinaryGetOwnProperty</es-xref>(<i>O</i>, <i>P</i>).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="[[DefineOwnProperty]] ( P, Desc)" anchor=
+  "sec-integer-indexed-exotic-objects-defineownproperty-p-desc">
+    <p>When the [[DefineOwnProperty]] internal method of an Integer Indexed exotic object
+    <es-nt>O</es-nt> is called with <es-xref target="sec-object-type">property key</es-xref>
+    <es-nt>P</es-nt>, and <es-xref target="sec-property-descriptor-specification-type">Property
+    Descriptor</es-xref> <es-nt>Desc</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>O</i> is an Object that
+      has a [[ViewedArrayBuffer]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>P</i>) is
+      String, then
+
+        <ol class="block">
+          <li>Let <i>intIndex</i> be <es-xref target=
+          "sec-tointeger">ToInteger</es-xref>(<i>P</i>).</li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>intIndex</i> is not
+          an <es-xref target="sec-completion-record-specification-type">abrupt
+          completion</es-xref>.</li>
+
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<es-xref target=
+          "sec-tostring">ToString</es-xref>(<i>intIndex</i>), <i>P</i>) is <b>true</b>, then
+
+            <ol class="block">
+              <li>If <i>intIndex</i> &lt; 0, then return <b>false</b>.</li>
+
+              <li>Let <i>length</i> be the value of <i>O</i>’s [[ArrayLength]] <es-xref target=
+              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+              <li>If <i>length</i> is <b>undefined</b>, then throw a <b>TypeError</b>
+              exception.</li>
+
+              <li>If <i>intIndex</i> ≥ <i>length</i>, then return <b>false</b>.</li>
+
+              <li>If <es-xref target=
+              "sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>Desc</i>) is
+              <b>true</b>, then return <b>false.</b></li>
+
+              <li>If <i>Desc</i> has a [[Configurable]] field and if <i>Desc</i>.[[Configurable]]
+              is <b>true</b>, then return <b>false<i>.</i></b></li>
+
+              <li>If <i>Desc</i> has an [[Enumerable]] field and if <i>Desc</i>.[[Enumerable]] is
+              <b>false</b>, then return <b>false<i>.</i></b></li>
+
+              <li>Let <i>writable</i> be <b>true</b> if the integer indexed properties of <i>O</i>
+              are writable and <b>false</b> if they are not.</li>
+
+              <li>Let <i>makeReadOnly</i> be <b>false</b>.</li>
+
+              <li>If <i>Desc</i> has a [[Writable]] field, then
+
+                <ol class="block">
+                  <li>If <i>Desc</i>.[[Writable]] is <b>true</b> and <i>writable</i> is
+                  <b>false</b>, then return <b>false</b>.</li>
+
+                  <li>If <i>Desc</i>.[[Writable]] is <b>false</b> and <i>writable</i> is
+                  <b>true</b>, then let <i>makeReadOnly</i> be <b>true</b>.</li>
+                </ol>
+              </li>
+
+              <li>If <i>Desc</i> has a [[Value]] field, then
+
+                <ol class="block">
+                  <li>Let <i>value</i> be <i>Desc</i>.[[Value]].</li>
+
+                  <li>If <i>writable</i> is <b>false</b>, then
+
+                    <ol class="block">
+                      <li>Let <i>oldValue</i> be the result of <es-xref target=
+                      "sec-integerindexedelementget">IntegerIndexedElementGet</es-xref> (<i>O</i>,
+                      <i>intIndex</i>).</li>
+
+                      <li><es-xref target=
+                      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>oldValue</i>).</li>
+
+                      <li>If <i>oldValue</i> is <b>undefined</b>, then return <b>false</b>.</li>
+
+                      <li>If <es-xref target="sec-samevalue">SameValue</es-xref>( <i>value</i>,
+                      <i>oldValue</i>) is <b>false</b>, then return <b>false</b>.</li>
+                    </ol>
+                  </li>
+
+                  <li>Else
+
+                    <ol class="block">
+                      <li>Let <i>status</i> be the result of <es-xref target=
+                      "sec-integerindexedelementset">IntegerIndexedElementSet</es-xref> (<i>O</i>,
+                      <i>intIndex</i>, <i>value</i>).</li>
+
+                      <li><es-xref target=
+                      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+
+              <li>If <i>makeReadOnly</i> is <b>true</b>, then mark the integer indexed properties
+              of <i>O</i> as non-writable.</li>
+
+              <li>Return <b>true</b>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return the result of <es-xref target=
+      "sec-ordinarygetownproperty">OrdinaryGetOwnProperty</es-xref>(<i>O</i>, <i>P</i>).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="[[Get]] (P, Receiver)" anchor=
+  "sec-integer-indexed-exotic-objects-get-p-receiver">
+    <p>When the [[Get]] internal method of an Integer Indexed exotic object <es-nt>O</es-nt> is
+    called with <es-xref target="sec-object-type">property key</es-xref> <es-nt>P</es-nt> and
+    <es-xref target="sec-ecmascript-language-types">ECMAScript language value</es-xref>
+    <es-nt>Receiver</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>P</i>) is
+      String and if <es-xref target="sec-samevalue">SameValue</es-xref>(<i>O</i>, <i>Receiver</i>)
+      is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>intIndex</i> be <es-xref target=
+          "sec-tointeger">ToInteger</es-xref>(<i>P</i>).</li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>intIndex</i> is not
+          an <es-xref target="sec-completion-record-specification-type">abrupt
+          completion</es-xref>.</li>
+
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<es-xref target=
+          "sec-tostring">ToString</es-xref>(<i>intIndex</i>), <i>P</i>) is <b>true</b>, then
+
+            <ol class="block">
+              <li>Return <es-xref target=
+              "sec-integerindexedelementget">IntegerIndexedElementGet</es-xref> (<i>O</i>,
+              <i>intIndex</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return the result of calling the default ordinary object [[Get]] internal method
+      (<es-xref target=
+      "sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver">9.1.8</es-xref>) on
+      <i>O</i> passing <i>P</i> and <i>Receiver</i> as arguments.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="[[Set]] ( P, V, Receiver)" anchor=
+  "sec-integer-indexed-exotic-objects-set-p-v-receiver">
+    <p>When the [[Set]] internal method of an Integer Indexed exotic object <es-nt>O</es-nt> is
+    called with <es-xref target="sec-object-type">property key</es-xref> <es-nt>P</es-nt>, value
+    <es-nt>V</es-nt>, and <es-xref target="sec-ecmascript-language-types">ECMAScript language
+    value</es-xref> <es-nt>Receiver</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>P</i>) is
+      String and if <es-xref target="sec-samevalue">SameValue</es-xref>(<i>O</i>, <i>Receiver</i>)
+      is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>intIndex</i> be <es-xref target=
+          "sec-tointeger">ToInteger</es-xref>(<i>P</i>).</li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>intIndex</i> is not
+          an <es-xref target="sec-completion-record-specification-type">abrupt
+          completion</es-xref>.</li>
+
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<es-xref target=
+          "sec-tostring">ToString</es-xref>(<i>intIndex</i>), <i>P</i>) is <b>true</b>, then
+
+            <ol class="block">
+              <li>Return the result of <es-xref target=
+              "sec-toboolean">ToBoolean</es-xref>(<es-xref target=
+              "sec-integerindexedelementset">IntegerIndexedElementSet</es-xref> (<i>O</i>,
+              <i>intIndex</i>, <i>V</i>)).</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return the result of calling the default ordinary object [[Set]] internal method
+      (<es-xref target=
+      "sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver">9.1.8</es-xref>) on
+      <i>O</i> passing <i>P</i>, <i>V</i>, and <i>Receiver</i> as arguments.</li>
+    </ol>
+  </es-clause>
 
   <es-clause title="[[Enumerate]] ()" anchor="sec-integer-indexed-exotic-objects-enumerate">
   </es-clause>
 
   <es-clause title="[[OwnPropertyKeys]] ()" anchor=
   "sec-integer-indexed-exotic-objects-ownpropertykeys"></es-clause>
-  <link rel="import" href="integer-indexed-exotic-objects/integerindexedobjectcreate.html">
-  <link rel="import" href="integer-indexed-exotic-objects/integerindexedelementget.html">
-  <link rel="import" href="integer-indexed-exotic-objects/integerindexedelementset.html">
+
+  <es-clause title="IntegerIndexedObjectCreate Abstract Operation" anchor=
+  "sec-integerindexedobjectcreate">
+    <p>The abstract operation IntegerIndexedObjectCreate with argument <es-nt>prototype</es-nt> is
+    used to specify the creation of new Integer Indexed exotic objects. It performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>A</i> be a newly created object.</li>
+
+      <li>Set <i>A</i>’s essential internal methods to the default ordinary object definitions
+      specified in <es-xref target=
+      "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</li>
+
+      <li>Set the [[GetOwnProperty]] internal method of <i>A</i> as specified in <es-xref target=
+      "sec-integer-indexed-exotic-objects-getownproperty-p">9.4.5.1</es-xref>.</li>
+
+      <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in
+      <es-xref target="sec-integer-indexed-exotic-objects-defineownproperty-p-desc">9.4.5.2</es-xref>.</li>
+
+      <li>Set the [[Get]] internal method of <i>A</i> as specified in <es-xref target=
+      "sec-integer-indexed-exotic-objects-get-p-receiver">9.4.5.3</es-xref>.</li>
+
+      <li>Set the [[Set]] internal method of <i>A</i> as specified in <es-xref target=
+      "sec-integer-indexed-exotic-objects-set-p-v-receiver">9.4.5.4</es-xref>.</li>
+
+      <li>Set the [[Enumerate]] internal method of <i>A</i> as specified in <es-xref target=
+      "sec-integer-indexed-exotic-objects-enumerate">9.4.5.5</es-xref>.</li>
+
+      <li>Set the [[OwnPropertyKeys]] internal method of <i>A</i> as specified in <es-xref target=
+      "sec-integer-indexed-exotic-objects-ownpropertykeys">9.4.5.6</es-xref>.</li>
+
+      <li>Set the [[Prototype]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+      <i>prototype</i>.</li>
+
+      <li>Set the [[Extensible]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+      <b>true</b>.</li>
+
+      <li>Return <i>A</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="IntegerIndexedElementGet ( O, index ) Abstract Operation" anchor=
+  "sec-integerindexedelementget">
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>index</i>) is Number and
+      <i>index</i> is an integer.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>O</i> is an Object that
+      has [[ViewedArrayBuffer]], [[ArrayLength]], [[ByteOffset]], and [[TypedArrayName]] internal
+      slots.</li>
+
+      <li>Let <i>buffer</i> be the value of <i>O</i>’s [[ViewedArrayBuffer]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>If <i>buffer</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>length</i> be the value of <i>O</i>’s [[ArrayLength]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>If <i>index</i> &lt; 0 or <i>index</i> ≥ <i>length</i>, then return
+      <b>undefined</b>.</li>
+
+      <li>Let <i>offset</i> be the value of <i>O</i>’s [[ByteOffset]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>arrayTypeName</i> be the string value <i>O</i>’s [[TypedArrayName]]
+      <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</li>
+
+      <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in
+        <a href="#table-43">Table 43</a> for <i>arrayTypeName</i>.
+      </li>
+
+      <li>Let <i>indexedPosition</i> = (<i>index</i> × <i>elementSize</i>) + <i>offset</i>.</li>
+
+      <li>Let <i>elementType</i> be the string value of the Element Type value in <a href=
+      "#table-43">Table 43</a> for <i>arrayTypeName</i>.
+      </li>
+
+      <li>Return the result of <es-xref target=
+      "sec-getvaluefrombuffer">GetValueFromBuffer</es-xref>(<i>buffer</i>, <i>indexedPosition</i>,
+      <i>elementType</i>).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="IntegerIndexedElementSet ( O, index, value ) Abstract Operation" anchor=
+  "sec-integerindexedelementset">
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>index</i>) is Number and
+      <i>index</i> is an integer.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>O</i> is an Object that
+      has [[ViewedArrayBuffer]], [[ArrayLength]], [[ByteOffset]], and [[TypedArrayName]] internal
+      slots.</li>
+
+      <li>Let <i>buffer</i> be the value of <i>O</i>’s [[ViewedArrayBuffer]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>If <i>buffer</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>length</i> be the value of <i>O</i>’s [[ArrayLength]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>numValue</i> be <es-xref target=
+      "sec-tonumber">ToNumber</es-xref>(<i>value)</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>numValue</i>).</li>
+
+      <li>If <i>index</i> &lt; 0 or <i>index</i> ≥ <i>length</i>, then return <b>false</b>.</li>
+
+      <li>Let <i>offset</i> be the value of <i>O</i>’s [[ByteOffset]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>arrayTypeName</i> be the string value <i>O</i>’s [[TypedArrayName]]
+      <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</li>
+
+      <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in
+        <a href="#table-43">Table 43</a> for <i>arrayTypeName</i>.
+      </li>
+
+      <li>Let <i>indexedPosition</i> = (<i>index</i> × <i>elementSize</i>) + <i>offset</i>.</li>
+
+      <li>Let <i>elementType</i> be the string value of the Element Type value in <a href=
+      "#table-43">Table 43</a> for <i>arrayTypeName</i>.
+      </li>
+
+      <li>Let <i>status</i> be the result of <es-xref target=
+      "sec-setvalueinbuffer">SetValueInBuffer</es-xref>(<i>buffer</i>, <i>indexedPosition</i>,
+      <i>elementType</i>, <i>numValue</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
 </es-clause>

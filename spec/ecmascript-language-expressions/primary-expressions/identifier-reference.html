@@ -9,8 +9,62 @@
 
     <es-rhs constraint="~Yield">yield</es-rhs>
   </es-production>
-  <link rel="import" href=
-  "identifier-reference/identifier-reference-static-semantics-early-errors.html">
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-identifier-reference-static-semantics-early-errors">
+    <es-production name="IdentifierReference" class="inline">
+      <es-rhs><es-nt>NonResolvedIdentifier</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if <es-xref target=
+        "sec-identifiers-and-identifier-names">StringValue</es-xref> of
+        <es-nt>NonResolvedIdentifier</es-nt> <es-nt>does not statically resolve to a
+        <es-xref target="sec-declarative-environment-records">declarative environment
+        record</es-xref> binding.</es-nt></p>
+      </li>
+    </ul>
+
+    <es-production name="NonResolvedIdentifier" class="inline">
+      <es-rhs><es-nt>Identifier</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if this <es-nt>NonResolvedIdentifier</es-nt> is contained in
+        <es-xref target="sec-strict-mode-code">strict code</es-xref> and if the <es-xref target=
+        "sec-identifiers-and-identifier-names">StringValue</es-xref> of <es-nt>Identifier</es-nt>
+        is: <code>"implements"</code>, <code>"interface"</code>, <code>"let"</code>,
+        <code>"package"</code>, <code>"private"</code>, <code>"protected"</code>,
+        <code>"public"</code>, <code>"static"</code>, or <code>"yield"</code>.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if this <es-nt>NonResolvedIdentifier</es-nt> has a
+        <sub>[Yield]</sub> and the <es-xref target=
+        "sec-identifiers-and-identifier-names">StringValue</es-xref> of <es-nt>Identifier</es-nt>
+        is <code>"yield"</code>.</p>
+      </li>
+    </ul>
+
+    <es-production name="NonResolvedIdentifier" class="inline">
+      <es-rhs>yield</es-rhs>
+    </es-production>
+
+    <ul>
+      <li>It is a Syntax Error if the <es-nt>IdentifierReference</es-nt> is contained in
+      <es-xref target="sec-strict-mode-code">strict code</es-xref><es-nt>.</es-nt></li>
+    </ul>
+
+    <es-note>
+      <p>Unlike a <es-nt>BindingIdentifier</es-nt> (<es-xref target=
+      "sec-let-and-const-declarations-static-semantics-early-errors">13.2.1.1</es-xref>), an
+      <es-nt>IdentifierReference</es-nt> in <es-xref target="sec-strict-mode-code">strict
+      code</es-xref> may be the <es-nt>Identifier</es-nt> <code>eval</code> or
+      <code>arguments</code>.</p>
+    </es-note>
+  </es-clause>
 
   <es-clause title="Static Semantics:" anchor=
   "sec-identifier-reference-static-semantics-stringvalue">
@@ -28,6 +82,48 @@
       <li>Return <code>"yield"</code>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href=
-  "identifier-reference/identifier-reference-runtime-semantics-evaluation.html">
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-identifier-reference-runtime-semantics-evaluation">
+    <es-production name="IdentifierReference" class="inline">
+      <es-rhs><es-nt>Identifier</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>ref</i> be the result of performing <es-xref target=
+      "sec-resolvebinding">ResolveBinding</es-xref>(<es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref>(<i>Identifier</i>)).</li>
+
+      <li>Return <i>ref</i>.</li>
+    </ol>
+
+    <es-production name="IdentifierReference" class="inline">
+      <es-rhs>yield</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The source code matching
+      this production is not <es-xref target="sec-strict-mode-code">strict code</es-xref>.</li>
+
+      <li>Let <i>ref</i> be the result of performing <es-xref target=
+      "sec-resolvebinding">ResolveBinding</es-xref>(<code>"yield"</code>).</li>
+
+      <li>Return <i>ref</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>The result of evaluating an <es-nt>IdentifierReference</es-nt> is always a value of type
+      <es-xref target="sec-reference-specification-type">Reference</es-xref>.</p>
+    </es-note>
+
+    <es-note>
+      <p>In non-<es-xref target="sec-strict-mode-code">strict code</es-xref>, the keyword
+      <code>yield</code> may be used as an identifier. Evaluating the
+      <es-nt>IdentifierReference</es-nt> production resolved the binding of <code>yield</code> as
+      if it was an <es-nt>Identifier</es-nt>. The Early Error restriction ensures that such an
+      evaluation only can occur for non-<es-xref target="sec-strict-mode-code">strict
+      code</es-xref>. See <es-xref target="sec-let-and-const-declarations">13.2.1</es-xref> for the
+      handling of <code>yield</code> in binding creation contexts.</p>
+    </es-note>
+  </es-clause>
 </es-clause>

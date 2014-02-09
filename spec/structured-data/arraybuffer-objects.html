@@ -1,10 +1,566 @@
 <!doctype html>
 <es-clause title="ArrayBuffer Objects" anchor="sec-arraybuffer-objects">
-  <link rel="import" href="arraybuffer-objects/abstract-operations-for-arraybuffer-objects.html">
-  <link rel="import" href="arraybuffer-objects/arraybuffer-constructor.html">
-  <link rel="import" href="arraybuffer-objects/properties-of-the-arraybuffer-constructor.html">
-  <link rel="import" href=
-  "arraybuffer-objects/properties-of-the-arraybuffer-prototype-object.html">
+  <es-clause title="Abstract Operations For ArrayBuffer Objects" anchor=
+  "sec-abstract-operations-for-arraybuffer-objects">
+    <es-clause title="AllocateArrayBuffer(constructor)" anchor="sec-allocatearraybuffer">
+      <p>The abstract operation AllocateArrayBuffer with argument <es-nt>constructor</es-nt> is
+      used to create an uninitialised ArrayBuffer object. It performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>obj</i> be the result of calling <es-xref target=
+        "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>constructor</i>,
+        <code>"%ArrayBufferPrototype%"</code>, ( [[ArrayBufferData]], [[ArrayBufferByteLength]])
+        ).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
+
+        <li>Set the [[ArrayBufferByteLength]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>obj</i> to
+        0.</li>
+
+        <li>Return <i>obj</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="SetArrayBufferData(arrayBuffer, bytes)" anchor="sec-setarraybufferdata">
+      <p>The abstract operation SetArrayBufferData with arguments <i>arrayBuffer</i> and
+      <i>bytes</i> is used to initialise the storage block encapsulated by an ArrayBuffer object.
+      It performs the following steps:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(arrayBuffer).</li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>arrayBuffer</i>) is Object and it
+        has an [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>bytes</i> is positive
+        integer.</li>
+
+        <li>Let <i>block</i> be the result of <es-xref target=
+        "sec-createbytedatablock">CreateByteDataBlock</es-xref>(<i>bytes</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>block</i>).</li>
+
+        <li>Set <i>arrayBuffer’s</i> [[ArrayBufferData]] to <i>block</i>.</li>
+
+        <li>Set <i>arrayBuffer</i>’s [[ArrayBufferByteLength]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <i>bytes</i>.</li>
+
+        <li>Return <i>arrayBuffer</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="CloneArrayBuffer(srcBuffer, srcByteOffset)" anchor="sec-clonearraybuffer">
+      <p>The abstract operation CloneArrayBuffer takes two parameters, an ArrayBuffer
+      <es-nt>srcBuffer</es-nt>, an integer <es-nt>srcByteOffset</es-nt>. It creates a new
+      ArrayBufer whose data is a copy of <es-nt>srcBuffer’s</es-nt> data starting at
+      <es-nt>srcByteOffset</es-nt>.This operation performs the follow steps:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>srcBuffer</i>) is Object and it
+        has an [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>Let <i>srcBlock</i> be the value of <i>srcBuffer’s</i> [[ArrayBufferData]]
+        <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>If <i>srcBlock</i> is <b>undefined</b> or <b>null</b>, then throw a <b>TypeError</b>
+        exception.</li>
+
+        <li>Let <i>srcLength</i> be the value of <i>srcBuffer</i>’s [[ArrayBufferByteLength]]
+        <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>Let <i>bufferConstructor</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>srcBuffer</i>, <code>"constructor"</code>).</li>
+
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>bufferConstructor</i>).</li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>:
+        <i>srcByteOffset</i>≤<i>srcLength</i>.</li>
+
+        <li>Let <i>cloneLength</i> be <i>srcLength</i>–<i>srcByteOffset.</i></li>
+
+        <li>If <i>bufferConstructor</i> is <b>undefined</b>, then let <i>bufferConstructor</i> be
+        %ArrayBuffer%.</li>
+
+        <li>Let <i>targetBuffer</i> be the result of calling <es-xref target=
+        "sec-allocatearraybuffer">AllocateArrayBuffer</es-xref>(<i>bufferConstructor</i>).</li>
+
+        <li>Let <i>status</i> be the result of <es-xref target=
+        "sec-setarraybufferdata">SetArrayBufferData</es-xref>(<i>data</i>,
+        <i>cloneLength</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+        <li>Let <i>targetBlock</i> be the value of <i>targetBuffer’s</i> [[ArrayBufferData]]
+        <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>Perform CopyDataBlock(<i>targetBlock</i>, 0, <i>srcBlock</i>, <i>srcByteOffset</i>,
+        <i>cloneLength</i>).</li>
+
+        <li>Return <i>targetBlock</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="GetValueFromBuffer (arrayBuffer, byteIndex, type, isLittleEndian)" anchor=
+    "sec-getvaluefrombuffer">
+      <p>The abstract operation GetValueFromBuffer takes four parameters, an ArrayBuffer
+      <es-nt>arrayBuffer</es-nt>, an integer <es-nt>byteIndex</es-nt>, a String
+      <es-nt>type</es-nt>, and optionally a Boolean <es-nt>isLittleEndian</es-nt>. If
+      <es-nt>isLittleEndian</es-nt> is not present, its default value is <span class=
+      "value">undefined</span>. This operation performs the follow steps:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: There are sufficient
+        bytes in <i>arrayBuffer</i> starting at <i>byteIndex</i> to represent a value of
+        <i>valueType</i>.</li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>byteIndex</i> is a
+        positive integer.</li>
+
+        <li>Let <i>block</i> be <i>arrayBuffer’s</i> [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>If <i>block</i> is <b>undefined</b> or <b>null</b>, then throw a <b>TypeError</b>
+        exception.</li>
+
+        <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in
+        <a href="#table-43">Table 43</a> for <i>valueType</i>.
+        </li>
+
+        <li>Let <i>rawValue</i> be a <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> of <i>elementSize containing, in
+        order,</i> the <i>elementSize</i> bytes starting at <i>byteIndex</i> of <i>block</i>.</li>
+
+        <li>If <i>isLittleEndian</i> is <b>undefined</b>, set <i>isLittleEndian</i> to either
+        <b>true</b> or <b>false</b>. The choice is implementation dependent and should be the
+        alternative that is most efficient for the implementation. An implementation must use the
+        same value each time this step is executed and the same value must be used for the
+        corresponding step in the <es-xref target="sec-setvalueinbuffer">SetValueInBuffer</es-xref>
+        abstract operation.</li>
+
+        <li>If <i>isLittleEndian</i> is <b>false</b>, reverse the order of the elements of
+        <i>rawValue</i>.</li>
+
+        <li>If <i>type</i> is “Float32” , then
+
+          <ol class="block">
+            <li>Let <i>value</i> be the byte elements of <i>rawValue</i> concatenated and
+            interpreted as a little-endian bit string encoding of an IEEE 754-208 binary32
+            value.</li>
+
+            <li>If <i>value</i> is an IEEE 754-208 binary32 NaN value, return the <b>NaN</b> Number
+            value.</li>
+
+            <li>Return the Number value that corresponds to <i>value</i>.</li>
+          </ol>
+        </li>
+
+        <li>If <i>type</i> is “Float64” , then
+
+          <ol class="block">
+            <li>Let <i>value</i> be the byte elements of <i>rawValue</i> concatenated and
+            interpreted as a little-endian bit string encoding of an IEEE 754-208 binary64
+            value.</li>
+
+            <li>If <i>value</i> is an IEEE 754-208 binary64 NaN value, return the <b>NaN</b> Number
+            value.</li>
+
+            <li>Return the Number value that is encoded by corresponds to <i>value</i>.</li>
+          </ol>
+        </li>
+
+        <li>If the first character of <i>type</i> is <code>"U"</code>, then
+
+          <ol class="block">
+            <li>Let <i>intValue</i> be the byte elements of <i>rawValue</i> concatenated and
+            interpreted as a bit string encoding of an unsigned little-endian binary number.</li>
+          </ol>
+        </li>
+
+        <li>Else
+
+          <ol class="block">
+            <li>Let <i>intValue</i> be the byte elements of <i>rawValue</i> concatenated and
+            interpreted as a bit string encoding of a binary little-endian 2’s complement number of
+            bit length <i>elementSize</i> × 8.</li>
+          </ol>
+        </li>
+
+        <li>Return the Number value that corresponds to <i>intValue</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="SetValueInBuffer (arrayBuffer, byteIndex, type, value, isLittleEndian)"
+    anchor="sec-setvalueinbuffer">
+      <p>The abstract operation SetValueInBuffer takes five parameters, an ArrayBuffer
+      <es-nt>arrayBuffer</es-nt>, an integer <es-nt>byteIndex</es-nt>, a String
+      <es-nt>type</es-nt>, a Number <i>value</i>, and optionally a Boolean
+      <es-nt>isLittleEndian</es-nt>. If <es-nt>isLittleEndian</es-nt> is not present, its default
+      value is <span class="value">undefined</span>. This operation performs the follow steps:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: There are sufficient
+        bytes in <i>arrayBuffer</i> starting at <i>byteIndex</i> to represent a value of
+        <i>valueType</i>.</li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>byteIndex</i> is a
+        positive integer.</li>
+
+        <li>Let <i>block</i> be <i>arrayBuffer’s</i> [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>If <i>block</i> is <b>undefined</b> or <b>null</b>, then throw a <b>TypeError</b>
+        exception.</li>
+
+        <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in
+        <a href="#table-43">Table 43</a> for the row containing the value of <i>type</i> as its
+        Element Type entry.
+        </li>
+
+        <li>If <i>isLittleEndian</i> is <b>undefined</b>, set <i>isLittleEndian</i> to either
+        <b>true</b> or <b>false</b>. The choice is implementation dependent and should be the
+        alternative that is most efficient for the implementation. An implementation must use the
+        same value each time this step is executed and the same value must be used for the
+        corresponding step in the <es-xref target=
+        "sec-getvaluefrombuffer">GetValueFromBuffer</es-xref> abstract operation.</li>
+
+        <li>If <i>type</i> is “Float32” , then
+
+          <ol class="block">
+            <li>Set <i>rawValue</i> to a <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> containing the 4 bytes that are
+            the result of converting <i>value</i> to IEEE-868-2005 binary32 format using “Round to
+            nearest, ties to even” rounding mode. If <i>isLittleEndian</i> is <b>false</b>, the
+            bytes are arranged in big endian order. Otherwise, the bytes are arranged in little
+            endian order. If <i>value</i> is <b>NaN</b>, <i>rawValue</i> may be set to any
+            implementation choosen non-signaling NaN encoding.</li>
+          </ol>
+        </li>
+
+        <li>Else, if <i>type</i> is “Float64” , then
+
+          <ol class="block">
+            <li>Set <i>rawValue</i> to a <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> containing the 8 bytes that are
+            the IEEE-868-2005 binary64 format encoding of <i>value</i>. If <i>isLittleEndian</i> is
+            <b>false</b>, the bytes are arranged in big endian order. Otherwise, the bytes are
+            arranged in little endian order. If <i>value</i> is <b>NaN</b>, <i>rawValue</i> may be
+            set to any implementation choosen non-signaling NaN encoding.</li>
+          </ol>
+        </li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Let <i>n</i> be the Size Element value in <a href="#table-43">Table 43</a> for the
+            row containing the value of <i>type</i> as its Element Type entry.
+            </li>
+
+            <li>Let <i>convOp</i> be the abstract operation named in the Conversion Operation
+            column in <a href="#table-43">Table 43</a> for the row containing the value of
+            <i>type</i> as its Element Type entry.
+            </li>
+
+            <li>Let <i>intValue</i> be the result of calling <i>convOp</i> with <i>value</i> as its
+            argument .</li>
+
+            <li>If <i>intValue</i> ≥ 0, then
+
+              <ol class="block">
+                <li>Let <i>rawBytes</i> be a <es-xref target=
+                "sec-list-and-record-specification-type">List</es-xref> containing the
+                <i>n</i>-byte binary encoding of <i>intValue</i>. If <i>isLittleEndian</i> is
+                <b>false</b>, the bytes are ordered in big endian order. Otherwise, the bytes are
+                ordered in little endian order.</li>
+              </ol>
+            </li>
+
+            <li>Else,
+
+              <ol class="block">
+                <li>Let <i>rawBytes</i> be a <es-xref target=
+                "sec-list-and-record-specification-type">List</es-xref> containing the
+                <i>n</i>-byte binary 2’s complement encoding of <i>intValue</i>. If
+                <i>isLittleEndian</i> is <b>false</b>, the bytes are ordered in big endian order.
+                Otherwise, the bytes are ordered in little endian order.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Store the individual bytes of <i>rawBytes</i> in order starting at position
+        <i>byteIndex</i> of <i>block</i>.</li>
+
+        <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>
+        (<b>undefined</b>).</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="The ArrayBuffer Constructor" anchor="sec-arraybuffer-constructor">
+    <p>The ArrayBuffer constructor is the %ArrayBuffer% intrinsic object and the initial value of
+    the <code>ArrayBuffer</code> property of the global object. When <code>ArrayBuffer</code> is
+    called as a function rather than as a constructor, its <b>this</b> value must be an Object with
+    an [[ArrayBufferData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> whose value is
+    <span class="value">undefined.</span> The ArrayBuffer constructor initialises the <b>this</b>
+    value using the argument values.</p>
+
+    <p>The <code>ArrayBuffer</code> constructor is designed to be subclassable. It may be used as
+    the value of an <code>extends</code> clause of a class declaration. Subclass constructors that
+    intended to inherit the specified <code>ArrayBuffer</code> behaviour must include a
+    <code>super</code> call to the <code>ArrayBuffer</code> constructor to initialise subclass
+    instances.</p>
+
+    <es-clause title="ArrayBuffer(length)" anchor="sec-arraybuffer-length">
+      <p>ArrayBuffer called as function with argument <es-nt>length</es-nt> performs the following
+      steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+        not Object or if <i>O</i> does not have an [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> or if the value of
+        <i>O’s</i> [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not
+        <b>undefined</b>, then
+
+          <ol class="block">
+            <li>Throw a <b>TypeError</b> exception.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>numberLength</i> be <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>length</i>).</li>
+
+        <li>Let <i>byteLength</i> be <es-xref target=
+        "sec-tolength">ToLength</es-xref>(<i>numberLength</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>byteLength</i>).</li>
+
+        <li>If <es-xref target="sec-samevaluezero">SameValueZero</es-xref>(<i>numberLength</i>,
+        <i>byteLength</i>) is <b>false</b>, then throw a <b>RangeError</b> exception.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-setarraybufferdata">SetArrayBufferData</es-xref>(<i>O</i>, <i>byteLength</i>).</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="new ArrayBuffer( ... argumentsList)" anchor=
+    "sec-new-arraybuffer-argumentslist">
+      <p>ArrayBuffer called as part of a new expression performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the ArrayBuffer function object on which the <code>new</code> operator
+        was applied.</li>
+
+        <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+        internal method that was invoked by the <code>new</code> operator.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-construct-f-argumentslist">Construct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
+      </ol>
+
+      <p>If ArrayBuffer is implemented as an <es-xref target=
+      "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+      internal method will perform the above steps.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the ArrayBuffer Constructor" anchor=
+  "sec-properties-of-the-arraybuffer-constructor">
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the ArrayBuffer
+    constructor is the Function prototype object (<es-xref target=
+    "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
+
+    <p>Besides its <code>length</code> property (whose value is 1), the ArrayBuffer constructor has
+    the following properties:</p>
+
+    <es-clause title="ArrayBuffer.isView ( arg )" anchor="sec-arraybuffer.isview">
+      <p>The isView function takes one argument <es-nt>arg</es-nt>, and performs the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>arg</i>) is
+        not Object, return <b>false</b>.</li>
+
+        <li>If <i>arg</i> has a [[ViewedArrayBuffer]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then return
+        <b>true</b>.</li>
+
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="ArrayBuffer.prototype" anchor="sec-arraybuffer.prototype">
+      <p>The initial value of ArrayBuffer.prototype is the ArrayBuffer prototype object
+      (<es-xref target="sec-properties-of-the-arraybuffer-prototype-object">24.1.4</es-xref>).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="ArrayBuffer[ @@create ] ( )" anchor="sec-arraybuffer-@@create">
+      <p>The @@create method of an ArrayBuffer function object <es-nt>F</es-nt> performs the
+      following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of calling <es-xref target=
+        "sec-allocatearraybuffer">AllocateArrayBuffer</es-xref>(<i>F</i>).</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.create]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+      [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+      "value">true</span> }.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the ArrayBuffer Prototype Object" anchor=
+  "sec-properties-of-the-arraybuffer-prototype-object">
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the ArrayBuffer
+    prototype object is the standard built-in Object prototype object (<es-xref target=
+    "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>). The ArrayBuffer prototype
+    object is an ordinary object. It does not have an [[ArrayBufferData]] or
+    [[ArrayBufferByteLength]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+    <es-clause title="get ArrayBuffer.prototype.byteLength" anchor=
+    "sec-get-arraybuffer.prototype.bytelength">
+      <p><code>ArrayBuffer.prototype.byteLength</code> is an accessor property whose set accessor
+      function is <span class="value">undefined</span>. Its get accessor function performs the
+      following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+        not Object, throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>O</i> does not have an [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If the value of <i>O</i>’s [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b> or <b>null</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>length</i> be the value of <i>O</i>’s [[ArrayBufferByteLength]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>Return <i>length</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="ArrayBuffer.prototype.constructor" anchor=
+    "sec-arraybuffer.prototype.constructor">
+      <p>The initial value of ArrayBuffer.prototype.constructor is the standard built-in
+      ArrayBuffer constructor.</p>
+    </es-clause>
+
+    <es-clause title="ArrayBuffer.prototype.slice ( start , end)" anchor=
+    "sec-arraybuffer.prototype.slice">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+        not Object, throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>O</i> does not have an [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If the value of <i>O</i>’s [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b> or <b>null</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>len</i> be the value of <i>O</i>’s [[ArrayBufferByteLength]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>Let <i>relativeStart</i> be <es-xref target=
+        "sec-tointeger">ToInteger</es-xref>(<i>start</i>).</li>
+
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeStart</i>).</li>
+
+        <li>If <i>relativeStart</i> is negative, let <i>first</i> be max((<i>len</i> +
+        <i>relativeStart</i>),0); else let <i>first</i> be min(<i>relativeStart</i>,
+        <i>len</i>).</li>
+
+        <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let
+        <i>relativeEnd</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>end</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeEnd</i>).</li>
+
+        <li>If <i>relativeEnd</i> is negative, let <i>final</i> be max((<i>len</i> +
+        <i>relativeEnd</i>),0); else let <i>final</i> be min(<i>relativeEnd</i>, <i>len</i>).</li>
+
+        <li>Let <i>newLen</i> be max(<i>final</i>-<i>first</i>,0).</li>
+
+        <li>Let <i>ctor</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+        <b>"constructor"</b>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>ctor</i>).</li>
+
+        <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>ctor</i>) is
+        <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>new</i> be the result of calling the [[Construct]] internal method of
+        <i>ctor</i> with a new <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> containing the single element
+        <i>newLen</i>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>new</i>).</li>
+
+        <li>If <i>new</i> does not have an [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If the value of <i>new</i>’s [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If the value of <i>new</i>’s [[ArrayBufferByteLength]] &lt; <i>newLen</i>, then throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Let <i>fromBuf</i> be the value of <i>O</i>’s [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>Let <i>toBuf</i> be the value of <i>new</i>’s [[ArrayBufferData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>Perform <es-xref target=
+        "sec-copydatablockbytes">CopyDataBlockBytes</es-xref>(<i>toBuf</i>, 0, <i>fromBuf</i>,
+        <i>first</i>, <i>newLen</i>).</li>
+
+        <li>Return <i>new</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="ArrayBuffer.prototype [ @@toStringTag ]" anchor=
+    "sec-arraybuffer.prototype-@@tostringtag">
+      <p>The initial value of the @@toStringTag property is the string value
+      <b>"ArrayBuffer"</b>.</p>
+    </es-clause>
+  </es-clause>
 
   <es-clause title="Properties of the ArrayBuffer Instances" anchor=
   "sec-properties-of-the-arraybuffer-instances">

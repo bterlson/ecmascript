@@ -1,11 +1,440 @@
 <!doctype html>
 <es-clause title="Additional Syntax" anchor="sec-additional-syntax">
-  <link rel="import" href="additional-syntax/additional-syntax-numeric-literals.html">
-  <link rel="import" href="additional-syntax/additional-syntax-string-literals.html">
+  <es-clause title="Numeric Literals" anchor="sec-additional-syntax-numeric-literals">
+    <p>The syntax and semantics of <es-xref target="sec-literals-numeric-literals">11.8.3</es-xref>
+    is extended as follows except that this extension is not allowed for <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>:</p>
+
+    <h2>Syntax</h2>
+
+    <es-production name="NumericLiteral" type="lexical">
+      <es-rhs><es-nt>DecimalLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-nt>BinaryIntegerLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-nt>OctalIntegerLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-nt>HexIntegerLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-nt>LegacyOctalIntegerLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="LegacyOctalIntegerLiteral" type="lexical">
+      <es-rhs><es-t>0</es-t> <es-nt>OctalDigit</es-nt></es-rhs>
+
+      <es-rhs><es-nt>LegacyOctalIntegerLiteral</es-nt> <es-nt>OctalDigit</es-nt></es-rhs>
+    </es-production>
+
+    <p><b>Static Semantics</b></p>
+
+    <ul>
+      <li>
+        <p>The MV of <es-production name="LegacyOctalIntegerLiteral" type="lexical" class=
+        "inline"><es-rhs><es-t>0</es-t>
+        <es-nt>OctalDigit</es-nt></es-rhs></es-production> is the MV of
+        <i>OctalDigit</i>.</p>
+      </li>
+
+      <li>
+        <p>The MV of <es-production name="LegacyOctalIntegerLiteral" type="lexical" class=
+        "inline"><es-rhs><es-nt>LegacyOctalIntegerLiteral</es-nt>
+        <es-nt>OctalDigit</es-nt></es-rhs></es-production> is (the MV of
+        <i>LegacyOctalIntegerLiteral</i> times 8) plus the MV of <i>OctalDigit</i>.</p>
+      </li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="String Literals" anchor="sec-additional-syntax-string-literals">
+    <p>The syntax and semantics of <es-xref target="sec-literals-string-literals">11.8.4</es-xref>
+    is extended as follows except that this extension is not allowed for <es-xref target=
+    "sec-strict-mode-code">strict mode code</es-xref>:</p>
+
+    <h2>Syntax</h2>
+
+    <es-production name="EscapeSequence" type="lexical">
+      <es-rhs><es-nt>CharacterEscapeSequence</es-nt></es-rhs>
+
+      <es-rhs><es-nt>OctalEscapeSequence</es-nt></es-rhs>
+
+      <es-rhs><es-nt>HexEscapeSequence</es-nt></es-rhs>
+
+      <es-rhs><es-nt>UnicodeEscapeSequence</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="OctalEscapeSequence" type="lexical">
+      <es-rhs><es-nt>OctalDigit</es-nt> <es-gann>lookahead ∉
+      <es-nt>DecimalDigit</es-nt></es-gann></es-rhs>
+
+      <es-rhs><es-nt>ZeroToThree</es-nt> <es-nt>OctalDigit</es-nt> <es-gann>lookahead ∉
+      <es-nt>DecimalDigit</es-nt></es-gann></es-rhs>
+
+      <es-rhs><es-nt>FourToSeven</es-nt> <es-nt>OctalDigit</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ZeroToThree</es-nt> <es-nt>OctalDigit</es-nt>
+      <es-nt>OctalDigit</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ZeroToThree" type="lexical" oneof>
+      <es-rhs>0 1 2 3</es-rhs>
+    </es-production>
+
+    <es-production name="FourToSeven" type="lexical" oneof>
+      <es-rhs>4 5 6 7</es-rhs>
+    </es-production>
+
+    <h2>Static Semantics</h2>
+
+    <ul>
+      <li>The CV of <es-production name="EscapeSequence" type="lexical" class=
+      "inline"><es-rhs><es-nt>OctalEscapeSequence</es-nt></es-rhs></es-production>
+      is the CV of the <i>OctalEscapeSequence</i>.</li>
+
+      <li>The CV of <es-production name="OctalEscapeSequence" type="lexical" class=
+      "inline"><es-rhs><es-nt>OctalDigit</es-nt></es-rhs></es-production> is
+      the character whose code unit value is the MV of the <i>OctalDigit</i>.</li>
+
+      <li>The CV of <es-production name="OctalEscapeSequence" type="lexical" class=
+      "inline"><es-rhs><es-nt>ZeroToThree</es-nt>
+      <es-nt>OctalDigit</es-nt></es-rhs></es-production> is the character whose code
+      unit value is (8 times the MV of the <i>ZeroToThree</i>) plus the MV of the
+      <i>OctalDigit</i>.</li>
+
+      <li>The CV of <es-production name="OctalEscapeSequence" type="lexical" class=
+      "inline"><es-rhs><es-nt>FourToSeven</es-nt>
+      <es-nt>OctalDigit</es-nt></es-rhs></es-production> is the character whose code
+      unit value is (8 times the MV of the <i>FourToSeven</i>) plus the MV of the
+      <i>OctalDigit</i>.</li>
+
+      <li>The CV of <es-production name="OctalEscapeSequence" type="lexical" class=
+      "inline"><es-rhs><es-nt>ZeroToThree</es-nt> <es-nt>OctalDigit</es-nt>
+      <es-nt>OctalDigit</es-nt></es-rhs></es-production> is the character whose code
+      unit value is (64 (that is, 8<sup>2</sup> ) times the MV of the <i>ZeroToThree</i>) plus (8
+      times the MV of the first <i>OctalDigit</i>) plus the MV of the second
+      <i>OctalDigit</i>.</li>
+
+      <li>The MV of <es-production name="ZeroToThree" type="lexical" class=
+      "inline"><es-rhs>0</es-rhs></es-production> is 0.</li>
+
+      <li>The MV of <es-production name="ZeroToThree" type="lexical" class=
+      "inline"><es-rhs>1</es-rhs></es-production> is 1.</li>
+
+      <li>The MV of <es-production name="ZeroToThree" type="lexical" class=
+      "inline"><es-rhs>2</es-rhs></es-production> is 2.</li>
+
+      <li>The MV of <es-production name="ZeroToThree" type="lexical" class=
+      "inline"><es-rhs>3</es-rhs></es-production> is 3.</li>
+
+      <li>The MV of <es-production name="FourToSeven" type="lexical" class=
+      "inline"><es-rhs>4</es-rhs></es-production> is 4.</li>
+
+      <li>The MV of <es-production name="FourToSeven" type="lexical" class=
+      "inline"><es-rhs>5</es-rhs></es-production> is 5.</li>
+
+      <li>The MV of <es-production name="FourToSeven" type="lexical" class=
+      "inline"><es-rhs>6</es-rhs></es-production> is 6.</li>
+
+      <li>The MV of <es-production name="FourToSeven" type="lexical" class=
+      "inline"><es-rhs>7</es-rhs></es-production> is 7.</li>
+    </ul>
+  </es-clause>
 
   <es-clause title="HTML-like Comments" anchor="sec-html-like-comments">
     <p style="background-color: #F79646">TODO See <a href=
     "http://javascript.spec.whatwg.org/">http://javascript.spec.whatwg.org/</a> #comment-syntax</p>
   </es-clause>
-  <link rel="import" href="additional-syntax/regular-expressions-patterns.html">
+
+  <es-clause title="Regular Expressions Patterns" anchor="sec-regular-expressions-patterns">
+    <p>The syntax of <es-xref target="sec-patterns">21.2.1</es-xref> is extended as modified and
+    extended as follows. These changes introduce ambiguities that are broken by the ordering or
+    grammar productions and by contextual information. The following grammar is used, with each
+    alternative considered only if previous production alternatives do not match.</p>
+
+    <p><b>Syntax</b></p>
+
+    <es-production name="Term" type="lexical" params="U">
+      <es-rhs constraint="~U"><es-nt>ExtendedTerm</es-nt></es-rhs>
+
+      <es-rhs constraint="+U"><es-nt params="U">Assertion</es-nt></es-rhs>
+
+      <es-rhs constraint="+U"><es-nt params="U">Atom</es-nt></es-rhs>
+
+      <es-rhs constraint="+U"><es-nt params="U">Atom</es-nt> <es-nt>Quantifier</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ExtendedTerm" type="lexical">
+      <es-rhs><es-nt>Assertion</es-nt></es-rhs>
+
+      <es-rhs><es-nt>AtomNoBrace</es-nt> <es-nt>Quantifier</es-nt></es-rhs>
+
+      <es-rhs><es-nt>Atom</es-nt></es-rhs>
+
+      <es-rhs><es-nt>QuantifiableAssertion</es-nt> <es-nt>Quantifier</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="AtomNoBrace" type="lexical">
+      <es-rhs><es-nt>PatternCharacterNoBrace</es-nt></es-rhs>
+
+      <es-rhs>.</es-rhs>
+
+      <es-rhs><es-t>\</es-t> <es-nt>AtomEscape</es-nt></es-rhs>
+
+      <es-rhs><es-nt>CharacterClass</es-nt></es-rhs>
+
+      <es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt> <es-t>)</es-t></es-rhs>
+
+      <es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>:</es-t> <es-nt>Disjunction</es-nt>
+      <es-t>)</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="Atom" type="lexical" params="U">
+      <es-rhs><es-nt>PatternCharacter</es-nt></es-rhs>
+
+      <es-rhs>.</es-rhs>
+
+      <es-rhs><es-t>\</es-t> <es-nt params="?U">AtomEscape</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">CharacterClass</es-nt></es-rhs>
+
+      <es-rhs><es-t>(</es-t> <es-nt params="?U">Disjunction</es-nt> <es-t>)</es-t></es-rhs>
+
+      <es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>:</es-t> <es-nt params="?U">Disjunction</es-nt>
+      <es-t>)</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="PatternCharacterNoBrace" type="lexical">
+      <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of</es-gmod></es-rhs>
+
+      <es-rhs>^ $ \ . * + ? ( ) [ ] { } |</es-rhs>
+    </es-production>
+
+    <es-production name="PatternCharacter" type="lexical">
+      <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of</es-gmod></es-rhs>
+
+      <es-rhs>^ $ \ . * + ? ( ) [ ] |</es-rhs>
+    </es-production>
+
+    <es-production name="QuantifiableAssertion" type="lexical">
+      <es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>=</es-t> <es-nt>Disjunction</es-nt>
+      <es-t>)</es-t></es-rhs>
+
+      <es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>!</es-t> <es-nt>Disjunction</es-nt>
+      <es-t>)</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="Assertion" type="lexical" params="U">
+      <es-rhs>^</es-rhs>
+
+      <es-rhs>$</es-rhs>
+
+      <es-rhs>\ b</es-rhs>
+
+      <es-rhs>\ B</es-rhs>
+
+      <es-rhs constraint="+U"><es-t>(</es-t> <es-t>?</es-t> <es-t>=</es-t> <es-nt params=
+      "?U">Disjunction</es-nt> <es-t>)</es-t></es-rhs>
+
+      <es-rhs constraint="+U"><es-t>(</es-t> <es-t>?</es-t> <es-t>!</es-t> <es-nt params=
+      "?U">Disjunction</es-nt> <es-t>)</es-t></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>QuantifiableAssertion</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="AtomEscape" type="lexical" params="U">
+      <es-rhs constraint="+U"><es-nt>DecimalEscape</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>DecimalEscape</es-nt> but only if the integer value of
+      <es-nt>DecimalEscape</es-nt> is &lt;= <es-nt>NCapturingParens</es-nt></es-rhs>
+
+      <es-rhs constraint="+U"><es-nt params="U">CharacterEscape</es-nt></es-rhs>
+
+      <es-rhs constraint="+U"><es-nt>CharacterClassEscape</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>CharacterClassEscape</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>CharacterEscape</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="CharacterEscape" type="lexical" params="U">
+      <es-rhs><es-nt>ControlEscape</es-nt></es-rhs>
+
+      <es-rhs><es-t>c</es-t> <es-nt>ControlLetter</es-nt></es-rhs>
+
+      <es-rhs><es-nt>HexEscapeSequence</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">RegExpUnicodeEscapeSequence</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>OctalEscapeSequence</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">IdentityEscape</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="IdentityEscape" type="lexical" params="U">
+      <es-rhs constraint="+U"><es-nt>SyntaxCharacter</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>SourceCharacter</es-nt> <es-gmod>but not
+      <es-t>c</es-t></es-gmod></es-rhs>
+
+      <es-rhs constraint="~U">&lt;ZWJ&gt;</es-rhs>
+
+      <es-rhs constraint="~U">&lt;ZWNJ&gt;</es-rhs>
+    </es-production>
+
+    <es-production name="NonemptyClassRanges" type="lexical" params="U">
+      <es-rhs><es-nt params="?U">ClassAtom</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">ClassAtom</es-nt> <es-nt>NonemptyClassRangesNoDash</es-nt>
+      <es-gann>?U</es-gann></es-rhs>
+
+      <es-rhs constraint="+U"><es-nt params="U">ClassAtom</es-nt> - <es-nt params=
+      "U">ClassAtom</es-nt> <es-nt params="U">ClassRanges</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>ClassAtomInRange</es-nt> - <es-nt>ClassAtomInRange</es-nt>
+      <es-nt>ClassRanges</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="NonemptyClassRangesNoDash" type="lexical" params="U">
+      <es-rhs><es-nt params="?U">ClassAtom</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">ClassAtomNoDash</es-nt> <es-nt>NonemptyClassRangesNoDash</es-nt>
+      <es-gann>?U</es-gann></es-rhs>
+
+      <es-rhs constraint="+U"><es-nt params="U">ClassAtomNoDash</es-nt> - <es-nt params=
+      "U">ClassAtom</es-nt> <es-nt params="U">ClassRanges</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>ClassAtomNoDashInRange</es-nt> -
+      <es-nt>ClassAtomInRange</es-nt> <es-nt>ClassRanges</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ClassAtom" type="lexical" params="U">
+      <es-rhs>-</es-rhs>
+
+      <es-rhs><es-nt params="?U">ClassAtomNoDash</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ClassAtomNoDash" type="lexical" params="U">
+      <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+      <es-t>\</es-t></es-gmod><es-gmod>or <es-t>]</es-t></es-gmod><es-gmod>or
+      <es-t>-</es-t></es-gmod></es-rhs>
+
+      <es-rhs><es-t>\</es-t> <es-nt params="?U">ClassEscape</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ClassAtomInRange" type="lexical">
+      <es-rhs>-</es-rhs>
+
+      <es-rhs><es-nt>ClassAtomNoDashInRange</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ClassAtomNoDashInRange" type="lexical">
+      <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+      <es-t>\</es-t></es-gmod><es-gmod>or <es-t>]</es-t></es-gmod><es-gmod>or
+      <es-t>-</es-t></es-gmod></es-rhs>
+
+      <es-rhs>\ <es-nt>ClassEscape</es-nt> but only if <es-nt>ClassEscape</es-nt> evaluates to a
+      <es-nt>CharSet</es-nt> with exactly one character</es-rhs>
+
+      <es-rhs><es-t>\</es-t> <es-nt>IdentityEscape</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ClassEscape" type="lexical" params="U">
+      <es-rhs constraint="+U"><es-nt>DecimalEscape</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>DecimalEscape</es-nt> but only if the integer value of
+      <es-nt>DecimalEscape</es-nt> is &lt;= <es-nt>NCapturingParens</es-nt></es-rhs>
+
+      <es-rhs>b</es-rhs>
+
+      <es-rhs constraint="+U"><es-nt params="U">CharacterEscape</es-nt></es-rhs>
+
+      <es-rhs constraint="+U"><es-nt>CharacterClassEscape</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>CharacterClassEscape</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>CharacterEscape</es-nt></es-rhs>
+    </es-production>
+
+    <p><b>Pattern Semantics</b></p>
+
+    <p>The semantics of <es-xref target="sec-pattern-semantics">21.2.2</es-xref> is extended as
+    follows:</p>
+
+    <p>Within <es-xref target="sec-term">21.2.2.5</es-xref> reference to
+    “<es-production name="Atom" type="lexical" class="inline"><es-rhs><es-t>(</es-t>
+    <es-nt>Disjunction</es-nt> <es-t>)</es-t></es-rhs></es-production> ” are to be
+    interpreted as meaning “<es-production name="Atom" type="lexical" class=
+    "inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
+    <es-t>)</es-t></es-rhs></es-production> or <es-production name=
+    "AtomNoBrace" type="lexical" class="inline"><es-rhs><es-t>(</es-t>
+    <es-nt>Disjunction</es-nt> <es-t>)</es-t></es-rhs></es-production> ”.</p>
+
+    <p>Term (<es-xref target="sec-term">21.2.2.5</es-xref>) includes the following additional
+    evaluation rule:</p>
+
+    <p>The production <es-production name="Term" type="lexical" class=
+    "inline"><es-rhs><es-nt>QuantifiableAssertion</es-nt>
+    <es-nt>Quantifier</es-nt></es-rhs></es-production> evaluates the same as the
+    production <es-production name="Term" type="lexical" class=
+    "inline"><es-rhs><es-nt>Atom</es-nt></es-rhs></es-production>
+    <i>Quantifier</i> but with <i>QuantifiableAssertion</i> substituted for <i>Atom</i>.</p>
+
+    <p>Atom (<es-xref target="sec-atom">21.2.2.8</es-xref>) evaluation rules for the
+    <es-nt>Atom</es-nt> productions except for <es-production name="Atom" type="lexical"
+    class=
+    "inline"><es-rhs><es-nt>PatternCharacter</es-nt></es-rhs></es-production>
+    are also used for the <es-nt>AtomNoBrace</es-nt> productions, but with
+    <es-nt>AtomNoBrace</es-nt> substituted for <i>Atom</i>. The following evaluation rule is also
+    added:</p>
+
+    <p>The production <es-production name="AtomNoBrace" type="lexical" class=
+    "inline"><es-rhs><es-nt>PatternCharacterNoBrace</es-nt></es-rhs></es-production>
+    evaluates as follows:</p>
+
+    <ol class="proc">
+      <li>Let <i>ch</i> be the character represented by <i>PatternCharacterNoBrace</i>.</li>
+
+      <li>Let <i>A</i> be a one-element CharSet containing the character <i>ch</i>.</li>
+
+      <li>Call CharacterSetMatcher(<i>A</i>, <b>false</b>) and return its Matcher result.</li>
+    </ol>
+
+    <p>CharacterEscape (<es-xref target="sec-characterescape">21.2.2.10</es-xref>) includes the
+    following additional evaluation rule:</p>
+
+    <p>The production <es-production name="CharacterEscape" type="lexical" class=
+    "inline"><es-rhs><es-nt>OctalEscapeSequence</es-nt></es-rhs></es-production>
+    evaluates by evaluating the CV of the <es-nt>OctalscapeSequence</es-nt> (<es-xref target=
+    "sec-additional-syntax-string-literals">see B.1.2</es-xref>) and returning its character
+    result.</p>
+
+    <p>ClassAtom (<es-xref target="sec-classatom">21.2.2.17</es-xref>) includes the following
+    additional evaluation rules:</p>
+
+    <p>The production <es-production name="ClassAtomInRange" type="lexical" class=
+    "inline"><es-rhs>-</es-rhs></es-production> evaluates by returning the
+    CharSet containing the one character <code>-</code>.</p>
+
+    <p>The production <es-production name="ClassAtomInRange" type="lexical" class=
+    "inline"><es-rhs><es-nt>ClassAtomNoDashInRange</es-nt></es-rhs></es-production>
+    evaluates by evaluating <es-nt>ClassAtomNoDashInRange</es-nt> to obtain a CharSet and returning
+    that CharSet.</p>
+
+    <p>ClassAtomNoDash (<es-xref target="sec-classatomnodash">21.2.2.18</es-xref>) includes the
+    following additional evaluation rules:</p>
+
+    <p>The production <es-production name="ClassAtomNoDashInRange" type="lexical" class=
+    "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+    <es-t>\</es-t></es-gmod><es-gmod>or <es-t>]</es-t></es-gmod><es-gmod>or
+    <es-t>-</es-t></es-gmod></es-rhs></es-production> evaluates by returning a
+    one-element CharSet containing the character represented by <es-nt>SourceCharacter</es-nt>.</p>
+
+    <p>The production <es-production name="ClassAtomNoDashInRange" type="lexical" class=
+    "inline"><es-rhs><es-t>\</es-t>
+    <es-nt>ClassEscape</es-nt></es-rhs></es-production> but ony if…, evaluates by
+    evaluating <es-nt>ClassEscape</es-nt> to obtain a CharSet and returning that CharSet.</p>
+
+    <p>The production <es-production name="ClassAtomNoDashInRange" type="lexical" class=
+    "inline"><es-rhs><es-t>\</es-t>
+    <es-nt>IdentityEscape</es-nt></es-rhs></es-production> evaluates by returning the
+    character represented by <es-nt>IdentityEscape</es-nt>.</p>
+  </es-clause>
 </es-clause>

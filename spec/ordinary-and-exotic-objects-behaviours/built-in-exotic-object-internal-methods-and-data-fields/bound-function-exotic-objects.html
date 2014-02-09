@@ -59,8 +59,114 @@
   essential internal methods as specified in <es-xref target=
   "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>. However, they use the
   following definitions for the essential internal methods of function objects.</p>
-  <link rel="import" href="bound-function-exotic-objects/call.html">
-  <link rel="import" href=
-  "bound-function-exotic-objects/bound-function-exotic-objects-construct.html">
-  <link rel="import" href="bound-function-exotic-objects/boundfunctioncreate.html">
+
+  <es-clause title="[[Call]]" anchor="sec-call">
+    <p>When the [[Call]] internal method of an exotic <es-xref target=
+    "sec-bound-function-exotic-objects">bound function</es-xref> object, <es-nt>F</es-nt>, which
+    was created using the bind function is called with parameters <es-nt>thisArgument</es-nt> and
+    <es-nt>argumentsList</es-nt>, a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> of <es-xref target=
+    "sec-ecmascript-language-types">ECMAScript language values</es-xref>, the following steps are
+    taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>boundArgs</i> be the value of <i>F’s</i> <es-xref target=
+      "sec-bound-function-exotic-objects">[[BoundArguments]]</es-xref> <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>boundThis</i> be the value of <i>F’s</i> <es-xref target=
+      "sec-bound-function-exotic-objects">[[BoundThis]]</es-xref> <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>target</i> be the value of <i>F’s</i> <es-xref target=
+      "sec-bound-function-exotic-objects">[[BoundTargetFunction]]</es-xref> <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>args</i> be a new list containing the same values as the list <i>boundArgs</i> in
+      the same order followed by the same values as the list <i>argumentsList</i> in the same
+      order.</li>
+
+      <li>Return the result of calling the [[Call]] internal method of <i>target</i> providing
+      <i>boundThis</i> as <i>thisArgument</i> and providing <i>args</i> as
+      <i>argumentsList</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="[[Construct]]" anchor="sec-bound-function-exotic-objects-construct">
+    <p>When the [[Construct]] internal method of an exotic <es-xref target=
+    "sec-bound-function-exotic-objects">bound function</es-xref> object, <es-nt>F</es-nt> that was
+    created using the bind function is called with a list of arguments <es-nt>ExtraArgs</es-nt>,
+    the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>target</i> be the value of <i>F’s</i> <es-xref target=
+      "sec-bound-function-exotic-objects">[[BoundTargetFunction]]</es-xref> <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>target</i> has a
+      [[Construct]] internal method.</li>
+
+      <li>Let <i>boundArgs</i> be the value of <i>F’s</i> <es-xref target=
+      "sec-bound-function-exotic-objects">[[BoundArguments]]</es-xref> <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>args</i> be a new list containing the same values as the list <i>boundArgs</i> in
+      the same order followed by the same values as the list <i>ExtraArgs</i> in the same
+      order.</li>
+
+      <li>Return the result of calling the [[Construct]] internal method of <i>target</i> providing
+      <i>args</i> as the arguments.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="BoundFunctionCreate Abstract Operation" anchor="sec-boundfunctioncreate">
+    <p>The abstract operation BoundFunctionCreate with arguments <es-nt>targetFunction</es-nt>,
+    <es-nt>boundThis</es-nt> and <es-nt>boundArgs</es-nt> is used to specify the creation of new
+    <es-xref target="sec-bound-function-exotic-objects">Bound Function</es-xref> exotic objects. It
+    performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>proto</i> be the intrinsic %FunctionPrototype%.</li>
+
+      <li>Let <i>obj</i> be a newly created object.</li>
+
+      <li>Set <i>obj</i>’s essential internal methods to the default ordinary object definitions
+      specified in <es-xref target=
+      "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</li>
+
+      <li>Set the [[Call]] internal method of <i>obj</i> as described in <es-xref target=
+      "sec-call">9.4.1.1</es-xref>.</li>
+
+      <li>If <i>targetFunction</i> has a [[Construct]] internal method, then
+
+        <ol class="block">
+          <li>Set the [[Construct]] internal method of <i>obj</i> as described in <es-xref target=
+          "sec-bound-function-exotic-objects-construct">9.4.1.2</es-xref>.</li>
+        </ol>
+      </li>
+
+      <li>Set the [[Prototype]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>obj</i> to
+      <i>proto</i>.</li>
+
+      <li>Set the [[Extensible]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>obj</i> to
+      <b>true</b>.</li>
+
+      <li>Set the <es-xref target=
+      "sec-bound-function-exotic-objects">[[BoundTargetFunction]]</es-xref> <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>obj</i> to
+      <i>targetFunction</i>.</li>
+
+      <li>Set the <es-xref target="sec-bound-function-exotic-objects">[[BoundThis]]</es-xref>
+      <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+      <i>obj</i> to the value of <i>boundThis</i>.</li>
+
+      <li>Set the <es-xref target="sec-bound-function-exotic-objects">[[BoundArguments]]</es-xref>
+      <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+      <i>obj</i> to <i>boundArgs</i>.</li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+  </es-clause>
 </es-clause>

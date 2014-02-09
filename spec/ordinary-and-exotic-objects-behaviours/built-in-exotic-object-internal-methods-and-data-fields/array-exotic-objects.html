@@ -26,8 +26,244 @@
   method. Except for that internal method, exotic Array objects provide all of the other essential
   internal methods as specified in <es-xref target=
   "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</p>
-  <link rel="import" href=
-  "array-exotic-objects/array-exotic-objects-defineownproperty-p-desc.html">
-  <link rel="import" href="array-exotic-objects/arraycreate.html">
-  <link rel="import" href="array-exotic-objects/arraysetlength.html">
+
+  <es-clause title="[[DefineOwnProperty]] ( P, Desc)" anchor=
+  "sec-array-exotic-objects-defineownproperty-p-desc">
+    <p>When the [[DefineOwnProperty]] internal method of an exotic Array object <es-nt>A</es-nt> is
+    called with <es-xref target="sec-object-type">property key</es-xref> <es-nt>P</es-nt>, and
+    <es-xref target="sec-property-descriptor-specification-type">Property Descriptor</es-xref>
+    <es-nt>Desc</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>If <i>P</i> is <b>"</b>length<b>"</b>, then
+
+        <ol class="block">
+          <li>Return the result of calling <es-xref target=
+          "sec-arraysetlength">ArraySetLength</es-xref> with arguments <i>A</i>, and
+          <i>Desc</i>.</li>
+        </ol>
+      </li>
+
+      <li>Else if <i>P</i> is an array index, then
+
+        <ol class="block">
+          <li>Let <i>oldLenDesc</i> be the result of calling the [[GetOwnProperty]] internal method
+          of <i>A</i> passing <b>"length"</b> as the argument. The result will never be
+          <b>undefined</b> or an accessor descriptor because Array objects are created with a
+          length data property that cannot be deleted or reconfigured.</li>
+
+          <li>Let <i>oldLen</i> be <i>oldLenDesc</i>.[[Value]].</li>
+
+          <li>Let <i>index</i> be <es-xref target="sec-touint32">ToUint32</es-xref>(<i>P</i>).</li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>index</i> will never
+          be an <es-xref target="sec-completion-record-specification-type">abrupt
+          completion</es-xref>.</li>
+
+          <li>If <i>index</i> ≥ <i>oldLen</i> and <i>oldLenDesc</i>.[[Writable]] is <b>false</b>,
+          then return <b>false</b>.</li>
+
+          <li>Let <i>succeeded</i> be the result of calling <es-xref target=
+          "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+          <i>P</i>, and <i>Desc</i> as arguments.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>succeeded</i>).</li>
+
+          <li>If <i>succeeded</i> is <b>false</b>, then return <b>false</b>.</li>
+
+          <li>If <i>index</i> ≥ <i>oldLen</i>
+
+            <ol class="block">
+              <li>Set <i>oldLenDesc</i>.[[Value]] to <i>index</i> + 1.</li>
+
+              <li>Let <i>succeeded</i> be the result of calling <es-xref target=
+              "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+              <b>"length"</b>, and <i>oldLenDesc</i> as arguments.</li>
+
+              <li><es-xref target=
+              "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>succeeded</i>).</li>
+            </ol>
+          </li>
+
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </li>
+
+      <li>Return the result of calling <es-xref target=
+      "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+      <i>P</i>, and <i>Desc</i> as arguments.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="ArrayCreate(length) Abstract Operation" anchor="sec-arraycreate">
+    <p>The abstract operation ArrayCreate with argument <es-nt>length</es-nt> (a positive integer
+    or <span class="value">undefined</span>) and optional argument <es-nt>proto</es-nt> is used to
+    specify the creation of new exotic Array objects. It performs the following steps:</p>
+
+    <ol class="proc">
+      <li>If the <i>proto</i> argument was not passed, then let <i>proto</i> be the intrinsic
+      object %ArrayPrototype%.</li>
+
+      <li>Let <i>A</i> be a newly created <es-xref target="sec-array-exotic-objects">Array exotic
+      object</es-xref>.</li>
+
+      <li>Set <i>A</i>’s essential internal methods except for [[DefineOwnProperty]] to the default
+      ordinary object definitions specified in <es-xref target=
+      "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</li>
+
+      <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in
+      <es-xref target="sec-array-exotic-objects-defineownproperty-p-desc">9.4.2.1</es-xref>.</li>
+
+      <li>Set the [[Prototype]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+      <i>proto</i>.</li>
+
+      <li>Set the [[Extensible]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+      <b>true</b>.</li>
+
+      <li>If <i>length</i> is not <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Set the [[ArrayInitialisationState]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+          <b>true</b>.</li>
+        </ol>
+      </li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>Set the [[ArrayInitialisationState]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>A</i> to
+          <b>false</b>.</li>
+
+          <li>Let <i>length</i> be 0.</li>
+        </ol>
+      </li>
+
+      <li>If <i>length</i>&gt;2<sup>32</sup> -1, then throw a <b>RangeError</b> exception.</li>
+
+      <li>Call <es-xref target="sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref>
+      with arguments <i>A</i>, <code>"length"</code> and PropertyDescriptor{[[Value]]:
+      <i>length</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+      <b>false</b>}.</li>
+
+      <li>Return <i>A</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="ArraySetLength(A, Desc) Abstract Operation" anchor="sec-arraysetlength">
+    <p>When the abstract operation ArraySetLength is called with an exotic Array object <i>A</i>,
+    and <es-xref target="sec-property-descriptor-specification-type">Property Descriptor</es-xref>
+    <es-nt>Desc</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If the [[Value]] field of <i>Desc</i> is absent, then
+
+        <ol class="block">
+          <li>Return the result of calling <es-xref target=
+          "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+          <b>"length"</b>, and <i>Desc</i> as arguments.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>newLenDesc</i> be a copy of <i>Desc</i>.</li>
+
+      <li>Let <i>newLen</i> be <es-xref target=
+      "sec-touint32">ToUint32</es-xref>(<i>Desc</i>.[[Value]]).</li>
+
+      <li>If <i>newLen</i> is not equal to <es-xref target="sec-tonumber">ToNumber</es-xref>(
+      <i>Desc</i>.[[Value]]), throw a <b>RangeError</b> exception.</li>
+
+      <li>Set <i>newLenDesc</i>.[[Value]] to <i>newLen</i>.</li>
+
+      <li>Let <i>oldLenDesc</i> be the result of calling the [[GetOwnProperty]] internal method of
+      <i>A</i> passing <b>"length"</b> as the argument. The result will never be <b>undefined</b>
+      or an accessor descriptor because Array objects are created with a length data property that
+      cannot be deleted or reconfigured.</li>
+
+      <li>Let <i>oldLen</i> be <i>oldLenDesc</i>.[[Value]].</li>
+
+      <li>If <i>newLen</i> ≥<i>oldLen</i>, then
+
+        <ol class="block">
+          <li>Return the result of calling <es-xref target=
+          "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+          <b>"length"</b>, and <i>newLenDesc</i> as arguments.</li>
+        </ol>
+      </li>
+
+      <li>If <i>oldLenDesc</i>.[[Writable]] is <b>false</b>, then return <b>false</b>.</li>
+
+      <li>If <i>newLenDesc</i>.[[Writable]] is absent or has the value <b>true</b>, let
+      <i>newWritable</i> be <b>true</b>.</li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Need to defer setting the [[Writable]] attribute to <b>false</b> in case any elements
+          cannot be deleted.</li>
+
+          <li>Let <i>newWritable</i> be <b>false</b>.</li>
+
+          <li>Set <i>newLenDesc</i>.[[Writable]] to <b>true</b>.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>succeeded</i> be the result of calling <es-xref target=
+      "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+      <b>"length"</b>, and <i>newLenDesc</i> as arguments.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>succeeded</i>).</li>
+
+      <li>If <i>succeeded</i> is <b>false</b>, return <b>false</b>.</li>
+
+      <li>While <i>newLen</i> &lt; <i>oldLen</i> repeat,
+
+        <ol class="block">
+          <li>Set <i>oldLen</i> to <i>oldLen</i> – 1.</li>
+
+          <li>Let <i>deleteSucceeded</i> be the result of calling the [[Delete]] internal method of
+          <i>A</i> passing <es-xref target="sec-tostring">ToString</es-xref>(<i>oldLen</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>succeeded</i>).</li>
+
+          <li>If <i>deleteSucceeded</i> is <b>false</b>, then
+
+            <ol class="block">
+              <li>Set <i>newLenDesc</i>.[[Value]] to <i>oldLen+1</i>.</li>
+
+              <li>If <i>newWritable</i> is <b>false</b>, set <i>newLenDesc</i>.[[Writable]] to
+              <b>false</b>.</li>
+
+              <li>Let <i>succeeded</i> be the result of calling <es-xref target=
+              "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+              <b>"length"</b>, and <i>newLenDesc</i> as arguments.</li>
+
+              <li><es-xref target=
+              "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>succeeded</i>).</li>
+
+              <li>Return <b>false</b>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>If <i>newWritable</i> is <b>false</b>, then
+
+        <ol class="block">
+          <li>Call <es-xref target=
+          "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> passing <i>A</i>,
+          <b>"length"</b>, and PropertyDescriptor{[[Writable]]: <b>false</b>} as arguments. This
+          call will always return <b>true</b>.</li>
+        </ol>
+      </li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
 </es-clause>

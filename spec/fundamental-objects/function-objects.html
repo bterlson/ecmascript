@@ -1,7 +1,611 @@
 <!doctype html>
 <es-clause title="Function Objects" anchor="sec-function-objects">
-  <link rel="import" href="function-objects/function-constructor.html">
-  <link rel="import" href="function-objects/properties-of-the-function-constructor.html">
-  <link rel="import" href="function-objects/properties-of-the-function-prototype-object.html">
-  <link rel="import" href="function-objects/function-instances.html">
+  <es-clause title="The Function Constructor" anchor="sec-function-constructor">
+    <p>The Function constructor is the %Function% intrinsic object and the initial value of the
+    <code>Function</code> property of the global object. When <code>Function</code> is called as a
+    function rather than as a constructor, it creates and initialises a new Function object. Thus
+    the function call <b>Function(</b>…<b>)</b> is equivalent to the object creation expression
+    <b>new Function(</b>…<b>)</b> with the same arguments. However, if the <b>this</b> value passed
+    in the call is an Object with a [[Code]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> whose value is
+    <span class="value">undefined</span>, it initialises the <b>this</b> value using the argument
+    values. This permits <code>Function</code> to be used both as factory method and to perform
+    constructor instance initialisation.</p>
+
+    <p><code>Function</code> may be subclassed and subclass constructors may perform a
+    <code>super</code> invocation of the <code>Function</code> constructor to initialise subclass
+    instances. However, all syntactic forms for defining function objects create instances of
+    <code>Function</code>. There is no syntactic means to create instances of <code>Function</code>
+    subclasses except for the built-in Generator Function subclass.</p>
+
+    <es-clause title="Function (p1, p2, … , pn, body)" anchor="sec-function-p1-p2-pn-body">
+      <p>The last argument specifies the body (executable code) of a function; any preceding
+      arguments specify formal parameters.</p>
+
+      <p>When the <code>Function</code> function is called with some arguments <es-nt>p1</es-nt>,
+      <es-nt>p2</es-nt>, … , <es-nt>pn</es-nt>, <es-nt>body</es-nt> (where <es-nt>n</es-nt> might
+      be 0, that is, there are no “<es-nt>p</es-nt>” arguments, and where <es-nt>body</es-nt> might
+      also not be provided), the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>argCount</i> be the total number of arguments passed to this function
+        invocation.</li>
+
+        <li>Let <i>P</i> be the empty String.</li>
+
+        <li>If <i>argCount</i> = 0, let <i>bodyText</i> be the empty String.</li>
+
+        <li>Else if <i>argCount</i> = 1, let <i>bodyText</i> be that argument.</li>
+
+        <li>Else <i>argCount</i> &gt; 1,
+
+          <ol class="block">
+            <li>Let <i>firstArg</i> be the first argument.</li>
+
+            <li>Let <i>P</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>firstArg</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>P</i>).</li>
+
+            <li>Let <i>k</i> be 2.</li>
+
+            <li>Repeat, while <i>k</i> &lt; <i>argCount</i>
+
+              <ol class="block">
+                <li>Let <i>nextArg</i> be the <i>k</i>’th argument.</li>
+
+                <li>Let <i>nextArgString</i> be <es-xref target=
+                "sec-tostring">ToString</es-xref>(<i>nextArg</i>).</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextArgString</i>).</li>
+
+                <li>Let <i>P</i> be the result of concatenating the previous value of <i>P</i>, the
+                String <code>","</code> (a comma), and <i>nextArgString</i>.</li>
+
+                <li>Increase <i>k</i> by 1.</li>
+              </ol>
+            </li>
+
+            <li>Let <i>bodyText</i> be the <i>k</i>’th argument.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>bodyText</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>bodyText</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>bodyText</i>).</li>
+
+        <li>Let <i>parameters</i> be the result of parsing <i>P</i>, interpreted as UTF-16 encoded
+        Unicode text as described in <es-xref target="sec-ecmascript-language-source-code">clause
+        10</es-xref>.1.1<i>,</i> using <i>FormalParameters</i> as the goal symbol. Throw a
+        <b>SyntaxError</b> exception if the parse fails.</li>
+
+        <li>Let <i>body</i> be the result of parsing <i>bodyText</i>, interpreted as UTF-16 encoded
+        Unicode text as described in <es-xref target="sec-ecmascript-language-source-code">clause
+        10</es-xref>.1.1<i>,</i> using <i>FunctionBody</i> as the goal symbol. Throw a
+        <b>SyntaxError</b> exception if the parse fails or if any static semantics errors are
+        detected.</li>
+
+        <li>If IsSimpleParameterList of <i>parameters</i> is <b>false</b> and any element of the
+        BoundNames of <i>parameters</i> also occurs in the VarDeclaredNames of <i>body</i>, then
+        throw a <b>SyntaxError</b> exception.</li>
+
+        <li>If any element of the BoundNames of <i>parameters</i> also occurs in the
+        LexicallyDeclaredNames of <i>body</i>, then throw a <b>SyntaxError</b> exception.</li>
+
+        <li>If <i>bodyText</i> is <es-xref target="sec-strict-mode-code">strict mode code</es-xref>
+        (see <es-xref target="sec-strict-mode-code">10.2.1</es-xref>) then let <i>strict</i> be
+        <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+
+        <li>Let <i>scope</i> be <es-xref target="sec-global-environment-records">the Global
+        Environment</es-xref>.</li>
+
+        <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>F</i>) is
+        not Object or if <i>F</i> does not have a [[Code]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> or if the value of
+        [[Code]] is not <b>undefined</b>, then
+
+          <ol class="block">
+            <li>Let <i>C</i> be the function that is currently being evaluated.</li>
+
+            <li>Let <i>proto</i> be the result of <es-xref target=
+            "sec-getprototypefromconstructor">GetPrototypeFromConstructor</es-xref>(<i>C</i>,
+            <code>"%FunctionPrototype%"</code>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
+
+            <li>Let <i>F</i> be the result of calling <es-xref target=
+            "sec-functionallocate">FunctionAllocate</es-xref> with arguments <i>C</i> and
+            <i>strict</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else, set <i>F’s</i> [[Strict]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <i>strict</i>.</li>
+
+        <li>If the value of <i>F’s</i> [[FunctionKind]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not
+        <code>"normal"</code>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Perform the <es-xref target="sec-functioninitialise">FunctionInitialise</es-xref>
+        abstract operation with arguments <i>F</i>, Normal, <i>parameters</i>, <i>body,</i> and
+        <i>scope</i>.</li>
+
+        <li>If ReferencesSuper of <i>body</i> is <b>true</b> or ReferencesSuper of
+        <i>parameters</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>F</i>,
+            <b>undefined</b>, <b>undefined</b>).</li>
+          </ol>
+        </li>
+
+        <li>Let <i>status</i> be the result of <es-xref target=
+        "sec-makeconstructor">MakeConstructor</es-xref> with argument <i>F</i>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+        <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>F</i>,
+        "<b>anonymous</b>").</li>
+
+        <li>Return <i>F</i>.</li>
+      </ol>
+
+      <p>A <code>prototype</code> property is automatically created for every function created
+      using the <code>Function</code> constructor, to provide for the possibility that the function
+      will be used as a constructor.</p>
+
+      <es-note>
+        <p>It is permissible but not necessary to have one argument for each formal parameter to be
+        specified. For example, all three of the following expressions produce the same result:</p>
+        <pre>
+new Function("a", "b", "c", "return a+b+c")
+</pre>
+        <pre>
+new Function("a, b, c", "return a+b+c")
+</pre>
+        <pre>
+new Function("a,b", "c", "return a+b+c")
+</pre>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="new Function ( ... argumentsList)" anchor="sec-new-function-argumentslist">
+      <p>When <code>Function</code> is called as part of a <code>new</code> expression, it
+      initialises the newly created object.</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <code>Function</code> function object on which the <code>new</code>
+        operator was applied.</li>
+
+        <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+        internal method that was invoked by the <code>new</code> operator.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-construct-f-argumentslist">Construct</es-xref> (<i>F</i>, <i>argumentsList</i>).</li>
+      </ol>
+
+      <p>If <code>Function</code> is implemented as an <es-xref target=
+      "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+      internal method will perform the above steps.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the Function Constructor" anchor=
+  "sec-properties-of-the-function-constructor">
+    <p>The Function constructor is itself a built-in Function object. The value of the
+    [[Prototype]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref> of the Function constructor is %FunctionPrototype%, the intrinsic Function
+    prototype object (<es-xref target=
+    "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
+
+    <p>The value of the [[Extensible]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Function
+    constructor is <b>true</b>.</p>
+
+    <p>The Function constructor has the following properties:</p>
+
+    <es-clause title="Function.length" anchor="sec-function.length">
+      <p>This is a data property with a value of 1. This property has the attributes {
+      [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class=
+      "value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+    </es-clause>
+
+    <es-clause title="Function.prototype" anchor="sec-function.prototype">
+      <p>The value of <code>Function.prototype</code> is %FunctionPrototype%, the intrinsic
+      Function prototype object (<es-xref target=
+      "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+      [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+      "value">false</span> }.</p>
+    </es-clause>
+
+    <es-clause title="Function[ @@create ] ( )" anchor="sec-function-@@create">
+      <p>The @@create method of an object <es-nt>F</es-nt> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+        <li>Let <i>proto</i> be the result of <es-xref target=
+        "sec-getprototypefromconstructor">GetPrototypeFromConstructor</es-xref>(<i>F</i>,
+        <code>"%FunctionPrototype%"</code>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
+
+        <li>Let <i>obj</i> be the result of calling <es-xref target=
+        "sec-functionallocate">FunctionAllocate</es-xref> with arguments <i>proto</i> and
+        <b>false</b>.</li>
+
+        <li>Return <i>obj</i>.</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.create]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+      [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+      "value">true</span> }.</p>
+
+      <es-note>
+        <p>The Function <code>@@create</code> function passes <span class="value">false</span> as
+        the <es-nt>strict</es-nt> parameter to <es-xref target=
+        "sec-functionallocate">FunctionAllocate</es-xref>. This causes the allocated
+        <es-xref target="sec-ecmascript-function-objects">ECMAScript function object</es-xref> to
+        have the internal methods of a non-strict function. The <code>Function</code> constructor
+        may reset the functions [[Strict]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <span class=
+        "value">true</span>. It is up to the implementation whether this also changes the internal
+        methods.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the Function Prototype Object" anchor=
+  "sec-properties-of-the-function-prototype-object">
+    <p>The Function prototype object is itself a Built-in Function object. When invoked, it accepts
+    any arguments and returns <b>undefined</b>.</p>
+
+    <es-note>
+      <p>The Function prototype object is specified to be a function object to ensure compatibility
+      with ECMAScript code that was created prior to the 6<sup>th</sup> Edition of this
+      specification.</p>
+    </es-note>
+
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Function
+    prototype object is the intrinsic object %ObjectPrototype% (<es-xref target=
+    "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>). The initial value of the
+    [[Extensible]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref> of the Function prototype object is <b>true</b>.</p>
+
+    <p>The Function prototype object does not have a <code>prototype</code> property.</p>
+
+    <p>The value of The <code>length</code> property of the Function prototype object is
+    <b>0</b>.</p>
+
+    <p>The value of the <code>name</code> property of the Function prototype object is the empty
+    String.</p>
+
+    <es-clause title="Function.prototype.apply (thisArg, argArray)" anchor=
+    "sec-function.prototype.apply">
+      <p>When the <code>apply</code> method is called on an object <es-nt>func</es-nt> with
+      arguments <es-nt>thisArg</es-nt> and <es-nt>argArray</es-nt>, the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>func</i>) is <b>false</b>,
+        then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>argArray</i> is <b>null</b> or <b>undefined</b>, then
+
+          <ol class="block">
+            <li>Return the result of calling the [[Call]] internal method of <i>func</i>, providing
+            <i>thisArg</i> as <i>thisArgument</i> and an empty <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> of arguments as
+            <i>argumentsList</i>.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>argList</i> be the result of <es-xref target=
+        "sec-createlistfromarraylike">CreateListFromArrayLike</es-xref>(<i>argArray</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>argList</i> ).</li>
+
+        <li>Perform the PrepareForTailCall abstract operation.</li>
+
+        <li>Return the result of calling the [[Call]] internal method of <i>func</i>, providing
+        <i>thisArg</i> as <i>thisArgument</i> and <i>argList</i> as <i>argumentsList</i>.</li>
+      </ol>
+
+      <p>The <code>length</code> property of the <code>apply</code> method is <b>2</b>.</p>
+
+      <es-note>
+        <p>The thisArg value is passed without modification as the <b>this</b> value. This is a
+        change from Edition 3, where an <b>undefined</b> or <b>null</b> thisArg is replaced with
+        the global object and <es-xref target="sec-toobject">ToObject</es-xref> is applied to all
+        other values and that result is passed as the <b>this</b> value.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Function.prototype.bind (thisArg [, arg1 [, arg2, …]])" anchor=
+    "sec-function.prototype.bind">
+      <p>The bind method takes one or more arguments, <es-nt>thisArg</es-nt> and (optionally)
+      <es-nt>arg1</es-nt>, <es-nt>arg2</es-nt>, etc, and returns a new function object by
+      performing the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>Target</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>Target</i>) is
+        <b>false</b>, throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>A</i> be a new (possibly empty) <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> consisting of all of the argument
+        values provided after <i>thisArg</i> (<i>arg1</i>, <i>arg2</i> etc), in order.</li>
+
+        <li>Let <i>F</i> be the result of the abstract operation <es-xref target=
+        "sec-boundfunctioncreate">BoundFunctionCreate</es-xref> with arguments <i>Target</i>,
+        <i>thisArg</i>, and <i>A</i>.</li>
+
+        <li>If <i>Target</i> has a <es-xref target=
+        "sec-bound-function-exotic-objects">[[BoundTargetFunction]]</es-xref> <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
+
+          <ol class="block">
+            <li>Let <i>targetLen</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>Target</i>, <code>"length"</code>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>targetLen</i>).</li>
+
+            <li>Let <i>L</i> be the larger of 0 and the result of <i>targetLen</i> minus the number
+            of elements of <i>A</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else let <i>L</i> be 0.</li>
+
+        <li>Call the [[DefineOwnProperty]] internal method of <i>F</i> with arguments
+        <code>"length"</code> and PropertyDescriptor {[[Value]]: <i>L</i>, [[Writable]]:
+        <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>true</b>}.</li>
+
+        <li>Perform the <es-xref target=
+        "sec-addrestrictedfunctionproperties">AddRestrictedFunctionProperties</es-xref> abstract
+        operation with argument <i>F</i>.</li>
+
+        <li>Return <i>F</i>.</li>
+      </ol>
+
+      <p>The <code>length</code> property of the <code>bind</code> method is <b>1</b>.</p>
+
+      <es-note>
+        <p>Function objects created using <code>Function.prototype.bind</code> are exotic objects.
+        They also do not have a <code>prototype</code> property.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Function.prototype.call (thisArg [ , arg1 [ , arg2, … ] ] )" anchor=
+    "sec-function.prototype.call">
+      <p>When the <code>call</code> method is called on an object <es-nt>func</es-nt> with argument
+      <es-nt>thisArg</es-nt> and optional arguments <es-nt>arg1</es-nt>, <es-nt>arg2</es-nt> etc,
+      the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>func</i>) is <b>false</b>,
+        then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>argList</i> be an empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>If this method was called with more than one argument then in left to right order
+        starting with <i>arg1</i> append each argument as the last element of <i>argList</i></li>
+
+        <li>Perform the PrepareForTailCall abstract operation.</li>
+
+        <li>Return the result of calling the [[Call]] internal method of <i>func</i>, providing
+        <i>thisArg</i> as <i>thisArgument</i> and <i>argList</i> as <i>argumentsList</i>.</li>
+      </ol>
+
+      <p>The <code>length</code> property of the <code>call</code> method is <b>1</b>.</p>
+
+      <es-note>
+        <p>The thisArg value is passed without modification as the <b>this</b> value. This is a
+        change from Edition 3, where an <b>undefined</b> or <b>null</b> thisArg is replaced with
+        the global object and <es-xref target="sec-toobject">ToObject</es-xref> is applied to all
+        other values and that result is passed as the <b>this</b> value.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Function.prototype.constructor" anchor="sec-function.prototype.constructor">
+      <p>The initial value of <code>Function.prototype.constructor</code> is the intrinsic object
+      %Function%.</p>
+    </es-clause>
+
+    <es-clause title="Function.prototype.toMethod (superBinding, methodName = undefined)" anchor=
+    "sec-function.prototype.tomethod">
+      <p>When the <code>toMethod</code> method is called on an object <es-nt>func</es-nt> with
+      argument <es-nt>superBinding</es-nt> and optional argument <es-nt>methodName</es-nt> the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li>If <i>func</i> is not an <es-xref target="sec-ecmascript-function-objects">ECMAScript
+        function object</es-xref>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>superBinding</i>) is not Object,
+        then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>methodName</i> is not <b>undefined</b>, then
+
+          <ol class="block">
+            <li>Let <i>methodName</i> be <es-xref target=
+            "sec-topropertykey">ToPropertyKey</es-xref>(<i>methodName</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>methodName</i>).</li>
+          </ol>
+        </li>
+
+        <li>Return <es-xref target="sec-clonemethod">CloneMethod</es-xref>(<i>func</i>,
+        <i>superBinding</i>, <i>methodName</i>).</li>
+      </ol>
+
+      <p>The <code>length</code> property of the <code>toMethod</code> method is <b>1</b>.</p>
+    </es-clause>
+
+    <es-clause title="Function.prototype.toString ( )" anchor="sec-function.prototype.tostring">
+      <p>An implementation-dependent String source code representation of the <b>this</b> object is
+      returned. This representation has the syntax of a <es-nt>FunctionDeclaration</es-nt>
+      <i>FunctionExpression</i>, <i>GeneratorDeclaration, GeneratorExpession, ClassDeclaration</i>,
+      <i>ClassExpression</i>, <i>ArrowFunction</i>, <i>MethodDefinition</i>, or
+      <i>GeneratorMethod</i> depending upon the actual characteristics of the object. In particular
+      that the use and placement of white space, line terminators, and semicolons within the
+      representation String is implementation-dependent.</p>
+
+      <p>If the object was defined using ECMAScript code and the returned string representation is
+      in the form of a <es-nt>FunctionDeclaration</es-nt> <i>FunctionExpression</i>,
+      <i>GeneratorDeclaration, GeneratorExpession, ClassDeclaration</i>, <i>ClassExpression</i>, or
+      <i>ArrowFunction</i> then the representation must be such that if the string is evaluated,
+      using <code>eval</code> in a lexical context that is equivalent to the lexical context used
+      to create the original object, it will result in a new functionally equivalent object. The
+      returned source code must not mention freely any variables that were not mentioned freely by
+      the original function’s source code, even if these “extra” names were originally in scope. If
+      the source code string does meet these criteria then it must be a string for which
+      <code>eval</code> will throw a <b>SyntaxError</b> exception.</p>
+
+      <p>The <code>toString</code> function is not generic; it throws a <b>TypeError</b> exception
+      if its <b>this</b> value does not have a [[Call]] internal method. Therefore, it cannot be
+      transferred to other kinds of objects for use as a method.</p>
+    </es-clause>
+
+    <es-clause title="Function.prototype[ @@create ] ( )" anchor="sec-function.prototype-@@create">
+      <p>The @@create method of an object <es-nt>F</es-nt> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Return the result of calling <es-xref target=
+        "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>F</i>,
+        <code>"%ObjectPrototype%"</code>).</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.create]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+      [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+      "value">true</span> }.</p>
+
+      <es-note>
+        <p>This is the default @@create method that is inherited by all ordinary constructor
+        functions that do not explicitly over-ride it.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Function.prototype[@@hasInstance] (V)" anchor=
+    "sec-function.prototype-@@hasinstance">
+      <p>When the @@hasInstance method of an object <es-nt>F</es-nt> is called with value
+      <es-nt>V</es-nt>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-ordinaryhasinstance">OrdinaryHasInstance</es-xref>(<i>F</i>, <i>V</i>).</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.hasInstance]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <span class="value">false</span>, [[Configurable]]: <span class="value">false</span> }.</p>
+
+      <es-note>
+        <p>This is the default implementation of <code>@@hasInstance</code> that most functions
+        inherit. <code>@@hasInstance</code> is called by the <code>instanceof</code> operator to
+        deterimine whether a value is an instance of a specific constructor. An expression such
+        as</p>
+        <pre>
+v instanceof F
+</pre>
+
+        <p>evaluates as</p>
+        <pre>
+F[@@hasInstance](v)
+</pre>
+
+        <p>A constructor function can control which objects are recognised as its instances by
+        <code>instanceof</code> by exposing a different <code>@@hasInstance</code> method on the
+        function.</p>
+
+        <p>This property is non-writable and non-configurable to prevent tampering that could be
+        used to globally expose the target function of a <es-xref target=
+        "sec-bound-function-exotic-objects">bound function</es-xref>.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Function Instances" anchor="sec-function-instances">
+    <p>Every function instance is an <es-xref target="sec-ecmascript-function-objects">ECMAScript
+    function object</es-xref> and has the internal slots listed in <a href="#table-26">Table 26</a>
+    .</p>
+
+    <p>Function instances that correspond to strict mode functions and function instances created
+    using the <b><es-xref target="sec-function.prototype.bind">Function.prototype.bind</es-xref>
+    method</b> (<es-xref target="sec-function.prototype.bind">19.2.3.2</es-xref>) have properties
+    named <span class="value">caller</span> and <code>arguments</code> that throw a
+    <b>TypeError</b> exception. An ECMAScript implementation must not associate any implementation
+    specific behaviour with accesses of these properties from strict mode function code.</p>
+
+    <p>The Function instances have the following properties:</p>
+
+    <es-clause title="length" anchor="sec-function-instances-length">
+      <p>The value of the <code>length</code> property is an integer that indicates the typical
+      number of arguments expected by the function. However, the language permits the function to
+      be invoked with some other number of arguments. The behaviour of a function when invoked on a
+      number of arguments other than the number specified by its <code>length</code> property
+      depends on the function. This property has the attributes {&nbsp;[[Writable]]: <b>false</b>,
+      [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>true</b>&nbsp;}.</p>
+    </es-clause>
+
+    <es-clause title="name" anchor="sec-name">
+      <p>The value of the <code>name</code> property is an String that is descriptive of the
+      function. The name has no semantic significance but is typically a variable or property name
+      that is used to refer to the function at its point of definition in ECMAScript code. This
+      property has the attributes {&nbsp;[[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+      [[Configurable]]: <b>true</b>&nbsp;}.</p>
+
+      <p>Anonymous functions objects that do not have a contextual name associated with them by
+      this specification do not have a <code>name</code> own property but inherit the
+      <code>name</code> property of %FunctionPrototype%.</p>
+
+      <p class="Note">Function objects created using <code><es-xref target=
+      "sec-function.prototype.bind">Function.prototype.bind</es-xref></code> do not have a
+      <code>name</code> property.</p>
+    </es-clause>
+
+    <es-clause title="prototype" anchor="sec-function-instances-prototype">
+      <p>Function instances that can be used as a constructor have a <code>prototype</code>
+      property. Whenever such a function instance is created another ordinary object is also
+      created and is the initial value of the function’s <code>prototype</code> property. Unless
+      otherwise specified, the value of the prototype property is used to initialise the
+      [[Prototype]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref> of a newly created ordinary object before the Function object is invoked as a
+      constructor for that newly created object.</p>
+
+      <p>This property has the attributes {&nbsp;[[Writable]]: <b>true</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+
+      <es-note>
+        <p>Function objects created using <code><es-xref target=
+        "sec-function.prototype.bind">Function.prototype.bind</es-xref></code>, or by evaluating a
+        <es-nt>MethodDefinition</es-nt> (that is not a <es-nt>GeneratorMethod</es-nt>) or an
+        <es-nt>ArrowFunction</es-nt> grammar production do not have a <code>prototype</code>
+        property.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
 </es-clause>

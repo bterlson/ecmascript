@@ -30,6 +30,80 @@
       </li>
     </ul>
   </es-clause>
-  <link rel="import" href="with-statement/with-statement-static-semantics-vardeclarednames.html">
-  <link rel="import" href="with-statement/with-statement-runtime-semantics-evaluation.html">
+
+  <es-clause title="Static Semantics: VarDeclaredNames" anchor=
+  "sec-with-statement-static-semantics-vardeclarednames">
+    <p>See also: <es-xref target=
+    "sec-statement-semantics-static-semantics-vardeclarednames">13.0.1</es-xref>, <es-xref target=
+    "sec-block-static-semantics-vardeclarednames">13.1.8</es-xref>, <es-xref target=
+    "sec-if-statement-static-semantics-vardeclarednames">13.5.1</es-xref>, <es-xref target=
+    "sec-do-while-statement-static-semantics-vardeclarednames">13.6.1.1</es-xref>, <es-xref target=
+    "sec-while-statement-static-semantics-vardeclarednames">13.6.2.1</es-xref>, <es-xref target=
+    "sec-for-statement-static-semantics-vardeclarednames">13.6.3.1</es-xref>, <es-xref target=
+    "sec-for-in-and-for-of-statements-static-semantics-vardeclarednames">13.6.4.3</es-xref>,
+    <es-xref target="sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>,
+    <es-xref target="sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
+    <es-xref target="sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.1.5</es-xref>,
+    <es-xref target=
+    "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+
+    <es-production name="WithStatement" class="inline">
+      <es-rhs>with ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the VarDeclaredNames of <i>Statement</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-with-statement-runtime-semantics-evaluation">
+    <es-production name="WithStatement" class="inline">
+      <es-rhs>with ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>val</i> be the result of evaluating <i>Expression</i>.</li>
+
+      <li>Let <i>obj</i> be <es-xref target="sec-toobject">ToObject</es-xref>(<es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>val</i>)).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
+
+      <li>Let <i>oldEnv</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>’s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+      <li>Let <i>newEnv</i> be the result of calling <es-xref target=
+      "sec-newobjectenvironment">NewObjectEnvironment</es-xref> passing <i>obj</i> and
+      <i>oldEnv</i> as the arguments.</li>
+
+      <li>Set the <i>withEnvironment</i> flag of <i>newEnv’s</i> environment record to
+      <b>true</b>.</li>
+
+      <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+      <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>newEnv</i>.</li>
+
+      <li>Let <i>C</i> be the result of evaluating <i>Statement</i>.</li>
+
+      <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+      <es-xref target="sec-lexical-environments">Lexical Environment</es-xref> to
+      <i>oldEnv</i>.</li>
+
+      <li>Return <i>C</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>No matter how control leaves the embedded <es-nt>Statement</es-nt>, whether normally or by
+      some form of <es-xref target="sec-completion-record-specification-type">abrupt
+      completion</es-xref> or exception, the <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref> is always restored to its former
+      state.</p>
+    </es-note>
+  </es-clause>
 </es-clause>

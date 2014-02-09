@@ -36,8 +36,57 @@
       "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href=
-  "ordinary-object-internal-methods-and-internal-slots/ordinary-object-internal-methods-and-internal-slots-setprototypeof-v.html">
+
+  <es-clause title="[[SetPrototypeOf]] (V)" anchor=
+  "sec-ordinary-object-internal-methods-and-internal-slots-setprototypeof-v">
+    <p>When the [[SetPrototypeOf]] internal method of <es-nt>O</es-nt> is called with argument
+    <es-nt>V</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: Either <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>V</i>) is Object or <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>V</i>) is Null.</li>
+
+      <li>Let <i>extensible</i> be the value of the [[Extensible]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
+
+      <li>Let <i>current</i> be the value of the [[Prototype]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
+
+      <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>V</i>, <i>current</i>), then
+      return <b>true.</b></li>
+
+      <li>If <i>extensible</i> is <b>false</b>, then return <b>false</b>.</li>
+
+      <li>If <i>V</i> is not <b>null</b>, then
+
+        <ol class="block">
+          <li>Let <i>p</i> be <i>V</i>.</li>
+
+          <li>Repeat, while <i>p</i> is not <b>null</b>
+
+            <ol class="block">
+              <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>, <i>O</i>) is
+              <b>true</b>, then return <b>false</b>.</li>
+
+              <li>Let <i>nextp</i> be the result of calling the [[GetPrototypeOf]] internal method
+              of <i>p</i> with no arguments.</li>
+
+              <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextp</i>).</li>
+
+              <li>Let <i>p</i> be <i>nextp</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Set the value of the [[Prototype]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+      <i>V</i>.</li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
 
   <es-clause title="[[IsExtensible]] ( )" anchor=
   "sec-ordinary-object-internal-methods-and-internal-slots-isextensible">
@@ -63,16 +112,485 @@
       <li>Return <b>true.</b></li>
     </ol>
   </es-clause>
-  <link rel="import" href=
-  "ordinary-object-internal-methods-and-internal-slots/ordinary-object-internal-methods-and-internal-slots-getownproperty-p.html">
-  <link rel="import" href=
-  "ordinary-object-internal-methods-and-internal-slots/ordinary-object-internal-methods-and-internal-slots-defineownproperty-p-desc.html">
-  <link rel="import" href=
-  "ordinary-object-internal-methods-and-internal-slots/ordinary-object-internal-methods-and-internal-slots-hasproperty-p.html">
-  <link rel="import" href=
-  "ordinary-object-internal-methods-and-internal-slots/ordinary-object-internal-methods-and-internal-slots-get-p-receiver.html">
-  <link rel="import" href=
-  "ordinary-object-internal-methods-and-internal-slots/ordinary-object-internal-methods-and-internal-slots-set-p-v-receiver.html">
+
+  <es-clause title="[[GetOwnProperty]] (P)" anchor=
+  "sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
+    <p>When the [[GetOwnProperty]] internal method of <es-nt>O</es-nt> is called with
+    <es-xref target="sec-object-type">property key</es-xref> <es-nt>P</es-nt>, the following steps
+    are taken:</p>
+
+    <ol class="proc">
+      <li>Return the result of <es-xref target=
+      "sec-ordinarygetownproperty">OrdinaryGetOwnProperty</es-xref> with arguments <i>O</i> and
+      <i>P</i>.</li>
+    </ol>
+
+    <es-clause title="OrdinaryGetOwnProperty (O, P)" anchor="sec-ordinarygetownproperty">
+      <p>When the abstract operation OrdinaryGetOwnProperty is called with Object <es-nt>O</es-nt>
+      and with <es-xref target="sec-object-type">property key</es-xref> <es-nt>P</es-nt>, the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+        "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+        <li>If <i>O</i> does not have an own property with key <i>P</i>, return
+        <b>undefined</b>.</li>
+
+        <li>Let <i>D</i> be a newly created <es-xref target=
+        "sec-property-descriptor-specification-type">Property Descriptor</es-xref> with no
+        fields.</li>
+
+        <li>Let <i>X</i> be <i>O</i>’s own property whose key is <i>P</i>.</li>
+
+        <li>If <i>X</i> is a data property, then
+
+          <ol class="block">
+            <li>Set <i>D</i>.[[Value]] to the value of <i>X</i>’s [[Value]] attribute.</li>
+
+            <li>Set <i>D</i>.[[Writable]] to the value of <i>X</i>’s [[Writable]] attribute</li>
+          </ol>
+        </li>
+
+        <li>Else <i>X</i> is an accessor property, so
+
+          <ol class="block">
+            <li>Set <i>D</i>.[[Get]] to the value of <i>X</i>’s [[Get]] attribute.</li>
+
+            <li>Set <i>D</i>.[[Set]] to the value of <i>X</i>’s [[Set]] attribute.</li>
+          </ol>
+        </li>
+
+        <li>Set <i>D</i>.[[Enumerable]] to the value of <i>X</i>’s [[Enumerable]] attribute.</li>
+
+        <li>Set <i>D</i>.[[Configurable]] to the value of <i>X</i>’s [[Configurable]]
+        attribute.</li>
+
+        <li>Return <i>D</i>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="[[DefineOwnProperty]] (P, Desc)" anchor=
+  "sec-ordinary-object-internal-methods-and-internal-slots-defineownproperty-p-desc">
+    <p>When the [[DefineOwnProperty]] internal method of <es-nt>O</es-nt> is called with
+    <es-xref target="sec-object-type">property key</es-xref> <es-nt>P</es-nt> and <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+    the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Return the result of <es-xref target=
+      "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments <i>O</i>,
+      <i>P</i>, and <i>Desc</i>.</li>
+    </ol>
+
+    <es-clause title="OrdinaryDefineOwnProperty (O, P, Desc)" anchor=
+    "sec-ordinarydefineownproperty">
+      <p>When the abstract operation OrdinaryDefineOwnProperty is called with Object
+      <es-nt>O</es-nt>, <es-xref target="sec-object-type">property key</es-xref> <i>P</i>, and
+      <es-xref target="sec-property-descriptor-specification-type">Property Descriptor</es-xref>
+      <es-nt>Desc</es-nt> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>current</i> be the result of calling <es-xref target=
+        "sec-ordinarygetownproperty">OrdinaryGetOwnProperty</es-xref> with arguments <i>O</i> and
+        <i>P</i>.</li>
+
+        <li>Let <i>extensible</i> be the value of the [[Extensible]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-validateandapplypropertydescriptor">ValidateAndApplyPropertyDescriptor</es-xref> with
+        arguments <i>O</i>, <i>P</i>, <i>extensible</i>, <i>Desc</i>, and <i>current</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="IsCompatiblePropertyDescriptor (Extensible, Desc, Current)" anchor=
+    "sec-iscompatiblepropertydescriptor">
+      <p>When the abstract operation IsCompatiblePropertyDescriptor is called with Boolean value
+      <es-nt>Extensible</es-nt>, and Property Descriptors <es-nt>Desc</es-nt>, and
+      <es-nt>Current</es-nt> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Return the result of <es-xref target=
+        "sec-validateandapplypropertydescriptor">ValidateAndApplyPropertyDescriptor</es-xref> with
+        arguments <b>undefined</b>, <b>undefined</b>, <i>Extensible</i>, <i>Desc</i>, and
+        <i>Current</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="ValidateAndApplyPropertyDescriptor (O, P, extensible, Desc, current)" anchor=
+    "sec-validateandapplypropertydescriptor">
+      <p>When the abstract operation ValidateAndApplyPropertyDescriptor is called with Object
+      <es-nt>O</es-nt>, <es-xref target="sec-object-type">property key</es-xref> <i>P</i>, Boolean
+      value <es-nt>extensible</es-nt>, and Property Descriptors <es-nt>Desc</es-nt>, and
+      <es-nt>current</es-nt> the following steps are taken:</p>
+
+      <p>This algorithm contains steps that test various fields of the <es-xref target=
+      "sec-property-descriptor-specification-type">Property Descriptor</es-xref>
+      <es-nt>Desc</es-nt> for specific values. The fields that are tested in this manner need not
+      actually exist in <es-nt>Desc</es-nt>. If a field is absent then its value is considered to
+      be <b>false</b>.</p>
+
+      <es-note>
+        <p>If <span class="value">undefined</span> is passed as the <es-nt>O</es-nt> argument only
+        validation is performed and no object updates are performed.</p>
+      </es-note>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: If <i>O</i> is not
+        <b>undefined</b> then <i>P</i> is a valid <es-xref target="sec-object-type">property
+        key</es-xref>.</li>
+
+        <li>If <i>current</i> is <b>undefined</b>, then
+
+          <ol class="block">
+            <li>If <i>extensible</i> is <b>false</b>, then return <b>false</b>.</li>
+
+            <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>extensible</i> is
+            <b>true</b>.</li>
+
+            <li>If <es-xref target=
+            "sec-isgenericdescriptor">IsGenericDescriptor</es-xref>(<i>Desc</i>) or
+              <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>Desc</i>) is
+              <b>true</b>, then
+
+              <ol class="block">
+                <li>If <i>O</i> is not <b>undefined</b>, then create an own data property named
+                <i>P</i> of object <i>O</i> whose [[Value]], [[Writable]], [[Enumerable]] and
+                [[Configurable]] attribute values are described by <i>Desc</i>. If the value of an
+                attribute field of <i>Desc</i> is absent, the attribute of the newly created
+                property is set to its default value.</li>
+              </ol>
+            </li>
+
+            <li>Else <i>Desc</i> must be an accessor <es-xref target=
+            "sec-property-descriptor-specification-type">Property Descriptor</es-xref>,
+
+              <ol class="block">
+                <li>If <i>O</i> is not <b>undefined</b>, then create an own accessor property named
+                <i>P</i> of object <i>O</i> whose [[Get]], [[Set]], [[Enumerable]] and
+                [[Configurable]] attribute values are described by <i>Desc</i>. If the value of an
+                attribute field of <i>Desc</i> is absent, the attribute of the newly created
+                property is set to its default value.</li>
+              </ol>
+            </li>
+
+            <li>Return <b>true</b>.</li>
+          </ol>
+        </li>
+
+        <li>Return <b>true</b>, if every field in <i>Desc</i> is absent.</li>
+
+        <li>Return <b>true</b>, if every field in <i>Desc</i> also occurs in <i>current</i> and the
+        value of every field in <i>Desc</i> is the same value as the corresponding field in
+        <i>current</i> when compared using <es-xref target="sec-samevalue">the SameValue
+        algorithm</es-xref>.</li>
+
+        <li>If the [[Configurable]] field of <i>current</i> is <b>false</b> then
+
+          <ol class="block">
+            <li>Return <b>false</b>, if the [[Configurable]] field of <i>Desc</i> is
+            <b>true</b>.</li>
+
+            <li>Return <b>false</b>, if the [[Enumerable]] field of <i>Desc</i> is present and the
+            [[Enumerable]] fields of <i>current</i> and <i>Desc</i> are the Boolean negation of
+            each other.</li>
+          </ol>
+        </li>
+
+        <li>If <es-xref target="sec-isgenericdescriptor">IsGenericDescriptor</es-xref>(<i>Desc</i>)
+        is <b>true</b>, then no further validation is required.</li>
+
+        <li>Else if <es-xref target=
+        "sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>current</i>) and <es-xref target=
+        "sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>Desc</i>) have different results, then
+
+          <ol class="block">
+            <li>Return <b>false</b>, if the [[Configurable]] field of <i>current</i> is
+            <b>false</b>.</li>
+
+            <li>If <es-xref target=
+            "sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>current</i>) is <b>true</b>, then
+
+              <ol class="block">
+                <li>If <i>O</i> is not <b>undefined</b>, then convert the property named <i>P</i>
+                of object <i>O</i> from a data property to an accessor property. Preserve the
+                existing values of the converted property’s [[Configurable]] and [[Enumerable]]
+                attributes and set the rest of the property’s attributes to their default
+                values.</li>
+              </ol>
+            </li>
+
+            <li>Else,
+
+              <ol class="block">
+                <li>If <i>O</i> is not <b>undefined</b>, then convert the property named <i>P</i>
+                of object <i>O</i> from an accessor property to a data property. Preserve the
+                existing values of the converted property’s [[Configurable]] and [[Enumerable]]
+                attributes and set the rest of the property’s attributes to their default
+                values.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Else if <es-xref target=
+        "sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>current</i>) and <es-xref target=
+        "sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>Desc</i>) are both <b>true</b>, then
+
+          <ol class="block">
+            <li>If the [[Configurable]] field of <i>current</i> is <b>false</b>, then
+
+              <ol class="block">
+                <li>Return <b>false</b>, if the [[Writable]] field of <i>current</i> is
+                <b>false</b> and the [[Writable]] field of <i>Desc</i> is <b>true</b>.</li>
+
+                <li>If the [[Writable]] field of <i>current</i> is <b>false</b>, then
+
+                  <ol class="block">
+                    <li>Return <b>false</b>, if the [[Value]] field of <i>Desc</i> is present and
+                    <es-xref target="sec-samevalue">SameValue</es-xref>(<i>Desc</i>.[[Value]],
+                    <i>current</i>.[[Value]]) is <b>false</b>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+
+            <li>Else the [[Configurable]] field of <i>current</i> is <b>true</b>, so any change is
+            acceptable.</li>
+          </ol>
+        </li>
+
+        <li>Else <es-xref target=
+        "sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>current</i>) and
+        <es-xref target="sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>Desc</i>) are
+        both <b>true</b>,
+
+          <ol class="block">
+            <li>If the [[Configurable]] field of <i>current</i> is <b>false</b>, then
+
+              <ol class="block">
+                <li>Return <b>false</b>, if the [[Set]] field of <i>Desc</i> is present and
+                <es-xref target="sec-samevalue">SameValue</es-xref>(<i>Desc</i>.[[Set]],
+                <i>current</i>.[[Set]]) is <b>false</b>.</li>
+
+                <li>Return <b>false</b>, if the [[Get]] field of <i>Desc</i> is present and
+                <es-xref target="sec-samevalue">SameValue</es-xref>(<i>Desc</i>.[[Get]],
+                <i>current</i>.[[Get]]) is <b>false</b>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>If <i>O</i> is not <b>undefined</b>, then
+
+          <ol class="block">
+            <li>For each attribute field of <i>Desc</i> that is present, set the correspondingly
+            named attribute of the property named <i>P</i> of object <i>O</i> to the value of the
+            field.</li>
+          </ol>
+        </li>
+
+        <li>Return <b>true</b>.</li>
+      </ol>
+
+      <es-note>
+        <p>Step 8.b allows any field of Desc to be different from the corresponding field of
+        current if current’s [[Configurable]] field is <span class="value">true</span>. This even
+        permits changing the [[Value]] of a property whose [[Writable]] attribute is <span class=
+        "value">false</span>. This is allowed because a <span class="value">true</span>
+        [[Configurable]] attribute would permit an equivalent sequence of calls where [[Writable]]
+        is first set to <span class="value">true</span>, a new [[Value]] is set, and then
+        [[Writable]] is set to <span class="value">false</span>.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="[[HasProperty]](P)" anchor=
+  "sec-ordinary-object-internal-methods-and-internal-slots-hasproperty-p">
+    <p>When the [[HasProperty]] internal method of <es-nt>O</es-nt> is called with <es-xref target=
+    "sec-object-type">property key</es-xref> <es-nt>P</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>Let <i>hasOwn</i> be the result of calling the [[GetOwnProperty]] internal method of
+      <i>O</i> with argument <i>P</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hasOwn</i>).</li>
+
+      <li>If <i>hasOwn</i> is <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>parent</i> be the result of calling the [[GetPrototypeOf]] internal method of
+          <i>O</i>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>parent</i>).</li>
+
+          <li>If <i>parent</i> is not <b>null</b>, then
+
+            <ol class="block">
+              <li>Return the result of calling the [[HasProperty]] internal method of <i>parent</i>
+              with argument <i>P</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return <i>hasOwn</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="[[Get]] (P, Receiver)" anchor=
+  "sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver">
+    <p>When the [[Get]] internal method of <es-nt>O</es-nt> is called with <es-xref target=
+    "sec-object-type">property key</es-xref> <es-nt>P</es-nt> and <es-xref target=
+    "sec-ecmascript-language-types">ECMAScript language value</es-xref> <es-nt>Receiver</es-nt> the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>Let <i>desc</i> be the result of calling the [[GetOwnProperty]] internal method of
+      <i>O</i> with argument <i>P</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>desc</i>).</li>
+
+      <li>If <i>desc</i> is <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>parent</i> be the result of calling the [[GetPrototypeOf]] internal method of
+          <i>O</i>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>parent</i>).</li>
+
+          <li>If <i>parent</i> is <b>null</b>, then return <b>undefined.</b></li>
+
+          <li>Return the result of calling the [[Get]] internal method of <i>parent</i> with
+          arguments <i>P</i> and <i>Receiver</i>.</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>desc</i>) is
+      <b>true</b>, return <i>desc</i>.[[Value]].</li>
+
+      <li>Otherwise, <es-xref target=
+      "sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>desc</i>) must be <b>true</b>
+      so, let <i>getter</i> be <i>desc</i>.[[Get]].</li>
+
+      <li>If <i>getter</i> is <b>undefined</b>, return <b>undefined</b>.</li>
+
+      <li>Return the result of calling the [[Call]] internal method of <i>getter</i> with
+      <i>Receiver</i> as the <i>thisArgument</i> and an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> as <i>argumentsList</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="[[Set]] ( P, V, Receiver)" anchor=
+  "sec-ordinary-object-internal-methods-and-internal-slots-set-p-v-receiver">
+    <p>When the [[Set]] internal method of <es-nt>O</es-nt> is called with <es-xref target=
+    "sec-object-type">property key</es-xref> <es-nt>P</es-nt>, value <es-nt>V</es-nt>, and
+    <es-xref target="sec-ecmascript-language-types">ECMAScript language value</es-xref>
+    <es-nt>Receiver</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ispropertykey">IsPropertyKey</es-xref>(<i>P</i>) is <b>true</b>.</li>
+
+      <li>Let <i>ownDesc</i> be the result of calling the [[GetOwnProperty]] internal method of
+      <i>O</i> with argument <i>P</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>ownDesc</i>).</li>
+
+      <li>If <i>ownDesc</i> is <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>parent</i> be the result of calling the [[GetPrototypeOf]] internal method of
+          <i>O</i>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>parent</i>).</li>
+
+          <li>If <i>parent</i> is not <b>null</b>, then
+
+            <ol class="block">
+              <li>Return the result of calling the [[Set]] internal method of <i>parent</i> with
+              arguments <i>P</i>, <i>V</i>, and <i>Receiver</i>.</li>
+            </ol>
+          </li>
+
+          <li>Else,
+
+            <ol class="block">
+              <li>Let <i>ownDesc</i> be the PropertyDescriptor{[[Value]]: <b>undefined</b>,
+              [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
+              <b>true</b>}.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>ownDesc</i>) is
+      <b>true</b>, then
+
+        <ol class="block">
+          <li>If <i>ownDesc</i>.[[Writable]] is <b>false</b>, return <b>false</b>.</li>
+
+          <li>If <es-xref target=
+          "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>Receiver</i>) is not Object,
+          return <b>false</b>.</li>
+
+          <li>Let <i>existingDescriptor</i> be the result of calling the [[GetOwnProperty]]
+          internal method of <i>Receiver</i> with argument <i>P</i>.</li>
+
+          <li><es-xref target=
+          "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>existingDescriptor</i>).</li>
+
+          <li>If <i>existingDescriptor</i> is not <b>undefined</b>, then
+
+            <ol class="block">
+              <li>Let <i>valueDesc</i> be the PropertyDescriptor{[[Value]]: <i>V</i>}.</li>
+
+              <li>Return the result of calling the [[DefineOwnProperty]] internal method of
+              <i>Receiver</i> with arguments <i>P</i> and <i>valueDesc</i>.</li>
+            </ol>
+          </li>
+
+          <li>Else <i>Receiver</i> does not currently have a property <i>P</i>,
+
+            <ol class="block">
+              <li>Return the result of performing <es-xref target=
+              "sec-createdataproperty">CreateDataProperty</es-xref>(<i>Receiver</i>, <i>P</i>,
+              <i>V</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target=
+      "sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>ownDesc</i>) is <b>true</b>,
+      then
+
+        <ol class="block">
+          <li>Let <i>setter</i> be <i>ownDesc</i>.[[Set]].</li>
+
+          <li>If <i>setter</i> is <b>undefined</b>, return <b>false</b>.</li>
+
+          <li>Let <i>setterResult</i> be the result of calling the [[Call]] internal method of
+          <i>setter</i> providing <i>Receiver</i> as <i>thisArgument</i> and a new <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref> containing <i>V</i> as
+          <i>argumentsList</i>.</li>
+
+          <li><es-xref target=
+          "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>setterResult</i>).</li>
+
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
 
   <es-clause title="[[Delete]] (P)" anchor=
   "sec-ordinary-object-internal-methods-and-internal-slots-delete-p">
@@ -100,8 +618,89 @@
       <li>Return <b>false</b>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href=
-  "ordinary-object-internal-methods-and-internal-slots/ordinary-object-internal-methods-and-internal-slots-enumerate.html">
+
+  <es-clause title="[[Enumerate]] ()" anchor=
+  "sec-ordinary-object-internal-methods-and-internal-slots-enumerate">
+    <p>When the [[Enumerate]] internal method of <es-nt>O</es-nt> is called the following steps are
+    taken:</p>
+
+    <ol class="proc">
+      <li>Return an Iterator object (<es-xref target="sec-iterator-interface">25.1.2</es-xref>)
+      whose next method iterates over all the String valued keys of enumerable property keys of
+      <i>O</i>. The mechanics and order of enumerating the properties is not specified but must
+      conform to the rules specified below.</li>
+    </ol>
+
+    <p>Enumerated properties do not include properties whose <es-xref target=
+    "sec-object-type">property key</es-xref> is a Symbol. Properties of the object being enumerated
+    may be deleted during enumeration. If a property that has not yet been visited during
+    enumeration is deleted, then it will not be visited. If new properties are added to the object
+    being enumerated during enumeration, the newly added properties are not guaranteed to be
+    visited in the active enumeration. A property name must not be visited more than once in any
+    enumeration.</p>
+
+    <p>Enumerating the properties of an object includes enumerating properties of its prototype,
+    and the prototype of the prototype, and so on, recursively; but a property of a prototype is
+    not enumerated if it is “shadowed” because some previous object in the prototype chain has a
+    property with the same name. The values of [[Enumerable]] attributes are not considered when
+    determining if a property of a prototype object is shadowed by a previous object on the
+    prototype chain.</p>
+
+    <p>The following is an informative algorithm that conforms to these rules</p>
+
+    <ol class="proc">
+      <li>Let <i>obj</i> be <i>O</i>.</li>
+
+      <li>Let <i>proto</i> be the result of calling the [[GetPrototypeOf]] internal method of
+      <i>O</i> with no arguments.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
+
+      <li>If <i>proto</i> is the value <b>null</b>, then
+
+        <ol class="block">
+          <li>Let <i>propList</i> be a new empty <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref>.</li>
+        </ol>
+      </li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>Let <i>propList</i> be the result of calling the [[Enumerate]] internal method of
+          <i>proto</i>.</li>
+        </ol>
+      </li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propList</i>).</li>
+
+      <li>For each <i>name</i> that is the <es-xref target="sec-object-type">property key</es-xref>
+      of an own property of <i>O</i>
+
+        <ol class="block">
+          <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>name</i>)
+          is String, then
+
+            <ol class="block">
+              <li>Let <i>desc</i> be the result of calling <es-xref target=
+              "sec-ordinarygetownproperty">OrdinaryGetOwnProperty</es-xref> with arguments <i>O</i>
+              and <i>name</i>.</li>
+
+              <li>If <i>name</i> is an element of <i>propList</i>, then remove <i>name</i> as an
+              element of <i>propList</i>.</li>
+
+              <li>If <i>desc</i>.[[Enumerable]] is <b>true</b>, then add <i>name</i> as an element
+              of <i>propList</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Order the elements of <i>propList</i> in an implementation defined order.</li>
+
+      <li>Return <i>propList</i>.</li>
+    </ol>
+  </es-clause>
 
   <es-clause title="[[OwnPropertyKeys]] ( )" anchor=
   "sec-ordinary-object-internal-methods-and-internal-slots-ownpropertykeys">
@@ -124,7 +723,70 @@
       "sec-createlistiterator">CreateListIterator</es-xref>(<i>keys</i>).</li>
     </ol>
   </es-clause>
-  <link rel="import" href="ordinary-object-internal-methods-and-internal-slots/objectcreate.html">
-  <link rel="import" href=
-  "ordinary-object-internal-methods-and-internal-slots/ordinarycreatefromconstructor.html">
+
+  <es-clause title="ObjectCreate(proto, internalDataList) Abstract Operation" anchor=
+  "sec-objectcreate">
+    <p>The abstract operation ObjectCreate with argument <i>proto</i> (an object or null) is used
+    to specify the runtime creation of new ordinary objects. The optional argument
+    <es-nt>internalDataList</es-nt> is a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> of the names of <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> names that should be
+    defined as part of the object. If the list is not provided, an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> is used. If no arguments are provided
+    %ObjectPrototype% is used as the value of <i>proto</i>. This abstract operation performs the
+    following steps:</p>
+
+    <ol class="proc">
+      <li>If <i>internalDataList</i> was not provided, let <i>internalDataList</i> be an empty
+      <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>Let <i>obj</i> be a newly created object with an <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> for each name in
+      <i>internalDataList</i>.</li>
+
+      <li>Set <i>obj</i>’s essential internal methods to the default ordinary object definitions
+      specified in <es-xref target=
+      "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</li>
+
+      <li>Set the [[Prototype]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>obj</i> to
+      <i>proto</i>.</li>
+
+      <li>Set the [[Extensible]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>obj</i> to
+      <b>true</b>.</li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title=
+  "OrdinaryCreateFromConstructor ( constructor, intrinsicDefaultProto, internalDataList )" anchor=
+  "sec-ordinarycreatefromconstructor">
+    <p>The abstract operation OrdinaryCreateFromConstructor creates an ordinary object whose
+    [[Prototype]] value is retrieved from a constructor’s <code>prototype</code> property, if it
+    exists. Otherwise the supplied default is used for [[Prototype]]. The optional
+    <es-nt>internalDataList</es-nt> is a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> of the names of <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> names that should be
+    defined as part of the object. If the list is not provided, an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> is used. This abstract operation
+    performs the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>:
+      <i>intrinsicDefaultProto</i> is a string value that is this specification’s name of an
+      intrinsic object. The corresponding object must be an intrinsic that is intended to be used
+      as the [[Prototype]] value of an object.</li>
+
+      <li>Let <i>proto</i> be the result of <es-xref target=
+      "sec-getprototypefromconstructor">GetPrototypeFromConstructor</es-xref>(<i>constructor</i>,
+      <i>intrinsicDefaultProto</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
+
+      <li>Return the result of the abstract operation <es-xref target=
+      "sec-objectcreate">ObjectCreate</es-xref>(<i>proto</i>, <i>internalDataList</i>).</li>
+    </ol>
+  </es-clause>
 </es-clause>

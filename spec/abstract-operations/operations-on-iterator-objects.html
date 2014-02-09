@@ -124,7 +124,70 @@
       <li>Return <i>obj</i>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href="operations-on-iterator-objects/createlistiterator.html">
+
+  <es-clause title="CreateListIterator (list)" anchor="sec-createlistiterator">
+    <p>The abstract operation CreateListIterator with argument <es-nt>list</es-nt> creates an
+    Iterator (<es-xref target="sec-iterator-interface">25.1.2</es-xref>) object whose next method
+    returns the successive elements of <es-nt>list</es-nt>. It performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>iterator</i> be the result of <es-xref target=
+      "sec-objectcreate">ObjectCreate</es-xref>(%ObjectPrototype%, ([[IteratedList]],
+      [[ListIteratorNextIndex]])).</li>
+
+      <li>Set <i>iterator’s</i> [[IteratedList]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>list</i>.</li>
+
+      <li>Set <i>iterator’s</i> [[ListIteratorNextIndex]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to 0.</li>
+
+      <li>Define ListIterator <code>next</code> (<es-xref target=
+      "sec-listiterator-next">7.4.7.1</es-xref>) as an own property of <i>iterator</i>.</li>
+
+      <li>Return <i>iterator</i>.</li>
+    </ol>
+
+    <es-clause title="ListIterator next( )" anchor="sec-listiterator-next">
+      <p>The ListIterator <code>next</code> method is a standard built-in function object
+      (<es-xref target="sec-ecmascript-standard-built-in-objects">clause 17</es-xref>) that
+      performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+        <li>If <i>O</i> does not have a [[IteratedList]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Let <i>list</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is value of the
+        [[IteratedList] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref> of <i>O</i>.</li>
+
+        <li>Let <i>index</i> be the value of the [[ListIteratorNextIndex]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
+
+        <li>Let <i>lenValue</i> be the number of elements of <i>list</i>.</li>
+
+        <li>If <i>index</i> ≥ <i>len</i>, then
+
+          <ol class="block">
+            <li>Return <es-xref target=
+            "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+            <b>true</b>).</li>
+          </ol>
+        </li>
+
+        <li>Set the value of the [[ListIteratorNextIndex]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+        <i>index</i>+1.</li>
+
+        <li>Return <es-xref target=
+        "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>list</i>[<i>index</i>],
+        <b>false</b>).</li>
+      </ol>
+    </es-clause>
+  </es-clause>
 
   <es-clause title="CreateEmptyIterator ( )" anchor="sec-createemptyiterator">
     <p>The abstract operation CreateEmptyIterator with no arguments creates an Iterator object

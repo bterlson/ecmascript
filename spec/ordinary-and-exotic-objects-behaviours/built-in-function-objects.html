@@ -41,7 +41,82 @@
   <p>If a built-in function object is not implemented as an ECMAScript function it must have a
   [[Realm]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
   slot</es-xref> and a [[Call]] internal method that conforms to the following definition:</p>
-  <link rel="import" href=
-  "built-in-function-objects/built-in-function-objects-call-thisargument-argumentslist.html">
-  <link rel="import" href="built-in-function-objects/createbuiltinfunction.html">
+
+  <es-clause title="[[Call]] ( thisArgument, argumentsList)" anchor=
+  "sec-built-in-function-objects-call-thisargument-argumentslist">
+    <p>The [[Call]] internal method for a built-in function object <es-nt>F</es-nt> is called with
+    parameters <es-nt>thisArgument</es-nt> and <es-nt>argumentsList</es-nt>, a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> of <es-xref target=
+    "sec-ecmascript-language-types">ECMAScript language values</es-xref>. The following steps are
+    taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>callerContext</i> be <es-xref target="sec-execution-contexts">the running
+      execution context</es-xref>.</li>
+
+      <li>If <i>callerContext</i> is not already <es-xref target=
+      "sec-execution-contexts">suspended</es-xref>, then <es-xref target=
+      "sec-execution-contexts">Suspend</es-xref> <i>callerContext</i>.</li>
+
+      <li>Let <i>calleeContext</i> be a new <es-xref target="sec-execution-contexts">execution
+      context</es-xref>.</li>
+
+      <li>Let <i>calleeRealm</i> be the value of <i>F’s</i> [[Realm]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Set <i>calleeContext’s</i> <es-xref target="sec-code-realms">Realm</es-xref> to
+      <i>calleeRealm</i>.</li>
+
+      <li>Perform any necessary implementation defined initialisation of <i>calleeContext</i>.</li>
+
+      <li>Push <i>calleeContext</i> onto <es-xref target="sec-execution-contexts">the execution
+      context stack</es-xref>; <i>calleeContext</i> is now <es-xref target=
+      "sec-execution-contexts">the running execution context</es-xref>.</li>
+
+      <li>Let <i>result</i> be the <es-xref target=
+      "sec-completion-record-specification-type">Completion Record</es-xref> that is the result of
+      evaluating <i>F</i> in an implementation defined manner that conforms to this specification
+      of <i>F</i>.</li>
+
+      <li>Remove <i>calleeContext</i> from <es-xref target="sec-execution-contexts">the execution
+      context stack</es-xref> and restore <i>callerContext</i> as <es-xref target=
+      "sec-execution-contexts">the running execution context</es-xref>.</li>
+
+      <li>Return <i>result</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>When <es-nt>calleeContext</es-nt> is removed from <es-xref target=
+      "sec-execution-contexts">the execution context stack</es-xref> it must not be destroyed
+      because it may have been <es-xref target="sec-execution-contexts">suspended</es-xref> and
+      retained by a generator object for later resumption<i>.</i></p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="CreateBuiltinFunction(realm, steps) Abstract Operation" anchor=
+  "sec-createbuiltinfunction">
+    <p>The abstract operation CreateBuiltinFunction takes arguments <es-nt>realm</es-nt> and
+    <es-nt>steps</es-nt>. It returns a bult-in function object created by the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>realm</i> is a
+      <es-xref target="sec-code-realms">Realm</es-xref> Record.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>steps</i> is either a
+      set of algorithm steps or other definition of a functions behaviour provided in this
+      specification.</li>
+
+      <li>Let <i>func</i> be a new built-in function object that when called performs the action
+      described by <i>steps</i>. The [[Realm]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>func</i> is
+      step to <i>realm</i>.</li>
+
+      <li>Perform the <es-xref target=
+      "sec-addrestrictedfunctionproperties">AddRestrictedFunctionProperties</es-xref>
+      (<es-xref target="sec-addrestrictedfunctionproperties">9.2.8</es-xref>) abstract operation
+      with argument <i>func</i>.</li>
+
+      <li>Return <i>func</i>.</li>
+    </ol>
+  </es-clause>
 </es-clause>

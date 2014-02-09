@@ -1,9 +1,109 @@
 <!doctype html>
 <es-clause title="Statement Semantics" anchor="sec-statement-semantics">
-  <link rel="import" href=
-  "statement-semantics/statement-semantics-static-semantics-vardeclarednames.html">
-  <link rel="import" href=
-  "statement-semantics/statement-semantics-runtime-semantics-labelledevaluation.html">
+  <es-clause title="Static Semantics: VarDeclaredNames" anchor=
+  "sec-statement-semantics-static-semantics-vardeclarednames">
+    <p>See also: <es-xref target="sec-block-static-semantics-vardeclarednames">13.1.8</es-xref>,
+    <es-xref target="sec-if-statement-static-semantics-vardeclarednames">13.5.1</es-xref>,
+    <es-xref target="sec-do-while-statement-static-semantics-vardeclarednames">13.6.1.1</es-xref>,
+    <es-xref target="sec-while-statement-static-semantics-vardeclarednames">13.6.2.1</es-xref>,
+    <es-xref target="sec-for-statement-static-semantics-vardeclarednames">13.6.3.1</es-xref>,
+    <es-xref target=
+    "sec-for-in-and-for-of-statements-static-semantics-vardeclarednames">13.6.4.3</es-xref>,
+    <es-xref target="sec-with-statement-static-semantics-vardeclarednames">13.10.2</es-xref>,
+    <es-xref target="sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>,
+    <es-xref target="sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
+    <es-xref target="sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.1.5</es-xref>,
+    <es-xref target=
+    "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+
+    <es-production name="Statement">
+      <es-rhs><es-nt>EmptyStatement</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ContinueStatement</es-nt></es-rhs>
+
+      <es-rhs><es-nt>BreakStatement</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ThrowStatement</es-nt></es-rhs>
+
+      <es-rhs><es-nt>DebuggerStatement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: LabelledEvaluation" anchor=
+  "sec-statement-semantics-runtime-semantics-labelledevaluation">
+    <p>With argument <es-nt>labelSet</es-nt>.</p>
+
+    <p>See also: <es-xref target=
+    "sec-do-while-statement-runtime-semantics-labelledevaluation">13.6.1.2</es-xref>,
+    <es-xref target="sec-while-statement-runtime-semantics-labelledevaluation">13.6.2.2</es-xref>,
+    <es-xref target="sec-for-statement-runtime-semantics-labelledevaluation">13.6.3.2</es-xref>,
+    <es-xref target=
+    "sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation">13.6.4.5</es-xref>,
+    <es-xref target=
+    "sec-labelled-statements-runtime-semantics-labelledevaluation">13.12.3</es-xref>.</p>
+
+    <es-production name="BreakableStatement" class="inline">
+      <es-rhs><es-nt>IterationStatement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>stmtResult</i> be the result of performing LabelledEvaluation of
+      <i>IterationStatement</i> with argument <i>labelSet</i>.</li>
+
+      <li>If <i>stmtResult</i>.[[type]] is break and <i>stmtResult</i>.[[target]] is empty, then
+
+        <ol class="block">
+          <li>If <i>stmtResult</i>.[[value]] is empty, then let <i>stmtResult</i> be
+          <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
+
+          <li>Else, let <i>stmtResult</i> be <es-xref target=
+          "sec-normalcompletion">NormalCompletion</es-xref>(<i>stmtResult</i>.[[value]])</li>
+        </ol>
+      </li>
+
+      <li>Return <i>stmtResult</i>.</li>
+    </ol>
+
+    <es-production name="BreakableStatement" class="inline">
+      <es-rhs><es-nt>SwitchStatement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>stmtResult</i> be the result of evaluating <i>SwitchStatement</i>.</li>
+
+      <li>If <i>stmtResult</i>.[[type]] is break and <i>stmtResult</i>.[[target]] is empty, then
+
+        <ol class="block">
+          <li>If <i>stmtResult</i>.[[value]] is empty, then let <i>stmtResult</i> be
+          <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
+
+          <li>Else, let <i>stmtResult</i> be <es-xref target=
+          "sec-normalcompletion">NormalCompletion</es-xref>(<i>stmtResult</i>.[[value]])</li>
+        </ol>
+      </li>
+
+      <li>Return <i>stmtResult</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>A <es-nt>BreakableStatement</es-nt> is one that can be exited via an unlabelled
+      <es-nt>BreakStatement.</es-nt></p>
+    </es-note>
+  </es-clause>
 
   <es-clause title="Runtime Semantics: Evaluation" anchor=
   "sec-statement-semantics-runtime-semantics-evaluation">

@@ -1,6 +1,472 @@
 <!doctype html>
 <es-clause title="ECMAScript Language: Modules and Scripts" anchor=
 "sec-ecmascript-language-modules-and-scripts">
-  <link rel="import" href="ecmascript-language-modules-and-scripts/scripts.html">
-  <link rel="import" href="ecmascript-language-modules-and-scripts/modules.html">
+  <es-clause title="Scripts" anchor="sec-scripts">
+    <h2>Syntax</h2>
+
+    <es-production name="Script">
+      <es-rhs><es-nt optional>ScriptBody</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ScriptBody">
+      <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+    </es-production>
+
+    <es-clause title="Static Semantics: Early Errors" anchor=
+    "sec-scripts-static-semantics-early-errors">
+      <es-production name="ScriptBody" class="inline">
+        <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+      </es-production>
+
+      <ul>
+        <li>
+          <p>It is a Syntax Error if the LexicallyDeclaredNames of <es-nt>StatementList</es-nt>
+          contains any duplicate entries.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the LexicallyDeclaredNames of
+          <es-nt>StatementList</es-nt> also occurs in the VarDeclaredNames of
+          <es-nt>StatementList</es-nt>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <es-nt>StatementList</es-nt> Contains <code>super</code>.</p>
+        </li>
+      </ul>
+
+      <es-note>
+        <p>Additional error conditions relating to conflicting or duplicate declarations are
+        checked during module linking prior to evaluation of a <es-nt>Script</es-nt>. If any such
+        errors are detected the <es-nt>Script</es-nt> is not evaluated.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Static Semantics: IsStrict" anchor="sec-scripts-static-semantics-isstrict">
+      <p>See also: <es-xref target=
+      "sec-function-definitions-static-semantics-isstrict">14.1.10</es-xref>, <es-xref target=
+      "sec-static-semantics-declarednames">15.2.0.2</es-xref>.</p>
+
+      <es-production name="ScriptBody" class="inline">
+        <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>If this <i>ScriptBody</i> is contained in <es-xref target="sec-strict-mode-code">strict
+        code</es-xref> or if <i>StatementList</i> is <es-xref target="sec-strict-mode-code">strict
+        code</es-xref>, then return <b>true</b>. Otherwise, return <b>false</b>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Static Semantics: LexicallyDeclaredNames" anchor=
+    "sec-scripts-static-semantics-lexicallydeclarednames">
+      <p>See also: <es-xref target=
+      "sec-block-static-semantics-lexicallydeclarednames">13.1.3</es-xref>, <es-xref target=
+      "sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</es-xref>,
+      <es-xref target=
+      "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</es-xref>,
+      <es-xref target=
+      "sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</es-xref>,
+      <es-xref target=
+      "sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</es-xref>,
+      <es-xref target=
+      "sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</es-xref>,
+      <es-xref target="sec-static-semantics-knownexportentries">15.2.0.8</es-xref>.</p>
+
+      <es-production name="ScriptBody" class="inline">
+        <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return TopLevelLexicallyDeclaredNames of <i>StatementList</i>.</li>
+      </ol>
+
+      <es-note>
+        <p>At the top level of a <es-nt>Script</es-nt>, function declarations are treated like var
+        declarations rather than like lexical declarations.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Static Semantics: LexicallyScopedDeclarations" anchor=
+    "sec-static-semantics-lexicallyscopeddeclarations">
+      <es-production name="ScriptBody" class="inline">
+        <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return TopLevelLexicallyScopedDeclarations of <i>StatementList</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Static Semantics: VarDeclaredNames" anchor=
+    "sec-scripts-static-semantics-vardeclarednames">
+      <p>See also: <es-xref target=
+      "sec-statement-semantics-static-semantics-vardeclarednames">13.0.1</es-xref>,
+      <es-xref target="sec-block-static-semantics-vardeclarednames">13.1.8</es-xref>,
+      <es-xref target="sec-if-statement-static-semantics-vardeclarednames">13.5.1</es-xref>,
+      <es-xref target=
+      "sec-do-while-statement-static-semantics-vardeclarednames">13.6.1.1</es-xref>,
+      <es-xref target="sec-while-statement-static-semantics-vardeclarednames">13.6.2.1</es-xref>,
+      <es-xref target="sec-for-statement-static-semantics-vardeclarednames">13.6.3.1</es-xref>,
+      <es-xref target=
+      "sec-for-in-and-for-of-statements-static-semantics-vardeclarednames">13.6.4.3</es-xref>,
+      <es-xref target="sec-with-statement-static-semantics-vardeclarednames">13.10.2</es-xref>,
+      <es-xref target="sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>,
+      <es-xref target=
+      "sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
+      <es-xref target="sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>,
+      <es-xref target=
+      "sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>,
+      <es-xref target=
+      "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
+      <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
+      <es-xref target=
+      "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+
+      <es-production name="ScriptBody" class="inline">
+        <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return TopLevelVarDeclaredNames of <i>StatementList</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Static Semantics: VarScopedDeclarations" anchor=
+    "sec-scripts-static-semantics-varscopeddeclarations">
+      <p>See also: <es-xref target=
+      "sec-block-static-semantics-varscopeddeclarations">13.1.9</es-xref>, <es-xref target=
+      "sec-module-static-semantics-static-semantics-varscopeddeclarations">15.2.0.14</es-xref>.</p>
+
+      <es-production name="ScriptBody" class="inline">
+        <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return TopLevelVarScopedDeclarations of <i>StatementList</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Runtime Semantics: Script Evaluation" anchor=
+    "sec-runtime-semantics-script-evaluation">
+      <p>With argument <i>realm</i> and <i>deletableBindings</i>.</p>
+
+      <es-production name="Script" class="inline">
+        <es-rhs><es-nt optional>ScriptBody</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>The code of this <i>Script</i> is <es-xref target="sec-strict-mode-code">strict mode
+        code</es-xref> if the <es-xref target=
+        "sec-directive-prologues-and-the-use-strict-directive">Directive Prologue</es-xref>
+        (<es-xref target="sec-directive-prologues-and-the-use-strict-directive">14.1.1</es-xref>)
+        of its <i>ScriptBody</i> contains a <es-xref target=
+        "sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</es-xref> or if
+        any of the conditions of <es-xref target="sec-strict-mode-code">10.2.1</es-xref> apply. If
+        the code of this <i>Script</i> is <es-xref target="sec-strict-mode-code">strict mode
+        code</es-xref>, <i>ScriptBody</i> is evaluated in the following steps as <es-xref target=
+        "sec-strict-mode-code">strict mode code</es-xref>. Otherwise <i>ScriptBody</i> is evaluated
+        in the following steps as non-<es-xref target="sec-strict-mode-code">strict mode
+        code</es-xref>.</li>
+
+        <li>If <i>ScriptBody</i> is not present, return <es-xref target=
+        "sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
+
+        <li>Let <i>globalEnv</i> be <i>realm</i>.[[globalEnv]].</li>
+
+        <li>Let <i>status</i> be the result of performing GlobalDeclarationInstantiation as
+        described in <es-xref target=
+        "sec-runtime-semantics-globaldeclarationinstantiation">15.1.8</es-xref> using
+        <i>ScriptBody</i>, <i>globalEnv</i>, and <i>deletableBindings</i> as arguments.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+        <li>Let <i>progCxt</i> be a new <es-xref target="sec-execution-contexts">ECMAScript code
+        execution context</es-xref>.</li>
+
+        <li>Set the <i>progCxt’s</i> <es-xref target="sec-code-realms">Realm</es-xref> to
+        <i>realm</i>.</li>
+
+        <li>Set the <i>progCxt’s</i> <es-xref target=
+        "sec-execution-contexts">VariableEnvironment</es-xref> to <i>globalEnv</i>.</li>
+
+        <li>Set the <i>progCxt’s</i> <es-xref target=
+        "sec-execution-contexts">LexicalEnvironment</es-xref> to <i>globalEnv</i>.</li>
+
+        <li>If there is a <es-xref target="sec-execution-contexts">currently running execution
+        context</es-xref>, <es-xref target="sec-execution-contexts">suspend</es-xref> it.</li>
+
+        <li>Push <i>progCxt</i> on to <es-xref target="sec-execution-contexts">the execution
+        context stack</es-xref>; <i>progCxt</i> is now <es-xref target="sec-execution-contexts">the
+        running execution context</es-xref>.</li>
+
+        <li>Let <i>result</i> be the result of evaluating <i>ScriptBody</i>.</li>
+
+        <li><es-xref target="sec-execution-contexts">Suspend</es-xref> <i>progCxt</i> and remove it
+        from <es-xref target="sec-execution-contexts">the execution context stack</es-xref>.</li>
+
+        <li>If <es-xref target="sec-execution-contexts">the execution context stack</es-xref> is
+        not empty, resume the context that is now on the top of <es-xref target=
+        "sec-execution-contexts">the execution context stack</es-xref> as <es-xref target=
+        "sec-execution-contexts">the running execution context</es-xref>. Otherwise,
+        <es-xref target="sec-execution-contexts">the execution context stack</es-xref> is now empty
+        and there is no running <es-xref target="sec-execution-contexts">execution
+        context</es-xref>.</li>
+
+        <li>Return <i>result</i>.</li>
+      </ol>
+
+      <es-note>
+        <p>The processes for initiating the evaluation of a <es-nt>Script</es-nt> and for dealing
+        with the result of such an evaluation are defined by an ECMAScript implementation and not
+        by this specification.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Runtime Semantics: GlobalDeclarationInstantiation" anchor=
+    "sec-runtime-semantics-globaldeclarationinstantiation">
+      <es-note>
+        <p>When an <es-xref target="sec-execution-contexts">execution context</es-xref> is
+        established for evaluating scripts, declarations are instantiated in the current global
+        environment. Each global binding declarated in the code is instantiated.</p>
+      </es-note>
+
+      <p>GlobalDeclarationInstantiation is performed as follows using arguments <i>script</i>,
+      <i>env</i>, and <i>deletableBindings</i>. <es-nt>script</es-nt> is the
+      <es-nt>ScriptBody</es-nt> that for which the <es-xref target=
+      "sec-execution-contexts">execution context</es-xref> is being established. <es-nt>env</es-nt>
+      is <es-xref target="sec-global-environment-records">the global environment record</es-xref>
+      in which bindings are to be created. <es-nt>deletableBindings</es-nt> is <span class=
+      "value">true</span> if the bindings that are created should be deletable.</p>
+
+      <ol class="proc">
+        <li>Let <i>strict</i> be IsStrict of <i>script</i>.</li>
+
+        <li>Let <i>lexNames</i> be the LexicallyDeclaredNames of <i>script</i>.</li>
+
+        <li>Let <i>varNames</i> be the VarDeclaredNames of <i>script</i>.</li>
+
+        <li>For each <i>name</i> in <i>lexNames</i>, do
+
+          <ol class="block">
+            <li>If the result of calling <i>env’s</i> <es-xref target=
+            "sec-hasvardeclaration">HasVarDeclaration</es-xref> concrete method passing <i>name</i>
+            as the argument is <b>true</b>, throw a <b>SyntaxError</b> exception.</li>
+
+            <li>If the result of calling <i>env’s</i> <es-xref target=
+            "sec-haslexicaldeclaration">HasLexicalDeclaration</es-xref> concrete method passing
+            <i>name</i> as the argument is <b>true</b>, throw a <b>SyntaxError</b> exception.</li>
+          </ol>
+        </li>
+
+        <li>For each <i>name</i> in <i>varNames</i>, do
+
+          <ol class="block">
+            <li>If the result of calling <i>env’s</i> <es-xref target=
+            "sec-haslexicaldeclaration">HasLexicalDeclaration</es-xref> concrete method passing
+            <i>name</i> as the argument is <b>true</b>, throw a <b>SyntaxError</b> exception.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>varDeclarations</i> be the VarScopedDeclarations of <i>script</i>.</li>
+
+        <li>Let <i>functionsToInitialise</i> be an empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>Let <i>declaredFunctionNames</i> be an empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>For each <i>d</i> in <i>varDeclarations</i>, in reverse list order do
+
+          <ol class="block">
+            <li>If <i>d</i> is a <i>FunctionDeclaration</i> then
+
+              <ol class="block">
+                <li>NOTE		If there are multiple <i>FunctionDeclarations</i> for the same name, the
+                last declaration is used.</li>
+
+                <li>Let <i>fn</i> be the sole element of the BoundNames of <i>d.</i></li>
+
+                <li>If <i>fn</i> is not an element of <i>declaredFunctionNames</i>, then
+
+                  <ol class="block">
+                    <li>Let <i>fnDefinable</i> be the result of calling <i>env’s</i>
+                    <es-xref target=
+                    "sec-candeclareglobalfunction">CanDeclareGlobalFunction</es-xref> concrete
+                    method passing <i>fn</i> as the argument.</li>
+
+                    <li>If <i>fnDefinable</i> is <b>false</b>, throw <b>TypeError</b>
+                    exception.</li>
+
+                    <li>Append <i>fn</i> to <i>declaredFunctionNames</i>.</li>
+
+                    <li>Append <i>d</i> to <i>functionsToInitialise</i>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Let <i>declaredVarNames</i> be an empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>For each <i>d</i> in <i>varDeclarations</i>, do
+
+          <ol class="block">
+            <li>If <i>d</i> is a <i>VariableStatement</i> then
+
+              <ol class="block">
+                <li>For each String <i>vn</i> in the BoundNames of <i>d</i>, do
+
+                  <ol class="block">
+                    <li>If <i>vn</i> is not an element of <i>declaredFunctionNames</i>, then
+
+                      <ol class="block">
+                        <li>Let <i>vnDefinable</i> be the result of calling <i>env’s</i>
+                        <es-xref target="sec-candeclareglobalvar">CanDeclareGlobalVar</es-xref>
+                        concrete method passing <i>vn</i> as the argument.</li>
+
+                        <li>If <i>vnDefinable</i> is <b>false</b>, throw <b>TypeError</b>
+                        exception.</li>
+
+                        <li>If <i>vn</i> is not an element of <i>declaredVarNames</i>, then
+
+                          <ol class="block">
+                            <li>Append <i>vn</i> to <i>declaredVarNames</i>.</li>
+                          </ol>
+                        </li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>NOTE: No abnormal terminations occur after this algorithm step.</li>
+
+        <li>For each <i>FunctionDeclaration</i> <i>f</i> in <i>functionsToInitialise</i>, do
+
+          <ol class="block">
+            <li>Let <i>fn</i> be the sole element of the BoundNames of <i>f.</i></li>
+
+            <li>Let <i>fo</i> be the result of performing InstantiateFunctionObject for <i>f</i>
+            with argument <i>env</i>.</li>
+
+            <li>Let <i>status</i> be the result of calling <i>env</i>’s <es-xref target=
+            "sec-createglobalfunctionbinding">CreateGlobalFunctionBinding</es-xref> concrete method
+            passing <i>fn</i>, <i>fo</i>, and <i>deletableBindings</i> as the arguments.</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+          </ol>
+        </li>
+
+        <li>For each String <i>vn</i> in <i>declaredVarNames</i>, in list order do
+
+          <ol class="block">
+            <li>Let <i>status</i> be the result of calling <i>env’s</i> <es-xref target=
+            "sec-createglobalvarbinding">CreateGlobalVarBinding</es-xref> concrete method passing
+            <i>vn</i> and <i>deletableBindings</i> as the argument.</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+          </ol>
+        </li>
+
+        <li>Let <i>lexDeclarations</i> be the LexicallyScopedDeclarations of <i>script</i>.</li>
+
+        <li>For each element <i>d</i> in <i>lexDeclarations</i> do
+
+          <ol class="block">
+            <li>NOTE		Except for generator function declarations, lexically declarated names are
+            only instantiated here but not initialised.</li>
+
+            <li>For each element <i>dn</i> of the BoundNames of <i>d</i> do
+
+              <ol class="block">
+                <li>If IsConstantDeclaration of <i>d</i> is <b>true</b>, then
+
+                  <ol class="block">
+                    <li>Let <i>status</i> be the result of calling <i>env</i>’s
+                    CreateImmutableBinding concrete method passing <i>dn</i> as the argument.</li>
+                  </ol>
+                </li>
+
+                <li>Else,
+
+                  <ol class="block">
+                    <li>Let <i>status</i> be the result of calling <i>env</i>’s
+                    CreateMutableBinding concrete method passing <i>dn</i> and <b>false</b> as the
+                    arguments.</li>
+                  </ol>
+                </li>
+
+                <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i> is
+                never an <es-xref target="sec-completion-record-specification-type">abrupt
+                completion</es-xref> for lexically declared names.</li>
+              </ol>
+            </li>
+
+            <li>If <i>d</i> is a <i>GeneratorDeclaration</i> production, then
+
+              <ol class="block">
+                <li>Let <i>fn</i> be the sole element of the BoundNames of <i>d.</i></li>
+
+                <li>Let <i>fo</i> be the result of performing InstantiateFunctionObject for
+                <i>d</i> with argument <i>env</i>.</li>
+
+                <li>Let <i>status</i> be the result of calling <i>env</i>’s SetMutableBinding
+                concrete method passing <i>fn</i>, <i>fo</i>, and <b>false</b> as the
+                arguments.</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty)</li>
+      </ol>
+
+      <es-note>
+        <p>Early errors specified in <es-xref target=
+        "sec-scripts-static-semantics-early-errors">15.1.1</es-xref> prevent name conflicts between
+        function/var declarations and let/const/class/module declarations as well as redeclaration
+        of let/const/class/module bindings for declaration contained within a single
+        <es-nt>Script</es-nt>. However, such conflicts and redeclarations that span more than one
+        <es-nt>Script</es-nt> are detected as runtime errors during GlobalDeclarationInstantiation.
+        If any such errors are detected, no bindings are instantiated for the script.</p>
+
+        <p>Unlike explicit var or function declarations, properties that are directly created on
+        the global object result in global bindings that may be shadowed by let, const, class, and
+        module declarations.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Modules" anchor="sec-modules">
+    <es-production name="Module">
+      <es-rhs><es-nt optional>ModuleBody</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ModuleBody">
+      <es-rhs><es-nt>ModuleItemList</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ModuleItemList">
+      <es-rhs><es-nt>ModuleItem</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ModuleItemList</es-nt> <es-nt>ModuleItem</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ModuleItem">
+      <es-rhs><es-nt>ImportDeclaration</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ExportDeclaration</es-nt></es-rhs>
+
+      <es-rhs><es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+  </es-clause>
 </es-clause>

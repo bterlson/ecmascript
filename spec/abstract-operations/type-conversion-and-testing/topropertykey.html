@@ -1,0 +1,20 @@
+<!doctype html>
+<es-clause title="ToPropertyKey" anchor="sec-topropertykey">
+  <p>The abstract operation ToPropertyKey converts its <es-nt>argument</es-nt> to a value that can
+  be used as a <es-xref target="sec-object-type">property key</es-xref> by performing the following
+  steps:</p>
+
+  <ol class="proc">
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>argument</i>).</li>
+
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>argument</i>)
+    is Symbol, then
+
+      <ol class="block">
+        <li>Return <i>argument</i>.</li>
+      </ol>
+    </li>
+
+    <li>Return <es-xref target="sec-tostring">ToString</es-xref>(<i>argument</i>).</li>
+  </ol>
+</es-clause>

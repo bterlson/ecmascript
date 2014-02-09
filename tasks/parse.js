@@ -5,6 +5,11 @@ var htmlparser = require('htmlparser2');
 var fs = require('fs');
 var tidy = require('htmltidy').tidy;
 
+// If a clause's contents (including subclauses) has a
+// longer length than MAX_CLAUSE_LENGTH, it's subsections
+// are imported rather than inlined
+var MAX_CLAUSE_LENGTH = 30000;
+
 var tidyOptions = {
     showBodyOnly: true,
     indent: 'auto',
@@ -39,6 +44,7 @@ function process(specText) {
     top.subsections.splice(0, 1); // remove contents
 
     prepareDirectory('spec');
+    collapseSpec(top);
     writeSection(top, 'spec/');
 }
 
@@ -65,6 +71,42 @@ function prepareDirectory(spec) {
         fs.rmdirSync(d);
     });
 }
+
+// After collapsing, subsections will only contain imports. Inlined
+// sections are added to section content.
+//
+// Heuristic:
+// Starting at leaf sections, inline the section into its parent IF
+// parent's total content is less than 10kb.
+//
+function collapseSpec(section) {
+    section.subsections.map(function(sub) {
+        return collapseSpec(sub);
+    })
+
+    if(section.subsections.length === 0) {
+        return;
+    }
+    
+    var contentLength = (
+        section.content +
+        section.subsections
+            .map(function(s){return s.contents})
+            .join("")
+    ).length;
+
+    if(contentLength > MAX_CLAUSE_LENGTH)
+        return;
+
+    section.subsections.forEach(function(sub) {
+        section.contents += '\n<es-clause title="' + sub.title + '" anchor="' + sub.id + '">\n';
+        section.contents += sub.contents;
+        section.contents += '</es-clause>\n\n';
+    });
+
+    section.subsections = [];
+}
+
 
 function Section() {
     this.contents = '';
@@ -635,23 +677,18 @@ function writeSection(section, currentPath) {
             subpath = Path.join(sectionId, sub.id.replace('sec-', '')).replace(/\\/g, '/').replace(/%/g, '%25');
         }
 
-        if(sub.subsections.length === 0 && sub.contents.length < 1000) {
-            contents += '\n<es-clause title="' + sub.title + '" anchor="' + sub.id + '">\n';
-            contents += sub.contents;
-            contents += '</es-clause>\n\n';
-        } else {
-            contents += '<link rel="import" href="' +
-                            subpath + '.html' +
-                        '">\n';
+        contents += '<link rel="import" href="' +
+                        subpath + '.html' +
+                    '">\n';
 
-            if(sectionId === 'index') {
-                writeSection(sub, currentPath);
-            } else {
-                try {
-                    fs.mkdirSync(Path.join(currentPath, sectionId));
-                } catch(e) {};
-                writeSection(sub, Path.join(currentPath, sectionId));
-            }
+        if(sectionId === 'index') {
+            writeSection(sub, currentPath);
+        } else {
+            try {
+                fs.mkdirSync(Path.join(currentPath, sectionId));
+            } catch(e) {};
+
+            writeSection(sub, Path.join(currentPath, sectionId));
         }
     });
 

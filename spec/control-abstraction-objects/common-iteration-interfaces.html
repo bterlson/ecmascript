@@ -37,6 +37,96 @@
       </table>
     </figure>
   </es-clause>
-  <link rel="import" href="common-iteration-interfaces/iterator-interface.html">
-  <link rel="import" href="common-iteration-interfaces/iteratorresult-interface.html">
+
+  <es-clause title="TheInterface" anchor="sec-iterator-interface">
+    <p>The <i>Iterator</i> interface includes the following properties:</p>
+
+    <figure>
+      <table class="real-table">
+        <tr>
+          <th style=
+          "background-color: #A6A6A6; border-bottom: 0px solid black; border-top: 1px solid #000080">
+          Property</th>
+
+          <th style=
+          "background-color: #A6A6A6; border-bottom: 0px solid black; border-top: 1px solid #000080">
+          Value</th>
+
+          <th style=
+          "background-color: #A6A6A6; border-bottom: 0px solid black; border-top: 1px solid #000080">
+          Requirements</th>
+        </tr>
+
+        <tr>
+          <td style="border-top: 0px solid black"><code>next</code></td>
+
+          <td style="border-top: 0px solid black">A function that returns an object.</td>
+
+          <td style="border-top: 0px solid black">The function returns an object that conforms to
+          the <i>IteratorResult</i> interface. If a previous call to the <code>next</code> method
+          of an <i>Iterator</i> has returned an <i>IteratorResult</i> object whose
+          <code>done</code> property is <b>true</b>, then all subsequent calls to the
+          <code>next</code> method of that object must also return an <i>IteratorResult</i> object
+          whose <code>done</code> property is <b>true</b>,</td>
+        </tr>
+      </table>
+    </figure>
+
+    <es-note>
+      <p>Arguments may be passed to the next function but their interpretation and validity is
+      dependent upon the target Iterator. The for-of statement and other common users of Iterators
+      do not pass any arguments, so Iterators that expect to be used in such a manner must be
+      prepared to deal with being called with no arguments..</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="TheInterface" anchor="sec-iteratorresult-interface">
+    <p>The <i>IteratorResult</i> interface includes the following properties:</p>
+
+    <figure>
+      <table class="real-table">
+        <tr>
+          <th style=
+          "background-color: #A6A6A6; border-bottom: 0px solid black; border-top: 1px solid #000080">
+          Property</th>
+
+          <th style=
+          "background-color: #A6A6A6; border-bottom: 0px solid black; border-top: 1px solid #000080">
+          Value</th>
+
+          <th style=
+          "background-color: #A6A6A6; border-bottom: 0px solid black; border-top: 1px solid #000080">
+          Requirements</th>
+        </tr>
+
+        <tr>
+          <td style="border-bottom: 0px solid black; border-top: 0px solid black">
+          <code>done</code></td>
+
+          <td style="border-bottom: 0px solid black; border-top: 0px solid black">Either
+          <span class="value">true</span> or <span class="value">false</span>.</td>
+
+          <td style="border-bottom: 0px solid black; border-top: 0px solid black">This is the
+          result status of the an <i>iterator</i> <code>next</code> method call. If the end of the
+          iterator was reached <code>done</code> is <span class="value">true</span>. If the end was
+          not reached <code>done</code> is <span class="value">false</span> and a value is
+          available. If a <code>done</code> property (either own or inherited does not exist), it
+          is consider to have the value <span class="value">false</span>.</td>
+        </tr>
+
+        <tr>
+          <td style="border-top: 0px solid black"><code>value</code></td>
+
+          <td style="border-top: 0px solid black">Any ECMAScript languge value.</td>
+
+          <td style="border-top: 0px solid black">If done is <span class="value">false</span>, this
+          is the current iteration element value. If done is <span class="value">true</span>, this
+          is the return value of the iterator, if it supplied one. If the iterator does not have a
+          return value, <code>value</code> is <span class="value">undefined</span>. In that case,
+          the <code>value</code> property may be absent form the conforming object if it does not
+          inherit an explicit <code>value</code> property.</td>
+        </tr>
+      </table>
+    </figure>
+  </es-clause>
 </es-clause>

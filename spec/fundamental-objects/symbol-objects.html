@@ -1,8 +1,349 @@
 <!doctype html>
 <es-clause title="Symbol Objects" anchor="sec-symbol-objects">
-  <link rel="import" href="symbol-objects/symbol-constructor.html">
-  <link rel="import" href="symbol-objects/properties-of-the-symbol-constructor.html">
-  <link rel="import" href="symbol-objects/properties-of-the-symbol-prototype-object.html">
+  <es-clause title="The Symbol Constructor" anchor="sec-symbol-constructor">
+    <p>The Symbol constructor is the %Symbol% intrinsic object and the initial value of the
+    <code>Symbol</code> property of the global object. When <code>Symbol</code> is called as a
+    function rather than as a constructor, it returns a new Symbol value.</p>
+
+    <p>The <code>Symbol</code> constructor is not intended to be used with the <code>new</code>
+    operator or to be subclassed. It may be used as the value of an <code>extends</code> clause of
+    a class declaration but a <code>super</code> call to the <code>Symbol</code> constructor will
+    not initialise the state of subclass instances.</p>
+
+    <es-clause title="Symbol ( description=undefined )" anchor="sec-symbol-description">
+      <p>When <code>Symbol</code> is called with argument <es-nt>description</es-nt>, the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li>If <i>description</i> is <b>undefined</b>, then let <i>descString</i> be
+        <b>undefined</b>.</li>
+
+        <li>Else, let <i>descString</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>description</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>descString</i>).</li>
+
+        <li>Return a new unique Symbol value whose [[Description]] is <i>descString</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="new Symbol (... argumentsList)" anchor="sec-new-symbol-argumentslist">
+      <p>When <code>Symbol</code> is called as part of a new expression , it initialises a newly
+      created object:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <code>Symbol</code> function object on which the <code>new</code>
+        operator was applied.</li>
+
+        <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+        internal method that was invoked by the <code>new</code> operator.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-construct-f-argumentslist">Construct</es-xref> (<i>F</i>, <i>argumentsList</i>).</li>
+      </ol>
+
+      <p>If <code>Symbol</code> is implemented as an <es-xref target=
+      "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+      internal method will perform the above steps.</p>
+
+      <es-note>
+        <p>Symbol has ordinary [[Construct]] behaviour but the definition of its @@create method
+        causes <code>new Symbol</code> to throw a <span class="value">TypeError</span>
+        exception.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the Symbol Constructor" anchor=
+  "sec-properties-of-the-symbol-constructor">
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Symbol
+    constructor is the Function prototype object (<es-xref target=
+    "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
+
+    <p>Besides the <code>length</code> property (whose value is <b>0</b>), the Symbol constructor
+    has the following properties:</p>
+
+    <es-clause title="Symbol.create" anchor="sec-symbol.create">
+      <p>The initial value of <code>Symbol.create</code> is the well known symbol @@create
+      (<a href="#table-1">Table 1</a> ).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.for (key)" anchor="sec-symbol.for">
+      <p>When <code>Symbol.for</code> is called with argument <es-nt>key</es-nt> it performs the
+      following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>stringKey</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>key</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>stringKey)</i>.</li>
+
+        <li>For each element <i>e</i> of the GlobalSymbolRegistry <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>,
+
+          <ol class="block">
+            <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>e</i>.[[key]],
+            <i>stringKey</i>) is <b>true</b>, then return <i>e</i>.[[symbol]].</li>
+          </ol>
+        </li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: GlobalSymbolRegistry does
+        not current contain an entry for <i>stringKey</i>.</li>
+
+        <li>Let <i>newSymbol</i> be a new unique Symbol value whose [[Description]] is
+        <i>stringKey</i>.</li>
+
+        <li>Append the record { [[key]]: <i>stringKey</i>, [[symbol]]: <i>newSymbol</i>) to the
+        GlobalSymbolRegistry <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>Return <i>newSumbol</i>.</li>
+      </ol>
+
+      <p>The GlobalSymbolRegistry is a <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> that is globally available. It is
+      shared by all Code Realms. Prior to the evaluation of any ECMAScript code it is initialised
+      as an empty <es-xref target="sec-list-and-record-specification-type">List</es-xref>. Elements
+      of the GlobalSymbolRegistry are Records with the structure defined in <a href=
+      "#table-38">Table 38</a> .</p>
+
+      <figure>
+        <figcaption>
+          <span id="table-38">Table 38</span> — GlobalSymbolRegistry Record Fields
+        </figcaption>
+
+        <table class="real-table">
+          <tr>
+            <th style=
+            "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 0px solid black; border-top: 2px solid #000000">
+            Field Name</th>
+
+            <th style=
+            "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+            Value</th>
+
+            <th style=
+            "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+            Usage</th>
+          </tr>
+
+          <tr>
+            <td>[[key]]</td>
+
+            <td>A String</td>
+
+            <td>A string key used to globally identify a Symbol.</td>
+          </tr>
+
+          <tr>
+            <td>[[symbol]]</td>
+
+            <td>A Symbol</td>
+
+            <td>A symbol that can be retrieved from any <es-xref target=
+            "sec-code-realms">Realm</es-xref>.</td>
+          </tr>
+        </table>
+      </figure>
+    </es-clause>
+
+    <es-clause title="Symbol.hasInstance" anchor="sec-symbol.hasinstance">
+      <p>The initial value of <code>Symbol.hasInstance</code> is the well known symbol
+      @@hasInstance (<a href="#table-1">Table 1</a> ).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.isConcatSpreadable" anchor="sec-symbol.isconcatspreadable">
+      <p>The initial value of <code>Symbol.isConcatSpreadable</code> is the well known symbol
+      @@isConcatSpreadable (<a href="#table-1">Table 1</a> ).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.isRegExp" anchor="sec-symbol.isregexp">
+      <p>The initial value of <code>Symbol.isRegExp</code> is the well known symbol @@isRegExp
+      (<a href="#table-1">Table 1</a> ).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.iterator" anchor="sec-symbol.iterator">
+      <p>The initial value of <code>Symbol.iterator</code> is the well known symbol @@iterator
+      (<a href="#table-1">Table 1</a> ).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.keyFor (sym)" anchor="sec-symbol.keyfor">
+      <p>When <code>Symbol.keyFor</code> is called with argument <es-nt>sym</es-nt> it performs the
+      following steps:</p>
+
+      <ol class="proc">
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>sym</i>) is
+        not Symbol, then throw a <b>TypeError</b> exception.</li>
+
+        <li>For each element <i>e</i> of the GlobalSymbolRegistry <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> (see <es-xref target=
+        "sec-symbol.for">19.4.2.2</es-xref>),
+
+          <ol class="block">
+            <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>e</i>.[[symbol]],
+            <i>sym</i>) is <b>true</b>, then return <i>e</i>.[[key]].</li>
+          </ol>
+        </li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: GlobalSymbolRegistry does
+        not current contain an entry for <i>sym</i>.</li>
+
+        <li>Return <b>undefined</b>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Symbol.prototype" anchor="sec-symbol.prototype">
+      <p>The initial value of <code>Symbol.prototype</code> is the Symbol prototype object
+      (<es-xref target="sec-properties-of-the-symbol-prototype-object">19.4.3</es-xref>).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.toPrimitive" anchor="sec-symbol.toprimitive">
+      <p>The initial value of <code>Symbol.toPrimitive</code> is the well known symbol
+      @@toPrimitive (<a href="#table-1">Table 1</a> ).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.toStringTag" anchor="sec-symbol.tostringtag">
+      <p>The initial value of <code>Symbol.toStringTag</code> is the well known symbol
+      @@toStringTag (<a href="#table-1">Table 1</a> ).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.unscopables" anchor="sec-symbol.unscopables">
+      <p>The initial value of <code>Symbol.</code>unscopables is the well known symbol
+      @@unscopables (<a href="#table-1">Table 1</a> ).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol[ @@create ] ( )" anchor="sec-symbol-@@create">
+      <p>The @@create method of a Symbol object <es-nt>F</es-nt> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Throw a <b>TypeError</b> exception.</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.create]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>true</b> }.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the Symbol Prototype Object" anchor=
+  "sec-properties-of-the-symbol-prototype-object">
+    <p>The Symbol prototype object is an ordinary object. It is not a Symbol instance and does not
+    have a [[SymbolData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref>.</p>
+
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Symbol
+    prototype object is the standard built-in Object prototype object (<es-xref target=
+    "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>).</p>
+
+    <es-clause title="Symbol.prototype.constructor" anchor="sec-symbol.prototype.constructor">
+      <p>The initial value of <code>Symbol.prototype.constructor</code> is the built-in
+      <code>Symbol</code> constructor.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.prototype.toString ( )" anchor="sec-symbol.prototype.tostring">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>s</i> be the <b>this</b> value.</li>
+
+        <li>If <i>s</i> does not have a [[SymbolData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Let <i>sym</i> be the value of <i>s’s</i> [[SymbolData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>Let <i>desc</i> be the value of <i>sym’s</i> [[Description]] attribute.</li>
+
+        <li>If <i>desc</i> is <b>undefined</b>, then let <i>desc</i> be the empty string.</li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>desc</i>) is String.</li>
+
+        <li>Let <i>result</i> be the result of concatenating the strings <code>"Symbol("</code>,
+        <i>desc</i>, and <code>")"</code>.</li>
+
+        <li>Return <i>result</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Symbol.prototype.valueOf ( )" anchor="sec-symbol.prototype.valueof">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>s</i> be the <b>this</b> value.</li>
+
+        <li>If <i>s</i> does not have a [[SymbolData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Return the value of <i>s’s</i> [[SymbolData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Symbol.prototype [ @@toPrimitive ] ( hint )" anchor=
+    "sec-symbol.prototype-@@toprimitive">
+      <p>This function is called by ECMAScript language operators to convert an object to a
+      primitive value. The allowed values for <es-nt>hint</es-nt> are "<code>default</code>",
+      "<code>number</code>", and "<code>string</code>". Implicit conversion of Symbol objects to
+      primitive values is not allowed.</p>
+
+      <p>When the <code>@@toPrimitive</code> method is called with argument <es-nt>hint</es-nt>,
+      the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Throw a <b>TypeError</b> exception.</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.toPrimitive]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+      [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+      "value">true</span> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.prototype [ @@toStringTag ]" anchor=
+    "sec-symbol.prototype-@@tostringtag">
+      <p>The initial value of the @@toStringTag property is the string value <b>"Symbol"</b>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+      [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+      "value">true</span> }.</p>
+    </es-clause>
+  </es-clause>
 
   <es-clause title="Properties of Symbol Instances" anchor="sec-properties-of-symbol-instances">
     <p>Symbol instances are ordinary objects that inherit properties from the Symbol prototype

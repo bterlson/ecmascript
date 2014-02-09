@@ -7,6 +7,622 @@
 
     <es-rhs><es-nt params="?Yield">ArrayComprehension</es-nt></es-rhs>
   </es-production>
-  <link rel="import" href="array-initialiser/array-literal.html">
-  <link rel="import" href="array-initialiser/array-comprehension.html">
+
+  <es-clause title="Array Literal" anchor="sec-array-literal">
+    <es-note>
+      <p>An <es-nt>ArrayLiteral</es-nt> is an expression describing the initialisation of an Array
+      object, using a list, of zero or more expressions each of which represents an array element,
+      enclosed in square brackets. The elements need not be literals; they are evaluated each time
+      the array initialiser is evaluated.</p>
+    </es-note>
+
+    <p>Array elements may be elided at the beginning, middle or end of the element list. Whenever a
+    comma in the element list is not preceded by an <es-nt>AssignmentExpression</es-nt> (i.e., a
+    comma at the beginning or after another comma), the missing array element contributes to the
+    length of the Array and increases the index of subsequent elements. Elided array elements are
+    not defined. If an element is elided at the end of an array, that element does not contribute
+    to the length of the Array.</p>
+
+    <h2>Syntax</h2>
+
+    <es-production name="ArrayLiteral" params="Yield">
+      <es-rhs><es-t>[</es-t> <es-nt optional>Elision</es-nt> <es-t>]</es-t></es-rhs>
+
+      <es-rhs><es-t>[</es-t> <es-nt params="?Yield">ElementList</es-nt> <es-t>]</es-t></es-rhs>
+
+      <es-rhs>[ <es-nt params="?Yield">ElementList</es-nt> , <es-nt optional>Elision</es-nt>
+      ]</es-rhs>
+    </es-production>
+
+    <es-production name="ElementList" params="Yield">
+      <es-rhs><es-nt optional>Elision</es-nt> <es-nt params=
+      "In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt optional>Elision</es-nt> <es-nt params="?Yield">SpreadElement</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?Yield">ElementList</es-nt> , <es-nt optional>Elision</es-nt>
+      <es-nt params="In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?Yield">ElementList</es-nt> , <es-nt optional>Elision</es-nt>
+      <es-nt params="?Yield">SpreadElement</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="Elision">
+      <es-rhs>,</es-rhs>
+
+      <es-rhs><es-nt>Elision</es-nt> <es-t>,</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="SpreadElement" params="Yield">
+      <es-rhs><es-t>...</es-t> <es-nt params="In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+    </es-production>
+
+    <es-clause title="Static Semantics: Elision Width" anchor="sec-static-semantics-elision-width">
+      <es-production name="Elision" class="inline">
+        <es-rhs>,</es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return the numeric value 1.</li>
+      </ol>
+
+      <es-production name="Elision" class="inline">
+        <es-rhs><es-nt>Elision</es-nt> <es-t>,</es-t></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>preceding</i> be the Elision Width of <i>Elision</i>.</li>
+
+        <li>Return <i>preceding</i>+1.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Runtime Semantics: Array Accumulation" anchor=
+    "sec-runtime-semantics-array-accumulation">
+      <p>With parameters <es-nt>array</es-nt> and <es-nt>nextIndex</es-nt>.</p>
+
+      <es-production name="ElementList" class="inline">
+        <es-rhs><es-nt optional>Elision</es-nt> <es-nt>AssignmentExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>padding</i> be the Elision Width of <i>Elision</i>; if <i>Elision</i> is not
+        present, use the numeric value zero.</li>
+
+        <li>Let <i>initResult</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+        <li>Let <i>initValue</i> be <es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>initResult</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>initValue</i>).</li>
+
+        <li>Let <i>created</i> be the result of calling the [[DefineOwnProperty]] internal method
+        of <i>array</i> with arguments <es-xref target=
+        "sec-tostring">ToString</es-xref>(<es-xref target=
+        "sec-touint32">ToUint32</es-xref>(<i>nextIndex+padding</i>)) and the PropertyDescriptor{
+        [[Value]]: <i>initValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
+        [[Configurable]]: <b>true</b>}.</li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>created</i> is
+        <b>true</b><i>.</i></li>
+
+        <li>Return <i>nextIndex+padding+</i>1.</li>
+      </ol>
+
+      <es-production name="ElementList" class="inline">
+        <es-rhs><es-nt optional>Elision</es-nt> <es-nt>SpreadElement</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>padding</i> be the Elision Width of <i>Elision</i>; if <i>Elision</i> is not
+        present, use the numeric value zero.</li>
+
+        <li>Return the result of performing Array Accumulation for <i>SpreadElement</i> with
+        arguments <i>array</i> and <i>nextIndex</i>+<i>padding</i>.</li>
+      </ol>
+
+      <es-production name="ElementList" class="inline">
+        <es-rhs><es-nt>ElementList</es-nt> , <es-nt optional>Elision</es-nt>
+        <es-nt>AssignmentExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>postIndex</i> be the result of performing Array Accumulation for
+        <i>ElementList</i> with arguments <i>array</i> and <i>nextIndex</i>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>postIndex</i>).</li>
+
+        <li>Let <i>padding</i> be the Elision Width of <i>Elision</i>; if <i>Elision</i> is not
+        present, use the numeric value zero.</li>
+
+        <li>Let <i>initResult</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+        <li>Let <i>initValue</i> be <es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>initResult</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>initValue</i>).</li>
+
+        <li>Let <i>created</i> be the result of calling the [[DefineOwnProperty]] internal method
+        of <i>array</i> with arguments <es-xref target=
+        "sec-tostring">ToString</es-xref>(<es-xref target=
+        "sec-touint32">ToUint32</es-xref>(<i>postIndex</i>+<i>padding</i>)) and the
+        PropertyDescriptor{ [[Value]]: <i>initValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]:
+        <b>true</b>, [[Configurable]]: <b>true</b>}.</li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>created</i> is
+        <b>true</b>.</li>
+
+        <li>Return <i>postIndex</i>+<i>padding+</i>1.</li>
+      </ol>
+
+      <es-production name="ElementList" class="inline">
+        <es-rhs><es-nt>ElementList</es-nt> , <es-nt optional>Elision</es-nt>
+        <es-nt>SpreadElement</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>postIndex</i> be the result of performing Array Accumulation for
+        <i>ElementList</i> with arguments <i>array</i> and <i>nextIndex</i>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>postIndex</i>).</li>
+
+        <li>Let <i>padding</i> be the Elision Width of <i>Elision</i>; if <i>Elision</i> is not
+        present, use the numeric value zero.</li>
+
+        <li>Return the result of performing Array Accumulation for <i>SpreadElement</i> with
+        arguments <i>array</i> and <i>postIndex</i>+<i>padding</i>.</li>
+      </ol>
+
+      <es-production name="SpreadElement" class="inline">
+        <es-rhs><es-t>...</es-t> <es-nt>AssignmentExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>spreadRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+        <li>Let <i>spreadObj</i> be <es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>spreadRef</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>spreadObj</i>).</li>
+
+        <li>If <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>spreadObj</i>) is not Object, then
+        throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>iterator</i> be the result of performing <es-xref target=
+        "sec-getiterator">GetIterator</es-xref>(<i>spreadObj</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>).</li>
+
+        <li>Repeat
+
+          <ol class="block">
+            <li>Let <i>next</i> be the result of <es-xref target=
+            "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+            <li>If <i>next</i> is <b>false</b>, then return <i>nextIndex</i>.</li>
+
+            <li>Let <i>nextValue</i> be <es-xref target=
+            "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextValue</i>).</li>
+
+            <li>Let <i>defineStatus</i> be the result of <es-xref target=
+            "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref>(<i>A</i>,
+            <es-xref target="sec-tostring">ToString</es-xref>(<es-xref target=
+            "sec-touint32">ToUint32</es-xref>(<i>nextIndex</i>)), <i>nextValue</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>defineStatus</i>).</li>
+
+            <li>Let <i>nextIndex</i> = <i>nextIndex</i> +1.</li>
+          </ol>
+        </li>
+      </ol>
+
+      <es-note>
+        <p>[[DefineOwnProperty]] is used to ensure that own properties are defined for the array
+        even if the standard built-in Array prototype object has been modified in a manner that
+        would preclude the creation of new own properties using [[Set]].</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-array-literal-runtime-semantics-evaluation">
+      <es-production name="ArrayLiteral" class="inline">
+        <es-rhs><es-t>[</es-t> <es-nt optional>Elision</es-nt> <es-t>]</es-t></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>array</i> be the result of the abstract operation <es-xref target=
+        "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
+
+        <li>Let <i>pad</i> be the Elision Width of <i>Elision</i>; if <i>Elision</i> is not
+        present, use the numeric value zero.</li>
+
+        <li>Call <es-xref target="sec-put-o-p-v-throw">Put</es-xref>(<i>array</i>,
+        <code>"length"</code>, <i>pad</i>, <b>false</b>).</li>
+
+        <li>Return <i>array</i>.</li>
+      </ol>
+
+      <es-production name="ArrayLiteral" class="inline">
+        <es-rhs><es-t>[</es-t> <es-nt>ElementList</es-nt> <es-t>]</es-t></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>array</i> be the result of the abstract operation <es-xref target=
+        "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
+
+        <li>Let <i>len</i> be the result of performing Array Accumulation for <i>ElementList</i>
+        with arguments <i>array</i> and 0.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+        <li>Call <es-xref target="sec-put-o-p-v-throw">Put</es-xref>(<i>array</i>,
+        <code>"length"</code>, <i>len</i>, <b>false</b>).</li>
+
+        <li>Return <i>array</i>.</li>
+      </ol>
+
+      <es-production name="ArrayLiteral" class="inline">
+        <es-rhs>[ <es-nt>ElementList</es-nt> , <es-nt optional>Elision</es-nt> ]</es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>array</i> be the result of the abstract operation <es-xref target=
+        "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
+
+        <li>Let <i>len</i> be the result of performing Array Accumulation for <i>ElementList</i>
+        with arguments <i>array</i> and 0.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+        <li>Let <i>padding</i> be the Elision Width of <i>Elision</i>; if <i>Elision</i> is not
+        present, use the numeric value zero.</li>
+
+        <li>Call <es-xref target="sec-put-o-p-v-throw">Put</es-xref>(<i>array</i>,
+        <code>"length"</code>, <es-xref target=
+        "sec-touint32">ToUint32</es-xref>(<i>padding</i>+<i>len</i>), <b>false</b>).</li>
+
+        <li>Return <i>array</i>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Array Comprehension" anchor="sec-array-comprehension">
+    <h2>Syntax</h2>
+
+    <es-production name="ArrayComprehension" params="Yield">
+      <es-rhs constraint="Comprehension_[?Yield">]</es-rhs>
+    </es-production>
+
+    <es-production name="Comprehension" params="Yield">
+      <es-rhs><es-nt params="?Yield">ComprehensionFor</es-nt> <es-nt params=
+      "?Yield">ComprehensionTail</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ComprehensionTail" params="Yield">
+      <es-rhs><es-nt params="In, ?Yield">AssignmentExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?Yield">ComprehensionFor</es-nt> <es-nt params=
+      "?Yield">ComprehensionTail</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?Yield">ComprehensionIf</es-nt> <es-nt params=
+      "?Yield">ComprehensionTail</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ComprehensionFor" params="Yield">
+      <es-rhs>for ( <es-nt params="?Yield">ForBinding</es-nt> of <es-nt params=
+      "In, ?Yield">AssignmentExpression</es-nt> )</es-rhs>
+    </es-production>
+
+    <es-production name="ComprehensionIf" params="Yield">
+      <es-rhs><es-t>if</es-t> <es-t>(</es-t> <es-nt params=
+      "In, ?Yield">AssignmentExpression</es-nt> <es-t>)</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="ForBinding" params="Yield">
+      <es-rhs><es-nt params="?Yield">BindingIdentifier</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?Yield">BindingPattern</es-nt></es-rhs>
+    </es-production>
+
+    <es-clause title="Static Semantics: Early Errors" anchor=
+    "sec-array-comprehension-static-semantics-early-errors">
+      <es-production name="ComprehensionFor" class="inline">
+        <es-rhs>for ( <es-nt>ForBinding</es-nt> of <es-nt>AssignmentExpression</es-nt> )</es-rhs>
+      </es-production>
+
+      <ul>
+        <li>It is a Syntax Error if the BoundNames of <es-nt>ForBinding</es-nt> contains
+        <code>"let"</code>.</li>
+
+        <li>It is a Syntax Error if the BoundNames of <es-nt>ForBinding</es-nt> contains any
+        duplicate entries.</li>
+      </ul>
+    </es-clause>
+
+    <es-clause title="Runtime Semantics: BindingInitialisation" anchor=
+    "sec-array-comprehension-runtime-semantics-bindinginitialisation">
+      <p>With arguments <es-nt>value</es-nt> and <es-nt>environment</es-nt>.</p>
+
+      <p>See also: <es-xref target=
+      "sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</es-xref>,
+      <es-xref target=
+      "sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</es-xref>,
+      <es-xref target=
+      "sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</es-xref>,
+      <es-xref target=
+      "sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</es-xref>.</p>
+
+      <es-note>
+        <p><b>undefined</b> is passed for <es-nt>environment</es-nt> to indicate that a
+        <es-xref target="sec-putvalue">PutValue</es-xref> operation should be used to assign the
+        initialisation value. This is the case for <code>var</code> statements formal parameter
+        lists of non-strict functions. In those cases a lexical binding is hosted and
+        preinitialised prior to evaluation of its initialiser.</p>
+      </es-note>
+
+      <es-production name="ForBinding" class="inline">
+        <es-rhs><es-nt>BindingPattern</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>)
+        is not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Return the result of performing BindingInitialisation for <i>BindingPattern</i> passing
+        <i>value</i> and <i>environment</i> as the arguments.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Runtime Semantics: ComprehensionEvaluation" anchor=
+    "sec-runtime-semantics-comprehensionevaluation">
+      <p>With argument <es-nt>accumulator</es-nt>.</p>
+
+      <es-note>
+        <p><b>undefined</b> is passed for <es-nt>accumulator</es-nt> to indicate that a
+        comprehension component is being evaluated as part of a generator comprehension. Otherwise,
+        the value of <es-nt>accumulator</es-nt> is the array object into the elements of an array
+        comprehension are to be accumulated.</p>
+      </es-note>
+
+      <es-production name="Comprehension" class="inline">
+        <es-rhs><es-nt>ComprehensionFor</es-nt> <es-nt>ComprehensionTail</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return the result of performing ComprehensionComponentEvaluation for
+        <i>ComprehensionFor</i> with arguments <i>ComprehensionTail</i> and
+        <i>accumulator</i>.</li>
+      </ol>
+
+      <p><es-production name="ComprehensionTail" class=
+      "inline"><es-rhs><es-nt>ComprehensionFor</es-nt>
+      <es-nt>ComprehensionTail</es-nt></es-rhs></es-production></p>
+
+      <ol class="proc">
+        <li>Return the result of performing ComprehensionComponentEvaluation for
+        <i>ComprehensionFor</i> with arguments <i>ComprehensionTail</i> and
+        <i>accumulator</i>.</li>
+      </ol>
+
+      <p><es-production name="ComprehensionTail" class=
+      "inline"><es-rhs><es-nt>ComprehensionIf</es-nt>
+      <es-nt>ComprehensionTail</es-nt></es-rhs></es-production></p>
+
+      <ol class="proc">
+        <li>Return the result of performing ComprehensionComponentEvaluation for
+        <i>ComprehensionIf</i> with arguments <i>ComprehensionTail</i> and <i>accumulator</i>.</li>
+      </ol>
+
+      <p><es-production name="ComprehensionTail" class=
+      "inline"><es-rhs><es-nt>AssignmentExpression</es-nt></es-rhs></es-production></p>
+
+      <ol class="proc">
+        <li>Let <i>valueRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+        <li>Let <i>value</i> be <es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>valueRef</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
+
+        <li>If <i>accumulator</i> is not <b>undefined</b>, then
+
+          <ol class="block">
+            <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: this is part of an
+            array comprehension.</li>
+
+            <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>accumulator</i> is
+            an exotic array object so access to its <code>length</code> property should never
+            fail.</li>
+
+            <li>Let <i>len</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>accumulator</i>, <code>"length"</code>).</li>
+
+            <li>If <i>len</i>≥2<sup>32</sup> -1, then throw a <b>RangeError</b> exception.</li>
+
+            <li>Let <i>putStatus</i> be the result of <es-xref target=
+            "sec-put-o-p-v-throw">Put</es-xref>(<i>accumulator</i>, <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>len</i>), <i>value</i>, <b>true</b>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+
+            <li>Increase <i>len</i> by 1.</li>
+
+            <li>Let <i>putStatus</i> be the result of <es-xref target=
+            "sec-put-o-p-v-throw">Put</es-xref>(<i>accumulator</i>, <code>"length"</code>,
+            <i>len</i>, <b>true</b>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+
+            <li>Return <es-xref target=
+            "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
+          </ol>
+        </li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>accumulator</i> is
+        <b>undefined</b>, so this is part of a generator comprehension.</li>
+
+        <li>Let <i>yieldStatus</i> be the result of <es-xref target=
+        "sec-generatoryield">GeneratorYield</es-xref>(<es-xref target=
+        "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>value</i>,
+        <b>false</b>)).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>yieldStatus</i>).</li>
+
+        <li>Return <es-xref target=
+        "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Runtime Semantics: ComprehensionComponentEvaluation" anchor=
+    "sec-runtime-semantics-comprehensioncomponentevaluation">
+      <p>With arguments <es-nt>tail</es-nt> and <es-nt>accumulator</es-nt>.</p>
+
+      <es-note>
+        <p><b>undefined</b> is passed for <es-nt>accumulator</es-nt> to indicate that a
+        comprehension component is being evaluated as part of a generator comprehension. Otherwise,
+        the value of <es-nt>accumulator</es-nt> is the array object into the elements of an array
+        comprehension are to be accumulated.</p>
+      </es-note>
+
+      <es-production name="ComprehensionFor" class="inline">
+        <es-rhs>for ( <es-nt>ForBinding</es-nt> of <es-nt>AssignmentExpression</es-nt> )</es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>exprRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+        <li>Let <i>exprValue</i> be <es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>exprRef</i>).</li>
+
+        <li>Let <i>obj</i> be <es-xref target=
+        "sec-toobject">ToObject</es-xref>(<i>exprValue</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
+
+        <li>Let <i>keys</i> be <es-xref target=
+        "sec-getiterator">GetIterator</es-xref>(<i>obj</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keys</i>).</li>
+
+        <li>Let <i>oldEnv</i> be <es-xref target="sec-execution-contexts">the running execution
+        context</es-xref>’s <es-xref target=
+        "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+        <li>Repeat
+
+          <ol class="block">
+            <li>Let <i>nextResult</i> be the result of <es-xref target=
+            "sec-iteratorstep">IteratorStep</es-xref>(<i>keys</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextResult</i>).</li>
+
+            <li>If <i>nextResult</i> is <b>true</b>, then return <b>true</b>.</li>
+
+            <li>Let <i>nextValue</i> be <es-xref target=
+            "sec-iteratorvalue">IteratorValue</es-xref>(<i>nextResult</i>);</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextValue</i>).</li>
+
+            <li>Let <i>forEnv</i> be the result of calling <es-xref target=
+            "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing
+            <i>oldEnv</i> as the argument.</li>
+
+            <li>For each element <i>name</i> of the BoundNames of <i>ForBinding</i> do
+
+              <ol class="block">
+                <li>Call <i>forEnv</i>’s CreateMutableBinding concrete method with argument
+                <i>name</i>.</li>
+
+                <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The above call to
+                CreateMutableBinding will never return an <es-xref target=
+                "sec-completion-record-specification-type">abrupt completion</es-xref>.</li>
+              </ol>
+            </li>
+
+            <li>Let <i>status</i> be the result of performing BindingInitialisation for
+            <i>ForBinding</i> passing <i>nextValue</i> and <i>forEnv</i> as the arguments.</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+            <li>Set <es-xref target="sec-execution-contexts">the running execution
+            context</es-xref>’s <es-xref target=
+            "sec-execution-contexts">LexicalEnvironment</es-xref> to <i>forEnv</i>.</li>
+
+            <li>Let <i>continue</i> be the result of performing ComprehensionEvaluation for
+            <i>tail</i> with argument <i>accumulator</i>.</li>
+
+            <li>Set <es-xref target="sec-execution-contexts">the running execution
+            context</es-xref>’s <es-xref target=
+            "sec-execution-contexts">LexicalEnvironment</es-xref> to <i>oldEnv</i>.</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>continue</i>).</li>
+          </ol>
+        </li>
+      </ol>
+
+      <es-production name="ComprehensionIf" class="inline">
+        <es-rhs><es-t>if</es-t> <es-t>(</es-t> <es-nt>AssignmentExpression</es-nt>
+        <es-t>)</es-t></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>valueRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+        <li>Let <i>value</i> be <es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>valueRef</i>).</li>
+
+        <li>Let <i>boolValue</i> be <es-xref target=
+        "sec-toboolean">ToBoolean</es-xref>(<i>value</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>boolValue</i>).</li>
+
+        <li>If <i>boolValue</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Return the result of performing ComprehensionEvaluation for <i>tail</i> with
+            argument <i>accumulator</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Return <es-xref target=
+            "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
+          </ol>
+        </li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-array-comprehension-runtime-semantics-evaluation">
+      <es-production name="ArrayComprehension" class="inline">
+        <es-rhs><es-t>[</es-t> <es-nt>Comprehension</es-nt> <es-t>]</es-t></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>array</i> be the result of the abstract operation <es-xref target=
+        "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
+
+        <li>Let <i>status</i> be the result of performing ComprehensionEvaluation for
+        <i>Comprehension</i> with argument <i>array</i>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+        <li>Return <i>array</i>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
 </es-clause>

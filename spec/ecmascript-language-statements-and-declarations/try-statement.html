@@ -53,9 +53,217 @@
       </li>
     </ul>
   </es-clause>
-  <link rel="import" href="try-statement/try-statement-static-semantics-vardeclarednames.html">
-  <link rel="import" href=
-  "try-statement/try-statement-runtime-semantics-bindinginitialisation.html">
-  <link rel="import" href="try-statement/runtime-semantics-catchclauseevaluation.html">
-  <link rel="import" href="try-statement/try-statement-runtime-semantics-evaluation.html">
+
+  <es-clause title="Static Semantics: VarDeclaredNames" anchor=
+  "sec-try-statement-static-semantics-vardeclarednames">
+    <p>See also: <es-xref target=
+    "sec-statement-semantics-static-semantics-vardeclarednames">13.0.1</es-xref>, <es-xref target=
+    "sec-block-static-semantics-vardeclarednames">13.1.8</es-xref>, <es-xref target=
+    "sec-if-statement-static-semantics-vardeclarednames">13.5.1</es-xref>, <es-xref target=
+    "sec-do-while-statement-static-semantics-vardeclarednames">13.6.1.1</es-xref>, <es-xref target=
+    "sec-while-statement-static-semantics-vardeclarednames">13.6.2.1</es-xref>, <es-xref target=
+    "sec-for-statement-static-semantics-vardeclarednames">13.6.3.1</es-xref>, <es-xref target=
+    "sec-for-in-and-for-of-statements-static-semantics-vardeclarednames">13.6.4.3</es-xref>,
+    <es-xref target="sec-with-statement-static-semantics-vardeclarednames">13.10.2</es-xref>,
+    <es-xref target="sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>,
+    <es-xref target="sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.1.5</es-xref>,
+    <es-xref target=
+    "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+
+    <es-production name="TryStatement" class="inline">
+      <es-rhs>try <es-nt>Block</es-nt> <es-nt>Catch</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be VarDeclaredNames of <i>Block</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Catch.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+
+    <es-production name="TryStatement" class="inline">
+      <es-rhs>try <es-nt>Block</es-nt> <es-nt>Finally</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be VarDeclaredNames of <i>Block</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Finally.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+
+    <es-production name="TryStatement" class="inline">
+      <es-rhs>try <es-nt>Block</es-nt> <es-nt>Catch</es-nt> <es-nt>Finally</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be VarDeclaredNames of <i>Block</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Catch.</i></li>
+
+      <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Finally.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+
+    <es-production name="Catch" class="inline">
+      <es-rhs>catch ( <es-nt>CatchParameter</es-nt> ) <es-nt>Block</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the VarDeclaredNames of <i>Block</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: BindingInitialisation" anchor=
+  "sec-try-statement-runtime-semantics-bindinginitialisation">
+    <p>With arguments <es-nt>value</es-nt> and <es-nt>environment</es-nt>.</p>
+
+    <es-note>
+      <p><b>undefined</b> is passed for <es-nt>environment</es-nt> to indicate that a
+      <es-xref target="sec-putvalue">PutValue</es-xref> operation should be used to assign the
+      initialisation value. This is the case for <code>var</code> statements formal parameter lists
+      of non-strict functions. In those cases a lexical binding is hosted and preinitialised prior
+      to evaluation of its initialiser.</p>
+    </es-note>
+
+    <p>See also: <es-xref target=
+    "sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</es-xref>,
+    <es-xref target=
+    "sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</es-xref>,
+    <es-xref target=
+    "sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</es-xref>,
+    <es-xref target=
+    "sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</es-xref>.</p>
+
+    <p><es-production name="CatchParameter" class=
+    "inline"><es-rhs><es-nt>BindingPattern</es-nt></es-rhs></es-production></p>
+
+    <ol class="proc">
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+      not Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Return the result of performing BindingInitialisation for <i>BindingPattern</i> passing
+      <i>value</i> and <i>environment</i> as the arguments.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: CatchClauseEvaluation" anchor=
+  "sec-runtime-semantics-catchclauseevaluation">
+    <p>with parameter <es-nt>thrownValue</es-nt></p>
+
+    <es-production name="Catch" class="inline">
+      <es-rhs>catch ( <es-nt>CatchParameter</es-nt> ) <es-nt>Block</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>oldEnv</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>’s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+      <li>Let <i>catchEnv</i> be the result of calling <es-xref target=
+      "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing <i>oldEnv</i> as
+      the argument.</li>
+
+      <li>For each element <i>argName</i> of the BoundNames of <i>CatchParameter</i>, do
+
+        <ol class="block">
+          <li>Call the CreateMutableBinding concrete method of <i>catchEnv</i> passing
+          <i>argName</i> as the argument.</li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The above call to
+          CreateMutableBinding will never return an <es-xref target=
+          "sec-completion-record-specification-type">abrupt completion</es-xref>.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>status</i> be the result of performing BindingInitialisation for
+      <i>CatchParameter</i> passing <i>thrownValue</i> and <i>catchEnv</i> as arguments.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+      <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to
+      <i>catchEnv</i>.</li>
+
+      <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+
+      <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+      <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>oldEnv</i>.</li>
+
+      <li>Return <i>B</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>No matter how control leaves the <es-nt>Block</es-nt> the <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref> is always restored to its former
+      state.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-try-statement-runtime-semantics-evaluation">
+    <es-production name="TryStatement" class="inline">
+      <es-rhs>try <es-nt>Block</es-nt> <es-nt>Catch</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+
+      <li>If <i>B</i>.[[type]] is not throw, return <i>B</i>.</li>
+
+      <li>Return the result of performing CatchClauseEvaluation of <i>Catch</i> with parameter
+      <i>B</i>.[[value]].</li>
+    </ol>
+
+    <es-production name="TryStatement" class="inline">
+      <es-rhs>try <es-nt>Block</es-nt> <es-nt>Finally</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+
+      <li>Let <i>F</i> be the result of evaluating <i>Finally</i>.</li>
+
+      <li>If <i>F</i>.[[type]] is normal, return <i>B</i>.</li>
+
+      <li>Return <i>F</i>.</li>
+    </ol>
+
+    <es-production name="TryStatement" class="inline">
+      <es-rhs>try <es-nt>Block</es-nt> <es-nt>Catch</es-nt> <es-nt>Finally</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+
+      <li>If <i>B</i>.[[type]] is throw, then
+
+        <ol class="block">
+          <li>Let <i>C</i> be the result of performing CatchClauseEvaluation of <i>Catch</i> with
+          parameter <i>B</i>.value.</li>
+        </ol>
+      </li>
+
+      <li>Else <i>B</i>.[[type]] is not throw<b>,</b>
+
+        <ol class="block">
+          <li>Let <i>C</i> be <i>B</i>.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>F</i> be the result of evaluating <i>Finally</i>.</li>
+
+      <li>If <i>F</i>.[[type]] is normal, return <i>C</i>.</li>
+
+      <li>Return <i>F</i>.</li>
+    </ol>
+  </es-clause>
 </es-clause>

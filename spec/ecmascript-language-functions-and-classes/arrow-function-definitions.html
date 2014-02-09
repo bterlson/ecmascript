@@ -28,12 +28,112 @@
   <es-production name="ArrowFormalParameters">
     <es-rhs><es-t>(</es-t> <es-nt>StrictFormalParameters</es-nt> <es-t>)</es-t></es-rhs>
   </es-production>
-  <link rel="import" href=
-  "arrow-function-definitions/arrow-function-definitions-static-semantics-early-errors.html">
-  <link rel="import" href=
-  "arrow-function-definitions/arrow-function-definitions-static-semantics-boundnames.html">
-  <link rel="import" href=
-  "arrow-function-definitions/arrow-function-definitions-static-semantics-contains.html">
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-arrow-function-definitions-static-semantics-early-errors">
+    <es-production name="ArrowFunction" class="inline">
+      <es-rhs><es-nt>ArrowParameters</es-nt> =&gt; <es-nt>ConciseBody</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if any element of the BoundNames of <es-nt>ArrowParameters</es-nt>
+        also occurs in the VarDeclaredNames of <es-nt>ConciseBody</es-nt>.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if any element of the BoundNames of <es-nt>ArrowParameters</es-nt>
+        also occurs in the LexicallyDeclaredNames of <es-nt>ConciseBody</es-nt>.</p>
+      </li>
+    </ul>
+
+    <es-production name="ArrowParameters" class="inline">
+      <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if the lexical token sequence matched by
+        <es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt> cannot be parsed with no
+        tokens left over using <es-nt>ArrowFormalParameters</es-nt> as the goal symbol.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if any early errors are present for CoveredFormalsList of
+        <es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt>.</p>
+      </li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Static Semantics: BoundNames" anchor=
+  "sec-arrow-function-definitions-static-semantics-boundnames">
+    <p>See also: <es-xref target=
+    "sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</es-xref>,
+    <es-xref target="sec-variable-statement-static-semantics-boundnames">13.2.2.1</es-xref>,
+    <es-xref target=
+    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</es-xref>,
+    <es-xref target=
+    "sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.3</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-boundnames">14.4.2</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-boundnames">14.5.2</es-xref>,
+    <es-xref target="sec-imports-static-semantics-boundnames">15.2.1.2</es-xref>, <es-xref target=
+    "sec-exports-static-semantics-boundnames">15.2.2.1</es-xref>.</p>
+
+    <es-production name="ArrowParameters" class="inline">
+      <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>formals</i> be CoveredFormalsList of
+      <i>CoverParenthesisedExpressionAndArrowParameterList</i>.</li>
+
+      <li>Return the BoundNames of <i>formals</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: Contains" anchor=
+  "sec-arrow-function-definitions-static-semantics-contains">
+    <p>With parameter <es-nt>symbol</es-nt>.</p>
+
+    <p>See also: <es-xref target="sec-static-semantic-rules">5.3</es-xref>, <es-xref target=
+    "sec-object-initialiser-static-semantics-contains">12.1.5.2</es-xref>, <es-xref target=
+    "sec-static-semantics-static-semantics-contains">12.2.1.1</es-xref>, <es-xref target=
+    "sec-function-definitions-static-semantics-contains">14.1.4</es-xref>, <es-xref target=
+    "sec-generator-function-definitions-static-semantics-contains">14.4.3</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-contains">14.5.4</es-xref></p>
+
+    <es-production name="ArrowFunction" class="inline">
+      <es-rhs><es-nt>ArrowParameters</es-nt> =&gt; <es-nt>ConciseBody</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>symbol</i> is neither <code>super</code> nor <code>this</code>, then return
+      <b>false</b>.</li>
+
+      <li>If <i>ArrowParameters</i> Contains <i>symbol</i> is <b>true</b>, return <b>true</b>;</li>
+
+      <li>Return <i>ConciseBody</i> Contains <i>symbol</i> .</li>
+    </ol>
+
+    <es-note>
+      <p>Normally, Contains does not look inside most function forms However, Contains is used to
+      detect <code>this</code> and <code>super</code> usage within an
+      <es-nt>ArrowFunction</es-nt>.</p>
+    </es-note>
+
+    <es-production name="ArrowParameters" class="inline">
+      <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>formals</i> be CoveredFormalsList of
+      <i>CoverParenthesisedExpressionAndArrowParameterList</i>.</li>
+
+      <li>Return <i>formals</i> Contains <i>symbol</i>.</li>
+    </ol>
+  </es-clause>
 
   <es-clause title="Static Semantics: CoveredFormalsList" anchor=
   "sec-static-semantics-coveredformalslist">
@@ -135,10 +235,143 @@
       "sec-list-and-record-specification-type">List</es-xref>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href=
-  "arrow-function-definitions/arrow-function-definitions-runtime-semantics-iteratorbindinginitialisation.html">
-  <link rel="import" href=
-  "arrow-function-definitions/arrow-function-definitions-runtime-semantics-evaluatebody.html">
-  <link rel="import" href=
-  "arrow-function-definitions/arrow-function-definitions-runtime-semantics-evaluation.html">
+
+  <es-clause title="Runtime Semantics: IteratorBindingInitialisation" anchor=
+  "sec-arrow-function-definitions-runtime-semantics-iteratorbindinginitialisation">
+    <p>With parameters <es-nt>iterator</es-nt> and <es-nt>environment</es-nt>.</p>
+
+    <p>See also: <es-xref target=
+    "sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</es-xref>,
+    <es-xref target=
+    "sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</es-xref>,<es-xref target="sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</es-xref>,<es-xref target="sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</es-xref>,<es-xref target="sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</es-xref>,
+    <es-xref target=
+    "sec-function-definitions-runtime-semantics-iteratorbindinginitialisation">14.1.15</es-xref>.</p>
+
+    <es-note>
+      <p>When <b>undefined</b> is passed for <es-nt>environment</es-nt> it indicates that a
+      <es-xref target="sec-putvalue">PutValue</es-xref> operation should be used to assign the
+      initialisation value. This is the case for formal parameter lists of non-strict functions. In
+      that case the formal parameter bindings are preinitialised in order to deal with the
+      possibility of multiple parameters with the same name.</p>
+    </es-note>
+
+    <es-production name="ArrowParameters" class="inline">
+      <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>next</i> be the result of <es-xref target=
+      "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+      <li>If <i>next</i> is <b>false</b>, then let <i>v</i> be <b>undefined</b></li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>Let <i>v</i> be <es-xref target=
+          "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
+        </ol>
+      </li>
+
+      <li>Return the result of performing BindingInitialisation for <i>BindingIdentifier</i> using
+      <i>v</i> and <i>environment</i> as the arguments.</li>
+    </ol>
+
+    <es-production name="ArrowParameters" class="inline">
+      <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>formals</i> be CoveredFormalsList of
+      <i>CoverParenthesisedExpressionAndArrowParameterList</i>.</li>
+
+      <li>Return the result of performing IteratorBindingInitialisation of <i>formals</i> with
+      arguments <i>value</i> and <i>environment</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: EvaluateBody" anchor=
+  "sec-arrow-function-definitions-runtime-semantics-evaluatebody">
+    <p>With parameter <es-nt>functionObject</es-nt>.</p>
+
+    <p>See also: <es-xref target=
+    "sec-function-definitions-runtime-semantics-evaluatebody">14.1.14</es-xref>, <es-xref target=
+    "sec-generator-function-definitions-runtime-semantics-evaluatebody">14.4.11</es-xref>.</p>
+
+    <es-production name="ConciseBody" class="inline">
+      <es-rhs><es-nt>AssignmentExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>The code of this <i>ConciseBody</i> is <es-xref target="sec-strict-mode-code">strict mode
+      code</es-xref> if it is contained in <es-xref target="sec-strict-mode-code">strict mode
+      code</es-xref> or if any of the conditions in <es-xref target=
+      "sec-strict-mode-code">10.2.1</es-xref> apply. If the code of this <i>ConciseBody</i> is
+      <es-xref target="sec-strict-mode-code">strict mode code</es-xref>,
+      <i>AssignmentExpression</i> is evaluated in the following steps as <es-xref target=
+      "sec-strict-mode-code">strict mode code</es-xref>. Otherwise, <i>AssignmentExpression</i> is
+      evaluated in the following steps as non-<es-xref target="sec-strict-mode-code">strict mode
+      code</es-xref>.</li>
+
+      <li>Let <i>exprRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+      <li>Let <i>exprValue</i> be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>exprRef</i>).</li>
+
+      <li>If <i>exprValue</i>.[[type]] is return then return <es-xref target=
+      "sec-normalcompletion">NormalCompletion</es-xref>(<i>exprValue</i>.[[value]]).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>exprValue</i>).</li>
+
+      <li>Return <es-xref target=
+      "sec-normalcompletion">NormalCompletion</es-xref>(<i>exprValue</i>).</li>
+    </ol>
+
+    <es-note>
+      <p>In the absence of extensions to this specification, the test is step 4 will never be
+      <b>true</b>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-arrow-function-definitions-runtime-semantics-evaluation">
+    <es-production name="ArrowFunction" class="inline">
+      <es-rhs><es-nt>ArrowParameters</es-nt> =&gt; <es-nt>ConciseBody</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If the code of this <i>ArrowFunction</i> is contained in <es-xref target=
+      "sec-strict-mode-code">strict mode code</es-xref> or if any of the conditions in
+      <es-xref target="sec-strict-mode-code">10.2.1</es-xref> apply, then let <i>strict</i> be
+      <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+
+      <li>Let <i>scope</i> be the <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref> of <es-xref target=
+      "sec-execution-contexts">the running execution context</es-xref>.</li>
+
+      <li>Let <i>parameters</i> be CoveredFormalsList of <i>ArrowParameters</i>.</li>
+
+      <li>Let <i>closure</i> be the result of performing the <es-xref target=
+      "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Arrow,
+      <i>parameters</i>, <i>ConciseBody, scope</i>, and <i>strict</i>.</li>
+
+      <li>Return <i>closure</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>Any reference to <code>arguments</code>, <code>super</code>, or <code>this</code> within
+      an <es-nt>ArrowFunction</es-nt> are resoved to their bindings in the lexically enclosing
+      function. Even though an <es-nt>ArrowFunction</es-nt> may contain references to
+      <code>super</code>, the function object created in step 4 is not made into a method by
+      performing <es-xref target="sec-makemethod">MakeMethod</es-xref>. An
+      <es-nt>ArrowFunction</es-nt> that references <code>super</code> is always contained within a
+      non-<es-nt>ArrowFunction</es-nt> and the necessary state to implement <code>super</code> is
+      accessible via the <es-nt>scope</es-nt> that is captured by the function object of the
+      <i>ArrowFunction</i>.</p>
+    </es-note>
+  </es-clause>
 </es-clause>

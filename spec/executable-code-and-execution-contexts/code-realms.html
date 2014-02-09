@@ -94,5 +94,44 @@
       </tr>
     </table>
   </figure>
-  <link rel="import" href="code-realms/createrealm.html">
+
+  <es-clause title="CreateRealm ( )" anchor="sec-createrealm">
+    <p>When the abstract operation CreateRealm is called with no arguments, the following steps are
+    performed:</p>
+
+    <ol class="proc">
+      <li>Let <i>realmRec</i> be a new Record.</li>
+
+      <li>Let <i>intrinsics</i> be a record initialized with the values listed in <a href=
+      "#table-7">Table 7</a> . Each intrinsic object is a new object value fully and recursively
+      populated with properties values as defined by the specification of each object in clauses
+      17-26. All object property values are newly created object values. All values that are
+      built-in function objects are created by performing <es-xref target=
+      "sec-createbuiltinfunction">CreateBuiltinFunction</es-xref>(<i>realmRec</i>, &lt;steps&gt;)
+      where &lt;steps&gt; is the definition of that function provided by this specification.
+      </li>
+
+      <li>Set <i>realmRec</i>.[[intrinsics]] be <i>intrinsics</i>.</li>
+
+      <li>Let <i>newGlobal</i> be <es-xref target=
+      "sec-objectcreate">ObjectCreate</es-xref>(<b>null</b>).</li>
+
+      <li>Define the Global Object properties specified in <es-xref target=
+      "sec-global-object">clause 18</es-xref> on <i>newGlobal</i> using <i>intrinsics</i> as the
+      source of the values.</li>
+
+      <li>Set <i>realmRec</i>.[[globalThis]] be <i>newGlobal</i>.</li>
+
+      <li>Let <i>newGlobalEnv</i> be NewGlobalEnvironment(<i>newGlobal</i>,
+      <i>intrinsics</i>).</li>
+
+      <li>Set <i>realmRec</i>.[[globalEnv]] be <i>newGlobalEnv</i>.</li>
+
+      <li>Set each of <i>realmRec</i>.[[directEvalTranslate]],
+      <i>realmRec</i>.[[directEvalFallback]], <i>realmRec</i>.[[indirectEval]], and
+      <i>realmRec</i>.[[Function]] to <b>undefined</b>.</li>
+
+      <li>Return <i>realmRec</i>.</li>
+    </ol>
+  </es-clause>
 </es-clause>

@@ -1,11 +1,273 @@
 <!doctype html>
 <es-clause title="Static Semantics" anchor="sec-left-hand-side-expressions-static-semantics">
-  <link rel="import" href=
-  "left-hand-side-expressions-static-semantics/static-semantics-static-semantics-contains.html">
-  <link rel="import" href=
-  "left-hand-side-expressions-static-semantics/static-semantics-static-semantics-isanonymousfunctiondefinition.html">
-  <link rel="import" href=
-  "left-hand-side-expressions-static-semantics/static-semantics-static-semantics-isidentifierref.html">
-  <link rel="import" href=
-  "left-hand-side-expressions-static-semantics/static-semantics-static-semantics-isvalidsimpleassignmenttarget.html">
+  <es-clause title="Static Semantics: Contains" anchor=
+  "sec-static-semantics-static-semantics-contains">
+    <p>With parameter <es-nt>symbol</es-nt>.</p>
+
+    <p>See also: <es-xref target="sec-static-semantic-rules">5.3</es-xref>, <es-xref target=
+    "sec-object-initialiser-static-semantics-contains">12.1.5.2</es-xref>, <es-xref target=
+    "sec-function-definitions-static-semantics-contains">14.1.4</es-xref>, <es-xref target=
+    "sec-arrow-function-definitions-static-semantics-contains">14.2.3</es-xref>, <es-xref target=
+    "sec-generator-function-definitions-static-semantics-contains">14.4.3</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-contains">14.5.4</es-xref></p>
+
+    <es-production name="MemberExpression" class="inline">
+      <es-rhs><es-nt>MemberExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>MemberExpression</i> Contains <i>symbol</i> is <b>true</b>, return
+      <b>true</b>.</li>
+
+      <li>If <i>symbol</i> is a <i>ReservedWord</i>, return <b>false</b>.</li>
+
+      <li>If <i>symbol</i> is an <i>Identifier</i> and <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>symbol</i> is the same
+      value as the <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>IdentifierName</i>, return <b>true</b>;</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="MemberExpression" class="inline">
+      <es-rhs><es-t>super</es-t> <es-t>.</es-t> <es-nt>IdentifierName</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>symbol</i> is the <i>ReservedWord</i> <code>super</code>, return <b>true</b>.</li>
+
+      <li>If <i>symbol</i> is a <i>ReservedWord</i>, return <b>false</b>.</li>
+
+      <li>If <i>symbol</i> is an <i>Identifier</i> and <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>symbol</i> is the same
+      value as the <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>IdentifierName</i>, return <b>true</b>;</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="CallExpression" class="inline">
+      <es-rhs><es-nt>CallExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>CallExpression</i> Contains <i>symbol</i> is <b>true</b>, return <b>true</b>.</li>
+
+      <li>If <i>symbol</i> is a <i>ReservedWord</i>, return <b>false</b>.</li>
+
+      <li>If <i>symbol</i> is an <i>Identifier</i> and <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>symbol</i> is the same
+      value as the <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>IdentifierName</i>, return <b>true</b>;</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="MemberExpression" class="inline">
+      <es-rhs>new super</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>symbol</i> is the <i>ReservedWord</i> <code>super</code>, return <b>true</b>.</li>
+
+      <li>If <i>symbol</i> is the <i>ReservedWord</i> <code>new</code>, return <b>true</b>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="MemberExpression" class="inline">
+      <es-rhs><es-t>new</es-t> <es-t>super</es-t> <es-nt>Arguments</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>symbol</i> is the <i>ReservedWord</i> <code>super</code>, return <b>true</b>.</li>
+
+      <li>If <i>symbol</i> is the <i>ReservedWord</i> <code>new</code>, return <b>true</b>.</li>
+
+      <li>Return the result of <i>Arguments</i> Contains <i>symbol</i>.</li>
+    </ol>
   </es-clause>
+
+  <es-clause title="Static Semantics: IsAnonymousFunctionDefinition" anchor=
+  "sec-static-semantics-static-semantics-isanonymousfunctiondefinition">
+    <p>See also: <es-xref target=
+    "sec-semantics-static-semantics-isanonymousfunctiondefinition">12.1.0.2</es-xref>,
+    <es-xref target=
+    "sec-grouping-operator-static-semantics-isanonymousfunctiondefinition">12.1.10.2</es-xref>,
+    <es-xref target=
+    "sec-postfix-expressions-static-semantics-isanonymousfunctiondefinition">12.3.2</es-xref>,
+    <es-xref target=
+    "sec-unary-operators-static-semantics-isanonymousfunctiondefinition">12.4.2</es-xref>,
+    <es-xref target=
+    "sec-multiplicative-operators-static-semantics-isanonymousfunctiondefinition">12.5.1</es-xref>,
+    <es-xref target=
+    "sec-additive-operators-static-semantics-isanonymousfunctiondefinition">12.6.1</es-xref>,
+    <es-xref target=
+    "sec-bitwise-shift-operators-static-semantics-isanonymousfunctiondefinition">12.7.1</es-xref>,
+    <es-xref target=
+    "sec-relational-operators-static-semantics-isanonymousfunctiondefinition">12.8.1</es-xref>,
+    <es-xref target=
+    "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</es-xref>,
+    <es-xref target=
+    "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</es-xref>,
+    <es-xref target=
+    "sec-binary-logical-operators-static-semantics-isanonymousfunctiondefinition">12.11.1</es-xref>,
+    <es-xref target=
+    "sec-conditional-operator-static-semantics-isanonymousfunctiondefinition">12.12.1</es-xref>,
+    <es-xref target=
+    "sec-assignment-operators-static-semantics-isanonymousfunctiondefinition">12.13.2</es-xref>,
+    <es-xref target=
+    "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>,
+    <es-xref target=
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-isanonymousfunctiondefinition">14.4.5</es-xref>,
+    <es-xref target=
+    "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
+
+    <es-production name="MemberExpression">
+      <es-rhs><es-nt>MemberExpression</es-nt> [ <es-nt>Expression</es-nt> ]</es-rhs>
+
+      <es-rhs><es-nt>MemberExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+
+      <es-rhs><es-nt>MemberExpression</es-nt> <es-nt>TemplateLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-t>super</es-t> <es-t>[</es-t> <es-nt>Expression</es-nt> <es-t>]</es-t></es-rhs>
+
+      <es-rhs><es-t>super</es-t> <es-t>.</es-t> <es-nt>IdentifierName</es-nt></es-rhs>
+
+      <es-rhs><es-t>new</es-t> <es-t>super</es-t> <es-nt optional>Arguments</es-nt></es-rhs>
+
+      <es-rhs>new <es-nt>MemberExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="NewExpression">
+      <es-rhs><es-t>new</es-t> <es-nt>NewExpression</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="CallExpression">
+      <es-rhs><es-nt>MemberExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+
+      <es-rhs><es-t>super</es-t> <es-nt>Arguments</es-nt></es-rhs>
+
+      <es-rhs><es-nt>CallExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+
+      <es-rhs><es-nt>CallExpression</es-nt> [ <es-nt>Expression</es-nt> ]</es-rhs>
+
+      <es-rhs><es-nt>CallExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+
+      <es-rhs><es-nt>CallExpression</es-nt> <es-nt>TemplateLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: IsIdentifierRef" anchor=
+  "sec-static-semantics-static-semantics-isidentifierref">
+    <p>See also: <es-xref target=
+    "sec-semantics-static-semantics-isidentifierref">12.1.0.3</es-xref>.</p>
+
+    <es-production name="LeftHandSideExpression">
+      <es-rhs><es-nt>CallExpression</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="MemberExpression">
+      <es-rhs><es-nt>MemberExpression</es-nt> [ <es-nt>Expression</es-nt> ]</es-rhs>
+
+      <es-rhs><es-nt>MemberExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+
+      <es-rhs><es-nt>MemberExpression</es-nt> <es-nt>TemplateLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-t>super</es-t> <es-t>[</es-t> <es-nt>Expression</es-nt> <es-t>]</es-t></es-rhs>
+
+      <es-rhs><es-t>super</es-t> <es-t>.</es-t> <es-nt>IdentifierName</es-nt></es-rhs>
+
+      <es-rhs><es-t>new</es-t> <es-t>super</es-t> <es-nt optional>Arguments</es-nt></es-rhs>
+
+      <es-rhs>new <es-nt>MemberExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="NewExpression">
+      <es-rhs><es-t>new</es-t> <es-nt>NewExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: IsValidSimpleAssignmentTarget" anchor=
+  "sec-static-semantics-static-semantics-isvalidsimpleassignmenttarget">
+    <p>See also: <es-xref target=
+    "sec-semantics-static-semantics-isidentifierref">12.1.0.3</es-xref>, <es-xref target=
+    "sec-grouping-operator-static-semantics-isvalidsimpleassignmenttarget">12.1.10.3</es-xref>,
+    <es-xref target=
+    "sec-postfix-expressions-static-semantics-isvalidsimpleassignmenttarget">12.3.3</es-xref>,
+    <es-xref target=
+    "sec-unary-operators-static-semantics-isvalidsimpleassignmenttarget">12.4.3</es-xref>,
+    <es-xref target=
+    "sec-multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget">12.5.2</es-xref>,
+    <es-xref target=
+    "sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget">12.6.2</es-xref>,
+    <es-xref target="sec-semantics-isvalidsimpleassignmenttarget">12.7.2</es-xref>,
+    <es-xref target="sec-relational-operators-static-semantics-isvalidsimpleassignmenttarget">12.8.2</es-xref>,
+    <es-xref target=
+    "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</es-xref>,
+    <es-xref target=
+    "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</es-xref>,
+    <es-xref target=
+    "sec-binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget">12.11.2</es-xref>,
+    <es-xref target=
+    "sec-conditional-operator-static-semantics-isvalidsimpleassignmenttarget">12.12.2</es-xref>,
+    <es-xref target=
+    "sec-assignment-operators-static-semantics-isvalidsimpleassignmenttarget">12.13.3</es-xref>,
+    <es-xref target=
+    "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>.</p>
+
+    <es-production name="CallExpression">
+      <es-rhs><es-nt>CallExpression</es-nt> [ <es-nt>Expression</es-nt> ]</es-rhs>
+
+      <es-rhs><es-nt>CallExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="MemberExpression">
+      <es-rhs><es-nt>MemberExpression</es-nt> [ <es-nt>Expression</es-nt> ]</es-rhs>
+
+      <es-rhs><es-nt>MemberExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+
+      <es-rhs><es-t>super</es-t> <es-t>[</es-t> <es-nt>Expression</es-nt> <es-t>]</es-t></es-rhs>
+
+      <es-rhs><es-t>super</es-t> <es-t>.</es-t> <es-nt>IdentifierName</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>true</b>.</li>
+    </ol>
+
+    <es-production name="CallExpression">
+      <es-rhs><es-nt>MemberExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+
+      <es-rhs><es-t>super</es-t> <es-nt>Arguments</es-nt></es-rhs>
+
+      <es-rhs><es-nt>CallExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+
+      <es-rhs><es-nt>CallExpression</es-nt> <es-nt>TemplateLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-nt>NewExpression</es-nt> : new <es-nt>NewExpression</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="MemberExpression">
+      <es-rhs><es-nt>MemberExpression</es-nt> <es-nt>TemplateLiteral</es-nt></es-rhs>
+
+      <es-rhs><es-t>new</es-t> <es-t>super</es-t> <es-nt optional>Arguments</es-nt></es-rhs>
+
+      <es-rhs>new <es-nt>MemberExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

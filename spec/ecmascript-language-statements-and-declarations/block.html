@@ -43,14 +43,545 @@
       </li>
     </ul>
   </es-clause>
-  <link rel="import" href="block/block-static-semantics-lexicaldeclarations.html">
-  <link rel="import" href="block/block-static-semantics-lexicallydeclarednames.html">
-  <link rel="import" href="block/static-semantics-toplevellexicallydeclarednames.html">
-  <link rel="import" href="block/static-semantics-toplevellexicallyscopeddeclarations.html">
-  <link rel="import" href="block/static-semantics-toplevelvardeclarednames.html">
-  <link rel="import" href="block/static-semantics-toplevelvarscopeddeclarations.html">
-  <link rel="import" href="block/block-static-semantics-vardeclarednames.html">
-  <link rel="import" href="block/block-static-semantics-varscopeddeclarations.html">
-  <link rel="import" href="block/block-runtime-semantics-evaluation.html">
-  <link rel="import" href="block/runtime-semantics-block-declaration-instantiation.html">
+
+  <es-clause title="Static Semantics: LexicalDeclarations" anchor=
+  "sec-block-static-semantics-lexicaldeclarations">
+    <p>See also: <es-xref target=
+    "sec-switch-statement-static-semantics-lexicaldeclarations">13.11.2</es-xref>, <es-xref target=
+    "sec-module-static-semantics-static-semantics-lexicaldeclarations">15.2.0.11</es-xref>.</p>
+
+    <es-production name="StatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>declarations</i> be LexicalDeclarations of <i>StatementList</i>.</li>
+
+      <li>Append to <i>declarations</i> the elements of the LexicalDeclarations of
+      <i>StatementListItem.</i></li>
+
+      <li>Return <i>declarations</i>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing <i>Declaration</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: LexicallyDeclaredNames" anchor=
+  "sec-block-static-semantics-lexicallydeclarednames">
+    <p>See also: <es-xref target=
+    "sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</es-xref>,
+    <es-xref target=
+    "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</es-xref>,
+    <es-xref target=
+    "sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</es-xref>,
+    <es-xref target=
+    "sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</es-xref>,
+    <es-xref target=
+    "sec-module-static-semantics-static-semantics-lexicallydeclarednames">15.2.0.10</es-xref>.</p>
+
+    <es-production name="Block" class="inline">
+      <es-rhs>{ }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="StatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be LexicallyDeclaredNames of <i>StatementList</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the LexicallyDeclaredNames of
+      <i>StatementListItem.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>Declaration</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: TopLevelLexicallyDeclaredNames" anchor=
+  "sec-static-semantics-toplevellexicallydeclarednames">
+    <es-production name="StatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be TopLevelLexicallyDeclaredNames of <i>StatementList</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the TopLevelLexicallyDeclaredNames of
+      <i>StatementListItem.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+      "inline"><es-rhs><es-nt>FunctionDeclaration</es-nt></es-rhs></es-production>
+      , then return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+      "inline"><es-rhs><es-nt>GeneratorDeclaration</es-nt></es-rhs></es-production>
+      , then return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>Return the BoundNames of <i>Declaration</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>At the top level of a function, or script, function declarations are treated like var
+      declarations rather than like lexical declarations.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Static Semantics: TopLevelLexicallyScopedDeclarations" anchor=
+  "sec-static-semantics-toplevellexicallyscopeddeclarations">
+    <es-production name="StatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>declarations</i> be TopLevelLexicallyScopedDeclarations of
+      <i>StatementList</i>.</li>
+
+      <li>Append to <i>declarations</i> the elements of the TopLevelLexicallyScopedDeclarations of
+      <i>StatementListItem.</i></li>
+
+      <li>Return <i>declarations</i>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+      "inline"><es-rhs><es-nt>FunctionDeclaration</es-nt></es-rhs></es-production>
+      , then return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+      "inline"><es-rhs><es-nt>GeneratorDeclaration</es-nt></es-rhs></es-production>
+      , then return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing <i>Declaration</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: TopLevelVarDeclaredNames" anchor=
+  "sec-static-semantics-toplevelvardeclarednames">
+    <es-production name="StatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be TopLevelVarDeclaredNames of <i>StatementList</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the TopLevelVarDeclaredNames of
+      <i>StatementListItem.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+      "inline"><es-rhs><es-nt>FunctionDeclaration</es-nt></es-rhs></es-production>
+      , then return the LexicallyDeclaredNames of <i>Declaration</i>.</li>
+
+      <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+      "inline"><es-rhs><es-nt>GeneratorDeclaration</es-nt></es-rhs></es-production>
+      , then return the LexicallyDeclaredNames of <i>Declaration</i>.</li>
+
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return VarDeclaredNames of <i>Statement</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>At the top level of a function or script, inner function declarations are treated like var
+      declarations.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Static Semantics: TopLevelVarScopedDeclarations" anchor=
+  "sec-static-semantics-toplevelvarscopeddeclarations">
+    <es-production name="StatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>declarations</i> be TopLevelVarScopedDeclarations of <i>StatementList</i>.</li>
+
+      <li>Append to <i>declarations</i> the elements of the TopLevelVarScopedDeclarations of
+      <i>StatementListItem.</i></li>
+
+      <li>Return <i>declarations</i>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>Statement</i> is <es-production name="Statement" class=
+      "inline"><es-rhs><es-nt>VariableStatement</es-nt></es-rhs></es-production>
+      , then return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing <i>VariableStatement</i>.</li>
+
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+      "inline"><es-rhs><es-nt>FunctionDeclaration</es-nt></es-rhs></es-production>
+      , then return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing <i>Declaration</i>.</li>
+
+      <li>If <i>Declaration</i> is <es-production name="Declaration" class=
+      "inline"><es-rhs><es-nt>GeneratorDeclarationDeclaration</es-nt></es-rhs></es-production>
+      , then return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing <i>Declaration</i>.</li>
+
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: VarDeclaredNames" anchor=
+  "sec-block-static-semantics-vardeclarednames">
+    <p>See also: <es-xref target=
+    "sec-statement-semantics-static-semantics-vardeclarednames">13.0.1</es-xref>, <es-xref target=
+    "sec-if-statement-static-semantics-vardeclarednames">13.5.1</es-xref>, <es-xref target=
+    "sec-do-while-statement-static-semantics-vardeclarednames">13.6.1.1</es-xref>, <es-xref target=
+    "sec-while-statement-static-semantics-vardeclarednames">13.6.2.1</es-xref>, <es-xref target=
+    "sec-for-statement-static-semantics-vardeclarednames">13.6.3.1</es-xref>, <es-xref target=
+    "sec-for-in-and-for-of-statements-static-semantics-vardeclarednames">13.6.4.3</es-xref>,
+    <es-xref target="sec-with-statement-static-semantics-vardeclarednames">13.10.2</es-xref>,
+    <es-xref target="sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>,
+    <es-xref target="sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
+    <es-xref target="sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.1.5</es-xref>,
+    <es-xref target=
+    "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+
+    <es-production name="Block" class="inline">
+      <es-rhs>{ }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="StatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be VarDeclaredNames of <i>StatementList</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the VarDeclaredNames of
+      <i>StatementListItem.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: VarScopedDeclarations" anchor=
+  "sec-block-static-semantics-varscopeddeclarations">
+    <p>See also: <es-xref target=
+    "sec-scripts-static-semantics-varscopeddeclarations">15.1.6</es-xref>, <es-xref target=
+    "sec-module-static-semantics-static-semantics-varscopeddeclarations">15.2.0.14</es-xref>..</p>
+
+    <es-production name="StatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>declarations</i> be VarScopedDeclarations of <i>StatementList</i>.</li>
+
+      <li>Append to <i>declarations</i> the elements of the VarScopedDeclarations of
+      <i>StatementListItem.</i></li>
+
+      <li>Return <i>declarations</i>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>Statement</i> is <es-production name="Statement" class=
+      "inline"><es-rhs><es-nt>VariableStatement</es-nt></es-rhs></es-production>
+      , then return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing <i>VariableStatement</i>.</li>
+
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="StatementListItem" class="inline">
+      <es-rhs><es-nt>Declaration</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor="sec-block-runtime-semantics-evaluation">
+    <es-production name="Block" class="inline">
+      <es-rhs>{ }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <es-xref target=
+      "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
+    </ol>
+
+    <es-production name="Block" class="inline">
+      <es-rhs><es-t>{</es-t> <es-nt>StatementList</es-nt> <es-t>}</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>oldEnv</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>’s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+      <li>Let <i>blockEnv</i> be the result of calling <es-xref target=
+      "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing <i>oldEnv</i> as
+      the argument.</li>
+
+      <li>Perform Block Declaration Instantiation using <i>StatementList</i> and
+      <i>blockEnv</i>.</li>
+
+      <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+      <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to
+      <i>blockEnv</i>.</li>
+
+      <li>Let <i>blockValue</i> be the result of evaluating <i>StatementList</i>.</li>
+
+      <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+      <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>oldEnv</i>.</li>
+
+      <li>If <i>blockValue</i>.[[type]] is normal and <i>blockValue</i>.[[value]] is empty, then
+
+        <ol class="block">
+          <li>Return <es-xref target=
+          "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
+        </ol>
+      </li>
+
+      <li>Return <i>blockValue</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>No matter how control leaves the <es-nt>Block</es-nt> the <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref> is always restored to its former
+      state.</p>
+    </es-note>
+
+    <es-production name="StatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>sl</i> be the result of evaluating <i>StatementList</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>sl</i>).</li>
+
+      <li>Let <i>s</i> be the result of evaluating <i>StatementListItem</i>.</li>
+
+      <li>If <i>s</i>.[[type]] is throw, return <i>s</i>.</li>
+
+      <li>If <i>s</i>.[[value]] is empty, let <i>V</i> = <i>sl</i>.[[value]], otherwise let
+      <i>V</i> = <i>s</i>.[[value]].</li>
+
+      <li>Return <es-xref target=
+      "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: <i>s</i>.[[type]],
+      [[value]]: <i>V</i>, [[target]]: <i>s</i>.[[target]]}.</li>
+    </ol>
+
+    <es-note>
+      <p>Steps 5 and 6 of the above algorithm ensure that the value of a
+      <es-nt>StatementList</es-nt> is the value of the last value producing <i>Statement</i> in the
+      <es-nt>StatementList</es-nt>. For example, the following calls to the <code>eval</code>
+      function all return the value 1:</p>
+      <pre>
+eval("1;;;;;")
+</pre>
+      <pre>
+eval("1;{}")
+</pre>
+      <pre>
+eval("1;var a;")
+</pre>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Block Declaration Instantiation" anchor=
+  "sec-runtime-semantics-block-declaration-instantiation">
+    <es-note>
+      <p>When a <es-nt>Block</es-nt> or <es-nt>CaseBlock</es-nt> production is evaluated a new
+      <es-xref target="sec-declarative-environment-records">Declarative Environment
+      Record</es-xref> is created and bindings for each block scoped variable, constant, or
+      function declarated in the block are instantiated in the environment record.</p>
+    </es-note>
+
+    <p>Block Declaration Instantiation is performed as follows using arguments <es-nt>code</es-nt>
+    and <es-nt>env</es-nt>. <es-nt>code</es-nt> is the grammar production corresponding to the body
+    of the block. <es-nt>env</es-nt> is the <es-xref target=
+    "sec-declarative-environment-records">declarative environment record</es-xref> in which
+    bindings are to be created.</p>
+
+    <ol class="proc">
+      <li>Let <i>declarations</i> be the LexicalDeclarations of <i>code</i>.</li>
+
+      <li>Let <i>functionsToInitialise</i> be an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>For each element <i>d</i> in <i>declarations</i> do
+
+        <ol class="block">
+          <li>For each element <i>dn</i> of the BoundNames of <i>d</i> do
+
+            <ol class="block">
+              <li>If IsConstantDeclaration of <i>d</i> is <b>true</b>, then
+
+                <ol class="block">
+                  <li>Call <i>env</i>’s CreateImmutableBinding concrete method passing <i>dn</i> as
+                  the argument.</li>
+                </ol>
+              </li>
+
+              <li>Else,
+
+                <ol class="block">
+                  <li>Let <i>status</i> be the result of calling <i>env</i>’s CreateMutableBinding
+                  concrete method passing <i>dn</i> and <b>false</b> as the arguments.</li>
+
+                  <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>status</i>
+                  is never an <es-xref target="sec-completion-record-specification-type">abrupt
+                  completion</es-xref>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+
+          <li>If <i>d</i> is a <i>GeneratorDeclaration</i> production or a
+          <i>FunctionDeclaration</i> production, then
+
+            <ol class="block">
+              <li>Append <i>d</i> to <i>functionsToInitialise</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>For each production <i>f</i> in <i>functionsToInitialise</i>, in list order do
+
+        <ol class="block">
+          <li>Let <i>fn</i> be the sole element of the BoundNames of <i>f.</i></li>
+
+          <li>Let <i>fo</i> be the result of performing InstantiateFunctionObject for <i>f</i> with
+          argument <i>env</i>.</li>
+
+          <li>Call <i>env</i>’s InitialiseBinding concrete method passing <i>fn</i>, and <i>fo</i>
+          as the arguments.</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
 </es-clause>

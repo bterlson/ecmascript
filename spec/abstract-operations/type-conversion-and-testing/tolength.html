@@ -1,0 +1,16 @@
+<!doctype html>
+<es-clause title="ToLength" anchor="sec-tolength">
+  <p>The abstract operation ToLength converts its <es-nt>argument</es-nt> to an integer suitable
+  for use as the length of an array-like object. It performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>len</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>argument</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+    <li>If <i>len</i> ≤ +0, then return +0.</li>
+
+    <li>Return min(<i>len</i>, 2<sup>53</sup> -1).</li>
+  </ol>
+</es-clause>
