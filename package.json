@@ -6,7 +6,8 @@
   "dependencies": {},
   "devDependencies": {
     "htmlparser2": "~3.4.0",
-    "htmltidy": "0.0.6"
+    "htmltidy": "0.0.6",
+    "glob": "~3.2.8"
   },
   "scripts": {
     "parse": "node tasks/parse.js",

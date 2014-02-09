@@ -1,7 +1,7 @@
 var http = require('http');
+var Glob = require('glob');
+var Path = require('path');
 var htmlparser = require('htmlparser2');
-var handler = new htmlparser.DomHandler({normalizeWhitespace: false});
-
 var fs = require('fs');
 var tidy = require('htmltidy').tidy;
 
@@ -15,24 +15,56 @@ var tidyOptions = {
     verticalSpace: false
 };
 
-http.get('http://people.mozilla.org/~jorendorff/es6-draft.html', function(res) {
-    var spec = '';
-    res.on('data', function(chunk) { spec += chunk })
-    res.on('end', function() {
-        var parser = new htmlparser.Parser(handler);
-        parser.write(spec);
-        parser.end();
-
-        var top = emitSpec(handler.dom)
-        top.id = 'index'
-        top.subsections.splice(0, 1); // remove contents
-        writeSection(top, 'spec/');
-    });
-});
-
 // Not complete
 var voidElems = ["area", "base", "br", "col", "command", "embed", "hr", "img", "input", "keygen",
                  "link", "meta", "param", "source", "track", "wbr"];
+var inlineTags = ['b', 'i', 'code', 'span', 'sub'];
+
+http.get('http://people.mozilla.org/~jorendorff/es6-draft.html', function(res) {
+    var contents = '';
+    res.on('data', function(chunk) { contents += chunk })
+    res.on('end', function() {
+        process(contents);
+    });
+});
+
+function process(specText) {
+    var handler = new htmlparser.DomHandler({normalizeWhitespace: false});
+    var parser = new htmlparser.Parser(handler);
+    parser.write(specText);
+    parser.end();
+
+    var top = emitSpec(handler.dom)
+    top.id = 'index'
+    top.subsections.splice(0, 1); // remove contents
+
+    prepareDirectory('spec');
+    writeSection(top, 'spec/');
+}
+
+function prepareDirectory(spec) {
+    var files = Glob.sync('spec/**/*', { mark: true });
+    var dirs = [];
+
+    files.forEach(function(f) { 
+        if(f[f.length - 1] === '/') {
+            dirs.push(f);
+        } else {
+            if(!f.match(/\.(css|js)$/)) {
+                fs.unlinkSync(f);
+            }
+        }
+    });
+
+    dirs.sort(function(a, b) {
+        var aParts = a.split('/').length;
+        var bParts = b.split('/').length;
+        
+        return bParts - aParts;
+    }).forEach(function(d) {
+        fs.rmdirSync(d);
+    });
+}
 
 function Section() {
     this.contents = '';
@@ -40,14 +72,6 @@ function Section() {
     this.id = null;
     this.secnum = null;
     this.subsections = [];
-}
-
-Section.prototype.printToc = function(indent) {
-    indent = indent || '';
-    console.log(indent + this.id);
-    this.subsections.forEach(function(subsection) {
-        subsection.printToc(indent + '  ');
-    });
 }
 
 function emitAttrs(attrs) {
@@ -60,7 +84,6 @@ function emitAttrs(attrs) {
     }).join(" ");
 }
 
-var inlineTags = ['b', 'i', 'code', 'span', 'sub'];
 function emitTag(node) {
     var attrs = emitAttrs(node.attribs);
 
@@ -579,7 +602,6 @@ function walk(node, cb) {
     }
 }
 
-var Path = require('path');
 
 function writeSection(section, currentPath) {
     var sectionId = section.id.replace('sec-', '');
