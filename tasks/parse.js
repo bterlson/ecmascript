@@ -647,12 +647,10 @@ function walk(node, cb) {
 
 function writeSection(section, currentPath) {
     var sectionId = section.id.replace('sec-', '');
-    var level = sectionId === 'index' ? 0 : 1;
-
     var ssRoot = Path.join(currentPath, sectionId);
     var path = ssRoot + '.html';
 
-    var contents = '<!doctype html>\n';
+    var contents = '';
 
     if(section.id !== 'index') {
         contents += '<es-clause title="' + section.title + '" anchor="' + section.id + '">\n'
@@ -697,9 +695,19 @@ function writeSection(section, currentPath) {
     }
 
     tidy(contents, tidyOptions, function(err, html) {
+        if(section.id === 'index') {
+            html = '<!DOCTYPE html>\n' +
+                   '<meta charset="utf-8">\n' +
+                   '<script src="custom-elements.min.js"></script>\n' +
+                   '<script src="html-imports.min.js"></script>\n' +
+                   '<script src="customElements.js"></script>\n' +
+                   '<link rel="stylesheet" href="customElements.css">\n' +
+                   html;
+        }
+
         html = html.replace(/es-production-inline/g, "es-production")
         html = html.replace(/es-rhs-inline/g, "es-rhs")
 
-        fs.writeFileSync(path, '<!doctype html>\n' + html);
+        fs.writeFileSync(path, html);
     });
 }
