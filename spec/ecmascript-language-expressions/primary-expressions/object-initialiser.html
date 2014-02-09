@@ -79,11 +79,159 @@
     to fully cover these secondary grammars. However, use of this production results in an early
     Syntax Error in normal contexts where an actual <es-nt>ObjectLiteral</es-nt> is expected.</p>
   </es-note>
-  <link rel="import" href=
-  "object-initialiser/object-initialiser-static-semantics-early-errors.html">
-  <link rel="import" href="object-initialiser/object-initialiser-static-semantics-contains.html">
-  <link rel="import" href=
-  "object-initialiser/object-initialiser-static-semantics-hascomputedpropertykey.html">
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-object-initialiser-static-semantics-early-errors">
+    <p>In addition to describing an actual object initialiser the <es-nt>ObjectLiteral</es-nt>
+    productions are also used as a cover grammar for <es-nt>ObjectAssignmentPattern</es-nt>
+    (<es-xref target="sec-destructuring-assignment">12.13.5</es-xref>). When
+    <es-nt>ObjectLiteral</es-nt> appears in a context where <es-nt>ObjectAssignmentPattern</es-nt>
+    is required, the following Early Error rules are <b>not</b> applied.</p>
+
+    <es-production name="ObjectLiteral" class="inline">
+      <es-rhs><es-t>{</es-t> <es-nt>PropertyDefinitionList</es-nt> <es-t>}</es-t></es-rhs>
+    </es-production>
+
+    <p>and</p>
+
+    <es-production name="ObjectLiteral" class="inline">
+      <es-rhs><es-t>{</es-t> <es-nt>PropertyDefinitionList</es-nt> <es-t>,</es-t>
+      <es-t>}</es-t></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if PropertyNameList of <es-nt>PropertyDefinitionList</es-nt>
+        <es-nt>contains any duplicate entries, unless one of the following conditions are true for
+        each duplicate entry:</es-nt></p>
+
+        <ol class="proc">
+          <li>The source code corresponding to <es-nt>PropertyDefinitionList</es-nt> is not
+          <es-xref target="sec-strict-mode-code">strict code</es-xref> and all occurrences in the
+          list of the duplicated entry were obtained from productions of the form
+          <es-production name="PropertyDefinition" class=
+          "inline"><es-rhs><es-nt>PropertyName</es-nt> :
+          <es-nt>AssignmentExpression</es-nt></es-rhs></es-production> .</li>
+
+          <li>The duplicated entry occurs exactly twice in the list and one occurrence was obtained
+          from a <code>get</code> accessor <es-nt>MethodDefinition</es-nt> and the other occurrence
+          was obtained from a <code>set</code> accessor <es-nt>MethodDefinition</es-nt>.</li>
+        </ol>
+      </li>
+    </ul>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if the <es-nt>PropertyDefinition</es-nt> is contained in
+        <es-xref target="sec-strict-mode-code">strict code</es-xref> and if the
+        <es-nt>IdentifierReference</es-nt> is: <code>implements</code>, <code>interface</code>,
+        <code>let</code>, <code>package</code>, <code>private</code>, <code>protected</code>,
+        <code>public</code>, <code>static</code>, or <code>yield</code>.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if <es-nt>IdentifierReference</es-nt> is a
+        <es-nt>ReservedWord</es-nt> other than <code>yield</code><es-nt>.</es-nt></p>
+      </li>
+    </ul>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>CoverInitialisedName</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>Always throw a Syntax Error if this production is present</li>
+    </ul>
+
+    <es-note>
+      <p>This production exists so that <es-nt>ObjectLiteral</es-nt> can serve as a cover grammar
+      for <es-nt>ObjectAssignmentPattern</es-nt> (<es-xref target=
+      "sec-destructuring-assignment">12.13.5</es-xref>). It cannot occur in an actual object
+      initialiser.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Static Semantics: Contains" anchor=
+  "sec-object-initialiser-static-semantics-contains">
+    <p>With parameter <es-nt>symbol</es-nt>.</p>
+
+    <p>See also: <es-xref target="sec-static-semantic-rules">5.3</es-xref>, <es-xref target=
+    "sec-static-semantics-static-semantics-contains">12.2.1.1</es-xref>, <es-xref target=
+    "sec-function-definitions-static-semantics-contains">14.1.4</es-xref>, <es-xref target=
+    "sec-arrow-function-definitions-static-semantics-contains">14.2.3</es-xref>, <es-xref target=
+    "sec-generator-function-definitions-static-semantics-contains">14.4.3</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-contains">14.5.4</es-xref></p>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>MethodDefinition</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>symbol</i> is MethodDefinition, return <b>true</b>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-note>
+      <p>Static semantic rules that depend upon substructure generally do not look into function
+      definitions.</p>
+    </es-note>
+
+    <es-production name="LiteralPropertyName" class="inline">
+      <es-rhs><es-nt>IdentifierName</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If <i>symbol</i> is a <i>ReservedWord</i>, return <b>false</b>.</li>
+
+      <li>If <i>symbol</i> is an <i>Identifier</i> and <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>symbol</i> is the same
+      value as the <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>IdentifierName</i>, return <b>true</b>;</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: HasComputedPropertyKey" anchor=
+  "sec-object-initialiser-static-semantics-hascomputedpropertykey">
+    <p>See also: <es-xref target=
+    "sec-method-definitions-static-semantics-hascomputedpropertykey">14.3.3</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</es-xref></p>
+
+    <es-production name="PropertyDefinitionList" class="inline">
+      <es-rhs><es-nt>PropertyDefinitionList</es-nt> , <es-nt>PropertyDefinition</es-nt></es-rhs>
+    </es-production>
+
+    <p><span class="marker"></span>If HasComputedPropertyKey of <i>PropertyDefinitionList</i> is
+    <b>true</b>, then return <b>true</b>.</p>
+
+    <p><span class="marker"></span>Return HasComputedPropertyKey of <i>PropertyDefinition</i>.</p>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>PropertyName</es-nt> : <es-nt>AssignmentExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return IsComputedPropertyKey of <i>PropertyName</i>.</li>
+    </ol>
+
+    <p class="Note"><i>NOTE	An alternative semantics for this production is given in
+    <es-xref target="sec-__proto___-property-names-in-object-initialisers">B.3.1</es-xref>.</i></p>
+  </es-clause>
 
   <es-clause title="Static Semantics: IsComputedPropertyKey" anchor=
   "sec-static-semantics-iscomputedpropertykey">
@@ -103,7 +251,56 @@
       <li>Return <b>true</b>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href="object-initialiser/object-initialiser-static-semantics-propname.html">
+
+  <es-clause title="Static Semantics:" anchor="sec-object-initialiser-static-semantics-propname">
+    <p>See also: <es-xref target=
+    "sec-method-definitions-static-semantics-propname">14.3.5</es-xref>, <es-xref target=
+    "sec-generator-function-definitions-static-semantics-propname">14.4.8</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-propname">14.5.11</es-xref></p>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>IdentifierReference</i>.</li>
+    </ol>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>PropertyName</es-nt> : <es-nt>AssignmentExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return PropName of <i>PropertyName</i>.</li>
+    </ol>
+
+    <es-production name="LiteralPropertyName" class="inline">
+      <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a String value whose characters are the SV of the <i>StringLiteral</i>.</li>
+    </ol>
+
+    <es-production name="LiteralPropertyName" class="inline">
+      <es-rhs><es-nt>NumericLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>nbr</i> be the result of forming the value of the <i>NumericLiteral</i>.</li>
+
+      <li>Return <es-xref target="sec-tostring">ToString</es-xref>(<i>nbr</i>).</li>
+    </ol>
+
+    <es-production name="ComputedPropertyName" class="inline">
+      <es-rhs><es-t>[</es-t> <es-nt>AssignmentExpression</es-nt> <es-t>]</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return empty.</li>
+    </ol>
+  </es-clause>
 
   <es-clause title="Static Semantics: PropertyNameList" anchor=
   "sec-static-semantics-propertynamelist">
@@ -133,8 +330,219 @@
       <li>Return <i>list</i>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href=
-  "object-initialiser/object-initialiser-runtime-semantics-evaluation.html">
-  <link rel="import" href=
-  "object-initialiser/object-initialiser-runtime-semantics-propertydefinitionevaluation.html">
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-object-initialiser-runtime-semantics-evaluation">
+    <es-production name="ObjectLiteral" class="inline">
+      <es-rhs>{ }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the result of the abstract operation <es-xref target=
+      "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %ObjectPrototype% as its
+      argument.</li>
+    </ol>
+
+    <es-production name="ObjectLiteral">
+      <es-rhs><es-t>{</es-t> <es-nt>PropertyDefinitionList</es-nt> <es-t>}</es-t></es-rhs>
+
+      <es-rhs><es-t>{</es-t> <es-nt>PropertyDefinitionList</es-nt> <es-t>,</es-t>
+      <es-t>}</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>obj</i> be the result of the abstract operation <es-xref target=
+      "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %ObjectPrototype% as its
+      argument.</li>
+
+      <li>Let <i>status</i> be the result of performing PropertyDefinitionEvaluation of
+      <i>PropertyDefinitionList</i> with argument <i>obj</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>IdentifierReference</i>.</li>
+    </ol>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>PropertyName</es-nt> : <es-nt>AssignmentExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the result of evaluating <i>PropertyName</i>.</li>
+    </ol>
+
+    <p><es-production name="LiteralPropertyName" class=
+    "inline"><es-rhs><es-nt>IdentifierName</es-nt></es-rhs></es-production></p>
+
+    <ol class="proc">
+      <li>Return <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>IdentifierName</i>.</li>
+    </ol>
+
+    <es-production name="LiteralPropertyName" class="inline">
+      <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a String value whose characters are the SV of the <i>StringLiteral</i>.</li>
+    </ol>
+
+    <es-production name="LiteralPropertyName" class="inline">
+      <es-rhs><es-nt>NumericLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>nbr</i> be the result of forming the value of the <i>NumericLiteral</i>.</li>
+
+      <li>Return <es-xref target="sec-tostring">ToString</es-xref>(<i>nbr</i>).</li>
+    </ol>
+
+    <es-production name="ComputedPropertyName" class="inline">
+      <es-rhs><es-t>[</es-t> <es-nt>AssignmentExpression</es-nt> <es-t>]</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>exprValue</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+      <li>Let <i>propName</i> be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>exprValue</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propName</i>).</li>
+
+      <li>Return <es-xref target="sec-topropertykey">ToPropertyKey</es-xref>(<i>propName</i>).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: PropertyDefinitionEvaluation" anchor=
+  "sec-object-initialiser-runtime-semantics-propertydefinitionevaluation">
+    <p>With parameter <i>object</i>.</p>
+
+    <p>See also: <es-xref target=
+    "sec-method-definitions-runtime-semantics-propertydefinitionevaluation">14.3.9</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-runtime-semantics-propertydefinitionevaluation">14.4.13</es-xref>,
+    B.3.1</p>
+
+    <es-production name="PropertyDefinitionList" class="inline">
+      <es-rhs><es-nt>PropertyDefinitionList</es-nt> , <es-nt>PropertyDefinition</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>status</i> be the result of performing PropertyDefinitionEvaluation of
+      <i>PropertyDefinitionList</i> with argument <i>object</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>Let <i>propDef</i> be the result of performing PropertyDefinitionEvaluation of
+      <i>PropertyDefinition</i> with argument <i>object</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propDef</i>).</li>
+
+      <li>If <i>propDef</i> is empty, then return <i>propDef.</i></li>
+
+      <li>Let <i>status</i> be the result of <es-xref target=
+      "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>object</i>,
+      <i>propDef.</i>[[key]], <i>propDef</i>.[[descriptor]]).</li>
+
+      <li>Return <i>status</i>.</li>
+    </ol>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>propName</i> be <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>IdentifierReference</i>.</li>
+
+      <li>Let <i>exprValue</i> be the result of evaluating <i>IdentifierReference</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>exprValue</i>).</li>
+
+      <li>Let <i>propValue</i> be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>exprValue</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propValue</i>).</li>
+
+      <li>Let <i>desc</i> be the <es-xref target=
+      "sec-property-descriptor-specification-type">Property Descriptor</es-xref>{[[Value]]:
+      <i>propValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
+      <b>true</b>}</li>
+
+      <li>Return the result of <es-xref target=
+      "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>object</i>, <i>propName</i>,
+      <i>desc</i>).</li>
+    </ol>
+
+    <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>PropertyName</es-nt> : <es-nt>AssignmentExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propKey</i>).</li>
+
+      <li>Let <i>exprValue</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+
+      <li>Let <i>propValue</i> be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>exprValue</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propValue</i>).</li>
+
+      <li>If IsAnonymousFunctionDefinition of <i>AssignmentExpression</i> is <b>true</b>, then
+
+        <ol class="block">
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>propValue</i> is an
+          <es-xref target="sec-ecmascript-function-objects">ECMAScript function
+          object</es-xref>.</li>
+
+          <li>Let <i>referencesSuper</i> be the value of <i>propValue</i>’s [[NeedsSuper]]
+          <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+          slot</es-xref>.</li>
+
+          <li>Let <i>thisMode</i> be the value of <i>propValue</i>’s [[ThisMode]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+          <li>If <i>thisMode</i> is not lexical and <i>referencesSuper</i> is <b>true</b>, then
+
+            <ol class="block">
+              <li>Set the <i>propValue</i>’s [[HomeObject]] <es-xref target=
+              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+              <i>object</i>.</li>
+
+              <li>Set the <i>propValue</i>’s [[MethodName]] <es-xref target=
+              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+              <i>propKey</i>.</li>
+            </ol>
+          </li>
+
+          <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>propValue</i>,
+          <i>propKey</i>).</li>
+        </ol>
+      </li>
+
+      <li>Let <i>desc</i> be the <es-xref target=
+      "sec-property-descriptor-specification-type">Property Descriptor</es-xref>{[[Value]]:
+      <i>propValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
+      <b>true</b>}</li>
+
+      <li>Return the result of <es-xref target=
+      "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>object</i>, <i>propKey</i>,
+      <i>desc</i>).</li>
+    </ol>
+
+    <p class="Note"><i>NOTE	An alternative semantics for this production is given in
+    <es-xref target="sec-__proto___-property-names-in-object-initialisers">B.3.1</es-xref>.</i></p>
+  </es-clause>
 </es-clause>

@@ -1,6 +1,554 @@
 <!doctype html>
 <es-clause title="Tail Position Calls" anchor="sec-tail-position-calls">
-  <link rel="import" href="tail-position-calls/intailposition.html">
-  <link rel="import" href="tail-position-calls/static-semantics-hasproductionintailposition.html">
-  <link rel="import" href="tail-position-calls/runtime-semantics-preparefortailcall.html">
+  <es-clause title="Static Semantics: InTailPosition(nonterminal) Abstract Operation" anchor=
+  "sec-intailposition">
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>nonterminal</i> is a
+      parsed grammar production.</li>
+
+      <li>If the source code matching <i>nonterminal</i> is not <es-xref target=
+      "sec-strict-mode-code">strict code</es-xref>, then return <b>false.</b></li>
+
+      <li>If <i>nonterminal</i> is not contained within a <i>FunctionBody</i> or
+      <i>ConciseBody</i>, then return <b>false</b>.</li>
+
+      <li>Let <i>body</i> be the <i>FunctionBody</i> or <i>ConciseBody</i> that most closely
+      contains <i>nonterminal</i>.</li>
+
+      <li>If <i>body</i> is the <i>FunctionBody</i> of a <i>GeneratorMethod</i>,
+      <i>GeneratorDeclaration</i>, or a <i>GeneratorExpression</i>, then return <b>false</b>.</li>
+
+      <li>Return the result of HasProductionInTailPosition of <i>body</i> with argument
+      <i>nonterminal</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>Tail Position calls are only defined in <es-xref target="sec-strict-mode-code">strict mode
+      code</es-xref> because of a common non-standard language extension (see <es-xref target=
+      "sec-addrestrictedfunctionproperties">9.2.8</es-xref>) that enables observation of the chain
+      of caller contexts.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Static Semantics: HasProductionInTailPosition" anchor=
+  "sec-static-semantics-hasproductionintailposition">
+    <p>With parameter <es-nt>nonterminal</es-nt>.</p>
+
+    <es-clause title="Statement Rules" anchor="sec-statement-rules">
+      <es-production name="ConciseBody" class="inline">
+        <es-rhs><es-nt>AssignmentExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>AssignmentExpression</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <es-production name="StatementList" class="inline">
+        <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>has</i> be HasProductionInTailPosition of <i>StatementList</i> with argument
+        <i>nonterminal</i>.</li>
+
+        <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+        <li>Return HasProductionInTailPosition of <i>StatementListItem</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <p><es-production name="StatementListItem" class=
+      "inline"><es-rhs><es-nt>Declaration</es-nt></es-rhs></es-production></p>
+
+      <es-production name="Statement">
+        <es-rhs><es-nt>VariableStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>EmptyStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ContinueStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>BreakStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ThrowStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>DebuggerStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ReturnStatement</es-nt> <es-t>:</es-t> <es-t>return</es-t>
+        <es-t>;</es-t></es-rhs>
+
+        <es-rhs><es-nt>CaseBlock</es-nt> <es-t>:</es-t> <es-t>{</es-t> <es-t>}</es-t></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <es-production name="IfStatement" class="inline">
+        <es-rhs>if ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt> else
+        <es-nt>Statement</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>has</i> be HasProductionInTailPosition of the first <i>Statement</i> with
+        argument <i>nonterminal</i>.</li>
+
+        <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+        <li>Return HasProductionInTailPosition of the second <i>Statement</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <p><es-production name="IfStatement" class="inline"><es-rhs>if (
+      <es-nt>Expression</es-nt> )
+      <es-nt>Statement</es-nt></es-rhs></es-production></p>
+
+      <es-production name="IterationStatement">
+        <es-rhs>do <es-nt>Statement</es-nt> while ( <es-nt>Expression</es-nt> ) ;</es-rhs>
+
+        <es-rhs>while ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( <es-nt>Expression</es-nt> ; <es-nt>Expression</es-nt> ;
+        <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( var <es-nt>VariableDeclarationList</es-nt> ; <es-nt>Expression</es-nt> ;
+        <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> <es-nt>Expression</es-nt> ;
+        <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> in <es-nt>Expression</es-nt> )
+        <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( var <es-nt>ForBinding</es-nt> in <es-nt>Expression</es-nt> )
+        <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( <es-nt>ForDeclaration</es-nt> in <es-nt>Expression</es-nt> )
+        <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> of <es-nt>AssignmentExpression</es-nt>
+        ) <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( var <es-nt>ForBinding</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+        <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( <es-nt>ForDeclaration</es-nt> of <es-nt>AssignmentExpression</es-nt> )
+        <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>WithStatement</es-nt> : with ( <es-nt>Expression</es-nt> )
+        <es-nt>Statement</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="LabelledStatement">
+        <es-rhs><es-nt>IdentifierReference</es-nt> : <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs><es-t>yield</es-t> <es-t>:</es-t> <es-nt>Statement</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>Statement</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <es-production name="ReturnStatement" class="inline">
+        <es-rhs><es-t>return</es-t> <es-nt>Expression</es-nt> <es-t>;</es-t></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>Expression</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <es-production name="SwitchStatement" class="inline">
+        <es-rhs>switch ( <es-nt>Expression</es-nt> ) <es-nt>CaseBlock</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>CaseBlock</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <es-production name="CaseBlock" class="inline">
+        <es-rhs>{ <es-nt optional>CaseClauses</es-nt> <es-nt>DefaultClause</es-nt> <es-nt optional
+        >CaseClauses</es-nt> }</es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>has</i> be <b>false</b>.</li>
+
+        <li>If the first <i>CaseClauses</i> is present, let <i>has</i> be
+        HasProductionInTailPosition of the first <i>CaseClauses</i> with argument
+        <i>nonterminal</i>.</li>
+
+        <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+        <li>Let <i>has</i> be HasProductionInTailPosition of the <i>DefaultClause</i> with argument
+        <i>nonterminal</i>.</li>
+
+        <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+        <li>If the second <i>CaseClauses</i> is present, let <i>has</i> be
+        HasProductionInTailPosition of the second <i>CaseClauses</i> with argument
+        <i>nonterminal</i>.</li>
+
+        <li>Return <i>has</i>.</li>
+      </ol>
+
+      <es-production name="CaseClauses" class="inline">
+        <es-rhs><es-nt>CaseClauses</es-nt> <es-nt>CaseClause</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>has</i> be HasProductionInTailPosition of <i>CaseClauses</i> with argument
+        <i>nonterminal</i>.</li>
+
+        <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+        <li>Return HasProductionInTailPosition of <i>CaseClause</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <p><es-production name="CaseClause" class="inline"><es-rhs>case
+      <es-nt>Expression</es-nt> : <es-nt optional
+      >StatementList</es-nt></es-rhs></es-production></p>
+
+      <es-production name="DefaultClause" class="inline">
+        <es-rhs><es-t>default</es-t> <es-t>:</es-t> <es-nt optional>StatementList</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>If <i>StatementList</i> is present, return HasProductionInTailPosition of
+        <i>StatementList</i> with argument <i>nonterminal</i>.</li>
+
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <es-production name="TryStatement" class="inline">
+        <es-rhs>try <es-nt>Block</es-nt> <es-nt>Catch</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>Catch</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <p><es-production name="TryStatement" class="inline"><es-rhs>try
+      <es-nt>Block</es-nt> <es-nt>Finally</es-nt></es-rhs></es-production></p>
+
+      <es-production name="TryStatement" class="inline">
+        <es-rhs>try <es-nt>Block</es-nt> <es-nt>Catch</es-nt> <es-nt>Finally</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>Finally</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <es-production name="Catch" class="inline">
+        <es-rhs>catch ( <es-nt>CatchParameter</es-nt> ) <es-nt>Block</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>Finally</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Expression Rules" anchor="sec-expression-rules">
+      <es-note>
+        <p>A potential tail position call that is immediately followed by return <es-xref target=
+        "sec-getvalue">GetValue</es-xref> of the call result is also a possible tail position call.
+        Functional calls can not return reference values, so such a <es-xref target=
+        "sec-getvalue">GetValue</es-xref> operation will always returns the same value as the
+        actual function call result.</p>
+      </es-note>
+
+      <es-production name="AssignmentExpression">
+        <es-rhs><es-nt>ConditionalExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>YieldExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ArrowFunction</es-nt></es-rhs>
+
+        <es-rhs><es-nt>LeftHandSideExpression</es-nt> =
+        <es-nt>AssignmentExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>LeftHandSideExpression</es-nt> <es-nt>AssignmentOperator</es-nt>
+        <es-nt>AssignmentExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>BitwiseANDExpression</es-nt> : <es-nt>BitwiseANDExpression</es-nt> &amp;
+        <es-nt>EqualityExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>BitwiseXORExpression</es-nt> : <es-nt>BitwiseXORExpression</es-nt> ^
+        <es-nt>BitwiseANDExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>BitwiseORExpression</es-nt> : <es-nt>BitwiseORExpression</es-nt> |
+        <es-nt>BitwiseXORExpression</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="EqualityExpression">
+        <es-rhs><es-nt>EqualityExpression</es-nt> == <es-nt>RelationalExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>EqualityExpression</es-nt> != <es-nt>RelationalExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>EqualityExpression</es-nt> === <es-nt>RelationalExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>EqualityExpression</es-nt> !== <es-nt>RelationalExpression</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="RelationalExpression">
+        <es-rhs><es-nt>RelationalExpression</es-nt> &lt; <es-nt>ShiftExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>RelationalExpression</es-nt> &gt; <es-nt>ShiftExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>RelationalExpression</es-nt> &lt;= <es-nt>ShiftExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>RelationalExpression</es-nt> &gt;= <es-nt>ShiftExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>RelationalExpression</es-nt> instanceof
+        <es-nt>ShiftExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>RelationalExpression</es-nt> in <es-nt>ShiftExpression</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="ShiftExpression">
+        <es-rhs><es-nt>ShiftExpression</es-nt> &lt;&lt; <es-nt>AdditiveExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ShiftExpression</es-nt> &gt;&gt; <es-nt>AdditiveExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ShiftExpression</es-nt> &gt;&gt;&gt;
+        <es-nt>AdditiveExpression</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="AdditiveExpression">
+        <es-rhs><es-nt>AdditiveExpression</es-nt> +
+        <es-nt>MultiplicativeExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>AdditiveExpression</es-nt> -
+        <es-nt>MultiplicativeExpression</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="MultiplicativeExpression">
+        <es-rhs><es-nt>MultiplicativeExpression</es-nt> * <es-nt>UnaryExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>MultiplicativeExpression</es-nt> / <es-nt>UnaryExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>MultiplicativeExpression</es-nt> % <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="UnaryExpression">
+        <es-rhs><es-t>delete</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+        <es-rhs><es-t>void</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+        <es-rhs><es-t>typeof</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+        <es-rhs><es-t>++</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+        <es-rhs><es-t>--</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+        <es-rhs><es-t>+</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+        <es-rhs><es-t>-</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+        <es-rhs><es-t>~</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+        <es-rhs><es-t>!</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="PostfixExpression">
+        <es-rhs><es-nt>LeftHandSideExpression</es-nt> <es-t>++</es-t></es-rhs>
+
+        <es-rhs><es-nt>LeftHandSideExpression</es-nt> <es-t>--</es-t></es-rhs>
+      </es-production>
+
+      <es-production name="CallExpression">
+        <es-rhs><es-nt>CallExpression</es-nt> [ <es-nt>Expression</es-nt> ]</es-rhs>
+
+        <es-rhs><es-nt>CallExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="MemberExpression">
+        <es-rhs><es-nt>MemberExpression</es-nt> [ <es-nt>Expression</es-nt> ]</es-rhs>
+
+        <es-rhs><es-nt>MemberExpression</es-nt> . <es-nt>IdentifierName</es-nt></es-rhs>
+
+        <es-rhs><es-t>super</es-t> <es-t>[</es-t> <es-nt>Expression</es-nt> <es-t>]</es-t></es-rhs>
+
+        <es-rhs><es-t>super</es-t> <es-t>.</es-t> <es-nt>IdentifierName</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="PrimaryExpression">
+        <es-rhs>this</es-rhs>
+
+        <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
+
+        <es-rhs><es-nt>Literal</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ArrayInitialiser</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ObjectLiteral</es-nt></es-rhs>
+
+        <es-rhs><es-nt>FunctionExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ClassExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>GeneratorExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>GeneratorComprehension</es-nt></es-rhs>
+
+        <es-rhs><es-nt>RegularExpressionLiteral</es-nt></es-rhs>
+
+        <es-rhs><es-nt>TemplateLiteral</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <es-production name="Expression">
+        <es-rhs><es-nt>AssignmentExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>Expression</es-nt> , <es-nt>AssignmentExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>AssignmentExpression</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <es-production name="ConditionalExpression" class="inline">
+        <es-rhs><es-nt>LogicalORExpression</es-nt> ? <es-nt>AssignmentExpression</es-nt> :
+        <es-nt>AssignmentExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>has</i> be HasProductionInTailPosition of the first <i>AssignmentExpression</i>
+        with argument <i>nonterminal</i>.</li>
+
+        <li>If <i>has</i> is <b>true,</b> then return <b>true</b>.</li>
+
+        <li>Return HasProductionInTailPosition of the second <i>AssignmentExpression</i> with
+        argument <i>nonterminal</i>.</li>
+      </ol>
+
+      <es-production name="LogicalANDExpression" class="inline">
+        <es-rhs><es-nt>LogicalANDExpression</es-nt> &amp;&amp;
+        <es-nt>BitwiseORExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>BitwiseORExpression</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <es-production name="LogicalORExpression" class="inline">
+        <es-rhs><es-nt>LogicalORExpression</es-nt> || <es-nt>LogicalANDExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>LogicalANDExpression</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <es-production name="CallExpression">
+        <es-rhs><es-nt>MemberExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+
+        <es-rhs><es-t>super</es-t> <es-nt>Arguments</es-nt></es-rhs>
+
+        <es-rhs><es-nt>CallExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+
+        <es-rhs><es-nt>CallExpression</es-nt> <es-nt>TemplateLiteral</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>If this <i>CallExpression</i> is nonterminal<b>,</b> then return <b>true</b>.</li>
+
+        <li>Return <b>undefined</b>.</li>
+      </ol>
+
+      <es-production name="MemberExpression">
+        <es-rhs><es-nt>MemberExpression</es-nt> <es-nt>TemplateLiteral</es-nt></es-rhs>
+
+        <es-rhs><es-t>new</es-t> <es-t>super</es-t> <es-nt optional>Arguments</es-nt></es-rhs>
+
+        <es-rhs>new <es-nt>MemberExpression</es-nt> <es-nt>Arguments</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>If this <i>MemberExpression</i> is <i>nonTerminal</i><b>,</b> then return
+        <b>true</b>.</li>
+
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <es-production name="NewExpression">
+        <es-rhs><es-t>new</es-t> <es-nt>NewExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>If this <i>NewExpression</i> is <i>nonterminal</i><b>,</b> then return
+        <b>true</b>.</li>
+
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <es-production name="PrimaryExpression" class="inline">
+        <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>expr</i> be CoveredParenthesisedExpression of
+        <i>CoverParenthesisedExpressionAndArrowParameterList</i>.</li>
+
+        <li>Return HasProductionInTailPosition of <i>expr</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+
+      <es-production name="ParenthesisedExpression">
+        <es-rhs><es-t>(</es-t> <es-nt>Expression</es-nt> <es-t>)</es-t></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Return HasProductionInTailPosition of <i>Expression</i> with argument
+        <i>nonterminal</i>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: PrepareForTailCall" anchor=
+  "sec-runtime-semantics-preparefortailcall">
+    <p>The abstract operation PrepareForTailCall performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>leafContext</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>.</li>
+
+      <li><es-xref target="sec-execution-contexts">Suspend</es-xref> <i>leafContext</i>.</li>
+
+      <li>Pop <i>leafContext</i> from the <es-xref target="sec-execution-contexts">execution
+      context context stack</es-xref>. The <es-xref target="sec-execution-contexts">execution
+      context</es-xref> now on the top of the stack becomes <es-xref target=
+      "sec-execution-contexts">the running execution context</es-xref>, however it remains in its
+      <es-xref target="sec-execution-contexts">suspended</es-xref> state.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>leafContext</i> has no
+      further use. It will never be activated as <es-xref target="sec-execution-contexts">the
+      running execution context</es-xref>.</li>
+    </ol>
+
+    <p>A tail position call must either release any transient internal resources associated with
+    the currently executing function <es-xref target="sec-execution-contexts">execution
+    context</es-xref> before invoking the target function or reuse those resources in support of
+    the target function.</p>
+
+    <es-note>
+      <p>For example, a tail position call should only grow an implementation’s activication record
+      stack by the amount that the size of the target function’s activation record exceeds the size
+      of the calling function’s activation record. If the target function’s activation record is
+      smaller, then the total size of the stack should decrease.</p>
+    </es-note>
+  </es-clause>
 </es-clause>

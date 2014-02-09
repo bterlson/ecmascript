@@ -7,7 +7,107 @@
 
   <p>Besides the <code>length</code> property (whose value is <b>1</b>), the Object constructor has
   the following properties:</p>
-  <link rel="import" href="properties-of-the-object-constructor/object.assign.html">
+
+  <es-clause title="Object.assign ( target, source )" anchor="sec-object.assign">
+    <p>The <b>assign</b> function is used to copy the values of all of the enumerable own
+    properties from a <es-nt>source</es-nt> object to a <es-nt>target</es-nt> object. When the
+    <b>assign</b> function is called, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>to</i> be <es-xref target="sec-toobject">ToObject</es-xref>(<i>target</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>to</i>).</li>
+
+      <li>Let <i>from</i> be <es-xref target="sec-toobject">ToObject</es-xref>(<i>source</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>from</i>).</li>
+
+      <li>Let <i>keys</i> be the result of calling the [[OwnPropertyKeys]] internal method of
+      <i>source</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keys</i>).</li>
+
+      <li>Let <i>gotAllNames</i> be <b>false</b>.</li>
+
+      <li>Let <i>pendingException</i> be <b>undefined</b>.</li>
+
+      <li>Repeat while <i>gotAllNames</i> is <b>false</b>,
+
+        <ol class="block">
+          <li>Let <i>next</i> be the result of <es-xref target=
+          "sec-iteratorstep">IteratorStep</es-xref>(<i>keys</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+          <li>If <i>next</i> is <b>false</b>, then let <i>gotAllNames</i> be <b>true</b>.</li>
+
+          <li>Else,
+
+            <ol class="block">
+              <li>Let <i>nextKey</i> be <es-xref target=
+              "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+              <li><es-xref target=
+              "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextKey</i>).</li>
+
+              <li>Let <i>desc</i> be the result of calling the [[GetOwnProperty]] internal method
+              of <i>from</i> with argument <i>nextKey</i>.</li>
+
+              <li>If <i>desc</i> is an <es-xref target="sec-completion-record-specification-type">
+                abrupt completion</es-xref>, then
+
+                <ol class="block">
+                  <li>If <i>pendingException</i> is <b>undefined</b>, then set
+                  <i>pendingException</i> to <i>desc</i>.</li>
+                </ol>
+              </li>
+
+              <li>Else if <i>desc</i> is not <b>undefined</b> and <i>desc</i>.[[Enumerable]] is <b>
+                true</b>, then
+
+                <ol class="block">
+                  <li>Let propValue be <es-xref target="sec-get-o-p">Get</es-xref>(from,
+                  nextKey).</li>
+
+                  <li>If propValue is an <es-xref target=
+                  "sec-completion-record-specification-type">abrupt completion</es-xref>, then
+
+                    <ol class="block">
+                      <li>If pendingException is <b>undefined</b>, then set pendingException to
+                      propValue.</li>
+                    </ol>
+                  </li>
+
+                  <li>else
+
+                    <ol class="block">
+                      <li>Let <i>status</i> be <es-xref target=
+                      "sec-put-o-p-v-throw">Put</es-xref>(<i>to</i>, <i>nextKey</i>,
+                      <i>propValue</i>, <b>true</b>);</li>
+
+                      <li>If <i>status</i> is an <es-xref target=
+                      "sec-completion-record-specification-type">abrupt completion</es-xref>, then
+
+                        <ol class="block">
+                          <li>If pendingException is <b>undefined</b>, then set pendingException to
+                          status.</li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>If <i>pendingException</i> is not <b>undefined</b>, then return
+      <i>pendingException</i>.</li>
+
+      <li>Return <i>to</i>.</li>
+    </ol>
+  </es-clause>
 
   <es-clause title="Object.create ( O [, Properties] )" anchor="sec-object.create">
     <p>The <b>create</b> function creates a new object with a specified prototype. When the
@@ -32,8 +132,126 @@
       <li>Return <i>obj</i>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href="properties-of-the-object-constructor/object.defineproperties.html">
-  <link rel="import" href="properties-of-the-object-constructor/object.defineproperty.html">
+
+  <es-clause title="Object.defineProperties ( O, Properties )" anchor=
+  "sec-object.defineproperties">
+    <p>The <b>defineProperties</b> function is used to add own properties and/or update the
+    attributes of existing own properties of an object. When the <b>defineProperties</b> function
+    is called, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Return the result of the abstract operation <es-xref target=
+      "sec-objectdefineproperties">ObjectDefineProperties</es-xref> with arguments <i>O</i> and
+      <i>Properties</i>.</li>
+    </ol>
+
+    <es-clause title="Runtime Semantics: ObjectDefineProperties Abstract Operation" anchor=
+    "sec-objectdefineproperties">
+      <p>The abstract operation ObjectDefineProperties with arguments <i>O</i> and
+      <i>Properties</i> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+        not Object throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>props</i> be <es-xref target=
+        "sec-toobject">ToObject</es-xref>(<i>Properties</i>).</li>
+
+        <li>Let <i>names</i> be a <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> containing the keys of each
+        enumerable own property of <i>props.</i></li>
+
+        <li>Let <i>descriptors</i> be an empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>For each element <i>P</i> of <i>names</i> in list order,
+
+          <ol class="block">
+            <li>Let <i>descObj</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(
+            <i>props</i>, <i>P</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>descObj</i>).</li>
+
+            <li>Let <i>desc</i> be the result of calling <es-xref target=
+            "sec-topropertydescriptor">ToPropertyDescriptor</es-xref> with <i>descObj</i> as the
+            argument.</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>desc</i>).</li>
+
+            <li>Append the pair (a two element <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref>) consisting of <i>P</i> and
+            <i>desc</i> to the end of <i>descriptors</i>.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>pendingException</i> be <b>undefined</b>.</li>
+
+        <li>For each <i>pair</i> from <i>descriptors</i> in list order,
+
+          <ol class="block">
+            <li>Let <i>P</i> be the first element of <i>pair</i>.</li>
+
+            <li>Let <i>desc</i> be the second element of <i>pair</i>.</li>
+
+            <li>Let <i>status</i> be the result of <es-xref target=
+            "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>O</i>,<i>P</i>,
+            <i>desc</i>).</li>
+
+            <li>If <i>status</i> is an <es-xref target="sec-completion-record-specification-type">
+              abrupt completion</es-xref> then,
+
+              <ol class="block">
+                <li>If <i>pendingException</i> is <b>undefined</b>, then set
+                <i>pendingException</i> to <i>status</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>pendingException</i>).</li>
+
+        <li>Return <i>O</i>.</li>
+      </ol>
+
+      <p>If an implementation defines a specific order of enumeration for the for-in statement,
+      that same enumeration order must be used to order the list elements in step 3 of this
+      algorithm.</p>
+
+      <es-note>
+        <p>An exception in defining an individual property in step 7 does not terminate the process
+        of defining other properties. All valid property definitions are processed.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Object.defineProperty ( O, P, Attributes )" anchor="sec-object.defineproperty">
+    <p>The <b>defineProperty</b> function is used to add an own property and/or update the
+    attributes of an existing own property of an object. When the <b>defineProperty</b> function is
+    called, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is not
+      Object throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>key</i> be <es-xref target=
+      "sec-topropertykey">ToPropertyKey</es-xref>(<i>P</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>key</i>).</li>
+
+      <li>Let <i>desc</i> be the result of calling <es-xref target=
+      "sec-topropertydescriptor">ToPropertyDescriptor</es-xref>(<i>Attributes</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>desc</i>).</li>
+
+      <li>Let <i>success</i> be the result of <es-xref target=
+      "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>O,key</i>, <i>desc</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>success</i>).</li>
+
+      <li>Return <i>O</i>.</li>
+    </ol>
+  </es-clause>
 
   <es-clause title="Object.freeze ( O )" anchor="sec-object.freeze">
     <p>When the <b>freeze</b> function is called, the following steps are taken:</p>
@@ -86,7 +304,74 @@
       String).</li>
     </ol>
   </es-clause>
-  <link rel="import" href="properties-of-the-object-constructor/object.getownpropertysymbols.html">
+
+  <es-clause title="Object.getOwnPropertySymbols ( O )" anchor="sec-object.getownpropertysymbols">
+    <p>When the <b>getOwnPropertySymbols</b> function is called with argument <es-nt>O</es-nt>, the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Return <es-xref target="sec-getownpropertykeys">GetOwnPropertyKeys</es-xref>(<i>O</i>,
+      Symbol).</li>
+    </ol>
+
+    <es-clause title="GetOwnPropertyKeys ( O, Type ) Abstract Operation" anchor=
+    "sec-getownpropertykeys">
+      <p>The abstract operation GetOwnPropertyKeys is called with arguments <es-nt>O</es-nt> and
+      <es-nt>Type</es-nt> where <es-nt>O</es-nt> is an Object and <es-nt>Type</es-nt> is one of the
+      ECMAScript specification types String or Symbol. The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>obj</i> be <es-xref target="sec-toobject">ToObject</es-xref>(<i>O</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
+
+        <li>Let <i>keys</i> be the result of calling the [[OwnPropertyKeys]] internal method of
+        <i>obj</i>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keys</i>).</li>
+
+        <li>Let <i>nameList</i> be a new empty <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>Let <i>gotAllNames</i> be <b>false</b>.</li>
+
+        <li>Repeat while <i>gotAllNames</i> is <b>false</b>,
+
+          <ol class="block">
+            <li>Let <i>next</i> be the result of <es-xref target=
+            "sec-iteratorstep">IteratorStep</es-xref>(<i>keys</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+            <li>If <i>next</i> is <b>false</b>, then let <i>gotAllNames</i> be <b>true</b>.</li>
+
+            <li>Else,
+
+              <ol class="block">
+                <li>Let <i>nextKey</i> be <es-xref target=
+                "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextKey</i>).</li>
+
+                <li>If <es-xref target=
+                "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>nextKey</i>) is
+                <i>Type</i>, then
+
+                  <ol class="block">
+                    <li>Append <i>nextKey</i> as the last element of <i>nameList</i>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Return <es-xref target=
+        "sec-createarrayfromlist">CreateArrayFromList</es-xref>(<i>nameList</i>).</li>
+      </ol>
+    </es-clause>
+  </es-clause>
 
   <es-clause title="Object.getPrototypeOf ( O )" anchor="sec-object.getprototypeof">
     <p>When the <code>getPrototypeOf</code> function is called with argument <es-nt>O</es-nt>, the
@@ -149,7 +434,76 @@
       "<code>sealed</code>").</li>
     </ol>
   </es-clause>
-  <link rel="import" href="properties-of-the-object-constructor/object.keys.html">
+
+  <es-clause title="Object.keys ( O )" anchor="sec-object.keys">
+    <p>When the <b>keys</b> function is called with argument <es-nt>O</es-nt>, the following steps
+    are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>obj</i> be <es-xref target="sec-toobject">ToObject</es-xref>(<i>O</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
+
+      <li>Let <i>keys</i> be the result of calling the [[OwnPropertyKeys]] internal method of
+      <i>obj</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keys</i>).</li>
+
+      <li>Let <i>nameList</i> be a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>Let <i>gotAllNames</i> be <b>false</b>.</li>
+
+      <li>Repeat while <i>gotAllNames</i> is <b>false</b>,
+
+        <ol class="block">
+          <li>Let <i>next</i> be the result of <es-xref target=
+          "sec-iteratorstep">IteratorStep</es-xref>(<i>keys</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+          <li>If <i>next</i> is <b>false</b>, then let <i>gotAllNames</i> be <b>true</b>.</li>
+
+          <li>Else,
+
+            <ol class="block">
+              <li>Let <i>nextKey</i> be <es-xref target=
+              "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+              <li><es-xref target=
+              "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextKey</i>).</li>
+
+              <li>If <es-xref target=
+              "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>nextKey</i>) is String, then
+
+                <ol class="block">
+                  <li>Let <i>desc</i> be the result of calling the [[GetOwnProperty]] internal
+                  method of <i>O</i> with argument <i>nextKey</i>.</li>
+
+                  <li><es-xref target=
+                  "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>desc</i>).</li>
+
+                  <li>If <i>desc</i> is not <b>undefined</b> and <i>desc</i>.[[Enumerable]] is <b>
+                    true</b>, then
+
+                    <ol class="block">
+                      <li>Append <i>nextKey</i> as the last element of <i>nameList</i>.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return <es-xref target=
+      "sec-createarrayfromlist">CreateArrayFromList</es-xref>(<i>nameList</i>).</li>
+    </ol>
+
+    <p>If an implementation defines a specific order of enumeration for the for-in statement, the
+    same order must be used for the elements of the array returned in step 8.</p>
+  </es-clause>
 
   <es-clause title="Object.preventExtensions ( O )" anchor="sec-object.preventextensions">
     <p>When the <b>preventExtensions</b> function is called, the following steps are taken:</p>

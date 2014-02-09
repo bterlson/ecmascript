@@ -1,10 +1,330 @@
 <!doctype html>
 <es-clause title="Testing and Comparison Operations" anchor=
 "sec-testing-and-comparison-operations">
-  <link rel="import" href="testing-and-comparison-operations/checkobjectcoercible.html">
-  <link rel="import" href="testing-and-comparison-operations/iscallable.html">
-  <link rel="import" href="testing-and-comparison-operations/samevalue.html">
-  <link rel="import" href="testing-and-comparison-operations/samevaluezero.html">
+  <es-clause title="CheckObjectCoercible" anchor="sec-checkobjectcoercible">
+    <p>The abstract operation CheckObjectCoercible throws an error if its argument is a value that
+    cannot be converted to an Object using <es-xref target="sec-toobject">ToObject</es-xref>. It is
+    defined by <a href="#table-14">Table 14</a> :</p>
+
+    <figure>
+      <figcaption>
+        <span id="table-14">Table 14</span>&nbsp;— CheckObjectCoercible Results
+      </figcaption>
+
+      <table class="real-table">
+        <tr>
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+          Argument Type</th>
+
+          <th style=
+          "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+          Result</th>
+        </tr>
+
+        <tr>
+          <td><es-xref target="sec-completion-record-specification-type">Completion
+          Record</es-xref></td>
+
+          <td>If <i>argument</i> is an <es-xref target=
+          "sec-completion-record-specification-type">abrupt completion</es-xref>, return
+          <i>argument</i>. Otherwise return CheckObjectCoercible(<i>argument</i>.[[value]])</td>
+        </tr>
+
+        <tr>
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+          Undefined</td>
+
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+          Throw a <b>TypeError</b> exception.</td>
+        </tr>
+
+        <tr>
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Null</td>
+
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Throw a <b>TypeError</b> exception.</td>
+        </tr>
+
+        <tr>
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Boolean</td>
+
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Return <i>argument</i></td>
+        </tr>
+
+        <tr>
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Number</td>
+
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Return <i>argument</i></td>
+        </tr>
+
+        <tr>
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          String</td>
+
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Return <i>argument</i></td>
+        </tr>
+
+        <tr>
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Symbol</td>
+
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Return <i>argument</i></td>
+        </tr>
+
+        <tr>
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Object</td>
+
+          <td style=
+          "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+          Return <i>argument</i></td>
+        </tr>
+      </table>
+    </figure>
+  </es-clause>
+
+  <es-clause title="IsCallable" anchor="sec-iscallable">
+    <p>The abstract operation IsCallable determines if its <es-nt>argument</es-nt>, which must be
+    an <es-xref target="sec-ecmascript-language-types">ECMAScript language value</es-xref> or a
+    <es-xref target="sec-completion-record-specification-type">Completion Record</es-xref>, is a
+    callable function Object according to <a href="#table-15">Table 15</a> :</p>
+
+    <figure>
+      <figcaption>
+        <span id="table-15">Table 15</span> — IsCallable Results
+      </figcaption>
+
+      <table class="real-table">
+        <tr>
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+          Argument Type</th>
+
+          <th style=
+          "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+          Result</th>
+        </tr>
+
+        <tr>
+          <td><es-xref target="sec-completion-record-specification-type">Completion
+          Record</es-xref></td>
+
+          <td>If <es-nt>argument</es-nt> is an <es-xref target=
+          "sec-completion-record-specification-type">abrupt completion</es-xref>, return
+          <es-nt>argument</es-nt>. Otherwise return
+          IsCallable(<es-nt>argument</es-nt>.[[value]])</td>
+        </tr>
+
+        <tr>
+          <td>Undefined</td>
+
+          <td>Return <b>false</b>.</td>
+        </tr>
+
+        <tr>
+          <td>Null</td>
+
+          <td>Return <b>false</b>.</td>
+        </tr>
+
+        <tr>
+          <td>Boolean</td>
+
+          <td>Return <b>false</b>.</td>
+        </tr>
+
+        <tr>
+          <td>Number</td>
+
+          <td>Return <b>false</b>.</td>
+        </tr>
+
+        <tr>
+          <td>String</td>
+
+          <td>Return <b>false</b>.</td>
+        </tr>
+
+        <tr>
+          <td>Symbol</td>
+
+          <td>Return <b>false</b>.</td>
+        </tr>
+
+        <tr>
+          <td>Object</td>
+
+          <td>If <es-nt>argument</es-nt> has a [[Call]] internal method, then return <b>true</b>,
+          otherwise return <b>false</b>.</td>
+        </tr>
+      </table>
+    </figure>
+  </es-clause>
+
+  <es-clause title="SameValue(x, y)" anchor="sec-samevalue">
+    <p>The internal comparison abstract operation SameValue(<es-nt>x</es-nt>, <es-nt>y</es-nt>),
+    where <es-nt>x</es-nt> and <es-nt>y</es-nt> are <es-xref target=
+    "sec-ecmascript-language-types">ECMAScript language values</es-xref>, produces <b>true</b> or
+    <b>false</b>. Such a comparison is performed as follows:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>x</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>y</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      different from <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>), return <b>false</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Undefined, return <b>true</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Null, return <b>true</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Number, then
+
+        <ol class="block">
+          <li>If <i>x</i> is NaN and <i>y</i> is NaN, return <b>true</b>.</li>
+
+          <li>If <i>x</i> is +0 and <i>y</i> is -0, return <b>false</b>.</li>
+
+          <li>If <i>x</i> is -0 and <i>y</i> is +0, return <b>false</b>.</li>
+
+          <li>If <i>x</i> is the same Number value as <i>y</i>, return <b>true</b>.</li>
+
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      String, then
+
+        <ol class="block">
+          <li>If <i>x</i> and <i>y</i> are exactly the same sequence of code units (same length and
+          same code units in corresponding positions) return <b>true</b>; otherwise, return
+          <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Boolean, then
+
+        <ol class="block">
+          <li>If <i>x</i> and <i>y</i> are both <b>true</b> or both <b>false</b>, then return
+          <b>true</b>; otherwise, return <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Symbol, then
+
+        <ol class="block">
+          <li>If <i>x</i> and <i>y</i> are both the same Symbol value, then return <b>true</b>;
+          otherwise, return <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>Return <b>true</b> if <i>x</i> and <i>y</i> are the same Object value. Otherwise, return
+      <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="SameValueZero(x, y)" anchor="sec-samevaluezero">
+    <p>The internal comparison abstract operation SameValueZero(<es-nt>x</es-nt>,
+    <es-nt>y</es-nt>), where <es-nt>x</es-nt> and <es-nt>y</es-nt> are <es-xref target=
+    "sec-ecmascript-language-types">ECMAScript language values</es-xref>, produces <b>true</b> or
+    <b>false</b>. Such a comparison is performed as follows:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>x</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>y</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      different from <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>), return <b>false</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Undefined, return <b>true</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Null, return <b>true</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Number, then
+
+        <ol class="block">
+          <li>If <i>x</i> is NaN and <i>y</i> is NaN, return <b>true</b>.</li>
+
+          <li>If <i>x</i> is +0 and <i>y</i> is -0, return <b>true</b>.</li>
+
+          <li>If <i>x</i> is -0 and <i>y</i> is +0, return <b>true</b>.</li>
+
+          <li>If <i>x</i> is the same Number value as <i>y</i>, return <b>true</b>.</li>
+
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      String, then
+
+        <ol class="block">
+          <li>If <i>x</i> and <i>y</i> are exactly the same sequence of code units (same length and
+          same code units in corresponding positions) return <b>true</b>; otherwise, return
+          <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Boolean, then
+
+        <ol class="block">
+          <li>If <i>x</i> and <i>y</i> are both <b>true</b> or both <b>false</b>, then return
+          <b>true</b>; otherwise, return <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Symbol, then
+
+        <ol class="block">
+          <li>If <i>x</i> and <i>y</i> are both the same Symbol value, then return <b>true</b>;
+          otherwise, return <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>Return <b>true</b> if <i>x</i> and <i>y</i> are the same Object value. Otherwise, return
+      <b>false</b>.</li>
+    </ol>
+
+    <es-note>
+      <p>SameValueZero differs from SameValue only in its treatment of +0 and -0.</p>
+    </es-note>
+  </es-clause>
 
   <es-clause title="IsConstructor" anchor="sec-isconstructor">
     <p>The abstract operation IsConstructor determines if its <es-nt>argument</es-nt>, which must
@@ -55,7 +375,256 @@
       <li>Return the result of calling the [[IsExtensible]] internal method of <i>O</i>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href="testing-and-comparison-operations/abstract-relational-comparison.html">
-  <link rel="import" href="testing-and-comparison-operations/abstract-equality-comparison.html">
-  <link rel="import" href="testing-and-comparison-operations/strict-equality-comparison.html">
+
+  <es-clause title="Abstract Relational Comparison" anchor="sec-abstract-relational-comparison">
+    <p>The comparison <es-nt>x</es-nt> &lt; <es-nt>y</es-nt>, where <es-nt>x</es-nt> and
+    <es-nt>y</es-nt> are values, produces <b>true</b>, <b>false</b>, or <b>undefined</b> (which
+    indicates that at least one operand is <b>NaN</b>). In addition to <es-nt>x</es-nt> and
+    <es-nt>y</es-nt> the algorithm takes a Boolean flag named <es-nt>LeftFirst</es-nt> as a
+    parameter. The flag is used to control the order in which operations with potentially visible
+    side-effects are performed upon <es-nt>x</es-nt> and <es-nt>y</es-nt>. It is necessary because
+    ECMAScript specifies left to right evaluation of expressions. The default value of
+    <es-nt>LeftFirst</es-nt> is <b>true</b> and indicates that the <es-nt>x</es-nt> parameter
+    corresponds to an expression that occurs to the left of the <es-nt>y</es-nt> parameter’s
+    corresponding expression. If <es-nt>LeftFirst</es-nt> is <b>false</b>, the reverse is the case
+    and operations must be performed upon <es-nt>y</es-nt> before <es-nt>x</es-nt>. Such a
+    comparison is performed as follows:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>x</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>y</i>).</li>
+
+      <li>If the <i>LeftFirst</i> flag is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>px</i> be the result of calling <es-xref target=
+          "sec-toprimitive">ToPrimitive</es-xref>(<i>x</i>, hint Number).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>px</i>).</li>
+
+          <li>Let <i>py</i> be the result of calling <es-xref target=
+          "sec-toprimitive">ToPrimitive</es-xref>(<i>y</i>, hint Number).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>py</i>).</li>
+        </ol>
+      </li>
+
+      <li>Else the order of evaluation needs to be reversed to preserve left to right evaluation
+
+        <ol class="block">
+          <li>Let <i>py</i> be the result of calling <es-xref target=
+          "sec-toprimitive">ToPrimitive</es-xref>(<i>y</i>, hint Number).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>py</i>).</li>
+
+          <li>Let <i>px</i> be the result of calling <es-xref target=
+          "sec-toprimitive">ToPrimitive</es-xref>(<i>x</i>, hint Number).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>px</i>).</li>
+        </ol>
+      </li>
+
+      <li>If both <i>px</i> and <i>py</i> are Strings, then
+
+        <ol class="block">
+          <li>If <i>py</i> is a prefix of <i>px</i>, return <b>false</b>. (A String value <i>p</i>
+          is a prefix of String value <i>q</i> if <i>q</i> can be the result of concatenating
+          <i>p</i> and some other String <i>r</i>. Note that any String is a prefix of itself,
+          because <i>r</i> may be the empty String.)</li>
+
+          <li>If <i>px</i> is a prefix of <i>py</i>, return <b>true</b>.</li>
+
+          <li>Let <i>k</i> be the smallest nonnegative integer such that the character at position
+          <i>k</i> within <i>px</i> is different from the character at position <i>k</i> within
+          <i>py</i>. (There must be such a <i>k</i>, for neither String is a prefix of the
+          other.)</li>
+
+          <li>Let <i>m</i> be the integer that is the code unit value for the character at position
+          <i>k</i> within <i>px</i>.</li>
+
+          <li>Let <i>n</i> be the integer that is the code unit value for the character at position
+          <i>k</i> within <i>py</i>.</li>
+
+          <li>If <i>m</i> &lt; <i>n</i>, return <b>true</b>. Otherwise, return <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Let <i>nx</i> be the result of calling <es-xref target=
+          "sec-tonumber">ToNumber</es-xref>(<i>px</i>). Because <i>px</i> and <i>py</i> are
+          primitive values evaluation order is not important.</li>
+
+          <li>Let <i>ny</i> be the result of calling <es-xref target=
+          "sec-tonumber">ToNumber</es-xref>(<i>py</i>).</li>
+
+          <li>If <i>nx</i> is <b>NaN</b>, return <b>undefined</b>.</li>
+
+          <li>If <i>ny</i> is <b>NaN</b>, return <b>undefined</b>.</li>
+
+          <li>If <i>nx</i> and <i>ny</i> are the same Number value, return <b>false</b>.</li>
+
+          <li>If <i>nx</i> is <b>+0</b> and <i>ny</i> is <b>−0</b>, return <b>false</b>.</li>
+
+          <li>If <i>nx</i> is <b>−0</b> and <i>ny</i> is <b>+0</b>, return <b>false</b>.</li>
+
+          <li>If <i>nx</i> is <b>+∞</b>, return <b>false</b>.</li>
+
+          <li>If <i>ny</i> is <b>+∞</b>, return <b>true</b>.</li>
+
+          <li>If <i>ny</i> is <b>−∞</b>, return <b>false</b>.</li>
+
+          <li>If <i>nx</i> is <b>−∞</b>, return <b>true</b>.</li>
+
+          <li>If the mathematical value of <i>nx</i> is less than the mathematical value of
+          <i>ny</i> —note that these mathematical values are both finite and not both zero—return
+          <b>true</b>. Otherwise, return <b>false</b>.</li>
+        </ol>
+      </li>
+    </ol>
+
+    <es-note>
+      <p>Step 5 differs from step 11 in the algorithm for the addition operator <code>+</code>
+      (<es-xref target="sec-addition-operator-plus">12.6.3</es-xref>) in using “and” instead of
+      “or”.</p>
+    </es-note>
+
+    <es-note>
+      <p>The comparison of Strings uses a simple lexicographic ordering on sequences of code unit
+      values. There is no attempt to use the more complex, semantically oriented definitions of
+      character or string equality and collating order defined in the Unicode specification.
+      Therefore String values that are canonically equal according to the Unicode standard could
+      test as unequal. In effect this algorithm assumes that both Strings are already in normalised
+      form. Also, note that for strings containing supplementary characters, lexicographic ordering
+      on sequences of UTF-16 code unit values differs from that on sequences of code point
+      values.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Abstract Equality Comparison" anchor="sec-abstract-equality-comparison">
+    <p>The comparison <es-nt>x</es-nt> == <es-nt>y</es-nt>, where <es-nt>x</es-nt> and
+    <es-nt>y</es-nt> are values, produces <b>true</b> or <b>false</b>. Such a comparison is
+    performed as follows:</p>
+
+    <ol class="proc">
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is the
+      same as <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>), then
+
+        <ol class="block">
+          <li>Return the result of performing Strict Equality Comparison <i>x</i> ===
+          <i>y</i>.</li>
+        </ol>
+      </li>
+
+      <li>If <i>x</i> is <b>null</b> and <i>y</i> is <b>undefined</b>, return <b>true</b>.</li>
+
+      <li>If <i>x</i> is <b>undefined</b> and <i>y</i> is <b>null</b>, return <b>true</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Number and <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>) is
+      String,<br>
+      return the result of the comparison <i>x</i> == <es-xref target=
+      "sec-tonumber">ToNumber</es-xref>(<i>y</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      String and <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>) is
+      Number,<br>
+      return the result of the comparison <es-xref target=
+      "sec-tonumber">ToNumber</es-xref>(<i>x</i>) == <i>y</i>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Boolean, return the result of the comparison <es-xref target=
+      "sec-tonumber">ToNumber</es-xref>(<i>x</i>) == <i>y</i>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>) is
+      Boolean, return the result of the comparison <i>x</i> == <es-xref target=
+      "sec-tonumber">ToNumber</es-xref>(<i>y</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      either String or Number and <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>) is Object,<br>
+      return the result of the comparison <i>x</i> == <es-xref target=
+      "sec-toprimitive">ToPrimitive</es-xref>(<i>y</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Object and <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>) is
+      either String or Number,<br>
+      return the result of the comparison <es-xref target=
+      "sec-toprimitive">ToPrimitive</es-xref>(<i>x</i>) == <i>y</i>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Strict Equality Comparison" anchor="sec-strict-equality-comparison">
+    <p>The comparison <es-nt>x</es-nt> === <es-nt>y</es-nt>, where <es-nt>x</es-nt> and
+    <es-nt>y</es-nt> are values, produces <b>true</b> or <b>false</b>. Such a comparison is
+    performed as follows:</p>
+
+    <ol class="proc">
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      different from <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>y</i>), return <b>false</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Undefined, return <b>true</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Null, return <b>true</b>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Number, then
+
+        <ol class="block">
+          <li>If <i>x</i> is <b>NaN</b>, return <b>false</b>.</li>
+
+          <li>If <i>y</i> is <b>NaN</b>, return <b>false</b>.</li>
+
+          <li>If <i>x</i> is the same Number value as <i>y</i>, return <b>true</b>.</li>
+
+          <li>If <i>x</i> is <b>+0</b> and <i>y</i> is <b>−0</b>, return <b>true</b>.</li>
+
+          <li>If <i>x</i> is <b>−0</b> and <i>y</i> is <b>+0</b>, return <b>true</b>.</li>
+
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      String, then
+
+        <ol class="block">
+          <li>If <i>x</i> and <i>y</i> are exactly the same sequence of characters (same length and
+          same characters in corresponding positions), return <b>true</b>.</li>
+
+          <li>Else, return <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is
+      Boolean, then
+
+        <ol class="block">
+          <li>If <i>x</i> and <i>y</i> are both <b>true</b> or both <b>false</b>, return
+          <b>true</b>.</li>
+
+          <li>Else, return <b>false</b>.</li>
+        </ol>
+      </li>
+
+      <li>If <i>x</i> and <i>y</i> are the same Symbol value, return <b>true</b>.</li>
+
+      <li>If <i>x</i> and <i>y</i> are the same Object value, return <b>true</b>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-note>
+      <p>This algorithm differs from <es-xref target="sec-samevalue">the SameValue
+      Algorithm</es-xref> (<es-xref target="sec-samevalue">7.2.3</es-xref>) in its treatment of
+      signed zeroes and NaNs.</p>
+    </es-note>
+  </es-clause>
 </es-clause>

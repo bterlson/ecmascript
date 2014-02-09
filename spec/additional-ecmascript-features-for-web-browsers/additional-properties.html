@@ -2,13 +2,619 @@
 <es-clause title="Additional Properties" anchor="sec-additional-properties">
   <p>When the ECMAScript host is a web browser the following additional properties of the standard
   built-in objects are defined.</p>
-  <link rel="import" href="additional-properties/additional-properties-of-the-global-object.html">
-  <link rel="import" href=
-  "additional-properties/additional-properties-of-the-object.prototype-object.html">
-  <link rel="import" href=
-  "additional-properties/additional-properties-of-the-string.prototype-object.html">
-  <link rel="import" href=
-  "additional-properties/additional-properties-of-the-date.prototype-object.html">
-  <link rel="import" href=
-  "additional-properties/additional-properties-of-the-regexp.prototype-object.html">
+
+  <es-clause title="Additional Properties of the Global Object" anchor=
+  "sec-additional-properties-of-the-global-object">
+    <es-clause title="escape (string)" anchor="sec-escape-string">
+      <p>The <code>escape</code> function is a property of the global object. It computes a new
+      version of a String value in which certain characters have been replaced by a hexadecimal
+      escape sequence.</p>
+
+      <p>For those characters being replaced whose code unit value is <code>0xFF</code> or less, a
+      two-digit escape sequence of the form <code>%</code><i>xx</i> is used. For those characters
+      being replaced whose code unit value is greater than <code>0xFF</code>, a four-digit escape
+      sequence of the form <code>%u</code><i>xxxx</i> is used.</p>
+
+      <p>When the <code>escape</code> function is called with one argument <es-nt>string</es-nt>,
+      the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>string</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>string</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>string</i>).</li>
+
+        <li>Let <i>length</i> be the number of code units in <i>string</i>.</li>
+
+        <li>Let <i>R</i> be the empty string.</li>
+
+        <li>Let <i>k</i> be 0.</li>
+
+        <li>Repeat, while <i>k</i> &lt; <i>length</i>,
+
+          <ol class="block">
+            <li>Let <i>char</i> be the code unit (represented as a 16-bit unsigned integer) at
+            position <i>k</i> within <i>string</i>.</li>
+
+            <li>If <i>char</i> is the code point of one of the 69 nonblank characters<br>
+              <code>″ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@*_+-./″<br></code>then,
+
+              <ol class="block">
+                <li>Let <i>S</i> be a String containing the single character <i>char</i>.</li>
+              </ol>
+            </li>
+
+            <li>Else if <i>char</i> &gt; 256,
+
+              <ol class="block">
+                <li>Let <i>S</i> be a String containing six characters
+                <code>″%u</code><i>wxyz</i><code>″</code> where <i>wxyz</i> are four hexadecimal
+                digits encoding the value of <i>char</i>.</li>
+              </ol>
+            </li>
+
+            <li>Else, <i>char</i> &lt; 256
+
+              <ol class="block">
+                <li>Let <i>S</i> be a String containing three characters
+                <code>″%</code><i>xy</i><code>″</code> where <i>xy</i> are two hexadecimal digits
+                encoding the value of <i>char</i>.</li>
+              </ol>
+            </li>
+
+            <li>Let <i>R</i> be a new String value computed by concatenating the previous value of
+            <i>R</i> and <i>S</i>.</li>
+
+            <li>Increase <i>k</i> by 1.</li>
+          </ol>
+        </li>
+
+        <li>Return <i>R</i>.</li>
+      </ol>
+
+      <es-note>
+        <p>The encoding is partly based on the encoding described in RFC 1738, but the entire
+        encoding specified in this standard is described above without regard to the contents of
+        RFC 1738. This encoding does not reflect changes to RFC 1738 made by RFC 3986.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="unescape (string)" anchor="sec-unescape-string">
+      <p>The <code>unescape</code> function is a property of the global object. It computes a new
+      version of a String value in which each escape sequence of the sort that might be introduced
+      by the <code>escape</code> function is replaced with the character that it represents.</p>
+
+      <p>When the <code>unescape</code> function is called with one argument <es-nt>string</es-nt>,
+      the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>string</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>string</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>string</i>).</li>
+
+        <li>Let <i>length</i> be the number of code units in <i>string</i>.</li>
+
+        <li>Let <i>R</i> be the empty String.</li>
+
+        <li>Let <i>k</i> be 0.</li>
+
+        <li>Repeat, while <i>k</i> ≠ <i>length</i>
+
+          <ol class="block">
+            <li>Let <i>c</i> be the code unit at position <i>k</i> within <i>string</i>.</li>
+
+            <li>If <i>c</i> is <code>%</code>,
+
+              <ol class="block">
+                <li>If <i>k</i> ≤ <i>length</i>−6 and the code unit at position <i>k</i>+1 within
+                <i>string</i> is <code>u</code> and the four code units at positions <i>k</i>+2,
+                <i>k</i>+3, <i>k</i>+4, and <i>k</i>+5 within <i>string</i> are all hexadecimal
+                digits, then
+
+                  <ol class="block">
+                    <li>Let <i>c</i> be the code unit whose value is the integer represented by the
+                    four hexadecimal digits at positions <i>k</i>+2, <i>k</i>+3, <i>k</i>+4, and
+                    <i>k</i>+5 within <i>string</i>.</li>
+
+                    <li>Increase <i>k</i> by 5.</li>
+                  </ol>
+                </li>
+
+                <li>Else if <i>k</i> ≤ <i>length</i>−3 and the two code units at positions
+                <i>k</i>+1 and <i>k</i>+2 within <i>string</i> are both hexadecimal digits, then
+
+                  <ol class="block">
+                    <li>Let <i>c</i> be the code unit whose value is the integer represented by two
+                    zeroes plus the two hexadecimal digits at positions <i>k</i>+1 and <i>k</i>+2
+                    within <i>string</i>.</li>
+
+                    <li>Increase <i>k</i> by 2.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+
+            <li>Let <i>R</i> be a new String value computed by concatenating the previous value of
+            <i>R</i> and <i>c</i>.</li>
+
+            <li>Increase <i>k</i> by 1.</li>
+          </ol>
+        </li>
+
+        <li>Return <i>R</i>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Additional Properties of the Object.prototype Object" anchor=
+  "sec-additional-properties-of-the-object.prototype-object">
+    <es-clause title="Object.prototype.__proto__" anchor="sec-object.prototype.__proto__">
+      <p>Object.prototype.__proto__ is an accessor property with attributes { [[Enumerable]]:
+      <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }. The
+      [[Get]] and [[Set]] attributes are defined as follows</p>
+
+      <es-clause title="get Object.prototype.__proto__" anchor=
+      "sec-get-object.prototype.__proto__">
+        <p>The value of the [[Get]] attribute is a built-in function that requires no arguments. It
+        performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the result of calling <es-xref target=
+          "sec-toobject">ToObject</es-xref> passing the <b>this</b> value as the argument.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+
+          <li>Return the result of calling the [[GetPrototypeOf]] internal method of <i>O</i>.</li>
+        </ol>
+      </es-clause>
+
+      <es-clause title="set Object.prototype.__proto__" anchor=
+      "sec-set-object.prototype.__proto__">
+        <p>The value of the [[Set]] attribute is a built-in function that takes an argument
+        <es-nt>proto</es-nt>. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <es-xref target=
+          "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value)<i>.</i></li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+
+          <li>If <es-xref target=
+          "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>proto</i>) is neither Object nor
+          Null, then return <i>proto</i>.</li>
+
+          <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O)</i> is
+          not Object, then return <i>proto</i>.</li>
+
+          <li>Let <i>status</i> be the result of calling the [[SetPrototypeOf]] internal method of
+          <i>O</i> with argument <i>proto</i>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+          <li>If <i>status</i> is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+          <li>Return <i>proto</i>.</li>
+        </ol>
+      </es-clause>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Additional Properties of the String.prototype Object" anchor=
+  "sec-additional-properties-of-the-string.prototype-object">
+    <es-clause title="String.prototype.substr (start, length)" anchor=
+    "sec-string.prototype.substr">
+      <p>The <code>substr</code> method takes two arguments, <es-nt>start</es-nt> and
+      <es-nt>length</es-nt>, and returns a substring of the result of converting the <b>this</b>
+      object to a String, starting from character position <es-nt>start</es-nt> and running for
+      <es-nt>length</es-nt> characters (or through the end of the String if <es-nt>length</es-nt>
+      is <b>undefined</b>). If <es-nt>start</es-nt> is negative, it is treated as
+      (<i>sourceLength</i>+<i>start</i>) where <es-nt>sourceLength</es-nt> is the length of the
+      String. The result is a String value, not a String object. The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>O</i> be <es-xref target=
+        "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
+
+        <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
+
+        <li>Let <i>intStart</i> be <es-xref target=
+        "sec-tointeger">ToInteger</es-xref>(<i>start</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>intStart</i>).</li>
+
+        <li>If <i>length</i> is <b>undefined</b>, let <i>end</i> be <b>+∞</b>; otherwise let
+        <i>end</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>length</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>end</i>).</li>
+
+        <li>Let <i>size</i> be the number of characters in <i>S</i>.</li>
+
+        <li>If <i>intStart</i> is negative, then let <i>intStart</i> be max(<i>size</i> +
+        <i>intStart</i>,0).</li>
+
+        <li>Let <i>resultLength</i> be min(max(<i>end</i>,0), <i>size</i> – <i>intStart</i>).</li>
+
+        <li>If <i>resultLength</i> ≤ 0, return the empty String <code>""</code>.</li>
+
+        <li>Return a String containing <i>resultLength</i> consecutive characters from <i>S</i>
+        beginning with the character at position <i>intStart</i>.</li>
+      </ol>
+
+      <p>The <code>length</code> property of the <code>substr</code> method is <b>2</b>.</p>
+
+      <es-note>
+        <p>The <code>substr</code> function is intentionally generic; it does not require that its
+        <b>this</b> value be a String object. Therefore it can be transferred to other kinds of
+        objects for use as a method.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="String.prototype.anchor ( name )" anchor="sec-string.prototype.anchor">
+      <p>When the <b>anchor</b> method is called with argument <es-nt>name</es-nt>, the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"a"</code>, <code>"name"</code> and <i>name</i>.</li>
+      </ol>
+
+      <p>The abstract operation CreateHTML is called with arguments <es-nt>string, tag</es-nt>,
+      <es-nt>attribute</es-nt>, and <i>value</i>. The arguments <es-nt>tag</es-nt> and
+      <es-nt>attribute</es-nt> must be string values. The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>str</i> be <es-xref target=
+        "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<i>string</i>).</li>
+
+        <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>str</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
+
+        <li>Let <i>p1</i> be the string value that is the concatenation of <code>"&lt;"</code> and
+        <i>tag</i>.</li>
+
+        <li>If <i>attribute</i> is not the empty String, then
+
+          <ol class="block">
+            <li>Let <i>V</i> be the result of performing <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>value</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>V</i>).</li>
+
+            <li>Let <i>escapedV</i> be the string value that is the same as <i>V</i> except that
+            each occurrence of the character <code>"</code> (code unit value 0x0022) in <i>V</i>
+            has been replaced with the six character sequence <code>"&amp;quot;"</code>.</li>
+
+            <li>Let <i>p1</i> be the string value that is the concatenation of the following string
+            values:
+
+              <ul>
+                <li><i>p1</i></li>
+
+                <li>a single space code unit 0x0020</li>
+
+                <li><i>attribute</i></li>
+
+                <li><code>"="</code></li>
+
+                <li><code>′"′</code></li>
+
+                <li><i>escapedV</i></li>
+
+                <li><code>′"′</code></li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+
+        <li>Let <i>p2</i> be the string value that is the concatenation of <i>p1</i> and
+        <code>"&gt;"</code>.</li>
+
+        <li>Let <i>p3</i> be the string value that is the concatenation of <i>p2</i> and
+        <i>S</i>.</li>
+
+        <li>Let <i>p4</i> be the string value that is the concatenation of <i>p2</i>,
+        <code>"&lt;/"</code>, <i>tag</i>, and <code>"&gt;"</code>.</li>
+
+        <li>Return <i>p4</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.big ()" anchor="sec-string.prototype.big">
+      <p>When the <b>big</b> method is called with no arguments, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"big"</code>, <code>""</code> and <code>""</code>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.blink ()" anchor="sec-string.prototype.blink">
+      <p>When the <b>blink</b> method is called with no arguments, the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"blink"</code>, <code>""</code> and <code>""</code>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.bold ()" anchor="sec-string.prototype.bold">
+      <p>When the <b>bold</b> method is called with no arguments, the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"b"</code>, <code>""</code> and <code>""</code>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.fixed ()" anchor="sec-string.prototype.fixed">
+      <p>When the <b>fixed</b> method is called with no arguments, the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"tt"</code>, <code>""</code> and <code>""</code>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.fontcolor ( color )" anchor=
+    "sec-string.prototype.fontcolor">
+      <p>When the <b>fontcolor</b> method is called with argument <es-nt>color</es-nt>, the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"font"</code>, <code>"color"</code> and <i>color</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.fontsize ( size )" anchor="sec-string.prototype.fontsize">
+      <p>When the <b>fontsize</b> method is called with argument <es-nt>size</es-nt>, the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"font"</code>, <code>"size"</code> and <i>size</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.italics ()" anchor="sec-string.prototype.italics">
+      <p>When the <b>italics</b> method is called with no arguments, the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"i"</code>, <code>""</code> and <code>""</code>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.link ( url )" anchor="sec-string.prototype.link">
+      <p>When the <b>link</b> method is called with argument <es-nt>url</es-nt>, the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"a"</code>, <code>"href"</code> and <i>url</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.small ()" anchor="sec-string.prototype.small">
+      <p>When the <b>small</b> method is called with no arguments, the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"small"</code>, <code>""</code> and <code>""</code>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.strike ()" anchor="sec-string.prototype.strike">
+      <p>When the <b>strike</b> method is called with no arguments, the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"strike"</code>, <code>""</code> and <code>""</code>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.sub ()" anchor="sec-string.prototype.sub">
+      <p>When the <b>sub</b> method is called with no arguments, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"sub"</code>, <code>""</code> and <code>""</code>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="String.prototype.sup ()" anchor="sec-string.prototype.sup">
+      <p>When the <b>sup</b> method is called with no arguments, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of performing the abstract operation CreateHTML with arguments
+        <i>S</i>, <code>"sup"</code>, <code>""</code> and <code>""</code>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Additional Properties of the Date.prototype Object" anchor=
+  "sec-additional-properties-of-the-date.prototype-object">
+    <es-clause title="Date.prototype.getYear ( )" anchor="sec-date.prototype.getyear">
+      <es-note>
+        <p>The <code>getFullYear</code> method is preferred for nearly all purposes, because it
+        avoids the “year 2000 problem.”</p>
+      </es-note>
+
+      <p>When the <b>getYear</b> method is called with no arguments, the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>t</i> be <es-xref target="sec-properties-of-the-date-prototype-object">this time
+        value</es-xref>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>t</i>).</li>
+
+        <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+        <li>Return <es-xref target="sec-year-number">YearFromTime</es-xref>(<es-xref target=
+        "sec-local-time">LocalTime</es-xref>(<i>t</i>)) − 1900.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Date.prototype.setYear (year)" anchor="sec-date.prototype.setyear">
+      <es-note>
+        <p>The <code>setFullYear</code> method is preferred for nearly all purposes, because it
+        avoids the “year 2000 problem.”</p>
+      </es-note>
+
+      <p>When the <b>setYear</b> method is called with one argument <es-nt>year</es-nt>, the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>t</i> be the result of <es-xref target=
+        "sec-local-time">LocalTime</es-xref>(<es-xref target=
+        "sec-properties-of-the-date-prototype-object">this time value</es-xref>); but if
+        <es-xref target="sec-properties-of-the-date-prototype-object">this time value</es-xref> is
+        <b>NaN</b>, let <i>t</i> be <b>+0</b>.</li>
+
+        <li>Let <i>y</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>year</i>).</li>
+
+        <li>If <i>y</i> is <b>NaN</b>, set the [[DateValue]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date
+        object to <b>NaN</b> and return <b>NaN</b>.</li>
+
+        <li>If <i>y</i> is not <b>NaN</b> and 0 ≤ <es-xref target=
+        "sec-tointeger">ToInteger</es-xref>(<i>y</i>) ≤ 99 then let <i>yyyy</i> be <es-xref target=
+        "sec-tointeger">ToInteger</es-xref>(<i>y</i>) +&nbsp;1900. Otherwise, let <i>yyyy</i> be
+        <i>y</i>.</li>
+
+        <li>Let <i>d</i> be <es-xref target="sec-makeday">MakeDay</es-xref>(<i>yyyy</i>,
+        <es-xref target="sec-month-number">MonthFromTime</es-xref>(<i>t</i>), <es-xref target=
+        "sec-date-number">DateFromTime</es-xref>(<i>t</i>)).</li>
+
+        <li>Let <i>date</i> be <es-xref target="sec-local-time">UTC</es-xref>(<es-xref target=
+        "sec-makedate">MakeDate</es-xref>(<i>d</i>, <es-xref target=
+        "sec-day-number-and-time-within-day">TimeWithinDay</es-xref>(<i>t</i>))).</li>
+
+        <li>Set the [[DateValue]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date
+        object to <es-xref target="sec-timeclip">TimeClip</es-xref>(<i>date</i>).</li>
+
+        <li>Return the value of the [[DateValue]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date
+        object.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Date.prototype.toGMTString ( )" anchor="sec-date.prototype.togmtstring">
+      <es-note>
+        <p>The property <code>toUTCString</code> is preferred. The <code>toGMTString</code>
+        property is provided principally for compatibility with old code. It is recommended that
+        the <code>toUTCString</code> property be used in new ECMAScript code.</p>
+      </es-note>
+
+      <p>The Function object that is the initial value of <code>Date.prototype.toGMTString</code>
+      is the same Function object that is the initial value of <code><es-xref target=
+      "sec-date.prototype.toutcstring">Date.prototype.toUTCString</es-xref></code>.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Additional Properties of the RegExp.prototype Object" anchor=
+  "sec-additional-properties-of-the-regexp.prototype-object">
+    <es-clause title="RegExp.prototype.compile (pattern, flags )" anchor=
+    "sec-regexp.prototype.compile">
+      <p>When the <b>compile</b> method is called with arguments <i>pattern</i> and <i>flags</i>,
+      the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+        not Object or <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object and <i>O</i> does
+        not have a [[RegExpMatcher]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
+
+          <ol class="block">
+            <li>Throw a <b>TypeError</b> exception.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>extensible</i> be the result of calling the [[IsExtensible]] internal method of
+        <i>O</i>.</li>
+
+        <li>If <i>extensible</i> is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>pattern</i>) is Object and
+        <i>pattern</i> has a [[RegExpMatcher]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
+
+          <ol class="block">
+            <li>If the value of <i>pattern’s</i> [[RegExpMatcher]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+            <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+            <li>If <i>flags</i> is not <b>undefined</b>, then throw a <b>TypeError</b>
+            exception.</li>
+
+            <li>Let <i>P</i> be the value of <i>pattern’s</i> [[OriginalSource]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+            <li>Let <i>F</i> be the value of <i>pattern’s</i> [[OriginalFlags]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+          </ol>
+        </li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>let <i>P</i> be <i>pattern</i>.</li>
+
+            <li>let <i>F</i> be <i>flags</i>.</li>
+          </ol>
+        </li>
+
+        <li>Return the result of the abstract operation <es-xref target=
+        "sec-regexpinitialise">RegExpInitialise</es-xref> with arguments <i>O,</i> <i>P</i>, and
+        <i>F</i>.</li>
+      </ol>
+
+      <es-note>
+        <p>The <code>compile</code> method completely reinitialises the <b>this</b> object RegExp
+        with a new pattern and flags. An implementaton may interpret use of this method as an
+        assertion that the resulting RegExp object will be used multiple times and hence is a
+        candidate for extra optimization.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
 </es-clause>

@@ -203,8 +203,458 @@ my_text = JSON.stringify(a); // This must throw a TypeError.
     rendered as an opening left bracket followed by zero or more values, separated with commas,
     closed with a right bracket.</p>
   </es-note>
-  <link rel="import" href="json.stringify/runtime-semantics-str-abstract-operation.html">
-  <link rel="import" href="json.stringify/quote.html">
-  <link rel="import" href="json.stringify/runtime-semantics-jo-abstract-operation.html">
-  <link rel="import" href="json.stringify/runtime-semantics-ja-abstract-operation.html">
+
+  <es-clause title="Runtime Semantics: Str Abstract Operation" anchor=
+  "sec-runtime-semantics-str-abstract-operation">
+    <p>The abstract operation Str(<i>key</i>, <i>holder</i>) has access to
+    <es-nt>ReplacerFunction</es-nt> from the invocation of the <code>stringify</code> method. Its
+    algorithm is as follows:</p>
+
+    <ol class="proc">
+      <li>Let <i>value</i> be the result of <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>holder</i>, <i>key</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+      Object, then
+
+        <ol class="block">
+          <li>Let <i>toJSON</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>value</i>, <code>"toJSON"</code>).</li>
+
+          <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>toJSON</i>) is
+          <b>true</b>
+
+            <ol class="block">
+              <li>Let <i>value</i> be the result of calling the [[Call]] internal method of
+              <i>toJSON</i> passing <i>value</i> as <i>thisArgument</i> and a <es-xref target=
+              "sec-list-and-record-specification-type">List</es-xref> containing <i>key</i> as
+              <i>argumentsList</i>.</li>
+
+              <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>If <i>ReplacerFunction</i> is not <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>value</i> be the result of calling the [[Call]] internal method of
+          <i>ReplacerFunction</i> passing <i>holder</i> as the <b>this</b> value and with an
+          argument list consisting of <i>key</i> and <i>value</i>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+      Object then,
+
+        <ol class="block">
+          <li>If <i>value</i> has a [[NumberData]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> then,
+
+            <ol class="block">
+              <li>Let <i>value</i> be <es-xref target=
+              "sec-tonumber">ToNumber</es-xref>(<i>value</i>).</li>
+            </ol>
+          </li>
+
+          <li>Else if <i>value</i> has a [[StringData]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> then,
+
+            <ol class="block">
+              <li>Let <i>value</i> be <es-xref target=
+              "sec-tostring">ToString</es-xref>(<i>value</i>).</li>
+            </ol>
+          </li>
+
+          <li>Else if <i>value</i> has a [[BooleanData]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> then,
+
+            <ol class="block">
+              <li>Let <i>value</i> be the value of the [[BooleanData]] <es-xref target=
+              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+              <i>value</i>.</li>
+
+              <li>If <i>value</i> is <b>undefined</b>, then throw a <b>TypeError</b>
+              exception.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>If <i>value</i> is <b>null</b> then return <code>"null"</code>.</li>
+
+      <li>If <i>value</i> is <b>true</b> then return <code>"true"</code>.</li>
+
+      <li>If <i>value</i> is <b>false</b> then return <code>"false"</code>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+      String, then return the result of calling the abstract operation <es-xref target=
+      "sec-quote">Quote</es-xref> with argument <i>value</i>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+      Number
+
+        <ol class="block">
+          <li>If <i>value</i> is finite then return <es-xref target=
+          "sec-tostring">ToString</es-xref>(<i>value</i>).</li>
+
+          <li>Else, return <code>"null"</code>.</li>
+        </ol>
+      </li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+      Object, and <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>value</i>) is
+      <b>false</b>
+
+        <ol class="block">
+          <li>If <i>value</i> is an exotic Array object then
+
+            <ol class="block">
+              <li>Return the result of calling the abstract operation JA with argument
+              <i>value</i>.</li>
+            </ol>
+          </li>
+
+          <li>Else, return the result of calling the abstract operation JO with argument
+          <i>value</i>.</li>
+        </ol>
+      </li>
+
+      <li>Return <b>undefined</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Quote Abstract Operation" anchor="sec-quote">
+    <p>The abstract operation Quote(<i>value</i>) wraps a String value in double quotes and escapes
+    characters within it.</p>
+
+    <ol class="proc">
+      <li>Let <i>product</i> be code unit 0x0022 (the Unicode double quote character).</li>
+
+      <li>For each code unit <i>C</i> in <i>value</i>
+
+        <ol class="block">
+          <li>If <i>C</i> is 0x0022 or 0x005C (the Unicode reverse solidus character)
+
+            <ol class="block">
+              <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit
+              0x005C.</li>
+
+              <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>C</i>.</li>
+            </ol>
+          </li>
+
+          <li>Else if <i>C</i> is backspace, formfeed, newline, carriage return, or tab
+
+            <ol class="block">
+              <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x005C
+              (the Unicode backslash character).</li>
+
+              <li>Let <i>abbrev</i> be the string value corresponding to the value of <i>C</i> as
+              follows:
+
+                <table class="lightweight">
+                  <tr>
+                    <td>backspace</td>
+
+                    <td><span class="string value">"b"</span></td>
+                  </tr>
+
+                  <tr>
+                    <td>formfeed</td>
+
+                    <td><span class="string value">"f"</span></td>
+                  </tr>
+
+                  <tr>
+                    <td>newline</td>
+
+                    <td><span class="string value">"n"</span></td>
+                  </tr>
+
+                  <tr>
+                    <td>carriage return</td>
+
+                    <td><span class="string value">"r"</span></td>
+                  </tr>
+
+                  <tr>
+                    <td>tab</td>
+
+                    <td><span class="string value">"t"</span></td>
+                  </tr>
+                </table>
+              </li>
+
+              <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>abbrev</i>.</li>
+            </ol>
+          </li>
+
+          <li>Else if <i>C</i> has a code unit value less than 0x0020 (the Unicode space character)
+
+            <ol class="block">
+              <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x005C
+              (the Unicode backslash character).</li>
+
+              <li>Let <i>product</i> be the concatenation of <i>product</i> and
+              <code>"u"</code>.</li>
+
+              <li>Let <i>hex</i> be the string result of converting the numeric code unit value of
+              <i>C</i> to a String of four hexadecimal digits. Alphabetic hexadecimal digits are
+              presented as lowercase characters.</li>
+
+              <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>hex</i>.</li>
+            </ol>
+          </li>
+
+          <li>Else
+
+            <ol class="block">
+              <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>C</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x0022 (the
+      Unicode double quote character).</li>
+
+      <li>Return <i>product</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: JO Abstract Operation" anchor=
+  "sec-runtime-semantics-jo-abstract-operation">
+    <p>The abstract operation JO(<i>value</i>) serializes an object. It has access to the
+    <es-nt>stack</es-nt>, <es-nt>indent</es-nt>, <es-nt>gap</es-nt>, and
+    <es-nt>PropertyList</es-nt> of the invocation of the stringify method.</p>
+
+    <ol class="proc">
+      <li>If <i>stack</i> contains <i>value</i> then throw a <b>TypeError</b> exception because the
+      structure is cyclical.</li>
+
+      <li>Append <i>value</i> to <i>stack</i>.</li>
+
+      <li>Let <i>stepback</i> be <i>indent</i>.</li>
+
+      <li>Let <i>indent</i> be the concatenation of <i>indent</i> and <i>gap</i>.</li>
+
+      <li>If <i>PropertyList</i> is not <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>K</i> be <i>PropertyList</i>.</li>
+        </ol>
+      </li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>Let <i>K</i> be a <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref> of Strings consisting of the keys
+          of all the own properties of <i>value</i> whose [[Enumerable]] attribute is <b>true</b>
+          and whose <es-xref target="sec-object-type">property key</es-xref> is a String value. The
+          ordering of the Strings is the same as that used by the <b><es-xref target=
+          "sec-object.keys">Object.keys</es-xref></b> standard built-in function.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>partial</i> be an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>For each element <i>P</i> of <i>K</i>,
+
+        <ol class="block">
+          <li>Let <i>strP</i> be the result of Str(<i>P</i>, <i>value</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>strP</i>).</li>
+
+          <li>If <i>strP</i> is not <b>undefined</b>
+
+            <ol class="block">
+              <li>Let <i>member</i> be the result of calling the abstract operation
+              <es-xref target="sec-quote">Quote</es-xref> with argument <i>P</i>.</li>
+
+              <li>Let <i>member</i> be the concatenation of <i>member</i> and the string
+              <code>":</code>".</li>
+
+              <li>If <i>gap</i> is not the empty String
+
+                <ol class="block">
+                  <li>Let <i>member</i> be the concatenation of <i>member</i> and code unit 0x0020
+                  (the Unicode space character).</li>
+                </ol>
+              </li>
+
+              <li>Let <i>member</i> be the concatenation of <i>member</i> and <i>strP</i>.</li>
+
+              <li>Append <i>member</i> to <i>partial</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>If <i>partial</i> is empty, then
+
+        <ol class="block">
+          <li>Let <i>final</i> be <code>"{}"</code>.</li>
+        </ol>
+      </li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>If <i>gap</i> is the empty String
+
+            <ol class="block">
+              <li>Let <i>properties</i> be a String formed by concatenating all the element Strings
+              of <i>partial</i> with each adjacent pair of Strings separated with code unit 0x002C
+              (the Unicode comma character). A comma is not inserted either before the first String
+              or after the last String.</li>
+
+              <li>Let <i>final</i> be the result of concatenating <b>"{",</b> <i>properties</i>,
+              and <code>"}"</code>.</li>
+            </ol>
+          </li>
+
+          <li>Else <i>gap</i> is not the empty String
+
+            <ol class="block">
+              <li>Let <i>separator</i> be the result of concatenating code unit 0x002C (the comma
+              character), code unit 0x000A (the line feed character), and <i>indent</i>.</li>
+
+              <li>Let <i>properties</i> be a String formed by concatenating all the element Strings
+              of <i>partial</i> with each adjacent pair of Strings separated with <i>separator</i>.
+              The <i>separator</i> String is not inserted either before the first String or after
+              the last String.</li>
+
+              <li>Let <i>final</i> be the result of concatenating <code>"{"</code>, code unit
+              0x000A (the line feed character), <i>indent</i>, <i>properties</i>, code unit 0x000A,
+              <i>stepback</i>, and <code>"}</code>".</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Remove the last element of <i>stack</i>.</li>
+
+      <li>Let <i>indent</i> be <i>stepback</i>.</li>
+
+      <li>Return <i>final</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: JA Abstract Operation" anchor=
+  "sec-runtime-semantics-ja-abstract-operation">
+    <p>The abstract operation JA(<i>value</i>) serializes an array. It has access to the
+    <es-nt>stack</es-nt>, <es-nt>indent</es-nt>, and <es-nt>gap</es-nt> of the invocation of the
+    stringify method. The representation of arrays includes only the elements between zero and
+    <code>array.length</code> – 1 inclusive. Properties whose keys are not array indexes are
+    excluded from the stringification. An array is stringified as an open left bracket, elements
+    separated by comma, and a closing right bracket.</p>
+
+    <ol class="proc">
+      <li>If <i>stack</i> contains <i>value</i> then throw a <b>TypeError</b> exception because the
+      structure is cyclical.</li>
+
+      <li>Append <i>value</i> to <i>stack</i>.</li>
+
+      <li>Let <i>stepback</i> be <i>indent</i>.</li>
+
+      <li>Let <i>indent</i> be the concatenation of <i>indent</i> and <i>gap</i>.</li>
+
+      <li>Let <i>partial</i> be an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>value</i> is a standard
+      array object and hence its <code>"length"</code> property is a non-negative integer.</li>
+
+      <li>Let <i>lenVal</i> be the result of <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>value</i>, <code>"length"</code>)</li>
+
+      <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+      <li>Let <i>index</i> be 0.</li>
+
+      <li>Repeat while <i>index</i> &lt; <i>len</i>
+
+        <ol class="block">
+          <li>Let <i>strP</i> be the result of calling the abstract operation Str(<es-xref target=
+          "sec-tostring">ToString</es-xref>(<i>index</i>), <i>value</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>strP</i>).</li>
+
+          <li>If <i>strP</i> is <b>undefined</b>
+
+            <ol class="block">
+              <li>Append <code>"null"</code> to <i>partial</i>.</li>
+            </ol>
+          </li>
+
+          <li>Else
+
+            <ol class="block">
+              <li>Append <i>strP</i> to <i>partial</i>.</li>
+            </ol>
+          </li>
+
+          <li>Increment <i>index</i> by 1.</li>
+        </ol>
+      </li>
+
+      <li>If <i>partial</i> is empty, then
+
+        <ol class="block">
+          <li>Let <i>final</i> be <code>"[]"</code>.</li>
+        </ol>
+      </li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>If <i>gap</i> is the empty String
+
+            <ol class="block">
+              <li>Let <i>properties</i> be a String formed by concatenating all the element Strings
+              of <i>partial</i> with each adjacent pair of Strings separated with code unit 0x002C
+              (the comma character). A comma is not inserted either before the first String or
+              after the last String.</li>
+
+              <li>Let <i>final</i> be the result of concatenating <b>"[",</b> <i>properties</i>,
+              and <code>"]"</code>.</li>
+            </ol>
+          </li>
+
+          <li>Else
+
+            <ol class="block">
+              <li>Let <i>separator</i> be the result of concatenating code unit 0x002C (the comma
+              character), code unit 0x000A (the line feed character), and <i>indent</i>.</li>
+
+              <li>Let <i>properties</i> be a String formed by concatenating all the element Strings
+              of <i>partial</i> with each adjacent pair of Strings separated with <i>separator</i>.
+              The <i>separator</i> String is not inserted either before the first String or after
+              the last String.</li>
+
+              <li>Let <i>final</i> be the result of concatenating <code>"["</code>, code unit
+              0x000A (the line feed character), <i>indent</i>, <i>properties</i>, code unit 0x000A,
+              <i>stepback</i>, and <code>"]</code>".</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Remove the last element of <i>stack</i>.</li>
+
+      <li>Let <i>indent</i> be <i>stepback</i>.</li>
+
+      <li>Return <i>final</i>.</li>
+    </ol>
+  </es-clause>
 </es-clause>

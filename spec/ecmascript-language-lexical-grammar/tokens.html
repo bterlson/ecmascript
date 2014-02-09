@@ -1,0 +1,22 @@
+<!doctype html>
+<es-clause title="Tokens" anchor="sec-tokens">
+  <h2>Syntax</h2>
+
+  <es-production name="Token" type="lexical">
+    <es-rhs><es-nt>IdentifierName</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Punctuator</es-nt></es-rhs>
+
+    <es-rhs><es-nt>NumericLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+
+    <es-rhs><es-nt>Template</es-nt></es-rhs>
+  </es-production>
+
+  <es-note>
+    <p>The <es-nt>DivPunctuator</es-nt>, <es-nt>RegularExpressionLiteral</es-nt>,
+    <es-nt>RightBracePunctuator,</es-nt> and <es-nt>TemplateSubstitutionTail</es-nt> productions
+    define tokens, but are not included in the <es-nt>Token</es-nt> production.</p>
+  </es-note>
+</es-clause>

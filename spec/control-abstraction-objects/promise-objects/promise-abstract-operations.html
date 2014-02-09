@@ -1,10 +1,363 @@
 <!doctype html>
 <es-clause title="Promise Abstract Operations" anchor="sec-promise-abstract-operations">
-  <link rel="import" href="promise-abstract-operations/promisecapability-records.html">
-  <link rel="import" href="promise-abstract-operations/promisereaction-records.html">
-  <link rel="import" href="promise-abstract-operations/createrejectfunction.html">
-  <link rel="import" href="promise-abstract-operations/createresolvefunction.html">
-  <link rel="import" href="promise-abstract-operations/newpromisecapability.html">
+  <es-clause title="PromiseCapability Records" anchor="sec-promisecapability-records">
+    <p>A PromiseCapability is a Record value used to encapsulate a promise objects along with the
+    functions that capable of resolving or rejecting that promise object. PromiseCapability records
+    are produced by the <es-xref target="sec-newpromisecapability">NewPromiseCapability</es-xref>
+    abstract operation.</p>
+
+    <p>PromiseCapability Records have the fields listed in <b>Table 47</b>.</p>
+
+    <p><b>Table 47 — PromiseCapability Record Fields</b></p>
+
+    <figure>
+      <table class="real-table">
+        <tr>
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 0px solid black; border-top: 2px solid #000000">
+          Field Name</th>
+
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+          Value</th>
+
+          <th style=
+          "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+          Meaning</th>
+        </tr>
+
+        <tr>
+          <td>[[Promise]]</td>
+
+          <td>An object</td>
+
+          <td>An object that is usable as a promise.</td>
+        </tr>
+
+        <tr>
+          <td>[[Resolve]]</td>
+
+          <td>A function object</td>
+
+          <td>The function that is used to resolve the given promise object.</td>
+        </tr>
+
+        <tr>
+          <td>[[Reject]]</td>
+
+          <td>A function object</td>
+
+          <td>The function that is used to reject the given promise object.</td>
+        </tr>
+      </table>
+    </figure>
+
+    <es-clause title="IfAbruptRejectPromise (value, capability)" anchor=
+    "sec-ifabruptrejectpromise">
+      <p>IfAbruptRejectPromise is a short hand for a sequence of algorithm steps that use a
+      PromiseCapability record. An algorithm step of the form:</p>
+
+      <ol class="proc">
+        <li>IfAbruptRejectPromise(<i>value</i>, <i>capability</i>).</li>
+      </ol>
+
+      <p>means the same thing as:</p>
+
+      <ol class="proc">
+        <li>If <i>value</i> is an <es-xref target="sec-completion-record-specification-type">abrupt
+        completion</es-xref>,
+
+          <ol class="block">
+            <li>Let <i>rejectResult</i> be the result of calling the [[Call]] internal method of
+            <i>capability</i>.[[Reject]] with <b>undefined</b> as <i>thisArgument</i> and a
+            <es-xref target="sec-list-and-record-specification-type">List</es-xref> containing
+            <i>value</i>.[[value]] as <i>argumentsList</i>.</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rejectResult</i>).</li>
+
+            <li>Return <i>capability</i>.[[Promise]].</li>
+          </ol>
+        </li>
+
+        <li>Else if <i>value</i> is a <es-xref target=
+        "sec-completion-record-specification-type">Completion Record</es-xref>, then let
+        <i>value</i> be <i>value</i>.[[value]].</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="PromiseReaction Records" anchor="sec-promisereaction-records">
+    <p>The PromiseReaction is a Record value used to store information about how a promise should
+    react when it becomes resolved or rejected with a given value. PromiseReaction records are
+    created by the <code>then</code> method of the Promise prototype, and are used by a
+    <es-xref target="sec-promisereactiontask">PromiseReactionTask</es-xref>.</p>
+
+    <p>PromiseReaction records have the fields listed in <b>Table 48</b>.</p>
+
+    <p><b>Table 48 — PromiseReaction Record Fields</b></p>
+
+    <figure>
+      <table class="real-table">
+        <tr>
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 0px solid black; border-top: 2px solid #000000">
+          Field Name</th>
+
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+          Value</th>
+
+          <th style=
+          "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+          Meaning</th>
+        </tr>
+
+        <tr>
+          <td>[[Capabilities]]</td>
+
+          <td>A PromiseCapability record</td>
+
+          <td>The capabilities of the promise for which this record provides a reaction
+          handler.</td>
+        </tr>
+
+        <tr>
+          <td>[[Handler]]</td>
+
+          <td>A function object</td>
+
+          <td>The function that should be applied to the incoming value, and whose return value
+          will govern what happens to the derived promise.</td>
+        </tr>
+      </table>
+    </figure>
+  </es-clause>
+
+  <es-clause title="CreateRejectFunction ( promise )" anchor="sec-createrejectfunction">
+    <p>When CreateRejectFunction is performed with argument <es-nt>promise</es-nt>, the following
+    steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>reject</i> be a new built-in function object as defined in Promise Reject
+      Functions (<es-xref target="sec-promise-reject-functions">25.4.1.3.1</es-xref>).</li>
+
+      <li>Set the [[Promise]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>reject</i> to
+      <i>promise</i>.</li>
+
+      <li>Return <i>reject</i>.</li>
+    </ol>
+
+    <es-clause title="Promise Reject Functions" anchor="sec-promise-reject-functions">
+      <p>A promise reject function is an anonymous built-in function that has a [[Promise]]
+      <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+      <p>When a promise reject function <es-nt>F</es-nt> is called with argument
+      <es-nt>reason</es-nt>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>F</i> has a
+        [[Promise]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref> whose value is an Object.</li>
+
+        <li>Let <i>promise</i> be the value of <i>F</i>'s [[Promise]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>If the value of <i>promise</i>'s <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> [[PromiseStatus]]
+        is not <code>"unresolved"</code>, then return <b>undefined</b>.</li>
+
+        <li>Let <i>reactions</i> be the value of <i>promise</i>'s [[RejectReactions]]
+        <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>Set the value of <i>promise</i>'s [[PromiseResult]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <i>reason</i>.</li>
+
+        <li>Set the value of <i>promise</i>'s [[PromiseResolveReactions]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <b>undefined</b>.</li>
+
+        <li>Set the value of <i>promise</i>'s [[PromiseRejectReactions]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <b>undefined</b>.</li>
+
+        <li>Set the value of <i>promise</i>'s [[PromiseStatus]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <code>"has-rejection"</code>.</li>
+
+        <li>Return <es-xref target=
+        "sec-triggerpromisereactions">TriggerPromiseReactions</es-xref>(<i>reactions</i>,
+        <i>reason</i>).</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="CreateResolveFunction ( promise )" anchor="sec-createresolvefunction">
+    <p>When CreateResolveFunction is performed with argument <es-nt>promise</es-nt>, the following
+    steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>resolve</i> be a new built-in function object as defined in Promise Resolve
+      Functions (<es-xref target="sec-promise-resolve-functions">25.4.1.4.1</es-xref>).</li>
+
+      <li>Set the [[Promise]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>resolve</i> to
+      <i>promise</i>.</li>
+
+      <li>Return <i>resolve</i>.</li>
+    </ol>
+
+    <es-clause title="Promise Resolve Functions" anchor="sec-promise-resolve-functions">
+      <p>A promise resolve function is an anonymous built-in function that has a [[Promise]]
+      <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+      <p>When a promise resolve function <es-nt>F</es-nt> is called with argument
+      <es-nt>resolution</es-nt>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>F</i> has a
+        [[Promise]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref> whose value is an Object.</li>
+
+        <li>Let <i>promise</i> be the value of <i>F</i>'s [[Promise]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>If the value of <i>promise</i>'s <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> [[PromiseStatus]]
+        is not <code>"unresolved"</code>, then return <b>undefined</b>.</li>
+
+        <li>Let <i>reactions</i> be the value of <i>promise</i>'s [[PromiseResolveReactions]]
+        <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>Set the value of <i>promise</i>'s [[PromiseResult]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <i>resolution</i>.</li>
+
+        <li>Set the value of <i>promise</i>'s [[PromiseResolveReactions]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <b>undefined</b>.</li>
+
+        <li>Set the value of <i>promise</i>'s [[PromiseRejectReactions]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <b>undefined</b>.</li>
+
+        <li>Set the value of <i>promise</i>'s [[PromiseStatus]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <code>"has-resolution"</code>.</li>
+
+        <li>Return <es-xref target=
+        "sec-triggerpromisereactions">TriggerPromiseReactions</es-xref>(<i>reactions</i>,
+        <i>resolution</i>).</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="NewPromiseCapability ( C )" anchor="sec-newpromisecapability">
+    <p>The abstract operation NewPromiseCapability takes a constructor function, and attempts to
+    use that constructor function in the fashion of the built-in <code>Promise</code> constructor
+    to create a Promise object and extract its resolve and reject functions. The promise plus the
+    resolve and reject functions are used to initialize a new PromiseCapability record which is
+    returned as the value of this abstraction operation. This is useful to support subclassing, as
+    this operation is generic on any constructor that calls a passed executor argument in the same
+    way as the Promise constructor. We use it to generalize static methods of the Promise
+    constructor to any subclass.</p>
+
+    <ol class="proc">
+      <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is <b>false</b>,
+      throw a <b>TypeError</b> exception.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>C</i> is a constructor
+      function that supports the parameter conventions of the <code>Promise</code> constructor (see
+      <es-xref target="sec-promise">25.4.3.1</es-xref>).</li>
+
+      <li>Let <i>promise</i> be <es-xref target=
+      "sec-createfromconstructor">CreateFromConstructor</es-xref>(<i>C</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>promise</i>).</li>
+
+      <li>Return <es-xref target=
+      "sec-createpromisecapabilityrecord">CreatePromiseCapabilityRecord</es-xref>(<i>promise</i>,
+      <i>C</i>).</li>
+    </ol>
+
+    <es-note>
+      <p>This abstract operation is supports Promise subclassing, as it is generic on any
+      constructor that calls a passed executor function argument in the same way as the Promise
+      constructor. It is used to generalize static methods of the Promise constructor to any
+      subclass.</p>
+    </es-note>
+
+    <es-clause title="CreatePromiseCapabilityRecord( promise, constructor ) Abstract Operation"
+    anchor="sec-createpromisecapabilityrecord">
+      <ol class="proc">
+        <li>Let <i>promiseCapability</i> be a new PromiseCapability { [[Promise]]: <i>promise</i>,
+        [[Resolve]]: <b>undefined</b>, [[Reject]]: <b>undefined</b> }.</li>
+
+        <li>Let <i>executor</i> be a new built-in function object as defined in <es-xref target=
+        "sec-getcapabilitiesexecutor-functions">GetCapabilitiesExecutor Functions</es-xref>
+        (<es-xref target="sec-createpromisecapabilityrecord">25.4.1.5.1</es-xref>).</li>
+
+        <li>Set the [[Capability]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>executor</i>
+        to <i>promiseCapability</i>.</li>
+
+        <li>Let <i>constructorResult</i> be the result of calling the [[Call]] internal method of
+        <i>constructor</i>, passing <i>promise</i> and (<i>executor</i>) as the arguments.</li>
+
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>constructorResult</i>).</li>
+
+        <li>If <es-xref target=
+        "sec-iscallable">IsCallable</es-xref>(<i>promiseCapability</i>.[[Resolve]]) is
+        <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>promiseCapability</i>.
+        [[Reject]]) is <b>false</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>constructorResult</i>) is Object
+        and SameAs(<i>promise</i>, <i>constructorResult</i>) is <b>false</b>, then throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Return <i>promiseCapability</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="GetCapabilitiesExecutor Functions" anchor=
+    "sec-getcapabilitiesexecutor-functions">
+      <p>A GetCapabilitiesExecutor function is an anonymous built-in function that has a
+      [[Capability]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</p>
+
+      <p>When a GetCapabilitiesExecutor function <es-nt>F</es-nt> is called with arguments
+      <es-nt>resolve</es-nt> and <es-nt>reject</es-nt> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>F</i> has a
+        [[Capability]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref> whose value is a PromiseCapability Record.</li>
+
+        <li>Let <i>promiseCapability</i> be the value of <i>F</i>'s [[Capability]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>If <i>promiseCapability</i>.[[Resolve]] is not <b>undefined</b>, then throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>promiseCapability</i>.[[Reject]] is not <b>undefined</b>, then throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Set <i>promiseCapability</i>.[[Resolve]] to <i>resolve</i>.</li>
+
+        <li>Set <i>promiseCapability</i>.[[Reject]] to <i>reject</i>.</li>
+
+        <li>Return <b>undefined</b>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
 
   <es-clause title="IsPromise ( x )" anchor="sec-ispromise">
     <p>The abstract operation IsPromise checks for the promise brand on an object.</p>
@@ -46,5 +399,60 @@
       <li>Return <b>undefined</b>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href="promise-abstract-operations/updatepromisefrompotentialthenable.html">
+
+  <es-clause title="UpdatePromiseFromPotentialThenable ( x, promiseCapability)" anchor=
+  "sec-updatepromisefrompotentialthenable">
+    <p>The abstract operation UpdatePromiseFromPotentialThenable takes a value <es-nt>x</es-nt> and
+    tests if it is a thenable. If so, it tries to use <i>x</i>'s <code>then</code> method to
+    resolve the promised accessed through <es-nt>promiseCapability</es-nt>. Otherwise, it returns
+    <code>"not a thenable"</code>.</p>
+
+    <ol class="proc">
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>x</i>) is not
+      Object, return <code>"not a thenable"</code>.</li>
+
+      <li>Let <i>then</i> be the result of calling <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>x</i>, <code>"then"</code>).</li>
+
+      <li>If <i>then</i> is an <es-xref target="sec-completion-record-specification-type">abrupt
+      completion</es-xref>,
+
+        <ol class="block">
+          <li>Let <i>rejectResult</i> be the result of calling the [[Call]] internal method of
+          <i>promiseCapability</i>.[[Reject]] with <b>undefined</b> as <i>thisArgument</i> and
+          (<i>then</i>.[[value]]) as <i>argumentsList</i>.</li>
+
+          <li><es-xref target=
+          "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rejectResult</i>).</li>
+
+          <li>Return <b>null</b></li>
+        </ol>
+      </li>
+
+      <li>Let <i>then</i> be <i>then</i>.[[value]].</li>
+
+      <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>then</i>) is <b>false</b>,
+      return <code>"not a thenable"</code>.</li>
+
+      <li>Let <i>thenCallResult</i> be the result of calling the [[Call]] internal method of
+      <i>then</i> passing <i>x</i> as <i>thisArgument</i> and
+      (<i>promiseCapability</i>.[[Resolve]], <i>promiseCapability</i>.[[Reject]]) as
+      <i>argumentsList</i>.</li>
+
+      <li>If <i>thenCallResult</i> is an <es-xref target=
+      "sec-completion-record-specification-type">abrupt completion</es-xref>,
+
+        <ol class="block">
+          <li>Let <i>rejectResult</i> be the result of calling the [[Call]] internal method of
+          <i>promiseCapability</i>.[[Reject]] with <b>undefined</b> as <i>thisArgument</i> and
+          (<i>thenCallResult</i>.[[value]]) as <i>argumentsList</i>.</li>
+
+          <li><es-xref target=
+          "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rejectResult</i>).</li>
+        </ol>
+      </li>
+
+      <li>Return <b>null</b>.</li>
+    </ol>
+  </es-clause>
 </es-clause>

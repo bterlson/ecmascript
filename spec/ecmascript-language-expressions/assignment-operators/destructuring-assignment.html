@@ -72,12 +72,494 @@
   <es-production name="DestructuringAssignmentTarget" params="Yield">
     <es-rhs><es-nt params="?Yield">LeftHandSideExpression</es-nt></es-rhs>
   </es-production>
-  <link rel="import" href=
-  "destructuring-assignment/destructuring-assignment-static-semantics-early-errors.html">
-  <link rel="import" href=
-  "destructuring-assignment/runtime-semantics-destructuringassignmentevaluation.html">
-  <link rel="import" href=
-  "destructuring-assignment/runtime-semantics-iteratordestructuringassignmentevaluation.html">
-  <link rel="import" href=
-  "destructuring-assignment/runtime-semantics-keyeddestructuringassignmentevaluation.html">
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-destructuring-assignment-static-semantics-early-errors">
+    <es-production name="AssignmentProperty" class="inline">
+      <es-rhs><es-nt>IdentifierReference</es-nt> <es-nt optional>Initialiser</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if IsValidSimpleAssignment(<es-nt>IdentifierReference</es-nt>) is
+        <span class="value">false</span>.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if <es-nt>IdentifierReference</es-nt> <es-nt>statically resolves to
+        a immutable binding.</es-nt></p>
+      </li>
+    </ul>
+
+    <es-production name="AssignmentRestElement" class="inline">
+      <es-rhs><es-t>...</es-t> <es-nt>DestructuringAssignmentTarget</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if IsValidSimpleAssignmentTarget of
+        <es-nt>DestructuringAssignmentTarget</es-nt> is <b>false</b><i>.</i></p>
+      </li>
+    </ul>
+
+    <es-production name="DestructuringAssignmentTarget" class="inline">
+      <es-rhs><es-nt>LeftHandSideExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if <es-nt>LeftHandSideExpression</es-nt> is either an
+        <es-nt>ObjectLiteral</es-nt> or an <es-nt>ArrayLiteral</es-nt> and if the lexical token
+        sequence matched by <es-nt>LeftHandSideExpression</es-nt> cannot be parsed with no tokens
+        left over using <es-nt>AssignmentPattern</es-nt> as the goal symbol.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if <es-nt>LeftHandSideExpression</es-nt> is neither an
+        <es-nt>ObjectLiteral</es-nt> nor an <es-nt>ArrayLiteral</es-nt> and
+        IsValidSimpleAssignmentTarget(<es-nt>LeftHandSideExpression</es-nt>) is <span class=
+        "value">false</span>.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if <es-nt>LeftHandSideExpression</es-nt> is an
+        <es-nt>IdentifierReference</es-nt> that can be statically determined to always resolve to a
+        <es-xref target="sec-declarative-environment-records">declarative environment
+        record</es-xref> binding and the resolved binding is an immutable binding.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if <es-nt>LeftHandSideExpression</es-nt> is
+        <es-production name="CoverParenthesisedExpressionAndArrowParameterList" class=
+        "inline"><es-rhs><es-t>(</es-t> <es-nt>Expression</es-nt>
+        <es-t>)</es-t></es-rhs></es-production> and <es-nt>Expression</es-nt> derives
+        a production that would produce a Syntax Error according to these rules if that production
+        is substituted for <es-nt>LeftHandSideExpression</es-nt>. This rule is recursively
+        applied.</p>
+      </li>
+    </ul>
+
+    <es-note>
+      <p>The last rule means that the other rules are applied even if multiple levels of nested
+      parenthesises surround <es-nt>Expression</es-nt>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: DestructuringAssignmentEvaluation" anchor=
+  "sec-runtime-semantics-destructuringassignmentevaluation">
+    <p>with parameter <es-nt>obj</es-nt></p>
+
+    <es-production name="ObjectAssignmentPattern" class="inline">
+      <es-rhs>{ }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
+    </ol>
+
+    <es-production name="ArrayAssignmentPattern" class="inline">
+      <es-rhs>[ ]</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>iterator</i> be the result of performing <es-xref target=
+      "sec-getiterator">GetIterator</es-xref>(<i>obj</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>).</li>
+
+      <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
+    </ol>
+
+    <es-production name="ArrayAssignmentPattern" class="inline">
+      <es-rhs constraint="Elision"></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>iterator</i> be the result of performing <es-xref target=
+      "sec-getiterator">GetIterator</es-xref>(<i>obj</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>).</li>
+
+      <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of
+      <i>Elision</i> with <i>iterator</i> as the argument.</li>
+    </ol>
+
+    <es-production name="ArrayAssignmentPattern" class="inline">
+      <es-rhs>[ <es-nt optional>Elision</es-nt> <es-nt>AssignmentRestElement</es-nt> ]</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>iterator</i> be the result of performing <es-xref target=
+      "sec-getiterator">GetIterator</es-xref>(<i>obj</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>).</li>
+
+      <li>If <i>Elision</i> is present, then
+
+        <ol class="block">
+          <li>Let <i>status</i> be the result of performing
+          IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with <i>iterator</i> as the
+          argument.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+        </ol>
+      </li>
+
+      <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of
+      <i>AssignmentRestElement</i> with <i>iterator</i> as the argument.</li>
+    </ol>
+
+    <es-production name="ArrayAssignmentPattern" class="inline">
+      <es-rhs><es-t>[</es-t> <es-nt>AssignmentElementList</es-nt> <es-t>]</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>iterator</i> be the result of performing <es-xref target=
+      "sec-getiterator">GetIterator</es-xref>(<i>obj</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>).</li>
+
+      <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of
+      <i>AssignmentElementList</i> using <i>iterator</i> as the argument.</li>
+    </ol>
+
+    <es-production name="ArrayAssignmentPattern" class="inline">
+      <es-rhs>[ <es-nt>AssignmentElementList</es-nt> , <es-nt optional>Elision</es-nt>
+      <es-nt optional>AssignmentRestElement</es-nt> ]</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>iterator</i> be the result of performing <es-xref target=
+      "sec-getiterator">GetIterator</es-xref>(<i>obj</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>).</li>
+
+      <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation
+      of <i>AssignmentElementList</i> using <i>iterator</i> as the argument.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>If <i>Elision</i> is present, then
+
+        <ol class="block">
+          <li>Let <i>status</i> be the result of performing
+          IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with <i>iterator</i> as the
+          argument.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+        </ol>
+      </li>
+
+      <li>If <i>AssignmentRestElement</i> is present, then return the result of performing
+      IteratorDestructuringAssignmentEvaluation of <i>AssignmentRestElement</i> with
+      <i>iterator</i> as the argument.</li>
+
+      <li>Return <i>lastIndex</i>.</li>
+    </ol>
+
+    <es-production name="AssignmentPropertyList" class="inline">
+      <es-rhs><es-nt>AssignmentPropertyList</es-nt> , <es-nt>AssignmentProperty</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>status</i> be the result of performing DestructuringAssignmentEvaluation for
+      <i>AssignmentPropertyList</i> using <i>obj</i> as the argument.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>Return the result of performing DestructuringAssignmentEvaluation for
+      <i>AssignmentProperty</i> using <i>obj</i> as the argument.</li>
+    </ol>
+
+    <es-production name="AssignmentProperty" class="inline">
+      <es-rhs><es-nt>IdentifierReference</es-nt> <es-nt optional>Initialiser</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>P</i> be <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>IdentifierReference</i>.</li>
+
+      <li>Let <i>v</i> be the result of calling <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>obj</i>, <i>P</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
+
+      <li>If <i>Initialiser</i><sub>opt</sub> is present and <i>v</i> is <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>defaultValue</i> be the result of evaluating <i>Initialiser</i>.</li>
+
+          <li>Let <i>v</i> be <es-xref target="sec-toobject">ToObject</es-xref>(<es-xref target=
+          "sec-getvalue">GetValue</es-xref>(<i>defaultValue</i>)).</li>
+        </ol>
+      </li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
+
+      <li>Let <i>lref</i> be the result of <es-xref target=
+      "sec-resolvebinding">ResolveBinding</es-xref>(<i>P)</i>.</li>
+
+      <li>Return <es-xref target="sec-putvalue">PutValue</es-xref>(<i>lref</i>,<i>v</i>).</li>
+    </ol>
+
+    <es-production name="AssignmentProperty" class="inline">
+      <es-rhs><es-nt>PropertyName</es-nt> : <es-nt>AssignmentElement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>name</i> be the result of evaluating <i>PropertyName</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
+
+      <li>Return the result of performing KeyedDestructuringAssignmentEvaluation of
+      <i>AssignmentElement</i> with <i>obj</i> and <i>name</i> as the arguments.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: IteratorDestructuringAssignmentEvaluation" anchor=
+  "sec-runtime-semantics-iteratordestructuringassignmentevaluation">
+    <p>with parameters <es-nt>iterator</es-nt></p>
+
+    <es-production name="AssignmentElementList" class="inline">
+      <es-rhs><es-nt>AssignmentElisionElement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of
+      <i>AssignmentElisionElementList</i> using <i>iterator</i> as the <i>argument</i>.</li>
+    </ol>
+
+    <es-production name="AssignmentElementList" class="inline">
+      <es-rhs><es-nt>AssignmentElementList</es-nt> ,
+      <es-nt>AssignmentElisionElement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation
+      of <i>AssignmentElementList</i> using <i>iterator</i> as the <i>argument.</i></li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of
+      <i>AssignmentElisionElementList</i> using <i>iterator</i> as the <i>argument</i>.</li>
+    </ol>
+
+    <es-production name="AssignmentElisionElement" class="inline">
+      <es-rhs><es-nt>AssignmentElement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li><i>R</i>eturn the result of performing IteratorDestructuringAssignmentEvaluation of
+      <i>AssignmentElement</i> with <i>iterator</i> as the argument.</li>
+    </ol>
+
+    <es-production name="AssignmentElisionElement" class="inline">
+      <es-rhs><es-nt>Elision</es-nt> <es-nt>AssignmentElement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation
+      of <i>Elision</i> with <i>iterator</i> as the argument.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of
+      <i>AssignmentElement</i> with <i>iterator</i> as the argument.</li>
+    </ol>
+
+    <es-production name="Elision" class="inline">
+      <es-rhs>,</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the result of <es-xref target=
+      "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
+    </ol>
+
+    <es-production name="Elision" class="inline">
+      <es-rhs><es-nt>Elision</es-nt> <es-t>,</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation
+      of <i>Elision</i> with <i>iterator</i> as the argument.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>Return the result of <es-xref target=
+      "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
+    </ol>
+
+    <p><i>AssignmentElement<sub>[Yield]</sub></i> <b>:</b>
+    <es-nt>DestructuringAssignmentTarget</es-nt> <es-nt>Initialiser</es-nt><sub>opt</sub></p>
+
+    <ol class="proc">
+      <li>If <i>DestructuringAssignmentTarget</i> is neither an <i>ObjectLiteral nor an
+      ArrayLiteral</i> then
+
+        <ol class="block">
+          <li>Let <i>lref</i> be the result of evaluating
+          <i>DestructuringAssignmentTarget</i>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lref</i>).</li>
+        </ol>
+      </li>
+
+      <li>Let <i>next</i> be the result of <es-xref target=
+      "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+      <li>If <i>next</i> is <b>false</b>, then let <i>v</i> be <b>undefined</b></li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>Let <i>v</i> be <es-xref target=
+          "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
+        </ol>
+      </li>
+
+      <li>If <i>Initialiser</i><sub>opt</sub> is present and <i>v</i> is <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>defaultValue</i> be the result of evaluating <i>Initialiser</i>.</li>
+
+          <li>Let <i>v</i> be <es-xref target=
+          "sec-getvalue">GetValue</es-xref>(<i>defaultValue</i>)</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
+        </ol>
+      </li>
+
+      <li>If <i>DestructuringAssignmentTarget</i> is an <i>ObjectLiteral or an ArrayLiteral</i>
+      then
+
+        <ol class="block">
+          <li>Let <i>nestedAssignmentPattern</i> be the parse of the source code corresponding to
+          <i>DestructuringAssignmentTarget</i> using either <i>AssignmentPattern</i> or
+          <i>AssignmentPattern</i><sub>[Yield]</sub> as the goal symbol depending upon whether this
+          <i>AssignmentElement</i> has the <sub>Yield</sub> parameter.</li>
+
+          <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>) is
+          not Object, then throw a <b>TypeError</b> exception.</li>
+
+          <li>Return the result of performing DestructuringAssignmentEvaluation of
+          <i>nestedAssignmentPattern</i> with <i>v</i> as the argument.</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Return <es-xref target="sec-putvalue">PutValue</es-xref>(<i>lref</i>,<i>v</i>).</li>
+        </ol>
+      </li>
+    </ol>
+
+    <es-note>
+      <p>Left to right evaluation order is maintained by evaluating a
+      <es-nt>DestructuringAssignmentTarget</es-nt> that is not a destruturing pattern prior to
+      accessing the iterator or evaluating the <es-nt>Initialiser</es-nt>.</p>
+    </es-note>
+
+    <es-production name="AssignmentRestElement" class="inline">
+      <es-rhs><es-t>...</es-t> <es-nt>DestructuringAssignmentTarget</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>lref</i> be the result of evaluating <i>DestructuringAssignmentTarget</i>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lref</i>).</li>
+
+      <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+      "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
+
+      <li>Let <i>n</i>=0;</li>
+
+      <li>Repeat
+
+        <ol class="block">
+          <li>Let <i>next</i> be the result of <es-xref target=
+          "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+          <li>If <i>next</i> is <b>false</b>, then
+
+            <ol class="block">
+              <li>Return <es-xref target="sec-putvalue">PutValue</es-xref>(<i>lref</i>,
+              <i>A</i>).</li>
+            </ol>
+          </li>
+
+          <li>Let <i>nextValue</i> be <es-xref target=
+          "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextValue</i>).</li>
+
+          <li>Let <i>defineStatus</i> be the result of <es-xref target=
+          "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref>(<i>A</i>,
+          <es-xref target="sec-tostring">ToString</es-xref>(<es-xref target=
+          "sec-touint32">ToUint32</es-xref>(<i>n)</i>), <i>nextValue</i>).</li>
+
+          <li><es-xref target=
+          "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>defineStatus</i>).</li>
+
+          <li>Increment <i>n</i> by 1.</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: KeyedDestructuringAssignmentEvaluation" anchor=
+  "sec-runtime-semantics-keyeddestructuringassignmentevaluation">
+    <p>with parameters <es-nt>obj</es-nt> and <es-nt>propertyName</es-nt></p>
+
+    <p><es-nt>AssignmentElement</es-nt> <sub><i>[Yield]</i></sub> <b>:</b>
+    <es-nt>DestructuringAssignmentTarget</es-nt> <es-nt>Initialiser</es-nt> <sub>opt</sub></p>
+
+    <ol class="proc">
+      <li>Let <i>v</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>obj</i>,
+      <i>name</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
+
+      <li>If <i>Initialiser</i><sub>opt</sub> is present and <i>v</i> is <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>defaultValue</i> be the result of evaluating <i>Initialiser</i>.</li>
+
+          <li>Let <i>v</i> be <es-xref target=
+          "sec-getvalue">GetValue</es-xref>(<i>defaultValue</i>)</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
+        </ol>
+      </li>
+
+      <li>If <i>DestructuringAssignmentTarget</i> is an <i>ObjectLiteral or an ArrayLiteral</i>
+      then
+
+        <ol class="block">
+          <li>Let <i>AssignmentPattern</i> be the parse of the source code corresponding to
+          <i>DestructuringAssignmentTarget</i> using either <i>AssignmentPattern</i> or
+          <i>AssignmentPattern</i><sub>[?Yield]</sub> as the goal symbol depending upon whether
+          this <i>AssignmentElement</i> has the <sub>Yield</sub> parameter.</li>
+
+          <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>) is
+          not Object, then throw a <b>TypeError</b> exception.</li>
+
+          <li>Return the result of performing DestructuringAssignmentEvaluation of
+          <i>AssignmentPattern</i> with <i>v</i> as the argument.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>lref</i> be the result of evaluating <i>DestructuringAssignmentTarget</i>.</li>
+
+      <li>Return <es-xref target="sec-putvalue">PutValue</es-xref>(<i>lref</i>,<i>v</i>).</li>
+    </ol>
+  </es-clause>
 </es-clause>

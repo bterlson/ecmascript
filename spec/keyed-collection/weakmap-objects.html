@@ -40,9 +40,394 @@
     Universal Computer Science - J.UCS , vol. 14, no. 21, pp. 3481-3497, 2008. <a href=
     "http://www.jucs.org/jucs_14_21/eliminating_cycles_in_weak">http://www.jucs.org/jucs_14_21/eliminating_cycles_in_weak</a></p>
   </es-note>
-  <link rel="import" href="weakmap-objects/weakmap-constructor.html">
-  <link rel="import" href="weakmap-objects/properties-of-the-weakmap-constructor.html">
-  <link rel="import" href="weakmap-objects/properties-of-the-weakmap-prototype-object.html">
+
+  <es-clause title="The WeakMap Constructor" anchor="sec-weakmap-constructor">
+    <p>The WeakMap constructor is the %WeakMap% intrinsic object and the initial value of the
+    <code>WeakMap</code> property of the global object. When <code>WeakMap</code> is called as a
+    function rather than as a constructor, it initialises its <b>this</b> value with the internal
+    state necessary to support the <code><es-xref target=
+    "sec-weakmap.prototype">WeakMap.prototype</es-xref></code> built-in methods.</p>
+
+    <p>The <code>WeakMap</code> constructor is designed to be subclassable. It may be used as the
+    value in an <code>extends</code> clause of a class definition. Subclass constructors that
+    intend to inherit the specified <code>WeakMap</code> behaviour must include a
+    <code>super</code> call to <code>WeakMap</code>.</p>
+
+    <es-clause title="WeakMap (iterable = undefined )" anchor="sec-weakmap-iterable">
+      <p>When the <code>WeakMap</code> function is called with optional argument
+      <es-nt>iterable</es-nt> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>map</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>map</i>) is
+        not Object then, throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>map</i> does not have a [[WeakMapData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>map’s</i> [[WeakMapData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>iterable</i> is not present, let <i>iterable</i> be <b>undefined</b>.</li>
+
+        <li>If <i>iterable</i> is either <b>undefined</b> or <b>null</b>, then let <i>iter</i> be
+        <b>undefined</b>.</li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Let <i>iter</i> be the result of <es-xref target=
+            "sec-getiterator">GetIterator</es-xref>(<i>iterable</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iter</i>).</li>
+
+            <li>Let <i>adder</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>map</i>, <code>"set"</code>)<b>.</b></li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>adder</i>).</li>
+
+            <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>adder</i>) is
+            <b>false</b>, throw a <b>TypeError</b> Exception.</li>
+          </ol>
+        </li>
+
+        <li>Set <i>map’s</i> [[WeakMapData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to a new empty
+        <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>If <i>iter</i> is <b>undefined</b>, then return <i>map</i>.</li>
+
+        <li>Repeat
+
+          <ol class="block">
+            <li>Let <i>next</i> be the result of <es-xref target=
+            "sec-iteratorstep">IteratorStep</es-xref>(<i>iter</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+            <li>If <i>next</i> is <b>false</b>, then return <es-xref target=
+            "sec-normalcompletion">NormalCompletion</es-xref>(<i>map</i>).</li>
+
+            <li>Let <i>nextValue</i> be <es-xref target=
+            "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextValue</i>).</li>
+
+            <li>If <es-xref target=
+            "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>nextValue</i>) is not Object,
+            then throw a <b>TypeError</b> exception</li>
+
+            <li>Let <i>k</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>nextValue</i>, <code>"0"</code>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>k</i>).</li>
+
+            <li>Let <i>v</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>nextValue</i>, <code>"1"</code>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
+
+            <li>Let <i>status</i> be the result of calling the [[Call]] internal method of
+            <i>adder</i> with <i>map</i> as <i>thisArgument</i> and a <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> whose elements are <i>k</i> and
+            <i>v</i> as <i>argumentsList</i>.</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+          </ol>
+        </li>
+      </ol>
+
+      <es-note>
+        <p>If the parameter <es-nt>iterable</es-nt> is present, it is expected to be an object that
+        implements an @@iterator method that returns an iterator object that produces a two element
+        array-like object whose first element is a value that will be used as a WeakMap key and
+        whose second element is the value to associate with that key.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="new WeakMap ( ... argumentsList )" anchor="sec-new-weakmap-argumentslist">
+      <p>When <code>WeakMap</code> is called as part of a <code>new</code> expression it is a
+      constructor: it initialises a newly created object.</p>
+
+      <p><code>WeakMap</code> called as part of a new expression with argument list
+      <i>argumentsList</i> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the WeakMap function object on which the <code>new</code> operator was
+        applied.</li>
+
+        <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+        internal method that was invoked by the <code>new</code> operator.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-construct-f-argumentslist">Construct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
+      </ol>
+
+      <p>If WeakMap is implemented as an <es-xref target=
+      "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+      internal method will perform the above steps.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the WeakMap Constructor" anchor=
+  "sec-properties-of-the-weakmap-constructor">
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the WeakMap
+    constructor is the Function prototype object (<es-xref target=
+    "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
+
+    <p>Besides the <code>length</code> property (whose value is <b>0</b>), the WeakMap constructor
+    has the following properties:</p>
+
+    <es-clause title="WeakMap.prototype" anchor="sec-weakmap.prototype">
+      <p>The initial value of <code>WeakMap.prototype</code> is the WeakMap prototype object
+      (<es-xref target="sec-properties-of-the-weakmap-prototype-object">23.3.3</es-xref>).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="WeakMap[ @@create ] ( )" anchor="sec-weakmap-@@create">
+      <p>The @@create method of a WeakMap object <es-nt>F</es-nt> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+        <li>Let <i>obj</i> be the result of calling <es-xref target=
+        "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>F</i>,
+        <code>"%WeakMapPrototype%"</code>, ( [[WeakMapData]] )).</li>
+
+        <li>Return <i>obj</i>.</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.create]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>true</b> }.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the WeakMap Prototype Object" anchor=
+  "sec-properties-of-the-weakmap-prototype-object">
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the WeakMap
+    prototype object is the standard built-in Object prototype object (<es-xref target=
+    "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>). The WeakMap prototype object
+    is an ordinary object. It does not have a [[WeakMapData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+    <es-clause title="WeakMap.prototype.clear ()" anchor="sec-weakmap.prototype.clear">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>M</i> does not have a [[WeakMapData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>M’s</i> [[WeakMapData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Set the value of <i>M</i>’s [[WeakMapData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to a new empty
+        <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>Return <b>undefined</b>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="WeakMap.prototype.constructor" anchor="sec-weakmap.prototype.constructor">
+      <p>The initial value of <code>WeakMap.prototype.constructor</code> is the built-in
+      <code>WeakMap</code> constructor.</p>
+    </es-clause>
+
+    <es-clause title="WeakMap.prototype.delete ( key )" anchor="sec-weakmap.prototype.delete">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>M</i> does not have a [[WeakMapData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+        [[WeakMapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>If <i>entries</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>key</i>) is
+        not Object, then return <b>false</b>.</li>
+
+        <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+        <i>entries,</i>
+
+          <ol class="block">
+            <li>If <i>p</i>.[[key]] and <i>key</i> are the same object, then
+
+              <ol class="block">
+                <li>Set <i>p</i>.[[key]] to empty<i>.</i></li>
+
+                <li>Set <i>p</i>.[[value]] to empty<i>.</i></li>
+
+                <li>Return <b>true</b>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <es-note>
+        <p>The value <b>empty</b> is used as a specification device to indicate that an entry has
+        been deleted. Actual implementations may take other actions such as physically removing the
+        entry from internal data structures.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="WeakMap.prototype.get ( key )" anchor="sec-weakmap.prototype.get">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>M</i> does not have a [[WeakMapData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+        [[WeakMapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>If <i>entries</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>key</i>) is
+        not Object, then return <b>undefined</b>.</li>
+
+        <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+        <i>entries,</i>
+
+          <ol class="block">
+            <li>If <i>p</i>.[[key]] and <i>key</i> are the same object, then return
+            <i>p</i>.[[value]].</li>
+          </ol>
+        </li>
+
+        <li>Return <b>undefined</b><i>.</i></li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="WeakMap.prototype.has ( key )" anchor="sec-weakmap.prototype.has">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>M</i> does not have a [[WeakMapData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+        [[WeakMapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>If <i>entries</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>key</i>) is
+        not Object, then return <b>false</b>.</li>
+
+        <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+        <i>entries,</i>
+
+          <ol class="block">
+            <li>If <i>p</i>.[[key]] and <i>key</i> are the same object, then return
+            <b>true</b><i>.</i></li>
+          </ol>
+        </li>
+
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="WeakMap.prototype.set ( key , value )" anchor="sec-weakmap.prototype.set">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>M</i> does not have a [[WeakMapData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+        [[WeakMapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>If <i>entries</i> is <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>key</i>) is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+        <i>entries,</i>
+
+          <ol class="block">
+            <li>If <i>p</i>.[[key]] and <i>key</i> are the same object, then
+
+              <ol class="block">
+                <li>Set <i>p</i>.[[value]] to <i>value.</i></li>
+
+                <li>Return <i>M</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Let <i>p</i> be the Record {[[key]]: <i>key</i>, [[value]]: <i>value</i>}.</li>
+
+        <li>Append <i>p</i> as the last element of <i>entries</i>.</li>
+
+        <li>Return <i>M</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="WeakMap.prototype [ @@toStringTag ]" anchor=
+    "sec-weakmap.prototype-@@tostringtag">
+      <p>The initial value of the @@toStringTag property is the string value <b>"WeakMap"</b>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+      [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+      "value">true</span> }.</p>
+    </es-clause>
+  </es-clause>
 
   <es-clause title="Properties of WeakMap Instances" anchor="sec-properties-of-weakmap-instances">
     <p>WeakMap instances are ordinary objects that inherit properties from the WeakMap prototype.

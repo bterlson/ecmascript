@@ -82,5 +82,105 @@
       </tr>
     </table>
   </figure>
-  <link rel="import" href="tostring/tostring-applied-to-the-number-type.html">
+
+  <es-clause title="ToString Applied to the Number Type" anchor=
+  "sec-tostring-applied-to-the-number-type">
+    <p>The abstract operation <es-xref target="sec-tostring">ToString</es-xref> converts a Number
+    <es-nt>m</es-nt> to String format as follows:</p>
+
+    <ol class="proc">
+      <li>If <i>m</i> is <b>NaN</b>, return the String <code>"NaN"</code>.</li>
+
+      <li>If <i>m</i> is <b>+0</b> or <b>−0</b>, return the String <code>"0"</code>.</li>
+
+      <li>If <i>m</i> is less than zero, return the String concatenation of the String
+      <code>"-"</code> and <es-xref target="sec-tostring">ToString</es-xref>(−<i>m</i>).</li>
+
+      <li>If <i>m</i> is +∞, return the String <code>"Infinity"</code>.</li>
+
+      <li>Otherwise, let <i>n</i>, <i>k</i>, and <i>s</i> be integers such that <i>k</i> ≥ 1,
+      10<sup><i>k</i>−1</sup> ≤ <i>s</i> &lt; 10<sup><i>k</i></sup> , the Number value for <i>s</i>
+      × 10<sup><i>n−k</i></sup> is <i>m</i>, and <i>k</i> is as small as possible. Note that
+      <i>k</i> is the number of digits in the decimal representation of <i>s</i>, that <i>s</i> is
+      not divisible by 10, and that the least significant digit of <i>s</i> is not necessarily
+      uniquely determined by these criteria.</li>
+
+      <li>If <i>k</i> ≤ <i>n</i> ≤ 21, return the String consisting of the <i>k</i> digits of the
+      decimal representation of <i>s</i> (in order, with no leading zeroes), followed by <i>n−k</i>
+      occurrences of the character ‘<code>0</code>’.</li>
+
+      <li>If 0 &lt; <i>n</i> ≤ 21, return the String consisting of the most significant <i>n</i>
+      digits of the decimal representation of <i>s</i>, followed by a decimal point
+      ‘<code>.</code>’, followed by the remaining <i>k−n</i> digits of the decimal representation
+      of <i>s</i>.</li>
+
+      <li>If −6 &lt; <i>n</i> ≤ 0, return the String consisting of the character ‘<code>0</code>’,
+      followed by a decimal point ‘<code>.</code>’, followed by −<i>n</i> occurrences of the
+      character ‘<code>0</code>’, followed by the <i>k</i> digits of the decimal representation of
+      <i>s</i>.</li>
+
+      <li>Otherwise, if <i>k</i> = 1, return the String consisting of the single digit of <i>s</i>,
+      followed by lowercase character ‘<code>e</code>’, followed by a plus sign ‘<code>+</code>’ or
+      minus sign ‘<code>−</code>’ according to whether <i>n</i>−1 is positive or negative, followed
+      by the decimal representation of the integer <es-xref target=
+      "sec-algorithm-conventions">abs</es-xref>(<i>n</i>−1) (with no leading zeroes).</li>
+
+      <li>Return the String consisting of the most significant digit of the decimal representation
+      of <i>s</i>, followed by a decimal point ‘.’, followed by the remaining <i>k</i>−1 digits of
+      the decimal representation of <i>s</i>, followed by the lowercase character ‘<code>e</code>’,
+      followed by a plus sign ‘<code>+</code>’ or minus sign ‘<code>−</code>’ according to whether
+      <i>n</i>−1 is positive or negative, followed by the decimal representation of the integer
+      <es-xref target="sec-algorithm-conventions">abs</es-xref>(<i>n</i>−1) (with no leading
+      zeroes).</li>
+    </ol>
+
+    <es-note>
+      <p>The following observations may be useful as guidelines for implementations, but are not
+      part of the normative requirements of this Standard:</p>
+
+      <ul>
+        <li>
+          <p>If x is any Number value other than <b>−0</b>, then <es-xref target=
+          "sec-tonumber">ToNumber</es-xref>(<es-xref target="sec-tostring">ToString</es-xref>(x))
+          is exactly the same Number value as x.</p>
+        </li>
+
+        <li>
+          <p>The least significant digit of s is not always uniquely determined by the requirements
+          listed in step 5.</p>
+        </li>
+      </ul>
+    </es-note>
+
+    <es-note>
+      <p>For implementations that provide more accurate conversions than required by the rules
+      above, it is recommended that the following alternative version of step 5 be used as a
+      guideline:</p>
+
+      <p>Otherwise, let <i>n</i>, <i>k</i>, and <i>s</i> be integers such that <i>k</i> ≥ 1,
+      10<sup><i>k</i>−1</sup> ≤ <i>s</i> &lt; 10<sup><i>k</i></sup> , the Number value for <i>s</i>
+      × 10<sup><i>n</i>−<i>k</i></sup> is <i>m</i>, and <i>k</i> is as small as possible. If there
+      are multiple possibilities for <i>s</i>, choose the value of <i>s</i> for which <i>s</i> ×
+      10<sup><i>n</i>−<i>k</i></sup> is closest in value to <i>m</i>. If there are two such
+      possible values of <i>s</i>, choose the one that is even. Note that <i>k</i> is the number of
+      digits in the decimal representation of <i>s</i> and that <i>s</i> is not divisible by
+      10.</p>
+    </es-note>
+
+    <es-note>
+      <p>Implementers of ECMAScript may find useful the paper and code written by David M. Gay for
+      binary-to-decimal conversion of floating-point numbers:</p>
+
+      <p>Gay, David M. Correctly Rounded Binary-Decimal and Decimal-Binary Conversions. Numerical
+      Analysis, Manuscript 90-10. AT&amp;T Bell Laboratories (Murray Hill, New Jersey). November
+      30, 1990. Available as<br>
+      <a href=
+      "http://cm.bell-labs.com/cm/cs/doc/90/4-10.ps.gz">http://cm.bell-labs.com/cm/cs/doc/90/4-10.ps.gz</a>
+      . Associated code available as<br>
+      <a href="http://netlib.sandia.gov/fp/dtoa.c">http://netlib.sandia.gov/fp/dtoa.c</a>
+      &nbsp;and&nbsp;as<br>
+      <a href="http://netlib.sandia.gov/fp/g_fmt.c">http://netlib.sandia.gov/fp/g_fmt.c</a> and may
+      also be found at the various <code>netlib</code> mirror sites.</p>
+    </es-note>
+  </es-clause>
 </es-clause>

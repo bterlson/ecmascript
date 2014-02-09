@@ -1,6 +1,238 @@
 <!doctype html>
 <es-clause title="TheStatement" anchor="sec-for-statement">
-  <link rel="import" href="for-statement/for-statement-static-semantics-vardeclarednames.html">
-  <link rel="import" href="for-statement/for-statement-runtime-semantics-labelledevaluation.html">
-  <link rel="import" href="for-statement/runtime-semantics-forbodyevaluation.html">
+  <es-clause title="Static Semantics: VarDeclaredNames" anchor=
+  "sec-for-statement-static-semantics-vardeclarednames">
+    <p>See also: <es-xref target=
+    "sec-statement-semantics-static-semantics-vardeclarednames">13.0.1</es-xref>, <es-xref target=
+    "sec-block-static-semantics-vardeclarednames">13.1.8</es-xref>, <es-xref target=
+    "sec-if-statement-static-semantics-vardeclarednames">13.5.1</es-xref>, <es-xref target=
+    "sec-do-while-statement-static-semantics-vardeclarednames">13.6.1.1</es-xref>, <es-xref target=
+    "sec-while-statement-static-semantics-vardeclarednames">13.6.2.1</es-xref>, <es-xref target=
+    "sec-for-in-and-for-of-statements-static-semantics-vardeclarednames">13.6.4.3</es-xref>,
+    <es-xref target="sec-with-statement-static-semantics-vardeclarednames">13.10.2</es-xref>,
+    <es-xref target="sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>,
+    <es-xref target="sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
+    <es-xref target="sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.1.5</es-xref>,
+    <es-xref target=
+    "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt optional>Expression</es-nt> ; <es-nt optional>Expression</es-nt> ;
+      <es-nt optional>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the VarDeclaredNames of <i>Statement</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( var <es-nt>VariableDeclarationList</es-nt> ; <es-nt optional>Expression</es-nt>
+      ; <es-nt optional>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be BoundNames of <i>VariableDeclarationList</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Statement.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> <es-nt optional>Expression</es-nt> ;
+      <es-nt optional>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the VarDeclaredNames of <i>Statement</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: LabelledEvaluation" anchor=
+  "sec-for-statement-runtime-semantics-labelledevaluation">
+    <p>With argument <es-nt>labelSet</es-nt>.</p>
+
+    <p>See also: <es-xref target=
+    "sec-statement-semantics-runtime-semantics-labelledevaluation">13.0.2</es-xref>,
+    <es-xref target=
+    "sec-do-while-statement-runtime-semantics-labelledevaluation">13.6.1.2</es-xref>,
+    <es-xref target="sec-while-statement-runtime-semantics-labelledevaluation">13.6.2.2</es-xref>,
+    <es-xref target=
+    "sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation">13.6.4.5</es-xref>,
+    <es-xref target=
+    "sec-labelled-statements-runtime-semantics-labelledevaluation">13.12.3</es-xref>.</p>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt optional>Expression</es-nt> ; <es-nt optional>Expression</es-nt> ;
+      <es-nt optional>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If the first <i>Expression</i> is present, then
+
+        <ol class="block">
+          <li>Let <i>exprRef</i> be the result of evaluating the first <i>Expression</i>.</li>
+
+          <li>Let <i>exprValue</i> be <es-xref target=
+          "sec-getvalue">GetValue</es-xref>(<i>exprRef</i>).</li>
+
+          <li>If <es-xref target=
+          "sec-loopcontinues">LoopContinues</es-xref>(<i>exprValue</i>,<i>labelSet</i>) is
+          <b>false</b>, return <i>exprValue.</i></li>
+        </ol>
+      </li>
+
+      <li>Return the result of performing ForBodyEvaluation with the first <i>Expression</i> as the
+      <i>testExpr</i> argument, the second <i>Expression</i> as the <i>incrementExpr</i> argument,
+      <i>Statement</i> as the <i>stmt</i> argument, and with <i>labelSet</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( var <es-nt>VariableDeclarationList</es-nt> ; <es-nt optional>Expression</es-nt>
+      ; <es-nt optional>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>varDcl</i> be the result of evaluating <i>VariableDeclarationList</i>.</li>
+
+      <li>If <es-xref target=
+      "sec-loopcontinues">LoopContinues</es-xref>(<i>varDcl</i>,<i>labelSet</i>) is <b>false</b>,
+      return <i>varDcl</i>.</li>
+
+      <li>Return the result of performing ForBodyEvaluation with the first <i>Expression</i> as the
+      <i>testExpr</i> argument, the second <i>Expression</i> as the <i>incrementExpr</i> argument,
+      <i>Statement</i> as the <i>stmt</i> argument, and with <i>labelSet</i>.</li>
+    </ol>
+
+    <es-production name="IterationStatement" class="inline">
+      <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> <es-nt optional>Expression</es-nt> ;
+      <es-nt optional>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>oldEnv</i> be <es-xref target="sec-execution-contexts">the running execution
+      context</es-xref>’s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
+
+      <li>Let <i>loopEnv</i> be the result of calling <es-xref target=
+      "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing <i>oldEnv</i> as
+      the argument.</li>
+
+      <li>Let <i>isConst</i> be the result of performing IsConstantDeclaration of
+      <i>LexicalDeclaration</i>.</li>
+
+      <li>For each element <i>dn</i> of the BoundNames of <i>LexicalDeclaration</i> do
+
+        <ol class="block">
+          <li>If <i>isConst</i> is <b>true</b>, then
+
+            <ol class="block">
+              <li>Call <i>loopEnv</i>’s CreateImmutableBinding concrete method passing <i>dn</i> as
+              the argument.</li>
+            </ol>
+          </li>
+
+          <li>Else,
+
+            <ol class="block">
+              <li>Call <i>loopEnv</i>’s CreateMutableBinding concrete method passing <i>dn</i> and
+              <b>false</b> as the arguments.</li>
+
+              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The above call to
+              CreateMutableBinding will never return an <es-xref target=
+              "sec-completion-record-specification-type">abrupt completion</es-xref>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+      <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>loopEnv</i>.</li>
+
+      <li>Let <i>forDcl</i> be the result of evaluating <i>LexicalDeclaration</i>.</li>
+
+      <li>If <es-xref target=
+      "sec-loopcontinues">LoopContinues</es-xref>(<i>forDcl</i>,<i>labelSet</i>) is <b>false</b>,
+      then
+
+        <ol class="block">
+          <li>Set <es-xref target="sec-execution-contexts">the running execution
+          context</es-xref>’s <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref>
+          to <i>oldEnv</i>.</li>
+
+          <li>Return <i>forDcl</i>.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>bodyResult</i> be the result of performing ForBodyEvaluation with the first
+      <i>Expression</i> as the <i>testExpr</i> argument, the second <i>Expression</i> as the
+      <i>incrementExpr</i> argument, <i>Statement</i> as the <i>stmt</i> argument, and with
+      <i>labelSet</i>.</li>
+
+      <li>Set <es-xref target="sec-execution-contexts">the running execution context</es-xref>’s
+      <es-xref target="sec-execution-contexts">LexicalEnvironment</es-xref> to <i>oldEnv</i>.</li>
+
+      <li>Return <i>bodyResult</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: ForBodyEvaluation" anchor=
+  "sec-runtime-semantics-forbodyevaluation">
+    <p>The abstract operation ForBodyEvaluation with arguments <es-nt>testExpr</es-nt>,
+    <es-nt>incrementExpr</es-nt>, <es-nt>stmt</es-nt>, and <es-nt>labelSet</es-nt> is performed as
+    follows:</p>
+
+    <ol class="proc">
+      <li>Let <i>V</i> = <b>undefined</b>.</li>
+
+      <li>Repeat
+
+        <ol class="block">
+          <li>If <i>testExpr</i> is not [empty], then
+
+            <ol class="block">
+              <li>Let <i>testExprRef</i> be the result of evaluating <i>testExpr</i>.</li>
+
+              <li>Let <i>testExprValue</i> be <es-xref target=
+              "sec-toboolean">ToBoolean</es-xref>(<es-xref target=
+              "sec-getvalue">GetValue</es-xref>(<i>testExprRef</i>))</li>
+
+              <li>If <i>testExprValue</i> is <b>false</b>, return <es-xref target=
+              "sec-normalcompletion">NormalCompletion</es-xref>(<i>V</i>).</li>
+
+              <li>Else if <es-xref target="sec-loopcontinues">LoopContinues</es-xref>
+              (<i>testExprValue</i>,<i>labelSet</i>) is <b>false</b>, return
+              <i>testExprValue.</i></li>
+            </ol>
+          </li>
+
+          <li>Let <i>result</i> be the result of evaluating <i>stmt</i>.</li>
+
+          <li>If <i>result</i>.[[value]] is not empty, let <i>V</i> = <i>result</i>.[[value]].</li>
+
+          <li>If <es-xref target="sec-loopcontinues">LoopContinues</es-xref>
+          (<i>result</i>,<i>labelSet</i>) is <b>false</b>, return <i>result</i>.</li>
+
+          <li>If <i>incrementExpr</i> is not [empty], then
+
+            <ol class="block">
+              <li>Let <i>incExprRef</i> be the result of evaluating <i>incrementExpr</i>.</li>
+
+              <li>Let <i>incExprValue</i> be <es-xref target=
+              "sec-getvalue">GetValue</es-xref>(<i>incExprRef</i>).</li>
+
+              <li>If <es-xref target=
+              "sec-loopcontinues">LoopContinues</es-xref>(<i>incExprValue</i>,<i>labelSet</i>) is
+              <b>false</b>, return <i>incExprValue.</i></li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
 </es-clause>

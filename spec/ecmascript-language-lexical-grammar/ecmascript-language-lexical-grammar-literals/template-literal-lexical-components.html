@@ -48,6 +48,338 @@
 
     <es-rhs><es-nt>LineTerminatorSequence</es-nt></es-rhs>
   </es-production>
-  <link rel="import" href=
-  "template-literal-lexical-components/static-semantics-tv-s-and-trv-s.html">
+
+  <es-clause title="Static Semantics:" anchor="sec-static-semantics-tv-s-and-trv-s">
+    <p>A template literal component is interpreted as a sequence of Unicode code points. The
+    Template Value (TV) of a literal component is described in terms of code unit values (CV,
+    <es-xref target="sec-literals-string-literals">11.8.4</es-xref>) contributed by the various
+    parts of the template literal component. As part of this process, some Unicode code points
+    within the template component are interpreted as having a mathematical value (MV,
+    <es-xref target="sec-literals-numeric-literals">11.8.3</es-xref>). In determining a TV, escape
+    sequences are replaced by the UTF-16 code unit(s) of the Unicode code point represented by the
+    escape sequence. The Template Raw Value (TRV) is similar to a Template Value with the
+    difference that in TRVs escape sequences are interpreted literally.</p>
+
+    <ul>
+      <li>
+        <p>The TV and TRV of <es-production name="NoSubstitutionTemplate" type="lexical"
+        class="inline"><es-rhs>``</es-rhs></es-production> is the empty code
+        unit sequence.</p>
+      </li>
+
+      <li>
+        <p>The TV and TRV of <es-production name="TemplateHead" type="lexical" class=
+        "inline"><es-rhs>`${</es-rhs></es-production> is the empty code unit
+        sequence.</p>
+      </li>
+
+      <li>
+        <p>The TV and TRV of <es-production name="TemplateMiddle" type="lexical" class=
+        "inline"><es-rhs>}${</es-rhs></es-production> is the empty code unit
+        sequence.</p>
+      </li>
+
+      <li>
+        <p>The TV and TRV of <es-production name="TemplateTail" type="lexical" class=
+        "inline"><es-rhs>}`</es-rhs></es-production> is the empty code unit
+        sequence.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="NoSubstitutionTemplate" type="lexical" class=
+        "inline"><es-rhs><es-t>`</es-t> <es-nt>TemplateCharacters</es-nt>
+        <es-t>`</es-t></es-rhs></es-production> is the TV of
+        <i>TemplateCharacters</i>.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="TemplateHead" type="lexical" class=
+        "inline"><es-rhs><es-t>`</es-t> <es-nt>TemplateCharacters</es-nt>
+        <es-t>${</es-t></es-rhs></es-production> is the TV of
+        <i>TemplateCharacters</i>.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="TemplateMiddle" type="lexical" class=
+        "inline"><es-rhs><es-t>}</es-t> <es-nt>TemplateCharacters</es-nt>
+        <es-t>${</es-t></es-rhs></es-production> is the TV of
+        <i>TemplateCharacters</i>.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="TemplateTail" type="lexical" class=
+        "inline"><es-rhs><es-t>}</es-t> <es-nt>TemplateCharacters</es-nt>
+        <es-t>`</es-t></es-rhs></es-production> is the TV of
+        <i>TemplateCharacters</i>.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="TemplateCharacters" type="lexical" class=
+        "inline"><es-rhs><es-nt>TemplateCharacter</es-nt></es-rhs></es-production>
+        is the TV of <i>TemplateCharacter</i>.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="TemplateCharacters" type="lexical" class=
+        "inline"><es-rhs><es-nt>TemplateCharacter</es-nt>
+        <es-nt>TemplateCharacters</es-nt></es-rhs></es-production> is a sequence
+        consisting of the code units in the TV of <i>TemplateCharacter</i> followed by all the code
+        units in the TV of <i>TemplateCharacters</i> in order.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="TemplateCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+        <es-t>`</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
+        <es-t>$</es-t></es-gmod><es-gmod>or
+        <es-nt>LineTerminatorSequence</es-nt></es-gmod></es-rhs></es-production> is
+        the UTF-16 Encoding (<es-xref target=
+        "sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of the code point value of
+        <i>SourceCharacter</i>.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="TemplateCharacter" type="lexical" class=
+        "inline"><es-rhs>$</es-rhs></es-production> is the code unit value
+        0x0024.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="TemplateCharacter" type="lexical" class=
+        "inline"><es-rhs><es-t>\</es-t>
+        <es-nt>EscapeSequence</es-nt></es-rhs></es-production> is the CV of
+        <i>EscapeSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="TemplateCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>LineContinuation</es-nt></es-rhs></es-production>
+        is the TV of <i>LineContinuation</i>.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="TemplateCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>LineTerminatorSequence</es-nt></es-rhs></es-production>
+        is the TRV of <i>LineTerminatorSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The TV of <es-production name="LineContinuation" type="lexical" class=
+        "inline"><es-rhs><es-t>\</es-t>
+        <es-nt>LineTerminatorSequence</es-nt></es-rhs></es-production> is the empty
+        code unit sequence.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="NoSubstitutionTemplate" type="lexical" class=
+        "inline"><es-rhs><es-t>`</es-t> <es-nt>TemplateCharacters</es-nt>
+        <es-t>`</es-t></es-rhs></es-production> is the TRV of
+        <i>TemplateCharacters</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="TemplateHead" type="lexical" class=
+        "inline"><es-rhs><es-t>`</es-t> <es-nt>TemplateCharacters</es-nt>
+        <es-t>${</es-t></es-rhs></es-production> is the TRV of
+        <i>TemplateCharacters</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="TemplateMiddle" type="lexical" class=
+        "inline"><es-rhs><es-t>}</es-t> <es-nt>TemplateCharacters</es-nt>
+        <es-t>${</es-t></es-rhs></es-production> is the TRV of
+        <i>TemplateCharacters</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="TemplateTail" type="lexical" class=
+        "inline"><es-rhs><es-t>}</es-t> <es-nt>TemplateCharacters</es-nt>
+        <es-t>`</es-t></es-rhs></es-production> is the TRV of
+        <i>TemplateCharacters</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="TemplateCharacters" type="lexical" class=
+        "inline"><es-rhs><es-nt>TemplateCharacter</es-nt></es-rhs></es-production>
+        is the TRV of <i>TemplateCharacter</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="TemplateCharacters" type="lexical" class=
+        "inline"><es-rhs><es-nt>TemplateCharacter</es-nt>
+        <es-nt>TemplateCharacters</es-nt></es-rhs></es-production> is a sequence
+        consisting of the code units in the TRV of <i>TemplateCharacter</i> followed by all the
+        code units in the TRV of <i>TemplateCharacters,</i> in order.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="TemplateCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+        <es-t>`</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
+        <es-t>$</es-t></es-gmod><es-gmod>or
+        <es-nt>LineTerminatorSequence</es-nt></es-gmod></es-rhs></es-production> is
+        the UTF-16 Encoding (<es-xref target=
+        "sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of the code point value of
+        <i>SourceCharacter</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="TemplateCharacter" type="lexical" class=
+        "inline"><es-rhs>$</es-rhs></es-production> is the code unit value
+        0x0024.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="TemplateCharacter" type="lexical" class=
+        "inline"><es-rhs><es-t>\</es-t>
+        <es-nt>EscapeSequence</es-nt></es-rhs></es-production> is the sequence
+        consisting of the code unit value 0x005C followed by the code units of TRV of
+        <i>EscapeSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="TemplateCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>LineContinuation</es-nt></es-rhs></es-production>
+        is the TRV of <i>LineContinuation</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="TemplateCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>LineTerminatorSequence</es-nt></es-rhs></es-production>
+        is the TRV of <i>LineTerminatorSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="EscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-nt>CharacterEscapeSequence</es-nt></es-rhs></es-production>
+        is the TRV of the <i>CharacterEscapeSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="EscapeSequence" type="lexical" class=
+        "inline"><es-rhs>0</es-rhs></es-production> is the code unit value
+        0x0030.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="EscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-nt>HexEscapeSequence</es-nt></es-rhs></es-production>
+        is the TRV of the <i>HexEscapeSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="EscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-nt>UnicodeEscapeSequence</es-nt></es-rhs></es-production>
+        is the TRV of the <i>UnicodeEscapeSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="CharacterEscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-nt>SingleEscapeCharacter</es-nt></es-rhs></es-production>
+        is the TRV of the <i>SingleEscapeCharacter</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="CharacterEscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-nt>NonEscapeCharacter</es-nt></es-rhs></es-production>
+        is the CV of the <i>NonEscapeCharacter</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="SingleEscapeCharacter" type="lexical" class=
+        "inline"><es-rhs><es-gmod>one of <es-t>'</es-t> <es-t>"</es-t> <es-t>\</es-t>
+        <es-t>b</es-t> <es-t>f</es-t> <es-t>n</es-t> <es-t>r</es-t> <es-t>t</es-t>
+        <es-t>v</es-t></es-gmod></es-rhs></es-production> is the CV of the
+        <i>SourceCharacter</i> that is that single character.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="HexEscapeSequence" type="lexical" class=
+        "inline"><es-rhs>x <es-nt>HexDigit</es-nt>
+        <es-nt>HexDigit</es-nt></es-rhs></es-production> is the sequence consisting
+        of code unit value 0x0078 followed by TRV of the first <i>HexDigit</i> followed by the TRV
+        of the second <i>HexDigit</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="UnicodeEscapeSequence" type="lexical" class=
+        "inline"><es-rhs>u <es-nt>HexDigit</es-nt> <es-nt>HexDigit</es-nt>
+        <es-nt>HexDigit</es-nt> <es-nt>HexDigit</es-nt></es-rhs></es-production> is
+        the sequence consisting of code unit value 0x0075 followed by TRV of the first
+        <i>HexDigit</i> followed by the TRV of the second <i>HexDigit</i> followed by TRV of the
+        third <i>HexDigit</i> followed by the TRV of the fourth <i>HexDigit</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="UnicodeEscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-t>u{</es-t> <es-nt>HexDigits</es-nt>
+        <es-t>}</es-t></es-rhs></es-production> is the sequence consisting of code
+        unit value 0x0075 followed by code unit value 0x007B followed by TRV of <i>HexDigits</i>
+        followed by code unit value 0x007D.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="HexDigits" type="lexical" class=
+        "inline"><es-rhs><es-nt>HexDigit</es-nt></es-rhs></es-production> is
+        the TRV of <i>HexDigit</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="HexDigits" type="lexical" class=
+        "inline"><es-rhs><es-nt>HexDigits</es-nt>
+        <es-nt>HexDigit</es-nt></es-rhs></es-production> is the sequence consisting
+        of TRV of <i>HexDigits</i> followed by TRV of <i>HexDigit</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of a <i>HexDigit</i> is the CV of the <i>SourceCharacter</i> that is that
+        <i>HexDigit</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="LineContinuation" type="lexical" class=
+        "inline"><es-rhs><es-t>\</es-t>
+        <es-nt>LineTerminatorSequence</es-nt></es-rhs></es-production> is the
+        sequence consisting of the code unit value 0x005C followed by the code units of TRV of
+        <i>LineTerminatorSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="LineTerminatorSequence" type="lexical" class=
+        "inline"><es-rhs></es-rhs></es-production> &lt;LF&gt; is the code unit
+        value 0x000A.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="LineTerminatorSequence" type="lexical" class=
+        "inline"><es-rhs></es-rhs></es-production> &lt;CR&gt; is the code unit
+        value 0x000A.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="LineTerminatorSequence" type="lexical" class=
+        "inline"><es-rhs></es-rhs></es-production> &lt;LS&gt; is the code unit
+        value 0x2028.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="LineTerminatorSequence" type="lexical" class=
+        "inline"><es-rhs></es-rhs></es-production> &lt;PS&gt; is the code unit
+        value 0x2029.</p>
+      </li>
+
+      <li>
+        <p>The TRV of <es-production name="LineTerminatorSequence" type="lexical" class=
+        "inline"><es-rhs></es-rhs></es-production> &lt;CR&gt;&lt;LF&gt; is the
+        sequence consisting of the code unit value 0x000A.</p>
+      </li>
+    </ul>
+
+    <es-note>
+      <p>TV excludes the code units of <es-nt>LineContinuation</es-nt> while TRV includes them.
+      &lt;CR&gt;&lt;LF&gt; and &lt;CR&gt; <es-nt>LineTerminatorSequences</es-nt> are normalized to
+      &lt;LF&gt; for both TV and TRV. An explicit <es-nt>EscapeSequence</es-nt> is needed to
+      include a &lt;CR&gt; or &lt;CR&gt;&lt;LF&gt; sequence.</p>
+    </es-note>
+  </es-clause>
 </es-clause>

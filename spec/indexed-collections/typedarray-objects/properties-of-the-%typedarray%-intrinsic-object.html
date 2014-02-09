@@ -8,10 +8,266 @@
 
   <p>Besides a <code>length</code> property whose value is 3 and a <code>name</code> property whose
   value is <code>"TypedArray"</code>, %TypedArray% has the following properties:</p>
-  <link rel="import" href=
-  "properties-of-the-%25typedarray%25-intrinsic-object/%25typedarray%25.from.html">
-  <link rel="import" href=
-  "properties-of-the-%25typedarray%25-intrinsic-object/%25typedarray%25.of.html">
+
+  <es-clause title="%TypedArray%.from ( source , mapfn=undefined, thisArg=undefined )" anchor=
+  "sec-%typedarray%.from">
+    <p>When the <code>from</code> method is called with argument <es-nt>source</es-nt>, and
+    optional arguments <i>mapfn</i> and <i>thisArg</i>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>C</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is <b>false</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>items</i> be <es-xref target=
+      "sec-toobject">ToObject</es-xref>(<i>source</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>items</i>).</li>
+
+      <li>If <i>mapfn</i> is <b>undefined</b>, then let <i>mapping</i> be <b>false.</b></li>
+
+      <li>else
+
+        <ol class="block">
+          <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>mapfn</i>) is
+          <b>false</b>, throw a <b>TypeError</b> exception.</li>
+
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be
+          <b>undefined</b>.</li>
+
+          <li>Let <i>mapping</i> be <b>true</b></li>
+        </ol>
+      </li>
+
+      <li>Let <i>usingIterator</i> be IsIterable(<i>items</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>usingIterator</i>).</li>
+
+      <li>If <i>usingIterator</i> is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>iterator</i> be the result of performing <es-xref target=
+          "sec-getiterator">GetIterator</es-xref>(<i>items</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iterator</i>).</li>
+
+          <li>Let <i>values</i> be a new empty <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+          <li>Let <i>next</i> be <b>true</b>.</li>
+
+          <li>Repeat, while <i>next</i> is not <b>false</b>
+
+            <ol class="block">
+              <li>Let <i>next</i> be the result of <es-xref target=
+              "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
+
+              <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+              <li>If <i>next</i> is not <b>false</b>, then
+
+                <ol class="block">
+                  <li>Let <i>nextValue</i> be <es-xref target=
+                  "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+                  <li><es-xref target=
+                  "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextValue</i>).</li>
+
+                  <li>Append <i>nextValue</i> to the end of the <es-xref target=
+                  "sec-list-and-record-specification-type">List</es-xref> <i>values</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+
+          <li>Let <i>len</i> be the number of elements in <i>values</i>.</li>
+
+          <li>Let <i>newObj</i> be the result of calling the [[Construct]] internal method of
+          <i>C</i> with argument (<i>len</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>newObj</i>).</li>
+
+          <li>Let <i>k</i> be 0.</li>
+
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+
+            <ol class="block">
+              <li>Let <i>Pk</i> be <es-xref target=
+              "sec-tostring">ToString</es-xref>(<i>k</i>).</li>
+
+              <li>Let <i>kValue</i> be the first element of <i>values</i> and remove that element
+              from <i>list</i>.</li>
+
+              <li>If <i>mapping</i> is <b>true</b>, then
+
+                <ol class="block">
+                  <li>Let <i>mappedValue</i> be the result of calling the [[Call]] internal method
+                  of <i>mapfn</i> with <i>T</i> as <i>thisArgument</i> and a <es-xref target=
+                  "sec-list-and-record-specification-type">List</es-xref> containing <i>kValue</i>
+                  as <i>argumentsList</i>.</li>
+
+                  <li><es-xref target=
+                  "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>mappedValue</i>).</li>
+                </ol>
+              </li>
+
+              <li>Else, let <i>mappedValue</i> be <i>kValue</i>.</li>
+
+              <li>Let <i>putStatus</i> be the result of <es-xref target=
+              "sec-put-o-p-v-throw">Put</es-xref>(<i>newObj</i>, <i>Pk</i>, <i>mappedValue</i>,
+              <b>true</b>).</li>
+
+              <li><es-xref target=
+              "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>values</i> is now an
+          empty <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
+
+          <li>Return <i>newObj</i>.</li>
+        </ol>
+      </li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>items</i> is not an
+      Iterator so assume it is an array-like object.</li>
+
+      <li>Let <i>lenValue</i> be the result of <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>items</i>, <code>"length"</code>).</li>
+
+      <li>Let <i>len</i> be <es-xref target=
+      "sec-tolength">ToLength</es-xref>(<i>lenValue</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+      <li>Let <i>newObj</i> be the result of calling the [[Construct]] internal method of <i>C</i>
+      with argument (<i>len</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>newObj</i>).</li>
+
+      <li>Let <i>k</i> be 0.</li>
+
+      <li>Repeat, while <i>k</i> &lt; <i>len</i>
+
+        <ol class="block">
+          <li>Let <i>Pk</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
+
+          <li>Let <i>kValue</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>items</i>, <i>Pk</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kValue</i>).</li>
+
+          <li>If <i>mapping</i> is <b>true</b>, then
+
+            <ol class="block">
+              <li>Let <i>mappedValue</i> be the result of calling the [[Call]] internal method of
+              <i>mapfn</i> with <i>T</i> as <i>thisArgument</i> and a <es-xref target=
+              "sec-list-and-record-specification-type">List</es-xref> containing <i>kValue</i>,
+              <i>k</i>, and <i>items</i> as <i>argumentsList</i>.</li>
+
+              <li><es-xref target=
+              "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>mappedValue</i>).</li>
+            </ol>
+          </li>
+
+          <li>Else, let <i>mappedValue</i> be <i>kValue</i>.</li>
+
+          <li>Let <i>putStatus</i> be the result of <es-xref target=
+          "sec-put-o-p-v-throw">Put</es-xref>(<i>newObj</i>, <i>Pk</i>, <i>mappedValue</i>,
+          <b>true</b>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+
+          <li>Increase <i>k</i> by 1.</li>
+        </ol>
+      </li>
+
+      <li>Return <i>newObj</i>.</li>
+    </ol>
+
+    <p>The <code>length</code> property of the <code>from</code> method is <b>1</b>.</p>
+
+    <es-note>
+      <p>The <code>from</code> function is an intentionally generic factory method; it does not
+      require that its <b>this</b> value be a Typed Array constructor. Therefore it can be
+      transferred to or inherited by any other constructors that may be called with a single
+      numeric argument. This function uses [[Put]] to store elements into a newly created object
+      and assume that the constructor sets the <code>length</code> property of the new object to
+      the argument value passed to it.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="%TypedArray%.of ( ...items )" anchor="sec-%typedarray%.of">
+    <p>When the <code>of</code> method is called with any number of arguments, the following steps
+    are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>lenValue</i> be the result of <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>items</i>, <code>"length"</code>).</li>
+
+      <li>Let <i>len</i> be <es-xref target=
+      "sec-tolength">ToLength</es-xref>(<i>lenValue</i>).</li>
+
+      <li>Let <i>C</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is <b>true</b>,
+      then
+
+        <ol class="block">
+          <li>Let <i>newObj</i> be the result of calling the [[Construct]] internal method of
+          <i>C</i> with argument (<i>len</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>newObj</i>).</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Throw a <b>TypeError</b> exception.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>k</i> be 0.</li>
+
+      <li>Repeat, while <i>k</i> &lt; <i>len</i>
+
+        <ol class="block">
+          <li>Let <i>Pk</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
+
+          <li>Let <i>kValue</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>items</i>, <i>Pk</i>).</li>
+
+          <li>Let <i>status</i> be the result of <es-xref target=
+          "sec-put-o-p-v-throw">Put</es-xref>(<i>newObj</i>,<i>Pk</i>, <i>kValue</i>.[[value]],
+          <b>true</b>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+          <li>Increase <i>k</i> by 1.</li>
+        </ol>
+      </li>
+
+      <li>Return <i>newObj</i>.</li>
+    </ol>
+
+    <p>The <code>length</code> property of the <code>of</code> method is <b>0</b>.</p>
+
+    <es-note>
+      <p>The <es-nt>items</es-nt> argument is assumed to be a well-formed rest argument value.</p>
+    </es-note>
+
+    <es-note>
+      <p>The <code>of</code> function is an intentionally generic factory method; it does not
+      require that its <b>this</b> value be a <i>TypedArray</i> constructor. Therefore it can be
+      transferred to or inherited by other constructors that may be called with a single numeric
+      argument. However, it does assume that constructor creates and initialises a length property
+      that is initialised to its argument value.</p>
+    </es-note>
+  </es-clause>
 
   <es-clause title="%TypedArray%.prototype" anchor="sec-%typedarray%.prototype">
     <p>The initial value of %TypedArray%.prototype is the %TypedArrayPrototype% intrinsic object
@@ -21,6 +277,53 @@
     [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
     "value">false</span> }.</p>
   </es-clause>
-  <link rel="import" href=
-  "properties-of-the-%25typedarray%25-intrinsic-object/%25typedarray%25-@@create.html">
+
+  <es-clause title="%TypedArray% [ @@create ] ( )" anchor="sec-%typedarray%-@@create">
+    <p>The @@create method of %TypedArray% performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>F</i>) is not
+      Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>proto</i> be the result of <es-xref target=
+      "sec-getprototypefromconstructor">GetPrototypeFromConstructor</es-xref>(<i>F</i>,
+      <code>"%TypedArrayPrototype%"</code>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
+
+      <li>Let <i>obj</i> be the result of calling <es-xref target=
+      "sec-integerindexedobjectcreate">IntegerIndexedObjectCreate</es-xref> (<i>proto</i>).</li>
+
+      <li>Add a [[ViewedArrayBuffer]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>obj</i> and
+      set its initial value to <b>undefined</b>.</li>
+
+      <li>Add a [[TypedArrayName]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>obj</i> and
+      set its initial value to <b>undefined</b> .</li>
+
+      <li>Add a [[ByteLength]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>obj</i> and
+      set its initial value to 0.</li>
+
+      <li>Add a [[ByteOffset]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>obj</i> and
+      set its initial value to 0.</li>
+
+      <li>Add an [[ArrayLength]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>obj</i> and
+      set its initial value to 0.</li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+
+    <p>The value of the <code>name</code> property of this function is
+    <code>"[Symbol.create]"</code>.</p>
+
+    <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+    [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+    "value">true</span> }.</p>
+  </es-clause>
 </es-clause>

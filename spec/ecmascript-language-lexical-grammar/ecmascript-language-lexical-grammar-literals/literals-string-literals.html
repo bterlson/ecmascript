@@ -149,5 +149,306 @@
       <li>Return the String value whose elements are the SV of this <i>StringLiteral</i>.</li>
     </ol>
   </es-clause>
-  <link rel="import" href="literals-string-literals/static-semantics-sv-s-and-cv-s.html">
+
+  <es-clause title="Static Semantics:" anchor="sec-static-semantics-sv-s-and-cv-s">
+    <p>A string literal stands for a value of the String type. The String value (SV) of the literal
+    is described in terms of code unit values (CV) contributed by the various parts of the string
+    literal. As part of this process, some Unicode code points within the string literal are
+    interpreted as having a mathematical value (MV), as described below or in <es-xref target=
+    "sec-literals-numeric-literals">11.8.3</es-xref>.</p>
+
+    <ul>
+      <li>
+        <p>The SV of <es-production name="StringLiteral" type="lexical" class=
+        "inline"><es-rhs>""</es-rhs></es-production> is the empty code unit
+        sequence.</p>
+      </li>
+
+      <li>
+        <p>The SV of <es-production name="StringLiteral" type="lexical" class=
+        "inline"><es-rhs>''</es-rhs></es-production> is the empty code unit
+        sequence.</p>
+      </li>
+
+      <li>
+        <p>The SV of <es-production name="StringLiteral" type="lexical" class=
+        "inline"><es-rhs><es-t>"</es-t> <es-nt>DoubleStringCharacters</es-nt>
+        <es-t>"</es-t></es-rhs></es-production> is the SV of
+        <i>DoubleStringCharacters</i>.</p>
+      </li>
+
+      <li>
+        <p>The SV of <es-production name="StringLiteral" type="lexical" class=
+        "inline"><es-rhs><es-t>'</es-t> <es-nt>SingleStringCharacters</es-nt>
+        <es-t>'</es-t></es-rhs></es-production> is the SV of
+        <i>SingleStringCharacters</i>.</p>
+      </li>
+
+      <li>
+        <p>The SV of <es-production name="DoubleStringCharacters" type="lexical" class=
+        "inline"><es-rhs><es-nt>DoubleStringCharacter</es-nt></es-rhs></es-production>
+        is a sequence of one or two code units that is the CV of <i>DoubleStringCharacter</i>.</p>
+      </li>
+
+      <li>
+        <p>The SV of <es-production name="DoubleStringCharacters" type="lexical" class=
+        "inline"><es-rhs><es-nt>DoubleStringCharacter</es-nt>
+        <es-nt>DoubleStringCharacters</es-nt></es-rhs></es-production> is a sequence
+        of one or two code units that is the CV of <i>DoubleStringCharacter</i> followed by all the
+        code units in the SV of <i>DoubleStringCharacters</i> in order.</p>
+      </li>
+
+      <li>
+        <p>The SV of <es-production name="SingleStringCharacters" type="lexical" class=
+        "inline"><es-rhs><es-nt>SingleStringCharacter</es-nt></es-rhs></es-production>
+        is a sequence of one or two code units that is the CV of <i>SingleStringCharacter</i>.</p>
+      </li>
+
+      <li>
+        <p>The SV of <es-production name="SingleStringCharacters" type="lexical" class=
+        "inline"><es-rhs><es-nt>SingleStringCharacter</es-nt>
+        <es-nt>SingleStringCharacters</es-nt></es-rhs></es-production> is a sequence
+        of one or two code units that is the CV of <i>SingleStringCharacter</i> followed by all the
+        code units in the SV of <i>SingleStringCharacters</i> in order.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="DoubleStringCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+        <es-t>"</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
+        <es-nt>LineTerminator</es-nt></es-gmod></es-rhs></es-production> is the
+        UTF-16 Encoding (<es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>)
+        of the code point value of <i>SourceCharacter</i>.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="DoubleStringCharacter" type="lexical" class=
+        "inline"><es-rhs><es-t>\</es-t>
+        <es-nt>EscapeSequence</es-nt></es-rhs></es-production> is the CV of the
+        <i>EscapeSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="DoubleStringCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>LineContinuation</es-nt></es-rhs></es-production>
+        is the empty character sequence.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="SingleStringCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+        <es-t>'</es-t></es-gmod><es-gmod>or <es-t>\</es-t></es-gmod><es-gmod>or
+        <es-nt>LineTerminator</es-nt></es-gmod></es-rhs></es-production> is the
+        UTF-16 Encoding (<es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>)
+        of the code point value of <i>SourceCharacter</i> .</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="SingleStringCharacter" type="lexical" class=
+        "inline"><es-rhs><es-t>\</es-t>
+        <es-nt>EscapeSequence</es-nt></es-rhs></es-production> is the CV of the
+        <i>EscapeSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="SingleStringCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>LineContinuation</es-nt></es-rhs></es-production>
+        is the empty character sequence.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="EscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-nt>CharacterEscapeSequence</es-nt></es-rhs></es-production>
+        is the CV of the <i>CharacterEscapeSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="EscapeSequence" type="lexical" class=
+        "inline"><es-rhs>0</es-rhs></es-production> is the code unit value
+        0.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="EscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-nt>HexEscapeSequence</es-nt></es-rhs></es-production>
+        is the CV of the <i>HexEscapeSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="EscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-nt>UnicodeEscapeSequence</es-nt></es-rhs></es-production>
+        is the CV of the <i>UnicodeEscapeSequence</i>.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="CharacterEscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-nt>SingleEscapeCharacter</es-nt></es-rhs></es-production>
+        is the character whose code unit value is determined by the <i>SingleEscapeCharacter</i>
+        according to <a href="#table-31">Table 31</a> .</p>
+      </li>
+    </ul>
+
+    <figure>
+      <figcaption>
+        <span id="table-31">Table 31</span> — String Single Character Escape Sequences
+      </figcaption>
+
+      <table class="real-table">
+        <tr>
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+          Escape Sequence</th>
+
+          <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">Code Unit
+          Value</th>
+
+          <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">Name</th>
+
+          <th style=
+          "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+          Symbol</th>
+        </tr>
+
+        <tr>
+          <td style="border-left: 1px solid #000000"><code>\b</code></td>
+
+          <td><code>0x0008</code></td>
+
+          <td>backspace</td>
+
+          <td style="border-right: 1px solid #000000">&lt;BS&gt;</td>
+        </tr>
+
+        <tr>
+          <td style="border-left: 1px solid #000000"><code>\t</code></td>
+
+          <td><code>0x0009</code></td>
+
+          <td>horizontal tab</td>
+
+          <td style="border-right: 1px solid #000000">&lt;HT&gt;</td>
+        </tr>
+
+        <tr>
+          <td style="border-left: 1px solid #000000"><code>\n</code></td>
+
+          <td><code>0x000A</code></td>
+
+          <td>line feed (new line)</td>
+
+          <td style="border-right: 1px solid #000000">&lt;LF&gt;</td>
+        </tr>
+
+        <tr>
+          <td style="border-left: 1px solid #000000"><code>\v</code></td>
+
+          <td><code>0x000B</code></td>
+
+          <td>vertical tab</td>
+
+          <td style="border-right: 1px solid #000000">&lt;VT&gt;</td>
+        </tr>
+
+        <tr>
+          <td style="border-left: 1px solid #000000"><code>\f</code></td>
+
+          <td><code>0x000C</code></td>
+
+          <td>form feed</td>
+
+          <td style="border-right: 1px solid #000000">&lt;FF&gt;</td>
+        </tr>
+
+        <tr>
+          <td style="border-left: 1px solid #000000"><code>\r</code></td>
+
+          <td><code>0x000D</code></td>
+
+          <td>carriage return</td>
+
+          <td style="border-right: 1px solid #000000">&lt;CR&gt;</td>
+        </tr>
+
+        <tr>
+          <td style="border-left: 1px solid #000000"><code>\"</code></td>
+
+          <td><code>0x0022</code></td>
+
+          <td>double quote</td>
+
+          <td style="border-right: 1px solid #000000"><code>"</code></td>
+        </tr>
+
+        <tr>
+          <td style="border-left: 1px solid #000000"><code>\'</code></td>
+
+          <td><code>0x0027</code></td>
+
+          <td>single quote</td>
+
+          <td style="border-right: 1px solid #000000"><code>'</code></td>
+        </tr>
+
+        <tr>
+          <td style="border-bottom: 2px solid #000000; border-left: 1px solid #000000">
+          <code>\\</code></td>
+
+          <td style="border-bottom: 2px solid #000000"><code>0x005C</code></td>
+
+          <td style="border-bottom: 2px solid #000000">backslash</td>
+
+          <td style="border-bottom: 2px solid #000000; border-right: 1px solid #000000">
+          <code>\</code></td>
+        </tr>
+      </table>
+    </figure>
+
+    <ul>
+      <li>
+        <p>The CV of <es-production name="CharacterEscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-nt>NonEscapeCharacter</es-nt></es-rhs></es-production>
+        is the CV of the <i>NonEscapeCharacter</i>.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="NonEscapeCharacter" type="lexical" class=
+        "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+        <es-nt>EscapeCharacter</es-nt></es-gmod><es-gmod>or
+        <es-nt>LineTerminator</es-nt></es-gmod></es-rhs></es-production> is the
+        UTF-16 Encoding (<es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>)
+        of the code point value of <i>SourceCharacter</i> .</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="HexEscapeSequence" type="lexical" class=
+        "inline"><es-rhs>x <es-nt>HexDigit</es-nt>
+        <es-nt>HexDigit</es-nt></es-rhs></es-production> is the code unit value that
+        is (16 times the MV of the first <i>HexDigit</i>) plus the MV of the second
+        <i>HexDigit</i>.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="UnicodeEscapeSequence" type="lexical" class=
+        "inline"><es-rhs>u</es-rhs></es-production> <es-nt>Hex4Digits</es-nt>
+        is the code unit value that is (4096 times the MV of the first <i>HexDigit</i>) plus (256
+        times the MV of the second <i>HexDigit</i>) plus (16 times the MV of the third
+        <i>HexDigit</i>) plus the MV of the fourth <i>HexDigit</i>.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-nt>Hex4Digits</es-nt> <b>::</b> <es-nt>HexDigit</es-nt> <i>HexDigit</i>
+        <i>HexDigit</i> <i>HexDigit</i> is the code unit value that is (4096 times the MV of the
+        first <i>HexDigit</i>) plus (256 times the MV of the second <i>HexDigit</i>) plus (16 times
+        the MV of the third <i>HexDigit</i>) plus the MV of the fourth <i>HexDigit</i>.</p>
+      </li>
+
+      <li>
+        <p>The CV of <es-production name="UnicodeEscapeSequence" type="lexical" class=
+        "inline"><es-rhs><es-t>u{</es-t> <es-nt>HexDigits</es-nt>
+        <es-t>}</es-t></es-rhs></es-production> is the UTF-16 Encoding
+        (<es-xref target="sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of the MV of
+        <i>HexDigits</i>.</p>
+      </li>
+    </ul>
+  </es-clause>
 </es-clause>

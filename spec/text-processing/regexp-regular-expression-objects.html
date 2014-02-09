@@ -7,12 +7,605 @@
     <p>The form and functionality of regular expressions is modelled after the regular expression
     facility in the Perl&nbsp;5 programming language.</p>
   </es-note>
-  <link rel="import" href="regexp-regular-expression-objects/patterns.html">
-  <link rel="import" href="regexp-regular-expression-objects/pattern-semantics.html">
-  <link rel="import" href="regexp-regular-expression-objects/regexp-constructor.html">
-  <link rel="import" href=
-  "regexp-regular-expression-objects/properties-of-the-regexp-constructor.html">
-  <link rel="import" href=
-  "regexp-regular-expression-objects/properties-of-the-regexp-prototype-object.html">
-  <link rel="import" href="regexp-regular-expression-objects/properties-of-regexp-instances.html">
+
+  <es-clause title="Patterns" anchor="sec-patterns">
+    <p>The <code>RegExp</code> constructor applies the following grammar to the input pattern
+    String. An error occurs if the grammar cannot interpret the String as an expansion of
+    <es-nt>Pattern</es-nt>.</p>
+
+    <h2>Syntax</h2>
+
+    <es-production name="Pattern" type="lexical" params="U">
+      <es-rhs><es-nt params="?U">Disjunction</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="Disjunction" type="lexical" params="U">
+      <es-rhs><es-nt params="?U">Alternative</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">Alternative</es-nt> | <es-nt params=
+      "?U">Disjunction</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="Alternative" type="lexical" params="U">
+      <es-rhs constraint="empty"></es-rhs>
+
+      <es-rhs><es-nt params="?U">Alternative</es-nt> <es-nt params="?U">Term</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="Term" type="lexical" params="U">
+      <es-rhs><es-nt params="?U">Assertion</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">Atom</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">Atom</es-nt> <es-nt>Quantifier</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="Assertion" type="lexical" params="U">
+      <es-rhs>^</es-rhs>
+
+      <es-rhs>$</es-rhs>
+
+      <es-rhs>\ b</es-rhs>
+
+      <es-rhs>\ B</es-rhs>
+
+      <es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>=</es-t> <es-nt params="?U">Disjunction</es-nt>
+      <es-t>)</es-t></es-rhs>
+
+      <es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>!</es-t> <es-nt params="?U">Disjunction</es-nt>
+      <es-t>)</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="Quantifier" type="lexical">
+      <es-rhs><es-nt>QuantifierPrefix</es-nt></es-rhs>
+
+      <es-rhs><es-nt>QuantifierPrefix</es-nt> <es-t>?</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="QuantifierPrefix" type="lexical">
+      <es-rhs>*</es-rhs>
+
+      <es-rhs>+</es-rhs>
+
+      <es-rhs>?</es-rhs>
+
+      <es-rhs><es-t>{</es-t> <es-nt>DecimalDigits</es-nt> <es-t>}</es-t></es-rhs>
+
+      <es-rhs><es-t>{</es-t> <es-nt>DecimalDigits</es-nt> <es-t>,</es-t> <es-t>}</es-t></es-rhs>
+
+      <es-rhs>{ <es-nt>DecimalDigits</es-nt> , <es-nt>DecimalDigits</es-nt> }</es-rhs>
+    </es-production>
+
+    <es-production name="Atom" type="lexical" params="U">
+      <es-rhs><es-nt>PatternCharacter</es-nt></es-rhs>
+
+      <es-rhs>.</es-rhs>
+
+      <es-rhs><es-t>\</es-t> <es-nt params="?U">AtomEscape</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">CharacterClass</es-nt></es-rhs>
+
+      <es-rhs><es-t>(</es-t> <es-nt params="?U">Disjunction</es-nt> <es-t>)</es-t></es-rhs>
+
+      <es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>:</es-t> <es-nt params="?U">Disjunction</es-nt>
+      <es-t>)</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="SyntaxCharacter" type="lexical" oneof>
+      <es-rhs>^ $ \ . * + ? ( ) [ ] { } |</es-rhs>
+    </es-production>
+
+    <es-production name="PatternCharacter" type="lexical">
+      <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not
+      <es-nt>SyntaxCharacter</es-nt></es-gmod></es-rhs>
+    </es-production>
+
+    <es-production name="AtomEscape" type="lexical" params="U">
+      <es-rhs><es-nt>DecimalEscape</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">CharacterEscape</es-nt></es-rhs>
+
+      <es-rhs><es-nt>CharacterClassEscape</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="CharacterEscape" type="lexical" params="U">
+      <es-rhs><es-nt>ControlEscape</es-nt></es-rhs>
+
+      <es-rhs><es-t>c</es-t> <es-nt>ControlLetter</es-nt></es-rhs>
+
+      <es-rhs><es-nt>HexEscapeSequence</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">RegExpUnicodeEscapeSequence</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">IdentityEscape</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ControlEscape" type="lexical" oneof>
+      <es-rhs>f n r t v</es-rhs>
+    </es-production>
+
+    <es-production name="ControlLetter" type="lexical" oneof>
+      <es-rhs>a b c d e f g h i j k l m n o p q r s t u v w x y z</es-rhs>
+
+      <es-rhs>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</es-rhs>
+    </es-production>
+
+    <es-production name="RegExpUnicodeEscapeSequence" type="lexical" params="U">
+      <es-rhs constraint="+U"><es-nt>LeadSurragate</es-nt> \u
+      <es-nt>TrailSurragate</es-nt></es-rhs>
+
+      <es-rhs><es-t>u</es-t> <es-nt>Hex</es-nt> <es-t>4Digits</es-t></es-rhs>
+
+      <es-rhs constraint="+U"><es-t>u{</es-t> <es-nt>HexDigits</es-nt> <es-t>}</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="LeadSurragate" type="lexical">
+      <es-rhs><es-nt>Hex</es-nt> 4Digits [match only if the CV of <es-nt>Hex</es-nt> 4Digits is in
+      the inclusive range 0xD800 to 0xDBFF]</es-rhs>
+    </es-production>
+
+    <es-production name="TailSurragate" type="lexical">
+      <es-rhs><es-nt>Hex</es-nt> 4Digits [match only if the CV of <es-nt>Hex</es-nt> 4Digits is in
+      the inclusive range 0xDC00 to 0xDFFF]</es-rhs>
+    </es-production>
+
+    <es-production name="IdentityEscape" type="lexical" params="U">
+      <es-rhs constraint="+U"><es-nt>SyntaxCharacter</es-nt></es-rhs>
+
+      <es-rhs constraint="~U"><es-nt>SourceCharacter</es-nt> <es-gmod>but not
+      <es-nt>IdentifierPart</es-nt></es-gmod></es-rhs>
+
+      <es-rhs constraint="~U">&lt;ZWJ&gt;</es-rhs>
+
+      <es-rhs constraint="~U">&lt;ZWNJ&gt;</es-rhs>
+    </es-production>
+
+    <es-production name="DecimalEscape" type="lexical">
+      <es-rhs><es-nt>DecimalIntegerLiteral</es-nt> <es-gann>lookahead ∉
+      <es-nt>DecimalDigit</es-nt></es-gann></es-rhs>
+    </es-production>
+
+    <es-production name="CharacterClassEscape" type="lexical" oneof>
+      <es-rhs>d D s S w W</es-rhs>
+    </es-production>
+
+    <es-production name="CharacterClass" type="lexical" params="U">
+      <es-rhs><es-t>[</es-t> <es-gann>lookahead ∉ {<es-t>^</es-t>}</es-gann><es-nt params=
+      "?U">ClassRanges</es-nt> <es-t>]</es-t></es-rhs>
+
+      <es-rhs><es-t>[</es-t> <es-t>^</es-t> <es-nt params="?U">ClassRanges</es-nt>
+      <es-t>]</es-t></es-rhs>
+    </es-production>
+
+    <es-production name="ClassRanges" type="lexical" params="U">
+      <es-rhs constraint="empty"></es-rhs>
+
+      <es-rhs><es-nt params="?U">NonemptyClassRanges</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="NonemptyClassRanges" type="lexical" params="U">
+      <es-rhs><es-nt params="?U">ClassAtom</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">ClassAtom</es-nt> <es-nt params=
+      "?U">NonemptyClassRangesNoDash</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">ClassAtom</es-nt> - <es-nt params="?U">ClassAtom</es-nt>
+      <es-nt params="?U">ClassRanges</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="NonemptyClassRangesNoDash" type="lexical" params="U">
+      <es-rhs><es-nt params="?U">ClassAtom</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">ClassAtomNoDash</es-nt> <es-nt params=
+      "?U">NonemptyClassRangesNoDash</es-nt></es-rhs>
+
+      <es-rhs><es-nt params="?U">ClassAtomNoDash</es-nt> - <es-nt params="?U">ClassAtom</es-nt>
+      <es-nt params="?U">ClassRanges</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ClassAtom" type="lexical" params="U">
+      <es-rhs>-</es-rhs>
+
+      <es-rhs><es-nt params="?U">ClassAtomNoDash</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ClassAtomNoDash" type="lexical" params="U">
+      <es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+      <es-t>\</es-t></es-gmod><es-gmod>or <es-t>]</es-t></es-gmod><es-gmod>or
+      <es-t>-</es-t></es-gmod></es-rhs>
+
+      <es-rhs><es-t>\</es-t> <es-nt params="?U">ClassEscape</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ClassEscape" type="lexical" params="U">
+      <es-rhs><es-nt>DecimalEscape</es-nt></es-rhs>
+
+      <es-rhs>b</es-rhs>
+
+      <es-rhs><es-nt params="?U">CharacterEscape</es-nt></es-rhs>
+
+      <es-rhs><es-nt>CharacterClassEscape</es-nt></es-rhs>
+    </es-production>
+  </es-clause>
+
+  <es-clause title="Pattern Semantics" anchor="sec-pattern-semantics">
+    <p>A regular expression pattern is converted into an internal procedure using the process
+    described below. An implementation is encouraged to use more efficient algorithms than the ones
+    listed below, as long as the results are the same. The internal procedure is used as the value
+    of a RegExp object’s [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+    <p>A <es-nt>Pattern</es-nt> is either a BMP pattern or a Unicode pattern depending upon whether
+    or not its associated flags contains a <code>"u"</code>. A BMP pattern matches against a String
+    interpreted as consisting of a sequence of Unicode code units. A Unicode pattern matches
+    against a String interpreted as consisting of Unicode code points encoded using UTF-16. In the
+    context of describing the behaviour of a BMP pattern “character” means a Unicode code unit. In
+    the context of describing the behaviour of a Unicode pattern “character” means a Unicode code
+    point. In either context, “character value” means the numeric value of the code unit or code
+    point.</p>
+
+    <p>The semantics of <es-nt>Pattern</es-nt> is defined as if a <es-nt>Pattern</es-nt> was a
+    <es-xref target="sec-list-and-record-specification-type">List</es-xref> of
+    <es-nt>SourceCharacter</es-nt> values. Each <es-nt>SourceCharacter</es-nt> corresponding to a
+    Unicode code point. If a BMP pattern contains a non-BMP <es-nt>SourceCharacter</es-nt> the
+    entire pattern is encoded using UTF-16 and the individual code units of that encoding are used
+    as the elements of the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</p>
+
+    <es-note>
+      <p>For example, consider a pattern expressed in source code as the single non-BMP character
+      U+1D11E (MUSICAL SYMBOL G CLEF). Interpreted as a Unicode pattern, it would be a single
+      element (character) <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      consisting of the single code point 0x1D11E. However, interpreted as a BMP pattern, it is
+      first UTF-16 encoded to produce a two element <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> consisting the code units 0xD834 and
+      0xDDE.</p>
+
+      <p>Patterns are passed to the RegExp constructor as ECMAScript string values in which non-BMP
+      characters are UTF-16 encoded. The single charcter MUSICAL SYMBOL G CLEF pattern, expressed
+      as a string value, is a String of length 2 whose elements were the code units 0xD834 and
+      0xDDE. So no further translation of the string would be necessary to process it as a BMP
+      pattern consisting of two pattern characters. However, to process it as a Unicode pattern the
+      string value must treated as if it was UTF-16 decoded into a <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> consisting of a single pattern
+      character, the code unit U+1D11E.</p>
+    </es-note>
+
+    <p>An implementation may not actually perform such translations to or from UTF-16, but the
+    semantics of this specification requires that the result of pattern matching be as if such
+    transations were performed.</p>
+  </es-clause>
+
+  <es-clause title="The RegExp Constructor" anchor="sec-regexp-constructor">
+    <p>The RegExp constructor is the %RegExp% intrinsic object and the initial value of the
+    <code>RegExp</code> property of the global object. When <code>RegExp</code> is called as a
+    function rather than as a constructor, it creates and initialises a new RegExp object. Thus the
+    function call <b>RegExp(</b>…<b>)</b> is equivalent to the object creation expression
+    <b>new&nbsp;RegExp(</b>…<b>)</b> with the same arguments. However, if the <b>this</b> value
+    passed in the call is an Object with a [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> whose value is
+    <span class="value">undefined</span>, it initialises the <b>this</b> value using the argument
+    values. This permits <code>RegExp</code> to be used both as factory method and to perform
+    constructor instance initialisation.</p>
+
+    <p>The <code>RegExp</code> constructor is designed to be subclassable. It may be used as the
+    value of an <code>extends</code> clause of a class declaration. Subclass constructors that
+    intended to inherit the specified <code>RegExp</code> behaviour must include a
+    <code>super</code> call to the <code>RegExp</code> constructor to initialise subclass
+    instances.</p>
+
+    <es-clause title="RegExp(pattern, flags)" anchor="sec-regexp-pattern-flags">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>func</i> be this <code>RegExp</code> function object.</li>
+
+        <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+        not Object or <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object and <i>O</i> does
+        not have a [[RegExpMatcher]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> or
+          <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object
+          and <i>O</i> has a [[RegExpMatcher]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+          [[RegExpMatcher]] is not <b>undefined</b>, then
+
+          <ol class="block">
+            <li>If <es-xref target=
+            "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>pattern</i>) is Object and <i>
+              O</i> has a [[RegExpMatcher]] <es-xref target=
+              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and
+              <i>flags</i> is <b>undefined</b>, then
+
+              <ol class="block">
+                <li>Return <i>pattern</i>;</li>
+              </ol>
+            </li>
+
+            <li>Let <i>O</i> be the result of calling the abstract operation <es-xref target=
+            "sec-regexpalloc">RegExpAlloc</es-xref> with argument <i>func</i>.</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+          </ol>
+        </li>
+
+        <li>If <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>pattern</i>) is Object and
+        <i>pattern</i> has a [[RegExpMatcher]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
+
+          <ol class="block">
+            <li>If the value of <i>pattern’s</i> [[RegExpMatcher]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+            <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+            <li>If <i>flags</i> is not <b>undefined</b>, then throw a <b>TypeError</b>
+            exception.</li>
+
+            <li>Let <i>P</i> be the value of <i>pattern’s</i> [[OriginalSource]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+            <li>Let <i>F</i> be the value of <i>pattern’s</i> [[OriginalFlags]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+          </ol>
+        </li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Let <i>P</i> be <i>pattern</i>.</li>
+
+            <li>Let <i>F</i> be <i>flags</i>.</li>
+          </ol>
+        </li>
+
+        <li>Return the result of the abstract operation <es-xref target=
+        "sec-regexpinitialise">RegExpInitialise</es-xref> with arguments <i>O,</i> <i>P</i>, and
+        <i>F</i> .</li>
+      </ol>
+
+      <es-note>
+        <p>If pattern is supplied using a <es-nt>StringLiteral</es-nt>, the usual escape sequence
+        substitutions are performed before the String is processed by RegExp. If pattern must
+        contain an escape sequence to be recognised by RegExp, any backslash <code>\</code>
+        characters must be escaped within the <es-nt>StringLiteral</es-nt> to prevent them being
+        removed when the contents of the <es-nt>StringLiteral</es-nt> are formed.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="new RegExp(...argumentsList)" anchor="sec-new-regexp-...argumentslist">
+      <p>When <code>RegExp</code> is called as part of a new expression with argument list
+      <es-nt>argumentsList</es-nt> it performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <code>RegExp</code> function object on which the <code>new</code>
+        operator was applied.</li>
+
+        <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+        internal method that was invoked by the <code>new</code> operator.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-construct-f-argumentslist">Construct</es-xref> (<i>F</i>, <i>argumentsList</i>).</li>
+      </ol>
+
+      <p>If <code>RegExp</code> is implemented as an <es-xref target=
+      "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+      internal method will perform the above steps.</p>
+    </es-clause>
+
+    <es-clause title="Abstract Operations for the RegExp Constructor" anchor=
+    "sec-abstract-operations-for-the-regexp-constructor">
+      <es-clause title="Runtime Semantics: RegExpAlloc Abstract Operation" anchor=
+      "sec-regexpalloc">
+        <p>When the abstract operation RegExpAlloc with argument <es-nt>constructor</es-nt> is
+        called, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>obj</i> be the result of calling <es-xref target=
+          "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>constructor</i>,
+          <code>"%RegExpPrototype%"</code>, ( [[RegExpMatcher]], [[OriginalSource]],
+          [[OriginalFlags]])).</li>
+
+          <li>Let <i>status</i> be the result of <es-xref target=
+          "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>obj</i>,
+          <code>"lastIndex"</code>, PropertyDescriptor {[[Writable]]: <b>true</b>, [[Enumberable]]:
+          <b>false</b>, [[Configurable]]: <b>false}).</b></li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+          <li>Return <i>obj</i>.</li>
+        </ol>
+
+        <es-note>
+          <p>[[RegExpMatcher]] is initially assigned the value <span class="value">undefined</span>
+          as a flag to indicate that the instance has not yet been initialised by the <span class=
+          "value">RegExp</span> constructor. This flag value is never directly exposed to
+          ECMAScript code; hence implementations may choose to encode the flag in some other
+          manner.</p>
+        </es-note>
+      </es-clause>
+
+      <es-clause title="Runtime Semantics: RegExpInitialise Abstract Operation" anchor=
+      "sec-regexpinitialise">
+        <p>When the abstract operation RegExpInitialise with arguments <i>obj,</i>
+        <es-nt>pattern</es-nt>, and <es-nt>flags</es-nt> is called, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>If <i>pattern</i> is <b>undefined</b>, then let <i>P</i> be the empty String.</li>
+
+          <li>Else, let <i>P</i> be <es-xref target=
+          "sec-tostring">ToString</es-xref>(<i>pattern</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>P</i>).</li>
+
+          <li>If <i>flags</i> is <b>undefined</b>, then let <i>F</i> be the empty String.</li>
+
+          <li>Else, let <i>F</i> be <es-xref target=
+          "sec-tostring">ToString</es-xref>(<i>flags</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>F</i>).</li>
+
+          <li>If <i>F</i> contains any character other than <code>"g"</code>, <code>"i"</code>,
+          <code>"m"</code>, <code>"u"</code>, or <code>"y"</code> or if it contains the same
+          character more than once, then throw a <b>SyntaxError</b> exception.</li>
+
+          <li>Parse <i>P</i> interpreted as UTF-16 encoded Unicode code points using the grammars
+          in <es-xref target="sec-patterns">21.2.1</es-xref>. If <i>F</i> contains <code>"u"</code>
+          the goal symbol for the parse is <i>Pattern</i><sub>[U]</sub>. Otherwise the goal symbol
+          for the parse is <i>Pattern</i>.Throw a <b>SyntaxError</b> exception if <i>P</i> did not
+          conform to the grammar or if all characters of <i>P</i> where not matched by the
+          parse.</li>
+
+          <li>Set <i>obj’s</i> [[RegExpMatcher]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to the internal
+          procedure obtained by evaluating ("compiling") the step 3’s parse of <i>P</i> and
+          applying the semantics provided in <es-xref target=
+          "sec-pattern-semantics">21.2.2</es-xref>.</li>
+
+          <li>Set the value of <i>obj’s</i> [[OriginalSource]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+          <i>P</i>.</li>
+
+          <li>Set the value of <i>obj’s</i> [[OriginalFlags]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+          <i>F</i>.</li>
+
+          <li>Let <i>putStatus</i> be the result of <es-xref target=
+          "sec-put-o-p-v-throw">Put</es-xref>(<i>obj</i>, <code>"lastIndex"</code>, 0,
+          <b>true</b>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+
+          <li>Return <i>obj</i>.</li>
+        </ol>
+      </es-clause>
+
+      <es-clause title="Runtime Semantics: RegExpCreate Abstract Operation" anchor=
+      "sec-regexpcreate">
+        <p>When the abstract operation RegExpCreate with arguments <es-nt>P</es-nt> and
+        <es-nt>F</es-nt> is called, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>obj</i> be the result of calling the abstract operation <es-xref target=
+          "sec-regexpalloc">RegExpAlloc</es-xref> with argument %RegExp%.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>obj</i>).</li>
+
+          <li>Return the result of the abstract operation <es-xref target=
+          "sec-regexpinitialise">RegExpInitialise</es-xref> with arguments <i>obj,</i> <i>P</i>,
+          and <i>F</i> .</li>
+        </ol>
+      </es-clause>
+
+      <es-clause title="Runtime Semantics: EscapeRegExpPattern Abstract Operation" anchor=
+      "sec-escaperegexppattern">
+        <p>When the abstract operation EscapeRegExpPattern with arguments <es-nt>P</es-nt> and
+        <es-nt>F</es-nt> is called, the following occurs:</p>
+
+        <p>Let <es-nt>S</es-nt> be a String in the form of a <es-nt>Pattern</es-nt>
+        (<es-nt>Pattern</es-nt><sub>[U]</sub> if <es-nt>F</es-nt> contains <code>"u"</code>)
+        equivalent to <es-nt>P</es-nt> interpreted as UTF-16 encoded Unicode code points, in which
+        certain code points are escaped as described below. <es-nt>S</es-nt> may or may not be
+        identical to <es-nt>P</es-nt>; however, the internal procedure that would result from
+        evaluating <es-nt>S</es-nt> as a <es-nt>Pattern</es-nt>
+        (<es-nt>Pattern</es-nt><sub>[U]</sub> if <es-nt>F</es-nt> contains <code>"u"</code>) must
+        behave identically to the internal procedure given by the constructed object's
+        [[RegExpMatcher]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>. Separate calls to this abstract operation using the same values for
+        <es-nt>P</es-nt> and <es-nt>F</es-nt> must produce identical results.</p>
+
+        <p>The characters <code>/</code> or any <es-nt>LineTerminator</es-nt> occurring in the
+        pattern shall be escaped in <es-nt>S</es-nt> as necessary to ensure that the String value
+        formed by concatenating the Strings <code>"/"</code>, <es-nt>S</es-nt>, <code>"/"</code>,
+        and <es-nt>F</es-nt> can be parsed (in an appropriate lexical context) as a
+        <es-nt>RegularExpressionLiteral</es-nt> that behaves identically to the constructed regular
+        expression. For example, if <es-nt>P</es-nt> is <code>"/"</code>, then <es-nt>S</es-nt>
+        could be <code>"\/"</code> or <code>"\u002F"</code>, among other possibilities, but not
+        <code>"/"</code>, because <code>///</code> followed by <es-nt>F</es-nt> would be parsed as
+        a <es-nt>SingleLineComment</es-nt> rather than a <es-nt>RegularExpressionLiteral</es-nt>.
+        If <es-nt>P</es-nt> is the empty String, this specification can be met by letting
+        <es-nt>S</es-nt> be <code>"(?:)"</code>.</p>
+
+        <p>Return <es-nt>S</es-nt>.</p>
+      </es-clause>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the RegExp Constructor" anchor=
+  "sec-properties-of-the-regexp-constructor">
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the RegExp
+    constructor is the standard built-in Function prototype object (<es-xref target=
+    "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
+
+    <p>Besides the <code>length</code> property (whose value is <b>2</b>), the RegExp constructor
+    has the following properties:</p>
+
+    <es-clause title="RegExp.prototype" anchor="sec-regexp.prototype">
+      <p>The initial value of <code>RegExp.prototype</code> is the RegExp prototype object
+      (<es-xref target="sec-properties-of-the-regexp-prototype-object">21.2.5</es-xref>).</p>
+
+      <p>This property shall have the attributes {&nbsp;[[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b>&nbsp;}.</p>
+    </es-clause>
+
+    <es-clause title="RegExp[ @@create ] ( )" anchor="sec-regexp-@@create">
+      <p>The @@create method of an object <es-nt>F</es-nt> performs the following:</p>
+
+      <ol class="proc">
+        <li>Return the result of calling the abstract operation <es-xref target=
+        "sec-regexpalloc">RegExpAlloc</es-xref> with argument <i>F</i>.</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.create]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+      [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+      "value">true</span> }.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the RegExp Prototype Object" anchor=
+  "sec-properties-of-the-regexp-prototype-object">
+    <p>The RegExp prototype object is an ordinary object. It is not a RegExp instance and does not
+    have a [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> or any of the other
+    internal slots of RegExp instance objects.</p>
+
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the RegExp
+    prototype object is the standard built-in Object prototype object (<es-xref target=
+    "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>).</p>
+
+    <p>The RegExp prototype object does not have a <code>valueOf</code> property of its own;
+    however, it inherits the <code>valueOf</code> property from the Object prototype object.</p>
+  </es-clause>
+
+  <es-clause title="Properties of RegExp Instances" anchor="sec-properties-of-regexp-instances">
+    <p>RegExp instances are ordinary objects that inherit properties from the RegExp prototype
+    object. RegExp instances have internal slots [[RegExpMatcher]], [[OriginalSource]], and
+    [[OriginalFlags]]. The value of the [[RegExpMatcher]] internal slot is an implementation
+    dependent representation of the <es-nt>Pattern</es-nt> of the RegExp object.</p>
+
+    <es-note>
+      <p>Prior to the 6<sup>th</sup> Edition, <code>RegExp</code> instances were specified as
+      having the own data properties <code>source</code>, <code>global</code>,
+      <code>ignoreCase</code>, and <code>multiline</code>. Those properties are now specified as
+      accessor properties of <es-xref target="sec-regexp.prototype">RegExp.prototype</es-xref>.</p>
+    </es-note>
+
+    <p>RegExp instances also have the following property:</p>
+
+    <es-clause title="lastIndex" anchor="sec-lastindex">
+      <p>The value of the <code>lastIndex</code> property specifies the String position at which to
+      start the next match. It is coerced to an integer when used (see <es-xref target=
+      "sec-regexp.prototype.exec">21.2.5.2</es-xref>). This property shall have the attributes
+      {&nbsp;[[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+      <b>false</b>&nbsp;}.</p>
+    </es-clause>
+  </es-clause>
 </es-clause>

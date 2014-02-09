@@ -1,8 +1,550 @@
 <!doctype html>
 <es-clause title="String Objects" anchor="sec-string-objects">
-  <link rel="import" href="string-objects/string-constructor.html">
-  <link rel="import" href="string-objects/properties-of-the-string-constructor.html">
-  <link rel="import" href="string-objects/properties-of-the-string-prototype-object.html">
-  <link rel="import" href="string-objects/properties-of-string-instances.html">
-  <link rel="import" href="string-objects/string-iterator-objects.html">
+  <es-clause title="The String Constructor" anchor="sec-string-constructor">
+    <p>The String constructor is the %String% intrinsic object and the initial value of the
+    <code>String</code> property of the global object. When <code>String</code> is called as a
+    function rather than as a constructor, it performs a type conversion. However, if the
+    <b>this</b> value passed in the call is an Object with an uninitialised [[StringData]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, it
+    initialises the <b>this</b> value using the argument value. This permits <code>String</code> to
+    be used both to perform type conversion and to perform constructor instance initialisation.</p>
+
+    <p>The <code>String</code> constructor is designed to be subclassable. It may be used as the
+    value of an <code>extends</code> clause of a class declaration. Subclass constructors that
+    intended to inherit the specified <code>String</code> behaviour must include a
+    <code>super</code> call to the <code>String</code> constructor to initialise the [[StringData]]
+    state of subclass instances.</p>
+
+    <es-clause title="String ( value =)" anchor="sec-string-constructor-string-value">
+      <p>When <code>String</code> is called with argument <es-nt>value</es-nt>, the following steps
+      are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+        <li>If no arguments were passed to this function invocation, then let <i>s</i> be
+        <code>""</code>.</li>
+
+        <li>Else, let <i>s</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>value</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>s</i>).</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+        Object and <i>O</i> has a [[StringData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+        [[StringData]] is <b>undefined</b>, then
+
+          <ol class="block">
+            <li>Let <i>length</i> be the number of code unit elements in <i>s.</i></li>
+
+            <li>Let <i>status</i> be the result of <es-xref target=
+            "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>O</i>,
+            <code>"length"</code>, PropertyDescriptor{[[Value]]: <i>length</i>, [[Writable]]:
+            <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b> }).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+            <li>Set the value of <i>O’s</i> [[StringData]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+            <i>s</i>.</li>
+
+            <li>Return <i>O</i>.</li>
+          </ol>
+        </li>
+
+        <li>Return <i>s</i>.</li>
+      </ol>
+
+      <p>The <code>length</code> property of the <code>String</code> function is <b>1</b>.</p>
+    </es-clause>
+
+    <es-clause title="new String ( ... argumentsList )" anchor="sec-new-string-argumentslist">
+      <p>When <code>String</code> is called as part of a new expression , it initialises a newly
+      created exotic String object:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <code>String</code> function object on which the <code>new</code>
+        operator was applied.</li>
+
+        <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+        internal method that was invoked by the <code>new</code> operator.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-construct-f-argumentslist">Construct</es-xref> (<i>F</i>, <i>argumentsList</i>).</li>
+      </ol>
+
+      <p>If <code>String</code> is implemented as an <es-xref target=
+      "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+      internal method will perform the above steps.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the String Constructor" anchor=
+  "sec-properties-of-the-string-constructor">
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the String
+    constructor is the standard built-in Function prototype object (<es-xref target=
+    "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
+
+    <p>Besides the <code>length</code> property (whose value is <b>1</b>), the String constructor
+    has the following properties:</p>
+
+    <es-clause title="String.fromCharCode ( ...codeUnits)" anchor="sec-string.fromcharcode">
+      <p>The <code>String.fromCharCode</code> function may be called with a variable number of
+      arguments which form the rest parameter <es-nt>codeUnits</es-nt>. The following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>codeUnits</i> is a
+        well-formed rest parameter object.</li>
+
+        <li>Let <i>length</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>codeUnits</i>, <code>"length"</code>)<code>.</code></li>
+
+        <li>Let <i>elements</i> be a new <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>Let <i>nextIndex</i> be 0.</li>
+
+        <li>Repeat while <i>nextIndex</i> &lt; <i>length</i>
+
+          <ol class="block">
+            <li>Let <i>next</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>codeUnits</i>, <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>nextIndex</i>)).</li>
+
+            <li>Let <i>nextCU</i> be <es-xref target=
+            "sec-touint16">ToUint16</es-xref>(<i>next</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextCU</i>).</li>
+
+            <li>Append <i>nextCU</i> to the end of <i>elements</i>.</li>
+
+            <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+          </ol>
+        </li>
+
+        <li>Return the String value whose elements are, in order, the elements in the
+        <es-xref target="sec-list-and-record-specification-type">List</es-xref> <i>elements</i>. If
+        <i>length</i> is 0, the empty string is returned.</li>
+      </ol>
+
+      <p>The <code>length</code> property of the <code>fromCharCode</code> function is
+      <b>1</b>.</p>
+    </es-clause>
+
+    <es-clause title="String.fromCodePoint ( ...codePoints)" anchor="sec-string.fromcodepoint">
+      <p>The <code>String.fromCodePoint</code> function may be called with a variable number of
+      arguments which form the rest parameter <es-nt>codePoints</es-nt>. The following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>codePoints</i> is a
+        well-formed rest parameter object.</li>
+
+        <li>Let <i>length</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>codePoints</i>, <code>"length"</code>)<code>.</code></li>
+
+        <li>Let <i>elements</i> be a new <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>Let <i>nextIndex</i> be 0.</li>
+
+        <li>Repeat while <i>nextIndex</i> &lt; <i>length</i>
+
+          <ol class="block">
+            <li>Let <i>next</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>codePoints</i>, <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>nextIndex</i>)).</li>
+
+            <li>Let <i>nextCP</i> be <es-xref target=
+            "sec-tonumber">ToNumber</es-xref>(<i>next</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextCP</i>).</li>
+
+            <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>nextCP</i>,
+            <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>nextCP</i>)) is <b>false</b>,
+            then throw a <b>RangeError</b> exception.</li>
+
+            <li>If <i>nextCP</i> &lt; 0 or <i>nextCP</i> &gt; 0x10FFFF, then throw a
+            <b>RangeError</b> exception.</li>
+
+            <li>Append the elements of the UTF-16 Encoding (<es-xref target=
+            "sec-static-semantics-utf-16-encoding">10.1.1</es-xref>) of <i>nextCP</i> to the end of
+            <i>elements</i>.</li>
+
+            <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+          </ol>
+        </li>
+
+        <li>Return the String value whose elements are, in order, the elements in the
+        <es-xref target="sec-list-and-record-specification-type">List</es-xref> <i>elements</i>. If
+        <i>length</i> is 0, the empty string is returned.</li>
+      </ol>
+
+      <p>The <code>length</code> property of the <code>fromCodePoint</code> function is
+      <b>0</b>.</p>
+    </es-clause>
+
+    <es-clause title="String.prototype" anchor="sec-string.prototype">
+      <p>The initial value of <code>String.prototype</code> is the standard built-in String
+      prototype object (<es-xref target=
+      "sec-properties-of-the-string-prototype-object">21.1.3</es-xref>).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="String.raw ( callSite, ...substitutions)" anchor="sec-string.raw">
+      <p>The <code>String.raw</code> function may be called with a variable number of arguments.
+      The first argument is <es-nt>callSite</es-nt> and the remainder of the arguments form the
+      rest parameter <es-nt>substitutions</es-nt>. The following steps are taken:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>substitutions</i> is a
+        well-formed rest parameter object.</li>
+
+        <li>Let <i>cooked</i> be <es-xref target=
+        "sec-toobject">ToObject</es-xref>(<i>callSite</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>cooked</i>).</li>
+
+        <li>Let <i>rawValue</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>cooked</i>, <code>"raw"</code>)<code>.</code></li>
+
+        <li>Let <i>raw</i> be <es-xref target=
+        "sec-toobject">ToObject</es-xref>(<i>rawValue</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>raw</i>).</li>
+
+        <li>Let <i>len</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>raw</i>,
+        <code>"length"</code>)<code>.</code></li>
+
+        <li>Let <i>literalSegments</i> be <es-xref target=
+        "sec-tolength">ToLength</es-xref>(<i>len</i>).</li>
+
+        <li><es-xref target=
+        "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>literalSegments</i>).</li>
+
+        <li>If <i>literalSegments</i> ≤ 0, then return the empty string.</li>
+
+        <li>Let <i>stringElements</i> be a new <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>Let <i>nextIndex</i> be 0.</li>
+
+        <li>Repeat
+
+          <ol class="block">
+            <li>Let <i>nextKey</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>nextIndex</i>).</li>
+
+            <li>Let <i>next</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>raw</i>, <i>nextKey</i>).</li>
+
+            <li>Let <i>nextSeg</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>next</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextSeg</i>).</li>
+
+            <li>Append in order the code unit elements of <i>nextSeg</i> to the end of
+            <i>stringElements</i>.</li>
+
+            <li>If <i>nextIndex</i> + 1 = <i>literalSegments</i>, then
+
+              <ol class="block">
+                <li>Return the string value whose elements are, in order, the elements in the
+                <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+                <i>stringElements</i>. If <i>length</i> is 0, the empty string is returned.</li>
+              </ol>
+            </li>
+
+            <li>Let <i>next</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>substitutions</i>, <i>nextKey</i>).</li>
+
+            <li>Let <i>nextSub</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>next</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextSub</i>).</li>
+
+            <li>Append in order the code unit elements of <i>nextSub</i> to the end of
+            <i>stringElements</i>.</li>
+
+            <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+          </ol>
+        </li>
+      </ol>
+
+      <p>The <code>length</code> property of the <code>raw</code> function is <b>1</b>.</p>
+
+      <es-note>
+        <p>String.raw is intended for use as a tag function of a Tagged Template String
+        (<es-xref target="sec-tagged-templates">12.2.7</es-xref>). When called as such the first
+        argument will be a well formed template call site object and the rest parameter will
+        contain the substitution values.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="String[ @@create ] ( )" anchor="sec-string-@@create">
+      <p>The @@create method of an object <es-nt>F</es-nt> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+        <li>Let <i>proto</i> be the result of <es-xref target=
+        "sec-getprototypefromconstructor">GetPrototypeFromConstructor</es-xref>(<i>F</i>,
+        <code>"%StringPrototype%"</code>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
+
+        <li>Let <i>obj</i> be the result of calling <es-xref target=
+        "sec-stringcreate">StringCreate</es-xref> (<i>proto</i>).</li>
+
+        <li>Return <i>obj</i>.</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.create]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>true</b> }.</p>
+
+      <es-note>
+        <p>[[StringData]] is initially assigned the value <span class="value">undefined</span> as a
+        flag to indicate that the instance has not yet been initialised by the String constructor.
+        This flag value is never directly exposed to ECMAScript code; hence implementations may
+        choose to encode the flag in some other manner.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the String Prototype Object" anchor=
+  "sec-properties-of-the-string-prototype-object">
+    <p>The String prototype object is itself an ordinary object. It is not a String instance and
+    does not have a [[StringData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the String
+    prototype object is the standard built-in Object prototype object (<es-xref target=
+    "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>).</p>
+
+    <p>Unless explicitly stated otherwise, the methods of the String prototype object defined below
+    are not generic and the <b>this</b> value passed to them must be either a String value or an
+    object that has a [[StringData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> that has been
+    initialised to a String value.</p>
+
+    <p>The abstract operation thisStringValue(<i>value</i>) performs the following steps:</p>
+
+    <ol class="proc">
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+      String, return <i>value</i>.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value)</i> is
+      Object and <i>value</i> has a [[StringData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
+
+        <ol class="block">
+          <li>Let <i>s</i> be the value of <i>value’s</i> [[StringData]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+          <li>If <i>s</i> is not <b>undefined</b>, then return <i>s</i>.</li>
+        </ol>
+      </li>
+
+      <li>Throw a <b>TypeError</b> exception.</li>
+    </ol>
+
+    <p>The phrase “this String value” within the specification of a method refers to the result
+    returned by calling the abstract operation thisStringValue with the <b>this</b> value of the
+    method invocation passed as the argument.</p>
+  </es-clause>
+
+  <es-clause title="Properties of String Instances" anchor="sec-properties-of-string-instances">
+    <p>String instances are String exotic objects and have the internal methods specified for such
+    objects. String instances inherit properties from the String prototype object. String instances
+    also have a [[StringData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+    <p>String instances have a <code>length</code> property, and a set of enumerable properties
+    with integer indexed names.</p>
+
+    <es-clause title="length" anchor="sec-properties-of-string-instances-length">
+      <p>The number of elements in the String value represented by this String object.</p>
+
+      <p>Once a String object is initialised, this property is unchanging. It has the attributes {
+      [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>
+      }.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="String Iterator Objects" anchor="sec-string-iterator-objects">
+    <p>An String Iterator is an object, that represents a specific iteration over some specific
+    String instance object. There is not a named constructor for String Iterator objects. Instead,
+    String iterator objects are created by calling certain methods of String instance objects.</p>
+
+    <es-clause title="CreateStringIterator Abstract Operation" anchor="sec-createstringiterator">
+      <p>Several methods of String objects return Iterator objects. The abstract operation
+      CreateStringIterator with argument <es-nt>string</es-nt> is used to create such iterator
+      objects. It performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>s</i> be the result of calling <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>string</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>s</i>).</li>
+
+        <li>Let <i>iterator</i> be the result of <es-xref target=
+        "sec-objectcreate">ObjectCreate</es-xref>(%StringIteratorPrototype%, ([[IteratedStringt]],
+        [[StringIteratorNextIndex]] )).</li>
+
+        <li>Set <i>iterator’s</i> [[IteratedString]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>s</i>.</li>
+
+        <li>Set <i>iterator’s</i> [[StringIteratorNextIndex]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to 0.</li>
+
+        <li>Return <i>iterator</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="The %StringIteratorPrototype% Object" anchor=
+    "sec-%stringiteratorprototype%-object">
+      <p>All String Iterator Objects inherit properties from the %StringIteratorPrototype%
+      intrinsic object. The %StringIteratorPrototype% object is an ordinary object and its
+      [[Prototype]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref> is the %ObjectPrototype% intrinsic object. In addition,
+      %StringIteratorPrototype% has the following properties:</p>
+
+      <es-clause title="%StringIteratorPrototype%.next( )" anchor=
+      "sec-%stringiteratorprototype%.next">
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+          <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+          not Object, throw a <b>TypeError</b> exception.</li>
+
+          <li>If <i>O</i> does not have all of the internal slots of an String Iterator Instance
+          (<es-xref target="sec-properties-of-string-iterator-instances">21.1.5.3</es-xref>), throw
+          a <b>TypeError</b> exception.</li>
+
+          <li>Let <i>s</i> be the value of the [[IteratedString]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+          <i>O</i>.</li>
+
+          <li>If <i>s</i> is <b>undefined</b>, then return <es-xref target=
+          "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+          <b>true</b>).</li>
+
+          <li>Let <i>position</i> be the value of the [[StringIteratorNextIndex]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+          <i>O</i>.</li>
+
+          <li>Let <i>len</i> be the number of elements in <i>s</i>.</li>
+
+          <li>If <i>position</i> ≥ <i>len</i>, then
+
+            <ol class="block">
+              <li>Set the value of the [[IteratedString]] <es-xref target=
+              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>
+              to <b>undefined</b>.</li>
+
+              <li>Return <es-xref target=
+              "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+              <b>true</b>).</li>
+            </ol>
+          </li>
+
+          <li>Let <i>first</i> be the code unit value of the element at index <i>position</i> in
+          <i>s</i>.</li>
+
+          <li>If <i>first</i> &lt; 0xD800 or <i>first</i> &gt; 0xDBFF or <i>position</i>+1 =
+          <i>len</i>, then let <i>resultString</i> be the string consisting of the single code unit
+          <i>first</i>.</li>
+
+          <li>Else,
+
+            <ol class="block">
+              <li>Let <i>second</i> be the code unit value of the element at index
+              <i>position</i>+1 in the String <i>S</i>.</li>
+
+              <li>If <i>second</i> &lt; 0xDC00 or <i>second</i> &gt; 0xDFFF, then let
+              <i>resultString</i> be the string consisting of the single code unit
+              <i>first</i>.</li>
+
+              <li>Else, let <i>resultString</i> be the string consisting of the code unit
+              <i>first</i> followed by the code unit <i>second</i>.</li>
+            </ol>
+          </li>
+
+          <li>Let <i>resultSize</i> be the number of code units in <i>resultString</i>.</li>
+
+          <li>Set the value of the [[StringIteratorNextIndex]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+          <i>position</i>+ <i>resultSize</i>.</li>
+
+          <li>Return <es-xref target=
+          "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>resultString</i>,
+          <b>false</b>).</li>
+        </ol>
+      </es-clause>
+
+      <es-clause title="%StringIteratorPrototype% [ @@iterator ] ( )" anchor=
+      "sec-%stringiteratorprototype%-@@iterator">
+        <p>The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return the <b>this</b> value.</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is
+        <code>"[Symbol.iterator]"</code>.</p>
+      </es-clause>
+
+      <es-clause title="%StringIteratorPrototype%.@@toStringTag" anchor=
+      "sec-%stringiteratorprototype%.@@tostringtag">
+        <p>The initial value of the @@toStringTag property is the string value <b>"String
+        Iterator"</b>.</p>
+      </es-clause>
+    </es-clause>
+
+    <es-clause title="Properties of String Iterator Instances" anchor=
+    "sec-properties-of-string-iterator-instances">
+      <p>String Iterator instances are ordinary objects that inherit properties from the
+      %StringIteratorPrototype% intrinsic object. String Iterator instances are initially created
+      with the internal slots listed in <a href="#table-42">Table 42</a> .</p>
+
+      <figure>
+        <figcaption>
+          <span id="table-40">Table 40</span> — Internal Slots of String Iterator Instances
+        </figcaption>
+
+        <table class="real-table">
+          <tr>
+            <th style=
+            "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+            Internal Slot</th>
+
+            <th style=
+            "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+            Description</th>
+          </tr>
+
+          <tr>
+            <td>[[IteratedString]]</td>
+
+            <td>The String value whose elements are being iterated.</td>
+          </tr>
+
+          <tr>
+            <td>[[StringIteratorNextIndex]]</td>
+
+            <td>The integer index of the next string index to be examined by this iteration.</td>
+          </tr>
+        </table>
+      </figure>
+    </es-clause>
+  </es-clause>
 </es-clause>

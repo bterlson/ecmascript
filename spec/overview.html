@@ -42,9 +42,422 @@
 
   <p class="formal-reference"><span class="book-title">IEEE Standard for the Scheme Programming
   Language</span>. IEEE Std 1178-1990.</p>
-  <link rel="import" href="overview/web-scripting.html">
-  <link rel="import" href="overview/ecmascript-overview.html">
-  <link rel="import" href="overview/terms-and-definitions.html">
+
+  <es-clause title="Web Scripting" anchor="sec-web-scripting">
+    <p>A web browser provides an ECMAScript host environment for client-side computation including,
+    for instance, objects that represent windows, menus, pop-ups, dialog boxes, text areas,
+    anchors, frames, history, cookies, and input/output. Further, the host environment provides a
+    means to attach scripting code to events such as change of focus, page and image loading,
+    unloading, error and abort, selection, form submission, and mouse actions. Scripting code
+    appears within the HTML and the displayed page is a combination of user interface elements and
+    fixed and computed text and images. The scripting code is reactive to user interaction and
+    there is no need for a main program.</p>
+
+    <p>A web server provides a different host environment for server-side computation including
+    objects representing requests, clients, and files; and mechanisms to lock and share data. By
+    using browser-side and server-side scripting together, it is possible to distribute computation
+    between the client and server while providing a customised user interface for a Web-based
+    application.</p>
+
+    <p>Each Web browser and server that supports ECMAScript supplies its own host environment,
+    completing the ECMAScript execution environment.</p>
+  </es-clause>
+
+  <es-clause title="ECMAScript Overview" anchor="sec-ecmascript-overview">
+    <p>The following is an informal overview of ECMAScript—not all parts of the language are
+    described. This overview is not part of the standard proper.</p>
+
+    <p>ECMAScript is object-based: basic language and host facilities are provided by objects, and
+    an ECMAScript program is a cluster of communicating objects. In ECMAScript, an
+    <b><i>object</i></b> is a collection of <b><i>properties</i></b> each with zero or more
+    <b><i>attributes</i></b> that determine how each property can be used—for example, when the
+    Writable attribute for a property is set to <b>false</b>, any attempt by executed ECMAScript
+    code to change the value of the property fails. Properties are containers that hold other
+    objects, <b><i>primitive values</i></b>, or <b><i>functions</i></b>. A primitive value is a
+    member of one of the following built-in types: <b>Undefined</b>, <b>Null</b>, <b>Boolean</b>,
+    <b>Number</b>, <b>Symbol</b> and <b>String</b>; an object is a member of the remaining built-in
+    type <b>Object</b>; and a function is a callable object. A function that is associated with an
+    object via a property is a <b><i>method</i></b>.</p>
+
+    <p>ECMAScript defines a collection of <b><i>built-in objects</i></b> that round out the
+    definition of ECMAScript entities. These built-in objects include the global object, the
+    <b>Object</b> object, the <b>Function</b> object, the <b>Array</b> object, the <b>String</b>
+    object, the <b>Boolean</b> object, the <b>Number</b> object, the <b>Math</b> object, the
+    <b>Date</b> object, the <b>RegExp</b> object, the <b>JSON</b> object, and the Error objects
+    <b>Error, EvalError</b>, <b>RangeError, ReferenceError, SyntaxError, TypeError</b> and
+    <b><es-xref target=
+    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>.</p>
+
+    <p>ECMAScript also defines a set of built-in <b><i>operators</i></b>. ECMAScript operators
+    include various unary operations, multiplicative operators, additive operators, bitwise shift
+    operators, relational operators, equality operators, binary bitwise operators, binary logical
+    operators, assignment operators, and the comma operator.</p>
+
+    <p>ECMAScript syntax intentionally resembles Java syntax. ECMAScript syntax is relaxed to
+    enable it to serve as an easy-to-use scripting language. For example, a variable is not
+    required to have its type declared nor are types associated with properties, and defined
+    functions are not required to have their declarations appear textually before calls to
+    them.</p>
+
+    <es-clause title="Objects" anchor="sec-objects">
+      <p>ECMAScript does not use classes such as those in C++, Smalltalk, or Java. Instead objects
+      may be created in various ways including via a literal notation or via
+      <b><i>constructors</i></b> which create objects and then execute code that initialises all or
+      part of them by assigning initial values to their properties. Each constructor is a function
+      that has a property named “<code>prototype</code>” that is used to implement
+      <b><i>prototype-based inheritance</i></b> and <b><i>shared properties</i></b>. Objects are
+      created by using constructors in <b>new</b> expressions; for example, <code>new
+      Date(2009,11)</code> creates a new Date object. Invoking a constructor without using
+      <b>new</b> has consequences that depend on the constructor. For example, <code>Date()</code>
+      produces a string representation of the current date and time rather than an object.</p>
+
+      <p>Every object created by a constructor has an implicit reference (called the object’s
+      <i>prototype</i>) to the value of its constructor’s “<code>prototype</code>” property.
+      Furthermore, a prototype may have a non-null implicit reference to its prototype, and so on;
+      this is called the <i>prototype chain</i>. When a reference is made to a property in an
+      object, that reference is to the property of that name in the first object in the prototype
+      chain that contains a property of that name. In other words, first the object mentioned
+      directly is examined for such a property; if that object contains the named property, that is
+      the property to which the reference refers; if that object does not contain the named
+      property, the prototype for that object is examined next; and so on.</p>
+
+      <figure>
+        <object data="figure-1.svg" height="354" type="image/svg+xml" width="719">
+          <img alt="An image of lots of boxes and arrows." height="354" src="figure-1.png" width=
+          "719">
+        </object>
+
+        <figcaption>
+          Figure 1 — Object/Prototype Relationships
+        </figcaption>
+      </figure>
+
+      <p>In a class-based object-oriented language, in general, state is carried by instances,
+      methods are carried by classes, and inheritance is only of structure and behaviour. In
+      ECMAScript, the state and methods are carried by objects, while structure, behaviour, and
+      state are all inherited.</p>
+
+      <p>All objects that do not directly contain a particular property that their prototype
+      contains share that property and its value. Figure 1 illustrates this:</p>
+
+      <p><b>CF</b> is a constructor (and also an object). Five objects have been created by using
+      <code>new</code> expressions: <b>cf<sub>1</sub></b>, <b>cf<sub>2</sub></b>,
+      <b>cf<sub>3</sub></b>, <b>cf<sub>4</sub></b>, and <b>cf<sub>5</sub></b>. Each of these
+      objects contains properties named q1 and q2. The dashed lines represent the implicit
+      prototype relationship; so, for example, <b>cf<sub>3</sub></b>’s prototype is
+      <b>CF<sub>p</sub></b>. The constructor, <b>CF</b>, has two properties itself, named P1 and
+      P2, which are not visible to <b>CF<sub>p</sub></b>, <b>cf<sub>1</sub></b>,
+      <b>cf<sub>2</sub></b>, <b>cf<sub>3</sub></b>, <b>cf<sub>4</sub></b>, or
+      <b>cf<sub>5</sub></b>. The property named CFP1 in <b>CF<sub>p</sub></b> is shared by
+      <b>cf<sub>1</sub></b>, <b>cf<sub>2</sub></b>, <b>cf<sub>3</sub></b>, <b>cf<sub>4</sub></b>,
+      and <b>cf<sub>5</sub></b> (but not by <b>CF</b>), as are any properties found in
+      <b>CF<sub>p</sub></b>’s implicit prototype chain that are not named q1, q2, or CFP1. Notice
+      that there is no implicit prototype link between <b>CF</b> and <b>CF<sub>p</sub></b>.</p>
+
+      <p>Unlike class-based object languages, properties can be added to objects dynamically by
+      assigning values to them. That is, constructors are not required to name or assign values to
+      all or any of the constructed object’s properties. In the above diagram, one could add a new
+      shared property for <b>cf<sub>1</sub></b>, <b>cf<sub>2</sub></b>, <b>cf<sub>3</sub></b>,
+      <b>cf<sub>4</sub></b>, and <b>cf<sub>5</sub></b> by assigning a new value to the property in
+      <b>CF<sub>p</sub></b>.</p>
+    </es-clause>
+
+    <es-clause title="The Strict Variant of ECMAScript" anchor="sec-strict-variant-of-ecmascript">
+      <p>The ECMAScript Language recognises the possibility that some users of the language may
+      wish to restrict their usage of some features available in the language. They might do so in
+      the interests of security, to avoid what they consider to be error-prone features, to get
+      enhanced error checking, or for other reasons of their choosing. In support of this
+      possibility, ECMAScript defines a strict variant of the language. The strict variant of the
+      language excludes some specific syntactic and semantic features of the regular ECMAScript
+      language and modifies the detailed semantics of some features. The strict variant also
+      specifies additional error conditions that must be reported by throwing error exceptions in
+      situations that are not specified as errors by the non-strict form of the language.</p>
+
+      <p>The strict variant of ECMAScript is commonly referred to as the <i>strict mode</i> of the
+      language. Strict mode selection and use of the strict mode syntax and semantics of ECMAScript
+      is explicitly made at the level of individual ECMAScript code units. Because strict mode is
+      selected at the level of a syntactic code unit, strict mode only imposes restrictions that
+      have local effect within such a code unit. Strict mode does not restrict or modify any aspect
+      of the ECMAScript semantics that must operate consistently across multiple code units. A
+      complete ECMAScript program may be composed for both strict mode and non-strict mode
+      ECMAScript code units. In this case, strict mode only applies when actually executing code
+      that is defined within a <es-xref target="sec-strict-mode-code">strict mode code</es-xref>
+      unit.</p>
+
+      <p>In order to conform to this specification, an ECMAScript implementation must implement
+      both the full unrestricted ECMAScript language and the strict mode variant of the ECMAScript
+      language as defined by this specification. In addition, an implementation must support the
+      combination of unrestricted and <es-xref target="sec-strict-mode-code">strict mode
+      code</es-xref> units into a single composite program.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Terms and definitions" anchor="sec-terms-and-definitions">
+    <p>For the purposes of this document, the following terms and definitions apply.</p>
+
+    <es-clause title="type" anchor="sec-type">
+      <p>set of data values as defined in clause 6 of this specification</p>
+    </es-clause>
+
+    <es-clause title="primitive value" anchor="sec-primitive-value">
+      <p>member of one of the types Undefined, Null, Boolean, Number, Symbol, or String as defined
+      in clause 6</p>
+
+      <es-note>
+        <p>A primitive value is a datum that is represented directly at the lowest level of the
+        language implementation.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="object" anchor="sec-terms-and-definitions-object">
+      <p>member of the type Object</p>
+
+      <es-note>
+        <p>An object is a collection of properties and has a single prototype object. The prototype
+        may be the null value.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="constructor" anchor="sec-constructor">
+      <p>function object that creates and initialises objects</p>
+
+      <es-note>
+        <p>The value of a constructor’s “prototype” property is a prototype object that is used to
+        implement inheritance and shared properties.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="prototype" anchor="sec-terms-and-definitions-prototype">
+      <p>object that provides shared properties for other objects</p>
+
+      <es-note>
+        <p>When a constructor creates an object, that object implicitly references the
+        constructor’s “<code>prototype</code>” property for the purpose of resolving property
+        references. The constructor’s “<code>prototype</code>” property can be referenced by the
+        program expression <i>constructor</i><b>.prototype</b>, and properties added to an object’s
+        prototype are shared, through inheritance, by all objects sharing the prototype.
+        Alternatively, a new object may be created with an explicitly specified prototype by using
+        the <code><es-xref target="sec-object.create">Object.create</es-xref></code> built-in
+        function.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="ordinary object" anchor="sec-ordinary-object">
+      <p>object that has the default behaviour for the essential internal methods that must be
+      supported by all objects.</p>
+    </es-clause>
+
+    <es-clause title="exotic object" anchor="sec-exotic-object">
+      <p>object that has some alternative behaviour for one or more of the essential internal
+      methods that must be supported by all objects.</p>
+
+      <es-note>
+        <p>Any object that is not an ordinary object is an exotic object.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="standard object" anchor="sec-standard-object">
+      <p>object whose semantics are defined by this specification.</p>
+    </es-clause>
+
+    <es-clause title="built-in object" anchor="sec-built-in-object">
+      <p>object supplied by an ECMAScript implementation, independent of the host environment, that
+      is present at the start of the execution of an ECMAScript program</p>
+
+      <es-note>
+        <p>Standard built-in objects are defined in this specification, and an ECMAScript
+        implementation may specify and define others. A <i>built-in constructor</i> is a built-in
+        object that is also a constructor.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="undefined value" anchor="sec-undefined-value">
+      <p>primitive value used when a variable has not been assigned a value</p>
+    </es-clause>
+
+    <es-clause title="Undefined type" anchor="sec-terms-and-definitions-undefined-type">
+      <p>type whose sole value is the <b>undefined</b> value</p>
+    </es-clause>
+
+    <es-clause title="null value" anchor="sec-null-value">
+      <p>primitive value that represents the intentional absence of any object value</p>
+    </es-clause>
+
+    <es-clause title="Null type" anchor="sec-terms-and-definitions-null-type">
+      <p>type whose sole value is the null value</p>
+    </es-clause>
+
+    <es-clause title="Boolean value" anchor="sec-terms-and-definitions-boolean-value">
+      <p>member of the Boolean type</p>
+
+      <es-note>
+        <p>There are only two Boolean values, <b>true</b> and <b>false</b>.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Boolean type" anchor="sec-terms-and-definitions-boolean-type">
+      <p>type consisting of the primitive values <b>true</b> and <b>false</b></p>
+    </es-clause>
+
+    <es-clause title="Boolean object" anchor="sec-boolean-object">
+      <p>member of the Object type that is an instance of the standard built-in
+      <code>Boolean</code> constructor</p>
+
+      <es-note>
+        <p>A Boolean object is created by using the <code>Boolean</code> constructor in a
+        <code>new</code> expression, supplying a Boolean value as an argument. The resulting object
+        has an <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref> whose value is the Boolean value. A Boolean object can be coerced to a
+        Boolean value.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="String value" anchor="sec-terms-and-definitions-string-value">
+      <p>primitive value that is a finite ordered sequence of zero or more 16-bit unsigned
+      integer</p>
+
+      <es-note>
+        <p>A String value is a member of the String type. Each integer value in the sequence
+        usually represents a single 16-bit unit of UTF-16 text. However, ECMAScript does not place
+        any restrictions or requirements on the values except that they must be 16-bit unsigned
+        integers.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="String type" anchor="sec-terms-and-definitions-string-type">
+      <p>set of all possible String values</p>
+    </es-clause>
+
+    <es-clause title="String object" anchor="sec-string-object">
+      <p>member of the Object type that is an instance of the standard built-in <code>String</code>
+      constructor</p>
+
+      <es-note>
+        <p>A String object is created by using the <code>String</code> constructor in a
+        <code>new</code> expression, supplying a String value as an argument. The resulting object
+        has an <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref> whose value is the String value. A String object can be coerced to a String
+        value by calling the <code>String</code> constructor as a function (<es-xref target=
+        "sec-string-constructor-string-value">21.1.1.1</es-xref>).</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Number value" anchor="sec-terms-and-definitions-number-value">
+      <p>primitive value corresponding to a double-precision 64-bit binary format IEEE 754
+      value</p>
+
+      <es-note>
+        <p>A Number value is a member of the Number type and is a direct representation of a
+        number.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Number type" anchor="sec-terms-and-definitions-number-type">
+      <p>set of all possible Number values including the special “Not-a-Number” (NaN) value,
+      positive infinity, and negative infinity</p>
+    </es-clause>
+
+    <es-clause title="Number object" anchor="sec-number-object">
+      <p>member of the Object type that is an instance of the standard built-in <code>Number</code>
+      constructor</p>
+
+      <es-note>
+        <p>A Number object is created by using the <code>Number</code> constructor in a
+        <code>new</code> expression, supplying a Number value as an argument. The resulting object
+        has an <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref> whose value is the Number value. A Number object can be coerced to a Number
+        value by calling the <code>Number</code> constructor as a function (<es-xref target=
+        "sec-number-constructor-number-value">20.1.1.1</es-xref>).</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Infinity" anchor="sec-terms-and-definitions-infinity">
+      <p>number value that is the positive infinite Number value</p>
+    </es-clause>
+
+    <es-clause title="NaN" anchor="sec-terms-and-definitions-nan">
+      <p>number value that is an IEEE 754 “Not-a-Number” value</p>
+    </es-clause>
+
+    <es-clause title anchor="sec-">
+      <es-clause title="Symbol value" anchor="undefined">
+        <p>primitive value that represents a unique, non-String Object <es-xref target=
+        "sec-object-type">property key</es-xref>.</p>
+      </es-clause>
+    </es-clause>
+
+    <es-clause title="Symbol type" anchor="sec-terms-and-definitions-symbol-type">
+      <p>set of all possible Symbol values</p>
+    </es-clause>
+
+    <es-clause title="Symbol object" anchor="sec-symbol-object">
+      <p>member of the Object type that is an instance of the standard built-in <code>Symbol</code>
+      constructor</p>
+    </es-clause>
+
+    <es-clause title="function" anchor="sec-terms-and-definitions-function">
+      <p>member of the Object type that may be invoked as a subroutine</p>
+
+      <es-note>
+        <p>In addition to its properties, a function contains executable code and state that
+        determine how it behaves when invoked. A function’s code may or may not be written in
+        ECMAScript.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="built-in function" anchor="sec-built-in-function">
+      <p>built-in object that is a function</p>
+
+      <es-note>
+        <p>Examples of built-in functions include <code>parseInt</code> and <code><es-xref target=
+        "sec-math.exp">Math.exp</es-xref></code>. An implementation may provide
+        implementation-dependent built-in functions that are not described in this
+        specification.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="property" anchor="sec-property">
+      <p>association between a key and a value that is a part of an object. The key be either a
+      String value or a Symbol value.</p>
+
+      <es-note>
+        <p>Depending upon the form of the property the value may be represented either directly as
+        a data value (a primitive value, an object, or a function object) or indirectly by a pair
+        of accessor functions.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="method" anchor="sec-method">
+      <p>function that is the value of a property</p>
+
+      <es-note>
+        <p>When a function is called as a method of an object, the object is passed to the function
+        as its <b>this</b> value.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="built-in method" anchor="sec-built-in-method">
+      <p>method that is a built-in function</p>
+
+      <es-note>
+        <p>Standard built-in methods are defined in this specification, and an ECMAScript
+        implementation may specify and provide other additional built-in methods.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="attribute" anchor="sec-attribute">
+      <p>internal value that defines some characteristic of a property</p>
+    </es-clause>
+
+    <es-clause title="own property" anchor="sec-own-property">
+      <p>property that is directly contained by its object</p>
+    </es-clause>
+
+    <es-clause title="inherited property" anchor="sec-inherited-property">
+      <p>property of an object that is not an own property but is a property (either own or
+      inherited) of the object’s prototype</p>
+    </es-clause>
+  </es-clause>
 
   <es-clause title="Organization of This Specification" anchor=
   "sec-organization-of-this-specification">

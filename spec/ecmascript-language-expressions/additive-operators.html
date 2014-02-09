@@ -11,11 +11,254 @@
     <es-rhs><es-nt params="?Yield">AdditiveExpression</es-nt> - <es-nt params=
     "?Yield">MultiplicativeExpression</es-nt></es-rhs>
   </es-production>
-  <link rel="import" href=
-  "additive-operators/additive-operators-static-semantics-isanonymousfunctiondefinition.html">
-  <link rel="import" href=
-  "additive-operators/additive-operators-static-semantics-isvalidsimpleassignmenttarget.html">
-  <link rel="import" href="additive-operators/addition-operator-plus.html">
-  <link rel="import" href="additive-operators/subtraction-operator-minus.html">
-  <link rel="import" href="additive-operators/applying-the-additive-operators-to-numbers.html">
+
+  <es-clause title="Static Semantics: IsAnonymousFunctionDefinition" anchor=
+  "sec-additive-operators-static-semantics-isanonymousfunctiondefinition">
+    <p>See also: <es-xref target=
+    "sec-semantics-static-semantics-isanonymousfunctiondefinition">12.1.0.2</es-xref>,
+    <es-xref target=
+    "sec-grouping-operator-static-semantics-isanonymousfunctiondefinition">12.1.10.2</es-xref>,
+    <es-xref target=
+    "sec-static-semantics-static-semantics-isanonymousfunctiondefinition">12.2.1.2</es-xref>,
+    <es-xref target=
+    "sec-postfix-expressions-static-semantics-isanonymousfunctiondefinition">12.3.2</es-xref>,
+    <es-xref target=
+    "sec-unary-operators-static-semantics-isanonymousfunctiondefinition">12.4.2</es-xref>,
+    <es-xref target=
+    "sec-multiplicative-operators-static-semantics-isanonymousfunctiondefinition">12.5.1</es-xref>,
+    <es-xref target=
+    "sec-bitwise-shift-operators-static-semantics-isanonymousfunctiondefinition">12.7.1</es-xref>,
+    <es-xref target=
+    "sec-relational-operators-static-semantics-isanonymousfunctiondefinition">12.8.1</es-xref>,
+    <es-xref target=
+    "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</es-xref>,
+    <es-xref target=
+    "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</es-xref>,
+    <es-xref target=
+    "sec-binary-logical-operators-static-semantics-isanonymousfunctiondefinition">12.11.1</es-xref>,
+    <es-xref target=
+    "sec-conditional-operator-static-semantics-isanonymousfunctiondefinition">12.12.1</es-xref>,
+    <es-xref target=
+    "sec-assignment-operators-static-semantics-isanonymousfunctiondefinition">12.13.2</es-xref>,
+    <es-xref target=
+    "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>,
+    <es-xref target=
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-isanonymousfunctiondefinition">14.4.5</es-xref>,
+    <es-xref target=
+    "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
+
+    <es-production name="AdditiveExpression">
+      <es-rhs><es-nt>AdditiveExpression</es-nt> + <es-nt>MultiplicativeExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt>AdditiveExpression</es-nt> - <es-nt>MultiplicativeExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: IsValidSimpleAssignmentTarget" anchor=
+  "sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget">
+    <p>See also: <es-xref target=
+    "sec-semantics-static-semantics-isidentifierref">12.1.0.3</es-xref>, <es-xref target=
+    "sec-grouping-operator-static-semantics-isvalidsimpleassignmenttarget">12.1.10.3</es-xref>,
+    <es-xref target="sec-static-semantics-static-semantics-isidentifierref">12.2.1.3</es-xref>,
+    <es-xref target=
+    "sec-postfix-expressions-static-semantics-isvalidsimpleassignmenttarget">12.3.3</es-xref>,
+    <es-xref target=
+    "sec-unary-operators-static-semantics-isvalidsimpleassignmenttarget">12.4.3</es-xref>,
+    <es-xref target=
+    "sec-multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget">12.5.2</es-xref>,
+    <es-xref target="sec-semantics-isvalidsimpleassignmenttarget">12.7.2</es-xref>,
+    <es-xref target="sec-relational-operators-static-semantics-isvalidsimpleassignmenttarget">12.8.2</es-xref>,
+    <es-xref target=
+    "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</es-xref>,
+    <es-xref target=
+    "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</es-xref>,
+    <es-xref target=
+    "sec-binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget">12.11.2</es-xref>,
+    <es-xref target=
+    "sec-conditional-operator-static-semantics-isvalidsimpleassignmenttarget">12.12.2</es-xref>,
+    <es-xref target=
+    "sec-assignment-operators-static-semantics-isvalidsimpleassignmenttarget">12.13.3</es-xref>,
+    <es-xref target=
+    "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>.</p>
+
+    <es-production name="AdditiveExpression">
+      <es-rhs><es-nt>AdditiveExpression</es-nt> + <es-nt>MultiplicativeExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt>AdditiveExpression</es-nt> - <es-nt>MultiplicativeExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="The Addition operator ()" anchor="sec-addition-operator-plus">
+    <es-note>
+      <p>The addition operator either performs string concatenation or numeric addition.</p>
+    </es-note>
+
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-addition-operator-plus-runtime-semantics-evaluation">
+      <es-production name="AdditiveExpression" class="inline">
+        <es-rhs><es-nt>AdditiveExpression</es-nt> +
+        <es-nt>MultiplicativeExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>AdditiveExpression</i>.</li>
+
+        <li>Let <i>lval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>lref</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lval</i>).</li>
+
+        <li>Let <i>rref</i> be the result of evaluating <i>MultiplicativeExpression</i>.</li>
+
+        <li>Let <i>rval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rref</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rval</i>).</li>
+
+        <li>Let <i>lprim</i> be <es-xref target=
+        "sec-toprimitive">ToPrimitive</es-xref>(<i>lval</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lprim</i>).</li>
+
+        <li>Let <i>rprim</i> be <es-xref target=
+        "sec-toprimitive">ToPrimitive</es-xref>(<i>rval</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rprim</i>).</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>lprim</i>)
+        is String or <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>rprim</i>) is String, then
+
+          <ol class="block">
+            <li>Return the String that is the result of concatenating <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>lprim</i>) followed by <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>rprim</i>)</li>
+          </ol>
+        </li>
+
+        <li>Return the result of applying the addition operation to <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>lprim</i>) and <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<i>rprim</i>). See the Note below <es-xref target=
+        "sec-applying-the-additive-operators-to-numbers">12.6.5</es-xref>.</li>
+      </ol>
+
+      <es-note>
+        <p>No hint is provided in the calls to <es-xref target=
+        "sec-toprimitive">ToPrimitive</es-xref> in steps 7 and 9. All standard objects except Date
+        objects handle the absence of a hint as if the hint Number were given; Date objects handle
+        the absence of a hint as if the hint String were given. Exotic objects may handle the
+        absence of a hint in some other manner.</p>
+      </es-note>
+
+      <es-note>
+        <p>Step 11 differs from step 5 of the Abstract Relational Comparison algorithm
+        (<es-xref target="sec-abstract-relational-comparison">7.2.8</es-xref>), by using the
+        logical-or operation instead of the logical-and operation.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="The Subtraction Operator ()" anchor="sec-subtraction-operator-minus">
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-subtraction-operator-minus-runtime-semantics-evaluation">
+      <es-production name="AdditiveExpression" class="inline">
+        <es-rhs><es-nt>AdditiveExpression</es-nt> -
+        <es-nt>MultiplicativeExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>AdditiveExpression</i>.</li>
+
+        <li>Let <i>lval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>lref</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lval</i>).</li>
+
+        <li>Let <i>rref</i> be the result of evaluating <i>MultiplicativeExpression</i>.</li>
+
+        <li>Let <i>rval</i> be <es-xref target="sec-getvalue">GetValue</es-xref>(<i>rref</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rval</i>).</li>
+
+        <li>Let <i>lnum</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>lval</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lnum</i>).</li>
+
+        <li>Let <i>rnum</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>rval</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rnum</i>).</li>
+
+        <li>Return the result of applying the subtraction operation to <i>lnum</i> and <i>rnum</i>.
+        See the note below <es-xref target=
+        "sec-applying-the-additive-operators-to-numbers">12.6.5</es-xref>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Applying the Additive Operators to Numbers" anchor=
+  "sec-applying-the-additive-operators-to-numbers">
+    <p>The <code>+</code> operator performs addition when applied to two operands of numeric type,
+    producing the sum of the operands. The <code>-</code> operator performs subtraction, producing
+    the difference of two numeric operands.</p>
+
+    <p>Addition is a commutative operation, but not always associative.</p>
+
+    <p>The result of an addition is determined using the rules of IEEE 754 binary double-precision
+    arithmetic:</p>
+
+    <ul>
+      <li>
+        <p>If either operand is <b>NaN</b>, the result is <b>NaN</b>.</p>
+      </li>
+
+      <li>
+        <p>The sum of two infinities of opposite sign is <b>NaN</b>.</p>
+      </li>
+
+      <li>
+        <p>The sum of two infinities of the same sign is the infinity of that sign.</p>
+      </li>
+
+      <li>
+        <p>The sum of an infinity and a finite value is equal to the infinite operand.</p>
+      </li>
+
+      <li>
+        <p>The sum of two negative zeroes is <b>−0</b>. The sum of two positive zeroes, or of two
+        zeroes of opposite sign, is <b>+0</b>.</p>
+      </li>
+
+      <li>
+        <p>The sum of a zero and a nonzero finite value is equal to the nonzero operand.</p>
+      </li>
+
+      <li>
+        <p>The sum of two nonzero finite values of the same magnitude and opposite sign is
+        <b>+0</b>.</p>
+      </li>
+
+      <li>
+        <p>In the remaining cases, where neither an infinity, nor a zero, nor NaN is involved, and
+        the operands have the same sign or have different magnitudes, the sum is computed and
+        rounded to the nearest representable value using IEEE 754 round-to-nearest mode. If the
+        magnitude is too large to represent, the operation overflows and the result is then an
+        infinity of appropriate sign. The ECMAScript language requires support of gradual underflow
+        as defined by IEEE 754.</p>
+      </li>
+    </ul>
+
+    <es-note>
+      <p>The <code>-</code> operator performs subtraction when applied to two operands of numeric
+      type, producing the difference of its operands; the left operand is the minuend and the right
+      operand is the subtrahend. Given numeric operands <es-nt>a</es-nt> and <es-nt>b</es-nt>, it
+      is always the case that <i>a–b</i> produces the same result as <i>a +(–b)</i>.</p>
+    </es-note>
+  </es-clause>
 </es-clause>

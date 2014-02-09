@@ -1,0 +1,16 @@
+<!doctype html>
+<es-clause title="Static Semantics: HasInitialiser" anchor=
+"sec-function-definitions-static-semantics-hasinitialiser">
+  <p>See also: <es-xref target=
+  "sec-destructuring-binding-patterns-static-semantics-hasinitialiser">13.2.3.2</es-xref>.</p>
+
+  <es-production name="FormalsList" class="inline">
+    <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FormalParameter</es-nt></es-rhs>
+  </es-production>
+
+  <ol class="proc">
+    <li>If HasInitialiser of <i>FormalsList</i> is <b>true</b>, then return <b>true</b>.</li>
+
+    <li>Return HasInitialiser of <i>FormalParameter</i>.</li>
+  </ol>
+</es-clause>

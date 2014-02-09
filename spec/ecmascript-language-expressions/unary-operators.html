@@ -40,17 +40,527 @@
       </li>
     </ul>
   </es-clause>
-  <link rel="import" href=
-  "unary-operators/unary-operators-static-semantics-isanonymousfunctiondefinition.html">
-  <link rel="import" href=
-  "unary-operators/unary-operators-static-semantics-isvalidsimpleassignmenttarget.html">
-  <link rel="import" href="unary-operators/delete-operator.html">
-  <link rel="import" href="unary-operators/void-operator.html">
-  <link rel="import" href="unary-operators/typeof-operator.html">
-  <link rel="import" href="unary-operators/prefix-increment-operator.html">
-  <link rel="import" href="unary-operators/prefix-decrement-operator.html">
-  <link rel="import" href="unary-operators/unary-plus-operator.html">
-  <link rel="import" href="unary-operators/unary-minus-operator.html">
-  <link rel="import" href="unary-operators/bitwise-not-operator.html">
-  <link rel="import" href="unary-operators/logical-not-operator.html">
+
+  <es-clause title="Static Semantics: IsAnonymousFunctionDefinition" anchor=
+  "sec-unary-operators-static-semantics-isanonymousfunctiondefinition">
+    <p>See also: <es-xref target=
+    "sec-semantics-static-semantics-isanonymousfunctiondefinition">12.1.0.2</es-xref>,
+    <es-xref target=
+    "sec-grouping-operator-static-semantics-isanonymousfunctiondefinition">12.1.10.2</es-xref>,
+    <es-xref target=
+    "sec-static-semantics-static-semantics-isanonymousfunctiondefinition">12.2.1.2</es-xref>,
+    <es-xref target=
+    "sec-postfix-expressions-static-semantics-isanonymousfunctiondefinition">12.3.2</es-xref>,
+    <es-xref target=
+    "sec-multiplicative-operators-static-semantics-isanonymousfunctiondefinition">12.5.1</es-xref>,
+    <es-xref target=
+    "sec-additive-operators-static-semantics-isanonymousfunctiondefinition">12.6.1</es-xref>,
+    <es-xref target=
+    "sec-bitwise-shift-operators-static-semantics-isanonymousfunctiondefinition">12.7.1</es-xref>,
+    <es-xref target=
+    "sec-relational-operators-static-semantics-isanonymousfunctiondefinition">12.8.1</es-xref>,
+    <es-xref target=
+    "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</es-xref>,
+    <es-xref target=
+    "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</es-xref>,
+    <es-xref target=
+    "sec-binary-logical-operators-static-semantics-isanonymousfunctiondefinition">12.11.1</es-xref>,
+    <es-xref target=
+    "sec-conditional-operator-static-semantics-isanonymousfunctiondefinition">12.12.1</es-xref>,
+    <es-xref target=
+    "sec-assignment-operators-static-semantics-isanonymousfunctiondefinition">12.13.2</es-xref>,
+    <es-xref target=
+    "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>,
+    <es-xref target=
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-isanonymousfunctiondefinition">14.4.5</es-xref>,
+    <es-xref target=
+    "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
+
+    <es-production name="UnaryExpression">
+      <es-rhs><es-t>delete</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>void</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>typeof</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>++</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>--</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>+</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>-</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>~</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>!</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: IsValidSimpleAssignmentTarget" anchor=
+  "sec-unary-operators-static-semantics-isvalidsimpleassignmenttarget">
+    <p>See also: <es-xref target=
+    "sec-semantics-static-semantics-isidentifierref">12.1.0.3</es-xref>, <es-xref target=
+    "sec-grouping-operator-static-semantics-isvalidsimpleassignmenttarget">12.1.10.3</es-xref>,
+    <es-xref target="sec-static-semantics-static-semantics-isidentifierref">12.2.1.3</es-xref>,
+    <es-xref target=
+    "sec-postfix-expressions-static-semantics-isvalidsimpleassignmenttarget">12.3.3</es-xref>,
+    <es-xref target=
+    "sec-multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget">12.5.2</es-xref>,
+    <es-xref target=
+    "sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget">12.6.2</es-xref>,
+    <es-xref target="sec-semantics-isvalidsimpleassignmenttarget">12.7.2</es-xref>,
+    <es-xref target="sec-relational-operators-static-semantics-isvalidsimpleassignmenttarget">12.8.2</es-xref>,
+    <es-xref target=
+    "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</es-xref>,
+    <es-xref target=
+    "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</es-xref>,
+    <es-xref target=
+    "sec-binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget">12.11.2</es-xref>,
+    <es-xref target=
+    "sec-conditional-operator-static-semantics-isvalidsimpleassignmenttarget">12.12.2</es-xref>,
+    <es-xref target=
+    "sec-assignment-operators-static-semantics-isvalidsimpleassignmenttarget">12.13.3</es-xref>,
+    <es-xref target=
+    "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>.</p>
+
+    <es-production name="UnaryExpression">
+      <es-rhs><es-t>delete</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>void</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>typeof</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>++</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>--</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>+</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>-</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>~</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-t>!</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="TheOperator" anchor="sec-delete-operator">
+    <es-clause title="Static Semantics: Early Errors" anchor=
+    "sec-delete-operator-static-semantics-early-errors">
+      <es-production name="UnaryExpression" class="inline">
+        <es-rhs><es-t>delete</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ul>
+        <li>
+          <p>It is a Syntax Error if the <es-nt>UnaryExpression</es-nt> is contained in
+          <es-xref target="sec-strict-mode-code">strict code</es-xref> and the derived
+          <es-nt>UnaryExpression</es-nt> is <es-production name="PrimaryExpression" class=
+          "inline"><es-rhs></es-rhs></es-production>
+          <es-nt>IdentifierReference.</es-nt></p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if the derived <es-nt>UnaryExpression</es-nt> is<br>
+          <i>PrimaryExpression : CoverParenthesisedExpressionAndArrowParameterList<br></i>and
+          derives a production that, if used in place of <es-nt>UnaryExpression,</es-nt> would
+          produce a Syntax Error according to these rules. This rule is recursively applied.</p>
+        </li>
+      </ul>
+
+      <es-note>
+        <p>The last rule means that expressions such as<br>
+        <code>delete (((foo)))</code><br>
+        produce early errors because of recursive application of the first rule.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-delete-operator-runtime-semantics-evaluation">
+      <es-production name="UnaryExpression" class="inline">
+        <es-rhs><es-t>delete</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>ref</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>ref</i>).</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>ref</i>) is
+        not <es-xref target="sec-reference-specification-type">Reference</es-xref>, return
+        <b>true</b>.</li>
+
+        <li>If <es-xref target=
+        "sec-reference-specification-type">IsUnresolvableReference</es-xref>(<i>ref</i>) is
+        <b>true</b>, then,
+
+          <ol class="block">
+            <li>If <es-xref target=
+            "sec-reference-specification-type">IsStrictReference</es-xref>(<i>ref</i>) is
+            <b>true</b>, then throw a <b>SyntaxError</b> exception.</li>
+
+            <li>Return <b>true</b>.</li>
+          </ol>
+        </li>
+
+        <li>If <es-xref target=
+        "sec-reference-specification-type">IsPropertyReference</es-xref>(<i>ref</i>) is
+        <b>true</b>, then
+
+          <ol class="block">
+            <li>If <es-xref target=
+            "sec-reference-specification-type">IsSuperReference</es-xref>(<i>ref</i>), then throw a
+            <b>ReferenceError</b> exception.</li>
+
+            <li>Let <i>deleteStatus</i> be the result of calling the [[Delete]] internal method on
+            <es-xref target="sec-toobject">ToObject</es-xref>(<es-xref target=
+            "sec-reference-specification-type">GetBase</es-xref>(<i>ref)</i>), providing
+            <es-xref target=
+            "sec-reference-specification-type">GetReferencedName</es-xref>(<i>ref</i>) as the
+            argument.</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
+
+            <li>If <i>deleteStatus</i> is <b>false</b> and <es-xref target=
+            "sec-reference-specification-type">IsStrictReference</es-xref>(<i>ref</i>) is
+            <b>true</b>, then throw a <b>TypeError</b> exception.</li>
+
+            <li>Return <i>deleteStatus</i>.</li>
+          </ol>
+        </li>
+
+        <li>Else <i>ref</i> is a <es-xref target=
+        "sec-reference-specification-type">Reference</es-xref> to an <es-xref target=
+        "sec-environment-records">Environment Record</es-xref> binding,
+
+          <ol class="block">
+            <li>Let <i>bindings</i> be <es-xref target=
+            "sec-reference-specification-type">GetBase</es-xref>(<i>ref</i>).</li>
+
+            <li>Return the result of calling the DeleteBinding concrete method of <i>bindings</i>,
+            providing <es-xref target=
+            "sec-reference-specification-type">GetReferencedName</es-xref>(<i>ref</i>) as the
+            argument.</li>
+          </ol>
+        </li>
+      </ol>
+
+      <es-note>
+        <p>When a <code>delete</code> operator occurs within <es-xref target=
+        "sec-strict-mode-code">strict mode code</es-xref>, a <b>SyntaxError</b> exception is thrown
+        if its <es-nt>UnaryExpression</es-nt> is a direct reference to a variable, function
+        argument, or function name. In addition, if a <code>delete</code> operator occurs within
+        <es-xref target="sec-strict-mode-code">strict mode code</es-xref> and the property to be
+        deleted has the attribute { [[Configurable]]: <b>false</b> }, a <b>TypeError</b> exception
+        is thrown.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="TheOperator" anchor="sec-void-operator">
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-void-operator-runtime-semantics-evaluation">
+      <es-production name="UnaryExpression" class="inline">
+        <es-rhs><es-t>void</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+        <li>Let <i>status</i> be <es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>expr</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+        <li>Return <b>undefined</b>.</li>
+      </ol>
+
+      <es-note>
+        <p><es-xref target="sec-getvalue">GetValue</es-xref> must be called even though its value
+        is not used because it may have observable side-effects.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="TheOperator" anchor="sec-typeof-operator">
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-typeof-operator-runtime-semantics-evaluation">
+      <es-production name="UnaryExpression" class="inline">
+        <es-rhs><es-t>typeof</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>val</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>val</i>) is
+        <es-xref target="sec-reference-specification-type">Reference</es-xref>, then
+
+          <ol class="block">
+            <li>If <es-xref target=
+            "sec-reference-specification-type">IsUnresolvableReference</es-xref>(<i>val</i>) is
+            <b>true</b>, return <code>"undefined"</code>.</li>
+
+            <li>Let <i>val</i> be <es-xref target=
+            "sec-getvalue">GetValue</es-xref>(<i>val</i>).</li>
+          </ol>
+        </li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>val</i>).</li>
+
+        <li>Return a String according to <a href="#table-32">Table 32</a> .
+        </li>
+      </ol>
+
+      <figure>
+        <figcaption>
+          <span id="table-32">Table 32</span> — typeof Operator Results
+        </figcaption>
+
+        <table class="real-table">
+          <tr>
+            <th style=
+            "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+            <b>Type of</b> val</th>
+
+            <th style=
+            "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+            Result</th>
+          </tr>
+
+          <tr>
+            <td>Undefined</td>
+
+            <td><code>"undefined"</code></td>
+          </tr>
+
+          <tr>
+            <td>Null</td>
+
+            <td><code>"object"</code></td>
+          </tr>
+
+          <tr>
+            <td>Boolean</td>
+
+            <td><code>"boolean"</code></td>
+          </tr>
+
+          <tr>
+            <td>Number</td>
+
+            <td><code>"number"</code></td>
+          </tr>
+
+          <tr>
+            <td>String</td>
+
+            <td><code>"string"</code></td>
+          </tr>
+
+          <tr>
+            <td>Symbol</td>
+
+            <td><code>"symbol"</code></td>
+          </tr>
+
+          <tr>
+            <td>Object (ordinary and does not implement [[Call]])</td>
+
+            <td><code>"object"</code></td>
+          </tr>
+
+          <tr>
+            <td>Object (standard exotic and does not implement [[Call]])</td>
+
+            <td><code>"object"</code></td>
+          </tr>
+
+          <tr>
+            <td>Object (implements [[Call]])</td>
+
+            <td><code>"function"</code></td>
+          </tr>
+
+          <tr>
+            <td>Object (non-standard exotic and does not implement [[Call]])</td>
+
+            <td>Implementation-defined. May not be <code>"undefined"</code>,
+            <code>"boolean"</code>, <code>"number</code>", <code>"symbol"</code>, or
+            <code>"string".</code></td>
+          </tr>
+        </table>
+      </figure>
+
+      <es-note>
+        <p>Implementations are discouraged from defining new <code>typeof</code> result values for
+        non-standard exotic objects. If possible <code>"object"</code>should be used for such
+        objects.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Prefix Increment Operator" anchor="sec-prefix-increment-operator">
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-prefix-increment-operator-runtime-semantics-evaluation">
+      <es-production name="UnaryExpression" class="inline">
+        <es-rhs><es-t>++</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+        <li>Let <i>oldValue</i> be <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>expr</i>)).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>oldValue</i>).</li>
+
+        <li>Let <i>newValue</i> be the result of adding the value <code>1</code> to
+        <i>oldValue</i>, using the same rules as for the <code>+</code> operator (see
+        <es-xref target="sec-applying-the-additive-operators-to-numbers">12.6.5</es-xref>).</li>
+
+        <li>Let <i>status</i> be <es-xref target="sec-putvalue">PutValue</es-xref>(<i>expr</i>,
+        <i>newValue</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+        <li>Return <i>newValue</i>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Prefix Decrement Operator" anchor="sec-prefix-decrement-operator">
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-prefix-decrement-operator-runtime-semantics-evaluation">
+      <es-production name="UnaryExpression" class="inline">
+        <es-rhs><es-t>--</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+        <li>Let <i>oldValue</i> be <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>expr</i>)).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>oldValue</i>).</li>
+
+        <li>Let <i>newValue</i> be the result of subtracting the value <code>1</code> from
+        <i>oldValue</i>, using the same rules as for the <code>-</code> operator (see
+        <es-xref target="sec-applying-the-additive-operators-to-numbers">12.6.5</es-xref>).</li>
+
+        <li>Let <i>status</i> be <es-xref target="sec-putvalue">PutValue</es-xref>(<i>expr</i>,
+        <i>newValue</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+        <li>Return <i>newValue</i>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="UnaryOperator" anchor="sec-unary-plus-operator">
+    <es-note>
+      <p>The unary + operator converts its operand to Number type.</p>
+    </es-note>
+
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-unary-plus-operator-runtime-semantics-evaluation">
+      <es-production name="UnaryExpression" class="inline">
+        <es-rhs><es-t>+</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+        <li>Return <es-xref target="sec-tonumber">ToNumber</es-xref>(<es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>expr</i>)).</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="UnaryOperator" anchor="sec-unary-minus-operator">
+    <es-note>
+      <p>The unary <code>-</code> operator converts its operand to Number type and then negates it.
+      Negating <b>+0</b> produces <b>−0</b>, and negating <b>−0</b> produces <b>+0</b>.</p>
+    </es-note>
+
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-unary-minus-operator-runtime-semantics-evaluation">
+      <es-production name="UnaryExpression" class="inline">
+        <es-rhs><es-t>-</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+        <li>Let <i>oldValue</i> be <es-xref target=
+        "sec-tonumber">ToNumber</es-xref>(<es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>expr</i>)).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>oldValue</i>).</li>
+
+        <li>If <i>oldValue</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+        <li>Return the result of negating <i>oldValue</i>; that is, compute a Number with the same
+        magnitude but opposite sign.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Bitwise NOT Operator ()" anchor="sec-bitwise-not-operator">
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-bitwise-not-operator-runtime-semantics-evaluation">
+      <es-production name="UnaryExpression" class="inline">
+        <es-rhs><es-t>~</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+        <li>Let <i>oldValue</i> be <es-xref target="sec-toint32">ToInt32</es-xref>(<es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>expr</i>)).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>oldValue</i>).</li>
+
+        <li>Return the result of applying bitwise complement to <i>oldValue</i>. The result is a
+        signed 32-bit integer.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Logical NOT Operator ()" anchor="sec-logical-not-operator">
+    <es-clause title="Runtime Semantics: Evaluation" anchor=
+    "sec-logical-not-operator-runtime-semantics-evaluation">
+      <es-production name="UnaryExpression" class="inline">
+        <es-rhs><es-t>!</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
+      </es-production>
+
+      <ol class="proc">
+        <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+        <li>Let <i>oldValue</i> be <es-xref target=
+        "sec-toboolean">ToBoolean</es-xref>(<es-xref target=
+        "sec-getvalue">GetValue</es-xref>(<i>expr</i>)).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>oldValue</i>).</li>
+
+        <li>If <i>oldValue</i> is <b>true</b>, return <b>false</b>.</li>
+
+        <li>Return <b>true</b>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
 </es-clause>

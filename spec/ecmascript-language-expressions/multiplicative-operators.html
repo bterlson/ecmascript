@@ -14,10 +14,290 @@
     <es-rhs><es-nt params="?Yield">MultiplicativeExpression</es-nt> % <es-nt params=
     "?Yield">UnaryExpression</es-nt></es-rhs>
   </es-production>
-  <link rel="import" href=
-  "multiplicative-operators/multiplicative-operators-static-semantics-isanonymousfunctiondefinition.html">
-  <link rel="import" href=
-  "multiplicative-operators/multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget.html">
-  <link rel="import" href=
-  "multiplicative-operators/multiplicative-operators-runtime-semantics-evaluation.html">
+
+  <es-clause title="Static Semantics: IsAnonymousFunctionDefinition" anchor=
+  "sec-multiplicative-operators-static-semantics-isanonymousfunctiondefinition">
+    <p>See also: <es-xref target=
+    "sec-semantics-static-semantics-isanonymousfunctiondefinition">12.1.0.2</es-xref>,
+    <es-xref target=
+    "sec-grouping-operator-static-semantics-isanonymousfunctiondefinition">12.1.10.2</es-xref>,
+    <es-xref target=
+    "sec-static-semantics-static-semantics-isanonymousfunctiondefinition">12.2.1.2</es-xref>,
+    <es-xref target=
+    "sec-postfix-expressions-static-semantics-isanonymousfunctiondefinition">12.3.2</es-xref>,
+    <es-xref target=
+    "sec-unary-operators-static-semantics-isanonymousfunctiondefinition">12.4.2</es-xref>,
+    <es-xref target=
+    "sec-additive-operators-static-semantics-isanonymousfunctiondefinition">12.6.1</es-xref>,
+    <es-xref target=
+    "sec-bitwise-shift-operators-static-semantics-isanonymousfunctiondefinition">12.7.1</es-xref>,
+    <es-xref target=
+    "sec-relational-operators-static-semantics-isanonymousfunctiondefinition">12.8.1</es-xref>,
+    <es-xref target=
+    "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</es-xref>,
+    <es-xref target=
+    "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</es-xref>,
+    <es-xref target=
+    "sec-binary-logical-operators-static-semantics-isanonymousfunctiondefinition">12.11.1</es-xref>,
+    <es-xref target=
+    "sec-conditional-operator-static-semantics-isanonymousfunctiondefinition">12.12.1</es-xref>,
+    <es-xref target=
+    "sec-assignment-operators-static-semantics-isanonymousfunctiondefinition">12.13.2</es-xref>,
+    <es-xref target=
+    "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>,
+    <es-xref target=
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-isanonymousfunctiondefinition">14.4.5</es-xref>,
+    <es-xref target=
+    "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
+
+    <es-production name="MultiplicativeExpression">
+      <es-rhs><es-nt>MultiplicativeExpression</es-nt> * <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt>MultiplicativeExpression</es-nt> / <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt>MultiplicativeExpression</es-nt> % <es-nt>UnaryExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: IsValidSimpleAssignmentTarget" anchor=
+  "sec-multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget">
+    <p>See also: <es-xref target=
+    "sec-semantics-static-semantics-isidentifierref">12.1.0.3</es-xref>, <es-xref target=
+    "sec-grouping-operator-static-semantics-isvalidsimpleassignmenttarget">12.1.10.3</es-xref>,
+    <es-xref target="sec-static-semantics-static-semantics-isidentifierref">12.2.1.3</es-xref>,
+    <es-xref target=
+    "sec-postfix-expressions-static-semantics-isvalidsimpleassignmenttarget">12.3.3</es-xref>,
+    <es-xref target=
+    "sec-unary-operators-static-semantics-isvalidsimpleassignmenttarget">12.4.3</es-xref>,
+    <es-xref target=
+    "sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget">12.6.2</es-xref>,
+    <es-xref target="sec-semantics-isvalidsimpleassignmenttarget">12.7.2</es-xref>,
+    <es-xref target="sec-relational-operators-static-semantics-isvalidsimpleassignmenttarget">12.8.2</es-xref>,
+    <es-xref target=
+    "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</es-xref>,
+    <es-xref target=
+    "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</es-xref>,
+    <es-xref target=
+    "sec-binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget">12.11.2</es-xref>,
+    <es-xref target=
+    "sec-conditional-operator-static-semantics-isvalidsimpleassignmenttarget">12.12.2</es-xref>,
+    <es-xref target=
+    "sec-assignment-operators-static-semantics-isvalidsimpleassignmenttarget">12.13.3</es-xref>,
+    <es-xref target=
+    "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>.</p>
+
+    <es-production name="MultiplicativeExpression">
+      <es-rhs><es-nt>MultiplicativeExpression</es-nt> * <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt>MultiplicativeExpression</es-nt> / <es-nt>UnaryExpression</es-nt></es-rhs>
+
+      <es-rhs><es-nt>MultiplicativeExpression</es-nt> % <es-nt>UnaryExpression</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-multiplicative-operators-runtime-semantics-evaluation">
+    <p>The production <es-production name="MultiplicativeExpression" class=
+    "inline"><es-rhs><es-nt>MultiplicativeExpression</es-nt> @
+    <es-nt>UnaryExpression</es-nt></es-rhs></es-production> , where @ stands for one
+    of the operators in the above definitions, is evaluated as follows:</p>
+
+    <ol class="proc">
+      <li>Let <i>left</i> be the result of evaluating <i>MultiplicativeExpression</i>.</li>
+
+      <li>Let <i>leftValue</i> be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>left</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>leftValue</i>).</li>
+
+      <li>Let <i>right</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+
+      <li>Let <i>rightValue</i> be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>right</i>).</li>
+
+      <li>Let <i>lnum</i> be <es-xref target=
+      "sec-tonumber">ToNumber</es-xref>(<i>leftValue</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>lnum</i>).</li>
+
+      <li>Let <i>rnum</i> be <es-xref target=
+      "sec-tonumber">ToNumber</es-xref>(<i>rightValue</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>rnum</i>).</li>
+
+      <li>Return the result of applying the specified operation (*, /, or %) to <i>lnum</i> and
+      <i>rnum</i>. See the Notes below <es-xref target=
+      "sec-applying-the-mul-operator">12.5.3.1</es-xref>, <es-xref target=
+      "sec-applying-the-div-operator">12.5.3.2</es-xref>, <es-xref target=
+      "sec-applying-the-mod-operator">12.5.3.3</es-xref>.</li>
+    </ol>
+
+    <es-clause title="Applying theOperator" anchor="sec-applying-the-mul-operator">
+      <p>The <code>*</code> operator performs multiplication, producing the product of its
+      operands. Multiplication is commutative. Multiplication is not always associative in
+      ECMAScript, because of finite precision.</p>
+
+      <p>The result of a floating-point multiplication is governed by the rules of IEEE 754 binary
+      double-precision arithmetic:</p>
+
+      <ul>
+        <li>
+          <p>If either operand is <b>NaN</b>, the result is <b>NaN</b>.</p>
+        </li>
+
+        <li>
+          <p>The sign of the result is positive if both operands have the same sign, negative if
+          the operands have different signs.</p>
+        </li>
+
+        <li>
+          <p>Multiplication of an infinity by a zero results in <b>NaN</b>.</p>
+        </li>
+
+        <li>
+          <p>Multiplication of an infinity by an infinity results in an infinity. The sign is
+          determined by the rule already stated above.</p>
+        </li>
+
+        <li>
+          <p>Multiplication of an infinity by a finite nonzero value results in a signed infinity.
+          The sign is determined by the rule already stated above.</p>
+        </li>
+
+        <li>
+          <p>In the remaining cases, where neither an infinity nor NaN is involved, the product is
+          computed and rounded to the nearest representable value using IEEE 754 round-to-nearest
+          mode. If the magnitude is too large to represent, the result is then an infinity of
+          appropriate sign. If the magnitude is too small to represent, the result is then a zero
+          of appropriate sign. The ECMAScript language requires support of gradual underflow as
+          defined by IEEE 754.</p>
+        </li>
+      </ul>
+    </es-clause>
+
+    <es-clause title="Applying theOperator" anchor="sec-applying-the-div-operator">
+      <p>The <code>/</code> operator performs division, producing the quotient of its operands. The
+      left operand is the dividend and the right operand is the divisor. ECMAScript does not
+      perform integer division. The operands and result of all division operations are
+      double-precision floating-point numbers. The result of division is determined by the
+      specification of IEEE 754 arithmetic:</p>
+
+      <ul>
+        <li>
+          <p>If either operand is <b>NaN</b>, the result is <b>NaN</b>.</p>
+        </li>
+
+        <li>
+          <p>The sign of the result is positive if both operands have the same sign, negative if
+          the operands have different signs.</p>
+        </li>
+
+        <li>
+          <p>Division of an infinity by an infinity results in <b>NaN</b>.</p>
+        </li>
+
+        <li>
+          <p>Division of an infinity by a zero results in an infinity. The sign is determined by
+          the rule already stated above.</p>
+        </li>
+
+        <li>
+          <p>Division of an infinity by a nonzero finite value results in a signed infinity. The
+          sign is determined by the rule already stated above.</p>
+        </li>
+
+        <li>
+          <p>Division of a finite value by an infinity results in zero. The sign is determined by
+          the rule already stated above.</p>
+        </li>
+
+        <li>
+          <p>Division of a zero by a zero results in <b>NaN</b>; division of zero by any other
+          finite value results in zero, with the sign determined by the rule already stated
+          above.</p>
+        </li>
+
+        <li>
+          <p>Division of a nonzero finite value by a zero results in a signed infinity. The sign is
+          determined by the rule already stated above.</p>
+        </li>
+
+        <li>
+          <p>In the remaining cases, where neither an infinity, nor a zero, nor <b>NaN</b> is
+          involved, the quotient is computed and rounded to the nearest representable value using
+          IEEE 754 round-to-nearest mode. If the magnitude is too large to represent, the operation
+          overflows; the result is then an infinity of appropriate sign. If the magnitude is too
+          small to represent, the operation underflows and the result is a zero of the appropriate
+          sign. The ECMAScript language requires support of gradual underflow as defined by IEEE
+          754.</p>
+        </li>
+      </ul>
+    </es-clause>
+
+    <es-clause title="Applying theOperator" anchor="sec-applying-the-mod-operator">
+      <p>The <code>%</code> operator yields the remainder of its operands from an implied division;
+      the left operand is the dividend and the right operand is the divisor.</p>
+
+      <es-note>
+        <p>In C and C++, the remainder operator accepts only integral operands; in ECMAScript, it
+        also accepts floating-point operands.</p>
+      </es-note>
+
+      <p>The result of a floating-point remainder operation as computed by the <code>%</code>
+      operator is not the same as the “remainder” operation defined by IEEE 754. The IEEE 754
+      “remainder” operation computes the remainder from a rounding division, not a truncating
+      division, and so its behaviour is not analogous to that of the usual integer remainder
+      operator. Instead the ECMAScript language defines <code>%</code> on floating-point operations
+      to behave in a manner analogous to that of the Java integer remainder operator; this may be
+      compared with the C library function fmod.</p>
+
+      <p>The result of an ECMAScript floating-point remainder operation is determined by the rules
+      of IEEE arithmetic:</p>
+
+      <ul>
+        <li>
+          <p>If either operand is <b>NaN</b>, the result is <b>NaN</b>.</p>
+        </li>
+
+        <li>
+          <p>The sign of the result equals the sign of the dividend.</p>
+        </li>
+
+        <li>
+          <p>If the dividend is an infinity, or the divisor is a zero, or both, the result is
+          <b>NaN</b>.</p>
+        </li>
+
+        <li>
+          <p>If the dividend is finite and the divisor is an infinity, the result equals the
+          dividend.</p>
+        </li>
+
+        <li>
+          <p>If the dividend is a zero and the divisor is nonzero and finite, the result is the
+          same as the dividend.</p>
+        </li>
+
+        <li>
+          <p>In the remaining cases, where neither an infinity, nor a zero, nor <b>NaN</b> is
+          involved, the floating-point remainder r from a dividend n and a divisor d is defined by
+          the mathematical relation r = n − (d × q) where q is an integer that is negative only if
+          n/d is negative and positive only if n/d is positive, and whose magnitude is as large as
+          possible without exceeding the magnitude of the true mathematical quotient of n and d. r
+          is computed and rounded to the nearest representable value using IEEE 754
+          round-to-nearest mode.</p>
+        </li>
+      </ul>
+    </es-clause>
+  </es-clause>
 </es-clause>

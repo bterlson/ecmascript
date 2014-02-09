@@ -1,0 +1,22 @@
+<!doctype html>
+<es-clause title="ToInteger" anchor="sec-tointeger">
+  <p>The abstract operation ToInteger converts its argument to an integral numeric value. This
+  abstract operation functions as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>number</i> be the result of calling <es-xref target=
+    "sec-tonumber">ToNumber</es-xref> on the input argument.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>number</i>).</li>
+
+    <li>If <i>number</i> is <b>NaN</b>, return <b>+0</b>.</li>
+
+    <li>If <i>number</i> is <b>+0</b>, <b>−0</b>, <b>+∞,</b> or <b>−∞</b>, return
+    <i>number</i>.</li>
+
+    <li>Return the result of computing <es-xref target=
+    "sec-algorithm-conventions">sign</es-xref>(<i>number</i>) × <es-xref target=
+    "sec-algorithm-conventions">floor</es-xref>(<es-xref target=
+    "sec-algorithm-conventions">abs</es-xref>(<i>number</i>)).</li>
+  </ol>
+</es-clause>

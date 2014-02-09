@@ -152,20 +152,7 @@
   functions that are also constructors in addition have the [[Construct]] internal method.
   ECMAScript function objects whose code is not <es-xref target="sec-strict-mode-code">strict mode
   code</es-xref> have the [[Get]] and [[GetOwnProperty]] internal methods defined here.</p>
-
-  <es-clause title="[[Construct]] ( argumentsList)" anchor="sec-construct-argumentslist">
-    <p>The [[Construct]] internal method for an <es-xref target=
-    "sec-ecmascript-function-objects">ECMAScript Function object</es-xref> <es-nt>F</es-nt> is
-    called with a single parameter <es-nt>argumentsList</es-nt> which is a possibly empty
-    <es-xref target="sec-list-and-record-specification-type">List</es-xref> of <es-xref target=
-    "sec-ecmascript-language-types">ECMAScript language values</es-xref>. The following steps are
-    taken:</p>
-
-    <ol class="proc">
-      <li>Return the result of <es-xref target=
-      "sec-construct-f-argumentslist">Construct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
-    </ol>
-  </es-clause>
+  <link rel="import" href="ecmascript-function-objects/construct-argumentslist.html">
   <link rel="import" href=
   "ecmascript-function-objects/ecmascript-function-objects-getownproperty-p.html">
   <link rel="import" href="ecmascript-function-objects/functionallocate.html">
@@ -178,23 +165,7 @@
   <link rel="import" href="ecmascript-function-objects/makeconstructor.html">
   <link rel="import" href="ecmascript-function-objects/makemethod.html">
   <link rel="import" href="ecmascript-function-objects/setfunctionname.html">
-
-  <es-clause title="GetSuperBinding(obj) Abstract Operation" anchor="sec-getsuperbinding">
-    <p>The abstract operation GetSuperBinding is called with <es-nt>obj</es-nt> as its argument. It
-    performs the following steps:</p>
-
-    <ol class="proc">
-      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>obj</i>) is
-      not Object, then return <b>undefined</b>.</li>
-
-      <li>If the value of <i>obj</i>’s [[NeedsSuper]] <es-xref target=
-      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not <b>true</b>,
-      then return <b>undefined</b>.</li>
-
-      <li>Return the value of <i>obj’s</i> [[HomeObject]] <es-xref target=
-      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
-    </ol>
-  </es-clause>
+  <link rel="import" href="ecmascript-function-objects/getsuperbinding.html">
   <link rel="import" href="ecmascript-function-objects/clonemethod.html">
   <link rel="import" href="ecmascript-function-objects/function-declaration-instantiation.html">
 </es-clause>

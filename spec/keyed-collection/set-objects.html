@@ -10,14 +10,736 @@
   sublinear on the number of elements in the collection. The data structures used in this Set
   objects specification is only intended to describe the required observable semantics of Set
   objects. It is not intended to be a viable implementation model.</p>
-  <link rel="import" href="set-objects/set-constructor.html">
-  <link rel="import" href="set-objects/properties-of-the-set-constructor.html">
-  <link rel="import" href="set-objects/properties-of-the-set-prototype-object.html">
+
+  <es-clause title="The Set Constructor" anchor="sec-set-constructor">
+    <p>The Set constructor is the %Set% intrinsic object and the initial value of the
+    <code>Set</code> property of the global object. When <code>Set</code> is called as a function
+    rather than as a constructor, it initialises its <b>this</b> value with the internal state
+    necessary to support the <code>Set.prototype</code> built-in methods.</p>
+
+    <p>The <code>Set</code> constructor is designed to be subclassable. It may be used as the value
+    in an <code>extends</code> clause of a class definition. Subclass constructors that intend to
+    inherit the specified <code>Set</code> behaviour must include a <code>super</code> call to
+    <code>Set</code>.</p>
+
+    <es-clause title="Set (iterable = undefined)" anchor="sec-set-iterable">
+      <p>When the <code>Set</code> function is called with optional argument
+      <es-nt>iterable</es-nt> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>set</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>set</i>) is
+        not Object then, throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>set</i> does not have a [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>set’s</i> [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>iterable</i> is not present, let <i>iterable</i> be <b>undefined</b>.</li>
+
+        <li>If <i>iterable</i> is either <b>undefined</b> or <b>null</b>, then let <i>iter</i> be
+        <b>undefined</b>.</li>
+
+        <li>Else,
+
+          <ol class="block">
+            <li>Let <i>iter</i> be the result of <es-xref target=
+            "sec-getiterator">GetIterator</es-xref>(<i>iterable</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iter</i>).</li>
+
+            <li>Let <i>adder</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>set</i>, <code>"add"</code>)<b>.</b></li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>adder</i>).</li>
+
+            <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>adder</i>) is
+            <b>false</b>, throw a <b>TypeError</b> Exception.</li>
+          </ol>
+        </li>
+
+        <li>Set <i>set’s</i> [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to a new empty
+        <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>If <i>iter</i> is <b>undefined</b>, then return <i>set</i>.</li>
+
+        <li>Repeat
+
+          <ol class="block">
+            <li>Let <i>next</i> be the result of <es-xref target=
+            "sec-iteratorstep">IteratorStep</es-xref>(<i>iter</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+            <li>If <i>next</i> is <b>false</b>, then return <i>set</i>.</li>
+
+            <li>Let <i>nextValue</i> be <es-xref target=
+            "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextValue</i>).</li>
+
+            <li>Let <i>status</i> be the result of calling the [[Call]] internal method of
+            <i>adder</i> with <i>set</i> as <i>thisArgument</i> and a <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> whose sole element is
+            <i>nextValue</i> as <i>argumentsList</i>.</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+          </ol>
+        </li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="new Set ( ... argumentsList )" anchor="sec-new-set-argumentslist">
+      <p>When <code>Set</code> is called as part of a <code>new</code> expression it is a
+      constructor: it initialises a newly created object. Set called as part of a new expression
+      with argument list <i>argumentsList</i> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the Set function object on which the <code>new</code> operator was
+        applied.</li>
+
+        <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+        internal method that was invoked by the <code>new</code> operator.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-construct-f-argumentslist">Construct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
+      </ol>
+
+      <p>If Set is implemented as an <es-xref target="sec-ecmascript-function-objects">ECMAScript
+      function object</es-xref>, its [[Construct]] internal method will perform the above
+      steps.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the Set Constructor" anchor=
+  "sec-properties-of-the-set-constructor">
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Set constructor
+    is the Function prototype object (<es-xref target=
+    "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
+
+    <p>Besides the <code>length</code> property (whose value is <b>0</b>), the Set constructor has
+    the following properties:</p>
+
+    <es-clause title="Set.prototype" anchor="sec-set.prototype">
+      <p>The initial value of <code>Set.prototype</code> is the intrinsic %SetPrototype% object
+      (<es-xref target="sec-properties-of-the-set-prototype-object">23.2.3</es-xref>).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Set[ @@create ] ( )" anchor="sec-set-@@create">
+      <p>The @@create method of a Set function object <es-nt>F</es-nt> performs the following
+      steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+        <li>Let <i>obj</i> be the result of calling <es-xref target=
+        "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>F</i>,
+        <code>"%SetPrototype%"</code>, ( [[SetData]] , [[SetComparator]] )).</li>
+
+        <li>Return <i>obj</i>.</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.create]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>true</b> }.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the Set Prototype Object" anchor=
+  "sec-properties-of-the-set-prototype-object">
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Set prototype
+    object is the standard built-in Object prototype object (<es-xref target=
+    "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>). The Set prototype object is
+    an ordinary object. It does not have a [[SetData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+    <es-clause title="Set.prototype.add (value )" anchor="sec-set.prototype.add">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>S)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>S</i> does not have a [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>S’s</i> [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>S</i>’s
+        [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>Repeat for each <i>e</i> that is an element of <i>entries,</i> in original insertion
+        order
+
+          <ol class="block">
+            <li>If <i>e</i> is not empty and <es-xref target=
+            "sec-samevaluezero">SameValueZero</es-xref>(<i>e</i>, <i>value</i>) is <b>true</b>,
+            then
+
+              <ol class="block">
+                <li>Return <i>S</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Append <i>value</i> as the last element of <i>entries</i>.</li>
+
+        <li>Return <i>S</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Set.prototype.clear ()" anchor="sec-set.prototype.clear">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>S)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>S</i> does not have a [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>S’s</i> [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>S</i>’s
+        [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>Repeat for each <i>e</i> that is an element of <i>entries,</i>
+
+          <ol class="block">
+            <li>Replace the element of <i>entries</i> whose value is <i>e</i> with an element whose
+            value is empty<i>.</i></li>
+          </ol>
+        </li>
+
+        <li>Return <b>undefined</b>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Set.prototype.constructor" anchor="sec-set.prototype.constructor">
+      <p>The initial value of <code>Set.prototype.constructor</code> is the built-in
+      <code>Set</code> constructor.</p>
+    </es-clause>
+
+    <es-clause title="Set.prototype.delete ( value )" anchor="sec-set.prototype.delete">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>S)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>S</i> does not have a [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>S’s</i> [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>S</i>’s
+        [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>Repeat for each <i>e</i> that is an element of <i>entries</i>, in original insertion
+        order
+
+          <ol class="block">
+            <li>If <i>e</i> is not empty and <es-xref target=
+            "sec-samevaluezero">SameValueZero</es-xref>(<i>e</i>, <i>value</i>) is <b>true</b>,
+            then
+
+              <ol class="block">
+                <li>Replace the element of <i>entries</i> whose value is <i>e</i> with an element
+                whose value is empty<i>.</i></li>
+
+                <li>Return <b>true</b>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <es-note>
+        <p>The value <b>empty</b> is used as a specification device to indicate that an entry has
+        been deleted. Actual implementations may take other actions such as physically removing the
+        entry from internal data structures.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Set.prototype.entries ( )" anchor="sec-set.prototype.entries">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of calling the <es-xref target=
+        "sec-createsetiterator">CreateSetIterator</es-xref> abstract operation with arguments
+        <i>S</i> and <b>"key+value"</b>.</li>
+      </ol>
+
+      <es-note>
+        <p>For iteration purposes, a Set appears similar to a Map where each entry has the same
+        value for its key and value.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Set.prototype.forEach ( callbackfn , thisArg = undefined )" anchor=
+    "sec-set.prototype.foreach">
+      <p><es-nt>callbackfn</es-nt> should be a function that accepts three arguments.
+      <code>forEach</code> calls <es-nt>callbackfn</es-nt> once for each value present in the set
+      object, in value insertion order. <es-nt>callbackfn</es-nt> is called only for values of the
+      Set which actually exist; it is not called for keys that have been deleted from the set.</p>
+
+      <p>If a <es-nt>thisArg</es-nt> parameter is provided, it will be used as the <b>this</b>
+      value for each invocation of <es-nt>callbackfn</es-nt>. If it is not provided,
+      <b>undefined</b> is used instead.</p>
+
+      <es-note>
+        <p>If <es-nt>callbackfn</es-nt> is an Arrow Function, <b>this</b> was lexically bound when
+        the function was created so <es-nt>thisArg</es-nt> will have no effect.</p>
+      </es-note>
+
+      <p><es-nt>callbackfn</es-nt> is called with three arguments: the first two arguments are a
+      value contained in the Set. The same value of passed for both arguments. The Set object being
+      traversed is passed as the third argument.</p>
+
+      <es-note>
+        <p>The <es-nt>callbackfn</es-nt> is called with three arguments to be consistent with the
+        call back functions used by <code>forEach</code> methods for Map and Array. For Sets, each
+        item value is considered to be both the key and the value.</p>
+      </es-note>
+
+      <p><code>forEach</code> does not directly mutate the object on which it is called but the
+      object may be mutated by the calls to <es-nt>callbackfn</es-nt>.</p>
+
+      <es-note>
+        <p>Each value is normally visited only once. However, a value will be revisited if it is
+        deleted after it has been visited and then re-added before the to <code>forEach</code> call
+        completes. Values that are deleted after the call to <code>forEach</code> begins and before
+        being visited are not visited unless the value is added again before the to
+        <code>forEach</code> call completes. New values added, after the call to
+        <code>forEach</code> begins are visited.</p>
+      </es-note>
+
+      <p>When the <code>forEach</code> method is called with one or two arguments, the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>S)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>S</i> does not have a [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>S’s</i> [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>callbackfn</i>) is
+        <b>false</b>, throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be
+        <b>undefined</b>.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>S</i>’s
+        [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>Repeat for each <i>e</i> that is an element of <i>entries,</i> in original insertion
+        order
+
+          <ol class="block">
+            <li>If <i>e</i> is not empty, then
+
+              <ol class="block">
+                <li>Let <i>funcResult</i> be the result of calling the [[Call]] internal method of
+                <i>callbackfn</i> with <i>T</i> as <i>thisArgument</i> and a <es-xref target=
+                "sec-list-and-record-specification-type">List</es-xref> containing <i>e</i>,
+                <i>e</i>, and <i>S</i> as <i>argumentsList</i>.</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>funcResult</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Return <b>undefined</b>.</li>
+      </ol>
+
+      <p>The <code>length</code> property of the <code>forEach</code> method is <b>1</b>.</p>
+    </es-clause>
+
+    <es-clause title="Set.prototype.has ( value )" anchor="sec-set.prototype.has">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>S)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>S</i> does not have a [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>S’s</i> [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>S</i>’s
+        [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>Repeat for each <i>e</i> that is an element of <i>entries,</i>
+
+          <ol class="block">
+            <li>If <i>e</i> is not empty and <es-xref target=
+            "sec-samevaluezero">SameValueZero</es-xref>(<i>e</i>, <i>value</i>), then return
+            <b>true</b><i>.</i></li>
+          </ol>
+        </li>
+
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Set.prototype.keys ( )" anchor="sec-set.prototype.keys">
+      <p>The initial value of the <code>keys</code> property is the same function object as the
+      initial value of the <code>values</code> property.</p>
+
+      <es-note>
+        <p>For iteration purposes, a Set appears similar to a Map where each entry has the same
+        value for its key and value.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="get Set.prototype.size" anchor="sec-get-set.prototype.size">
+      <p><code>Set.prototype.size</code> is an accessor property whose set accessor function is
+      <span class="value">undefined</span>. Its get accessor function performs the following
+      steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>S)</i> is
+        not Object, then throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>S</i> does not have a [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>S’s</i> [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>S</i>’s
+        [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>Let <i>count</i> be 0.</li>
+
+        <li>For each <i>e</i> that is an element of <i>entries</i>
+
+          <ol class="block">
+            <li>If <i>e</i> is not empty then
+
+              <ol class="block">
+                <li>Set <i>count</i> to <i>count</i>+1.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Return <i>count</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Set.prototype.values ( )" anchor="sec-set.prototype.values">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>S</i> be the <b>this</b> value.</li>
+
+        <li>Return the result of calling the <es-xref target=
+        "sec-createsetiterator">CreateSetIterator</es-xref> abstract operation with argument
+        <i>S</i> and <b>"value"</b>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Set.prototype [@@iterator ] ( )" anchor="sec-set.prototype-@@iterator">
+      <p>The initial value of the @@iterator property is the same function object as the initial
+      value of the <code>values</code> property.</p>
+    </es-clause>
+
+    <es-clause title="Set.prototype [ @@toStringTag ]" anchor="sec-set.prototype-@@tostringtag">
+      <p>The initial value of the @@toStringTag property is the string value <b>"Set"</b>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+      [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+      "value">true</span> }.</p>
+    </es-clause>
+  </es-clause>
 
   <es-clause title="Properties of Set Instances" anchor="sec-properties-of-set-instances">
     <p>Set instances are ordinary objects that inherit properties from the Set prototype. After
     initialisation by the Set constructor, Set instances also have a [[SetData]] <es-xref target=
     "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
   </es-clause>
-  <link rel="import" href="set-objects/set-iterator-objects.html">
+
+  <es-clause title="Set Iterator Objects" anchor="sec-set-iterator-objects">
+    <p>A Set Iterator is an ordinary object, with the structure defined below, that represents a
+    specific iteration over some specific Set instance object. There is not a named constructor for
+    Set Iterator objects. Instead, set iterator objects are created by calling certain methods of
+    Set instance objects.</p>
+
+    <es-clause title="CreateSetIterator Abstract Operation" anchor="sec-createsetiterator">
+      <p>Several methods of Set objects return Iterator objects. The abstract operation
+      CreateSetIterator with arguments <es-nt>set</es-nt> and <es-nt>kind</es-nt> is used to create
+      such iterator objects. It performs the following steps:</p>
+
+      <ol class="proc">
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>set</i>) is
+        not Object, throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>set</i> does not have a [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>If <i>set’s</i> [[SetData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>iterator</i> be the result of <es-xref target=
+        "sec-objectcreate">ObjectCreate</es-xref>(%SetIteratorPrototype%, ([[IteratedSet]],
+        [[SetNextIndex]], [[SetIterationKind]])).</li>
+
+        <li>Set <i>iterator’s</i> [[IteratedSet]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <i>set</i>.</li>
+
+        <li>Set <i>iterator’s</i> [[SetNextIndex]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to 0.</li>
+
+        <li>Set <i>iterator’s</i> [[SetIterationKind]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <i>kind</i>.</li>
+
+        <li>Return <i>iterator</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="The %SetIteratorPrototype% Object" anchor=
+    "sec-%setiteratorprototype%-object">
+      <p>All Set Iterator Objects inherit properties from the %SetIteratorPrototype% intrinsic
+      object. The %SetIteratorPrototype% intrinsic object is an ordinary object and its
+      [[Prototype]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref> is the %ObjectPrototype% intrinsic object. In addition, %SetIteratorPrototype%
+      has the following properties:</p>
+
+      <es-clause title="%SetIteratorPrototype%.next( )" anchor="sec-%setiteratorprototype%.next">
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+          <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+          not Object, throw a <b>TypeError</b> exception.</li>
+
+          <li>If <i>O</i> does not have all of the internal slots of a Set Iterator Instance
+          (<es-xref target="sec-properties-of-set-iterator-instances">23.2.5.3</es-xref>), throw a
+          <b>TypeError</b> exception.</li>
+
+          <li>Let <i>s</i> be the value of the [[IteratedSet]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+          <i>O</i>.</li>
+
+          <li>Let <i>index</i> be the value of the [[SetNextIndex]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+          <i>O</i>.</li>
+
+          <li>Let <i>itemKind</i> be the value of the [[SetIterationKind]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of
+          <i>O</i>.</li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>s</i> has a
+          [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+          slot</es-xref> and <i>s</i> has been initialised so the value of [[SetData]] is not
+          <b>undefined</b>.</li>
+
+          <li>If <i>s</i> is <b>undefined</b>, then return <es-xref target=
+          "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+          <b>true</b>).</li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>s</i> has a
+          [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+          slot</es-xref> and <i>s</i> has been initialised so the value of [[SetData]] is not
+          <b>undefined</b>.</li>
+
+          <li>Let <i>entries</i> be the <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref> that is the value of the
+          [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+          slot</es-xref> of <i>s</i>.</li>
+
+          <li>Repeat while <i>index</i> is less than the total number of elements of
+          <i>entries</i>. The number of elements must be redetermined each time this method is
+          evaluated.
+
+            <ol class="block">
+              <li>Let <i>e</i> be <i>entries</i>[<i>index</i>].</li>
+
+              <li>Set <i>index</i> to <i>index</i>+1;</li>
+
+              <li>Set the [[SetNextIndex]] <es-xref target=
+              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>
+              to <i>index</i>.</li>
+
+              <li>If <i>e</i> is not empty, then
+
+                <ol class="block">
+                  <li>If <i>itemKind</i> is <b>"key+value"</b> then,
+
+                    <ol class="block">
+                      <li>Let <i>result</i> be the result of performing <es-xref target=
+                      "sec-arraycreate">ArrayCreate</es-xref>(2).</li>
+
+                      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>:
+                      <i>result</i> is a new, well-formed Array object so the following operations
+                      will never fail.</li>
+
+                      <li>Call <es-xref target=
+                      "sec-createdataproperty">CreateDataProperty</es-xref>(<i>result</i>,
+                      <b>"0"</b>, <i>e</i>) .</li>
+
+                      <li>Call <es-xref target=
+                      "sec-createdataproperty">CreateDataProperty</es-xref>(<i>result</i>,
+                      <b>"1"</b>, <i>e</i>).</li>
+
+                      <li>Return <es-xref target=
+                      "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>result</i>,
+                      <b>false</b>).</li>
+                    </ol>
+                  </li>
+
+                  <li>Return <es-xref target=
+                  "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>e</i>,
+                  <b>false</b>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+
+          <li>Set the [[IteratedSet]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+          <b>undefined</b>.</li>
+
+          <li>Return <es-xref target=
+          "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+          <b>true</b>).</li>
+        </ol>
+      </es-clause>
+
+      <es-clause title="%SetIteratorPrototype% [ @@iterator ] ( )" anchor=
+      "sec-%setiteratorprototype%-@@iterator">
+        <p>The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return the <b>this</b> value.</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is
+        <code>"[Symbol.iterator]"</code>.</p>
+      </es-clause>
+
+      <es-clause title="%SetIteratorPrototype% [ @@toStringTag ]" anchor=
+      "sec-%setiteratorprototype%-@@tostringtag">
+        <p>The initial value of the @@toStringTag property is the string value <b>"Set
+        Iterator"</b>.</p>
+      </es-clause>
+    </es-clause>
+
+    <es-clause title="Properties of Set Iterator Instances" anchor=
+    "sec-properties-of-set-iterator-instances">
+      <p>Set Iterator instances are ordinary objects that inherit properties from the
+      %SetIteratorPrototype% intrinsic object. Set Iterator instances are initially created with
+      the internal slots specified <a href="#table-45">Table 45</a> .</p>
+
+      <figure>
+        <figcaption>
+          <span id="table-45">Table 45</span> — Internal Slots of Set Iterator Instances
+        </figcaption>
+
+        <table class="real-table">
+          <tr>
+            <th style=
+            "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+            Internal Slot</th>
+
+            <th style=
+            "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+            Description</th>
+          </tr>
+
+          <tr>
+            <td>[[IteratedSet]]</td>
+
+            <td>The Set object that is being iterated.</td>
+          </tr>
+
+          <tr>
+            <td style="border-bottom: 0px solid black">[[SetNextIndex]]</td>
+
+            <td style="border-bottom: 0px solid black">The integer index of the next Set data
+            element to be examined by this iterator</td>
+          </tr>
+
+          <tr>
+            <td style="border-top: 0px solid black">[[SetIterationKind]]</td>
+
+            <td style="border-top: 0px solid black">A string value that identifies what is to be
+            returned for each element of the iteration. The possible values are: <b>"key"</b>,
+            <b>"value"</b>, <b>"key+value"</b>. <b>"key"</b> and <b>"value"</b> have the same
+            meaning.</td>
+          </tr>
+        </table>
+      </figure>
+    </es-clause>
+  </es-clause>
 </es-clause>

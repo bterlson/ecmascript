@@ -1,6 +1,648 @@
 <!doctype html>
 <es-clause title="Notational Conventions" anchor="sec-notational-conventions">
-  <link rel="import" href="notational-conventions/syntactic-and-lexical-grammars.html">
-  <link rel="import" href="notational-conventions/algorithm-conventions.html">
-  <link rel="import" href="notational-conventions/static-semantic-rules.html">
+  <es-clause title="Syntactic and Lexical Grammars" anchor="sec-syntactic-and-lexical-grammars">
+    <es-clause title="Context-Free Grammars" anchor="sec-context-free-grammars">
+      <p>A <i>context-free grammar</i> consists of a number of <i>productions</i>. Each production
+      has an abstract symbol called a <i>nonterminal</i> as its <i>left-hand side</i>, and a
+      sequence of zero or more nonterminal and <i>terminal</i> symbols as its <i>right-hand
+      side</i>. For each grammar, the terminal symbols are drawn from a specified alphabet.</p>
+
+      <p>A <i>chain production</i> is a production that has exactly one nonterminal symbol on its
+      right-hand side along with zero or more terminal symbols.</p>
+
+      <p>Starting from a sentence consisting of a single distinguished nonterminal, called the
+      <i>goal symbol</i>, a given context-free grammar specifies a <i>language</i>, namely, the
+      (perhaps infinite) set of possible sequences of terminal symbols that can result from
+      repeatedly replacing any nonterminal in the sequence with a right-hand side of a production
+      for which the nonterminal is the left-hand side.</p>
+    </es-clause>
+
+    <es-clause title="The Lexical and RegExp Grammars" anchor="sec-lexical-and-regexp-grammars">
+      <p>A <i>lexical grammar</i> for ECMAScript is given in <es-xref target=
+      "sec-ecmascript-language-lexical-grammar">clause 11</es-xref>. This grammar has as its
+      terminal symbols characters (Unicode code units) that conform to the rules for
+      <es-nt>SourceCharacter</es-nt> defined in <es-xref target=
+      "sec-ecmascript-language-source-code">clause 10</es-xref>.1. It defines a set of productions,
+      starting from the goal symbol <es-nt>InputElementDiv</es-nt> or
+      <es-nt>InputElementRegExp</es-nt>, that describe how sequences of such characters are
+      translated into a sequence of input elements.</p>
+
+      <p>Input elements other than white space and comments form the terminal symbols for the
+      syntactic grammar for ECMAScript and are called ECMAScript <i>tokens</i>. These tokens are
+      the reserved words, identifiers, literals, and punctuators of the ECMAScript language.
+      Moreover, line terminators, although not considered to be tokens, also become part of the
+      stream of input elements and guide the process of <es-xref target=
+      "sec-automatic-semicolon-insertion">automatic semicolon insertion</es-xref> (<es-xref target=
+      "sec-automatic-semicolon-insertion">11.9</es-xref>). Simple white space and single-line
+      comments are discarded and do not appear in the stream of input elements for the syntactic
+      grammar. A <es-nt>MultiLineComment</es-nt> (that is, a comment of the form “/*…*/” regardless
+      of whether it spans more than one line) is likewise simply discarded if it contains no line
+      terminator; but if a <es-nt>MultiLineComment</es-nt> contains one or more line terminators,
+      then it is replaced by a single line terminator, which becomes part of the stream of input
+      elements for the syntactic grammar.</p>
+
+      <p>A <i>RegExp grammar</i> for ECMAScript is given in <es-xref target=
+      "sec-patterns">21.2.1</es-xref>. This grammar also has as its terminal symbols the characters
+      as defined by <es-nt>SourceCharacter</es-nt>. It defines a set of productions, starting from
+      the goal symbol <es-nt>Pattern</es-nt>, that describe how sequences of characters are
+      translated into regular expression patterns.</p>
+
+      <p>Productions of the lexical and RegExp grammars are distinguished by having two colons
+      “<b>::</b>” as separating punctuation. The lexical and RegExp grammars share some
+      productions.</p>
+    </es-clause>
+
+    <es-clause title="The Numeric String Grammar" anchor="sec-numeric-string-grammar">
+      <p>Another grammar is used for translating Strings into numeric values. This grammar is
+      similar to the part of the lexical grammar having to do with numeric literals and has as its
+      terminal symbols <es-nt>SourceCharacter</es-nt>. This grammar appears in <es-xref target=
+      "sec-tonumber-applied-to-the-string-type">7.1.3.1</es-xref>.</p>
+
+      <p>Productions of the numeric string grammar are distinguished by having three colons
+      “<b>:::</b>” as punctuation.</p>
+    </es-clause>
+
+    <es-clause title="The Syntactic Grammar" anchor="sec-syntactic-grammar">
+      <p>The <i>syntactic grammar</i> for ECMAScript is given in clauses 11, 12, 13 and 14. This
+      grammar has ECMAScript tokens defined by the lexical grammar as its terminal symbols
+      (<es-xref target="sec-lexical-and-regexp-grammars">5.1.2</es-xref>). It defines a set of
+      productions, starting from the goal symbol <es-nt>Script</es-nt>, that describe how sequences
+      of tokens can form syntactically correct independent components of an ECMAScript
+      programs.</p>
+
+      <p>When a stream of characters is to be parsed as an ECMAScript script, it is first converted
+      to a stream of input elements by repeated application of the lexical grammar; this stream of
+      input elements is then parsed by a single application of the syntactic grammar. The script is
+      syntactically in error if the tokens in the stream of input elements cannot be parsed as a
+      single instance of the goal nonterminal <es-nt>Script</es-nt>, with no tokens left over.</p>
+
+      <p>Productions of the syntactic grammar are distinguished by having just one colon “<b>:</b>”
+      as punctuation.</p>
+
+      <p>The syntactic grammar as presented in clauses 12, 13, 14 and 15 is actually not a complete
+      account of which token sequences are accepted as correct ECMAScript scripts. Certain
+      additional token sequences are also accepted, namely, those that would be described by the
+      grammar if only semicolons were added to the sequence in certain places (such as before line
+      terminator characters). Furthermore, certain token sequences that are described by the
+      grammar are not considered acceptable if a terminator character appears in certain “awkward”
+      places.</p>
+
+      <p>In certain cases in order to avoid ambiguities the syntactic grammar uses generalised
+      productions that permit token sequences that are not valid ECMAScript scripts. For example,
+      this technique is used in with object literals and object destructuring patterns. In such
+      cases a more restrictive <i>supplemental grammar</i> is provided that further restricts the
+      acceptable token sequences. In certain contexts, when explicitly specific, the input elements
+      corresponding to such a production are parsed again using a goal symbol of a supplemental
+      grammar. The script is syntactically in error if the tokens in the stream of input elements
+      cannot be parsed as a single instance of the supplemental goal symbol, with no tokens left
+      over.</p>
+    </es-clause>
+
+    <es-clause title="Grammar Notation" anchor="sec-grammar-notation">
+      <p>Terminal symbols of the lexical, RegExp, and numeric string grammars, and some of the
+      terminal symbols of the other grammars, are shown in <code>fixed width</code> font, both in
+      the productions of the grammars and throughout this specification whenever the text directly
+      refers to such a terminal symbol. These are to appear in a script either exactly as written.
+      All terminal symbol characters specified in this way are to be understood as the appropriate
+      Unicode code points from the Basic Latin range, as opposed to any similar-looking characters
+      from other Unicode ranges.</p>
+
+      <p>Nonterminal symbols are shown in <es-nt>italic</es-nt> type. The definition of a
+      nonterminal (also called a “production”) is introduced by the name of the nonterminal being
+      defined followed by one or more colons. (The number of colons indicates to which grammar the
+      production belongs.) One or more alternative right-hand sides for the nonterminal then follow
+      on succeeding lines. For example, the syntactic definition:</p>
+
+      <es-production name="WhileStatement">
+        <es-rhs>while ( <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+      </es-production>
+
+      <p>states that the nonterminal <es-nt>WhileStatement</es-nt> represents the token
+      <code>while</code>, followed by a left parenthesis token, followed by an
+      <es-nt>Expression</es-nt>, followed by a right parenthesis token, followed by a
+      <es-nt>Statement</es-nt>. The occurrences of <es-nt>Expression</es-nt> and
+      <es-nt>Statement</es-nt> are themselves nonterminals. As another example, the syntactic
+      definition:</p>
+
+      <es-production name="ArgumentList">
+        <es-rhs><es-nt>AssignmentExpression</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ArgumentList</es-nt> , <es-nt>AssignmentExpression</es-nt></es-rhs>
+      </es-production>
+
+      <p>states that an <es-nt>ArgumentList</es-nt> may represent either a single
+      <es-nt>AssignmentExpression</es-nt> or an <es-nt>ArgumentList</es-nt>, followed by a comma,
+      followed by an <es-nt>AssignmentExpression</es-nt>. This definition of
+      <es-nt>ArgumentList</es-nt> is recursive, that is, it is defined in terms of itself. The
+      result is that an <es-nt>ArgumentList</es-nt> may contain any positive number of arguments,
+      separated by commas, where each argument expression is an
+      <es-nt>AssignmentExpression</es-nt>. Such recursive definitions of nonterminals are
+      common.</p>
+
+      <p>The subscripted suffix “<sub>opt</sub>”, which may appear after a terminal or nonterminal,
+      indicates an optional symbol. The alternative containing the optional symbol actually
+      specifies two right-hand sides, one that omits the optional element and one that includes it.
+      This means that:</p>
+
+      <es-production name="VariableDeclaration">
+        <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt optional>Initialiser</es-nt></es-rhs>
+      </es-production>
+
+      <p>is a convenient abbreviation for:</p>
+
+      <es-production name="VariableDeclaration">
+        <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+
+        <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt>Initialiser</es-nt></es-rhs>
+      </es-production>
+
+      <p>and that:</p>
+
+      <es-production name="IterationStatement">
+        <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> ; <es-nt optional>Expression</es-nt> ;
+        <es-nt optional>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+      </es-production>
+
+      <p>is a convenient abbreviation for:</p>
+
+      <es-production name="IterationStatement">
+        <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> ; ; <es-nt optional>Expression</es-nt> )
+        <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> ; <es-nt>Expression</es-nt> ;
+        <es-nt optional>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+      </es-production>
+
+      <p>which in turn is an abbreviation for:</p>
+
+      <es-production name="IterationStatement">
+        <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> ; ; ) <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> ; ; <es-nt>Expression</es-nt> )
+        <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> ; <es-nt>Expression</es-nt> ; ;)
+        <es-nt>Statement</es-nt></es-rhs>
+
+        <es-rhs>for ( <es-nt>LexicalDeclaration</es-nt> ; <es-nt>Expression</es-nt> ;
+        <es-nt>Expression</es-nt> ) <es-nt>Statement</es-nt></es-rhs>
+      </es-production>
+
+      <p>so, in this example, the nonterminal <es-nt>IterationStatement</es-nt> actually has four
+      alternative right-hand sides.</p>
+
+      <p>A production may be parameterised by a subscripted annotation of the form
+      “<sub>[parameters]</sub>”, which may appear as a suffix to the nonterminal symbol defined by
+      the production. “<sub>parameters</sub>” may be either a single name or a comma separated list
+      of names. A parameterised production is a shorthand for a set of productions defining all
+      combinations of the parameter names appended to the parameterised nonterminal symbol. This
+      means that:</p>
+
+      <es-production name="StatementList" params="Return">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <p>is a convenient abbreviation for:</p>
+
+      <es-production name="StatementList">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="StatementListReturn">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <p>and that:</p>
+
+      <es-production name="StatementList" params="Return, In">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <p>is abbreviation for:</p>
+
+      <es-production name="StatementList">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="StatementListReturn">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="StatementListIn">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="StatementListReturnIn">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <p>References to nonterminals on the right hand side of a production can also be
+      parameterised. For example:</p>
+
+      <es-production name="StatementList">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt params="In">ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <p>is equivalent to saying:</p>
+
+      <es-production name="StatementList">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatementIn</es-nt></es-rhs>
+      </es-production>
+
+      <p>A nonterminal reference may have both a parameter list and an “<sub>opt</sub>” suffix. For
+      example:</p>
+
+      <es-production name="VariableDeclaration">
+        <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt>Initialiser</es-nt>
+        <es-gann>In</es-gann>opt</es-rhs>
+      </es-production>
+
+      <p>is an abbreviation for:</p>
+
+      <es-production name="VariableDeclaration">
+        <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+
+        <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt>InitialiserIn</es-nt></es-rhs>
+      </es-production>
+
+      <p>Prefixing a parameter name with “<sub>?</sub>”on a right hand side nonterminal reference
+      makes that parameter value dependent upon the occurrence of the parameter name on the
+      reference to the current production’s left hand side symbol. For example:</p>
+
+      <es-production name="VariableDeclaration" params="In">
+        <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt params="?In">Initialiser</es-nt></es-rhs>
+      </es-production>
+
+      <p>is an abbreviation for:</p>
+
+      <es-production name="VariableDeclaration">
+        <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt>Initialiser</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="VariableDeclarationIn">
+        <es-rhs><es-nt>BindingIdentifier</es-nt> <es-nt>InitialiserIn</es-nt></es-rhs>
+      </es-production>
+
+      <p>If a right hand side alternative is prefixed with “[+parameter]” that alternative is only
+      available if the named parameter was used in referencing the production’s nonterminal symbol.
+      If a right hand side alternative is prefixed with “[~parameter]” that alternative is only
+      available if the named parameter was <i>not</i> used in referencing the production’s
+      nonterminal symbol. This means that:</p>
+
+      <es-production name="StatementList" params="Return">
+        <es-rhs constraint="+Return"><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <p>is an abbreviation for:</p>
+
+      <es-production name="StatementList">
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="StatementListReturn">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <p>and that</p>
+
+      <es-production name="StatementList" params="Return">
+        <es-rhs constraint="~Return"><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <p>is an abbreviation for:</p>
+
+      <es-production name="StatementList">
+        <es-rhs><es-nt>ReturnStatement</es-nt></es-rhs>
+
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <es-production name="StatementListReturn">
+        <es-rhs><es-nt>ExpressionStatement</es-nt></es-rhs>
+      </es-production>
+
+      <p>When the words “<b>one of</b>” follow the colon(s) in a grammar definition, they signify
+      that each of the terminal symbols on the following line or lines is an alternative
+      definition. For example, the lexical grammar for ECMAScript contains the production:</p>
+
+      <es-production name="NonZeroDigit" type="lexical" oneof>
+        <es-rhs>1 2 3 4 5 6 7 8 9</es-rhs>
+      </es-production>
+
+      <p>which is merely a convenient abbreviation for:</p>
+
+      <es-production name="NonZeroDigit" type="lexical">
+        <es-rhs>1</es-rhs>
+
+        <es-rhs>2</es-rhs>
+
+        <es-rhs>3</es-rhs>
+
+        <es-rhs>4</es-rhs>
+
+        <es-rhs>5</es-rhs>
+
+        <es-rhs>6</es-rhs>
+
+        <es-rhs>7</es-rhs>
+
+        <es-rhs>8</es-rhs>
+
+        <es-rhs>9</es-rhs>
+      </es-production>
+
+      <p>If the phrase “[empty]” appears as the right-hand side of a production, it indicates that
+      the production's right-hand side contains no terminals or nonterminals.</p>
+
+      <p>If the phrase “[lookahead ∉ <es-nt>set</es-nt>]” appears in the right-hand side of a
+      production, it indicates that the production may not be used if the immediately following
+      input token is a member of the given <es-nt>set</es-nt>. The <es-nt>set</es-nt> can be
+      written as a list of terminals enclosed in curly braces. For convenience, the set can also be
+      written as a nonterminal, in which case it represents the set of all terminals to which that
+      nonterminal could expand. For example, given the definitions</p>
+
+      <es-production name="DecimalDigit" type="lexical" oneof>
+        <es-rhs>0 1 2 3 4 5 6 7 8 9</es-rhs>
+      </es-production>
+
+      <es-production name="DecimalDigits" type="lexical">
+        <es-rhs><es-nt>DecimalDigit</es-nt></es-rhs>
+
+        <es-rhs><es-nt>DecimalDigits</es-nt> <es-nt>DecimalDigit</es-nt></es-rhs>
+      </es-production>
+
+      <p>the definition</p>
+
+      <es-production name="LookaheadExample" type="lexical">
+        <es-rhs><es-t>n</es-t> <es-gann>lookahead ∉ {<es-t>1</es-t>, <es-t>3</es-t>,
+        <es-t>5</es-t>, <es-t>7</es-t>,
+        <es-t>9</es-t>}</es-gann><es-nt>DecimalDigits</es-nt></es-rhs>
+
+        <es-rhs><es-nt>DecimalDigit</es-nt> <es-gann>lookahead ∉
+        <es-nt>DecimalDigit</es-nt></es-gann></es-rhs>
+      </es-production>
+
+      <p>matches either the letter <code>n</code> followed by one or more decimal digits the first
+      of which is even, or a decimal digit not followed by another decimal digit.</p>
+
+      <p>If the phrase “[no <es-nt>LineTerminator</es-nt> here]” appears in the right-hand side of
+      a production of the syntactic grammar, it indicates that the production is <i>a restricted
+      production</i>: it may not be used if a <es-nt>LineTerminator</es-nt> occurs in the input
+      stream at the indicated position. For example, the production:</p>
+
+      <es-production name="ThrowStatement">
+        <es-rhs><es-t>throw</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
+        here</es-gann><es-nt>Expression</es-nt> <es-t>;</es-t></es-rhs>
+      </es-production>
+
+      <p>indicates that the production may not be used if a <es-nt>LineTerminator</es-nt> occurs in
+      the script between the <code>throw</code> token and the <es-nt>Expression</es-nt>.</p>
+
+      <p>Unless the presence of a <es-nt>LineTerminator</es-nt> is forbidden by a restricted
+      production, any number of occurrences of <es-nt>LineTerminator</es-nt> may appear between any
+      two consecutive tokens in the stream of input elements without affecting the syntactic
+      acceptability of the script.</p>
+
+      <p>The lexical grammar has multiple goal symbols and the appropriate goal symbol to use
+      depends upon the syntactic grammar context. If a phrase of the form “[Lexical goal
+      <i>LexicalGoalSymbol</i>]” appears on the right-hand-side of a syntactic production then the
+      next token must be lexically recognised using the indicated goal symbol. In the absence of
+      such a phrase the default lexical goal symbol is used.</p>
+
+      <p>When an alternative in a production of the lexical grammar or the numeric string grammar
+      appears to be a multi-character token, it represents the sequence of characters that would
+      make up such a token.</p>
+
+      <p>The right-hand side of a production may specify that certain expansions are not permitted
+      by using the phrase “<b>but not</b>” and then indicating the expansions to be excluded. For
+      example, the production:</p>
+
+      <es-production name="Identifier" type="lexical">
+        <es-rhs><es-nt>IdentifierName</es-nt> <es-gmod>but not
+        <es-nt>ReservedWord</es-nt></es-gmod></es-rhs>
+      </es-production>
+
+      <p>means that the nonterminal <es-nt>Identifier</es-nt> may be replaced by any sequence of
+      characters that could replace <es-nt>IdentifierName</es-nt> provided that the same sequence
+      of characters could not replace <es-nt>ReservedWord</es-nt>.</p>
+
+      <p>Finally, a few nonterminal symbols are described by a descriptive phrase in sans-serif
+      type in cases where it would be impractical to list all the alternatives:</p>
+
+      <es-production name="SourceCharacter" type="lexical">
+        <es-rhs><es-gprose>any Unicode code point</es-gprose></es-rhs>
+      </es-production>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Algorithm Conventions" anchor="sec-algorithm-conventions">
+    <p>The specification often uses a numbered list to specify steps in an algorithm. These
+    algorithms are used to precisely specify the required semantics of ECMAScript language
+    constructs. The algorithms are not intended to imply the use of any specific implementation
+    technique. In practice, there may be more efficient algorithms available to implement a given
+    feature.</p>
+
+    <p>Algorithms may be explicitly parameterised, in which case the names and usage of the
+    parameters must be provided as part of the algorithm’s definition. In order to facilitate their
+    use in multiple parts of this specification, some algorithms, called <i>abstract</i>
+    <i>operations</i>, are named and written in parameterised functional form so that they may be
+    referenced by name from within other algorithms.</p>
+
+    <p>Algorithms may be associated with productions of one of the ECMAScript grammars. A
+    production that has multiple alternative definitions will typically have a distinct algorithm
+    for each alternative. When an algorithm is associated with a grammar production, it may
+    reference the terminal and nonterminal symbols of the production alternative as if they were
+    parameters of the algorithm. When used in this manner, nonterminal symbols refer to the actual
+    alternative definition that is matched when parsing the script souce code.</p>
+
+    <p>When an algorithm is associated with a production alternative, the alternative is typically
+    shown without any “[ ]” grammar annotations. Such annotations should only affect the syntactic
+    recognition of the alternative and have no effect on the associated semantics for the
+    alternative.</p>
+
+    <p>Unless explicitly specified otherwise, all <es-xref target="sec-context-free-grammars">chain
+    productions</es-xref> have an implicit associated definition for every algorithm that is might
+    be applied to that production’s left-hand side nonterminal. The implicit definition simply
+    reapplies the same algorithm name with the same parameters, if any, to the <es-xref target=
+    "sec-context-free-grammars">chain production</es-xref>’s sole right-hand side nonterminal and
+    then result. For example, assume there is a production</p>
+
+    <es-production name="Block">
+      <es-rhs><es-t>{</es-t> <es-nt>StatementList</es-nt> <es-t>}</es-t></es-rhs>
+    </es-production>
+
+    <p>but there is no evalution algorithm that is explicitly specified for that production. If in
+    some algorithm there is a statement of the form: “Return the result of evaluating <i>Block</i>”
+    it is implicit that the algorithm has an evalution algorithm of the form:</p>
+
+    <p><b>Runtime Semantics: Evaluation</b></p>
+
+    <es-production name="Block" class="inline">
+      <es-rhs><es-t>{</es-t> <es-nt>StatementList</es-nt> <es-t>}</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the result of evaluating StatementList.</li>
+    </ol>
+
+    <p>For clarity of expression, algorithm steps may be subdivided into sequential substeps.
+    Substeps are indented and may themselves be further divided into indented substeps. Outline
+    numbering conventions are used to identify substeps with the first level of substeps labelled
+    with lower case alphabetic characters and the second level of substeps labelled with lower case
+    roman numerals. If more than three levels are required these rules repeat with the fourth level
+    using numeric labels. For example:</p>
+
+    <p><span class="marker"></span>Top-level step</p>
+
+    <ol class="proc">
+      <li>Substep.</li>
+
+      <li>Substep.
+
+        <ol class="block">
+          <li>Subsubstep.
+
+            <ol class="block">
+              <li>Subsubsubstep
+
+                <ol class="block">
+                  <li>Subsubsubsubstep
+
+                    <ol class="block">
+                      <li>Subsubsubsubsubstep</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+
+    <p>A step or substep may be written as an “if” predicate that conditions its substeps. In this
+    case, the substeps are only applied if the predicate is true. If a step or substep begins with
+    the word “else”, it is a predicate that is the negation of the preceding “if” predicate step at
+    the same level.</p>
+
+    <p>A step may specify the iterative application of its substeps.</p>
+
+    <p>A step may assert an invariant condition of its algorithm. Such assertions are used to make
+    explicit algorithmic invariants that would otherwise be implicit. Such assertions add no
+    additional semantic requirements and hence need not be checked by an implementation. They are
+    used simply to clarify algorithms.</p>
+
+    <p>Mathematical operations such as addition, subtraction, negation, multiplication, division,
+    and the mathematical functions defined later in this clause should always be understood as
+    computing exact mathematical results on mathematical real numbers, which do not include
+    infinities and do not include a negative zero that is distinguished from positive zero.
+    Algorithms in this standard that model floating-point arithmetic include explicit steps, where
+    necessary, to handle infinities and signed zero and to perform rounding. If a mathematical
+    operation or function is applied to a floating-point number, it should be understood as being
+    applied to the exact mathematical value represented by that floating-point number; such a
+    floating-point number must be finite, and if it is <span class="value">+0</span> or
+    <span class="value">−0</span> then the corresponding mathematical value is simply <span class=
+    "value">0</span>.</p>
+
+    <p>The mathematical function abs(<i>x</i>) produces the absolute value of <es-nt>x</es-nt>,
+    which is −<i>x</i> if <es-nt>x</es-nt> is negative (less than zero) and otherwise is
+    <es-nt>x</es-nt> itself.</p>
+
+    <p>The mathematical function sign(<i>x</i>) produces 1 if <es-nt>x</es-nt> is positive and −1
+    if <es-nt>x</es-nt> is negative. The sign function is not used in this standard for cases when
+    <es-nt>x</es-nt> is zero.</p>
+
+    <p>The mathematical function min(<i>x</i><sub>1</sub>, <i>x</i><sub>2</sub>, ...,
+    <i>x</i><sub>n</sub>) produces the mathematically smallest of <i>x</i><sub>1</sub> through
+    <i>x</i><sub>n</sub>.</p>
+
+    <p>The notation “<i>x</i> modulo <i>y</i>” (<es-nt>y</es-nt> must be finite and nonzero)
+    computes a value <es-nt>k</es-nt> of the same sign as <es-nt>y</es-nt> (or zero) such that
+    abs(<i>k</i>) &lt; abs(<i>y</i>) and <i>x</i>−<i>k</i> = <i>q</i> × <es-nt>y</es-nt> for some
+    integer <es-nt>q</es-nt>.</p>
+
+    <p>The mathematical function floor(<i>x</i>) produces the largest integer (closest to positive
+    infinity) that is not larger than <es-nt>x</es-nt>.</p>
+
+    <es-note>
+      <p>floor(<i>x</i>) = <i>x</i>−(<i>x</i> modulo 1).</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Static Semantic Rules" anchor="sec-static-semantic-rules">
+    <p>Context-free grammars are not sufficiently powerful to express all the rules that define
+    whether a stream of input elements make up a valid ECMAScript script that may be evaluated. In
+    some situations additional rules are needed that may be expressed using either ECMAScript
+    algorithm conventions or prose requirements. Such rules are always associated with a production
+    of a grammar and are called the <i>static semantics</i> of the production.</p>
+
+    <p>Static Semantic Rules have names and typically are defined using an algorithm. Named Static
+    Semantic Rules are associated with grammar productions and a production that has multiple
+    alternative definitions will typically have for each alternative a distinct algorithm for each
+    applicable named static semantic rule.</p>
+
+    <p>Unless otherwise specified every grammar production alternative in this specification
+    implicitly has a definition for a static semantic rule named Contains which takes an argument
+    named <es-nt>symbol</es-nt> whose value is a terminal or nonterminal of the grammar that
+    includes the associated production. The default definition of Contains is:</p>
+
+    <ol class="proc">
+      <li>For each terminal and nonterminal grammar symbol, <i>sym</i>, in the definition of this
+      production do
+
+        <ol class="block">
+          <li>If <i>sym</i> is the same grammar symbol as <i>symbol</i>, return <b>true</b>.</li>
+
+          <li>If <i>sym</i> is a nonterminal, then
+
+            <ol class="block">
+              <li>Let contained be the result of Contains for <i>sym</i> with argument
+              <i>symbol</i>.</li>
+
+              <li>If <i>contained</i> is <b>true</b>, return <b>true</b>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <p>The above definition is explicitly over-ridden for specific productions.</p>
+
+    <p>A special kind of static semantic rule is an Early Error Rule. Early error rules define
+    early error conditions (see <es-xref target=
+    "sec-ecmascript-language-modules-and-scripts">clause 15</es-xref>.2.3) that are associate with
+    specific grammar productions. Evaluation of most early error rules are not explicitly invoked
+    within the algorithms of this specification. A comforming implementation must, prior to the
+    first evaluation of a <es-nt>Script</es-nt>, validate all of the early error rules of the
+    productions used to parse that <es-nt>Script</es-nt>. If any of the early error rules are
+    violated the <es-nt>Script</es-nt> is invalid and cannot be evaluated.</p>
+  </es-clause>
 </es-clause>

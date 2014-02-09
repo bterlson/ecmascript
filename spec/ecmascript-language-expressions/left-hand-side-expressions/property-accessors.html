@@ -43,6 +43,54 @@
   <p>where <es-nt>&lt;identifier-name-string&gt;</es-nt> is a string literal containing the same
   sequence of characters after processing of Unicode escape sequences as the
   <es-nt>IdentifierName</es-nt>.</p>
-  <link rel="import" href=
-  "property-accessors/property-accessors-runtime-semantics-evaluation.html">
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-property-accessors-runtime-semantics-evaluation">
+    <es-production name="MemberExpression" class="inline">
+      <es-rhs><es-nt>MemberExpression</es-nt> [ <es-nt>Expression</es-nt> ]</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>baseReference</i> be the result of evaluating <i>MemberExpression</i>.</li>
+
+      <li>Let <i>baseValue</i> be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(<i>baseReference</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>baseValue</i>).</li>
+
+      <li>Let <i>propertyNameReference</i> be the result of evaluating <i>Expression</i>.</li>
+
+      <li>Let propertyNameValue be <es-xref target=
+      "sec-getvalue">GetValue</es-xref>(propertyNameReference).</li>
+
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>propertyNameValue</i>).</li>
+
+      <li>Let <i>bv</i> be <es-xref target=
+      "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<i>baseValue</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>bv</i>).</li>
+
+      <li>Let <i>propertyNameString</i> be <es-xref target=
+      "sec-tostring">ToString</es-xref>(<i>propertyNameValue</i>).</li>
+
+      <li>If the code matched by the syntactic production that is being evaluated is
+      <es-xref target="sec-strict-mode-code">strict mode code</es-xref>, let <i>strict</i> be
+      <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+
+      <li>Return a value of type <es-xref target=
+      "sec-reference-specification-type">Reference</es-xref> whose base value is <i>bv</i> and
+      whose referenced name is <i>propertyNameString</i>, and whose strict reference flag is
+      <i>strict</i>.</li>
+    </ol>
+
+    <es-production name="CallExpression" class="inline">
+      <es-rhs><es-nt>CallExpression</es-nt> [ <es-nt>Expression</es-nt> ]</es-rhs>
+    </es-production>
+
+    <p>Is evaluated in exactly the same manner as <es-production name="MemberExpression"
+    class="inline"><es-rhs><es-nt>MemberExpression</es-nt> [ <es-nt>Expression</es-nt>
+    ]</es-rhs></es-production> except that the contained
+    <es-nt>CallExpression</es-nt> is evaluated in step 1.</p>
+  </es-clause>
 </es-clause>

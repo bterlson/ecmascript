@@ -1,19 +1,13 @@
 <!doctype html>
 <es-clause title="ToUint8Clamp: (Unsigned 8 Bit Integer, Clamped)" anchor="sec-touint8clamp">
-  <p>The abstract operation ToUint8Clamp converts its argument to one of <span style=
-  "font-family: Times New Roman">2<sup>8</sup></span> integer values in the range <span style=
-  "font-family: Times New Roman">0</span> through <span style=
-  "font-family: Times New Roman">255</span>, inclusive. This abstract operation functions as
-  follows:</p>
+  <p>The abstract operation ToUint8Clamp converts its argument to one of 2<sup>8</sup> integer
+  values in the range 0 through 255, inclusive. This abstract operation functions as follows:</p>
 
   <ol class="proc">
-    <li>Let <i>number</i> be the result of calling <a href="#sec-tonumber">ToNumber</a> on the
-    input argument.
-    </li>
+    <li>Let <i>number</i> be the result of calling <es-xref target=
+    "sec-tonumber">ToNumber</es-xref> on the input argument.</li>
 
-    <li>
-      <a href="#sec-returnifabrupt">ReturnIfAbrupt</a> (<i>number</i>).
-    </li>
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>number</i>).</li>
 
     <li>If <i>number</i> is <b>NaN</b>, return <b>+0</b>.</li>
 
@@ -21,8 +15,8 @@
 
     <li>If <i>number</i> &gt; 255, return 255.</li>
 
-    <li>Let <i>f</i> be <a href="#sec-algorithm-conventions">floor</a> (<i>number</i>).
-    </li>
+    <li>Let <i>f</i> be <es-xref target=
+    "sec-algorithm-conventions">floor</es-xref>(<i>number</i>).</li>
 
     <li>If <i>f+0.5</i> ≤ <i>number</i>, then return <i>f</i>+1.</li>
 

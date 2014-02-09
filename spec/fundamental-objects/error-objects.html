@@ -2,9 +2,210 @@
 <es-clause title="Error Objects" anchor="sec-error-objects">
   <p>Instances of Error objects are thrown as exceptions when runtime errors occur. The Error
   objects may also serve as base objects for user-defined exception classes.</p>
-  <link rel="import" href="error-objects/error-constructor.html">
-  <link rel="import" href="error-objects/properties-of-the-error-constructor.html">
-  <link rel="import" href="error-objects/properties-of-the-error-prototype-object.html">
+
+  <es-clause title="The Error Constructor" anchor="sec-error-constructor">
+    <p>The Error constructor is the %Error% intrinsic object and the initial value of the
+    <code>Error</code> property of the global object. When <code>Error</code> is called as a
+    function rather than as a constructor, it creates and initialises a new Error object. Thus the
+    function call <b>Error(</b>…<b>)</b> is equivalent to the object creation expression <b>new
+    Error(</b>…<b>)</b> with the same arguments. However, if the <b>this</b> value passed in the
+    call is an Object with an uninitialised [[ErrorData]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, it initialises the
+    <b>this</b> value using the argument value rather than creating a new object. This permits
+    <code>Error</code> to be used both as factory method and to perform constructor instance
+    initialisation.</p>
+
+    <p>The <code>Error</code> constructor is designed to be subclassable. It may be used as the
+    value of an <code>extends</code> clause of a class declaration. Subclass constructors that
+    intended to inherit the specified <code>Error</code> behaviour should include a
+    <code>super</code> call to the <code>Error</code> constructor to initialise subclass
+    instances.</p>
+
+    <es-clause title="Error (message)" anchor="sec-error-message">
+      <p>When the <code>Error</code> function is called with argument <i>message</i> the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>func</i> be this <code>Error</code> function object.</li>
+
+        <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+        not Object or <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object and <i>O</i> does
+        not have an [[ErrorData]] <es-xref target="sec-object-internal-methods-and-internal-slots">
+          internal slot</es-xref> or <es-xref target=
+          "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object and <i>O</i>
+          has an [[ErrorData]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+          [[ErrorData]] is not <b>undefined</b>, then
+
+          <ol class="block">
+            <li>Let <i>O</i> be the result of calling <es-xref target=
+            "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>func</i>,
+            <code>"%ErrorPrototype%"</code>,<br>
+            ( [[ErrorData]]) ).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+          </ol>
+        </li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+        <li>Set the value of <i>O’s</i> [[ErrorData]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to any value other
+        than <b>undefined</b>.</li>
+
+        <li>If <i>message</i> is not <b>undefined</b>, then
+
+          <ol class="block">
+            <li>Let <i>msg</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>message</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>msg</i>).</li>
+
+            <li>Let <i>msgDesc</i> be the PropertyDescriptor{[[Value]]: <i>msg</i>, [[Writable]]:
+            <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>true</b>}.</li>
+
+            <li>Let <i>status</i> be the result of <es-xref target=
+            "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>O</i>,
+            "<code>message</code>", <i>msgDesc</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+          </ol>
+        </li>
+
+        <li>Return <i>O</i>.</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="new Error(... argumentsList)" anchor="sec-new-error-argumentslist">
+      <p>When <code>Error</code> called as part of a new expression with argument list
+      <i>argumentsList</i> it performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <code>Error</code> function object on which the <code>new</code>
+        operator was applied.</li>
+
+        <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+        internal method that was invoked by the <code>new</code> operator.</li>
+
+        <li>Return the result of <es-xref target=
+        "sec-construct-f-argumentslist">Construct</es-xref> (<i>F</i>, <i>argumentsList</i>).</li>
+      </ol>
+
+      <p>If <code>Error</code> is implemented as an <es-xref target=
+      "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+      internal method will perform the above steps.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the Error Constructor" anchor=
+  "sec-properties-of-the-error-constructor">
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Error
+    constructor is the Function prototype object (<es-xref target=
+    "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>).</p>
+
+    <p>Besides the <code>length</code> property (whose value is <b>1</b>), the Error constructor
+    has the following properties:</p>
+
+    <es-clause title="Error.prototype" anchor="sec-error.prototype">
+      <p>The initial value of <code>Error.prototype</code> is the Error prototype object
+      (<es-xref target="sec-properties-of-the-error-prototype-object">19.5.3</es-xref>).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Error[ @@create ] ( )" anchor="sec-error-@@create">
+      <p>The @@create method of an object <es-nt>F</es-nt> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+        <li>Let <i>obj</i> be the result of calling <es-xref target=
+        "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>F</i>,
+        <code>"%ErrorPrototype%"</code>, ( [[ErrorData]]) ).</li>
+
+        <li>Return <i>obj</i>.</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.create]"</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+      [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+      "value">true</span> }.</p>
+
+      <es-note>
+        <p>[[ErrorData]] is initially assigned the value <span class="value">undefined</span> as a
+        flag to indicate that the instance has not yet been initialised by the Error constructor.
+        This flag value is never directly exposed to ECMAScript code; hence implementations may
+        choose to encode the flag in some other manner.</p>
+      </es-note>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of the Error Prototype Object" anchor=
+  "sec-properties-of-the-error-prototype-object">
+    <p>The Error prototype object is an ordinary object. It is not an Error instance and does not
+    have an [[ErrorData] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref>.</p>
+
+    <p>The value of the [[Prototype]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Error prototype
+    object is the standard built-in Object prototype object (<es-xref target=
+    "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>).</p>
+
+    <es-clause title="Error.prototype.constructor" anchor="sec-error.prototype.constructor">
+      <p>The initial value of <code>Error.prototype.constructor</code> is the built-in
+      <code>Error</code> constructor.</p>
+    </es-clause>
+
+    <es-clause title="Error.prototype.message" anchor="sec-error.prototype.message">
+      <p>The initial value of <code>Error.prototype.message</code> is the empty String.</p>
+    </es-clause>
+
+    <es-clause title="Error.prototype.name" anchor="sec-error.prototype.name">
+      <p>The initial value of <code>Error.prototype.name</code> is "<b>Error</b>".</p>
+    </es-clause>
+
+    <es-clause title="Error.prototype.toString ( )" anchor="sec-error.prototype.tostring">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+        not Object, throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>name</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+        <code>"name"</code>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
+
+        <li>If <i>name</i> is <b>undefined</b>, then let <i>name</i> be "<b>Error</b>"; else let
+        <i>name</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>name</i>).</li>
+
+        <li>Let <i>msg</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+        <code>"message"</code>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>msg</i>).</li>
+
+        <li>If <i>msg</i> is <b>undefined</b>, then let <i>msg</i> be the empty String; else let
+        <i>msg</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>msg</i>).</li>
+
+        <li>If <i>name</i> is the empty String, return <i>msg</i>.</li>
+
+        <li>If <i>msg</i> is the empty String, return <i>name</i>.</li>
+
+        <li>Return the result of concatenating <i>name</i>, <code>":"</code>, a single space
+        character, and <i>msg</i>.</li>
+      </ol>
+    </es-clause>
+  </es-clause>
 
   <es-clause title="Properties of Error Instances" anchor="sec-properties-of-error-instances">
     <p>Error instances are ordinary objects that inherit properties from the Error prototype object
@@ -15,6 +216,260 @@
     them as Error objects within <code><es-xref target=
     "sec-object.prototype.tostring">Object.prototype.toString</es-xref></code>.</p>
   </es-clause>
-  <link rel="import" href="error-objects/native-error-types-used-in-this-standard.html">
-  <link rel="import" href="error-objects/nativeerror-object-structure.html">
+
+  <es-clause title="Native Error Types Used in This Standard" anchor=
+  "sec-native-error-types-used-in-this-standard">
+    <p>A new instance of one of the <i>NativeError</i> objects below is thrown when a runtime error
+    is detected. All of these objects share the same structure, as described in <es-xref target=
+    "sec-nativeerror-object-structure">19.5.6</es-xref>.</p>
+
+    <es-clause title="EvalError" anchor="sec-native-error-types-used-in-this-standard-evalerror">
+      <p>This exception is not currently used within this specification. This object remains for
+      compatibility with previous editions of this specification.</p>
+    </es-clause>
+
+    <es-clause title="RangeError" anchor="sec-native-error-types-used-in-this-standard-rangeerror">
+      <p>Indicates a value that is not in the set or range of allowable values. See , , , , , , and
+      .</p>
+    </es-clause>
+
+    <es-clause title="ReferenceError" anchor=
+    "sec-native-error-types-used-in-this-standard-referenceerror">
+      <p>Indicate that an invalid reference value has been detected. See , , <es-xref target=
+      "sec-strict-mode-code">10.2.1</es-xref>, , , and .</p>
+    </es-clause>
+
+    <es-clause title="SyntaxError" anchor=
+    "sec-native-error-types-used-in-this-standard-syntaxerror">
+      <p>Indicates that a parsing error has occurred. See , , , , , , , , <es-xref target=
+      "sec-left-hand-side-expressions-static-semantics">12.2.1</es-xref>, <es-xref target=
+      "sec-binary-bitwise-operators-static-semantics-isanonymousfunctiondefinition">12.10.1</es-xref>,
+      <es-xref target=
+      "sec-comma-operator-static-semantics-isanonymousfunctiondefinition">12.14.1</es-xref>,
+      <es-xref target="sec-block">13.1</es-xref>, , , , , , , , , and .</p>
+    </es-clause>
+
+    <es-clause title="TypeError" anchor="sec-native-error-types-used-in-this-standard-typeerror">
+      <p>Indicates the actual type of an operand is different than the expected type. See , , , , ,
+      , , , , <es-xref target="sec-strict-mode-code">10.2.1</es-xref>, , , , , , <es-xref target=
+      "sec-template-literal-lexical-components">11.8.6</es-xref>, , , <es-xref target=
+      "sec-declarations-and-the-variable-statement">13.2</es-xref>, <es-xref target=
+      "sec-destructuring-binding-patterns">13.2.3</es-xref>, 15, <es-xref target=
+      "sec-load-records-and-loadrequest-objects">15.2.3.2</es-xref>, , , , , , , , , , , , ,
+      <es-xref target="sec-proceedtolocate">15.2.4.3</es-xref>, , , , , , , , , , , , , , , , , , ,
+      , , , , , , , , , , , , and .</p>
+    </es-clause>
+
+    <es-clause title="URIError" anchor="sec-native-error-types-used-in-this-standard-urierror">
+      <p>Indicates that one of the global URI handling functions was used in a way that is
+      incompatible with its definition. See <es-xref target=
+      "sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</es-xref>.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Object Structure" anchor="sec-nativeerror-object-structure">
+    <p>When an ECMAScript implementation detects a runtime error, it throws a new instance of one
+    of the <i>NativeError</i> objects defined in <es-xref target=
+    "sec-native-error-types-used-in-this-standard">19.5.5</es-xref>. Each of these objects has the
+    structure described below, differing only in the name used as the constructor name instead of
+    <i>NativeError</i>, in the <b>name</b> property of the prototype object, and in the
+    implementation-defined <code>message</code> property of the prototype object.</p>
+
+    <p>For each error object, references to <i>NativeError</i> in the definition should be replaced
+    with the appropriate error object name from <es-xref target=
+    "sec-native-error-types-used-in-this-standard">19.5.5</es-xref>.</p>
+
+    <es-clause title="Constructors" anchor="sec-nativeerror-constructors">
+      <p>When a <i>NativeError</i> constructor is called as a function rather than as a
+      constructor, it creates and initialises a new object. A call of the object as a function is
+      equivalent to calling it as a constructor with the same arguments. However, if the
+      <b>this</b> value passed in the call is an Object with an uninitialised [[ErrorData]]
+      <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, it
+      initialises the <b>this</b> value using the argument value. This permits a <i>NativeError</i>
+      to be used both as factory method and to perform constructor instance initialisation.</p>
+
+      <p>The <i>NativeError</i> constructor is designed to be subclassable. It may be used as the
+      value of an <code>extends</code> clause of a class declaration. Subclass constructors that
+      intended to inherit the specified <i>NativeError</i> behaviour should include a
+      <code>super</code> call to the <i>NativeError</i> constructor to initialise subclass
+      instances.</p>
+
+      <es-clause title="NativeError (message)" anchor="sec-nativeerror">
+        <p>When a <i>NativeError</i> function is called with argument <i>message</i> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>func</i> be this <i>NativeError</i> function object.</li>
+
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+          <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+          not Object or <es-xref target=
+          "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object and <i>O</i>
+          does not have an [[ErrorData]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> or
+          <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object
+          and <i>O</i> has an [[ErrorData]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+          [[ErrorData]] is not <b>undefined</b>, then
+
+            <ol class="block">
+              <li>Let <i>O</i> be the result of calling <es-xref target=
+              "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>func</i>,
+              <code>"%<i>NativeError</i>Prototype%"</code>, ( [[ErrorData]]) ).</li>
+
+              <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+            </ol>
+          </li>
+
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+          "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is Object.</li>
+
+          <li>Set the value of <i>O’s</i> [[ErrorData]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to any value
+          other than <b>undefined</b>.</li>
+
+          <li>If <i>message</i> is not <b>undefined</b>, then
+
+            <ol class="block">
+              <li>Let <i>msg</i> be <es-xref target=
+              "sec-tostring">ToString</es-xref>(<i>message</i>).</li>
+
+              <li>Let <i>msgDesc</i> be the PropertyDescriptor{[[Value]]: <i>msg</i>, [[Writable]]:
+              <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>true</b>}.</li>
+
+              <li>Let <i>status</i> be the result of <es-xref target=
+              "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>O</i>,
+              "<code>message</code>", <i>msgDesc</i>).</li>
+
+              <li><es-xref target=
+              "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+            </ol>
+          </li>
+
+          <li>Return <i>O</i>.</li>
+        </ol>
+
+        <p>The actual value of the string passed in step 3.a is either
+        <code>"%EvalErrorPrototype%"</code>, <code>"%RangeErrorPrototype%"</code>,
+        <code>"%ReferenceErrorPrototype%"</code>, <code>"%SyntaxErrorPrototype%"</code>,
+        <code>"%TypeErrorPrototype%"</code>, or <code>"%URIErrorPrototype%"</code> corresponding to
+        which <i>NativeError</i> constructor is being defined.</p>
+      </es-clause>
+
+      <es-clause title="new(... argumentsList )" anchor="sec-new-nativeerror-argumentslist">
+        <p>When a <i>NativeError</i> constructor is called as part of a new expression with
+        argument list <i>argumentsList</i> it performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>F</i> be this <i>NativeError</i> function object on which the <code>new</code>
+          operator was applied.</li>
+
+          <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+          internal method that was invoked by the <code>new</code> operator.</li>
+
+          <li>Return the result of <es-xref target=
+          "sec-construct-f-argumentslist">Construct</es-xref> (<i>F</i>,
+          <i>argumentsList</i>).</li>
+        </ol>
+
+        <p>If a <i>NativeError</i> constructor is implemented as an <es-xref target=
+        "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+        internal method will perform the above steps.</p>
+      </es-clause>
+    </es-clause>
+
+    <es-clause title="Properties of theConstructors" anchor=
+    "sec-properties-of-the-nativeerror-constructors">
+      <p>The value of the [[Prototype]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of a
+      <i>NativeError</i> constructor is the Error constructor object (<es-xref target=
+      "sec-error-constructor">19.5.1</es-xref>).</p>
+
+      <p>Besides the <code>length</code> property (whose value is <b>1</b>), each
+      <i>NativeError</i> constructor has the following properties:</p>
+
+      <es-clause title="NativeError.prototype" anchor="sec-nativeerror.prototype">
+        <p>The initial value of <b><i>NativeError</i>.prototype</b> is a <i>NativeError</i>
+        prototype object (<es-xref target=
+        "sec-properties-of-the-nativeerror-prototype-objects">19.5.6.3</es-xref>). Each
+        <i>NativeError</i> constructor has a separate prototype object.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+        <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+      </es-clause>
+
+      <es-clause title="[ @@create ] ( )" anchor="sec-nativeerror-@@create">
+        <p>The @@create method of an object <es-nt>F</es-nt> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>F</i> be the <b>this</b> value.</li>
+
+          <li>Let <i>obj</i> be <es-xref target=
+          "sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</es-xref>(<i>F</i>,
+          <i>NativeErrorPrototype</i>, ([[ErrorData]]) ).</li>
+
+          <li>Return <i>obj</i>.</li>
+        </ol>
+
+        <p>The actual value passed as <es-nt>NativeErrorPrototype</es-nt> in step 2 is either
+        <code>"%EvalErrorPrototype%"</code>, <code>"%RangeErrorPrototype%"</code>,
+        <code>"%ReferenceErrorPrototype%"</code>, <code>"%SyntaxErrorPrototype%"</code>,
+        <code>"%TypeErrorPrototype%"</code>, or <code>"%URIErrorPrototype%"</code> corresponding to
+        which <i>NativeError</i> constructor is being defined.</p>
+
+        <p>The value of the <code>name</code> property of this function is
+        <code>"[Symbol.create]"</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+        [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+        "value">true</span> }.</p>
+
+        <es-note>
+          <p>[[ErrorData]] is initially assigned the value <span class="value">undefined</span> as
+          a flag to indicate that the instance has not yet been initialised by the
+          <i>NativeError</i> constructor. This flag value is never directly exposed to ECMAScript
+          code; hence implementations may choose to encode the flag in some other manner.</p>
+        </es-note>
+      </es-clause>
+    </es-clause>
+
+    <es-clause title="Properties of thePrototype Objects" anchor=
+    "sec-properties-of-the-nativeerror-prototype-objects">
+      <p>Each <i>NativeError</i> prototype object is an ordinary object. It is not an Error
+      instance and does not have an [[ErrorData] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+      <p>The value of the [[Prototype]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of each
+      <i>NativeError</i> prototype object is the standard built-in Error prototype object
+      (<es-xref target="sec-properties-of-the-error-prototype-object">19.5.3</es-xref>).</p>
+
+      <es-clause title=".prototype.constructor" anchor="sec-nativeerror.prototype.constructor">
+        <p>The initial value of the <code>constructor</code> property of the prototype for a given
+        <i>NativeError</i> constructor is the <i>NativeError</i> constructor function itself
+        (<es-xref target="sec-nativeerror-constructors">19.5.6.1</es-xref>).</p>
+      </es-clause>
+
+      <es-clause title=".prototype.message" anchor="sec-nativeerror.prototype.message">
+        <p>The initial value of the <code>message</code> property of the prototype for a given
+        <i>NativeError</i> constructor is the empty String.</p>
+      </es-clause>
+
+      <es-clause title=".prototype.name" anchor="sec-nativeerror.prototype.name">
+        <p>The initial value of the <code>name</code> property of the prototype for a given
+        <i>NativeError</i> constructor is a string consisting of the name of the constructor (the
+        name used instead of <i>NativeError</i>).</p>
+      </es-clause>
+    </es-clause>
+
+    <es-clause title="Properties ofInstances" anchor="sec-properties-of-nativeerror-instances">
+      <p><i>NativeError</i> instances are ordinary objects that inherit properties from their
+      <i>NativeError</i> prototype object and have an [[ErrorData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> whose initial value
+      is <span class="value">undefined</span>. The only specified use of [[ErrorData]] is to flag
+      whether or not an Error or <i>NativeError</i> instance has been initialised by its
+      constructor.</p>
+    </es-clause>
+  </es-clause>
 </es-clause>
