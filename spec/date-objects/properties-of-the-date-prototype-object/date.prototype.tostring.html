@@ -1,0 +1,13 @@
+<es-clause title="Date.prototype.toString ( )" anchor="sec-date.prototype.tostring">
+  <p>This function returns a String value. If <es-xref target=
+  "sec-properties-of-the-date-prototype-object">this time value</es-xref> is NaN, the String value
+  is <code>"Invalid Date"</code>, otherwise the contents of the String are
+  implementation-dependent, but are intended to represent the Date in the current time zone in a
+  convenient, human-readable form.</p>
+
+  <es-note>
+    <p>For any Date value <i>d</i> whose milliseconds amount is zero, the result of
+    <es-xref target="sec-date.parse">Date.parse</es-xref>(<i>d</i>.toString()) is equal to
+    <i>d</i>.valueOf(). See <es-xref target="sec-date.parse">20.3.3.2</es-xref>.</p>
+  </es-note>
+</es-clause>

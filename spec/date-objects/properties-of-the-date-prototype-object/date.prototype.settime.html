@@ -1,0 +1,14 @@
+<es-clause title="Date.prototype.setTime (time)" anchor="sec-date.prototype.settime">
+  <ol class="proc">
+    <li>Let <i>v</i> be <es-xref target="sec-timeclip">TimeClip</es-xref>(<es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>time</i>)).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
+
+    <li>Set the [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date object to
+    <i>v</i>.</li>
+
+    <li>Return <i>v</i>.</li>
+  </ol>
+</es-clause>

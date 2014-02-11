@@ -1,0 +1,19 @@
+<es-clause title="isNaN (number)" anchor="sec-isnan-number">
+  <p>Returns <b>true</b> if the argument coerces to <b>NaN</b>, and otherwise returns
+  <b>false</b>.</p>
+
+  <ol class="proc">
+    <li>Let <i>num</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>number</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>num</i>).</li>
+
+    <li>If <i>num</i> is <b>NaN</b>, return <b>true</b>.</li>
+
+    <li>Otherwise, return <b>false</b>.</li>
+  </ol>
+
+  <es-note>
+    <p>A reliable way for ECMAScript code to test if a value X is a <b>NaN</b> is an expression of
+    the form X !== X. The result will be <b>true</b> if and only if X is a <b>NaN</b>.</p>
+  </es-note>
+</es-clause>

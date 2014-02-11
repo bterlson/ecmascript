@@ -1,0 +1,67 @@
+<es-clause title="RegExp.prototype.replace (S, replaceValue)" anchor=
+"sec-regexp.prototype.replace">
+  <p>When the <code>replace</code> method is called with arguments <es-nt>S</es-nt> and
+  <es-nt>replaceValue</es-nt> the following steps are taken:</p>
+
+  <p style="background-color: #FFC000">TODO: need tol finish this and have it make use of
+  <b><es-xref target="sec-getreplacesubstitution">GetReplaceSubstitution</es-xref></b> operation in
+  <es-xref target="sec-string.prototype.replace">21.1.3.14</es-xref></p>
+
+  <ol class="proc">
+    <li>Let <i>rx</i> be the <b>this</b> value.</li>
+
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>rx)</i> is not
+    Object, then throw a <b>TypeError</b> exception.</li>
+
+    <li>If <i>rx</i> does not have a [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+    <b>TypeError</b> exception.</li>
+
+    <li>If the value of <i>rx’s</i> [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>string</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>S</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>string</i>).</li>
+
+    <li>If <i>searchValue</i>.global is <b>false</b>, then search <i>string</i> for the first match
+    of the regular expression <i>searchValue</i>. If <i>searchValue</i>.global is <b>true</b>, then
+    search <i>string</i> for all matches of the regular expression <i>searchValue</i>. Do the
+    search in the same manner as in <code><es-xref target=
+    "sec-regexp.prototype.match">RegExp.prototype.match</es-xref></code>, including the update of
+    <i>searchValue</i>.<code>lastIndex</code>. Let <i>m</i> be the number of left capturing
+    parentheses in <i>searchValue</i> (using <i>NcapturingParens</i> as specified in
+    <es-xref target="sec-notation">21.2.2.1</es-xref>).</li>
+
+    <li>If <i>replaceValue</i> is a function, then
+
+      <ol class="block">
+        <li>For each matched substring, call the function with the following <i>m</i> + 3
+        arguments. Argument 1 is the substring that matched. If <i>searchValue</i> is a regular
+        expression, the next <i>m</i> arguments are all of the captures in the MatchResult (see
+        <es-xref target="sec-notation">21.2.2.1</es-xref>). Argument <i>m</i> + 2 is the offset
+        within <i>string</i> where the match occurred, and argument <i>m</i> + 3 is <i>string</i>.
+        The result is a String value derived from the original input by replacing each matched
+        substring with the corresponding return value of the function call, converted to a String
+        if need be.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>newstring</i> denote the result of converting <i>replaceValue</i> to a String.
+        The result is a String value derived from the original input String by replacing each
+        matched substring with a String derived from <i>newstring</i> by replacing elements in <i>
+          newstring</i> by replacement text as specified in <a href="#table-39">Table 39</a> .
+          These <code>$</code> replacements are done left-to-right, and, once such a replacement is
+          performed, the new replacement text is not subject to further replacements. For example,
+          <code>"$1,$2".replace(/(\$(\d))/g, "$$1-$1$2")</code> returns
+          <code>"$1-$11,$1-$22"</code>. A <code>$</code> in <i>newstring</i> that does not match
+          any of the forms below is left as is.
+        </li>
+      </ol>
+    </li>
+  </ol>
+</es-clause>

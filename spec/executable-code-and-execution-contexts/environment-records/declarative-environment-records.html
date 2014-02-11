@@ -1,0 +1,202 @@
+<es-clause title="Declarative Environment Records" anchor="sec-declarative-environment-records">
+  <p>Each declarative environment record is associated with an ECMAScript program scope containing
+  variable, constant, let, class, module, import, and/or function declarations. A declarative
+  environment record binds the set of identifiers defined by the declarations contained within its
+  scope.</p>
+
+  <p>The behaviour of the concrete specification methods for Declarative Environment Records is
+  defined by the following algorithms.</p>
+
+  <es-clause title="HasBinding(N)" anchor="sec-declarative-environment-records-hasbinding-n">
+    <p>The concrete environment record method HasBinding for declarative environment records simply
+    determines if the argument identifier is one of the identifiers bound by the record:</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li>If <i>envRec</i> has a binding for the name that is the value of <i>N</i>, return
+      <b>true</b>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CreateMutableBinding (N, D)" anchor=
+  "sec-declarative-environment-records-createmutablebinding-n-d">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    CreateMutableBinding for declarative environment records creates a new mutable binding for the
+    name <es-nt>N</es-nt> that is uninitialised. A binding must not already exist in this
+    <es-xref target="sec-environment-records">Environment Record</es-xref> for <es-nt>N</es-nt>. If
+    Boolean argument <es-nt>D</es-nt> is provided and has the value <b>true</b> the new binding is
+    marked as being subject to deletion.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>envRec</i> does not
+      already have a binding for <i>N</i>.</li>
+
+      <li>Create a mutable binding in <i>envRec</i> for <i>N</i> and record that it is
+      uninitialised. If <i>D</i> is <b>true</b> record that the newly created binding may be
+      deleted by a subsequent DeleteBinding call.</li>
+
+      <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CreateImmutableBinding (N)" anchor=
+  "sec-declarative-environment-records-createimmutablebinding-n">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    CreateImmutableBinding for declarative environment records creates a new immutable binding for
+    the name <es-nt>N</es-nt> that is uninitialised. A binding must not already exist in this
+    environment record for <es-nt>N</es-nt>.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>envRec</i> does not
+      already have a binding for <i>N</i>.</li>
+
+      <li>Create an immutable binding in <i>envRec</i> for <i>N</i> and record that it is
+      uninitialised.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="InitialiseBinding (N,V)" anchor=
+  "sec-declarative-environment-records-initialisebinding-n-v">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    InitialiseBinding for declarative environment records is used to set the bound value of the
+    current binding of the identifier whose name is the value of the argument <es-nt>N</es-nt> to
+    the value of argument <es-nt>V</es-nt>. An uninitialised binding for <es-nt>N</es-nt> must
+    already exist.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>envRec</i> must have an
+      uninitialised binding for <i>N</i>.</li>
+
+      <li>Set the bound value for <i>N</i> in <i>envRec</i> to <i>V</i>.</li>
+
+      <li>Record that the binding for <i>N</i> in <i>envRec</i> has been initialised.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="SetMutableBinding (N,V,S)" anchor=
+  "sec-declarative-environment-records-setmutablebinding-n-v-s">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    SetMutableBinding for declarative environment records attempts to change the bound value of the
+    current binding of the identifier whose name is the value of the argument <es-nt>N</es-nt> to
+    the value of argument <es-nt>V</es-nt>. A binding for <es-nt>N</es-nt> must already exist. If
+    the binding is an immutable binding, a <b>TypeError</b> is thrown if S is <span class=
+    "value">true</span>.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>envRec</i> must have a
+      binding for <i>N</i>.</li>
+
+      <li>If the binding for <i>N</i> in <i>envRec</i> has not yet been initialised throw a
+      <b>ReferenceError</b> exception.</li>
+
+      <li>Else if the binding for <i>N</i> in <i>envRec</i> is a mutable binding, change its bound
+      value to <i>V</i>.</li>
+
+      <li>Else this must be an attempt to change the value of an immutable binding so if <i>S</i>
+      is <b>true</b> throw a <b>TypeError</b> exception.</li>
+
+      <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="GetBindingValue(N,S)" anchor=
+  "sec-declarative-environment-records-getbindingvalue-n-s">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    GetBindingValue for declarative environment records simply returns the value of its bound
+    identifier whose name is the value of the argument <es-nt>N</es-nt>. The binding must already
+    exist. If <es-nt>S</es-nt> is <b>true</b> and the binding is an uninitialised immutable binding
+    throw a <b>ReferenceError</b> exception.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>envRec</i> has a binding
+      for <i>N</i>.</li>
+
+      <li>If the binding for <i>N</i> in <i>envRec</i> is an uninitialised binding, then
+
+        <ol class="block">
+          <li>If <i>S</i> is <b>false</b>, return the value <b>undefined</b>, otherwise throw a
+          <b>ReferenceError</b> exception.</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Return the value currently bound to <i>N</i> in <i>envRec</i>.</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="DeleteBinding (N)" anchor=
+  "sec-declarative-environment-records-deletebinding-n">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    DeleteBinding for declarative environment records can only delete bindings that have been
+    explicitly designated as being subject to deletion.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li>If <i>envRec</i> does not have a binding for the name that is the value of <i>N</i>,
+      return <b>true</b>.</li>
+
+      <li>If the binding for <i>N</i> in <i>envRec</i> cannot be deleted, return <b>false</b>.</li>
+
+      <li>Remove the binding for <i>N</i> from <i>envRec</i>.</li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="HasThisBinding ()" anchor="sec-declarative-environment-records-hasthisbinding">
+    <p>Regular Declarative Environment Records do not provide a <code>this</code> binding.</p>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="HasSuperBinding ()" anchor=
+  "sec-declarative-environment-records-hassuperbinding">
+    <p>Regular Declarative Environment Records do not provide a <code>super</code> binding.</p>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="WithBaseObject()" anchor="sec-declarative-environment-records-withbaseobject">
+    <p>Declarative Environment Records always return <b>undefined</b> as their WithBaseObject.</p>
+
+    <ol class="proc">
+      <li>Return <b>undefined</b>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

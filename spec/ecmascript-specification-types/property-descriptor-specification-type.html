@@ -1,0 +1,334 @@
+<es-clause title="The Property Descriptor Specification Type" anchor=
+"sec-property-descriptor-specification-type">
+  <p>The Property Descriptor type is used to explain the manipulation and reification of Object
+  property attributes. Values of the Property Descriptor type are Records composed of named fields
+  where each field’s name is an attribute name and its value is a corresponding attribute value as
+  specified in <es-xref target="sec-property-attributes">6.1.7.1</es-xref>. In addition, any field
+  may be present or absent. The schema name used within this specification to tag literal
+  descriptions of Property Descriptor records is “PropertyDescriptor”.</p>
+
+  <p>Property Descriptor values may be further classified as data Property Descriptors and accessor
+  Property Descriptors based upon the existence or use of certain fields. A data Property
+  Descriptor is one that includes any fields named either [[Value]] or [[Writable]]. An accessor
+  Property Descriptor is one that includes any fields named either [[Get]] or [[Set]]. Any Property
+  Descriptor may have fields named [[Enumerable]] and [[Configurable]]. A Property Descriptor value
+  may not be both a data Property Descriptor and an accessor Property Descriptor; however, it may
+  be neither. A generic Property Descriptor is a Property Descriptor value that is neither a data
+  Property Descriptor nor an accessor Property Descriptor. A fully populated Property Descriptor is
+  one that is either an accessor Property Descriptor or a data Property Descriptor and that has all
+  of the fields that correspond to the property attributes defined in either <a href=
+  "#table-2">Table 2</a> or <a href="#table-3">Table 3</a> .</p>
+
+  <p>A Property Descriptor may be derived from an object that has properties that directly
+  correspond to the fields of a Property Descriptor. Such a derived Property Descriptor has an
+  additional field named [[Origin]] whose value is the object from which the Property Descriptor
+  was derived.</p>
+
+  <p>The following abstract operations are used in this specification to operate upon Property
+  Descriptor values:</p>
+
+  <es-clause title="IsAccessorDescriptor ( Desc )" anchor="sec-isaccessordescriptor">
+    <p>When the abstract operation IsAccessorDescriptor is called with <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+    the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <i>Desc</i> is <b>undefined</b>, then return <b>false</b>.</li>
+
+      <li>If both <i>Desc</i>.[[Get]] and <i>Desc</i>.[[Set]] are absent, then return
+      <b>false</b>.</li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="IsDataDescriptor ( Desc )" anchor="sec-isdatadescriptor">
+    <p>When the abstract operation IsDataDescriptor is called with <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+    the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <i>Desc</i> is <b>undefined</b>, then return <b>false</b>.</li>
+
+      <li>If both <i>Desc</i>.[[Value]] and <i>Desc</i>.[[Writable]] are absent, then return
+      <b>false</b>.</li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="IsGenericDescriptor ( Desc )" anchor="sec-isgenericdescriptor">
+    <p>When the abstract operation IsGenericDescriptor is called with <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+    the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <i>Desc</i> is <b>undefined</b>, then return <b>false</b>.</li>
+
+      <li>If <es-xref target="sec-isaccessordescriptor">IsAccessorDescriptor</es-xref>(<i>Desc</i>)
+      and <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>Desc</i>) are both
+      <b>false</b>, then return <b>true</b>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="FromPropertyDescriptor ( Desc )" anchor="sec-frompropertydescriptor">
+    <p>When the abstract operation FromPropertyDescriptor is called with <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+    the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>If <i>Desc</i> is <b>undefined</b>, then return <b>undefined</b>.</li>
+
+      <li>If <i>Desc</i> has an [[Origin]] field, then return <i>Desc</i>.[[Origin]].</li>
+
+      <li>Let <i>obj</i> be the result of the abstract operation <es-xref target=
+      "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %ObjectPrototype% as its
+      argument.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>obj</i> is an extensible
+      ordinary object with no own properties.</li>
+
+      <li>If <i>Desc</i> has a [[Value]] field, then
+
+        <ol class="block">
+          <li>Call <es-xref target=
+          "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+          <i>obj</i>, "<b>value"</b>, and PropertyDescriptor{[[Value]]: <i>Desc</i>.[[Value]],
+          [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
+          <b>true</b>}</li>
+        </ol>
+      </li>
+
+      <li>If <i>Desc</i> has a [[Writable]] field, then
+
+        <ol class="block">
+          <li>Call <es-xref target=
+          "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+          <i>obj</i>, "<code>writable</code>", and PropertyDescriptor{[[Value]]:
+          <i>Desc</i>.[[Writable]], [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
+          [[Configurable]]: <b>true</b>}.</li>
+        </ol>
+      </li>
+
+      <li>If <i>Desc</i> has a [[Get]] field, then
+
+        <ol class="block">
+          <li>Call <es-xref target=
+          "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+          <i>obj</i>, "<code>get",</code> and PropertyDescriptor{[[Value]]: <i>Desc</i>.[[Get]],
+          [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
+          <b>true</b>}.</li>
+        </ol>
+      </li>
+
+      <li>If <i>Desc</i> has a [[Set]] field, then
+
+        <ol class="block">
+          <li>Call <es-xref target=
+          "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+          <i>obj</i>, "<code>set</code>", and PropertyDescriptor{[[Value]]: <i>Desc</i>.[[Set]],
+          [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
+          <b>true</b>}.</li>
+        </ol>
+      </li>
+
+      <li>If <i>Desc</i> has an [[Enumerable]] field, then
+
+        <ol class="block">
+          <li>Call <es-xref target=
+          "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+          <i>obj</i>, "<code>enumerable</code>", and PropertyDescriptor{[[Value]]:
+          <i>Desc</i>.[[Enumerable]], [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
+          [[Configurable]]: <b>true</b>}.</li>
+        </ol>
+      </li>
+
+      <li>If <i>Desc</i> has a [[Configurable]] field, then
+
+        <ol class="block">
+          <li>Call <es-xref target=
+          "sec-ordinarydefineownproperty">OrdinaryDefineOwnProperty</es-xref> with arguments
+          <i>obj</i> , "<code>configurable</code>", and PropertyDescriptor{[[Value]]:
+          <i>Desc</i>.[[Configurable]], [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
+          [[Configurable]]: <b>true</b>}.</li>
+        </ol>
+      </li>
+
+      <li>Return <i>obj</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="ToPropertyDescriptor ( Obj )" anchor="sec-topropertydescriptor">
+    <p>When the abstract operation ToPropertyDescriptor is called with object <es-nt>Obj</es-nt>,
+    the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>Obj</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>Obj</i>) is
+      not Object throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>desc</i> be the result of creating a new <es-xref target=
+      "sec-property-descriptor-specification-type">Property Descriptor</es-xref> that initially has
+      no fields.</li>
+
+      <li>If the result of <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>Obj</i>,
+      "<code>enumerable</code>") is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>enum</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>Obj</i>, "<code>enumerable</code>").</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>enum</i>).</li>
+
+          <li>Set the [[Enumerable]] field of <i>desc</i> to <es-xref target=
+          "sec-toboolean">ToBoolean</es-xref>(<i>enum</i>).</li>
+        </ol>
+      </li>
+
+      <li>If the result of <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>Obj</i>,
+      "<code>configurable</code>") is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>conf</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>Obj</i>, "<code>configurable</code>").</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>conf</i>).</li>
+
+          <li>Set the [[Configurable]] field of <i>desc</i> to <es-xref target=
+          "sec-toboolean">ToBoolean</es-xref>(<i>conf</i>).</li>
+        </ol>
+      </li>
+
+      <li>If the result of <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>Obj</i>,
+      "<code>value</code>") is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>value</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>Obj</i>, "<code>value</code>").</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
+
+          <li>Set the [[Value]] field of <i>desc</i> to <i>value</i>.</li>
+        </ol>
+      </li>
+
+      <li>If the result of <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>Obj</i>,
+      "<code>writable</code>") is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>writable</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>Obj</i>, "<code>writable</code>").</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>writable</i>).</li>
+
+          <li>Set the [[Writable]] field of <i>desc</i> to <es-xref target=
+          "sec-toboolean">ToBoolean</es-xref>(<i>writable</i>).</li>
+        </ol>
+      </li>
+
+      <li>If the result of <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>Obj</i>,
+      "<code>get</code>") is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>getter</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>Obj</i>, "<code>get</code>").</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>getter</i>).</li>
+
+          <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>getter</i>) is
+          <b>false</b> and <i>getter</i> is not <b>undefined</b>, then throw a <b>TypeError</b>
+          exception.</li>
+
+          <li>Set the [[Get]] field of <i>desc</i> to <i>getter</i>.</li>
+        </ol>
+      </li>
+
+      <li>If the result of <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>Obj</i>,
+      "<code>set</code>") is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>setter</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>Obj</i>, "<code>set</code>").</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>setter</i>).</li>
+
+          <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>setter</i>) is
+          <b>false</b> and <i>setter</i> is not <b>undefined</b>, then throw a <b>TypeError</b>
+          exception.</li>
+
+          <li>Set the [[Set]] field of <i>desc</i> to <i>setter</i>.</li>
+        </ol>
+      </li>
+
+      <li>If either <i>desc</i>.[[Get]] or <i>desc</i>.[[Set]] are present, then
+
+        <ol class="block">
+          <li>If either <i>desc</i>.[[Value]] or <i>desc</i>.[[Writable]] are present, then throw a
+          <b>TypeError</b> exception.</li>
+        </ol>
+      </li>
+
+      <li>Set the [[Origin]] field of <i>desc</i> to <i>Obj</i>.</li>
+
+      <li>Return <i>desc</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CompletePropertyDescriptor ( Desc, LikeDesc )" anchor=
+  "sec-completepropertydescriptor">
+    <p>When the abstract operation CompletePropertyDescriptor is called with <es-xref target=
+    "sec-property-descriptor-specification-type">Property Descriptor</es-xref> <es-nt>Desc</es-nt>,
+    the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>LikeDesc</i> is either a
+      <es-xref target="sec-property-descriptor-specification-type">Property Descriptor</es-xref> or
+      <b>undefined</b>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>Desc</i>).</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>Desc</i> is a
+      <es-xref target="sec-property-descriptor-specification-type">Property
+      Descriptor</es-xref></li>
+
+      <li>If <i>LikeDesc</i> is <b>undefined</b>, then set <i>LikeDesc</i> to Record{[[Value]]:
+      <b>undefined</b>, [[Writable]]: <b>false</b>, [[Get]]: <b>undefined</b>, [[Set]]:
+      <b>undefined</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}.</li>
+
+      <li>If either <es-xref target=
+      "sec-isgenericdescriptor">IsGenericDescriptor</es-xref>(<i>Desc</i>) or <es-xref target=
+      "sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>Desc</i>) is <b>true</b>, then
+
+        <ol class="block">
+          <li>If <i>Desc</i> does not have a [[Value]] field, then set <i>Desc</i>.[[Value]] to
+          <i>LikeDesc</i>.[[Value]].</li>
+
+          <li>If <i>Desc</i> does not have a [[Writable]] field, then set <i>Desc</i>.[[Writable]]
+          to <i>LikeDesc</i>.[[Writable]].</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>If <i>Desc</i> does not have a [[Get]] field, then set <i>Desc</i>.[[Get]] to
+          <i>LikeDesc</i>.[[Get]].</li>
+
+          <li>If <i>Desc</i> does not have a [[Set]] field, then set <i>Desc</i>.[[Set]] to
+          <i>LikeDesc</i>.[[Set]].</li>
+        </ol>
+      </li>
+
+      <li>If <i>Desc</i> does not have an [[Enumerable]] field, then set <i>Desc</i>.[[Enumerable]]
+      to <i>LikeDesc</i>.[[Enumerable]].</li>
+
+      <li>If <i>Desc</i> does not have a [[Configurable]] field, then set
+      <i>Desc</i>.[[Configurable]] to <i>LikeDesc</i>.[[Configurable]].</li>
+
+      <li>Return <i>Desc</i>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

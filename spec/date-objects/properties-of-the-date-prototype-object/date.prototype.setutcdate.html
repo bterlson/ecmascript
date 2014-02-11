@@ -1,0 +1,24 @@
+<es-clause title="Date.prototype.setUTCDate (date)" anchor="sec-date.prototype.setutcdate">
+  <ol class="proc">
+    <li>Let <i>t</i> be <es-xref target="sec-properties-of-the-date-prototype-object">this time
+    value</es-xref>.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>t</i>).</li>
+
+    <li>Let <i>dt</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>date</i>).</li>
+
+    <li>Let <i>newDate</i> be <es-xref target="sec-makedate">MakeDate</es-xref>(<es-xref target=
+    "sec-makeday">MakeDay</es-xref>(<es-xref target=
+    "sec-year-number">YearFromTime</es-xref>(<i>t</i>), <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>), <i>dt</i>), <es-xref target=
+    "sec-day-number-and-time-within-day">TimeWithinDay</es-xref>(<i>t</i>)).</li>
+
+    <li>Let <i>v</i> be <es-xref target="sec-timeclip">TimeClip</es-xref>(<i>newDate</i>).</li>
+
+    <li>Set the [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date object to
+    <i>v</i>.</li>
+
+    <li>Return <i>v</i>.</li>
+  </ol>
+</es-clause>

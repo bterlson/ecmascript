@@ -1,0 +1,164 @@
+<es-clause title="RequestLoad(loader, request, refererName, refererAddress) Abstract Operation"
+anchor="sec-requestload">
+  <p>The RequestLoad abstract operation normalizes the given module name, <es-nt>request</es-nt>,
+  and returns a Promise object that resolves to the value of a Load object for the given
+  module.</p>
+
+  <p>The <es-nt>loader</es-nt> argument is a Loader record.</p>
+
+  <p><es-nt>request</es-nt> is the (non-normalized) name of the module to be imported, as it
+  appears in the import-declaration or as the argument to <code>loader.load()</code> or
+  <code>loader.import()</code>.</p>
+
+  <p><es-nt>refererName</es-nt> and <es-nt>refererAddress</es-nt> provide information about the
+  context of the <code>import()</code> call or import-declaration. This information is passed to
+  all the <es-nt>loader</es-nt> hooks.</p>
+
+  <p>If the requested module is already in the <es-nt>loader</es-nt>'s module registry, RequestLoad
+  returns a Promise object for a Load with the [[Status]] field set to <code>"linked"</code>. If
+  the requested module is loading or loaded but not yet linked, RequestLoad returns a Promise
+  object for an existing Load object from <es-nt>loader</es-nt>.[[Loads]]. Otherwise, RequestLoad
+  starts loading the module and returns a Promise object for a new Load Record.</p>
+
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>F</i> be a new anonymous function as defined by CallNormalize.</li>
+
+    <li>Set <i>F</i>’s [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>loader</i>.</li>
+
+    <li>Set <i>F</i>’s [[Request]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>request</i>.</li>
+
+    <li>Set <i>F</i>’s [[RefererName]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>refererName</i>.</li>
+
+    <li>Set <i>F</i>’s [[RefererAddress]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>refererAddress</i>.</li>
+
+    <li>Let <i>p</i> be PromiseNew(<i>F</i>).</li>
+
+    <li>Let <i>G</i> be a new built-in function as defined by GetOrCreateLoad.</li>
+
+    <li>Set <i>G</i>’s [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>loader</i>.</li>
+
+    <li>Return PromiseThen(<i>p</i>, <i>G</i>).</li>
+  </ol>
+
+  <es-clause title="CallNormalize(resolve, reject) Functions" anchor=
+  "sec-callnormalize-resolve-reject-functions">
+    <p>A CallNormalize function is an anonymous built-in function that calls a
+    <es-nt>loader</es-nt>'s normalize hook.</p>
+
+    <p>Each CallNormalize function has internal slots [[Loader]], [[Request]], [[RefererName]], and
+    [[RefererAddress]].</p>
+
+    <p>When a CallNormalize function <es-nt>F</es-nt> is called with arguments
+    <es-nt>resolve</es-nt> and <es-nt>reject</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be the value of <i>F</i>’s [[Loader]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>request</i> be <i>F</i>’s [[Request]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>refererName</i> be the value of <i>F</i>’s [[RefererName]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>refererAddress</i> be the value of <i>F</i>’s [[RefererAddress]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>loaderObj</i> be <i>loader</i>.[[LoaderObj]].</li>
+
+      <li>Let <i>normalizeHook</i> be the result of <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>loaderObj</i>, <code>"normalize"</code>).</li>
+
+      <li>Let <i>name</i> be the result of calling the [[Call]] internal method of
+      <i>normalizeHook</i> passing <i>loaderObj</i> and (<i>request</i>, <i>refererName</i>,
+      <i>refererAddress</i>) as arguments.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
+
+      <li>Return the result of calling the [[Call]] internal method of <i>resolve</i> passing
+      <b>undefined</b> and (<i>name</i>) as arguments.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="GetOrCreateLoad(name) Functions" anchor="sec-getorcreateload-name-functions">
+    <p>A GetOrCreateLoad function is an anonymous function that gets or creates a Load Record for a
+    given module <es-nt>name</es-nt>.</p>
+
+    <p>Each GetOrCreateLoad function has a [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+    <p>When a GetOrCreateLoad function <es-nt>F</es-nt> is called with argument
+    <es-nt>name</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be <i>F</i>’s [[Loader]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>name</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>name</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
+
+      <li>Let <i>modules</i> be the value of of <i>loaderRecord.</i>[[ Modules]],</li>
+
+      <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+      <i>loader</i>.[[ Modules], do
+
+        <ol class="block">
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>.[[key]], <i>name</i>)
+          is <b>true</b>, then
+
+            <ol class="block">
+              <li>Let <i>existingModule</i> be the [[value]] field of that Record.</li>
+
+              <li>Let <i>load</i> be the result of <es-xref target=
+              "sec-createload">CreateLoad</es-xref>(<i>name</i>).</li>
+
+              <li>Set <i>load</i>.[[Status]] to <code>"linked"</code>.</li>
+
+              <li>Set <i>load</i>.[[Module]] to <i>existingModule</i>.</li>
+
+              <li>Return <i>load</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Repeat for each Record <i>load</i> that is an element of <i>loader</i>.[[Loads]], do
+
+        <ol class="block">
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>load</i>.[[Name]],
+          <i>name</i>) is <b>true</b>, then
+
+            <ol class="block">
+              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>load</i>.status
+              is either <code>"loading"</code> or <code>"loaded"</code>.</li>
+
+              <li>Return <i>load</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Let <i>load</i> be the result of <es-xref target=
+      "sec-createload">CreateLoad</es-xref>(<i>name</i>).</li>
+
+      <li>Append <i>load</i> to the the end of the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> <i>loader</i>.[[Loads]].</li>
+
+      <li>Call <es-xref target="sec-proceedtolocate">ProceedToLocate</es-xref>(<i>loader</i>,
+      <i>load</i>).</li>
+
+      <li>Return <i>load</i>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

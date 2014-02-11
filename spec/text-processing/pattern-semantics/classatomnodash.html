@@ -1,0 +1,12 @@
+<es-clause title="ClassAtomNoDash" anchor="sec-classatomnodash">
+  <p>The production <es-production name="ClassAtomNoDash" type="lexical" class=
+  "inline"><es-rhs><es-nt>SourceCharacter</es-nt> <es-gmod>but not one of
+  <es-t>\</es-t></es-gmod><es-gmod>or <es-t>]</es-t></es-gmod><es-gmod>or
+  <es-t>-</es-t></es-gmod></es-rhs></es-production> evaluates by returning a
+  one-element CharSet containing the character represented by <es-nt>SourceCharacter</es-nt>.</p>
+
+  <p>The production <es-production name="ClassAtomNoDash" type="lexical" class=
+  "inline"><es-rhs><es-t>\</es-t>
+  <es-nt>ClassEscape</es-nt></es-rhs></es-production> evaluates by evaluating
+  <es-nt>ClassEscape</es-nt> to obtain a CharSet and returning that CharSet.</p>
+</es-clause>

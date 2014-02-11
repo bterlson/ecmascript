@@ -1,0 +1,205 @@
+<es-clause title="Array Iterator Objects" anchor="sec-array-iterator-objects">
+  <p>An Array Iterator is an object, that represents a specific iteration over some specific Array
+  instance object. There is not a named constructor for Array Iterator objects. Instead, Array
+  iterator objects are created by calling certain methods of Array instance objects.</p>
+
+  <es-clause title="CreateArrayIterator Abstract Operation" anchor="sec-createarrayiterator">
+    <p>Several methods of Array objects return Iterator objects. The abstract operation
+    CreateArrayIterator with arguments <es-nt>array</es-nt> and <es-nt>kind</es-nt> is used to
+    create such iterator objects. It performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>O</i> be the result of calling <es-xref target=
+      "sec-toobject">ToObject</es-xref>(<i>array</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+
+      <li>Let <i>iterator</i> be the result of <es-xref target=
+      "sec-objectcreate">ObjectCreate</es-xref>(%ArrayIteratorPrototype%, ([[IteratedObject]],
+      [[ArrayIteratorNextIndex]], [[ArrayIterationKind]])).</li>
+
+      <li>Set <i>iterator’s</i> [[IteratedObject]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>O</i>.</li>
+
+      <li>Set <i>iterator’s</i> [[ArrayIteratorNextIndex]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to 0.</li>
+
+      <li>Set <i>iterator’s</i> [[ArrayIterationKind]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>kind</i>.</li>
+
+      <li>Return <i>iterator</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="The %ArrayIteratorPrototype% Object" anchor=
+  "sec-%arrayiteratorprototype%-object">
+    <p>All Array Iterator Objects inherit properties from the %ArrayIteratorPrototype% intrinsic
+    object. The %ArrayIteratorPrototype% object is an ordinary object and its [[Prototype]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is the
+    %ObjectPrototype% intrinsic object. In addition, %ArrayIteratorPrototype% has the following
+    properties:</p>
+
+    <es-clause title="%ArrayIteratorPrototype%. next( )" anchor=
+    "sec-%arrayiteratorprototype%-next">
+      <ol class="proc">
+        <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+        not Object, throw a <b>TypeError</b> exception.</li>
+
+        <li>If <i>O</i> does not have all of the internal slots of an Array Iterator Instance
+        (<es-xref target="sec-properties-of-array-iterator-instances">22.1.5.3</es-xref>), throw a
+        <b>TypeError</b> exception.</li>
+
+        <li>Let <i>a</i> be the value of the [[IteratedObject]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
+
+        <li>If <i>a</i> is <b>undefined</b>, then return <es-xref target=
+        "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+        <b>true</b>).</li>
+
+        <li>Let <i>index</i> be the value of the [[ArrayIteratorNextIndex]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
+
+        <li>Let <i>itemKind</i> be the value of the [[ArrayIterationKind]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
+
+        <li>Let <i>lenValue</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>a</i>, <code>"length"</code>).</li>
+
+        <li>Let <i>len</i> be <es-xref target=
+        "sec-tolength">ToLength</es-xref>(<i>lenValue</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+        <li>If <i>index</i> ≥ <i>len</i>, then
+
+          <ol class="block">
+            <li>Set the value of the [[IteratedObject]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+            <b>undefined</b>.</li>
+
+            <li>Return <es-xref target=
+            "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
+            <b>true</b>).</li>
+          </ol>
+        </li>
+
+        <li>Set the value of the [[ArrayIteratorNextIndex]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+        <i>index</i>+1.</li>
+
+        <li>If <i>itemKind</i> contains the substring <b>"value"</b>, then
+
+          <ol class="block">
+            <li>Let <i>elementKey</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>index</i>).</li>
+
+            <li>Let <i>elementValue</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>a</i>, <i>elementKey</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>elementValue</i>).</li>
+          </ol>
+        </li>
+
+        <li>If <i>itemKind</i> contains the substring <b>"key+value"</b>, then
+
+          <ol class="block">
+            <li>Let <i>result</i> be the result of performing <es-xref target=
+            "sec-arraycreate">ArrayCreate</es-xref>(2).</li>
+
+            <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>result</i> is a
+            new, well-formed Array object so the following operations will never fail.</li>
+
+            <li>Call <es-xref target=
+            "sec-createdataproperty">CreateDataProperty</es-xref>(<i>result</i>, <b>"0"</b>,
+            <i>index</i>).</li>
+
+            <li>Call <es-xref target=
+            "sec-createdataproperty">CreateDataProperty</es-xref>(<i>result</i>, <b>"1"</b>,
+            <i>elementValue</i>).</li>
+
+            <li>Return <es-xref target=
+            "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>result</i>,
+            <b>false</b>).</li>
+          </ol>
+        </li>
+
+        <li>Else If <i>itemKind</i> contains the substring <b>"key"</b> then, return
+        <es-xref target="sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>index</i>,
+        <b>false</b>).</li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>itemKind</i> contains
+        the substring <code>"value"</code>,</li>
+
+        <li>Return <es-xref target=
+        "sec-createiterresultobject">CreateIterResultObject</es-xref>(<i>elementValue</i>,
+        <b>false</b>).</li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="%ArrayIteratorPrototype% [ @@iterator ] ( )" anchor=
+    "sec-%arrayiteratorprototype%-@@iterator">
+      <p>The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Return the <b>this</b> value.</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is
+      <code>"[Symbol.iterator]"</code>.</p>
+    </es-clause>
+
+    <es-clause title="%ArrayIteratorPrototype% [ @@toStringTag ]" anchor=
+    "sec-%arrayiteratorprototype%-@@tostringtag">
+      <p>The initial value of the @@toStringTag property is the string value <b>"Array
+      Iterator"</b>.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="Properties of Array Iterator Instances" anchor=
+  "sec-properties-of-array-iterator-instances">
+    <p>Array Iterator instances are ordinary objects that inherit properties from the
+    %ArrayIteratorPrototype% intrinsic object. Array Iterator instances are initially created with
+    the internal slots listed in <a href="#table-42">Table 42</a> .</p>
+
+    <figure>
+      <figcaption>
+        <span id="table-42">Table 42</span> — Internal Slots of Array Iterator Instances
+      </figcaption>
+
+      <table class="real-table">
+        <tr>
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+          Internal Slot</th>
+
+          <th style=
+          "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+          Description</th>
+        </tr>
+
+        <tr>
+          <td>[[IteratedObject]]</td>
+
+          <td>The object whose array elements are being iterated.</td>
+        </tr>
+
+        <tr>
+          <td>[[ArrayIteratorNextIndex]]</td>
+
+          <td>The integer index of the next array index to be examined by this iteration.</td>
+        </tr>
+
+        <tr>
+          <td>[[ArrayIterationKind]]</td>
+
+          <td>A string value that identifies what is to be returned for each element of the
+          iteration. The possible values are: <b>"key"</b>, <b>"value"</b>, <b>"key+value",
+          "sparse:key"</b>, <b>"sparse:value"</b>, <b>"sparse:key+value"</b>.</td>
+        </tr>
+      </table>
+    </figure>
+  </es-clause>
+</es-clause>

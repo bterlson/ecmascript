@@ -1,0 +1,22 @@
+<es-clause title="String.prototype.toLocaleLowerCase ( )" anchor=
+"sec-string.prototype.tolocalelowercase">
+  <p>This function interprets a string value as a sequence of code points, as described in
+  <es-xref target="sec-ecmascript-language-types-string-type">6.1.4</es-xref>.</p>
+
+  <p>This function works exactly the same as <code>toLowerCase</code> except that its result is
+  intended to yield the correct result for the host environment’s current locale, rather than a
+  locale-independent result. There will only be a difference in the few cases (such as Turkish)
+  where the rules for that language conflict with the regular Unicode case mappings.</p>
+
+  <es-note>
+    <p>The first parameter to this function is likely to be used in a future version of this
+    standard; it is recommended that implementations do not use this parameter position for
+    anything else.</p>
+  </es-note>
+
+  <es-note>
+    <p>The <code>toLocaleLowerCase</code> function is intentionally generic; it does not require
+    that its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds
+    of objects for use as a method.</p>
+  </es-note>
+</es-clause>

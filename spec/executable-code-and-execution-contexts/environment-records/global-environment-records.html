@@ -1,0 +1,667 @@
+<es-clause title="Global Environment Records" anchor="sec-global-environment-records">
+  <p>A global environment record is used to represent the outer most scope that is shared by all of
+  the ECMAScript <es-nt>Script</es-nt> elements that are processed in a common <es-xref target=
+  "sec-code-realms">Realm</es-xref> (<es-xref target="sec-code-realms">8.2</es-xref>). A global
+  environment provides the bindings for built-in globals (<es-xref target=
+  "sec-global-object">clause 18</es-xref>), properties of the global object, and for all
+  declarations that are not function code and that occur within <es-nt>Script</es-nt>
+  productions.</p>
+
+  <p>A global environment record is logically a single record but it is specified as a composite
+  encapsulating an <es-xref target="sec-object-environment-records">object environment
+  record</es-xref> and a <es-xref target="sec-declarative-environment-records">declarative
+  environment record</es-xref>. The <es-xref target="sec-object-environment-records">object
+  environment record</es-xref> has as its base object the global object of the associated
+  <es-xref target="sec-code-realms">Realm</es-xref>. This global object is also the value of the
+  global environment record’s <es-nt>thisValue</es-nt>. The <es-xref target=
+  "sec-object-environment-records">object environment record</es-xref> component of a global
+  environment record contains the bindings for all built-in globals (<es-xref target=
+  "sec-global-object">clause 18</es-xref>) and all bindings introduced by a
+  <es-nt>FunctionDeclaration</es-nt> or <es-nt>VariableStatement</es-nt> contained in global code.
+  The bindings for all other ECMAScript declarations in global code are contained in the
+  <es-xref target="sec-declarative-environment-records">declarative environment record</es-xref>
+  component of the global environment record.</p>
+
+  <p>Properties may be created directly on a global object. Hence, the <es-xref target=
+  "sec-object-environment-records">object environment record</es-xref> component of a global
+  environment record may contain both bindings created explicitly by
+  <es-nt>FunctionDeclaration</es-nt> or <es-nt>VariableStatement</es-nt> declarations and binding
+  created implicitly as properties of the global object. In order to identify which bindings were
+  explicitly created using declarations, a global environment record maintains a list of the names
+  bound using its CreateGlobalVarBindings and CreateGlobalFunctionBindings concrete methods.</p>
+
+  <p>Global environment records have the additional state components listed in <a href=
+  "#table-18">Table 18</a> and the additional methods listed in <a href="#table-19">Table 19</a>
+  .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-18">Table 18</span> -- Components of Global Environment Records
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Component</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Purpose</th>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+        ObjectEnvironment</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+        An <es-xref target="sec-object-environment-records">Object Environment Record</es-xref>
+        whose base object is the global object. Contains global built-in bindings as well as
+        bindings for <es-nt>FunctionDeclaration</es-nt> or <es-nt>VariableStatement</es-nt>
+        declarations in global code for the associated <es-xref target=
+        "sec-code-realms">Realm</es-xref>.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        DeclarativeEnvironment</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        A <es-xref target="sec-declarative-environment-records">Declarative Environment
+        Record</es-xref> that contains bindings for all declarations in global for the associated
+        <es-xref target="sec-code-realms">Realm</es-xref> code except for
+        <es-nt>FunctionDeclaration</es-nt> and <es-nt>VariableStatement</es-nt> declarations.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        VarNames</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        A <es-xref target="sec-list-and-record-specification-type">List</es-xref> containing the
+        string names bound by <es-nt>FunctionDeclaration</es-nt> or
+        <es-nt>VariableStatement</es-nt> declarations in global code for the associated
+        <es-xref target="sec-code-realms">Realm</es-xref>.</td>
+      </tr>
+    </table>
+  </figure>
+
+  <figure>
+    <figcaption>
+      <span id="table-19">Table 19</span> — Additional Methods of Global Environment Records
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-top: 2px solid #000000">
+        Method</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Purpose</th>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        GetThisBinding()</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        Return the value of this environment record’s <code>this</code> binding.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <es-xref target="sec-hasvardeclaration">HasVarDeclaration</es-xref> (N)</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        Determines if the argument identifier has a binding in this environment record that was
+        created using a <es-nt>VariableStatement</es-nt> or a <i>FunctionDeclaration</i>.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <es-xref target="sec-haslexicaldeclaration">HasLexicalDeclaration</es-xref> (N)</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        Determines if the argument identifier has a binding in this environment record that was
+        created using a lexical declaration such as a <es-nt>LexicalDeclaration</es-nt> or a
+        <es-nt>ClassDeclaration</es-nt>.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <es-xref target="sec-candeclareglobalvar">CanDeclareGlobalVar</es-xref> (N)</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        Determines if a corresponding <es-xref target=
+        "sec-createglobalvarbinding">CreateGlobalVarBinding</es-xref> call would succeed if called
+        for the same argument <es-nt>N</es-nt>.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <es-xref target="sec-candeclareglobalfunction">CanDeclareGlobalFunction</es-xref> (N)</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        Determines if a corresponding <es-xref target=
+        "sec-createglobalfunctionbinding">CreateGlobalFunctionBinding</es-xref> call would succeed
+        if called for the same argument <es-nt>N</es-nt>.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <es-xref target="sec-createglobalvarbinding">CreateGlobalVarBinding</es-xref>(N, D)</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        Used to create global <code>var</code> bindings in the ObjectEnvironmentComponent of the
+        environment record. The binding will be a mutable binding. The corresponding global object
+        property will have attribute values approate for a <code>var</code>. The String value
+        <es-nt>N</es-nt> is the text of the bound name. <i>V</i> is the initial value of the
+        binding If the optional Boolean argument <es-nt>D</es-nt> is <b>true</b> the binding is may
+        be subsequently deleted. This is logically equivalent to CreateMutableBinding but it allows
+        var declarations to receive special treatment.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        <es-xref target="sec-createglobalfunctionbinding">CreateGlobalFunctionBinding</es-xref>(N,
+        V, D)</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        Used to create and initialise global <code>function</code> bindings in the
+        ObjectEnvironmentComponent of the environment record. The binding will be a mutable
+        binding. The corresponding global object property will have attribute values approate for a
+        <code>function</code>.The String value <es-nt>N</es-nt> is the text of the bound name. If
+        the optional Boolean argument <es-nt>D</es-nt> is <b>true</b> the binding is may be
+        subsequently deleted. This is logically equivalent to CreateMutableBinding followed by a
+        SetMutableBinding but it allows function declarations to receive special treatment.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">
+        </td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>The behaviour of the concrete specification methods for Global Environment Records is defined
+  by the following algorithms.</p>
+
+  <es-clause title="HasBinding(N)" anchor="sec-global-environment-records-hasbinding-n">
+    <p>The concrete environment record method HasBinding for global environment records simply
+    determines if the argument identifier is one of the identifiers bound by the record:</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be <es-xref target="sec-global-environment-records">the global
+      environment record</es-xref> for which the method was invoked.</li>
+
+      <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
+
+      <li>If the result of calling <i>DclRec’s</i> HasBinding concrete method with argument
+      <i>N</i> is <b>true</b>, return <b>true</b>.</li>
+
+      <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+      <li>Return the result of calling <i>ObjRec’s</i> HasBinding concrete method with argument
+      <i>N</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CreateMutableBinding (N, D)" anchor=
+  "sec-global-environment-records-createmutablebinding-n-d">
+    <p>The concrete environment record method CreateMutableBinding for global environment records
+    creates a new mutable binding for the name <es-nt>N</es-nt> that is uninitialised. The binding
+    is created in the associated DeclarativeEnvironment. A binding for <es-nt>N</es-nt> must not
+    already exist in the DeclarativeEnvironment. If Boolean argument <es-nt>D</es-nt> is provided
+    and has the value <b>true</b> the new binding is marked as being subject to deletion.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be <es-xref target="sec-global-environment-records">the global
+      environment record</es-xref> for which the method was invoked.</li>
+
+      <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>DclRec</i> does not
+      already have a binding for <i>N</i>.</li>
+
+      <li>Return the result of calling the CreateMutableBinding concrete method of <i>DclRec</i>
+      with arguments <i>N</i> and <i>D</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CreateImmutableBinding (N)" anchor=
+  "sec-global-environment-records-createimmutablebinding-n">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    CreateImmutableBinding for global environment records creates a new immutable binding for the
+    name <es-nt>N</es-nt> that is uninitialised. A binding must not already exist in this
+    environment record for <es-nt>N</es-nt>.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be <es-xref target="sec-global-environment-records">the global
+      environment record</es-xref> for which the method was invoked.</li>
+
+      <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>DclRec</i> does not
+      already have a binding for <i>N</i>.</li>
+
+      <li>Return the result of calling the CreateImmutableBinding concrete method of <i>DclRec</i>
+      with argument <i>N</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="InitialiseBinding (N,V)" anchor=
+  "sec-global-environment-records-initialisebinding-n-v">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    InitialiseBinding for global environment records is used to set the bound value of the current
+    binding of the identifier whose name is the value of the argument <es-nt>N</es-nt> to the value
+    of argument <es-nt>V</es-nt>. An uninitialised binding for <es-nt>N</es-nt> must already
+    exist.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be <es-xref target="sec-global-environment-records">the global
+      environment record</es-xref> for which the method was invoked.</li>
+
+      <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
+
+      <li>If the result of calling <i>DclRec’s</i> HasBinding concrete method with argument
+      <i>N</i> is <b>true</b>, then
+
+        <ol class="block">
+          <li>Return the result of calling <i>DclRec’s</i> InitialiseBinding concrete method with
+          arguments <i>N</i> and <i>V</i>.</li>
+        </ol>
+      </li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: If the binding exists it
+      must be in the <es-xref target="sec-object-environment-records">object environment
+      record</es-xref>.</li>
+
+      <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+      <li>Return the result of calling <i>ObjRec’s</i> InitialiseBinding concrete method with
+      arguments <i>N</i> and <i>V</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="SetMutableBinding (N,V,S)" anchor=
+  "sec-global-environment-records-setmutablebinding-n-v-s">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    SetMutableBinding for global environment records attempts to change the bound value of the
+    current binding of the identifier whose name is the value of the argument <es-nt>N</es-nt> to
+    the value of argument <es-nt>V</es-nt>. If the binding is an immutable binding, a
+    <b>TypeError</b> is thrown if S is <span class="value">true</span>. A property named
+    <es-nt>N</es-nt> normally already exists but if it does not or is not currently writable, error
+    handling is determined by the value of the Boolean argument <es-nt>S</es-nt>.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
+
+      <li>If the result of calling <i>DclRec’s</i> HasBinding concrete method with argument
+      <i>N</i> is <b>true</b>, then
+
+        <ol class="block">
+          <li>Return the result of calling the SetMutableBinding concrete method of <i>DclRec</i>
+          with arguments <i>N</i>, <i>V</i>, and <i>S</i>.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+      <li>Return the result of calling the SetMutableBinding concrete method of <i>ObjRec</i> with
+      arguments <i>N</i>, <i>V</i>, and <i>S</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="GetBindingValue(N,S)" anchor=
+  "sec-global-environment-records-getbindingvalue-n-s">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    GetBindingValue for global environment records simply returns the value of its bound identifier
+    whose name is the value of the argument <es-nt>N</es-nt>. If <es-nt>S</es-nt> is <b>true</b>
+    and the binding is an uninitialised binding throw a <b>ReferenceError</b> exception. A property
+    named <es-nt>N</es-nt> normally already exists but if it does not or is not currently writable,
+    error handling is determined by the value of the Boolean argument <es-nt>S</es-nt>.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
+
+      <li>If the result of calling <i>DclRec’s</i> HasBinding concrete method with argument
+      <i>N</i> is <b>true</b>, then
+
+        <ol class="block">
+          <li>Return the result of calling the GetBindingValue concrete method of <i>DclRec</i>
+          with arguments <i>N</i> and <i>S</i>.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+      <li>Return the result of calling the GetBindingValue concrete method of <i>ObjRec</i> with
+      arguments <i>N</i>, and <i>S</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="DeleteBinding (N)" anchor="sec-global-environment-records-deletebinding-n">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    DeleteBinding for global environment records can only delete bindings that have been explicitly
+    designated as being subject to deletion.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
+
+      <li>If the result of calling <i>DclRec’s</i> HasBinding concrete method with argument
+      <i>N</i> is <b>true</b>, then
+
+        <ol class="block">
+          <li>Return the result of calling the DeleteBinding concrete method of <i>DclRec</i> with
+          argument <i>N</i>.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+      <li>If the result of calling <i>ObjRec’s</i> HasBinding concrete method with argument
+      <i>N</i> is <b>true</b>, then
+
+        <ol class="block">
+          <li>Let <i>status</i> be the result of calling the DeleteBinding concrete method of
+          <i>ObjRec</i> with argument <i>N</i>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+          <li>If <i>status</i> is <b>true</b>, then
+
+            <ol class="block">
+              <li>Let <i>varNames</i> be <i>envRec’s</i> VarNames <es-xref target=
+              "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+              <li>If <i>N</i> is an element of <i>varNames</i>, then remove that element from the
+              <i>varNames</i>.</li>
+            </ol>
+          </li>
+
+          <li>Return <i>status</i>.</li>
+        </ol>
+      </li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="HasThisBinding ()" anchor="sec-global-environment-records-hasthisbinding">
+    <p><es-xref target="sec-global-environment-records">Global Environment Records</es-xref> always
+    provide a <code>this</code> binding whose value is the associated global object.</p>
+
+    <ol class="proc">
+      <li>Return <b>true</b>.</li>
+    </ol>
+
+    <p>HasSuperBinding ()</p>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="WithBaseObject()" anchor="sec-global-environment-records-withbaseobject">
+    <p><es-xref target="sec-global-environment-records">Global Environment Records</es-xref> always
+    return <b>undefined</b> as their WithBaseObject.</p>
+
+    <ol class="proc">
+      <li>Return <b>undefined</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="GetThisBinding ()" anchor="sec-global-environment-records-getthisbinding">
+    <ol class="proc">
+      <li>Let <i>envRec</i> be <es-xref target="sec-global-environment-records">the global
+      environment record</es-xref> for which the method was invoked.</li>
+
+      <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+      <li>Let <i>bindings</i> be the binding object for <i>ObjRec</i>.</li>
+
+      <li>Return <i>bindings</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="HasVarDeclaration (N)" anchor="sec-hasvardeclaration">
+    <p>The concrete environment record method HasVarDeclaration for global environment records
+    determines if the argument identifier has a binding in this record that was created using a
+    <es-nt>VariableStatement</es-nt> or a <es-production name="FunctionDeclaration" class=
+    "inline"><es-rhs></es-rhs></es-production></p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be <es-xref target="sec-global-environment-records">the global
+      environment record</es-xref> for which the method was invoked.</li>
+
+      <li>Let <i>varDeclaredNames</i> be <i>envRec’s</i> VarNames <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>If <i>varDeclaredNames</i> contains the value of <i>N</i>, return <b>true</b>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="HasLexicalDeclaration (N)" anchor="sec-haslexicaldeclaration">
+    <p>The concrete environment record method HasLexicalDeclaration for global environment records
+    determines if the argument identifier has a binding in this record that was created using a
+    lexical declaration such as a <es-nt>LexicalDeclaration</es-nt> or a
+    <es-production name="ClassDeclaration" class=
+    "inline"><es-rhs></es-rhs></es-production></p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be <es-xref target="sec-global-environment-records">the global
+      environment record</es-xref> for which the method was invoked.</li>
+
+      <li>Let <i>DclRec</i> be <i>envRec’s</i> DeclarativeEnvironment.</li>
+
+      <li>Return the result of calling <i>DclRec’s</i> HasBinding concrete method with argument
+      <i>N</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CanDeclareGlobalVar (N)" anchor="sec-candeclareglobalvar">
+    <p>The concrete environment record method CanDeclareGlobalVar for global environment records
+    determines if a corresponding <es-xref target=
+    "sec-createglobalvarbinding">CreateGlobalVarBinding</es-xref> call would succeed if called for
+    the same argument <es-nt>N</es-nt>. Redundent var declarations and var declarations for
+    pre-existing global object properties are allowed.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be <es-xref target="sec-global-environment-records">the global
+      environment record</es-xref> for which the method was invoked.</li>
+
+      <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+      <li>If the result of calling <i>ObjRec’s</i> HasBinding concrete method with argument
+      <i>N</i> is <b>true</b>, return <b>true</b>.</li>
+
+      <li>Let <i>bindings</i> be the binding object for <i>ObjRec</i>.</li>
+
+      <li>Let <i>extensible</i> be the result of <es-xref target=
+      "sec-isextensible-o">IsExtensible</es-xref>(<i>bindings</i>).</li>
+
+      <li>Return <i>extensible</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CanDeclareGlobalFunction (N)" anchor="sec-candeclareglobalfunction">
+    <p>The concrete environment record method CanDeclareGlobalFunction for global environment
+    records determines if a corresponding <es-xref target=
+    "sec-createglobalfunctionbinding">CreateGlobalFunctionBinding</es-xref> call would succeed if
+    called for the same argument <es-nt>N</es-nt>.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be <es-xref target="sec-global-environment-records">the global
+      environment record</es-xref> for which the method was invoked.</li>
+
+      <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+      <li>Let <i>globalObject</i> be the binding object for <i>ObjRec</i>.</li>
+
+      <li>Let <i>extensible</i> be the result of <es-xref target=
+      "sec-isextensible-o">IsExtensible</es-xref>(<i>globalObject</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>extensible</i>).</li>
+
+      <li>If the result of calling <i>ObjRec’s</i> HasBinding concrete method with argument
+      <i>N</i> is <b>false</b>, then return <i>extensible</i>.</li>
+
+      <li>Let <i>existingProp</i> be the result of calling the [[GetOwnProperty]] internal method
+      of <i>globalObject</i> with argument <i>N</i>.</li>
+
+      <li>If <i>existingProp</i> is <b>undefined</b>, then return <i>extensible</i>.</li>
+
+      <li>If <i>existingProp</i>.[[Configurable]] is <b>true</b>, then return <b>true</b>.</li>
+
+      <li>If <es-xref target="sec-isdatadescriptor">IsDataDescriptor</es-xref>(<i>existingProp</i>)
+      is <b>true</b> and <i>existingProp</i> has attribute values {[[Writable]]: <b>true</b>,
+      [[Enumerable]]: <b>true</b>}, then return <b>true</b>.</li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CreateGlobalVarBinding (N, D)" anchor="sec-createglobalvarbinding">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    CreateGlobalVarBinding for global environment records creates a mutable binding in the
+    associated <es-xref target="sec-object-environment-records">object environment record</es-xref>
+    and records the bound name in the associated VarNames <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>. If a binding already exists, it is
+    reused.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+      <li>If the result of calling <i>ObjRec’s</i> HasBinding concrete method with argument
+      <i>N</i> is <b>false</b>, then
+
+        <ol class="block">
+          <li>Let <i>status</i> be the result of calling the CreateMutableBinding concrete method
+          of <i>ObjRec</i> with arguments <i>N</i> and <i>D</i>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+        </ol>
+      </li>
+
+      <li>Let <i>varDeclaredNames</i> be <i>envRec’s</i> VarNames <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>If <i>varDeclaredNames</i> does not contain the value of <i>N</i>, then
+
+        <ol class="block">
+          <li>Append <i>N</i> to <i>varDeclaredNames</i>.</li>
+        </ol>
+      </li>
+
+      <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CreateGlobalFunctionBinding (N, V, D)" anchor=
+  "sec-createglobalfunctionbinding">
+    <p>The concrete <es-xref target="sec-environment-records">Environment Record</es-xref> method
+    CreateGlobalFunctionBinding for global environment records creates a mutable binding in the
+    associated <es-xref target="sec-object-environment-records">object environment record</es-xref>
+    and records the bound name in the associated VarNames <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>. If a binding already exists, it is
+    replaced.</p>
+
+    <ol class="proc">
+      <li>Let <i>envRec</i> be the <es-xref target=
+      "sec-declarative-environment-records">declarative environment record</es-xref> for which the
+      method was invoked.</li>
+
+      <li>Let <i>ObjRec</i> be <i>envRec’s</i> ObjectEnvironment.</li>
+
+      <li>Let <i>globalObject</i> be the binding object for <i>ObjRec</i>.</li>
+
+      <li>Let <i>existingProp</i> be the result of calling the [[GetOwnProperty]] internal method
+      of <i>globalObject</i> with argument <i>N</i>.</li>
+
+      <li>If <i>existingProp</i> is <b>undefined</b> or <i>existingProp</i>.[[Configurable]] is <b>
+        true</b>, then
+
+        <ol class="block">
+          <li>Let <i>desc</i> be the PropertyDescriptor{[[Value]]:<i>V</i>, [[Writable]]:
+          <b>true</b>, [[Enumerable]]: <b>true</b> , [[Configurable]]: <i>D</i>}.</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Let <i>desc</i> be the PropertyDescriptor{[[Value]]:<i>V</i> }.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>status</i> be the result of <es-xref target=
+      "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>globalObject</i>, <i>N</i>,
+      <i>desc</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>Let <i>varDeclaredNames</i> be <i>envRec’s</i> VarNames <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>If <i>varDeclaredNames</i> does not contain the value of <i>N</i>, then
+
+        <ol class="block">
+          <li>Append <i>N</i> to <i>varDeclaredNames</i>.</li>
+        </ol>
+      </li>
+
+      <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
+    </ol>
+
+    <es-note>
+      <p>Global function declarations are always represented as own properties of the global
+      object. If possible, an existing own property is reconfigured to have a standard set of
+      attribute values.</p>
+    </es-note>
+  </es-clause>
+</es-clause>

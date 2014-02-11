@@ -1,0 +1,51 @@
+<es-clause title="String.prototype.substring (start, end)" anchor="sec-string.prototype.substring">
+  <p>The <b>substring</b> method takes two arguments, <es-nt>start</es-nt> and <es-nt>end</es-nt>,
+  and returns a substring of the result of converting this object to a String, starting from
+  element position <es-nt>start</es-nt> and running to, but not including, element position
+  <es-nt>end</es-nt> of the String (or through the end of the String is <es-nt>end</es-nt> is
+  <b>undefined</b>). The result is a String value, not a String object.</p>
+
+  <p>If either argument is <b>NaN</b> or negative, it is replaced with zero; if either argument is
+  larger than the length of the String, it is replaced with the length of the String.</p>
+
+  <p>If <es-nt>start</es-nt> is larger than <es-nt>end</es-nt>, they are swapped.</p>
+
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
+
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
+
+    <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
+
+    <li>Let <i>intStart</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>start</i>).</li>
+
+    <li>If <i>end</i> is <b>undefined</b>, let <i>intEnd</i> be <i>len</i>; else let <i>intEnd</i>
+    be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>end</i>).</li>
+
+    <li>Let <i>finalStart</i> be min(max(<i>intStart</i>, 0), <i>len</i>).</li>
+
+    <li>Let <i>finalEnd</i> be min(max(<i>intEnd</i>, 0), <i>len</i>).</li>
+
+    <li>Let <i>from</i> be min(<i>finalStart</i>, <i>finalEnd</i>).</li>
+
+    <li>Let <i>to</i> be max(<i>finalStart</i>, <i>finalEnd</i>).</li>
+
+    <li>Return a String whose length is <i>to</i> - <i>from</i>, containing code units from
+    <i>S</i>, namely the code units with indices <i>from</i> through <i>to</i> −1, in ascending
+    order.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>substring</code> method is <b>2</b>.</p>
+
+  <es-note>
+    <p>The <code>substring</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of
+    objects for use as a method.</p>
+  </es-note>
+</es-clause>

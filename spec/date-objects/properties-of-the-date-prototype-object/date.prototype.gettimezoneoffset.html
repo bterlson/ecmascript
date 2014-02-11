@@ -1,0 +1,16 @@
+<es-clause title="Date.prototype.getTimezoneOffset ( )" anchor=
+"sec-date.prototype.gettimezoneoffset">
+  <p>Returns the difference between local time and UTC time in minutes.</p>
+
+  <ol class="proc">
+    <li>Let <i>t</i> be <es-xref target="sec-properties-of-the-date-prototype-object">this time
+    value</es-xref>.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>t</i>).</li>
+
+    <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+    <li>Return (<i>t</i> − <es-xref target="sec-local-time">LocalTime</es-xref>(<i>t</i>)) /
+    <es-xref target="sec-hours-minutes-second-and-milliseconds">msPerMinute</es-xref>.</li>
+  </ol>
+</es-clause>

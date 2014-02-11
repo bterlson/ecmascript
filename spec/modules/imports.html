@@ -1,0 +1,320 @@
+<es-clause title="Imports" anchor="sec-imports">
+  <es-production name="ImportDeclaration">
+    <es-rhs><es-nt>ModuleImport</es-nt></es-rhs>
+
+    <es-rhs>import <es-nt>ImportClause</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+
+    <es-rhs><es-t>import</es-t> <es-nt>ModuleSpecifier</es-nt> <es-t>;</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="ModuleImport">
+    <es-rhs>module <es-gann>no <es-nt>LineTerminator</es-nt>
+    here</es-gann><es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+  </es-production>
+
+  <es-production name="FromClause">
+    <es-rhs><es-t>from</es-t> <es-nt>ModuleSpecifier</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ImportClause">
+    <es-rhs><es-nt>ImportedBinding</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ImportedBinding</es-nt> , <es-nt>NamedImports</es-nt></es-rhs>
+
+    <es-rhs><es-nt>NamedImports</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="NamedImports">
+    <es-rhs>{ }</es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt>ImportsList</es-nt> <es-t>}</es-t></es-rhs>
+
+    <es-rhs><es-t>{</es-t> <es-nt>ImportsList</es-nt> <es-t>,</es-t> <es-t>}</es-t></es-rhs>
+  </es-production>
+
+  <es-production name="ImportsList">
+    <es-rhs><es-nt>ImportSpecifier</es-nt></es-rhs>
+
+    <es-rhs><es-nt>ImportsList</es-nt> , <es-nt>ImportSpecifier</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ImportSpecifier">
+    <es-rhs><es-nt>ImportedBinding</es-nt></es-rhs>
+
+    <es-rhs><es-nt>IdentifierName</es-nt> as <es-nt>ImportedBinding</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ModuleSpecifier">
+    <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+  </es-production>
+
+  <es-production name="ImportedBinding">
+    <es-rhs><es-nt>BindingIdentifier</es-nt></es-rhs>
+  </es-production>
+
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-imports-static-semantics-early-errors">
+    <es-production name="ModuleItem" class="inline">
+      <es-rhs><es-nt>ImportDeclaration</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if the BoundNames of <es-nt>ImportDeclaration</es-nt> contains any
+        duplicate entries.</p>
+      </li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Static Semantics: BoundNames" anchor="sec-imports-static-semantics-boundnames">
+    <p>See also: <es-xref target=
+    "sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</es-xref>,
+    <es-xref target="sec-variable-statement-static-semantics-boundnames">13.2.2.1</es-xref>,
+    <es-xref target=
+    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</es-xref>,
+    <es-xref target=
+    "sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.3</es-xref>,
+    <es-xref target="sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-boundnames">14.4.2</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-boundnames">14.5.2</es-xref>,
+    <es-xref target="sec-exports-static-semantics-boundnames">15.2.2.1</es-xref>.</p>
+
+    <es-production name="ImportDeclaration" class="inline">
+      <es-rhs>import <es-nt>ImportClause</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>ImportClause</i>.</li>
+    </ol>
+
+    <es-production name="ImportDeclaration" class="inline">
+      <es-rhs><es-t>import</es-t> <es-nt>ModuleSpecifier</es-nt> <es-t>;</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="ModuleImport" class="inline">
+      <es-rhs>module <es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>ImportedBinding</i>.</li>
+    </ol>
+
+    <es-production name="ImportClause" class="inline">
+      <es-rhs><es-nt>ImportedBinding</es-nt> , <es-nt>NamedImports</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be the BoundNames of <i>ImportedBinding</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the BoundNames of <i>NamedImports</i>.</li>
+
+      <li>Return names.</li>
+    </ol>
+
+    <es-production name="ImportsList" class="inline">
+      <es-rhs><es-nt>ImportsList</es-nt> , <es-nt>ImportSpecifier</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be the BoundNames of <i>ImportsList</i>.</li>
+
+      <li>Append to <i>names</i> the elements of the BoundNames of <i>ImportSpecifier</i>.</li>
+
+      <li>Return names.</li>
+    </ol>
+
+    <es-production name="ImportSpecifier" class="inline">
+      <es-rhs><es-nt>IdentifierName</es-nt> as <es-nt>ImportedBinding</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>ImportedBinding</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: ImportEntries" anchor=
+  "sec-imports-static-semantics-importentries">
+    <p>See also:<es-xref target=
+    "sec-module-static-semantics-static-semantics-importentries">15.2.0.6</es-xref>.</p>
+
+    <es-production name="ImportDeclaration" class="inline">
+      <es-rhs>import <es-nt>ImportClause</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>module</i> be the sole element of ModuleRequests of <i>FromClause</i>.</li>
+
+      <li>Return ImportEntriesForModule of <i>ImportClause</i> with argument <i>module</i>.</li>
+    </ol>
+
+    <es-production name="ImportDeclaration" class="inline">
+      <es-rhs><es-t>import</es-t> <es-nt>ModuleSpecifier</es-nt> <es-t>;</es-t></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="ModuleImport" class="inline">
+      <es-rhs>module <es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>module</i> be ModuleRequests of <i>FromClause</i>.</li>
+
+      <li>Let <i>localName</i> be the <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>ImportedBinding</i>.</li>
+
+      <li>Let <i>entry</i> be the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]:
+      <code>"default"</code>, [[LocalName]]: <i>localName</i> }.</li>
+
+      <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing <i>entry</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: ImportEntriesForModule" anchor=
+  "sec-static-semantics-importentriesformodule">
+    <p>With parameter <es-nt>module</es-nt>.</p>
+
+    <es-production name="ImportClause" class="inline">
+      <es-rhs><es-nt>ImportedBinding</es-nt> , <es-nt>NamedImports</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>localName</i> be the <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>ImportedBinding</i>.</li>
+
+      <li>Let <i>defaultEntry</i> be the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]:
+      <code>"default"</code>, [[LocalName]]: <i>localName</i> }.</li>
+
+      <li>Let <i>entries</i> be a new <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> containing <i>defaultEntry.</i></li>
+
+      <li>Append to <i>entries</i> the elements of the ImportEntriesForModule of
+      <i>NamedImports</i> with argument <i>module</i>.</li>
+
+      <li>Return <i>entries</i>.</li>
+    </ol>
+
+    <es-production name="NamedImports" class="inline">
+      <es-rhs>{ }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a new empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="ImportsList" class="inline">
+      <es-rhs><es-nt>ImportsList</es-nt> , <es-nt>ImportSpecifier</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>specs</i> be the ImportEntriesForModule of <i>ImportsList</i> with argument
+      <i>module</i>.</li>
+
+      <li>Append to <i>specs</i> the elements of the ImportEntitiesForModule of
+      <i>ImportSpecifier</i> with argument <i>module</i>.</li>
+
+      <li>Return <i>specs</i>.</li>
+    </ol>
+
+    <es-production name="ImportSpecifier" class="inline">
+      <es-rhs><es-nt>ImportedBinding</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>localName</i> be the <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>ImportedBinding</i>.</li>
+
+      <li>Let <i>entry</i> be the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]:
+      <i>localName</i> , [[LocalName]]: <i>localName</i> }.</li>
+
+      <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing <i>entry</i>.</li>
+    </ol>
+
+    <es-production name="ImportSpecifier" class="inline">
+      <es-rhs><es-nt>IdentifierName</es-nt> as <es-nt>ImportedBinding</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>importName</i> be the <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>IdentifierName</i>.</li>
+
+      <li>Let <i>localName</i> be the <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>ImportedBinding</i>.</li>
+
+      <li>Let <i>entry</i> be the Record {[[ModuleRequest]]: <i>module</i>, [[ImportName]]:
+      <i>importName</i>, [[LocalName]]: <i>localName</i> }.</li>
+
+      <li>Return a new <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing <i>entry</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: ModuleRequests" anchor=
+  "sec-imports-static-semantics-modulerequests">
+    <p>See also: <es-xref target=
+    "sec-module-static-semantics-static-semantics-modulerequests">15.2.0.9</es-xref>,
+    <es-xref target="sec-exports-static-semantics-modulerequests">15.2.2.5</es-xref>.</p>
+
+    <es-production name="ImportDeclaration" class="inline">
+      <es-rhs>import <es-nt>ImportClause</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return ModuleRequests of <i>FromClause</i>.</li>
+    </ol>
+
+    <es-production name="ModuleImport" class="inline">
+      <es-rhs>module <es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return ModuleRequests of <i>FromClause</i>.</li>
+    </ol>
+
+    <es-production name="ModuleSpecifier" class="inline">
+      <es-rhs><es-nt>StringLiteral</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return a <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+      containing the <es-xref target="sec-identifiers-and-identifier-names">StringValue</es-xref>
+      of <i>StringLiteral</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Module Objects" anchor=
+  "sec-runtime-semantics-module-objects">
+    <es-production name="ModuleImport" class="inline">
+      <es-rhs>module <es-nt>ImportedBinding</es-nt> <es-nt>FromClause</es-nt> ;</es-rhs>
+    </es-production>
+
+    <p>An <es-nt>ModuleImport</es-nt> imports a module and introduces a single binding within the
+    containing module environment. The value of such a binding as a Module object.</p>
+
+    <p>A Module object is a ordinary/exotic object whose own properties corresponding corresponding
+    to the ExportedBindings of the module identifed by the <es-nt>ModuleImport</es-nt>
+    <es-nt>FromClause</es-nt>. Each property name is the <es-xref target=
+    "sec-identifiers-and-identifier-names">StringValue</es-xref> of of the corresponding exported
+    binding. These are the only properties of an Module object. Each one is a read-only property
+    with attributes {[[Configurable]]: <span class="value">false</span>, [[Enumerable]]:
+    <span class="value">true</span>}. Module objects are not extensible.</p>
+
+    <p style="background-color: #FFC000">TO DO</p>
+
+    <p style="background-color: #FFC000">Needs to decide whether a module object is an ordinary or
+    an exotic object. Whether properties are accessor or defined via [[Get]], etc.</p>
+  </es-clause>
+</es-clause>

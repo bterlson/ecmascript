@@ -1,0 +1,241 @@
+<es-clause title="Atom" anchor="sec-atom">
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs><es-nt>PatternCharacter</es-nt></es-rhs></es-production>
+  evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>ch</i> be the character represented by <i>PatternCharacter</i>.</li>
+
+    <li>Let <i>A</i> be a one-element CharSet containing the character <i>ch</i>.</li>
+
+    <li>Call CharacterSetMatcher(<i>A</i>, <b>false</b>) and return its Matcher result.</li>
+  </ol>
+
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs>.</es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>A</i> be the set of all characters except <i>LineTerminator</i>.</li>
+
+    <li>Call CharacterSetMatcher(<i>A</i>, <b>false</b>) and return its Matcher result.</li>
+  </ol>
+
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs><es-t>\</es-t>
+  <es-nt>AtomEscape</es-nt></es-rhs></es-production> evaluates by evaluating
+  <es-nt>AtomEscape</es-nt> to obtain a Matcher and returning that Matcher.</p>
+
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs><es-nt>CharacterClass</es-nt></es-rhs></es-production>
+  evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>CharacterClass</i> to obtain a CharSet <i>A</i> and a Boolean
+    <i>invert</i>.</li>
+
+    <li>Call CharacterSetMatcher(<i>A</i>, <i>invert</i>) and return its Matcher result.</li>
+  </ol>
+
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
+  <es-t>)</es-t></es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>Disjunction</i> to obtain a Matcher <i>m</i>.</li>
+
+    <li>Let <i>parenIndex</i> be the number of left capturing parentheses in the entire regular
+    expression that occur to the left of this production expansion's initial left parenthesis. This
+    is the total number of times the <es-production name="Atom" type="lexical" class=
+    "inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
+    <es-t>)</es-t></es-rhs></es-production> production is expanded prior to this
+    production's <i>Atom</i> plus the total number of <es-production name="Atom" type=
+    "lexical" class="inline"><es-rhs><es-t>(</es-t> <es-nt>Disjunction</es-nt>
+    <es-t>)</es-t></es-rhs></es-production> productions enclosing this
+    <i>Atom</i>.</li>
+
+    <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a
+    Continuation <i>c</i>, and performs the following steps:
+
+      <ol class="nested proc">
+        <li>Create an internal Continuation closure <i>d</i> that takes one State argument <i>y</i>
+        and performs the following steps:
+
+          <ol class="nested proc">
+            <li>Let <i>cap</i> be a fresh copy of <i>y</i>'s <i>captures</i> <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+            <li>Let <i>xe</i> be <i>x</i>'s <i>endIndex</i>.</li>
+
+            <li>Let <i>ye</i> be <i>y</i>'s <i>endIndex</i>.</li>
+
+            <li>Let <i>s</i> be a fresh <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> whose characters are the
+            characters of <i>Input</i> at positions <i>xe</i> (inclusive) through <i>ye</i>
+            (exclusive).</li>
+
+            <li>Set <i>cap</i>[<i>parenIndex</i>+1] to <i>s</i>.</li>
+
+            <li>Let <i>z</i> be the State (<i>ye</i>, <i>cap</i>).</li>
+
+            <li>Call <i>c</i>(<i>z</i>) and return its result.</li>
+          </ol>
+        </li>
+
+        <li>Call <i>m</i>(<i>x</i>, <i>d</i>) and return its result.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <p>The production <es-production name="Atom" type="lexical" class=
+  "inline"><es-rhs><es-t>(</es-t> <es-t>?</es-t> <es-t>:</es-t> <es-nt>Disjunction</es-nt>
+  <es-t>)</es-t></es-rhs></es-production> evaluates by evaluating
+  <es-nt>Disjunction</es-nt> to obtain a Matcher and returning that Matcher.</p>
+
+  <es-clause title="Runtime Semantics: CharacterSetMatcher Abstract Operation" anchor=
+  "sec-runtime-semantics-charactersetmatcher-abstract-operation">
+    <p>The abstract operation CharacterSetMatcher takes two arguments, a CharSet <es-nt>A</es-nt>
+    and a Boolean flag <es-nt>invert</es-nt>, and performs the following:</p>
+
+    <ol class="proc">
+      <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a
+      Continuation <i>c</i>, and performs the following steps:
+
+        <ol class="block">
+          <li>Let <i>e</i> be <i>x</i>'s <i>endIndex</i>.</li>
+
+          <li>If <i>e</i> is <i>InputLength</i>, return <b>failure</b>.</li>
+
+          <li>Let <i>ch</i> be the character <i>Input</i>[<i>e</i>].</li>
+
+          <li>Let <i>cc</i> be the result of Canonicalize(<i>ch</i>).</li>
+
+          <li>If <i>invert</i> is <b>false</b>, then
+
+            <ol class="block">
+              <li>If there does not exist a member <i>a</i> of set <i>A</i> such that
+              Canonicalize(<i>a</i>) is <i>cc</i>, return <b>failure</b>.</li>
+            </ol>
+          </li>
+
+          <li>Else <i>invert</i> is <b>true</b>,
+
+            <ol class="block">
+              <li>If there exists a member <i>a</i> of set <i>A</i> such that
+              Canonicalize(<i>a</i>) is <i>cc</i>, return <b>failure.</b></li>
+            </ol>
+          </li>
+
+          <li>Let <i>cap</i> be <i>x</i>'s <i>captures</i> <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+          <li>Let <i>y</i> be the State (<i>e</i>+1, <i>cap</i>).</li>
+
+          <li>Call <i>c</i>(<i>y</i>) and return its result.</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Canonicalize Abstract Operation" anchor=
+  "sec-runtime-semantics-canonicalize-abstract-operation">
+    <p>The abstract operation Canonicalize takes a character parameter <es-nt>ch</es-nt> and
+    performs the following steps:</p>
+
+    <ol class="proc">
+      <li>If <i>IgnoreCase</i> is <b>false</b>, return <i>ch</i>.</li>
+
+      <li>If the file CaseFolding.txt of the Unicode Character Database does not provides a simple
+      or common case folding mapping for <i>ch</i>, return <i>ch.</i></li>
+
+      <li>Else, Let <i>u</i> be the result of apply that mapping to <i>ch</i>.</li>
+
+      <li>If <i>Unicode</i> is <b>true</b>, return <i>u</i>.</li>
+
+      <li>If <i>u</i>’s code point &gt; 65535, return <i>ch</i></li>
+
+      <li>If <i>ch</i>'s code unit value ≥ 128 and <i>u</i>'s code unit value &lt; 128, then return
+      <i>ch</i>.</li>
+
+      <li>Return <i>u</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>Parentheses of the form <code>(</code> <es-nt>Disjunction</es-nt> <code>)</code> serve
+      both to group the components of the <es-nt>Disjunction</es-nt> pattern together and to save
+      the result of the match. The result can be used either in a backreference (<code>\</code>
+      followed by a nonzero decimal number), referenced in a replace String, or returned as part of
+      an array from the regular expression matching internal procedure. To inhibit the capturing
+      behaviour of parentheses, use the form <code>(?:</code> <es-nt>Disjunction</es-nt>
+      <code>)</code> instead.</p>
+    </es-note>
+
+    <es-note>
+      <p>The form <code>(?=</code> <es-nt>Disjunction</es-nt> <code>)</code> specifies a zero-width
+      positive lookahead. In order for it to succeed, the pattern inside <es-nt>Disjunction</es-nt>
+      must match at the current position, but the current position is not advanced before matching
+      the sequel. If <es-nt>Disjunction</es-nt> can match at the current position in several ways,
+      only the first one is tried. Unlike other regular expression operators, there is no
+      backtracking into a <code>(?=</code> form (this unusual behaviour is inherited from Perl).
+      This only matters when the <es-nt>Disjunction</es-nt> contains capturing parentheses and the
+      sequel of the pattern contains backreferences to those captures.</p>
+
+      <p>For example,</p>
+      <pre>
+/(?=(a+))/.exec("baaabac")
+</pre>
+
+      <p>matches the empty String immediately after the first <code>b</code> and therefore returns
+      the array:</p>
+      <pre>
+["", "aaa"]
+</pre>
+
+      <p>To illustrate the lack of backtracking into the lookahead, consider:</p>
+      <pre>
+/(?=(a+))a*b\1/.exec("baaabac")
+</pre>
+
+      <p>This expression returns</p>
+      <pre>
+["aba", "a"]
+</pre>
+
+      <p>and not:</p>
+      <pre>
+["aaaba", "a"]
+</pre>
+    </es-note>
+
+    <es-note>
+      <p>The form <code>(?!</code> <es-nt>Disjunction</es-nt> <code>)</code> specifies a zero-width
+      negative lookahead. In order for it to succeed, the pattern inside <es-nt>Disjunction</es-nt>
+      must fail to match at the current position. The current position is not advanced before
+      matching the sequel. <es-nt>Disjunction</es-nt> can contain capturing parentheses, but
+      backreferences to them only make sense from within <es-nt>Disjunction</es-nt> itself.
+      Backreferences to these capturing parentheses from elsewhere in the pattern always return
+      <b>undefined</b> because the negative lookahead must fail for the pattern to succeed. For
+      example,</p>
+      <pre>
+/(.*?)a(?!(a+)b\2c)\2(.*)/.exec("baaabaac")
+</pre>
+
+      <p>looks for an <code>a</code> not immediately followed by some positive number n of
+      <code>a</code>'s, a <code>b</code>, another n <code>a</code>'s (specified by the first
+      <code>\2</code>) and a <code>c</code>. The second <code>\2</code> is outside the negative
+      lookahead, so it matches against <b>undefined</b> and therefore always succeeds. The whole
+      expression returns the array:</p>
+      <pre>
+["baaabaac", "ba", undefined, "abaac"]
+</pre>
+    </es-note>
+
+    <p>In case-insignificant matches all characters are implicitly case-folded using the simple
+    mapping provided by the Unicode standard immediately before they are compared. The simple
+    mapping always maps to a single code point, so it does not map, for example <code>"ß"</code>
+    (U+00DF into <code>"SS"</code>. It may however map a code point outside the Basic Latin range
+    to a character within, for example, “ſ” (U+017F) to “s”. Such characters are not mapped if
+    <es-nt>Unicode</es-nt> is <span class="value">false</span>. This prevents Unicode code points
+    such as U+0131 and U+017F from matching regular expressions such as <code>/[a‑z]/i</code>, but
+    they will match <code>/[a‑z]/ui</code></p>
+  </es-clause>
+</es-clause>

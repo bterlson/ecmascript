@@ -1,0 +1,14 @@
+<es-clause title="isFinite (number)" anchor="sec-isfinite-number">
+  <p>Returns <b>false</b> if the argument coerces to <b>NaN</b>, <b>+∞</b>, or <b>−∞</b>, and
+  otherwise returns <b>true</b>.</p>
+
+  <ol class="proc">
+    <li>Let <i>num</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>number</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>num</i>).</li>
+
+    <li>If <i>num</i> is <b>NaN</b>, <b>+∞</b>, or <b>−∞</b>, return <b>false</b>.</li>
+
+    <li>Otherwise, return <b>true</b>.</li>
+  </ol>
+</es-clause>

@@ -1,0 +1,82 @@
+<es-clause title="ResolveExport ( M, exportName, visited )" anchor="sec-resolveexport">
+  <p>The abstract operation ResolveExport with arguments <es-nt>M</es-nt>,
+  <es-nt>exportName</es-nt>, and <es-nt>importName</es-nt> performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>exports</i> be <i>M</i>.[[Exports]].</li>
+
+    <li>If <i>exports</i> has a record <i>export</i> such that <i>export</i>.[[ExportName]] is
+    equal to <i>exportName</i>, return <i>export</i>.[[Binding]].</li>
+
+    <li>Let <i>ref</i> be {[[Module]]: <i>M</i>, [[ExportName]]: <i>exportName</i>}.</li>
+
+    <li>If <i>visited</i> contains a record equal to <i>ref</i> then the following steps are taken:
+
+      <ol class="block">
+        <li>Let <i>error</i> be a new Syntax Error.</li>
+
+        <li>Add <i>error</i> to <i>M</i>.[[LinkErrors]].</li>
+
+        <li>Return <i>error</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>defs</i> be <i>M</i>.[[ExportDefinitions]].</li>
+
+    <li>Let <i>overlappingDefs</i> be the <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> of records <i>def</i> in <i>defs</i>
+    such that <i>def</i>.[[ExportName]] is equal to <i>exportName</i>.</li>
+
+    <li>If <i>overlappingDefs</i> is empty, then the following steps are taken:
+
+      <ol class="block">
+        <li>Let <i>error</i> be a new <es-xref target=
+        "sec-reference-specification-type">Reference</es-xref> Error.</li>
+
+        <li>Add <i>error</i> to <i>M</i>.[[LinkErrors]].</li>
+
+        <li>Return <i>error</i>.</li>
+      </ol>
+    </li>
+
+    <li>If <i>overlappingDefs</i> has more than one record <i>def</i> such that
+    <i>def</i>.[[Explicit]] is <b>true</b>, or if it has length greater than 1 but contains no
+    records <i>def</i> such that <i>def</i>.[[Explicit]] is <b>true</b>, then the following steps
+    are taken:
+
+      <ol class="block">
+        <li>Let <i>error</i> be a new Syntax Error.</li>
+
+        <li>Add <i>error</i> to <i>M</i>.[[LinkErrors]].</li>
+
+        <li>Return <i>error</i>.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>def</i> be the unique record in <i>overlappingDefs</i> such that
+    <i>def</i>.[[Explicit]] is <b>true</b>, or if there is no such record let <i>def</i> be the
+    unique record in <i>overlappingDefs</i>.</li>
+
+    <li>If <i>def</i>.[[LocalName]] is not <b>null</b>, then the following steps are taken:
+
+      <ol class="block">
+        <li>Let <i>binding</i> be the record {[[Module]]: <i>M</i>, [[LocalName]]:
+        <i>def</i>.[[LocalName]]}.</li>
+
+        <li>Let <i>export</i> be the record {[[ExportName]]: <i>exportName</i>, [[Binding]]:
+        <i>binding</i>}.</li>
+
+        <li>Add <i>export</i> to <i>exports</i>.</li>
+
+        <li>Return <i>binding</i>.</li>
+      </ol>
+    </li>
+
+    <li>Add <i>ref</i> to <i>visited</i>.</li>
+
+    <li>Let <i>binding</i> be the result of calling the ResolveExport abstract operation passing
+    <i>def</i>.[[Module]] and <i>def</i>.[[ImportName]] as arguments.</li>
+
+    <li>Return <i>binding</i>.</li>
+  </ol>
+</es-clause>

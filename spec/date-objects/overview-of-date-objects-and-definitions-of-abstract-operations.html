@@ -1,0 +1,485 @@
+<es-clause title="Overview of Date Objects and Definitions of Abstract Operations" anchor=
+"sec-overview-of-date-objects-and-definitions-of-abstract-operations">
+  <p>The following functions are abstract operations that operate on time values (defined in
+  <es-xref target="sec-time-values-and-time-range">20.3.1.1</es-xref>). Note that, in every case,
+  if any argument to one of these functions is <b>NaN</b>, the result will be <b>NaN</b>.</p>
+
+  <es-clause title="Time Values and Time Range" anchor="sec-time-values-and-time-range">
+    <p>A Date object contains a Number indicating a particular instant in time to within a
+    millisecond. Such a Number is called a <i>time value</i>. A time value may also be <b>NaN</b>,
+    indicating that the Date object does not represent a specific instant of time.</p>
+
+    <p>Time is measured in ECMAScript in milliseconds since 01 January, 1970 UTC. In time values
+    leap seconds are ignored. It is assumed that there are exactly 86,400,000 milliseconds per day.
+    ECMAScript Number values can represent all integers from –9,007,199,254,740,992 to
+    9,007,199,254,740,992; this range suffices to measure times to millisecond precision for any
+    instant that is within approximately 285,616 years, either forward or backward, from 01
+    January, 1970 UTC.</p>
+
+    <p>The actual range of times supported by ECMAScript Date objects is slightly smaller: exactly
+    –100,000,000 days to 100,000,000 days measured relative to midnight at the beginning of 01
+    January, 1970 UTC. This gives a range of 8,640,000,000,000,000 milliseconds to either side of
+    01 January, 1970 UTC.</p>
+
+    <p>The exact moment of midnight at the beginning of 01 January, 1970 UTC is represented by the
+    value <b>+0</b>.</p>
+  </es-clause>
+
+  <es-clause title="Day Number and Time within Day" anchor="sec-day-number-and-time-within-day">
+    <p>A given <es-xref target="sec-time-values-and-time-range">time value</es-xref> <i>t</i>
+    belongs to day number</p>
+
+    <div class="display">
+      Day(<i>t</i>) = <es-xref target="sec-algorithm-conventions">floor</es-xref>(<i>t</i> /
+      msPerDay)
+    </div>
+
+    <p>where the number of milliseconds per day is</p>
+
+    <div class="display">
+      msPerDay = 86400000
+    </div>
+
+    <p>The remainder is called the time within the day:</p>
+
+    <div class="display">
+      TimeWithinDay(<i>t</i>) = <i>t</i> <es-xref target=
+      "sec-algorithm-conventions">modulo</es-xref> msPerDay
+    </div>
+  </es-clause>
+
+  <es-clause title="Year Number" anchor="sec-year-number">
+    <p>ECMAScript uses an extrapolated Gregorian system to map a day number to a year number and to
+    determine the month and date within that year. In this system, leap years are precisely those
+    which are (divisible by 4) and ((not divisible by 100) or (divisible by 400)). The number of
+    days in year number <es-nt>y</es-nt> is therefore defined by</p>
+
+    <div class="display">
+      DaysInYear(<i>y</i>) 	= 365 if (<i>y</i> <es-xref target=
+      "sec-algorithm-conventions">modulo</es-xref> 4) ≠ 0<br>
+      = 366 if (<i>y</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref> 4) = 0 and
+      (<i>y</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref> 100) ≠ 0<br>
+      = 365 if (<i>y</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref> 100) = 0 and
+      (<i>y</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref> 400) ≠ 0<br>
+      = 366 if (<i>y</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref> 400) = 0
+    </div>
+
+    <p>All non-leap years have 365 days with the usual number of days per month and leap years have
+    an extra day in February. The day number of the first day of year <es-nt>y</es-nt> is given
+    by:</p>
+
+    <div class="display">
+      DayFromYear(<i>y</i>)	= 365 × (<i>y</i>−1970) + <es-xref target=
+      "sec-algorithm-conventions">floor</es-xref>((<i>y</i>−1969)/4) − <es-xref target=
+      "sec-algorithm-conventions">floor</es-xref>((<i>y</i>−1901)/100) + <es-xref target=
+      "sec-algorithm-conventions">floor</es-xref>((<i>y</i>−1601)/400)
+    </div>
+
+    <p>The <es-xref target="sec-time-values-and-time-range">time value</es-xref> of the start of a
+    year is:</p>
+
+    <div class="display">
+      TimeFromYear(<i>y</i>)	= <es-xref target=
+      "sec-day-number-and-time-within-day">msPerDay</es-xref> × DayFromYear(<i>y</i>)
+    </div>
+
+    <p>A <es-xref target="sec-time-values-and-time-range">time value</es-xref> determines a year
+    by:</p>
+
+    <div class="display">
+      YearFromTime(<i>t</i>)	= the largest integer <i>y</i> (closest to positive infinity) such
+      that TimeFromYear(<i>y</i>) ≤ <i>t</i>
+    </div>
+
+    <p>The leap-year function is 1 for a time within a leap year and otherwise is zero:</p>
+
+    <div class="display">
+      InLeapYear(<i>t</i>)	= 0 if DaysInYear(YearFromTime(<i>t</i>)) = 365<br>
+      = 1 if DaysInYear(YearFromTime<i>(t</i>)) = 366
+    </div>
+  </es-clause>
+
+  <es-clause title="Month Number" anchor="sec-month-number">
+    <p>Months are identified by an integer in the range 0 to 11, inclusive. The mapping
+    MonthFromTime(<i>t</i>) from a <es-xref target="sec-time-values-and-time-range">time
+    value</es-xref> <i>t</i> to a month number is defined by:</p>
+
+    <div class="display">
+      MonthFromTime(<i>t</i>)	= 0	if	0	≤ DayWithinYear(<i>t</i>) &lt; 31<br>
+      = 1	if	31	≤ DayWithinYear (<i>t</i>) &lt; 59+<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)<br>
+      = 2	if	59+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>) 	≤ DayWithinYear
+      (<i>t</i>) &lt; 90+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>)<br>
+      = 3	if	90+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>) 	≤ DayWithinYear
+      (<i>t</i>) &lt; 120+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>)<br>
+      = 4	if	120+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>) 	≤ DayWithinYear
+      (<i>t</i>) &lt; 151+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>)<br>
+      = 5	if	151+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>) 	≤ DayWithinYear
+      (<i>t</i>) &lt; 181+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>)<br>
+      = 6	if	181+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>) 	≤ DayWithinYear
+      (<i>t</i>) &lt; 212+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>)<br>
+      = 7	if	212+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>) 	≤ DayWithinYear
+      (<i>t</i>) &lt; 243+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>)<br>
+      = 8	if	243+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>) 	≤ DayWithinYear
+      (<i>t</i>) &lt; 273+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>)<br>
+      = 9	if	273+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>) 	≤ DayWithinYear
+      (<i>t</i>) &lt; 304+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>)<br>
+      = 10	if	304+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>) 	≤ DayWithinYear
+      (<i>t</i>) &lt; 334+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>)<br>
+      = 11	if	334+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>) 	≤ DayWithinYear
+      (<i>t</i>) &lt; 365+<es-xref target="sec-year-number">InLeapYear</es-xref>(<i>t</i>)
+    </div>
+
+    <p>where</p>
+
+    <div class="display">
+      DayWithinYear(<i>t</i>)	= <es-xref target=
+      "sec-day-number-and-time-within-day">Day</es-xref>(<i>t</i>)−DayFromYear(<es-xref target=
+      "sec-year-number">YearFromTime</es-xref>(<i>t)</i>)
+    </div>
+
+    <p>A month value of 0 specifies January; 1 specifies February; 2 specifies March; 3 specifies
+    April; 4&nbsp;specifies May; 5 specifies June; 6 specifies July; 7 specifies August; 8
+    specifies September; 9 specifies October; 10 specifies November; and 11 specifies December.
+    Note that MonthFromTime(0) = 0, corresponding to Thursday, 01 January, 1970.</p>
+  </es-clause>
+
+  <es-clause title="Date Number" anchor="sec-date-number">
+    <p>A date number is identified by an integer in the range 1 through 31, inclusive. The mapping
+    DateFromTime(<i>t</i>) from a <es-xref target="sec-time-values-and-time-range">time
+    value</es-xref> <i>t</i> to a month number is defined by:</p>
+
+    <div class="display">
+      DateFromTime(<i>t</i>)	= <es-xref target=
+      "sec-month-number">DayWithinYear</es-xref>(<i>t</i>)+1	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=0<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−30	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=1<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−58−<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=2<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−89−<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=3<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−119−<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=4<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−150−<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=5<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−180−<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=6<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−211−<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=7<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−242−<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=8<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−272−<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=9<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−303−<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=10<br>
+      = <es-xref target="sec-month-number">DayWithinYear</es-xref>(<i>t</i>)−333−<es-xref target=
+      "sec-year-number">InLeapYear</es-xref>(<i>t</i>)	if <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>)=11
+    </div>
+  </es-clause>
+
+  <es-clause title="Week Day" anchor="sec-week-day">
+    <p>The weekday for a particular <es-xref target="sec-time-values-and-time-range">time
+    value</es-xref> <es-nt>t</es-nt> is defined as</p>
+
+    <div class="display">
+      WeekDay(<i>t</i>)	 = (<es-xref target=
+      "sec-day-number-and-time-within-day">Day</es-xref>(<i>t</i>) + 4) <es-xref target=
+      "sec-algorithm-conventions">modulo</es-xref> 7
+    </div>
+
+    <p>A weekday value of 0 specifies Sunday; 1 specifies Monday; 2 specifies Tuesday; 3 specifies
+    Wednesday; 4&nbsp;specifies Thursday; 5 specifies Friday; and 6 specifies Saturday. Note that
+    WeekDay(0) = 4, corresponding to Thursday, 01 January, 1970.</p>
+  </es-clause>
+
+  <es-clause title="Local Time Zone Adjustment" anchor="sec-local-time-zone-adjustment">
+    <p>An implementation of ECMAScript is expected to determine the local time zone adjustment. The
+    local time zone adjustment is a value LocalTZA measured in milliseconds which when added to UTC
+    represents the local <i>standard</i> time. Daylight saving time is <i>not</i> reflected by
+    LocalTZA.</p>
+
+    <es-note>
+      <p>It is recommended that implementations use the time zone information of the IANA Time Zone
+      Database.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Daylight Saving Time Adjustment" anchor="sec-daylight-saving-time-adjustment">
+    <p>An implementation dependent algorithm using best available information on time zones to
+    determine the local daylight saving time adjustment DaylightSavingTA(<i>t</i>), measured in
+    milliseconds. An implementation of ECMAScript is expected to make its best effort to determine
+    the local daylight saving time adjustment.</p>
+  </es-clause>
+
+  <es-clause title="Local Time" anchor="sec-local-time">
+    <p>Conversion from UTC to local time is defined by</p>
+
+    <div class="display">
+      LocalTime(<i>t</i>) = <i>t</i> + <es-xref target=
+      "sec-local-time-zone-adjustment">LocalTZA</es-xref> + <es-xref target=
+      "sec-daylight-saving-time-adjustment">DaylightSavingTA</es-xref>(<i>t</i>)
+    </div>
+
+    <p>Conversion from local time to UTC is defined by</p>
+
+    <div class="display">
+      UTC(<i>t</i>) = <i>t</i> – <es-xref target=
+      "sec-local-time-zone-adjustment">LocalTZA</es-xref> – <es-xref target=
+      "sec-daylight-saving-time-adjustment">DaylightSavingTA</es-xref>(<i>t</i> – <es-xref target=
+      "sec-local-time-zone-adjustment">LocalTZA</es-xref>)
+    </div>
+
+    <p>Note that UTC(LocalTime(<i>t</i>)) is not necessarily always equal to <i>t</i>.</p>
+  </es-clause>
+
+  <es-clause title="Hours, Minutes, Second, and Milliseconds" anchor=
+  "sec-hours-minutes-second-and-milliseconds">
+    <p>The following functions are useful in decomposing time values:</p>
+
+    <div class="display">
+      HourFromTime(<i>t</i>)	= <es-xref target="sec-algorithm-conventions">floor</es-xref>(<i>t</i>
+      / msPerHour) <es-xref target="sec-algorithm-conventions">modulo</es-xref> HoursPerDay
+    </div>
+
+    <div class="display">
+      MinFromTime(<i>t</i>)	= <es-xref target="sec-algorithm-conventions">floor</es-xref>(<i>t</i>
+      / msPerMinute) <es-xref target="sec-algorithm-conventions">modulo</es-xref> MinutesPerHour
+    </div>
+
+    <div class="display">
+      SecFromTime(<i>t</i>)	= <es-xref target="sec-algorithm-conventions">floor</es-xref>(<i>t</i>
+      / msPerSecond) <es-xref target="sec-algorithm-conventions">modulo</es-xref> SecondsPerMinute
+    </div>
+
+    <div class="display">
+      msFromTime(<i>t</i>)	= <i>t</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref>
+      msPerSecond
+    </div>
+
+    <p>where</p>
+
+    <div class="display">
+      HoursPerDay	= 24
+    </div>
+
+    <div class="display">
+      MinutesPerHour	= 60
+    </div>
+
+    <div class="display">
+      SecondsPerMinute	= 60
+    </div>
+
+    <div class="display">
+      msPerSecond	= 1000
+    </div>
+
+    <div class="display">
+      msPerMinute	= 60000	= msPerSecond × SecondsPerMinute
+    </div>
+
+    <div class="display">
+      msPerHour	= 3600000	= msPerMinute × MinutesPerHour
+    </div>
+  </es-clause>
+
+  <es-clause title="MakeTime (hour, min, sec, ms)" anchor="sec-maketime">
+    <p>The operator MakeTime calculates a number of milliseconds from its four arguments, which
+    must be ECMAScript Number values. This operator functions as follows:</p>
+
+    <ol class="proc">
+      <li>If <i>hour</i> is not finite or <i>min</i> is not finite or <i>sec</i> is not finite or
+      <i>ms</i> is not finite, return <b>NaN</b>.</li>
+
+      <li>Let <i>h</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>hour</i>).</li>
+
+      <li>Let <i>m</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>min</i>).</li>
+
+      <li>Let <i>s</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>sec</i>).</li>
+
+      <li>Let <i>milli</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>ms</i>).</li>
+
+      <li>Let <i>t</i> be <i>h</i> <code>*</code> <es-xref target=
+      "sec-hours-minutes-second-and-milliseconds">msPerHour</es-xref> <code>+</code> <i>m</i>
+      <code>*</code> <es-xref target=
+      "sec-hours-minutes-second-and-milliseconds">msPerMinute</es-xref> <code>+</code> <i>s</i>
+      <code>*</code> <es-xref target=
+      "sec-hours-minutes-second-and-milliseconds">msPerSecond</es-xref> <code>+</code>
+      <i>milli</i>, performing the arithmetic according to IEEE 754 rules (that is, as if using the
+      ECMAScript operators <code>*</code> and <code>+</code>).</li>
+
+      <li>Return <i>t</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="MakeDay (year, month, date)" anchor="sec-makeday">
+    <p>The operator MakeDay calculates a number of days from its three arguments, which must be
+    ECMAScript Number values. This operator functions as follows:</p>
+
+    <ol class="proc">
+      <li>If <i>year</i> is not finite or <i>month</i> is not finite or <i>date</i> is not finite,
+      return <b>NaN</b>.</li>
+
+      <li>Let <i>y</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>year</i>).</li>
+
+      <li>Let <i>m</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>month</i>).</li>
+
+      <li>Let <i>dt</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>date</i>).</li>
+
+      <li>Let <i>ym</i> be <i>y</i> + <es-xref target=
+      "sec-algorithm-conventions">floor</es-xref>(<i>m</i> /12).</li>
+
+      <li>Let <i>mn</i> be <i>m</i> <es-xref target="sec-algorithm-conventions">modulo</es-xref>
+      12.</li>
+
+      <li>Find a value <i>t</i> such that <es-xref target=
+      "sec-year-number">YearFromTime</es-xref>(<i>t</i>) is <i>ym</i> and <es-xref target=
+      "sec-month-number">MonthFromTime</es-xref>(<i>t</i>) is <i>mn</i> and <es-xref target=
+      "sec-date-number">DateFromTime</es-xref>(<i>t</i>) is 1; but if this is not possible (because
+      some argument is out of range), return <b>NaN</b>.</li>
+
+      <li>Return <es-xref target="sec-day-number-and-time-within-day">Day</es-xref>(<i>t</i>) +
+      <i>dt</i> − 1.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="MakeDate (day, time)" anchor="sec-makedate">
+    <p>The operator MakeDate calculates a number of milliseconds from its two arguments, which must
+    be ECMAScript Number values. This operator functions as follows:</p>
+
+    <ol class="proc">
+      <li>If <i>day</i> is not finite or <i>time</i> is not finite, return <b>NaN</b>.</li>
+
+      <li>Return <i>day</i> × <es-xref target=
+      "sec-day-number-and-time-within-day">msPerDay</es-xref> + <i>time</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="TimeClip (time)" anchor="sec-timeclip">
+    <p>The operator TimeClip calculates a number of milliseconds from its argument, which must be
+    an ECMAScript Number value. This operator functions as follows:</p>
+
+    <ol class="proc">
+      <li>If <i>time</i> is not finite, return <b>NaN</b>.</li>
+
+      <li>If <es-xref target="sec-algorithm-conventions">abs</es-xref>(<i>time</i>) &gt;
+      8.64&nbsp;×&nbsp;10<sup>15</sup> , return <b>NaN</b>.</li>
+
+      <li>Return <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>time</i>) + (<b>+0</b>).
+      (Adding a positive zero converts <b>−0</b> to <b>+0</b>.)</li>
+    </ol>
+
+    <es-note>
+      <p>The point of step 3 is that an implementation is permitted a choice of internal
+      representations of time values, for example as a 64-bit signed integer or as a 64-bit
+      floating-point value. Depending on the implementation, this internal representation may or
+      may not distinguish <b>−0</b> and <b>+0</b>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Date Time String Format" anchor="sec-date-time-string-format">
+    <p>ECMAScript defines a string interchange format for date-times based upon a simplification of
+    the ISO 8601 Extended Format. The format is as follows:
+    <code>YYYY-MM-DDTHH:mm:ss.sss<i>Z</i></code></p>
+
+    <p>Where the fields are as follows:</p>
+
+    <p><code>YYYY</code>	is the decimal digits of the year 0000 to 9999 in the Gregorian
+    calendar.</p>
+
+    <p><code>-</code>		“<code>-</code>” (hyphen) appears literally twice in the string.</p>
+
+    <p><code>MM</code>		is the month of the year from 01 (January) to 12 (December).</p>
+
+    <p><code>DD</code>		is the day of the month from 01 to 31.</p>
+
+    <p><code>T</code>		“<code>T</code>” appears literally in the string, to indicate the beginning
+    of the time element.</p>
+
+    <p><code>HH</code>	is the number of complete hours that have passed since midnight as two
+    decimal digits from 00 to 24.</p>
+
+    <p><code>:</code>		“<code>:</code>” (colon) appears literally twice in the string.</p>
+
+    <p><code>mm</code>	is the number of complete minutes since the start of the hour as two decimal
+    digits from 00 to 59.</p>
+
+    <p><code>ss</code>	is the number of complete seconds since the start of the minute as two
+    decimal digits from 00 to 59.</p>
+
+    <p><code>.</code>		“<code>.</code>” (dot) appears literally in the string.</p>
+
+    <p><code>sss</code>	is the number of complete milliseconds since the start of the second as
+    three decimal digits.</p>
+
+    <p><code>Z</code>	is the time zone offset specified as “<code>Z</code>” (for UTC) or either
+    “<code>+</code>” or “<code>-</code>” followed by a time expression <code>HH:mm</code></p>
+
+    <p class="Note">This format includes date-only forms:</p>
+    <pre class="Note">
+YYYY<br>YYYY-MM<br>YYYY-MM-DD
+</pre>
+
+    <p>It also includes “date-time” forms that consist of one of the above date-only forms
+    immediately followed by one of the following time forms with an optional time zone offset
+    appended:</p>
+    <pre>
+THH:mm<br>THH:mm:ss<br>THH:mm:ss.sss
+</pre>
+
+    <p>All numbers must be base 10. If the <code>MM</code> or <code>DD</code> fields are absent
+    “<code>01</code>” is used as the value. If the <code>HH</code>, <code>mm</code>, or
+    <code>ss</code> fields are absent “<code>00</code>” is used as the value and the value of an
+    absent <code>sss</code> field is “<code>000</code>”. If the time zone offset is absent, the
+    date-time is interpreted as a local time.</p>
+
+    <p>Illegal values (out-of-bounds as well as syntax errors) in a format string means that the
+    format string is not a valid instance of this format.</p>
+
+    <es-note>
+      <p>As every day both starts and ends with midnight, the two notations 00:00 and 24:00 are
+      available to distinguish the two midnights that can be associated with one date. This means
+      that the following two notations refer to exactly the same point in time: 1995-02-04T24:00
+      and 1995-02-05T00:00</p>
+    </es-note>
+
+    <es-note>
+      <p>There exists no international standard that specifies abbreviations for civil time zones
+      like CET, EST, etc. and sometimes the same abbreviation is even used for two very different
+      time zones. For this reason, ISO 8601 and this format specifies numeric representations of
+      date and time.</p>
+    </es-note>
+
+    <es-clause title="Extended years" anchor="sec-extended-years">
+      <p>ECMAScript requires the ability to specify 6 digit years (extended years); approximately
+      285,426 years, either forward or backward, from 01 January, 1970 UTC. To represent years
+      before 0 or after 9999, ISO 8601 permits the expansion of the year representation, but only
+      by prior agreement between the sender and the receiver. In the simplified ECMAScript format
+      such an expanded year representation shall have 2 extra year digits and is always prefixed
+      with a + or – sign. The year 0 is considered positive and hence prefixed with a + sign.</p>
+
+      <es-note>
+        <p>Examples of extended years:</p>
+      </es-note>
+
+      <p>-283457-03-21T15:00:59.008Z &nbsp; 283458 B.C.<br>
+      -000001-01-01T00:00:00Z &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 B.C.<br>
+      +000000-01-01T00:00:00Z &nbsp; &nbsp; &nbsp; &nbsp; 1 B.C.<br>
+      +000001-01-01T00:00:00Z &nbsp; &nbsp; &nbsp; &nbsp; 1 A.D.<br>
+      +001970-01-01T00:00:00Z &nbsp; &nbsp; &nbsp; &nbsp; 1970 A.D.<br>
+      +002009-12-15T00:00:00Z &nbsp; &nbsp; &nbsp; &nbsp; 2009 A.D.<br>
+      +287396-10-12T08:59:00.992Z 287396 A.D.</p>
+    </es-clause>
+  </es-clause>
+</es-clause>

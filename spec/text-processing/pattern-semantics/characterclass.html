@@ -1,0 +1,13 @@
+<es-clause title="CharacterClass" anchor="sec-characterclass">
+  <p>The production <es-production name="CharacterClass" type="lexical" class=
+  "inline"><es-rhs><es-t>[</es-t> <es-nt>ClassRanges</es-nt>
+  <es-t>]</es-t></es-rhs></es-production> evaluates by evaluating
+  <es-nt>ClassRanges</es-nt> to obtain a CharSet and returning that CharSet and the Boolean
+  <b>false</b>.</p>
+
+  <p>The production <es-production name="CharacterClass" type="lexical" class=
+  "inline"><es-rhs><es-t>[</es-t> <es-t>^</es-t> <es-nt>ClassRanges</es-nt>
+  <es-t>]</es-t></es-rhs></es-production> evaluates by evaluating
+  <es-nt>ClassRanges</es-nt> to obtain a CharSet and returning that CharSet and the Boolean
+  <b>true</b>.</p>
+</es-clause>

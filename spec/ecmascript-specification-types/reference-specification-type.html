@@ -1,0 +1,232 @@
+<es-clause title="The Reference Specification Type" anchor="sec-reference-specification-type">
+  <es-note>
+    <p>The Reference type is used to explain the behaviour of such operators as
+    <code>delete</code>, <code>typeof</code>, the assignment operators, the <code>super</code>
+    keyword and other language features. For example, the left-hand operand of an assignment is
+    expected to produce a reference.</p>
+  </es-note>
+
+  <p>A <b>Reference</b> is a resolved name or property binding. A Reference consists of three
+  components, the <es-nt>base</es-nt> value, the <es-nt>referenced name</es-nt> and the Boolean
+  valued <es-nt>strict reference</es-nt> flag. The <es-nt>base</es-nt> value is either
+  <b>undefined</b>, an Object, a Boolean, a String, a Symbol, a Number, or an environment record
+  (<es-xref target="sec-environment-records">8.1.1</es-xref>). A <es-nt>base</es-nt> value of
+  <b>undefined</b> indicates that the Reference could not be resolved to a binding. The
+  <es-nt>referenced name</es-nt> is a String or Symbol value.</p>
+
+  <p>A Super Reference is a Reference that is used to represents a name binding that was expressed
+  using the super keyword. A Super Reference has an additional <es-nt>thisValue</es-nt> component
+  and its <es-nt>base</es-nt> value will never be an environment record.</p>
+
+  <p>The following abstract operations are used in this specification to access the components of
+  references:</p>
+
+  <ul>
+    <li>
+      <p>GetBase(V). Returns the <es-nt>base</es-nt> value component of the reference V.</p>
+    </li>
+
+    <li>
+      <p>GetReferencedName(V). Returns the <es-nt>referenced name</es-nt> component of the
+      reference V.</p>
+    </li>
+
+    <li>
+      <p>IsStrictReference(V). Returns the <es-nt>strict reference</es-nt> flag component of the
+      reference V.</p>
+    </li>
+
+    <li>
+      <p>HasPrimitiveBase(V). Returns <span class="value">true</span> if <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>base</i>) is a Boolean, String,
+      Symbol, or Number.</p>
+    </li>
+
+    <li>
+      <p>IsPropertyReference(V). Returns <span class="value">true</span> if either the
+      <es-nt>base</es-nt> value is an object or HasPrimitiveBase(V) is <b>true</b>; otherwise
+      returns <span class="value">false</span>.</p>
+    </li>
+
+    <li>
+      <p>IsUnresolvableReference(V). Returns <span class="value">true</span> if the
+      <es-nt>base</es-nt> value is <b>undefined</b> and <b>false</b> otherwise.</p>
+    </li>
+
+    <li>
+      <p>IsSuperReference(V). Returns <span class="value">true</span> if this reference has a
+      <es-nt>thisValue</es-nt> component.</p>
+    </li>
+  </ul>
+
+  <p>The following abstract operations are used in this specification to operate on references:</p>
+
+  <es-clause title="GetValue (V)" anchor="sec-getvalue">
+    <ol class="proc">
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>V</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>V</i>) is not
+      <es-xref target="sec-reference-specification-type">Reference</es-xref>, return <i>V</i>.</li>
+
+      <li>Let <i>base</i> be the result of calling <es-xref target=
+      "sec-reference-specification-type">GetBase</es-xref>(<i>V</i>).</li>
+
+      <li>If <es-xref target=
+      "sec-reference-specification-type">IsUnresolvableReference</es-xref>(<i>V</i>), throw a
+      <b>ReferenceError</b> exception.</li>
+
+      <li>If <es-xref target=
+      "sec-reference-specification-type">IsPropertyReference</es-xref>(<i>V</i>), then
+
+        <ol class="block">
+          <li>If <es-xref target=
+          "sec-reference-specification-type">HasPrimitiveBase</es-xref>(<i>V</i>) is <b>true</b>,
+          then
+
+            <ol class="block">
+              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: In this case,
+              <i>base</i> will never be <b>null</b> or <b>undefined</b>.</li>
+
+              <li>Let <i>base</i> be <es-xref target=
+              "sec-toobject">ToObject</es-xref>(<i>base</i>).</li>
+            </ol>
+          </li>
+
+          <li>Return the result of calling the [[Get]] internal method of <i>base</i> passing
+          <es-xref target="sec-reference-specification-type">GetReferencedName</es-xref>(<i>V</i>)
+          and <es-xref target="sec-getthisvalue">GetThisValue</es-xref>(<i>V</i>) as the
+          arguments.</li>
+        </ol>
+      </li>
+
+      <li>Else <i>base</i> must be an environment record,
+
+        <ol class="block">
+          <li>Return the result of calling the GetBindingValue (see <es-xref target=
+          "sec-environment-records">8.1.1</es-xref>) concrete method of <i>base</i> passing
+          <es-xref target="sec-reference-specification-type">GetReferencedName</es-xref>(<i>V</i>)
+          and <es-xref target=
+          "sec-reference-specification-type">IsStrictReference</es-xref>(<i>V</i>) as
+          arguments.</li>
+        </ol>
+      </li>
+    </ol>
+
+    <es-note>
+      <p>The object that may be created in step 5.a.ii is not accessible outside of the above
+      abstract operation and the ordinary object [[Get]] internal method. An implementation might
+      choose to avoid the actual creation of the object.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="PutValue (V, W)" anchor="sec-putvalue">
+    <ol class="proc">
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>V</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>W</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>V</i>) is not
+      <es-xref target="sec-reference-specification-type">Reference</es-xref>, throw a
+      <b>ReferenceError</b> exception.</li>
+
+      <li>Let <i>base</i> be the result of calling <es-xref target=
+      "sec-reference-specification-type">GetBase</es-xref>(<i>V</i>).</li>
+
+      <li>If <es-xref target=
+      "sec-reference-specification-type">IsUnresolvableReference</es-xref>(<i>V</i>), then
+
+        <ol class="block">
+          <li>If <es-xref target=
+          "sec-reference-specification-type">IsStrictReference</es-xref>(<i>V</i>) is <b>true</b>,
+          then
+
+            <ol class="block">
+              <li>Throw <b>ReferenceError</b> exception.</li>
+            </ol>
+          </li>
+
+          <li>Let <i>globalObj</i> be the result of the abstract operation <es-xref target=
+          "sec-getglobalobject">GetGlobalObject</es-xref>.</li>
+
+          <li>Return the result of calling <es-xref target=
+          "sec-put-o-p-v-throw">Put</es-xref>(<i>globalObj</i>,<es-xref target=
+          "sec-reference-specification-type">GetReferencedName</es-xref>(<i>V</i>), <i>W</i>,
+          <b>false</b>).</li>
+        </ol>
+      </li>
+
+      <li>Else if <es-xref target=
+      "sec-reference-specification-type">IsPropertyReference</es-xref>(<i>V</i>), then
+
+        <ol class="block">
+          <li>If <es-xref target=
+          "sec-reference-specification-type">HasPrimitiveBase</es-xref>(<i>V</i>) is <b>true</b>,
+          then
+
+            <ol class="block">
+              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: In this case,
+              <i>base</i> will never be <b>null</b> or <b>undefined</b>.</li>
+
+              <li>Set <i>base</i> to <es-xref target=
+              "sec-toobject">ToObject</es-xref>(<i>base</i>).</li>
+            </ol>
+          </li>
+
+          <li>Let <i>succeeded</i> be the result of calling the [[Set]] internal method of
+          <i>base</i> passing <es-xref target=
+          "sec-reference-specification-type">GetReferencedName</es-xref>(<i>V</i>), <i>W</i>, and
+          <es-xref target="sec-getthisvalue">GetThisValue</es-xref>(<i>V</i>) as arguments.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>succeeded</i>).</li>
+
+          <li>If <i>succeeded</i> is <b>false</b> and <es-xref target=
+          "sec-reference-specification-type">IsStrictReference</es-xref>(<i>V</i>) is <b>true</b>,
+          then throw a <b>TypeError</b> exception.</li>
+
+          <li>Return.</li>
+        </ol>
+      </li>
+
+      <li>Else <i>base</i> must be a reference whose base is an environment record. So,
+
+        <ol class="block">
+          <li>Return the result of calling the SetMutableBinding ({ REF _Ref365530812 \r \h \*
+          MERGEFORMAT }8.1.1) concrete method of <i>base</i>, passing <es-xref target=
+          "sec-reference-specification-type">GetReferencedName</es-xref>(<i>V</i>), <i>W</i>, and
+          <es-xref target="sec-reference-specification-type">IsStrictReference</es-xref>(<i>V</i>)
+          as arguments.</li>
+        </ol>
+      </li>
+    </ol>
+
+    <es-note>
+      <p>The object that may be created in step 6.a.ii is not accessible outside of the above
+      algorithm and the ordinary object [[Set]] internal method. An implementation might choose to
+      avoid the actual creation of that object.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="GetThisValue (V)" anchor="sec-getthisvalue">
+    <ol class="proc">
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>V</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>V</i>) is not
+      <es-xref target="sec-reference-specification-type">Reference</es-xref>, return <i>V</i>.</li>
+
+      <li>If <es-xref target=
+      "sec-reference-specification-type">IsUnresolvableReference</es-xref>(<i>V</i>), throw a
+      <b>ReferenceError</b> exception.</li>
+
+      <li>If <es-xref target=
+      "sec-reference-specification-type">IsSuperReference</es-xref>(<i>V</i>), then
+
+        <ol class="block">
+          <li>Return the value of the <i>thisValue</i> component of the reference <i>V</i>.</li>
+        </ol>
+      </li>
+
+      <li>Return <es-xref target=
+      "sec-reference-specification-type">GetBase</es-xref>(<i>V</i>).</li>
+    </ol>
+  </es-clause>
+</es-clause>

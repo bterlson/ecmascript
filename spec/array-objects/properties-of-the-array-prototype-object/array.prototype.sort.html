@@ -1,0 +1,253 @@
+<es-clause title="Array.prototype.sort (comparefn)" anchor="sec-array.prototype.sort">
+  <p>The elements of this array are sorted. The sort is not necessarily stable (that is, elements
+  that compare equal do not necessarily remain in their original order). If
+  <es-nt>comparefn</es-nt> is not <b>undefined</b>, it should be a function that accepts two
+  arguments <es-nt>x</es-nt> and <es-nt>y</es-nt> and returns a negative value if <es-nt>x</es-nt>
+  &lt; <es-nt>y</es-nt>, zero if <es-nt>x</es-nt> = <es-nt>y</es-nt>, or a positive value if
+  <es-nt>x</es-nt> &gt; <es-nt>y</es-nt>.</p>
+
+  <p>Upon entry, the following steps are performed to initialise evaluation of the
+  <code>sort</code> function:</p>
+
+  <ol class="proc">
+    <li>Let <i>obj</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
+
+    <li>Let <i>lenValue</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>obj</i>, <code>"length"</code>).</li>
+
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenValue</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+  </ol>
+
+  <p>The result of the <code>sort</code> function is then determined as follows:</p>
+
+  <p>If <es-nt>comparefn</es-nt> is not <b>undefined</b> and is not a consistent comparison
+  function for the elements of this array (see below), the behaviour of <code>sort</code> is
+  implementation-defined.</p>
+
+  <p>Let <es-nt>proto</es-nt> be the result of calling the [[GetPrototypeOf]] internal method of
+  <es-nt>obj</es-nt>. If <es-nt>proto</es-nt> is not <b>null</b> and there exists an integer
+  <es-nt>j</es-nt> such that all of the conditions below are satisfied then the behaviour of
+  <code>sort</code> is implementation-defined:</p>
+
+  <ul>
+    <li><es-nt>obj</es-nt> is sparse (<es-xref target="sec-array-objects">22.1</es-xref>)</li>
+
+    <li>0 ≤ <es-nt>j</es-nt> &lt; <es-nt>len</es-nt></li>
+
+    <li>The result of <es-xref target="sec-hasproperty">HasProperty</es-xref>(<es-nt>proto</es-nt>,
+    <es-xref target="sec-tostring">ToString</es-xref>(<i>j</i>)) is <b>true</b>.</li>
+  </ul>
+
+  <p>The behaviour of <code>sort</code> is also implementation defined if <es-nt>obj</es-nt> is
+  sparse and any of the following conditions are true:</p>
+
+  <ul>
+    <li>
+      <p>The result of the predicate <es-xref target=
+      "sec-isextensible-o">IsExtensible</es-xref>(<i>obj</i>) is <b>false</b>.</p>
+    </li>
+
+    <li>
+      <p>Any array index property of <es-nt>obj</es-nt> whose name is a nonnegative integer less
+      than <es-nt>len</es-nt> is a data property whose [[Configurable]] attribute is
+      <b>false</b>.</p>
+    </li>
+  </ul>
+
+  <p>The behaviour of <code>sort</code> is also implementation defined if any array index property
+  of <es-nt>obj</es-nt> whose name is a nonnegative integer less than <es-nt>len</es-nt> is an
+  accessor property or is a data property whose [[Writable]] attribute is <b>false</b>.</p>
+
+  <p>Otherwise, the following steps are taken.</p>
+
+  <ol class="proc">
+    <li>Perform an implementation-dependent sequence of calls to the [[Get]] and [[Set]] internal
+    methods of <i>obj</i>, to the <es-xref target=
+    "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref> abstract operation with <i>obj</i>
+    as the first argument, and to <es-xref target="sec-sortcompare">SortCompare</es-xref>
+    (described below), where the <es-xref target="sec-object-type">property key</es-xref> argument
+    for each call to [[Get]], [[Set]], or <es-xref target=
+    "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref> is the string representation of a
+    nonnegative integer less than <i>len</i> and where the arguments for calls to <es-xref target=
+    "sec-sortcompare">SortCompare</es-xref> are results of previous calls to the [[Get]] internal
+    method. If <i>obj</i> is not sparse then <es-xref target=
+    "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref> must not be called. If any [[Set]]
+    call returns <b>false</b> a <b>TypeError</b> exception is thrown. If an <es-xref target=
+    "sec-completion-record-specification-type">abrupt completion</es-xref> is returned from any of
+    these operations, it is immediately returned as the value of this function.</li>
+
+    <li>Return <i>obj</i>.</li>
+  </ol>
+
+  <p>The returned object must have the following two properties.</p>
+
+  <ul>
+    <li>
+      <p>There must be some mathematical permutation π of the nonnegative integers less than
+      <es-nt>len</es-nt>, such that for every nonnegative integer <es-nt>j</es-nt> less than
+      <es-nt>len</es-nt>, if property old[<i>j</i>] existed, then new[π(<i>j</i>)] is exactly the
+      same value as old[<i>j</i>]<b>,</b>. But if property old[<i>j</i>] did not exist, then
+      new[π(<i>j</i>)] does not exist.</p>
+    </li>
+
+    <li>
+      <p>Then for all nonnegative integers <es-nt>j</es-nt> and <es-nt>k</es-nt>, each less than
+      <es-nt>len</es-nt>, if <es-xref target=
+      "sec-sortcompare">SortCompare</es-xref>(<i>j</i>,<i>k</i>) &lt; 0 (see <es-xref target=
+      "sec-sortcompare">SortCompare</es-xref> below), then <b>π</b>(<i>j</i>) &lt;
+      <b>π</b>(<i>k</i>).</p>
+    </li>
+  </ul>
+
+  <p>Here the notation old[<i>j</i>] is used to refer to the hypothetical result of calling the
+  [[Get]] internal method of <es-nt>obj</es-nt> with argument <es-nt>j</es-nt> before this function
+  is executed, and the notation new[<i>j</i>] to refer to the hypothetical result of calling the
+  [[Get]] internal method of <es-nt>obj</es-nt> with argument <es-nt>j</es-nt> after this function
+  has been executed.</p>
+
+  <p>A function <es-nt>comparefn</es-nt> is a consistent comparison function for a set of values
+  <es-nt>S</es-nt> if all of the requirements below are met for all values <es-nt>a</es-nt>,
+  <es-nt>b</es-nt>, and <es-nt>c</es-nt> (possibly the same value) in the set <es-nt>S</es-nt>: The
+  notation <i>a</i>&nbsp;&lt;<sub>CF</sub>&nbsp;<es-nt>b</es-nt> means
+  <i>comparefn</i>(<i>a</i>,<i>b</i>)&nbsp;&lt;&nbsp;0;
+  <i>a</i>&nbsp;=<sub>CF</sub>&nbsp;<es-nt>b</es-nt> means
+  <i>comparefn</i>(<i>a</i>,<i>b</i>)&nbsp;=&nbsp;0 (of either sign); and
+  <i>a</i>&nbsp;&gt;<sub>CF</sub>&nbsp;<es-nt>b</es-nt> means
+  <i>comparefn</i>(<i>a</i>,<i>b</i>)&nbsp;&gt;&nbsp;0.</p>
+
+  <ul>
+    <li>
+      <p>Calling <i>comparefn</i>(<i>a</i>,<i>b</i>) always returns the same value <i>v</i> when
+      given a specific pair of values <i>a</i> and <i>b</i> as its two arguments. Furthermore,
+      <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>) is Number,
+      and <i>v</i> is not NaN. Note that this implies that exactly one of
+      <i>a</i>&nbsp;&lt;<sub>CF</sub>&nbsp;<i>b</i>, <i>a</i>&nbsp;=<sub>CF</sub>&nbsp;<i>b</i>,
+      and <i>a</i>&nbsp;&gt;<sub>CF</sub>&nbsp;<i>b</i> will be true for a given pair of <i>a</i>
+      and <i>b</i>.</p>
+    </li>
+
+    <li>
+      <p>Calling <i>comparefn</i>(<i>a</i>,<i>b</i>) does not modify <i>obj</i>.</p>
+    </li>
+
+    <li>
+      <p><i>a</i>&nbsp;=<sub>CF</sub>&nbsp;<i>a</i> (reflexivity)</p>
+    </li>
+
+    <li>
+      <p>If <i>a</i>&nbsp;=<sub>CF</sub>&nbsp;<i>b</i>, then
+      <i>b</i>&nbsp;=<sub>CF</sub>&nbsp;<i>a</i> (symmetry)</p>
+    </li>
+
+    <li>
+      <p>If <i>a</i>&nbsp;=<sub>CF</sub>&nbsp;<i>b</i> and
+      <i>b</i>&nbsp;=<sub>CF</sub>&nbsp;<i>c</i>, then <i>a</i>&nbsp;=<sub>CF</sub>&nbsp;<i>c</i>
+      (transitivity of =<sub>CF</sub>)</p>
+    </li>
+
+    <li>
+      <p>If <i>a</i>&nbsp;&lt;<sub>CF</sub>&nbsp;<i>b</i> and
+      <i>b</i>&nbsp;&lt;<sub>CF</sub>&nbsp;<i>c</i>, then
+      <i>a</i>&nbsp;&lt;<sub>CF</sub>&nbsp;<i>c</i> (transitivity of &lt;<sub>CF</sub>)</p>
+    </li>
+
+    <li>
+      <p>If <i>a</i>&nbsp;&gt;<sub>CF</sub>&nbsp;<i>b</i> and
+      <i>b</i>&nbsp;&gt;<sub>CF</sub>&nbsp;<i>c</i>, then
+      <i>a</i>&nbsp;&gt;<sub>CF</sub>&nbsp;<i>c</i> (transitivity of &gt;<sub>CF</sub>)</p>
+    </li>
+  </ul>
+
+  <es-note>
+    <p>The above conditions are necessary and sufficient to ensure that <es-nt>comparefn</es-nt>
+    divides the set <es-nt>S</es-nt> into equivalence classes and that these equivalence classes
+    are totally ordered.</p>
+  </es-note>
+
+  <es-note>
+    <p>The <code>sort</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore, it can be transferred to other kinds of
+    objects for use as a method. Whether the <code>sort</code> function can be applied successfully
+    to an exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+
+  <es-clause title="Runtime Semantics: SortCompare Abstract Operation" anchor="sec-sortcompare">
+    <p>When the SortCompare abstract operation is called with two arguments <es-nt>j</es-nt> and
+    <es-nt>k</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>jString</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>j</i>).</li>
+
+      <li>Let <i>kString</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
+
+      <li>Let <i>hasj</i> be the result of <es-xref target=
+      "sec-hasproperty">HasProperty</es-xref>(<i>obj</i>, <i>jString</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hasj</i>).</li>
+
+      <li>Let <i>hask</i> be the result of <es-xref target=
+      "sec-hasproperty">HasProperty</es-xref>(<i>obj</i>, <i>kString</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hask</i>).</li>
+
+      <li>If <i>hasj</i> and <i>hask</i> are both <b>false</b>, then return <b>+0</b>.</li>
+
+      <li>If <i>hasj</i> is <b>false</b>, then return 1.</li>
+
+      <li>If <i>hask</i> is <b>false</b>, then return –1.</li>
+
+      <li>Let <i>x</i> be the result of <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>obj</i>,<i>jString</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>x</i>).</li>
+
+      <li>Let <i>y</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>obj</i>,
+      <i>kString</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>y</i>).</li>
+
+      <li>If <i>x</i> and <i>y</i> are both <b>undefined</b>, return <b>+0</b>.</li>
+
+      <li>If <i>x</i> is <b>undefined</b>, return 1.</li>
+
+      <li>If <i>y</i> is <b>undefined</b>, return −1.</li>
+
+      <li>If the argument <i>comparefn</i> is not <b>undefined</b>, then
+
+        <ol class="block">
+          <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>comparefn</i>) is
+          <b>false</b>, throw a <b>TypeError</b> exception.</li>
+
+          <li>Return the result of calling the [[Call]] internal method of <i>comparefn</i> passing
+          <b>undefined</b> as <i>thisArgument</i> and with a <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref> containing the values of <i>x</i>
+          and <i>y</i> as the <i>argumentsList</i>.</li>
+        </ol>
+      </li>
+
+      <li>Let <i>xString</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>x</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>xString</i>).</li>
+
+      <li>Let <i>yString</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>y</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>yString</i>).</li>
+
+      <li>If <i>xString</i> &lt; <i>yString</i>, return −1.</li>
+
+      <li>If <i>xString</i> &gt; <i>yString</i>, return 1.</li>
+
+      <li>Return <b>+0</b>.</li>
+    </ol>
+
+    <es-note>
+      <p>Because non-existent property values always compare greater than <b>undefined</b> property
+      values, and <b>undefined</b> always compares greater than any other value, <b>undefined</b>
+      property values always sort to the end of the result, followed by non-existent property
+      values.</p>
+    </es-note>
+  </es-clause>
+</es-clause>

@@ -1,0 +1,35 @@
+<es-clause title="Date.prototype.setUTCSeconds (sec [, ms ] )" anchor=
+"sec-date.prototype.setutcseconds">
+  <p>If <es-nt>ms</es-nt> is not specified, this behaves as if <es-nt>ms</es-nt> were specified
+  with the value <code>getUTCMilliseconds()</code>.</p>
+
+  <ol class="proc">
+    <li>Let <i>t</i> be <es-xref target="sec-properties-of-the-date-prototype-object">this time
+    value</es-xref>.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>t</i>).</li>
+
+    <li>Let <i>s</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>sec</i>).</li>
+
+    <li>If <i>ms</i> is not specified, then let <i>milli</i> be <es-xref target=
+    "sec-hours-minutes-second-and-milliseconds">msFromTime</es-xref>(<i>t</i>); otherwise, let
+    <i>milli</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>ms</i>).</li>
+
+    <li>Let <i>date</i> be <es-xref target="sec-makedate">MakeDate</es-xref>(<es-xref target=
+    "sec-day-number-and-time-within-day">Day</es-xref>(<i>t</i>), <es-xref target=
+    "sec-maketime">MakeTime</es-xref>(<es-xref target=
+    "sec-hours-minutes-second-and-milliseconds">HourFromTime</es-xref>(<i>t</i>), <es-xref target=
+    "sec-hours-minutes-second-and-milliseconds">MinFromTime</es-xref>(<i>t</i>), <i>s</i>,
+    <i>milli</i>)).</li>
+
+    <li>Let <i>v</i> be <es-xref target="sec-timeclip">TimeClip</es-xref>(<i>date</i>).</li>
+
+    <li>Set the [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date object to
+    <i>v</i>.</li>
+
+    <li>Return <i>v</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>setUTCSeconds</code> method is <b>2</b>.</p>
+</es-clause>

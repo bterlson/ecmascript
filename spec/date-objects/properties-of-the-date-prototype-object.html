@@ -1,0 +1,106 @@
+<es-clause title="Properties of the Date Prototype Object" anchor=
+"sec-properties-of-the-date-prototype-object">
+  <p>The Date prototype object is itself an ordinary object. It is not a Date instance and does not
+  have a [[DateValue]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref>.</p>
+
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Date prototype
+  object is the standard built-in Object prototype object (<es-xref target=
+  "sec-properties-of-the-date-prototype-object">20.3.4</es-xref>).</p>
+
+  <p>Unless explicitly defined otherwise, the methods of the Date prototype object defined below
+  are not generic and the <b>this</b> value passed to them must be an object that has a
+  [[DateValue]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+  slot</es-xref> that has been initialised to a <es-xref target=
+  "sec-time-values-and-time-range">time value</es-xref>.</p>
+
+  <p>The abstract operation thisTimeValue(<i>value</i>) performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value)</i> is
+    Object and <i>value</i> has a [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
+
+      <ol class="block">
+        <li>Let <i>n</i> be the Number that is the value of <i>value’s</i> [[DateValue]]
+        <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
+
+        <li>If <i>n</i> is not <b>undefined</b>, then return <i>n</i>.</li>
+      </ol>
+    </li>
+
+    <li>Throw a <b>TypeError</b> exception.</li>
+  </ol>
+
+  <p>In following descriptions of functions that are properties of the Date prototype object, the
+  phrase “this Date object” refers to the object that is the <b>this</b> value for the invocation
+  of the function. The phrase “this <es-xref target="sec-time-values-and-time-range">time
+  value</es-xref>” within the specification of a method refers to the result returned by calling
+  the abstract operation thisTimeValue with the <b>this</b> value of the method invocation passed
+  as the argument.</p>
+
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.constructor.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.getdate.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.getday.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.getfullyear.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.gethours.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.getmilliseconds.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.getminutes.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.getmonth.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.getseconds.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.gettime.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.gettimezoneoffset.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.getutcdate.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.getutcday.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.getutcfullyear.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.getutchours.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.getutcmilliseconds.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.getutcminutes.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.getutcmonth.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.getutcseconds.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.setdate.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.setfullyear.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.sethours.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.setmilliseconds.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.setminutes.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.setmonth.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.setseconds.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.settime.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.setutcdate.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.setutcfullyear.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.setutchours.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.setutcmilliseconds.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.setutcminutes.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.setutcmonth.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.setutcseconds.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.todatestring.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.toisostring.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.tojson.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.tolocaledatestring.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.tolocalestring.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.tolocaletimestring.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.tostring.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype.totimestring.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.toutcstring.html">
+  <link rel="import" href="properties-of-the-date-prototype-object/date.prototype.valueof.html">
+  <link rel="import" href=
+  "properties-of-the-date-prototype-object/date.prototype-@@toprimitive.html">
+</es-clause>

@@ -1,0 +1,56 @@
+<es-clause title="ProceedToLocate(loader, load, p) Abstract Operation" anchor=
+"sec-proceedtolocate">
+  <p>The ProceedToLocate abstract operation continues the asynchronous loading process at the
+  <code>locate</code> hook.</p>
+
+  <p>ProceedToLocate performs the following steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>p</i> be PromiseOf(<b>undefined</b>).</li>
+
+    <li>Let <i>F</i> be a new built-in function object as defined in CallLocate.</li>
+
+    <li>Set <i>F</i>’s [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>loader</i>.</li>
+
+    <li>Set <i>F</i>’s [[Load]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>load</i>.</li>
+
+    <li>Let <i>p</i> be PromiseThen(<i>p</i>, <i>F</i>).</li>
+
+    <li>Return <es-xref target="sec-proceedtofetch">ProceedToFetch</es-xref>(<i>loader</i>,
+    <i>load</i>, <i>p</i>).</li>
+  </ol>
+
+  <es-clause title="CallLocate Functions" anchor="sec-calllocate-functions">
+    <p>A CallLocate function is an anonymous built-in function that calls the <code>locate</code>
+    loader hook. Each CallLocate function has [[Loader]] and [[Load]] internal slots.</p>
+
+    <p>When a CallLocate function <es-nt>F</es-nt> is called, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be the value of <i>F</i>’s [[Loader]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>load</i> be the value of <i>F</i>’s [[Load]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>loaderObj</i> be <i>loader</i>.[[LoaderObj]].</li>
+
+      <li>Let <i>hook</i> be the result of <es-xref target=
+      "sec-get-o-p">Get</es-xref>(<i>loaderObj</i>, <code>"locate"</code>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hook</i>).</li>
+
+      <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>hook</i>) is <b>false</b>,
+      throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>obj</i> be <es-xref target=
+      "sec-createloadrequestobject">CreateLoadRequestObject</es-xref>(<i>load</i>.[[Name]],
+      <i>load</i>.[[Metadata]]).</li>
+
+      <li>Return the result of calling the [[Call]] internal method of <i>hook</i> with
+      <i>loader</i> and (<i>obj</i>) as arguments.</li>
+    </ol>
+  </es-clause>
+</es-clause>

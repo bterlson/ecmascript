@@ -1,0 +1,14 @@
+<es-clause title="Date.prototype.toUTCString ( )" anchor="sec-date.prototype.toutcstring">
+  <p>This function returns a String value. The contents of the String are implementation-dependent,
+  but are intended to represent <es-xref target="sec-properties-of-the-date-prototype-object">this
+  time value</es-xref> in a convenient, human-readable form in UTC.</p>
+
+  <es-note>
+    <p>The intent is to produce a String representation of a date that is more readable than the
+    format specified in <es-xref target="sec-date-time-string-format">20.3.1.15</es-xref>. It is
+    not essential that the chosen format be unambiguous or easily machine parsable. If an
+    implementation does not have a preferred human-readable format it is recommended to use the
+    format defined in <es-xref target="sec-date-time-string-format">20.3.1.15</es-xref> but with a
+    space rather than a “T” used to separate the date and time elements.</p>
+  </es-note>
+</es-clause>

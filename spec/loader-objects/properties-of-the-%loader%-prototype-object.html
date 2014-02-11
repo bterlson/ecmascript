@@ -1,0 +1,740 @@
+<es-clause title="Properties of the %Loader% Prototype Object" anchor=
+"sec-properties-of-the-%loader%-prototype-object">
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the %Loader%
+  prototype object is the standard built-in Object prototype object (<es-xref target=
+  "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>). The %Loader% prototype object
+  is an ordinary object. It does not have [[LoaderRecord]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+  <p>The phrase "this Loader" within the specification of the following methods refers to the
+  result returned by performing the abstract operation thisLoader with the <b>this</b> value of the
+  current method invocation passed as the argument.</p>
+
+  <p>The abstract operation thisLoader with argument <es-nt>value</es-nt> performs the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is
+    Object and value has a [[LoaderRecord]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
+
+      <ol class="block">
+        <li>Let <i>r</i> be <i>value</i>’s [[LoaderRecord]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+        <li>If <i>r</i> is not <b>undefined</b>, then return <i>value</i>.</li>
+      </ol>
+    </li>
+
+    <li>Throw a <b>TypeError</b> exception.</li>
+  </ol>
+
+  <es-clause title="%Loader%.prototype.constructor" anchor="sec-%loader%.prototype.constructor">
+    <p>The initial value of %Loader<code>.prototype.constructor</code> is the built-in %Loader%
+    constructor.</p>
+  </es-clause>
+
+  <es-clause title="%Loader%.prototype.define ( name, source, options = undefined )" anchor=
+  "sec-%loader%.prototype.define">
+    <p>The <code>define</code> method installs a module in this <es-nt>loader</es-nt>'s module
+    registry for <es-nt>source</es-nt> using <es-nt>name</es-nt> as the registry key. The module is
+    not immediately available. The <code>translate</code> and <code>instantiate</code> hooks are
+    called asynchronously, and dependencies are loaded asynchronously. <code>define</code> returns
+    a Promise object that resolves to <es-nt>undefined</es-nt> when the new module and its
+    dependencies are installed in the registry.</p>
+
+    <p>When the <code>define</code> method is called with arguments <es-nt>name</es-nt>,
+    <es-nt>source</es-nt>, and optional argument <es-nt>options</es-nt> the following steps are
+    taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>name</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>name</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
+
+      <li>Let <i>address</i> be <es-xref target="sec-getoption">GetOption</es-xref>(<i>options</i>,
+      <code>"address"</code>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>address</i>).</li>
+
+      <li>Let <i>metadata</i> be <es-xref target=
+      "sec-getoption">GetOption</es-xref>(<i>options</i>, <code>"metadata"</code>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>metadata</i>).</li>
+
+      <li>If <i>metadata</i> is <i>undefined</i> then let <i>metadata</i> be the result of calling
+      <es-xref target="sec-objectcreate">ObjectCreate</es-xref>(%ObjectPrototype%).</li>
+
+      <li>Let <i>p</i> be <es-xref target=
+      "sec-promiseofstartloadpartwaythrough">PromiseOfStartLoadPartwayThrough</es-xref>(<code>"translate"</code>,
+      <i>loaderRecord</i>, <i>name</i>, <i>metadata</i>, <i>source</i>, <i>address</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>p</i>).</li>
+
+      <li>Let <i>G</i> be a new function as defined by ReturnUndefined.</li>
+
+      <li>Let <i>p</i> be the result of calling PromiseThen(<i>p</i>, <i>G</i>).</li>
+
+      <li>Return <i>p</i>.</li>
+    </ol>
+
+    <p>The <code>length</code> property of the <code>define</code> method is <b>2</b>.</p>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.delete ( name )" anchor="sec-loader.prototype.delete">
+    <p>The <code>define</code> method remove an entry whose key is <es-nt>name</es-nt> from this
+    <es-nt>loader</es-nt>'s module registry. It performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>name</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>name</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
+
+      <li>Let <i>modules</i> be the value of of <i>loaderRecord</i>. [[Modules]],</li>
+
+      <li>Repeat for each Record {[[<i>name</i>]], [[value]]} <i>p</i> that is an element of
+      <i>modules</i>,
+
+        <ol class="block">
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>.[[key]],
+          <i>name</i>), then
+
+            <ol class="block">
+              <li>Set <i>p</i>.[[key]] to empty.</li>
+
+              <li>Set <i>p</i>.[[value]] to empty.</li>
+
+              <li>Return <b>true</b>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.entries ( )" anchor="sec-loader.prototype.entries">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Return the result of <es-xref target=
+      "sec-createloaderiterator">CreateLoaderIterator</es-xref>(<i>loader</i>,
+      <code>"key+value"</code>).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.eval ( source )" anchor="sec-loader.prototype.eval">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Return the result IndirectEval(<i>loaderRecords</i>.[[ Realm]], <i>source</i>).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.get ( name )" anchor="sec-loader.prototype.get">
+    <p>If this Loader's module registry contains a Module with the given normalized
+    <es-nt>name</es-nt>, return it. Otherwise, return <span class="value">undefined</span>. If the
+    module is in the registry but has never been evaluated, first synchronously evaluate the bodies
+    of the module and any dependencies that have not evaluated yet.</p>
+
+    <p>When the <code>get</code> method is called with the argument <es-nt>name</es-nt>, the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>name</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>name</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
+
+      <li>Let <i>modules</i> be the value of of <i>loaderRecord.</i>[[ Modules]],</li>
+
+      <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+      <i>modules</i>,
+
+        <ol class="block">
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>.[[key]], <i>name</i>)
+          is <b>true</b>, then
+
+            <ol class="block">
+              <li>Let <i>module</i> be <i>p</i>.[[value]].</li>
+
+              <li>Let <i>result</i> be <es-xref target=
+              "sec-ensureevaluated">EnsureEvaluated</es-xref>(<i>module</i>,
+              (),<i>loaderRecord</i>).</li>
+
+              <li><es-xref target=
+              "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
+
+              <li>Return <i>p</i>.[[value]].</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return <b>undefined</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="get Loader.prototype.global" anchor="sec-get-loader.prototype.global">
+    <p><code>Loader.prototype.global</code> is an accessor property whose set accessor function is
+    <span class="value">undefined</span>. Its get accessor function performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>realm</i> be the value of <i>loaderRecord</i>.[[ Realm]].</li>
+
+      <li>Return <i>realm</i>.[[globalThis]].</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.has ( name )" anchor="sec-loader.prototype.has">
+    <p>When the <code>has</code> method is called with argument <es-nt>name</es-nt> the following
+    steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>name</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>name</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
+
+      <li>Let <i>modules</i> be the value of of <i>loaderRecord.</i>[[ Modules]],</li>
+
+      <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+      <i>modules</i>,
+
+        <ol class="block">
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>.[[key]], <i>name</i>)
+          is <b>true</b>, then return <b>true</b>.</li>
+        </ol>
+      </li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-note>
+      <p>This method does not call any hooks or run any module code.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.import ( name, options = undefined )" anchor=
+  "sec-loader.prototype.import">
+    <p>The <code>import</code> method asynchronously loads, links, and evaluates a module and all
+    its dependencies if these actions have not already been performed. The argument
+    <es-nt>name</es-nt> is the registry key for the module. <code>import</code> returns a Promise
+    that resolves to the <code>Module</code> object once it has been committed to the registry and
+    evaluated.</p>
+
+    <p>When the <code>import</code> method is called with argument <es-nt>name</es-nt> and optional
+    arguments <es-nt>options</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>p</i> be the result of calling <es-xref target=
+      "sec-loadmodule">LoadModule</es-xref>(<i>loaderRecord</i>, <i>name</i>, <i>options</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>p</i>).</li>
+
+      <li>Let <i>F</i> be a new function object as defined by EvaluateLoadedModule.</li>
+
+      <li>Set <i>F</i>’s [[Loader]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+      <i>loaderRecord</i>.</li>
+
+      <li>Let <i>p</i> be PromiseThen(<i>p</i>, <i>F</i>).</li>
+
+      <li>Return <i>p</i>.</li>
+    </ol>
+
+    <p>If the optional argument <es-nt>options</es-nt> is an object with an <code>address</code>
+    property the string value of that property is used as the module location and module loading
+    starts with the fetch step. If an <code>address</code> property is not present, module loading
+    starts with the locate step.</p>
+
+    <p>The <code>length</code> property of the <code>import</code> method is <b>1</b>.</p>
+
+    <es-note>
+      <p>Invoking the <code>import</code> method is the dynamic equivalent (when combined with
+      normalization) of:<br>
+      <es-production name="ImportDeclaration" type="lexical" class=
+      "inline"><es-rhs><es-t>import</es-t> <es-nt>ModuleSpecifier</es-nt>
+      <es-t>;</es-t></es-rhs></es-production></p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.keys ( )" anchor="sec-loader.prototype.keys">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Return the result of <es-xref target=
+      "sec-createloaderiterator">CreateLoaderIterator</es-xref>(<i>loader</i>,
+      <code>"key"</code>).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.load ( name, options = undefined )" anchor=
+  "sec-loader.prototype.load">
+    <p>The <code>load</code> method asynchronously loads and links and all its dependencies if
+    these actions have not already been performed. The argument <es-nt>name</es-nt> is the registry
+    key for the module. <code>load</code> returns a Promise that resolves to the
+    <code>Module</code> object once it has been committed to the registry.</p>
+
+    <p>When the <code>load</code> method is called with argument <es-nt>name</es-nt> and optional
+    arguments <es-nt>options</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>p</i> be the result of calling <es-xref target=
+      "sec-loadmodule">LoadModule</es-xref>(<i>loaderRecord</i>, <i>name</i>, <i>options</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>p</i>).</li>
+
+      <li>Let <i>p</i> be PromiseThen(<i>p</i>, %ReturnUndefined%).</li>
+
+      <li>Return <i>p</i>.</li>
+    </ol>
+
+    <p>If the optional argument <es-nt>options</es-nt> is an object with an <code>address</code>
+    property. The string value of that property is used as the module location and module loading
+    starts with the fetch step. If an <code>address</code> property is not present, module loading
+    starts with the locate step.</p>
+
+    <p>The <code>length</code> property of the <code>import</code> method is <b>1</b>.</p>
+
+    <es-note>
+      <p>The <code>load</code> method differs from the <code>import</code> method in that it does
+      not force evaluation of the loaded module.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.module ( source, options )" anchor=
+  "sec-loader.prototype.module">
+    <p>The <code>module</code> method asynchronously loads, links, and evaluates evaluates an
+    anonymous module from <es-nt>source</es-nt>. The module's dependencies, if any, are loaded and
+    committed to the registry. The anonymous module itself is not added to the registry.
+    <code>module</code> returns a Promise object that resolves to a new Module instance object once
+    the given module body has been evaluated.</p>
+
+    <p>When the <code>module</code> method is called with argument <es-nt>source</es-nt> and
+    optional arguments <es-nt>options</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>address</i> be <es-xref target="sec-getoption">GetOption</es-xref>(<i>options</i>,
+      <code>"address"</code>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>address</i>).</li>
+
+      <li>Let <i>load</i> be <es-xref target=
+      "sec-createload">CreateLoad</es-xref>(<b>undefined</b>).</li>
+
+      <li>Set <i>load</i>.[[Address]] field of <i>load</i> to <i>address</i>.</li>
+
+      <li>Let <i>linkSet</i> be <es-xref target=
+      "sec-createlinkset">CreateLinkSet</es-xref>(<i>loaderRecord</i>, <i>load</i>).</li>
+
+      <li>Let <i>successCallback</i> be a new function object as defined by
+      EvaluateLoadedModule.</li>
+
+      <li>Set <i>successCallback</i>’s [[Loader]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+      <i>loaderRecord</i>.</li>
+
+      <li>Set <i>successCallback</i>’s [[Load]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>load</i>.</li>
+
+      <li>Let <i>p</i> be the result of calling PromiseThen(<i>linkSet</i>.[[Done]],
+      <i>successCallback</i>).</li>
+
+      <li>Let <i>sourcePromise</i> be PromiseOf(<i>source</i>).</li>
+
+      <li>Perform <es-xref target=
+      "sec-proceedtotranslate">ProceedToTranslate</es-xref>(<i>loaderRecord</i>, <i>load</i>,
+      <i>sourcePromise</i>).</li>
+
+      <li>Return <i>p</i>.</li>
+    </ol>
+
+    <p>If the optional argument <es-nt>options</es-nt> is an object with an <code>address</code>
+    property.</p>
+
+    <p>The <code>length</code> property of the <code>module</code> method is <b>1</b>.</p>
+  </es-clause>
+
+  <es-clause title="newModule ( obj )" anchor="sec-newmodule-obj">
+    <p style="background-color: #FFC000">TO DO</p>
+
+    <p style="background-color: #FFC000">In the prototype this is the Module Factory Function.
+    However, this factory seems to have only specialized utility and it seems to unnecessarily
+    clutter the “global” namespace of Module abstractions. Making it a method of module loaders
+    seems like a more sanity thing to do, but we can break it out if that;s what people really
+    want.</p>
+
+    <p style="background-color: #FFC000">Also need to reconcile with are execute factory returns by
+    the instantiate hook. Is this method intended to be able as an execute factory. If sho it
+    probably needs to accept multiple arguments.</p>
+
+    <p>When the <code>newModule</code> method is called with argument <es-nt>obj</es-nt> it creates
+    a new Module objects whose export properties are derived form the properties of
+    <es-nt>obj</es-nt>. The following steps are performed:</p>
+
+    <ol class="proc">
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>obj</i>) is
+      not Object, throw a TypeError exception.</li>
+
+      <li>Let <i>mod</i> be CreateLinkedModuleInstance( )</li>
+
+      <li>Let <i>keys</i> be the result of calling the ObjectKeys abstract operation passing
+      <i>obj</i> as the argument.</li>
+
+      <li>
+        <es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>keys</i>).
+
+        <ol class="block">
+          <li>For each <i>key</i> in <i>keys</i>, do</li>
+
+          <li>Let <i>value</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>obj</i>, <i>key</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
+
+          <li>Let <i>F</i> be the result of calling CreateConstantGetter(<i>key</i>,
+          <i>value</i>).</li>
+
+          <li>Let <i>desc</i> be the PropertyDescriptor {[[Configurable]]: <b>false</b>,
+          [[Enumerable]]: <b>true</b>, [[Get]]: <i>F</i>, [[Set]]: <b>undefined</b>}.</li>
+
+          <li>Let <i>status</i> be the result of calling the <es-xref target=
+          "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref> abstract operation passing
+          <i>mod</i>, <i>key</i>, and <i>desc</i> as arguments.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+        </ol>
+      </li>
+
+      <li>Call the [[PreventExtensions]] internal method of <i>mod</i>.</li>
+
+      <li>Return <i>mod</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="get Loader.prototype.realm" anchor="sec-get-loader.prototype.realm">
+    <p><code>Loader.prototype.realm</code> is an accessor property whose set accessor function is
+    <span class="value">undefined</span>. Its get accessor function performs the following
+    steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Return RealmObjectFor(<i>loaderRecord</i>.[[Realm]]).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.set ( name, module )" anchor="sec-loader.prototype.set">
+    <p>Store a Module obj in this Loader's <es-nt>module</es-nt> registry, overwriting any existing
+    entry with the same <es-nt>name</es-nt>.</p>
+
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Let <i>loaderRecord</i> be <i>loader’s</i> [[LoaderRecord]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>name</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>name</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>name</i>).</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>module</i>)
+      is not Object, throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>modules</i> be the value of of <i>loaderRecord.</i>[[ Modules]],</li>
+
+      <li>Repeat for each Record {[[ key]], [[value]]} <i>p</i> that is an element of
+      <i>modules</i>,
+
+        <ol class="block">
+          <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>.[[key]], <i>name</i>)
+          is <b>true</b>, then
+
+            <ol class="block">
+              <li>Set <i>p</i>.[[value]] to <i>module</i>.</li>
+
+              <li>Return <i>loader</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Let <i>p</i> be the Record {[[key]]: <i>name</i>, [[value]]: <i>module</i>}.</li>
+
+      <li>Append <i>p</i> as the last record of <i>loaderRecord</i>.[[ Modules]].</li>
+
+      <li>Return <i>loader</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Loader.prototype.values ( )" anchor="sec-loader.prototype.values">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be this Loader.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>loader</i>).</li>
+
+      <li>Return the result of <es-xref target=
+      "sec-createloaderiterator">CreateLoaderIterator</es-xref>(<i>loader</i>,
+      <code>"value"</code>).</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Loader.prototype[@@iterator] ( )" anchor="sec-loader.prototype-@@iterator">
+    <p>The initial value of the @@iterator property is the same function object as the initial
+    value of the <code>entries</code> property.</p>
+  </es-clause>
+
+  <es-clause title="Loader Pipeline Hook Properties" anchor="sec-loader-pipeline-hook-properties">
+    <p>Loader hooks are methods that are called at various points in the process of loading a
+    module. The %Loader% prototype provide default implementations for the hook methods. However,
+    individual Loader object may over-ride these defaults using own properties.</p>
+
+    <es-clause title="iLoader.prototype.normalize ( name, refererName, refererAddress )" anchor=
+    "sec-iloader.prototype.normalize-name-referername-refereraddress">
+      <p>When the <code>normalize</code> loader hook is called with arguments <es-nt>name</es-nt>,
+      <es-nt>refererName</es-nt>, and <es-nt>refererAddress</es-nt> <es-nt>loadRequest</es-nt>, the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>name</i>) is String.</li>
+
+        <li>Return <i>name</i>.</li>
+      </ol>
+
+      <p>This is a Loader hook that may be over-riden by an own property of Loader instances. The
+      <code>normalize</code> hook is called once per distinct <es-nt>ModuleSpecifier</es-nt> String
+      value in a <es-nt>ModuleBody</es-nt>, while the module <es-nt>ModuleBody</es-nt> with that is
+      being loaded. The <es-nt>name</es-nt> argument is the <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of a
+      <es-nt>ModuleSpecifier</es-nt>.</p>
+
+      <p>The <code>normalize</code> hook returns an eventual String, the normalised module name,
+      which is used for the rest of the import process. In particular, the [[Loads]] and
+      [[Modules]] Lists of a ModuleLinkage record are both keyed by normalised module names. The
+      module registry contains at most one module for a given normalised module name.</p>
+
+      <p>After calling this hook, if the normalised module <es-nt>name</es-nt> is in the registry
+      or the load table, no new Load Record is created. Otherwise the loader initialtes a load for
+      that module that starts by calling the <code>locate</code> hook.</p>
+    </es-clause>
+
+    <es-clause title="Loader.prototype.locate (loadRequest)" anchor="sec-loader.prototype.locate">
+      <p>When the locate method is called with argument <es-nt>loadRequest</es-nt> the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li>Return the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>loadRequest</i>,
+        <code>"name"</code>).</li>
+      </ol>
+
+      <p>This is a Loader hook that may be over-riden by an own property of Loader instances. The
+      <code>locate</code> hook is called for each distinct normalized import
+      <es-nt>ModuleSpecifier</es-nt> immediately after the <code>normalize</code> hook returns
+      successfully, unless the module is already loaded or loading.</p>
+
+      <p>The <code>locate</code> hook is called to obtain to determine the Loader-dependent
+      resource address (URL, path, etc.) corresponding to normalised module name. The resource
+      address is used later in the Loader pipeline to retrive the source code of the requested
+      module.</p>
+
+      <p>When a <code>locate</code> hook is called by an Loader object the argument
+      <es-nt>loadRequest</es-nt> is a LoadRequest object (<es-xref target=
+      "sec-load-records-and-loadrequest-objects">15.2.3.2</es-xref>). The value of the
+      <code>name</code> property is the normalised module name. The <code>locate</code> hook
+      returns an eventual value that is used as the resource address. When the returned value is
+      resolved, loading will continue with the <code>fetch</code> hook.</p>
+
+      <es-note>
+        <p>The <code>System.locate</code> hook typically is significantly more complicated than the
+        default <code>locate</code> hook.</p>
+      </es-note>
+    </es-clause>
+
+    <es-clause title="Loader.prototype.fetch (loadRequest)" anchor="sec-loader.prototype.fetch">
+      <p>When the <code>fetch</code> loader hook is called with argument
+      <es-nt>loadRequest</es-nt>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Throw a TypeError exception.</li>
+      </ol>
+
+      <p>This is a Loader hook that will normally be over-riden by an own property of Loader
+      instances. The <code>fetch</code> hook is called by a Loader for all modules whose source
+      code was not directly provided to the Loader. It is also used to process the
+      <code>import</code> keyword. The <code>fetch</code> hook is not called for module bodies
+      directly provided as arguments to <code>loader.module()</code> or
+      <code>loader.define()</code>. However, the <code>fetch</code> hook may be called when loading
+      other modules imported by such modules.</p>
+
+      <p>When a <code>fetch</code> hook is called by an Loader object the argument
+      <es-nt>loadRequest</es-nt> is a LoadRequest object (<es-xref target=
+      "sec-load-records-and-loadrequest-objects">15.2.3.2</es-xref>) with an <code>address</code>
+      property. The value of the <code>address</code> property identifies the module source code to
+      fetch. The fetch hook returns an eventual String containing the source code of the
+      module.</p>
+    </es-clause>
+
+    <es-clause title="Loader.prototype.translate ( load )" anchor="sec-loader.prototype.translate">
+      <p>When the translate method is called, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Return the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>load</i>,
+        <code>"source"</code>).</li>
+      </ol>
+
+      <p>This is a <code>Loader</code> hook that may be over-riden by an own property of Loader
+      instances. The <code>translate</code> hook is called for each <es-nt>ModuleBody</es-nt>
+      including those passed to <code>loader.module()</code> or <code>loader.define()</code>.The
+      <code>translate</code> hook is called prior to parsing the <es-nt>ModuleBody</es-nt> and
+      provides a Loader the opportunity to modify or replace the source code that will be
+      parse.</p>
+
+      <es-note>
+        <p>An example of the use of the <code>translate</code> hook would be to translate source
+        code for a another programing language into an ECMAScript <es-nt>ModuleBody</es-nt>.</p>
+      </es-note>
+
+      <p>When a <code>translate</code> hook is called by an Loader object the argument
+      <es-nt>loadRequest</es-nt> is a LoadRequest object (<es-xref target=
+      "sec-load-records-and-loadrequest-objects">15.2.3.2</es-xref>) with <code>address</code> and
+      <code>source</code> properties. The value of the <code>address</code> property identifies the
+      module source code to fetch. The value of the <code>source</code> property is the resolved
+      value returned from the <code>fetch</code> hook. The <code>translate</code> hook returns
+      either an eventual String value ECMAScript that will be parsed as a
+      <es-nt>ModuleBody</es-nt>.</p>
+    </es-clause>
+
+    <es-clause title="Loader.prototype.instantiate (loadRequest)" anchor=
+    "sec-loader.prototype.instantiate">
+      <p>When the instantiate loader hook is called with argument <es-nt>loadRequest</es-nt>, the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Return <b>undefined</b>.</li>
+      </ol>
+
+      <p>This hook allows a Loader to provide interoperability with other module systems.</p>
+
+      <p>When a <code>instantiate</code> hook is called by an Loader object the argument,
+      <es-nt>loadRequest</es-nt>, is a LoadRequest object (<es-xref target=
+      "sec-load-records-and-loadrequest-objects">15.2.3.2</es-xref>) with <code>address</code> and
+      <code>source</code> properties. <es-nt>loadRequest</es-nt><code>.name</code>,
+      <es-nt>loadRequest</es-nt><code>.metadata</code>, and
+      <es-nt>loadRequest</es-nt><code>.address</code> are the same values passed to the
+      <code>fetch</code> and <code>translate</code> hooks.
+      <es-nt>loadRequest</es-nt><code>.source</code> is the the value produced by the
+      <code>translate</code> hook.</p>
+
+      <p>If the <code>instantiate</code> hook returns an eventual <b>undefined</b>, then the loader
+      uses the default linking behavior. It parses <es-nt>loadRequest</es-nt><code>.source</code>
+      as a Module, looks at its imports, loads its dependencies asynchronously, and finally links
+      them together and adds them to the registry.</p>
+
+      <p>Otherwise, the <code>instantiate</code> hook must return an eventual
+      <es-nt>instantiationRequest</es-nt> object. An <es-nt>instantiateRequest</es-nt> object has
+      two required properties. The value of the <code>deps</code> property is an array of strings.
+      Each string is the name of a module upon which the module identified by
+      <es-nt>loadRequest</es-nt> has dependencies. The value of the <code>execute</code> property
+      is a function which the loader will use to create the module and link it with its clients and
+      dependencies. The function should expect to receive the same number of arguments as the size
+      of the <code>deps</code> array and must return an eventual Module object. The arguments are
+      Module objects and have a one-to-one correspondence with elements of the <code>deps</code>
+      array.</p>
+
+      <p>The module is evaluated during the linking process. First all of the modules it depends
+      upon are linked and evaluated , and then passed to the <code>execute</code> function. Then
+      the resulting module is linked with the downstream dependencies.</p>
+
+      <p><span class="marker"></span>NOTE	This feature is provided in order to permit custom
+      loaders to support using <code>import</code> to import pre-ES6 modules such as AMD modules.
+      The design requires incremental linking when such modules are present, but it ensures that
+      modules implemented with standard source-level module declarations can still be statically
+      validated.</p>
+    </es-clause>
+  </es-clause>
+</es-clause>

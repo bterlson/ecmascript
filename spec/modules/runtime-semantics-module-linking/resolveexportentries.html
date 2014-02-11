@@ -1,0 +1,82 @@
+<es-clause title="ResolveExportEntries ( M, visited )" anchor="sec-resolveexportentries">
+  <p>The abstract operation ResolveExportEntries with arguments <es-nt>M</es-nt> and
+  <es-nt>visited</es-nt> performs the following steps:</p>
+
+  <ol class="proc">
+    <li>If <i>M</i>.[[ExportDefinitions]] is not <b>undefined</b>, then return
+    <i>M</i>.[[ExportDefinitions]].</li>
+
+    <li>Let <i>defs</i> be a new empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref>.</li>
+
+    <li>Let <i>boundNames</i> be <i>M</i>.[[BoundNames]].</li>
+
+    <li>For each <i>entry</i> in <i>M</i>.[[KnownExportEntries]], do
+
+      <ol class="block">
+        <li>Let <i>modReq</i> be <i>entry</i>.[[ModuleRequest]].</li>
+
+        <li>Let <i>otherMod</i> be the result of calling the <es-xref target=
+        "sec-lookupmoduledependency">LookupModuleDependency</es-xref> abstract operation passing
+        <i>M</i> and <i>modReq</i> as arguments.</li>
+
+        <li>If <i>entry</i>.[[Module]] is <b>null</b> and <i>entry</i>.[[LocalName]] is not
+        <b>null</b> and <i>boundNames</i> does not contain <i>entry</i>.[[LocalName]], then the
+        following steps are taken:
+
+          <ol class="block">
+            <li>Let <i>error</i> be a new <es-xref target=
+            "sec-reference-specification-type">Reference</es-xref> Error.</li>
+
+            <li>Add <i>error</i> to <i>M</i>.[[LinkErrors]].</li>
+          </ol>
+        </li>
+
+        <li>Add the record {[[Module]]: <i>otherMod</i>, [[ImportName]]:
+        <i>entry</i>.[[ImportName]], [[LocalName]]: <i>entry</i>.[[LocalName]], [[ExportName]]:
+        <i>entry</i>.[[ExportName]], [[Explicit]]: <b>true</b>} to <i>defs</i>.</li>
+      </ol>
+    </li>
+
+    <li>For each <i>modReq</i> in <i>M</i>.[[UnknownExportEntries]], do
+
+      <ol class="block">
+        <li>Let <i>otherMod</i> be the result of calling the <es-xref target=
+        "sec-lookupmoduledependency">LookupModuleDependency</es-xref> abstract operation passing
+        <i>M</i> and <i>modReq</i> as arguments.</li>
+
+        <li>If <i>otherMod</i> is in <i>visited</i>, then the following steps are taken:
+
+          <ol class="block">
+            <li>Let <i>error</i> be a new Syntax Error.</li>
+
+            <li>Add <i>error</i> to <i>M</i>.[[LinkErrors]].</li>
+          </ol>
+        </li>
+
+        <li>Otherwise the following steps are taken:
+
+          <ol class="block">
+            <li>Add <i>otherMod</i> to <i>visited</i>.</li>
+
+            <li>Let <i>otherDefs</i> be the result of calling the ResolveExportEntries abstract
+            operation passing <i>otherMod</i> and <i>visited</i> as arguments.</li>
+
+            <li>For each <i>def</i> of <i>otherDefs</i>, do
+
+              <ol class="block">
+                <li>Add the record {[[Module]]: <i>otherMod</i>, [[ImportName]]:
+                <i>def</i>.[[ExportName]], [[LocalName]]: <b>null</b>, [[ExportName]]:
+                <i>def</i>.[[ExportName]], [[Explicit]]: <b>false</b>} to <i>defs</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Set <i>M</i>.[[ExportDefinitions]] to <i>defs</i>.</li>
+
+    <li>Return <i>defs</i>.</li>
+  </ol>
+</es-clause>

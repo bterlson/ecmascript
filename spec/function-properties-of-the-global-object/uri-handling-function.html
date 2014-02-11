@@ -1,0 +1,650 @@
+<es-clause title="URI Handling Function" anchor="sec-uri-handling-function">
+  <p>Uniform Resource Identifiers, or URIs, are Strings that identify resources (e.g. web pages or
+  files) and transport protocols by which to access them (e.g. HTTP or FTP) on the Internet. The
+  ECMAScript language itself does not provide any support for using URIs except for functions that
+  encode and decode URIs as described in <es-xref target=
+  "sec-decodeuri-encodeduri">18.2.6.2</es-xref>, <es-xref target=
+  "sec-decodeuricomponent-encodeduricomponent">18.2.6.3</es-xref>, <es-xref target=
+  "sec-encodeuri-uri">18.2.6.4</es-xref> and <es-xref target=
+  "sec-encodeuri-uri">18.2.6.4</es-xref>.</p>
+
+  <es-note>
+    <p>Many implementations of ECMAScript provide additional functions and methods that manipulate
+    web pages; these functions are beyond the scope of this standard.</p>
+  </es-note>
+
+  <es-clause title="URI Syntax and Semantics" anchor="sec-uri-syntax-and-semantics">
+    <p>A URI is composed of a sequence of components separated by component separators. The general
+    form is:</p>
+
+    <es-production name="Scheme" class="inline">
+      <es-rhs><es-nt>First</es-nt> / <es-nt>Second</es-nt> ; <es-nt>Third</es-nt> ?
+      <es-nt>Fourth</es-nt></es-rhs>
+    </es-production>
+
+    <p>where the italicised names represent components and “<code>:</code>”, “<code>/</code>”,
+    “<code>;</code>” and “<code>?</code>” are reserved characters used as separators. The
+    <code>encodeURI</code> and <code>decodeURI</code> functions are intended to work with complete
+    URIs; they assume that any reserved characters in the URI are intended to have special meaning
+    and so are not encoded. The <code>encodeURIComponent</code> and <code>decodeURIComponent</code>
+    functions are intended to work with the individual component parts of a URI; they assume that
+    any reserved characters represent text and so must be encoded so that they are not interpreted
+    as reserved characters when the component is part of a complete URI.</p>
+
+    <p>The following lexical grammar specifies the form of encoded URIs.</p>
+
+    <h2>Syntax</h2>
+
+    <es-production name="uri" type="numeric">
+      <es-rhs><es-nt optional>uriCharacters</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="uriCharacters" type="numeric">
+      <es-rhs><es-nt>uriCharacter</es-nt> <es-nt optional>uriCharacters</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="uriCharacter" type="numeric">
+      <es-rhs><es-nt>uriReserved</es-nt></es-rhs>
+
+      <es-rhs><es-nt>uriUnescaped</es-nt></es-rhs>
+
+      <es-rhs><es-nt>uriEscaped</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="uriReserved" type="numeric" oneof>
+      <es-rhs>; / ? : @ &amp; = + $ ,</es-rhs>
+    </es-production>
+
+    <es-production name="uriUnescaped" type="numeric">
+      <es-rhs><es-nt>uriAlpha</es-nt></es-rhs>
+
+      <es-rhs><es-nt>DecimalDigit</es-nt></es-rhs>
+
+      <es-rhs><es-nt>uriMark</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="uriEscaped" type="numeric">
+      <es-rhs>% <es-nt>HexDigit</es-nt> <es-nt>HexDigit</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="uriAlpha" type="numeric" oneof>
+      <es-rhs>a b c d e f g h i j k l m n o p q r s t u v w x y z</es-rhs>
+
+      <es-rhs>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</es-rhs>
+    </es-production>
+
+    <es-production name="uriMark" type="numeric" oneof>
+      <es-rhs>- _ . ! ~ * ' ( )</es-rhs>
+    </es-production>
+
+    <es-note>
+      <p>The above syntax is based upon RFC 2396 and does not reflect changes introduced by the
+      more recent RFC 3986.</p>
+    </es-note>
+
+    <p><b>Runtime Semantics</b></p>
+
+    <p>When a character to be included in a URI is not listed above or is not intended to have the
+    special meaning sometimes given to the reserved characters, that character must be encoded. The
+    character is transformed into its UTF-8 encoding, with surrogate pairs first converted from
+    UTF-16 to the corresponding code point value. (Note that for code units in the range [0,127]
+    this results in a single octet with the same value.) The resulting sequence of octets is then
+    transformed into a String with each octet represented by an escape sequence of the form
+    “<b>%</b>xx”.</p>
+
+    <es-clause title="Runtime Semantics: Encode Abstract Operation" anchor="sec-encode">
+      <p>The encoding and escaping process is described by the abstract operation Encode taking two
+      String arguments <es-nt>string</es-nt> and <es-nt>unescapedSet</es-nt>.</p>
+
+      <ol class="proc">
+        <li>Let <i>strLen</i> be the number of characters in <i>string</i>.</li>
+
+        <li>Let <i>R</i> be the empty String.</li>
+
+        <li>Let <i>k</i> be 0.</li>
+
+        <li>Repeat
+
+          <ol class="block">
+            <li>If <i>k</i> equals <i>strLen</i>, return <i>R</i>.</li>
+
+            <li>Let <i>C</i> be the character at position <i>k</i> within <i>string</i>.</li>
+
+            <li>If <i>C</i> is in <i>unescapedSet</i>, then
+
+              <ol class="block">
+                <li>Let <i>S</i> be a String containing only the character <i>C</i>.</li>
+
+                <li>Let <i>R</i> be a new String value computed by concatenating the previous value
+                of <i>R</i> and <i>S</i>.</li>
+              </ol>
+            </li>
+
+            <li>Else <i>C</i> is not in <i>unescapedSet</i>,
+
+              <ol class="block">
+                <li>If the code unit value of <i>C</i> is not less than 0xDC00 and not greater than
+                0xDFFF, throw a <b><es-xref target=
+                "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                exception.</li>
+
+                <li>If the code unit value of <i>C</i> is less than 0xD800 or greater than 0xDBFF,
+                then
+
+                  <ol class="block">
+                    <li>Let <i>V</i> be the code unit value of <i>C</i>.</li>
+                  </ol>
+                </li>
+
+                <li>Else,
+
+                  <ol class="block">
+                    <li>Increase <i>k</i> by 1.</li>
+
+                    <li>If <i>k</i> equals <i>strLen</i>, throw a <b><es-xref target=
+                    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                    exception.</li>
+
+                    <li>Let <i>kChar</i> be the code unit value of the character at position
+                    <i>k</i> within <i>string</i>.</li>
+
+                    <li>If <i>kChar</i> is less than 0xDC00 or greater than 0xDFFF, throw a
+                    <b><es-xref target=
+                    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                    exception.</li>
+
+                    <li>Let <i>V</i> be (((the code unit value of <i>C</i>) – 0xD800) × 0x400 +
+                    (<i>kChar</i> – 0xDC00) + 0x10000).</li>
+                  </ol>
+                </li>
+
+                <li>Let <i>Octets</i> be the array of octets resulting by applying the UTF-8
+                transformation to <i>V</i>, and let <i>L</i> be the array size.</li>
+
+                <li>Let <i>j</i> be 0.</li>
+
+                <li>Repeat, while <i>j</i> &lt; <i>L</i>
+
+                  <ol class="block">
+                    <li>Let <i>jOctet</i> be the value at position <i>j</i> within
+                    <i>Octets</i>.</li>
+
+                    <li>Let <i>S</i> be a String containing three characters “<b>%</b><i>XY</i>”
+                    where <i>XY</i> are two uppercase hexadecimal digits encoding the value of
+                    <i>jOctet</i>.</li>
+
+                    <li>Let <i>R</i> be a new String value computed by concatenating the previous
+                    value of <i>R</i> and <i>S</i>.</li>
+
+                    <li>Increase <i>j</i> by 1.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+
+            <li>Increase <i>k</i> by 1.</li>
+          </ol>
+        </li>
+      </ol>
+    </es-clause>
+
+    <es-clause title="Runtime Semantics: Decode Abstract Operation" anchor="sec-decode">
+      <p>The unescaping and decoding process is described by the abstract operation Decode taking
+      two String arguments <es-nt>string</es-nt> and <es-nt>reservedSet</es-nt>.</p>
+
+      <ol class="proc">
+        <li>Let <i>strLen</i> be the number of characters in <i>string</i>.</li>
+
+        <li>Let <i>R</i> be the empty String.</li>
+
+        <li>Let <i>k</i> be 0.</li>
+
+        <li>Repeat
+
+          <ol class="block">
+            <li>If <i>k</i> equals <i>strLen</i>, return <i>R</i>.</li>
+
+            <li>Let <i>C</i> be the character at position <i>k</i> within <i>string</i>.</li>
+
+            <li>If <i>C</i> is not ‘<b>%</b>’, then
+
+              <ol class="block">
+                <li>Let <i>S</i> be the String containing only the character <i>C</i>.</li>
+              </ol>
+            </li>
+
+            <li>Else <i>C</i> is ‘<b>%</b>’,
+
+              <ol class="block">
+                <li>Let <i>start</i> be <i>k</i>.</li>
+
+                <li>If <i>k</i> + 2 is greater than or equal to <i>strLen</i>, throw a
+                <b><es-xref target=
+                "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                exception.</li>
+
+                <li>If the characters at position (<i>k</i>+1) and (<i>k</i> + 2) within
+                <i>string</i> do not represent hexadecimal digits, throw a <b><es-xref target=
+                "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                exception.</li>
+
+                <li>Let <i>B</i> be the 8-bit value represented by the two hexadecimal digits at
+                position (<i>k</i> + 1) and (<i>k</i> + 2).</li>
+
+                <li>Increment <i>k</i> by 2.</li>
+
+                <li>If the most significant bit in <i>B</i> is 0, then
+
+                  <ol class="block">
+                    <li>Let <i>C</i> be the character with code unit value <i>B</i>.</li>
+
+                    <li>If <i>C</i> is not in <i>reservedSet</i>, then
+
+                      <ol class="block">
+                        <li>Let <i>S</i> be the String containing only the character <i>C</i>.</li>
+                      </ol>
+                    </li>
+
+                    <li>Else <i>C</i> is in <i>reservedSet</i>,
+
+                      <ol class="block">
+                        <li>Let <i>S</i> be the substring of <i>string</i> from position
+                        <i>start</i> to position <i>k</i> included.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+
+                <li>Else the most significant bit in <i>B</i> is 1,
+
+                  <ol class="block">
+                    <li>Let <i>n</i> be the smallest non-negative number such that (<i>B</i>
+                    &lt;&lt; <i>n</i>) &amp; 0x80 is equal to 0.</li>
+
+                    <li>If <i>n</i> equals 1 or <i>n</i> is greater than 4, throw a
+                    <b><es-xref target=
+                    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                    exception.</li>
+
+                    <li>Let <i>Octets</i> be an array of 8-bit integers of size <i>n</i>.</li>
+
+                    <li>Put <i>B</i> into <i>Octets</i> at position 0.</li>
+
+                    <li>If <i>k</i> + (3 × (<i>n</i> – 1)) is greater than or equal to
+                    <i>strLen</i>, throw a <b><es-xref target=
+                    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                    exception.</li>
+
+                    <li>Let <i>j</i> be 1.</li>
+
+                    <li>Repeat, while <i>j</i> &lt; <i>n</i>
+
+                      <ol class="block">
+                        <li>Increment <i>k</i> by 1.</li>
+
+                        <li>If the character at position <i>k</i> within <i>string</i> is not
+                        <code>"%″</code>, throw a <b><es-xref target=
+                        "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                        exception.</li>
+
+                        <li>If the characters at position (<i>k</i> +1) and (<i>k</i> + 2) within
+                        <i>string</i> do not represent hexadecimal digits, throw a
+                        <b><es-xref target=
+                        "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                        exception.</li>
+
+                        <li>Let <i>B</i> be the 8-bit value represented by the two hexadecimal
+                        digits at position (<i>k</i> + 1) and (<i>k</i> + 2).</li>
+
+                        <li>If the two most significant bits in <i>B</i> are not 10, throw a
+                        <b><es-xref target=
+                        "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                        exception.</li>
+
+                        <li>Increment <i>k</i> by 2.</li>
+
+                        <li>Put <i>B</i> into <i>Octets</i> at position <i>j</i>.</li>
+
+                        <li>Increment <i>j</i> by 1.</li>
+                      </ol>
+                    </li>
+
+                    <li>Let <i>V</i> be the value obtained by applying the UTF-8 transformation to
+                    <i>Octets</i>, that is, from an array of octets into a 21-bit value. If
+                    <i>Octets</i> does not contain a valid UTF-8 encoding of a Unicode code point
+                    throw a <b><es-xref target=
+                    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+                    exception.</li>
+
+                    <li>If <i>V</i> &lt; 0x10000, then
+
+                      <ol class="block">
+                        <li>Let <i>C</i> be the character with code unit value <i>V</i>.</li>
+
+                        <li>If <i>C</i> is not in <i>reservedSet</i>, then
+
+                          <ol class="block">
+                            <li>Let <i>S</i> be the String containing only the character
+                            <i>C</i>.</li>
+                          </ol>
+                        </li>
+
+                        <li>Else <i>C</i> is in <i>reservedSet</i>,
+
+                          <ol class="block">
+                            <li>Let <i>S</i> be the substring of <i>string</i> from position
+                            <i>start</i> to position <i>k</i> included.</li>
+                          </ol>
+                        </li>
+                      </ol>
+                    </li>
+
+                    <li>Else <i>V</i> ≥ 0x10000,
+
+                      <ol class="block">
+                        <li>Let <i>L</i> be (((<i>V</i> – 0x10000) &amp; 0x3FF) + 0xDC00).</li>
+
+                        <li>Let <i>H</i> be ((((<i>V</i> – 0x10000) &gt;&gt; 10) &amp; 0x3FF) +
+                        0xD800).</li>
+
+                        <li>Let <i>S</i> be the String containing the two characters with code unit
+                        values <i>H</i> and <i>L</i>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+
+            <li>Let <i>R</i> be a new String value computed by concatenating the previous value of
+            <i>R</i> and <i>S</i>.</li>
+
+            <li>Increase <i>k</i> by 1.</li>
+          </ol>
+        </li>
+      </ol>
+
+      <es-note>
+        <p>This syntax of Uniform Resource Identifiers is based upon RFC 2396 and does not reflect
+        the more recent RFC 3986 which replaces RFC 2396. A formal description and implementation
+        of UTF-8 is given in RFC 3629.</p>
+      </es-note>
+
+      <p>In UTF-8, characters are encoded using sequences of 1 to 6 octets. The only octet of a
+      "sequence" of one has the higher-order bit set to 0, the remaining 7 bits being used to
+      encode the character value. In a sequence of n octets, n&gt;1, the initial octet has the n
+      higher-order bits set to 1, followed by a bit set to 0. The remaining bits of that octet
+      contain bits from the value of the character to be encoded. The following octets all have the
+      higher-order bit set to 1 and the following bit set to 0, leaving 6 bits in each to contain
+      bits from the character to be encoded. The possible UTF-8 encodings of ECMAScript characters
+      are specified in <a href="#table-37">Table 37</a> .</p>
+
+      <figure>
+        <figcaption>
+          <span id="table-37">Table 37</span> — UTF-8 Encodings
+        </figcaption>
+
+        <table class="real-table">
+          <tr>
+            <th style=
+            "border-bottom: 0px solid black; border-left: 0px solid black; border-top: 0px solid black">
+            Code Unit Value</th>
+
+            <th style="border-bottom: 0px solid black; border-top: 0px solid black">
+            Representation</th>
+
+            <th style="border-bottom: 0px solid black; border-top: 0px solid black">1<sup>st</sup>
+            Octet</th>
+
+            <th style="border-bottom: 0px solid black; border-top: 0px solid black">2<sup>nd</sup>
+            Octet</th>
+
+            <th style="border-bottom: 0px solid black; border-top: 0px solid black">3<sup>rd</sup>
+            Octet</th>
+
+            <th style=
+            "border-bottom: 0px solid black; border-right: 0px solid black; border-top: 0px solid black">
+            4<sup>th</sup> Octet</th>
+          </tr>
+
+          <tr>
+            <td><code>0x0000 - 0x007F</code></td>
+
+            <td><code>00000000</code> <b>0</b><i>zzzzzzz</i></td>
+
+            <td><b>0</b><i>zzzzzzz</i></td>
+
+            <td></td>
+
+            <td></td>
+
+            <td></td>
+          </tr>
+
+          <tr>
+            <td><code>0x0080 - 0x07FF</code></td>
+
+            <td><b>00000</b><i>yyy yyzzzzzz</i></td>
+
+            <td><b>110</b><i>yyyyy</i></td>
+
+            <td><b>10</b><i>zzzzzz</i></td>
+
+            <td></td>
+
+            <td></td>
+          </tr>
+
+          <tr>
+            <td><code>0x0800 - 0xD7FF</code></td>
+
+            <td><i>xxxxyyyy yyzzzzzz</i></td>
+
+            <td><b>1110</b><i>xxxx</i></td>
+
+            <td><b>10</b><i>yyyyyy</i></td>
+
+            <td><b>10</b><i>zzzzzz</i></td>
+
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>
+              <p><code>0xD800 - 0xDBFF</code></p>
+
+              <p><i>followed by</i></p>
+
+              <p><code>0xDC00 – 0xDFFF</code></p>
+            </td>
+
+            <td>
+              <p><b>110110</b><i>vv vvwwwwxx</i></p>
+
+              <p><i>followed by</i></p>
+
+              <p><b>110111</b><i>yy yyzzzzzz</i></p>
+            </td>
+
+            <td><b>11110</b><i>uuu</i></td>
+
+            <td><b>10</b><i>uuwwww</i></td>
+
+            <td><b>10</b><i>xxyyyy</i></td>
+
+            <td><b>10</b><i>zzzzzz</i></td>
+          </tr>
+
+          <tr>
+            <td>
+              <p><code>0xD800 - 0xDBFF</code></p>
+
+              <p><i>not followed by</i></p>
+
+              <p><code>0xDC00 – 0xDFFF</code></p>
+            </td>
+
+            <td><i>causes</i> <b><es-xref target=
+            "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b></td>
+
+            <td></td>
+
+            <td></td>
+
+            <td></td>
+
+            <td></td>
+          </tr>
+
+          <tr>
+            <td><code>0xDC00 – 0xDFFF</code></td>
+
+            <td><i>causes</i> <b><es-xref target=
+            "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b></td>
+
+            <td></td>
+
+            <td></td>
+
+            <td></td>
+
+            <td></td>
+          </tr>
+
+          <tr>
+            <td><code>0xE000 - 0xFFFF</code></td>
+
+            <td><i>xxxxyyyy yyzzzzzz</i></td>
+
+            <td><b>1110</b><i>xxxx</i></td>
+
+            <td><b>10</b><i>yyyyyy</i></td>
+
+            <td><b>10</b><i>zzzzzz</i></td>
+
+            <td></td>
+          </tr>
+        </table>
+      </figure>
+
+      <p>Where</p>
+
+      <p><i>uuuuu</i> = <i>vvvv</i> + 1</p>
+
+      <p>to account for the addition of 0x10000 as in Surrogates, section 3.7, of the Unicode
+      Standard.</p>
+
+      <p>The range of code unit values 0xD800-0xDFFF is used to encode surrogate pairs; the above
+      transformation combines a UTF-16 surrogate pair into a UTF-32 representation and encodes the
+      resulting 21-bit value in UTF-8. Decoding reconstructs the surrogate pair.</p>
+
+      <p>RFC 3629 prohibits the decoding of invalid UTF-8 octet sequences. For example, the invalid
+      sequence C0 80 must not decode into the character U+0000. Implementations of the Decode
+      algorithm are required to throw a <b><es-xref target=
+      "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b> when
+      encountering such invalid sequences.</p>
+    </es-clause>
+  </es-clause>
+
+  <es-clause title="decodeURI (encodedURI)" anchor="sec-decodeuri-encodeduri">
+    <p>The <code>decodeURI</code> function computes a new version of a URI in which each escape
+    sequence and UTF-8 encoding of the sort that might be introduced by the <code>encodeURI</code>
+    function is replaced with the character that it represents. Escape sequences that could not
+    have been introduced by <code>encodeURI</code> are not replaced.</p>
+
+    <p>When the <code>decodeURI</code> function is called with one argument
+    <es-nt>encodedURI</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>uriString</i> be <es-xref target=
+      "sec-tostring">ToString</es-xref>(<i>encodedURI</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>uriString</i>).</li>
+
+      <li>Let <i>reservedURISet</i> be a String containing one instance of each character valid in
+      <i>uriReserved</i> plus “<code>#</code>”.</li>
+
+      <li>Return the result of calling <es-xref target=
+      "sec-decode">Decode</es-xref>(<i>uriString</i>, <i>reservedURISet</i>)</li>
+    </ol>
+
+    <es-note>
+      <p>The character “<code>#</code>” is not decoded from escape sequences even though it is not
+      a reserved URI character.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="decodeURIComponent (encodedURIComponent)" anchor=
+  "sec-decodeuricomponent-encodeduricomponent">
+    <p>The <code>decodeURIComponent</code> function computes a new version of a URI in which each
+    escape sequence and UTF-8 encoding of the sort that might be introduced by the
+    <code>encodeURIComponent</code> function is replaced with the character that it represents.</p>
+
+    <p>When the <code>decodeURIComponent</code> function is called with one argument
+    <es-nt>encodedURIComponent</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>componentString</i> be <es-xref target=
+      "sec-tostring">ToString</es-xref>(<i>encodedURIComponent</i>).</li>
+
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>componentString</i>).</li>
+
+      <li>Let <i>reservedURIComponentSet</i> be the empty String.</li>
+
+      <li>Return the result of calling <es-xref target=
+      "sec-decode">Decode</es-xref>(<i>componentString</i>, <i>reservedURIComponentSet</i>)</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="encodeURI (uri)" anchor="sec-encodeuri-uri">
+    <p>The <code>encodeURI</code> function computes a new version of a URI in which each instance
+    of certain characters is replaced by one, two, three, or four escape sequences representing the
+    UTF-8 encoding of the character.</p>
+
+    <p>When the <code>encodeURI</code> function is called with one argument <es-nt>uri</es-nt>, the
+    following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>uriString</i> be <es-xref target=
+      "sec-tostring">ToString</es-xref>(<i>uri</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>uriString</i>).</li>
+
+      <li>Let <i>unescapedURISet</i> be a String containing one instance of each character valid in
+      <i>uriReserved</i> and <i>uriUnescaped</i> plus "<code>#</code>".</li>
+
+      <li>Return the result of calling <es-xref target=
+      "sec-encode">Encode</es-xref>(<i>uriString</i>, unescapedURISet)</li>
+    </ol>
+
+    <es-note>
+      <p>The character "<code>#</code>" is not encoded to an escape sequence even though it is not
+      a reserved or unescaped URI character.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="encodeURIComponent (uriComponent)" anchor=
+  "sec-encodeuricomponent-uricomponent">
+    <p>The <code>encodeURIComponent</code> function computes a new version of a URI in which each
+    instance of certain characters is replaced by one, two, three, or four escape sequences
+    representing the UTF-8 encoding of the character.</p>
+
+    <p>When the <code>encodeURIComponent</code> function is called with one argument
+    <es-nt>uriComponent</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>componentString</i> be <es-xref target=
+      "sec-tostring">ToString</es-xref>(<i>uriComponent</i>).</li>
+
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>componentString</i>).</li>
+
+      <li>Let <i>unescapedURIComponentSet</i> be a String containing one instance of each character
+      valid in <i>uriUnescaped</i>.</li>
+
+      <li>Return the result of calling <es-xref target=
+      "sec-encode">Encode</es-xref>(<i>componentString</i>, <i>unescapedURIComponentSet</i>)</li>
+    </ol>
+  </es-clause>
+</es-clause>

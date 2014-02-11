@@ -1,0 +1,42 @@
+<es-clause title="Date.prototype.toJSON ( key )" anchor="sec-date.prototype.tojson">
+  <p>This function provides a String representation of a Date object for use by
+  <code><es-xref target="sec-json.stringify">JSON.stringify</es-xref></code> (<es-xref target=
+  "sec-json.stringify">24.3.2</es-xref>).</p>
+
+  <p>When the <code>toJSON</code> method is called with argument <es-nt>key</es-nt>, the following
+  steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>,
+    giving it the <b>this</b> value as its argument.</li>
+
+    <li>Let <i>tv</i> be <es-xref target="sec-toprimitive">ToPrimitive</es-xref>(<i>O</i>, hint
+    Number).</li>
+
+    <li>If <i>tv</i> is a Number and is not finite, return <b>null</b>.</li>
+
+    <li>Let <i>toISO</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"toISOString"</code>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>toISO</i>).</li>
+
+    <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>toISO</i>) is <b>false</b>,
+    throw a <b>TypeError</b> exception.</li>
+
+    <li>Return the result of calling the [[Call]] internal method of <i>toISO</i> with <i>O</i> as
+    <i>thisArgument</i> and an empty <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> as <i>argumentsList</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The argument is ignored.</p>
+  </es-note>
+
+  <es-note>
+    <p>The <code>toJSON</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be a Date object. Therefore, it can be transferred to other kinds of objects
+    for use as a method. However, it does require that any such object have a
+    <code>toISOString</code> method. An object is free to use the argument <es-nt>key</es-nt> to
+    filter its stringification.</p>
+  </es-note>
+</es-clause>

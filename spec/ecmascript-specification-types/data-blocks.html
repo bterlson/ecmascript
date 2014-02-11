@@ -1,0 +1,68 @@
+<es-clause title="Data Blocks" anchor="sec-data-blocks">
+  <p>The Data Block specification type is used to describe a distinct and mutable sequence of
+  byte-sized (8 bit) numeric values. A Data Block value is created with a fixed number of bytes
+  that each have the initial value 0.</p>
+
+  <p>For notational convenience within this specification, an array-like syntax can be used to
+  express to the individual bytes of a Data Block value. This notation presents a Data Block value
+  as a 0-origined integer indexed sequence of bytes. For example, if <es-nt>db</es-nt> is a 5 byte
+  Data Block value then <es-nt>db</es-nt>[2] can be used to express access to its 3<sup>rd</sup>
+  byte.</p>
+
+  <p>The following abstract operations are used in this specification to operate upon Data Block
+  values:</p>
+
+  <es-clause title="CreateByteDataBlock(size)" anchor="sec-createbytedatablock">
+    <p>When the abstract operation CreateByteDataBlock is called with integer argument
+    <es-nt>size</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>size</i>≥0.</li>
+
+      <li>Let <i>db</i> be a new <es-xref target="sec-data-blocks">Data Block</es-xref> value
+      consisting of <i>size</i> bytes. If it is impossible to create such a <es-xref target=
+      "sec-data-blocks">Data Block</es-xref>, then throw a <b>RangeError</b> exception.</li>
+
+      <li>Set all of the bytes of <i>db</i> to 0.</li>
+
+      <li>Return <i>db</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="CopyDataBlockBytes(toBlock, toIndex, fromBlock, fromIndex, count)" anchor=
+  "sec-copydatablockbytes">
+    <p>When the abstract operation CopyDataBlockBytes is called the following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>fromBlock</i> and
+      <i>toBlock</i> are distinct <es-xref target="sec-data-blocks">Data Block</es-xref>
+      values.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>fromIndex</i>,
+      <i>toIndex</i>, and <i>count</i> are positive integer values.</li>
+
+      <li>Let <i>fromSize</i> be the number of bytes in <i>fromBlock</i>.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>:
+      <i>fromIndex</i>+<i>count</i> ≤ <i>fromSize</i>.</li>
+
+      <li>Let <i>toSize</i> be the number of bytes in <i>toBlock</i>.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>toIndex</i>+<i>count</i>
+      ≤ <i>toSize</i>.</li>
+
+      <li>Repeat, while <i>count</i>&gt;0
+
+        <ol class="block">
+          <li>Set toBlock[toIndex] to the value of fromBlock[fromIndex].</li>
+
+          <li>Increment <i>toIndex</i> and <i>fromIndex</i> each by 1.</li>
+
+          <li>Decrement <i>count</i> by 1.</li>
+        </ol>
+      </li>
+
+      <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
+    </ol>
+  </es-clause>
+</es-clause>

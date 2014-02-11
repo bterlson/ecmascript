@@ -1,0 +1,31 @@
+<es-clause title="The List and Record Specification Type" anchor=
+"sec-list-and-record-specification-type">
+  <p>The List type is used to explain the evaluation of argument lists (see <es-xref target=
+  "sec-argument-lists">12.2.6</es-xref>) in <code>new</code> expressions, in function calls, and in
+  other algorithms where a simple ordered list of values is needed. Values of the List type are
+  simply ordered sequences of list elements containing the individual values. These sequences may
+  be of any length. The elements of a list may be randomly accessed using 0-origin indices. For
+  notational convience an array-like syntax can be used to access List elements. For example,
+  <i>arguments</i>[2] is shorthand for saying the 3<sup>th</sup> element of the List
+  <i>arguments</i>.</p>
+
+  <p>The Record type is used to describe data aggregations within the algorithms of this
+  specification. A Record type value consists of one or more named fields. The value of each field
+  is either an ECMAScript value or an abstract value represented by a name associated with the
+  Record type. Field names are always enclosed in double brackets, for example [[value]]</p>
+
+  <p>For notational convenience within this specification, an object literal-like syntax can be
+  used to express a Record value. For example, {[[field1]]: 42, [[field2]]: <b>false</b>,
+  [[field3]]: <b>empty</b>} defines a Record value that has three fields each of which is
+  initialised to a specific value. Field name order is not significant. Any fields that are not
+  explicitly listed are considered to be absent.</p>
+
+  <p>In specification text and algorithms, dot notation may be used to refer to a specific field of
+  a Record value. For example, if R is the record shown in the previous paragraph then R.[[field2]]
+  is shorthand for “the field of R named [[field2]]”.</p>
+
+  <p>Schema for commonly used Record field combinations may be named, and that name may be used as
+  a prefix to a literal Record value to identify the specific kind of aggregations that is being
+  described. For example: PropertyDescriptor{[[Value]]: 42, [[Writable]]: <b>false</b>,
+  [[Configurable]]: <b>true</b>}.</p>
+</es-clause>

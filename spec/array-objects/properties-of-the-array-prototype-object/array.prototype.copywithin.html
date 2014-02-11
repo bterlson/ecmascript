@@ -1,0 +1,129 @@
+<es-clause title="Array.prototype.copyWithin (target, start, end = this.length)" anchor=
+"sec-array.prototype.copywithin">
+  <p>The <code>copyWithin</code> method takes up to three arguments <es-nt>target</es-nt>,
+  <es-nt>start</es-nt> and <es-nt>end</es-nt>. The <es-nt>end</es-nt> argument is optional with the
+  length of the <b>this</b> object as its default value. If <es-nt>target</es-nt> is negative, it
+  is treated as <i>length</i>+<i>target</i> where <es-nt>length</es-nt> is the length of the array.
+  If <es-nt>start</es-nt> is negative, it is treated as <i>length</i>+<i>start</i>. If
+  <es-nt>end</es-nt> is negative, it is treated as <i>length</i>+<i>end</i>. The following steps
+  are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+
+    <li>Let <i>lenVal</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>).</li>
+
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+    <li>Let <i>relativeTarget</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>target</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeTarget</i>).</li>
+
+    <li>If <i>relativeTarget</i> is negative, let <i>to</i> be max((<i>len</i> +
+    <i>relativeTarget</i>),0); else let <i>to</i> be min(<i>relativeTarget</i>, <i>len</i>).</li>
+
+    <li>Let <i>relativeStart</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>start</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeStart</i>).</li>
+
+    <li>If <i>relativeStart</i> is negative, let <i>from</i> be max((<i>len</i> +
+    <i>relativeStart</i>),0); else let <i>from</i> be min(<i>relativeStart</i>, <i>len</i>).</li>
+
+    <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let
+    <i>relativeEnd</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>end</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeEnd</i>).</li>
+
+    <li>If <i>relativeEnd</i> is negative, let <i>final</i> be max((<i>len</i> +
+    <i>relativeEnd</i>),0); else let <i>final</i> be min(<i>relativeEnd</i>, <i>len</i>).</li>
+
+    <li>Let <i>count</i> be min(<i>final</i>-<i>from</i>, <i>len</i>-<i>to</i>).</li>
+
+    <li>If <i>from</i>&lt;<i>to</i> and <i>to</i>&lt;<i>from</i>+<i>count</i>
+
+      <ol class="block">
+        <li>Let <i>direction</i> = -1.</li>
+
+        <li>Let <i>from</i> = <i>from</i> + <i>count</i> -1.</li>
+
+        <li>Let <i>to</i> = <i>to</i> + <i>count</i> -1.</li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>direction</i> = 1.</li>
+      </ol>
+    </li>
+
+    <li>Repeat, while <i>count</i> &gt; 0
+
+      <ol class="block">
+        <li>Let <i>fromKey</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>from</i>).</li>
+
+        <li>Let <i>toKey</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>to</i>).</li>
+
+        <li>Let <i>fromPresent</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>fromKey</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromPresent</i>).</li>
+
+        <li>If <i>fromPresent</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>fromVal</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>fromKey</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromVal</i>).</li>
+
+            <li>Let <i>putStatus</i> be the result of <es-xref target=
+            "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>toKey</i>, <i>fromVal</i>,
+            <b>true</b>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+          </ol>
+        </li>
+
+        <li>Else <i>fromPresent</i> is <b>false</b>,
+
+          <ol class="block">
+            <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+            "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref>(<i>O</i>,
+            <i>toKey</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
+          </ol>
+        </li>
+
+        <li>Let <i>from</i> be <i>from</i> + <i>direction</i>.</li>
+
+        <li>Let <i>to</i> be <i>to</i> + <i>direction</i>.</li>
+
+        <li>Let <i>count</i> be <i>count</i> - 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>O</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>copyWithin</code> method is <b>2</b>.</p>
+
+  <es-note>
+    <p>The <code>copyWithin</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects
+    for use as a method. Whether the <code>copyWithin</code> function can be applied successfully
+    to an exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

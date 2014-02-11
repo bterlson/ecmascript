@@ -1,0 +1,152 @@
+<es-clause title="Array.prototype.filter ( callbackfn, thisArg = undefined )" anchor=
+"sec-array.prototype.filter">
+  <p><es-nt>callbackfn</es-nt> should be a function that accepts three arguments and returns a
+  value that is coercible to the Boolean value <b>true</b> or <b>false</b>. <code>filter</code>
+  calls <es-nt>callbackfn</es-nt> once for each element in the array, in ascending order, and
+  constructs a new array of all the values for which <es-nt>callbackfn</es-nt> returns <b>true</b>.
+  <es-nt>callbackfn</es-nt> is called only for elements of the array which actually exist; it is
+  not called for missing elements of the array.</p>
+
+  <p>If a <es-nt>thisArg</es-nt> parameter is provided, it will be used as the <b>this</b> value
+  for each invocation of <es-nt>callbackfn</es-nt>. If it is not provided, <b>undefined</b> is used
+  instead.</p>
+
+  <p><es-nt>callbackfn</es-nt> is called with three arguments: the value of the element, the index
+  of the element, and the object being traversed.</p>
+
+  <p><code>filter</code> does not directly mutate the object on which it is called but the object
+  may be mutated by the calls to <es-nt>callbackfn</es-nt>.</p>
+
+  <p>The range of elements processed by <code>filter</code> is set before the first call to
+  <es-nt>callbackfn</es-nt>. Elements which are appended to the array after the call to
+  <code>filter</code> begins will not be visited by <es-nt>callbackfn</es-nt>. If existing elements
+  of the array are changed their value as passed to <es-nt>callbackfn</es-nt> will be the value at
+  the time <code>filter</code> visits them; elements that are deleted after the call to
+  <code>filter</code> begins and before being visited are not visited.</p>
+
+  <p>When the <code>filter</code> method is called with one or two arguments, the following steps
+  are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+
+    <li>Let <i>lenValue</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>).</li>
+
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenValue</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+    <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>callbackfn</i>) is
+    <b>false</b>, throw a <b>TypeError</b> exception.</li>
+
+    <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be
+    <b>undefined</b>.</li>
+
+    <li>Let <i>A</i> be <b>undefined</b>.</li>
+
+    <li>If <i>O</i> is an exotic Array object, then
+
+      <ol class="block">
+        <li>Let <i>C</i> be <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+        <code>"constructor"</code>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>C</i>).</li>
+
+        <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is
+        <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>thisRealm</i> be <es-xref target="sec-execution-contexts">the running
+            execution context</es-xref>’s <es-xref target="sec-code-realms">Realm</es-xref>.</li>
+
+            <li>If <i>thisRealm</i> and the value of <i>C’s</i> [[Realm]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> are the same
+            value, then
+
+              <ol class="block">
+                <li>Let <i>A</i> be the result of calling the [[Construct]] internal method of
+                <i>C</i> with an argument list containing the single item 0.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>A</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+        "sec-arraycreate">ArrayCreate</es-xref> with argument 0.</li>
+      </ol>
+    </li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>A</i>).</li>
+
+    <li>Let <i>k</i> be 0.</li>
+
+    <li>Let <i>to</i> be 0.</li>
+
+    <li>Repeat, while <i>k</i> &lt; <i>len</i>
+
+      <ol class="block">
+        <li>Let <i>Pk</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
+
+        <li>Let <i>kPresent</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>Pk</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kPresent</i>).</li>
+
+        <li>If <i>kPresent</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>kValue</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>Pk</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kValue</i>).</li>
+
+            <li>Let <i>selected</i> be the result of calling the [[Call]] internal method of
+            <i>callbackfn</i> with <i>T</i> as <i>thisArgument</i> and a <es-xref target=
+            "sec-list-and-record-specification-type">List</es-xref> containing <i>kValue</i>,
+            <i>k</i>, and <i>O</i> as <i>argumentsList</i>.</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>selected</i>).</li>
+
+            <li>If <es-xref target="sec-toboolean">ToBoolean</es-xref>(<i>selected</i>) is
+            <b>true</b>, then
+
+              <ol class="block">
+                <li>Let <i>status</i> be the result of <es-xref target=
+                "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref> (<i>A</i>,
+                <es-xref target="sec-tostring">ToString</es-xref>(<i>to</i>), <i>kValue</i>).</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+                <li>Increase <i>to</i> by 1.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+
+        <li>Increase <i>k</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>A</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>filter</code> method is <b>1</b>.</p>
+
+  <es-note>
+    <p>The <code>filter</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects
+    for use as a method. Whether the <code>filter</code> function can be applied successfully to an
+    exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

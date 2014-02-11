@@ -1,0 +1,23 @@
+<es-clause title="String.prototype [ @@iterator ]( )" anchor="sec-string.prototype-@@iterator">
+  <p>When the @@iterator method is called it returns an Iterator object (<es-xref target=
+  "sec-iterator-interface">25.1.2</es-xref>) that iterates over the code points of a String value,
+  returning each code point as a String value. The following steps are taken:</p>
+
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
+
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
+
+    <li>Return the result of calling the <es-xref target=
+    "sec-createstringiterator">CreateStringIterator</es-xref> abstract operation with argument
+    <i>S</i>.</li>
+  </ol>
+
+  <p>The value of the <code>name</code> property of this function is
+  <code>"[Symbol.iterator]"</code>.</p>
+</es-clause>

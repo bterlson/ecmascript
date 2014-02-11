@@ -1,0 +1,123 @@
+<es-clause title="Runtime Semantics: Module Evaluation" anchor=
+"sec-runtime-semantics-module-evaluation">
+  <p>Module bodies are evaluated on demand, as late as possible. The loader uses the function
+  <code><es-xref target="sec-ensureevaluated">EnsureEvaluated</es-xref></code>, defined below, to
+  run scripts. The loader always calls <code><es-xref target=
+  "sec-ensureevaluated">EnsureEvaluated</es-xref></code> before returning a Module object to user
+  code.</p>
+
+  <p>There is one way a module can be exposed to script before its body has been evaluated. In the
+  case of an import cycle, whichever module is evaluated first can observe the others before they
+  are evaluated. Simply put, we have to start somewhere: one of the modules in the cycle must run
+  before the others.</p>
+
+  <es-clause title="EvaluateLoadedModule(load) Functions" anchor=
+  "sec-evaluateloadedmodule-load-functions">
+    <p>An EvaluateLoadedModule function is an anonymous function that is used by
+    <b>Loader.prototype.<i>module</i></b> and Loader<code>.prototype.import</code> to ensure that a
+    <es-nt>module</es-nt> has been evaluated before it is passed to script code.</p>
+
+    <p>Each EvaluateLoadedModule function has a [[Loader]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+    <p>When a EvaluateLoadedModule function <es-nt>F</es-nt> is called with argument
+    <es-nt>load</es-nt>, the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be <i>F</i>.[[Loader]].</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: load.[[Status]] is
+      <code>"linked"</code>.</li>
+
+      <li>Let <i>module</i> be load.[[Module]].</li>
+
+      <li>Let <i>result</i> be the result of <es-xref target=
+      "sec-ensureevaluated">EnsureEvaluated</es-xref>(<i>module</i>, (), <i>loader</i>).</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
+
+      <li>Return <i>module</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="EnsureEvaluated(mod, seen, loader) Abstract Operation" anchor=
+  "sec-ensureevaluated">
+    <p>The abstract operation EnsureEvaluated walks the dependency graph of the module
+    <es-nt>mod</es-nt>, evaluating any module bodies that have not already been evaluated
+    (including, finally, <es-nt>mod</es-nt> itself). Modules are evaluated in depth-first,
+    left-to-right, post order, stopping at cycles.</p>
+
+    <p><es-nt>mod</es-nt> and its dependencies must already be linked.</p>
+
+    <p>The <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    <es-nt>seen</es-nt> is used to detect cycles. <es-nt>mod</es-nt> must not already be in the
+    <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+    <es-nt>seen</es-nt>.</p>
+
+    <p>On success, <es-nt>mod</es-nt> and all its dependencies, transitively, will have started to
+    evaluate exactly once.</p>
+
+    <p>EnsureEvaluated performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Append <i>mod</i> as the last element of <i>seen</i>.</li>
+
+      <li>Let <i>deps</i> be <i>mod</i>.[[Dependencies]].</li>
+
+      <li>For each <i>pair</i> in <i>deps</i>, in <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> order,
+
+        <ol class="block">
+          <li>Let <i>dep</i> be <i>pair</i>.[[value]].</li>
+
+          <li>If <i>dep</i> is not an element of <i>seen</i>, then
+
+            <ol class="block">
+              <li>Call EnsureEvaluated with the arguments <i>dep</i>, <i>seen</i>, and
+              <i>loader</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>If <i>mod</i>.[[Evaluated]] is <b>true</b>, return <b>undefined</b>.</li>
+
+      <li>Set <i>mod</i>.[[Evaluated]] to <b>true</b>.</li>
+
+      <li>If <i>mod</i>.[[Body]] is <b>undefined</b>, then return <b>undefined</b>.</li>
+
+      <li>Let status be the result of perform ModuleDeclarationInstantiation(<i>mod</i>.[[Body]],
+      <i>mod</i>.[[Environment]]).</li>
+
+      <li>Let <i>initContext</i> be a new <es-xref target="sec-execution-contexts">ECMAScript code
+      execution context</es-xref>.</li>
+
+      <li>Set <i>initContext</i>'s <es-xref target="sec-code-realms">Realm</es-xref> to
+      <i>loader</i>.[[Realm]].</li>
+
+      <li>Set <i>initContext</i>'s <es-xref target=
+      "sec-execution-contexts">VariableEnvironment</es-xref> to <i>mod</i>.[[Environment]].</li>
+
+      <li>Set <i>initContext</i>'s <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref> to <i>mod</i>.[[Environment]].</li>
+
+      <li>If there is a <es-xref target="sec-execution-contexts">currently running execution
+      context</es-xref>, <es-xref target="sec-execution-contexts">suspend</es-xref> it.</li>
+
+      <li>Push <i>initContext</i> on to <es-xref target="sec-execution-contexts">the execution
+      context stack</es-xref>; <i>initContext</i> is now <es-xref target=
+      "sec-execution-contexts">the running execution context</es-xref>.</li>
+
+      <li>Let <i>r</i> be the result of evaluating <i>mod</i>.[[Body]].</li>
+
+      <li><es-xref target="sec-execution-contexts">Suspend</es-xref> <i>initContext</i> and remove
+      it from <es-xref target="sec-execution-contexts">the execution context stack</es-xref>.</li>
+
+      <li>Resume the context, if any, that is now on the top of <es-xref target=
+      "sec-execution-contexts">the execution context stack</es-xref> as <es-xref target=
+      "sec-execution-contexts">the running execution context</es-xref>.</li>
+
+      <li>Return <i>r</i>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

@@ -273,6 +273,26 @@
     <p>An implementation may not actually perform such translations to or from UTF-16, but the
     semantics of this specification requires that the result of pattern matching be as if such
     transations were performed.</p>
+
+    <link rel="import" href="pattern-semantics/notation.html">
+    <link rel="import" href="pattern-semantics/pattern.html">
+    <link rel="import" href="pattern-semantics/disjunction.html">
+    <link rel="import" href="pattern-semantics/alternative.html">
+    <link rel="import" href="pattern-semantics/term.html">
+    <link rel="import" href="pattern-semantics/assertion.html">
+    <link rel="import" href="pattern-semantics/quantifier.html">
+    <link rel="import" href="pattern-semantics/atom.html">
+    <link rel="import" href="pattern-semantics/atomescape.html">
+    <link rel="import" href="pattern-semantics/characterescape.html">
+    <link rel="import" href="pattern-semantics/decimalescape.html">
+    <link rel="import" href="pattern-semantics/characterclassescape.html">
+    <link rel="import" href="pattern-semantics/characterclass.html">
+    <link rel="import" href="pattern-semantics/classranges.html">
+    <link rel="import" href="pattern-semantics/nonemptyclassranges.html">
+    <link rel="import" href="pattern-semantics/nonemptyclassrangesnodash.html">
+    <link rel="import" href="pattern-semantics/classatom.html">
+    <link rel="import" href="pattern-semantics/classatomnodash.html">
+    <link rel="import" href="pattern-semantics/classescape.html">
   </es-clause>
 
   <es-clause title="The RegExp Constructor" anchor="sec-regexp-constructor">
@@ -582,6 +602,33 @@
 
     <p>The RegExp prototype object does not have a <code>valueOf</code> property of its own;
     however, it inherits the <code>valueOf</code> property from the Object prototype object.</p>
+
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/regexp.prototype.constructor.html">
+    <link rel="import" href="properties-of-the-regexp-prototype-object/regexp.prototype.exec.html">
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/get-regexp.prototype.global.html">
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/get-regexp.prototype.ignorecase.html">
+    <link rel="import" href="properties-of-the-regexp-prototype-object/regexp.prototype.match.html">
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/get-regexp.prototype.multiline.html">
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/regexp.prototype.replace.html">
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/regexp.prototype.search.html">
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/get-regexp.prototype.source.html">
+    <link rel="import" href="properties-of-the-regexp-prototype-object/regexp.prototype.split.html">
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/get-regexp.prototype.sticky.html">
+    <link rel="import" href="properties-of-the-regexp-prototype-object/regexp.prototype.test.html">
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/regexp.prototype.tostring.html">
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/get-regexp.prototype.unicode.html">
+    <link rel="import" href=
+    "properties-of-the-regexp-prototype-object/regexp.prototype-@@isregexp.html">
   </es-clause>
 
   <es-clause title="Properties of RegExp Instances" anchor="sec-properties-of-regexp-instances">

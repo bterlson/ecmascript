@@ -1,0 +1,15 @@
+<es-clause title="String.prototype.toUpperCase ( )" anchor="sec-string.prototype.touppercase">
+  <p>This function interprets a string value as a sequence of code points, as described in
+  <es-xref target="sec-ecmascript-language-types-string-type">6.1.4</es-xref>.</p>
+
+  <p>This function behaves in exactly the same way as <code><es-xref target=
+  "sec-string.prototype.tolowercase">String.prototype.toLowerCase</es-xref></code>, except that
+  code points are mapped to their <es-nt>uppercase</es-nt> equivalents as specified in the Unicode
+  Character Database.</p>
+
+  <es-note>
+    <p>The <code>toUpperCase</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of
+    objects for use as a method.</p>
+  </es-note>
+</es-clause>

@@ -1,0 +1,241 @@
+<es-clause title="The Date Constructor" anchor="sec-date-constructor">
+  <p>The Date constructor is the %Date% intrinsic object and the initial value of the
+  <code>Date</code> property of the global object. When <code>Date</code> is called as a function
+  rather than as a constructor, it returns a String representing the current time (UTC). However,
+  if the <b>this</b> value passed in the call is an Object with an uninitialised [[DateValue]]
+  <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>,
+  <code>Date</code> initialises the <b>this</b> object using the argument value. This permits
+  <code>Date</code> to be used both as a function for creating data strings and to perform
+  constructor instance initialisation.</p>
+
+  <p>The <code>Date</code> constructor is designed to be subclassable. It may be used as the value
+  of an <code>extends</code> clause of a class declaration. Subclass constructors that intended to
+  inherit the specified <code>Date</code> behaviour must include a <code>super</code> call to the
+  <code>Date</code> constructor to initialise the [[DateValue]] state of subclass instances.</p>
+
+  <es-clause title="Date (year, month [, date [, hours [, minutes [, seconds [, ms ] ] ] ] ] )"
+  anchor="sec-date-year-month-date-hours-minutes-seconds-ms">
+    <p>This description applies only if the Date constructor is called with at least two
+    arguments.</p>
+
+    <p>When the <code>Date</code> function is called the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>numberOfArgs</i> be the number of arguments passed to this constructor call.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>numberOfArgs</i> ≥
+      2.</li>
+
+      <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+      Object and <i>O</i> has a [[DateValue]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+      [[DateValue]] is <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Let <i>y</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>year</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>year</i>).</li>
+
+          <li>Let <i>m</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>month</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>month</i>).</li>
+
+          <li>If <i>date</i> is supplied then let <i>dt</i> be <es-xref target=
+          "sec-tonumber">ToNumber</es-xref>(<i>date</i>); else let <i>dt</i> be <b>1</b>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>dt</i>).</li>
+
+          <li>If <i>hours</i> is supplied then let <i>h</i> be <es-xref target=
+          "sec-tonumber">ToNumber</es-xref>(<i>hours</i>); else let <i>h</i> be <b>0</b>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>h</i>).</li>
+
+          <li>If <i>minutes</i> is supplied then let <i>min</i> be <es-xref target=
+          "sec-tonumber">ToNumber</es-xref>(<i>minutes</i>); else let <i>min</i> be <b>0</b>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>min</i>).</li>
+
+          <li>If <i>seconds</i> is supplied then let <i>s</i> be <es-xref target=
+          "sec-tonumber">ToNumber</es-xref>(<i>seconds</i>); else let <i>s</i> be <b>0</b>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>s</i>).</li>
+
+          <li>If <i>ms</i> is supplied then let <i>milli</i> be <es-xref target=
+          "sec-tonumber">ToNumber</es-xref>(<i>ms</i>); else let <i>milli</i> be <b>0</b>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>milli</i>).</li>
+
+          <li>
+          If&nbsp;<i>y</i>&nbsp;is&nbsp;not&nbsp;<b>NaN</b>&nbsp;and&nbsp;0&nbsp;≤&nbsp;<es-xref target="sec-tointeger">ToInteger</es-xref>(<i>y</i>)&nbsp;≤&nbsp;99,&nbsp;then
+          let <i>yr</i> be&nbsp;1900+<es-xref target="sec-tointeger">ToInteger</es-xref>(<i>y</i>);
+          otherwise, let <i>yr</i> be <i>y</i>.</li>
+
+          <li>Let <i>finalDate</i> be <es-xref target=
+          "sec-makedate">MakeDate</es-xref>(<es-xref target=
+          "sec-makeday">MakeDay</es-xref>(<i>yr</i>, <i>m</i>, <i>dt</i>), <es-xref target=
+          "sec-maketime">MakeTime</es-xref>(<i>h</i>, <i>min</i>, <i>s</i>, <i>milli</i>)).</li>
+
+          <li>Set the [[DateValue]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+          <es-xref target="sec-timeclip">TimeClip</es-xref>(<es-xref target=
+          "sec-local-time">UTC</es-xref>(<i>finalDate</i>)).</li>
+
+          <li>Return <i>O</i>.</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Return the result computed as if by the expression <code>(new
+          Date()).toString()</code> where <code>Date</code> is this function and
+          <code>toString</code> is the standard built-in method <code><es-xref target=
+          "sec-date.prototype.tostring">Date.prototype.toString</es-xref></code>.</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date (value)" anchor="sec-date-value">
+    <p>This description applies only if the Date constructor is called with exactly one
+    argument.</p>
+
+    <p>When the <code>Date</code> function is called the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>numberOfArgs</i> be the number of arguments passed to this constructor call.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>numberOfArgs</i> =
+      1.</li>
+
+      <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+      Object and <i>O</i> has a [[DateValue]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+      [[DateValue]] is <b>undefined</b>, then
+
+        <ol class="block">
+          <li>If <es-xref target=
+          "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>value</i>) is Object and
+          <i>value</i> has a [[DateValue]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then
+
+            <ol class="block">
+              <li>Let <i>tv</i> be thisTimeValue(<i>value</i>).</li>
+            </ol>
+          </li>
+
+          <li>Else,
+
+            <ol class="block">
+              <li>Let <i>v</i> be <es-xref target=
+              "sec-toprimitive">ToPrimitive</es-xref>(<i>value</i>).</li>
+
+              <li>If <es-xref target=
+              "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>) is String, then
+
+                <ol class="block">
+                  <li>Let <i>tv</i> be the result of parsing <i>v</i> as a date, in exactly the
+                  same manner as for the <code>parse</code> method (<es-xref target=
+                  "sec-date.parse">20.3.3.2</es-xref>). If the parse resulted in an
+                  <es-xref target="sec-completion-record-specification-type">abrupt
+                  completion</es-xref>, <i>tv</i> is the <es-xref target=
+                  "sec-completion-record-specification-type">Completion Record</es-xref>.</li>
+                </ol>
+              </li>
+
+              <li>Else,
+
+                <ol class="block">
+                  <li>Let <i>tv</i> be <es-xref target=
+                  "sec-tonumber">ToNumber</es-xref>(<i>v</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>tv</i>).</li>
+
+          <li>Set the [[DateValue]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+          <es-xref target="sec-timeclip">TimeClip</es-xref>(<i>tv</i>).</li>
+
+          <li>Return <i>O</i>.</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Return the result computed as if by the expression <code>(new
+          Date()).toString()</code> where <code>Date</code> is this function and
+          <code>toString</code> is the standard built-in method <code><es-xref target=
+          "sec-date.prototype.tostring">Date.prototype.toString</es-xref></code>.</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Date ( )" anchor="sec-date-constructor-date">
+    <p>This description applies only if the Date constructor is called with no arguments.</p>
+
+    <p>When the <code>Date</code> function is called the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>numberOfArgs</i> be the number of arguments passed to this constructor call.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>numberOfArgs</i> =
+      0.</li>
+
+      <li>Let <i>O</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
+      Object and <i>O</i> has a [[DateValue]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and the value of
+      [[DateValue]] is <b>undefined</b>, then
+
+        <ol class="block">
+          <li>Set the [[DateValue]] <es-xref target=
+          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
+          the <es-xref target="sec-time-values-and-time-range">time value</es-xref> (UTC)
+          identifying the current time.</li>
+
+          <li>Return <i>O</i>.</li>
+        </ol>
+      </li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Return the result computed as if by the expression <code>(new
+          Date()).toString()</code> where <code>Date</code> is this function and
+          <code>toString</code> is the standard built-in method <code><es-xref target=
+          "sec-date.prototype.tostring">Date.prototype.toString</es-xref></code>.</li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="new Date ( ... argumentsList)" anchor="sec-new-date-argumentslist">
+    <p>When <code>Date</code> is called as part of a new expression with argument list
+    <es-nt>argumentsList</es-nt> it performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>F</i> be the <code>Date</code> function object on which the <code>new</code>
+      operator was applied.</li>
+
+      <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+      internal method that was invoked by the <code>new</code> operator.</li>
+
+      <li>Return the result of <es-xref target="sec-construct-f-argumentslist">Construct</es-xref>
+      (<i>F</i>, <i>argumentsList</i>).</li>
+    </ol>
+
+    <p>If <code>Date</code> is implemented as an <es-xref target=
+    "sec-ecmascript-function-objects">ECMAScript function object</es-xref>, its [[Construct]]
+    internal method will perform the above steps.</p>
+  </es-clause>
+</es-clause>

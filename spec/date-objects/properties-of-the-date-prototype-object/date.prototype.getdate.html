@@ -1,0 +1,13 @@
+<es-clause title="Date.prototype.getDate ( )" anchor="sec-date.prototype.getdate">
+  <ol class="proc">
+    <li>Let <i>t</i> be <es-xref target="sec-properties-of-the-date-prototype-object">this time
+    value</es-xref>.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>t</i>).</li>
+
+    <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+
+    <li>Return <es-xref target="sec-date-number">DateFromTime</es-xref>(<es-xref target=
+    "sec-local-time">LocalTime</es-xref>(<i>t</i>)).</li>
+  </ol>
+</es-clause>

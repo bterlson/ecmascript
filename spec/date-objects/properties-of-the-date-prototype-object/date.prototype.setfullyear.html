@@ -1,0 +1,41 @@
+<es-clause title="Date.prototype.setFullYear (year [, month [, date ] ] )" anchor=
+"sec-date.prototype.setfullyear">
+  <p>If <es-nt>month</es-nt> is not specified, this behaves as if <es-nt>month</es-nt> were
+  specified with the value <code>getMonth()</code>.</p>
+
+  <p>If <es-nt>date</es-nt> is not specified, this behaves as if <es-nt>date</es-nt> were specified
+  with the value <code>getDate()</code>.</p>
+
+  <ol class="proc">
+    <li>Let <i>t</i> be the result of <es-xref target=
+    "sec-local-time">LocalTime</es-xref>(<es-xref target=
+    "sec-properties-of-the-date-prototype-object">this time value</es-xref>); but if
+    <es-xref target="sec-properties-of-the-date-prototype-object">this time value</es-xref> is
+    <b>NaN</b>, let <i>t</i> be <b>+0</b>.</li>
+
+    <li>Let <i>y</i> be <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>year</i>).</li>
+
+    <li>If <i>month</i> is not specified, then let <i>m</i> be <es-xref target=
+    "sec-month-number">MonthFromTime</es-xref>(<i>t</i>); otherwise, let <i>m</i> be
+    <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>month</i>).</li>
+
+    <li>If <i>date</i> is not specified, then let <i>dt</i> be <es-xref target=
+    "sec-date-number">DateFromTime</es-xref>(<i>t</i>); otherwise, let <i>dt</i> be
+    <es-xref target="sec-tonumber">ToNumber</es-xref>(<i>date</i>).</li>
+
+    <li>Let <i>newDate</i> be <es-xref target="sec-makedate">MakeDate</es-xref>(<es-xref target=
+    "sec-makeday">MakeDay</es-xref>(<i>y</i>, <i>m</i>, <i>dt</i>), <es-xref target=
+    "sec-day-number-and-time-within-day">TimeWithinDay</es-xref>(<i>t</i>)).</li>
+
+    <li>Let <i>u</i> be <es-xref target="sec-timeclip">TimeClip</es-xref>(<es-xref target=
+    "sec-local-time">UTC</es-xref>(<i>newDate</i>)).</li>
+
+    <li>Set the [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date object to
+    <i>u</i>.</li>
+
+    <li>Return <i>u</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>setFullYear</code> method is <b>3</b>.</p>
+</es-clause>

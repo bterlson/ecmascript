@@ -1,0 +1,249 @@
+<es-clause title="Invariants of the Essential Internal Methods" anchor=
+"sec-invariants-of-the-essential-internal-methods">
+  <p>The Internal Methods of Objects of an ECMAScript engine must conform to the list of invariants
+  specified below. Ordinary ECMAScript Objects as well as all standard exotic objects in this
+  specification maintain these invariants. ECMAScript Proxy objects maintain these invariants by
+  means of runtime checks on the result of traps invoked on the [[ProxyHandler]] object.</p>
+
+  <p>Any implementation provided exotic objects must also maintain these invariants for those
+  objects. Violation of these invariants may cause ECMAScript code to have unpredictable behavior
+  and create security issues. However, violation of these invariants must never compromise the
+  memory safety of an implementation.</p>
+
+  <p>Definitions:</p>
+
+  <ul>
+    <li>
+      <p>The <i>target</i> of an internal method is the object the internal method is called
+      upon.</p>
+    </li>
+
+    <li>
+      <p>A target is <i>non-extensible</i> if it has been observed to return <span class=
+      "value">false</span> from its [[IsExtensible]] internal method, or <span class=
+      "value">true</span> from its [[PreventExtensions]] internal method.</p>
+    </li>
+
+    <li>
+      <p>A <i>non-existent property</i> is a property that does not exist as an own property on a
+      non-extensible target.</p>
+    </li>
+
+    <li>
+      <p>Any references to <es-xref target="sec-samevalue">SameValue</es-xref> are according to the
+      definition of <es-xref target="sec-samevalue">SameValue</es-xref> algorithm specified in
+      <es-xref target="sec-samevalue">7.2.3</es-xref>.</p>
+    </li>
+  </ul>
+
+  <p><b>[[GetPrototypeOf]] ( )</b></p>
+
+  <ul>
+    <li>
+      <p>The Type of the return value must be either Object or Null.</p>
+    </li>
+
+    <li>
+      <p>If target is non-extensible, and [[GetPrototypeOf]] returns a value v, then any future
+      calls to [[GetPrototypeOf]] should return the <es-xref target=
+      "sec-samevalue">SameValue</es-xref> as v.</p>
+    </li>
+
+    <li>
+      <p>An object’s prototype chain must have finite length (that is, starting from any object,
+      recursively applying the [[GetPrototypeOf]] internal method to its result must eventually
+      lead to the value <span class="value">null</span>.</p>
+    </li>
+  </ul>
+
+  <p><b>[[SetPrototypeOf]] (V)</b></p>
+
+  <ul>
+    <li>
+      <p>The Type of the return value must be Boolean.</p>
+    </li>
+
+    <li>
+      <p>If target is non-extensible, [[SetPrototypeOf]] must return false, unless V is the
+      <es-xref target="sec-samevalue">SameValue</es-xref> as the target’s observed
+      [[GetPrototypeOf]] value.</p>
+    </li>
+  </ul>
+
+  <p><b>[[PreventExtensions]] ( )</b></p>
+
+  <ul>
+    <li>
+      <p>The Type of the return value must be Boolean.</p>
+    </li>
+
+    <li>
+      <p>If [[PreventExtensions]] returns <span class="value">true</span>, all future calls to
+      [[IsExtensible]] must return <span class="value">false</span> and the target is now
+      considered non-extensible.</p>
+    </li>
+  </ul>
+
+  <p><b>[[GetOwnProperty]] (P)</b></p>
+
+  <ul>
+    <li>
+      <p>The Type of the return value must be either Object or Undefined.</p>
+    </li>
+
+    <li>
+      <p>If the Type of the return value is Object, that object must be a complete property
+      descriptor (<es-xref target="sec-completepropertydescriptor">see 6.2.4.6</es-xref>).</p>
+    </li>
+
+    <li>
+      <p>If a property is described as a data property and it may return different values over
+      time, then either or both of the Desc.[[Writable]] and Desc.[[Configurable]] attributes must
+      be <span class="value">true</span> even if no mechanism to change the value is exposed via
+      the other internal methods.</p>
+    </li>
+
+    <li>
+      <p>If a property P is described as a data property with Desc.[[Value]] equal to v and
+      Desc.[[Writable]] and Desc.[[Configurable]] are both <span class="value">false</span>, then
+      the <es-xref target="sec-samevalue">SameValue</es-xref> must be returned for the
+      Desc.[[Value]] attribute of the property on all future calls to [[GetOwnProperty]] ( P ).</p>
+    </li>
+
+    <li>
+      <p>If P’s attributes other than [[Writable]] may change over time or if the property might
+      disappear, then P’s [[Configurable]] attribute must be <span class="value">true</span>.</p>
+    </li>
+
+    <li>
+      <p>If the [[Writable]] attribute may change from <span class="value">false</span> to
+      <span class="value">true</span>, then the [[Configurable]] attribute must be true.</p>
+    </li>
+
+    <li>
+      <p>If the target is non-extensible and P is non-existent, then all future calls to
+      [[GetOwnProperty]] (P) must describe P as non-existent (i.e. [[GetOwnProperty]] (P) must
+      return <span class="value">undefined</span>)</p>
+    </li>
+  </ul>
+
+  <p><b>[[DefineOwnProperty]] (P, Desc)</b></p>
+
+  <ul>
+    <li>
+      <p>The Type of the return value must be Boolean.</p>
+    </li>
+
+    <li>
+      <p>[[DefineOwnProperty]] must return <span class="value">false</span> if P has previously
+      been observed as a non-configurable own property, unless either:</p>
+
+      <ol class="proc">
+        <li>P is a non-configurable writable own data property. A non-configurable writable data
+        property can be changed into a non-configurable non-writable data property.</li>
+
+        <li>All attributes in Desc are the <es-xref target="sec-samevalue">SameValue</es-xref> as
+        P’s attributes.</li>
+      </ol>
+    </li>
+
+    <li>
+      <p>[[DefineOwnProperty]] (P, Desc) must return <span class="value">false</span> if target is
+      non-extensible and P is a non-existent own property. That is, a non-extensible target object
+      cannot be extended with new properties.</p>
+    </li>
+  </ul>
+
+  <p><b>[[HasProperty]] ( P )</b></p>
+
+  <ul>
+    <li>The Type of the return value must be Boolean.</li>
+
+    <li>If P was previously observed as a non-configurable data or accessor own property,
+    [[HasProperty]] must return <span class="value">true</span>.</li>
+  </ul>
+
+  <p><b>[[Get]] (P, Receiver)</b></p>
+
+  <ul>
+    <li>
+      <p>If P was previously observed as a non-configurable, non-writable own data property with
+      value v, then [[Get]] must return the <es-xref target=
+      "sec-samevalue">SameValue</es-xref>.</p>
+    </li>
+
+    <li>
+      <p>If P was previously observed as a non-configurable own accessor whose [[Get]] attribute is
+      undefined, the [[Get]] operation must return <span class="value">undefined</span>.</p>
+    </li>
+  </ul>
+
+  <p><b>[[Set]] ( P, V, Receiver)</b></p>
+
+  <ul>
+    <li>
+      <p>The Type of the return value must be Boolean.</p>
+    </li>
+
+    <li>
+      <p>If P was previously observed as a non-configurable, non-writable own data property, then
+      [[Set]] must return <span class="value">false</span> unless V is the <es-xref target=
+      "sec-samevalue">SameValue</es-xref> as P’s [[Value]] attribute.</p>
+    </li>
+
+    <li>
+      <p>If P was previously observed as a non-configurable own accessor property whose [[Set]]
+      attribute is <span class="value">undefined</span>, the [[Set]] operation must return
+      <span class="value">false</span>.</p>
+    </li>
+  </ul>
+
+  <p><b>[[Delete]] ( P )</b></p>
+
+  <ul>
+    <li>The Type of the return value must be Boolean.</li>
+
+    <li>If P was previously observed to be a non-configurable own data or accessor property,
+    [[Delete]] must return <span class="value">false</span>.</li>
+  </ul>
+
+  <p><b>[[Enumerate]] ( )</b></p>
+
+  <ul>
+    <li>The Type of the return value must be Object.</li>
+  </ul>
+
+  <p><b>[[OwnPropertyKeys]] ( )</b></p>
+
+  <ul>
+    <li>The Type of the return value must be Object.</li>
+  </ul>
+
+  <p><b>[[GetOwnPropertyNames]] ( )</b></p>
+
+  <ul>
+    <li>
+      <p>The Type of the return value must be Object.</p>
+    </li>
+
+    <li>
+      <p>The return value must be an exotic Array object.</p>
+    </li>
+
+    <li>
+      <p>The returned array must contain at least the string and symbol-valued names of all own
+      data and accessor properties P that have previously been observed as non-configurable.</p>
+    </li>
+
+    <li>
+      <p>If the target is non-extensible, then it may not claim to have any own properties not
+      observed by [[GetOwnPropertyNames]].</p>
+    </li>
+  </ul>
+
+  <p><b>[[Construct]] ( )</b></p>
+
+  <ul>
+    <li>The Type of the return value must be Object.</li>
+  </ul>
+</es-clause>

@@ -1,3 +1,8 @@
+// Parses jorendorff's ES6 spec in html format, converts it to the
+// markup convention used by this project, and writes all the files
+// to disk. This file is gross, but can eventually be jettisoned if
+// we move to using this as the source format.
+
 var http = require('http');
 var Glob = require('glob');
 var Path = require('path');
@@ -78,7 +83,6 @@ function prepareDirectory(spec) {
 // Heuristic:
 // Starting at leaf sections, inline the section into its parent IF
 // parent's total content is less than 10kb.
-//
 function collapseSpec(section) {
     section.subsections.map(function(sub) {
         return collapseSpec(sub);
@@ -95,16 +99,39 @@ function collapseSpec(section) {
             .join("")
     ).length;
 
-    if(contentLength > MAX_CLAUSE_LENGTH)
-        return;
+    if(contentLength > MAX_CLAUSE_LENGTH) {
+        if(section.subsections[0].title === 'Introduction') {
+            var intro = section.subsections.shift();
+            section.contents += '<es-intro><h2>Introduction</h2>' + intro.contents + '</es-intro>\n\n';
+        }
 
-    section.subsections.forEach(function(sub) {
-        section.contents += '\n<es-clause title="' + sub.title + '" anchor="' + sub.id + '">\n';
-        section.contents += sub.contents;
-        section.contents += '</es-clause>\n\n';
-    });
+        var subdir = section.id.replace('sec-', '') + '/';
 
-    section.subsections = [];
+        if(subdir === 'index/') {
+            subdir = '';
+        }
+
+        section.contents += '\n';
+        section.subsections.forEach(function(sub) {
+            var href = subdir + (sub.id + '') .replace('sec-', '') + '.html';
+            href = href.replace(/%/g, '%25');
+
+            section.contents += '<link rel="import" href="' + href + '">\n';
+            sub.dir = subdir;
+        });
+    } else {
+        var newSubsections = [];
+
+        section.subsections.forEach(function(sub) {
+            section.contents += '\n<es-clause title="' + sub.title + '" anchor="' + sub.id + '">\n';
+            section.contents += sub.contents;
+            section.contents += '</es-clause>\n\n';
+
+            newSubsections = newSubsections.concat(sub.subsections);
+        });
+
+        section.subsections = newSubsections;
+    }
 }
 
 
@@ -273,8 +300,7 @@ function buildRhs(node) {
         } else if(child.type === 'text' && child.data.match(/&lt;.*&gt;/)) {
             rhs.push({type: 'text', contents: child.data});
         } else if(child.type !== 'text' || child.data.trim() !== '') {
-            console.log('WTFFF: ')
-            console.log(child);
+            throw 'unknown 1'
         }
     });
 
@@ -374,7 +400,6 @@ function buildProd(node, inline, displayAsBlock) {
             return false;
         }
         if(child.type !== 'text' || child.data.trim() !== '') {
-            console.log(child);
             throw 'Unknown 2';
         }
     })
@@ -608,6 +633,10 @@ function emitSection(sectionNode) {
         }
     });
 
+    if(section.title === 'Bibliography') {
+        section.id = 'bibliography';
+    }
+
     sectionNode.children.forEach(function(child) {
         section.contents += emitContents(child);
     });
@@ -659,34 +688,17 @@ function writeSection(section, currentPath) {
     contents += section.contents + '\n\n';
 
     section.subsections.forEach(function(sub) {
-        if(sub.title === 'Introduction') {
-            contents += '<es-intro><h2>Introduction</h2>' + sub.contents + '</es-intro>';
-            return;
-        }
-
         if(!sub.id)
             return;
         
-        var subpath;
-
-        if(sectionId === 'index') {
-            subpath = sub.id.replace('sec-', '');
-        } else {
-            subpath = Path.join(sectionId, sub.id.replace('sec-', '')).replace(/\\/g, '/').replace(/%/g, '%25');
-        }
-
-        contents += '<link rel="import" href="' +
-                        subpath + '.html' +
-                    '">\n';
-
         if(sectionId === 'index') {
             writeSection(sub, currentPath);
         } else {
             try {
-                fs.mkdirSync(Path.join(currentPath, sectionId));
+                fs.mkdirSync(Path.join(currentPath, sub.dir));
             } catch(e) {};
 
-            writeSection(sub, Path.join(currentPath, sectionId));
+            writeSection(sub, Path.join(currentPath, sub.dir));
         }
     });
 
@@ -694,7 +706,11 @@ function writeSection(section, currentPath) {
         contents += '</es-clause>';
     }
 
+    contents = TidyMunger.munge(contents);
+
     tidy(contents, tidyOptions, function(err, html) {
+        html = TidyMunger.unmunge(html);
+
         if(section.id === 'index') {
             html = '<!DOCTYPE html>\n' +
                    '<meta charset="utf-8">\n' +
@@ -702,12 +718,28 @@ function writeSection(section, currentPath) {
                    '<script src="html-imports.min.js"></script>\n' +
                    '<script src="customElements.js"></script>\n' +
                    '<link rel="stylesheet" href="customElements.css">\n' +
-                   html;
+                   html + '\n';
         }
-
-        html = html.replace(/es-production-inline/g, "es-production")
-        html = html.replace(/es-rhs-inline/g, "es-rhs")
 
         fs.writeFileSync(path, html);
     });
+}
+
+// Tidy doesn't allow link elements outside of headers and so silently removes them.
+// It turns out we want links formatted similarly to divs, so we replace links with divs
+// and then back again once tidy has done its thing.
+var TidyMunger = {
+    munge: function(html) {
+        html = html.replace(/<link rel="import"([^>]*)>/g, '<div rel="import"$1><\/div>');
+        return html;
+    },
+
+    unmunge: function(html) {
+        html = html.replace(/es-production-inline/g, 'es-production');
+        html = html.replace(/es-rhs-inline/g, 'es-rhs');
+        html = html.replace(/div([\s\r\n]+)rel([\s\r\n]*)=([\s\r\n]*)"import"([^>]*)>[\s\r\n]*<\/div>(\r?\n\s*$)?/gm,
+                            'link$1rel$2=$3"import"$4>');
+
+        return html
+    }
 }

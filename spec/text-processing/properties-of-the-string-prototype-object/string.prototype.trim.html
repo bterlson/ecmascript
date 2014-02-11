@@ -1,0 +1,29 @@
+<es-clause title="String.prototype.trim ( )" anchor="sec-string.prototype.trim">
+  <p>This function interprets a string value as a sequence of code points, as described in
+  <es-xref target="sec-ecmascript-language-types-string-type">6.1.4</es-xref>.</p>
+
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
+
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
+
+    <li>Let <i>T</i> be a String value that is a copy of <i>S</i> with both leading and trailing
+    white space removed. The definition of white space is the union of <i>WhiteSpace</i> and
+    <i>LineTerminator</i>. When determining whether a Unicode code point is in Unicode general
+    category “Zs”, code unit sequences are interpreted as UTF-16 encoded code point sequences as
+    specified in <es-xref target="sec-ecmascript-language-types-string-type">6.1.4</es-xref>.</li>
+
+    <li>Return <i>T</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The <code>trim</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of
+    objects for use as a method.</p>
+  </es-note>
+</es-clause>

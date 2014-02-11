@@ -1,0 +1,44 @@
+<es-clause title="String.prototype.charAt (pos)" anchor="sec-string.prototype.charat">
+  <es-note>
+    <p>Returns a single element String containing the code unit at element position
+    <es-nt>pos</es-nt> in the String value resulting from converting this object to a String. If
+    there is no element at that position, the result is the empty String. The result is a String
+    value, not a String object.</p>
+
+    <p>If <es-nt>pos</es-nt> is a value of Number type that is an integer, then the result of
+    <code>x.charAt(</code><es-nt>pos</es-nt><code>)</code> is equal to the result of
+    <code>x.substring(</code><es-nt>pos</es-nt><code>,</code>
+    <es-nt>pos</es-nt><code>+1)</code>.</p>
+  </es-note>
+
+  <p>When the <code>charAt</code> method is called with one argument <es-nt>pos</es-nt>, the
+  following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be <es-xref target=
+    "sec-checkobjectcoercible">CheckObjectCoercible</es-xref>(<b>this</b> value).</li>
+
+    <li>Let <i>S</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>O</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
+
+    <li>Let <i>position</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>pos</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>position</i>).</li>
+
+    <li>Let <i>size</i> be the number of elements in <i>S</i>.</li>
+
+    <li>If <i>position</i> &lt; 0 or <i>position</i> ≥ <i>size</i>, return the empty String.</li>
+
+    <li>Return a String of length 1, containing one code unit from <i>S</i>, namely the code unit
+    at position <i>position</i>, where the first (leftmost) code unit in <i>S</i> is considered to
+    be at position 0, the next one at position 1, and so on.</li>
+  </ol>
+
+  <es-note>
+    <p>The <code>charAt</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of
+    objects for use as a method.</p>
+  </es-note>
+</es-clause>

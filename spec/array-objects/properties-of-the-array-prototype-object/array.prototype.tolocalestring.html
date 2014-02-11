@@ -1,0 +1,106 @@
+<es-clause title="Array.prototype.toLocaleString ( )" anchor="sec-array.prototype.tolocalestring">
+  <p>The elements of the array are converted to Strings using their <code>toLocaleString</code>
+  methods, and these Strings are then concatenated, separated by occurrences of a separator String
+  that has been derived in an implementation-defined locale-specific way. The result of calling
+  this function is intended to be analogous to the result of <code>toString</code>, except that the
+  result of this function is intended to be locale-specific.</p>
+
+  <p>The result is calculated as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>array</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>array</i>).</li>
+
+    <li>Let <i>arrayLen</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>array</i>, <code>"length"</code>).</li>
+
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>arrayLen</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+    <li>Let <i>separator</i> be the String value for the list-separator String appropriate for the
+    host environment’s current locale (this is derived in an implementation-defined way).</li>
+
+    <li>If <i>len</i> is zero, return the empty String.</li>
+
+    <li>Let <i>firstElement</i> be the result of <es-xref target=
+    "sec-get-o-p">Get</es-xref>(<i>array</i>, <code>"0"</code>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>firstElement</i>).</li>
+
+    <li>If <i>firstElement</i> is <b>undefined</b> or <b>null</b>, then
+
+      <ol class="block">
+        <li>Let <i>R</i> be the empty String.</li>
+      </ol>
+    </li>
+
+    <li>Else
+
+      <ol class="block">
+        <li>Let <i>R</i> be the result of Invoke(<i>firstElement</i>,
+        <code>"toLocaleString"</code>).</li>
+
+        <li>Let <i>R</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>R</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>R</i>).</li>
+      </ol>
+    </li>
+
+    <li>Let <i>k</i> be <code>1</code>.</li>
+
+    <li>Repeat, while <i>k</i> &lt; <i>len</i>
+
+      <ol class="block">
+        <li>Let <i>S</i> be a String value produced by concatenating <i>R</i> and
+        <i>separator</i>.</li>
+
+        <li>Let <i>nextElement</i> be the result of <es-xref target=
+        "sec-get-o-p">Get</es-xref>(<i>array</i>,<es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>k</i>)).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextElement</i>).</li>
+
+        <li>If <i>nextElement</i> is <b>undefined</b> or <b>null</b>, then
+
+          <ol class="block">
+            <li>Let <i>R</i> be the empty String.</li>
+          </ol>
+        </li>
+
+        <li>Else
+
+          <ol class="block">
+            <li>Let <i>R</i> be the result of Invoke(<i>nextElement</i>,
+            <code>"toLocaleString"</code>).</li>
+
+            <li>Let <i>R</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>R</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>R</i>).</li>
+          </ol>
+        </li>
+
+        <li>Let <i>R</i> be a String value produced by concatenating <i>S</i> and <i>R</i>.</li>
+
+        <li>Increase <i>k</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Return <i>R</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The first parameter to this function is likely to be used in a future version of this
+    standard; it is recommended that implementations do not use this parameter position for
+    anything else.</p>
+  </es-note>
+
+  <es-note>
+    <p>The <code>toLocaleString</code> function is intentionally generic; it does not require that
+    its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of
+    objects for use as a method. Whether the <code>toLocaleString</code> function can be applied
+    successfully to an exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

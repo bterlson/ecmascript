@@ -1,0 +1,315 @@
+<es-clause title="Array.prototype.splice (start, deleteCount [ , item1 [ , item2 [ , … ] ] ] )"
+anchor="sec-array.prototype.splice">
+  <p>When the <code>splice</code> method is called with two or more arguments <es-nt>start</es-nt>,
+  <es-nt>deleteCount</es-nt> and (optionally) <es-nt>item1</es-nt>, <es-nt>item2</es-nt>, etc., the
+  <es-nt>deleteCount</es-nt> elements of the array starting at integer index <es-nt>start</es-nt>
+  are replaced by the arguments <es-nt>item1</es-nt>, <es-nt>item2</es-nt>, etc. An Array object
+  containing the deleted elements (if any) is returned. The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+
+    <li>Let <i>lenVal</i> be <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>)</li>
+
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+    <li>Let <i>relativeStart</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>start</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeStart</i>).</li>
+
+    <li>If <i>relativeStart</i> is negative, let <i>actualStart</i> be max((<i>len</i> +
+    <i>relativeStart</i>),0); else let <i>actualStart</i> be min(<i>relativeStart</i>,
+    <i>len</i>).</li>
+
+    <li>If <i>start</i> is not present, then
+
+      <ol class="block">
+        <li>Let <i>actualDeleteCount</i> be 0.</li>
+      </ol>
+    </li>
+
+    <li>Else if <i>deleteCount</i> is not present, then
+
+      <ol class="block">
+        <li>Let <i>actualDeleteCount</i> be <i>len</i> - <i>actualStart</i></li>
+      </ol>
+    </li>
+
+    <li>Else,
+
+      <ol class="block">
+        <li>Let <i>dc</i> be <es-xref target=
+        "sec-tointeger">ToInteger</es-xref>(<i>deleteCount</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>dc</i>).</li>
+
+        <li>Let <i>actualDeleteCount</i> be min(max(<i>dc</i>,0), <i>len</i> –
+        <i>actualStart</i>).</li>
+      </ol>
+    </li>
+
+    <li>Let <i>A</i> be <b>undefined</b>.</li>
+
+    <li>If <i>O</i> is an exotic Array object, then
+
+      <ol class="block">
+        <li>Let <i>C</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+        <code>"constructor"</code>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>C</i>).</li>
+
+        <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is
+        <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>thisRealm</i> be <es-xref target="sec-execution-contexts">the running
+            execution context</es-xref>’s <es-xref target="sec-code-realms">Realm</es-xref>.</li>
+
+            <li>If <i>thisRealm</i> and the value of <i>C’s</i> [[Realm]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> are the same
+            value, then
+
+              <ol class="block">
+                <li>Let <i>A</i> be the result of calling the [[Construct]] internal method of
+                <i>C</i> with argument (<i>actualDeleteCount</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>A</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+        "sec-arraycreate">ArrayCreate</es-xref> with argument <i>actualDeleteCount</i>.</li>
+      </ol>
+    </li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>A</i>).</li>
+
+    <li>Let <i>k</i> be 0.</li>
+
+    <li>Repeat, while <i>k</i> &lt; <i>actualDeleteCount</i>
+
+      <ol class="block">
+        <li>Let <i>from</i> be <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>actualStart</i>+<i>k</i>).</li>
+
+        <li>Let <i>fromPresent</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>from</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromPresent</i>).</li>
+
+        <li>If <i>fromPresent</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>fromValue</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>O,</i> <i>from</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromValue</i>).</li>
+
+            <li>Let <i>status</i> be the result of <es-xref target=
+            "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref>(<i>A</i>,
+            <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>), <i>fromValue</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+          </ol>
+        </li>
+
+        <li>Increment <i>k</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>putStatus</i> be the result of <es-xref target=
+    "sec-put-o-p-v-throw">Put</es-xref>(<i>A</i>, <code>"length"</code>, <i>actualDeleteCount</i>,
+    <b>true</b>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+
+    <li>Let <i>items</i> be a <es-xref target=
+    "sec-list-and-record-specification-type">List</es-xref> whose elements are, in left to right
+    order, the portion of the actual argument list starting with <i>item1</i>. The list will be
+    empty if no such items are present.</li>
+
+    <li>Let <i>itemCount</i> be the number of elements in <i>items</i>.</li>
+
+    <li>If <i>itemCount</i> &lt; <i>actualDeleteCount</i>, then
+
+      <ol class="block">
+        <li>Let <i>k</i> be <i>actualStart</i>.</li>
+
+        <li>Repeat, while <i>k</i> &lt; (<i>len</i> – <i>actualDeleteCount</i>)
+
+          <ol class="block">
+            <li>Let <i>from</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>k</i>+<i>actualDeleteCount</i>).</li>
+
+            <li>Let <i>to</i> be <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>k</i>+<i>itemCount</i>).</li>
+
+            <li>Let <i>fromPresent</i> be the result of <es-xref target=
+            "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>from</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromPresent</i>).</li>
+
+            <li>If <i>fromPresent</i> is <b>true</b>, then
+
+              <ol class="block">
+                <li>Let <i>fromValue</i> be the result of <es-xref target=
+                "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>from</i>).</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromValue</i>).</li>
+
+                <li>Let <i>putStatus</i> be the result of <es-xref target=
+                "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>to</i>, <i>fromValue</i>,
+                <b>true</b>).</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+              </ol>
+            </li>
+
+            <li>Else <i>fromPresent</i> is <b>false</b>,
+
+              <ol class="block">
+                <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+                "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref>(<i>O</i>,
+                <i>to</i>).</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
+              </ol>
+            </li>
+
+            <li>Increase <i>k</i> by 1.</li>
+          </ol>
+        </li>
+
+        <li>Let <i>k</i> be <i>len</i>.</li>
+
+        <li>Repeat, while <i>k</i> &gt; (<i>len</i> – <i>actualDeleteCount</i> + <i>itemCount</i>)
+
+          <ol class="block">
+            <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+            "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref>(<i>O</i>, <es-xref target=
+            "sec-tostring">ToString</es-xref>(<i>k</i>–1)).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
+
+            <li>Decrease <i>k</i> by 1.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Else if <i>itemCount</i> &gt; <i>actualDeleteCount</i>, then
+
+      <ol class="block">
+        <li>Let <i>k</i> be (<i>len</i> – <i>actualDeleteCount</i>).</li>
+
+        <li>Repeat, while <i>k</i> &gt; <i>actualStart</i>
+
+          <ol class="block">
+            <li>Let <i>from</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i> +
+            <i>actualDeleteCount</i> – 1).</li>
+
+            <li>Let <i>to</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i> +
+            <i>itemCount</i> – 1)</li>
+
+            <li>Let <i>fromPresent</i> be the result of <es-xref target=
+            "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>from</i>).</li>
+
+            <li><es-xref target=
+            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromPresent</i>).</li>
+
+            <li>If <i>fromPresent</i> is <b>true</b>, then
+
+              <ol class="block">
+                <li>Let <i>fromValue</i> be the result of <es-xref target=
+                "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>from</i>).</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>fromValue</i>).</li>
+
+                <li>Let <i>putStatus</i> be the result of <es-xref target=
+                "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <i>to</i>, <i>fromValue</i>,
+                <b>true</b>).</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+              </ol>
+            </li>
+
+            <li>Else <i>fromPresent</i> is <b>false</b>,
+
+              <ol class="block">
+                <li>Let <i>deleteStatus</i> be the result of <es-xref target=
+                "sec-deletepropertyorthrow">DeletePropertyOrThrow</es-xref>(<i>O</i>,
+                <i>to</i>).</li>
+
+                <li><es-xref target=
+                "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>deleteStatus</i>).</li>
+              </ol>
+            </li>
+
+            <li>Decrease <i>k</i> by 1.</li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>Let <i>k</i> be <i>actualStart</i>.</li>
+
+    <li>Repeat, while <i>items</i> is not empty
+
+      <ol class="block">
+        <li>Remove the first element from <i>items</i> and let <i>E</i> be the value of that
+        element.</li>
+
+        <li>Let <i>putStatus</i> be the result of <es-xref target=
+        "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <es-xref target=
+        "sec-tostring">ToString</es-xref>(<i>k</i>), <i>E</i>, <b>true</b>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+
+        <li>Increase <i>k</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>putStatus</i> be the result of <es-xref target=
+    "sec-put-o-p-v-throw">Put</es-xref>(<i>O</i>, <code>"length"</code>, <i>len</i> –
+    <i>actualDeleteCount</i> + <i>itemCount</i>, <b>true</b>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+
+    <li>Return <i>A</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>splice</code> method is <b>2</b>.</p>
+
+  <es-note>
+    <p>The explicit setting of the <code>length</code> property of the result Array in step 18 is
+    necessary to ensure that its value is correct in situations where its trailing elements are not
+    present.</p>
+  </es-note>
+
+  <es-note>
+    <p>The <code>splice</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects
+    for use as a method. Whether the <code>splice</code> function can be applied successfully to an
+    exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

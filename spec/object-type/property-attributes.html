@@ -1,0 +1,233 @@
+<es-clause title="Property Attributes" anchor="sec-property-attributes">
+  <p>Attributes are used in this specification to define and explain the state of Object
+  properties. A data property associates a key value with the attributes listed in <a href=
+  "#table-2">Table 2</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-2">Table 2</span> — Attributes of a Data Property
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        Attribute Name</th>
+
+        <th style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        Value Domain</th>
+
+        <th style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        Description</th>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+        [[Value]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">Any
+        <es-xref target="sec-ecmascript-language-types">ECMAScript language type</es-xref></td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">The value
+        retrieved by a get access of the property.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+        [[Writable]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">Boolean</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">If <b>false</b>,
+        attempts by ECMAScript code to change the property’s [[Value]] attribute using [[Set]] will
+        not succeed.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+        [[Enumerable]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">Boolean</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">If <b>true</b>,
+        the property will be enumerated by a for-in enumeration (see <es-xref target=
+        "sec-for-in-and-for-of-statements">13.6.4</es-xref>). Otherwise, the property is said to be
+        non-enumerable.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">
+        [[Configurable]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">Boolean</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">If <b>false</b>,
+        attempts to delete the property, change the property to be an accessor property, or change
+        its attributes (other than [[Value]], or changing [[Writable]] to <b>false</b>) will
+        fail.</td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>An accessor property associates a key value with the attributes listed in <a href=
+  "#table-3">Table 3</a> .</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-3">Table 3</span> — Attributes of an Accessor Property
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        Attribute Name</th>
+
+        <th style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        Value Domain</th>
+
+        <th style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        Description</th>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000">
+        [[Get]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">Object <i>or</i>
+        Undefined</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">
+          If the value is an Object it must be a function Object. The function’s [[Call]] internal
+          method (<a href="#table-6">Table 6</a> ) is called with an empty arguments list to
+          retrieve the property value each time a get access of the property is performed.
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        [[Set]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">Object <i>or</i>
+        Undefined</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">
+          If the value is an Object it must be a function Object. The function’s [[Call]] internal
+          method (<a href="#table-6">Table 6</a> ) is called with an arguments list containing the
+          assigned value as its sole argument each time a set access of the property is performed.
+          The effect of a property's [[Set]] internal method may, but is not required to, have an
+          effect on the value returned by subsequent calls to the property's [[Get]] internal
+          method.
+        </td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        [[Enumerable]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">Boolean</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">If <b>true</b>,
+        the property is to be enumerated by a for-in enumeration (see <es-xref target=
+        "sec-for-in-and-for-of-statements">13.6.4</es-xref>). Otherwise, the property is said to be
+        non-enumerable.</td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        [[Configurable]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">Boolean</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">If <b>false</b>,
+        attempts to delete the property, change the property to be a data property, or change its
+        attributes will fail.</td>
+      </tr>
+    </table>
+  </figure>
+
+  <p>If the initial values of a property’s attributes are not explicitly specified by this
+  specification, the default value defined in <a href="#table-4">Table 4</a> is used.</p>
+
+  <figure>
+    <figcaption>
+      <span id="table-4">Table 4</span> — Default Attribute Values
+    </figcaption>
+
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        Attribute Name</th>
+
+        <th style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        Default Value</th>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        [[Value]]</td>
+
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        <b>undefined</b></td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000">
+        [[Get]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">
+        <b>undefined</b></td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        [[Set]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black">
+        <b>undefined</b></td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        [[Writable]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black"><b>false</b></td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        [[Enumerable]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black"><b>false</b></td>
+      </tr>
+
+      <tr>
+        <td style=
+        "border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">
+        [[Configurable]]</td>
+
+        <td style="border-bottom: 1px solid black; border-right: 1px solid black"><b>false</b></td>
+      </tr>
+    </table>
+  </figure>
+</es-clause>

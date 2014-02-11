@@ -1,0 +1,24 @@
+<es-clause title="Date.prototype.setMilliseconds (ms)" anchor="sec-date.prototype.setmilliseconds">
+  <ol class="proc">
+    <li>Let <i>t</i> be the result of <es-xref target=
+    "sec-local-time">LocalTime</es-xref>(<es-xref target=
+    "sec-properties-of-the-date-prototype-object">this time value</es-xref>).</li>
+
+    <li>Let <i>time</i> be <es-xref target="sec-maketime">MakeTime</es-xref>(<es-xref target=
+    "sec-hours-minutes-second-and-milliseconds">HourFromTime</es-xref>(<i>t</i>), <es-xref target=
+    "sec-hours-minutes-second-and-milliseconds">MinFromTime</es-xref>(<i>t</i>), <es-xref target=
+    "sec-hours-minutes-second-and-milliseconds">SecFromTime</es-xref>(<i>t</i>), <es-xref target=
+    "sec-tonumber">ToNumber</es-xref>(<i>ms</i>)).</li>
+
+    <li>Let <i>u</i> be <es-xref target="sec-timeclip">TimeClip</es-xref>(<es-xref target=
+    "sec-local-time">UTC</es-xref>(<es-xref target=
+    "sec-makedate">MakeDate</es-xref>(<es-xref target=
+    "sec-day-number-and-time-within-day">Day</es-xref>(<i>t</i>), <i>time</i>))).</li>
+
+    <li>Set the [[DateValue]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of this Date object to
+    <i>u</i>.</li>
+
+    <li>Return <i>u</i>.</li>
+  </ol>
+</es-clause>

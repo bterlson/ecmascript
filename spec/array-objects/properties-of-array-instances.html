@@ -1,0 +1,26 @@
+<es-clause title="Properties of Array Instances" anchor="sec-properties-of-array-instances">
+  <p>Array instances are exotic Array objects and have the internal methods specified for such
+  objects. Array instances inherit properties from the Array prototype object. Array instances also
+  have an [[ArrayInitialisationState]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+  <p>Array instances have a <code>length</code> property, and a set of enumerable properties with
+  array index names.</p>
+
+  <es-clause title="length" anchor="sec-properties-of-array-instances-length">
+    <p>The <code>length</code> property of this Array object is a data property whose value is
+    always numerically greater than the name of every deletable property whose name is an array
+    index.</p>
+
+    <p>The <code>length</code> property initially has the attributes { [[Writable]]: <b>true</b>,
+    [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+
+    <es-note>
+      <p>Attempting to set the length property of an Array object to a value that is numerically
+      less than or equal to the largest numeric property name of an existing array indexed
+      non-deletable property of the array will result in the length being set to a numeric value
+      that is one greater than that largest numeric property name. See <es-xref target=
+      "sec-array-exotic-objects-defineownproperty-p-desc">9.4.2.1</es-xref>.</p>
+    </es-note>
+  </es-clause>
+</es-clause>

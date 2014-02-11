@@ -1,0 +1,59 @@
+<es-clause title="NonemptyClassRangesNoDash" anchor="sec-nonemptyclassrangesnodash">
+  <p>The production <es-production name="NonemptyClassRangesNoDash" type="lexical" class=
+  "inline"><es-rhs><es-nt>ClassAtom</es-nt></es-rhs></es-production> evaluates
+  by evaluating <es-nt>ClassAtom</es-nt> to obtain a CharSet and returning that CharSet.</p>
+
+  <p>The production <es-production name="NonemptyClassRangesNoDash" type="lexical" class=
+  "inline"><es-rhs><es-nt>ClassAtomNoDash</es-nt>
+  <es-nt>NonemptyClassRangesNoDash</es-nt></es-rhs></es-production> evaluates as
+  follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>ClassAtomNoDash</i> to obtain a CharSet <i>A</i>.</li>
+
+    <li>Evaluate <i>NonemptyClassRangesNoDash</i> to obtain a CharSet <i>B</i>.</li>
+
+    <li>Return the union of CharSets <i>A</i> and <i>B</i>.</li>
+  </ol>
+
+  <p>The production <es-production name="NonemptyClassRangesNoDash" type="lexical" class=
+  "inline"><es-rhs><es-nt>ClassAtomNoDash</es-nt> - <es-nt>ClassAtom</es-nt>
+  <es-nt>ClassRanges</es-nt></es-rhs></es-production> evaluates as follows:</p>
+
+  <ol class="proc">
+    <li>Evaluate <i>ClassAtomNoDash</i> to obtain a CharSet <i>A</i>.</li>
+
+    <li>Evaluate <i>ClassAtom</i> to obtain a CharSet <i>B</i>.</li>
+
+    <li>Evaluate <i>ClassRanges</i> to obtain a CharSet <i>C</i>.</li>
+
+    <li>Call CharacterRange(<i>A</i>, <i>B</i>) and let <i>D</i> be the resulting CharSet.</li>
+
+    <li>Return the union of CharSets <i>D</i> and <i>C</i>.</li>
+  </ol>
+
+  <es-note>
+    <p><es-nt>ClassRanges</es-nt> can expand into single <es-nt>ClassAtoms</es-nt> and/or ranges of
+    two <es-nt>ClassAtoms</es-nt> separated by dashes. In the latter case the
+    <es-nt>ClassRanges</es-nt> includes all characters between the first <es-nt>ClassAtom</es-nt>
+    and the second <es-nt>ClassAtom</es-nt>, inclusive; an error occurs if either
+    <es-nt>ClassAtom</es-nt> does not represent a single character (for example, if one is
+    <code>\w</code>) or if the first <es-nt>ClassAtom's</es-nt> character value is greater than the
+    second <es-nt>ClassAtom's</es-nt> character value.</p>
+  </es-note>
+
+  <es-note>
+    <p>Even if the pattern ignores case, the case of the two ends of a range is significant in
+    determining which characters belong to the range. Thus, for example, the pattern
+    <code>/[E-F]/i</code> matches only the letters <code>E</code>, <code>F</code>, <code>e</code>,
+    and <code>f</code>, while the pattern <code>/[E-f]/i</code> matches all upper and lower-case
+    letters in the Unicode Basic Latin block as well as the symbols <code>[</code>, <code>\</code>,
+    <code>]</code>, <code>^</code>, <code>_</code>, and <code>`</code>.</p>
+  </es-note>
+
+  <es-note>
+    <p>A <code>-</code> character can be treated literally or it can denote a range. It is treated
+    literally if it is the first or last character of <es-nt>ClassRanges</es-nt>, the beginning or
+    end limit of a range specification, or immediately follows a range specification.</p>
+  </es-note>
+</es-clause>

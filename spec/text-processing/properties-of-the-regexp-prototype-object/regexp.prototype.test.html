@@ -1,0 +1,17 @@
+<es-clause title="RegExp.prototype.test(string)" anchor="sec-regexp.prototype.test">
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>R</i> be the <b>this</b> value.</li>
+
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>R)</i> is not
+    Object, then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>match</i> be the result of Invoke(<i>R</i>, <code>"exec"</code>,
+    (<i>string</i>)).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>match</i>).</li>
+
+    <li>If <i>match</i> is not <b>null</b>, then return <b>true</b>; else return <b>false</b>.</li>
+  </ol>
+</es-clause>

@@ -1,0 +1,14 @@
+<es-clause title="Array.prototype.values ( )" anchor="sec-array.prototype.values">
+  <p>The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    with the <b>this</b> value as its argument.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+
+    <li>Return the result of calling the <es-xref target=
+    "sec-createarrayiterator">CreateArrayIterator</es-xref> abstract operation with arguments
+    <i>O</i> and <code>"value"</code>.</li>
+  </ol>
+</es-clause>

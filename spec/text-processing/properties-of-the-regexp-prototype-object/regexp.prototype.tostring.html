@@ -1,0 +1,77 @@
+<es-clause title="RegExp.prototype.toString()" anchor="sec-regexp.prototype.tostring">
+  <ol class="proc">
+    <li>Let <i>R</i> be the <b>this</b> value.</li>
+
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>R)</i> is not
+    Object, then throw a <b>TypeError</b> exception.</li>
+
+    <li>If <i>R</i> does not have a [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+    <b>TypeError</b> exception.</li>
+
+    <li>If the value of <i>R’s</i> [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>pattern</i> be the result of <es-xref target=
+    "sec-tostring">ToString</es-xref>(<es-xref target="sec-get-o-p">Get</es-xref>(<i>R</i>,
+    <code>"source"</code>)).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>pattern</i>).</li>
+
+    <li>Let <i>result</i> be the String value formed by concatenating "<b>/</b>", <i>pattern</i>,
+    and "<b>/</b>".</li>
+
+    <li>Let <i>global</i> be the result of <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<es-xref target="sec-get-o-p">Get</es-xref>(<i>R</i>,
+    <code>"global"</code>)).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>global</i>).</li>
+
+    <li>If <i>global</i> is <b>true</b>, then append <code>"g"</code> as the last character of
+    <i>result</i>.</li>
+
+    <li>Let <i>ignoreCase</i> be the result of <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<es-xref target="sec-get-o-p">Get</es-xref>(<i>R</i>,
+    <code>"ignoreCase"</code>)).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>ignoreCase</i>).</li>
+
+    <li>If <i>ignoreCase</i> is <b>true</b>, then append <code>"i"</code> as the last character of
+    <i>result</i>.</li>
+
+    <li>Let <i>multiline</i> be the result of <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<es-xref target="sec-get-o-p">Get</es-xref>(<i>R</i>,
+    <code>"multiline"</code>)).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>multiline</i>).</li>
+
+    <li>If <i>multiline</i> is <b>true</b>, then append <code>"m"</code> as the last character of
+    <i>result</i>.</li>
+
+    <li>Let <i>unicode</i> be the result of <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<es-xref target="sec-get-o-p">Get</es-xref>(<i>R</i>,
+    <code>"unicode"</code>)).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>unicode</i>).</li>
+
+    <li>If <i>unicode</i> is <b>true</b>, then append <code>"u"</code> as the last character of
+    <i>result</i>.</li>
+
+    <li>Let <i>sticky</i> be the result of <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<es-xref target="sec-get-o-p">Get</es-xref>(<i>R</i>,
+    <code>"sticky"</code>)).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>sticky</i>).</li>
+
+    <li>If <i>sticky</i> is <b>true</b>, then append <code>"y"</code> as the last character of
+    <i>result</i>.</li>
+
+    <li>Return <i>result</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The returned String has the form of a <es-nt>RegularExpressionLiteral</es-nt> that evaluates
+    to another RegExp object with the same behaviour as this object.</p>
+  </es-note>
+</es-clause>

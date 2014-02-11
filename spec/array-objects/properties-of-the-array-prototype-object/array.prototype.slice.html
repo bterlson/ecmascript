@@ -1,0 +1,139 @@
+<es-clause title="Array.prototype.slice (start, end)" anchor="sec-array.prototype.slice">
+  <p>The <code>slice</code> method takes two arguments, <es-nt>start</es-nt> and
+  <es-nt>end</es-nt>, and returns an array containing the elements of the array from element
+  <es-nt>start</es-nt> up to, but not including, element <es-nt>end</es-nt> (or through the end of
+  the array if <es-nt>end</es-nt> is <b>undefined</b>). If <es-nt>start</es-nt> is negative, it is
+  treated as <i>length</i>+<i>start</i> where <es-nt>length</es-nt> is the length of the array. If
+  <es-nt>end</es-nt> is negative, it is treated as <i>length</i>+<i>end</i> where
+  <es-nt>length</es-nt> is the length of the array. The following steps are taken:</p>
+
+  <ol class="proc">
+    <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
+    passing the <b>this</b> value as the argument.</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+
+    <li>Let <i>lenVal</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+    <code>"length"</code>).</li>
+
+    <li>Let <i>len</i> be <es-xref target="sec-tolength">ToLength</es-xref>(<i>lenVal</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>len</i>).</li>
+
+    <li>Let <i>relativeStart</i> be <es-xref target=
+    "sec-tointeger">ToInteger</es-xref>(<i>start</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeStart</i>).</li>
+
+    <li>If <i>relativeStart</i> is negative, let <i>k</i> be max((<i>len</i> +
+    <i>relativeStart</i>),0); else let <i>k</i> be min(<i>relativeStart</i>, <i>len</i>).</li>
+
+    <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let
+    <i>relativeEnd</i> be <es-xref target="sec-tointeger">ToInteger</es-xref>(<i>end</i>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>relativeEnd</i>).</li>
+
+    <li>If <i>relativeEnd</i> is negative, let <i>final</i> be max((<i>len</i> +
+    <i>relativeEnd</i>),0); else let <i>final</i> be min(<i>relativeEnd</i>, <i>len</i>).</li>
+
+    <li>Let <i>count</i> be max(<i>final</i> – <i>k</i>, 0).</li>
+
+    <li>Let <i>A</i> be <b>undefined</b>.</li>
+
+    <li>If <i>O</i> is an exotic Array object, then
+
+      <ol class="block">
+        <li>Let <i>C</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
+        <code>"constructor"</code>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>C</i>).</li>
+
+        <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref>(<i>C</i>) is
+        <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>thisRealm</i> be <es-xref target="sec-execution-contexts">the running
+            execution context</es-xref>’s <es-xref target="sec-code-realms">Realm</es-xref>.</li>
+
+            <li>If <i>thisRealm</i> and the value of <i>C’s</i> [[Realm]] <es-xref target=
+            "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> are the same
+            value, then
+
+              <ol class="block">
+                <li>Let <i>A</i> be the result of calling the [[Construct]] internal method of
+                <i>C</i> with argument (<i>count</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+
+    <li>If <i>A</i> is <b>undefined</b>, then
+
+      <ol class="block">
+        <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+        "sec-arraycreate">ArrayCreate</es-xref> with argument <i>count</i>.</li>
+      </ol>
+    </li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>A</i>).</li>
+
+    <li>Let <i>n</i> be 0.</li>
+
+    <li>Repeat, while <i>k</i> &lt; <i>final</i>
+
+      <ol class="block">
+        <li>Let <i>Pk</i> be <es-xref target="sec-tostring">ToString</es-xref>(<i>k</i>).</li>
+
+        <li>Let <i>kPresent</i> be the result of <es-xref target=
+        "sec-hasproperty">HasProperty</es-xref>(<i>O</i>, <i>Pk</i>).</li>
+
+        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kPresent</i>).</li>
+
+        <li>If <i>kPresent</i> is <b>true</b>, then
+
+          <ol class="block">
+            <li>Let <i>kValue</i> be the result of <es-xref target=
+            "sec-get-o-p">Get</es-xref>(<i>O</i>, <i>Pk</i>).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>kValue</i>).</li>
+
+            <li>Let <i>status</i> be the result of <es-xref target=
+            "sec-createdatapropertyorthrow">CreateDataPropertyOrThrow</es-xref>(<i>A</i>,
+            <es-xref target="sec-tostring">ToString</es-xref>(<i>n</i>), <i>kValue</i> ).</li>
+
+            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+          </ol>
+        </li>
+
+        <li>Increase <i>k</i> by 1.</li>
+
+        <li>Increase <i>n</i> by 1.</li>
+      </ol>
+    </li>
+
+    <li>Let <i>putStatus</i> be the result of <es-xref target=
+    "sec-put-o-p-v-throw">Put</es-xref>(<i>A</i>, <code>"length"</code>, <i>n</i>,
+    <b>true</b>).</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+
+    <li>Return <i>A</i>.</li>
+  </ol>
+
+  <p>The <code>length</code> property of the <code>slice</code> method is <b>2</b>.</p>
+
+  <es-note>
+    <p>The explicit setting of the <code>length</code> property of the result Array in step 19 is
+    necessary to ensure that its value is correct in situations where the trailing elements of the
+    result Array are not present.</p>
+  </es-note>
+
+  <es-note>
+    <p>The <code>slice</code> function is intentionally generic; it does not require that its
+    <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects
+    for use as a method. Whether the <code>slice</code> function can be applied successfully to an
+    exotic object that is not an Array is implementation-dependent.</p>
+  </es-note>
+</es-clause>

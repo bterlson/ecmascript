@@ -1,0 +1,53 @@
+<es-clause title="Array.prototype [ @@unscopables ]" anchor="sec-array.prototype-@@unscopables">
+  <p>The initial value of the @@unscopables data property is an object created by the following
+  steps:</p>
+
+  <ol class="proc">
+    <li>Let <i>blackList</i> be the result of calling <es-xref target=
+    "sec-arraycreate">ArrayCreate</es-xref>(7, %ArrayPrototype%).</li>
+
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"0"</code>,
+    <code>"find"</code>).</li>
+
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"1"</code>,
+    <code>"findIndex"</code>).</li>
+
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"2"</code>,
+    <code>"fill"</code>).</li>
+
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"3"</code>,
+    <code>"copyWithin"</code>).</li>
+
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"4"</code>,
+    <code>"entries"</code>).</li>
+
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <code>"5"</code>,
+    <code>"keys"</code>).</li>
+
+    <li>Call <es-xref target=
+    "sec-createdataproperty">CreateDataProperty</es-xref>(<i>blackList</i>, <b>"6"</b>,
+    <b>"values"</b>).</li>
+
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: Each of the above calls will
+    return <b>true</b>.</li>
+
+    <li>Return <i>blackList</i>.</li>
+  </ol>
+
+  <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <span class=
+  "value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+
+  <es-note>
+    <p>The elements of this array are property names that were not included as standard properties
+    of <code>Array.prototype</code> prior to the sixth edition of this specification. These names
+    are ignored for <code>with</code> statement binding purposes in order to preserve the behaviour
+    of existing code that might use one of these names as a binding in an outer scope that is
+    shadowed by a <code>with</code> statement whose binding object is an Array object.</p>
+  </es-note>
+</es-clause>

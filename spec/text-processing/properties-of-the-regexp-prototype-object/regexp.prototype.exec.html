@@ -1,0 +1,202 @@
+<es-clause title="RegExp.prototype.exec(string)" anchor="sec-regexp.prototype.exec">
+  <p>Performs a regular expression match of <es-nt>string</es-nt> against the regular expression
+  and returns an Array object containing the results of the match, or <b>null</b> if
+  <es-nt>string</es-nt> did not match.</p>
+
+  <p>The String <es-xref target="sec-tostring">ToString</es-xref>(<i>string</i>) is searched for an
+  occurrence of the regular expression pattern as follows:</p>
+
+  <ol class="proc">
+    <li>Let <i>R</i> be the <b>this</b> value.</li>
+
+    <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>R)</i> is not
+    Object, then throw a <b>TypeError</b> exception.</li>
+
+    <li>If <i>R</i> does not have a [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+    <b>TypeError</b> exception.</li>
+
+    <li>If the value of <i>R’s</i> [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>S</i> be the value of <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>string</i>)</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
+
+    <li>Return the result of the <es-xref target="sec-regexpexec">RegExpExec</es-xref>(<i>R</i>,
+    <i>S</i>, <b>false</b>).</li>
+  </ol>
+
+  <es-clause title="Runtime Semantics: RegExpExec Abstract Operation" anchor="sec-regexpexec">
+    <p>The abstract operation RegExpExec with arguments <es-nt>R</es-nt>, <es-nt>S</es-nt> and
+    <es-nt>ignore</es-nt> performs the following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>R</i> is an initialised
+      RegExp instance.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>S</i>) is String.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+      "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>ignore</i>) is Boolean.</li>
+
+      <li>Let <i>matcher</i> be the value of <i>R’s</i> [[RegExpMatcher]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+      <li>Let <i>length</i> be the length of <i>S</i>.</li>
+
+      <li>If <i>ignore</i> is <b>true<i>,</i></b> then let <i>global</i> be <b>false</b>.</li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Let <i>lastIndex</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>R</i>,"<b>lastIndex</b>").</li>
+
+          <li>Let <i>i</i> be the value of <es-xref target=
+          "sec-tointeger">ToInteger</es-xref>(<i>lastIndex</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>i</i>).</li>
+
+          <li>Let <i>global</i> be the result of <es-xref target=
+          "sec-toboolean">ToBoolean</es-xref>(<es-xref target="sec-get-o-p">Get</es-xref>(<i>R</i>,
+          "<b>global"</b><b>))</b>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>global</i>).</li>
+        </ol>
+      </li>
+
+      <li>Let <i>sticky</i> be the result of <es-xref target=
+      "sec-toboolean">ToBoolean</es-xref>(<es-xref target="sec-get-o-p">Get</es-xref>(<i>R</i>,
+      "<b>sticky"</b><b>))</b>.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>sticky</i>).</li>
+
+      <li>If <i>global</i> is <b>false</b> and <i>sticky</i> is <b>false</b>, then let <i>i</i> =
+      0.</li>
+
+      <li>Let <i>matchSucceeded</i> be <b>false</b>.</li>
+
+      <li>Repeat, while <i>matchSucceeded</i> is <b>false</b>
+
+        <ol class="block">
+          <li>If <i>i</i> &lt; 0 or <i>i</i> &gt; <i>length</i>, then
+
+            <ol class="block">
+              <li>If <i>ignore</i> is <b>true</b>, then
+
+                <ol class="block">
+                  <li>Let <i>putStatus</i> be the result of <es-xref target=
+                  "sec-put-o-p-v-throw">Put</es-xref>(<i>R</i>, "<b>lastIndex"</b>, 0,
+                  <b>true</b>).</li>
+
+                  <li><es-xref target=
+                  "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+                </ol>
+              </li>
+
+              <li>Return <b>null</b>.</li>
+            </ol>
+          </li>
+
+          <li>Let <i>r</i> be the result of calling <i>matcher</i> with arguments <i>S</i> and
+          <i>i</i>.</li>
+
+          <li>If <i>r</i> is <b>failure</b>, then
+
+            <ol class="block">
+              <li>If <i>sticky</i> is <b>true</b>, then
+
+                <ol class="block">
+                  <li>If <i>ignore</i> is <b>true</b>, then
+
+                    <ol class="block">
+                      <li>Let <i>putStatus</i> be the result of <es-xref target=
+                      "sec-put-o-p-v-throw">Put</es-xref>(<i>R</i>, "<b>lastIndex"</b>, 0,
+                      <b>true</b>).</li>
+
+                      <li><es-xref target=
+                      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+                    </ol>
+                  </li>
+
+                  <li>Return <b>null</b>.</li>
+                </ol>
+              </li>
+
+              <li>Let <i>i</i> = <i>i</i>+1.</li>
+            </ol>
+          </li>
+
+          <li>else
+
+            <ol class="block">
+              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>r</i> is a
+              State.</li>
+
+              <li>Set <i>matchSucceeded</i> to <b>true</b>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Let <i>e</i> be <i>r</i>'s <i>endIndex</i> value.</li>
+
+      <li>If <i>global</i> is <b>true</b> or <i>sticky</i> is <b>true</b>,
+
+        <ol class="block">
+          <li>Let <i>putStatus</i> be the result of <es-xref target=
+          "sec-put-o-p-v-throw">Put</es-xref>(<i>R</i>, "<b>lastIndex"</b>, <i>e</i>,
+          <b>true</b>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>putStatus</i>).</li>
+        </ol>
+      </li>
+
+      <li>Let <i>n</i> be the length of <i>r</i>'s <i>captures</i> <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>. (This is the same value as
+      <es-xref target="sec-notation">21.2.2.1</es-xref>'s <i>NcapturingParens</i>.)</li>
+
+      <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+      "sec-arraycreate">ArrayCreate</es-xref>(<i>n</i> + 1).</li>
+
+      <li>Let <i>matchIndex</i> be <i>i</i>.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The following
+      <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref> calls will not result
+      in an <es-xref target="sec-completion-record-specification-type">abrupt
+      completion</es-xref>.</li>
+
+      <li>Call <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref>(<i>A</i>,
+      "<b>index"</b>, <i>matchIndex</i>).</li>
+
+      <li>Call <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref>(<i>A</i>,
+      "<b>input"</b>, <i>S</i>).</li>
+
+      <li>Call <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref>(<i>A</i>,
+      "<b>length"</b>, <i>n</i> + 1).</li>
+
+      <li>Let <i>matchedSubstr</i> be the matched substring (i.e. the portion of <i>S</i> between
+      offset <i>i</i> inclusive and offset <i>e</i> exclusive).</li>
+
+      <li>Call <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref>(<i>A</i>,
+      "<b>0"</b>, <i>matchedSubstr</i>).</li>
+
+      <li>For each integer <i>i</i> such that <i>i</i> &gt; 0 and <i>i</i> ≤ <i>n</i>
+
+        <ol class="block">
+          <li>Let <i>captureI</i> be <i>i</i><sup>th</sup> element of <i>r</i>'s <i>captures</i>
+          <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
+
+          <li>Call <es-xref target="sec-createdataproperty">CreateDataProperty</es-xref>(<i>A</i>,
+          <es-xref target="sec-tostring">ToString</es-xref>(<i>i</i>) , <i>captureI</i>).</li>
+        </ol>
+      </li>
+
+      <li>Return <i>A</i>.</li>
+    </ol>
+  </es-clause>
+</es-clause>

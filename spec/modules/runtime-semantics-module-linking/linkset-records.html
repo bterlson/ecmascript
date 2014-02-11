@@ -1,0 +1,289 @@
+<es-clause title="LinkSet Records" anchor="sec-linkset-records">
+  <p>A LinkSet Record represents a call to <code>loader.define()</code>, <code>.load()</code>,
+  <code>.module()</code>, or <code>.import()</code>.</p>
+
+  <p>Each LinkSet Record has the fields defined in <b>Table 36</b>.</p>
+
+  <p><b>Table 36 — LinkSet Record Fields</b></p>
+
+  <figure>
+    <table class="real-table">
+      <tr>
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 0px solid black; border-top: 2px solid #000000">
+        Field Name</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Value Type</th>
+
+        <th style=
+        "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
+        Meaning</th>
+      </tr>
+
+      <tr>
+        <td>[[Loader]]</td>
+
+        <td>Loader Record</td>
+
+        <td>The Loader record that created this LinkSet.</td>
+      </tr>
+
+      <tr>
+        <td>[[Loads]]</td>
+
+        <td><es-xref target="sec-list-and-record-specification-type">List</es-xref> of Load
+        Record</td>
+
+        <td>A <es-xref target="sec-list-and-record-specification-type">List</es-xref> of the Load
+        Records that must finish loading before the modules can be linked and evaluated.</td>
+      </tr>
+
+      <tr>
+        <td>[[Done]]</td>
+
+        <td>Promise Object</td>
+
+        <td>The Promise that becomes fulfilled when all dependencies are loaded and linked
+        together.</td>
+      </tr>
+
+      <tr>
+        <td>[[Resolve]]</td>
+
+        <td>Function Object</td>
+
+        <td>Function used to resolve [[Done]].</td>
+      </tr>
+
+      <tr>
+        <td>[[Reject]]</td>
+
+        <td>Function Object</td>
+
+        <td>Function used to reject [[Done]].</td>
+      </tr>
+    </table>
+  </figure>
+
+  <es-clause title="CreateLinkSet(loader, startingLoad) Abstract Operation" anchor=
+  "sec-createlinkset">
+    <p>The CreateLinkSet abstract operation creates a new LinkSet record by performing the
+    following steps:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>loader</i> is a Loader
+      Record.</li>
+
+      <li>If <i>loader</i> does not have all of the internal properties of a Loader Instance, throw
+      a TypeError exception.</li>
+
+      <li>Let <i>promiseCapability</i> be PromiseBuiltinCapability().</li>
+
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>promiseCapability</i>).</li>
+
+      <li>Let <i>linkSet</i> be LinkSet {[[Loader]]: <i>loader</i>, [[Loads]]: ( ), [[Done]]:
+      <i>promiseCapability</i>.[[Promise]], [[Resolve]]: <i>promiseCapability</i>.[[Resolve]],
+      [[Reject]]: <i>promiseCapability</i>.[[Reject]] }.</li>
+
+      <li>Perform <es-xref target="sec-addloadtolinkset">AddLoadToLinkSet</es-xref>(<i>linkSet</i>,
+      <i>startingLoad</i>).</li>
+
+      <li>Return <i>linkSet</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="AddLoadToLinkSet(linkSet, load) Abstract Operation" anchor=
+  "sec-addloadtolinkset">
+    <p>The AddLoadToLinkSet abstract operation associates a LinkSet Record with a Load Record and
+    each of its currently known dependencies, indicating that the LinkSet cannot be linked until
+    those Loads have finished successfully.</p>
+
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>load</i>.[[Status]] is
+      either <code>"loading"</code> or <code>"loaded"</code>.</li>
+
+      <li>Let <i>loader</i> be <i>linkSet</i>.[[Loader]].</li>
+
+      <li>If <i>load</i> is not already an element of the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> <i>linkSet</i>.[[Loads]],
+
+        <ol class="block">
+          <li>Append <i>load</i> to the end of the <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref> <i>linkSet</i>.[[Loads]].</li>
+
+          <li>Append <i>linkSet</i> to the end of the <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref> <i>load</i>.[[LinkSets]].</li>
+
+          <li>If <i>load</i>.[[Status]] is <code>"loaded"</code>, then
+
+            <ol class="block">
+              <li>Repeat for each <i>r</i> that is a Record {[[Name]], [[NormalisedName]]} in
+              <i>load</i>.[[Dependencies]],
+
+                <ol class="block">
+                  <li>If there is no element of <i>loader</i>.[[ Modules]] whose [[key]] field is
+                  equal to <i>name</i>,
+
+                    <ol class="block">
+                      <li>If there is an element of <i>loader</i>.[[Loads]] whose [[Name]] field is
+                      equal to <i>name</i>,
+
+                        <ol class="block">
+                          <li>Let <i>depLoad</i> be that Load Record.</li>
+
+                          <li>Perform AddLoadToLinkSet(<i>linkSet</i>, <i>depLoad</i>).</li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="UpdateLinkSetOnLoad(linkSet, load) Abstract Operation" anchor=
+  "sec-updatelinksetonload">
+    <p>The UpdateLinkSetOnLoad abstract operation is called immediately after a Load successfully
+    finishes, after starting Loads for any dependencies that were not already loading, loaded, or
+    in the module registry.</p>
+
+    <p>This operation determines whether <es-nt>linkSet</es-nt> is ready to link, and if so, calls
+    <es-xref target="sec-link">Link</es-xref>.</p>
+
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>load</i> is an element
+      of <i>linkSet</i>.[[Loads]].</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>load</i>.[[Status]] is
+      either <code>"loaded"</code> or <code>"linked"</code>.</li>
+
+      <li>Repeat for each <i>element</i> in <i>linkSet</i>.[[Loads]],
+
+        <ol class="block">
+          <li>If <i>element</i>.[[Status]] is <code>"loading"</code>, then return.</li>
+        </ol>
+      </li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: All Loads in
+      <i>linkSet</i>.[[Loads]] have finished loading.</li>
+
+      <li>Let <i>startingLoad</i> be the first element of the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> <i>linkSet</i>.[[Loads]].</li>
+
+      <li>Let <i>status</i> be the result of <es-xref target=
+      "sec-link">Link</es-xref>(<i>linkSet</i>.[[Loads]], <i>linkSet</i>.[[Loader]]).</li>
+
+      <li>If <i>status</i> is an <es-xref target="sec-completion-record-specification-type">abrupt
+      completion</es-xref>, then
+
+        <ol class="block">
+          <li>Return <es-xref target="sec-linksetfailed">LinkSetFailed</es-xref>(<i>linkSet</i>,
+          <i>status</i>.[[value]]).</li>
+        </ol>
+      </li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>linkSet</i>.[[Loads]] is
+      an empty <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>Call the [[Call]] internal method of <i>linkSet</i>.[[Resolve]] passing <b>undefined</b>
+      and (<i>startingLoad</i>) as arguments.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The call performed by step
+      9 completed normally.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="LinkSetFailed(linkSet, exc) Abstract Operation" anchor="sec-linksetfailed">
+    <p>The LinkSetFailed abstract operation is called when a LinkSet fails. It detaches the given
+    LinkSet Record from all Load Records and rejects the <es-nt>linkSet</es-nt>.[[Done]]
+    Promise.</p>
+
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>loader</i> be <i>linkSet</i>.[[Loader]].</li>
+
+      <li>Let <i>loads</i> be a copy of the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> <i>linkSet</i>.[[Loads]].</li>
+
+      <li>For each <i>load</i> in <i>loads</i>,
+
+        <ol class="block">
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>linkSet</i> is an
+          element of the <es-xref target="sec-list-and-record-specification-type">List</es-xref>
+          <i>load</i>.[[LinkSets]].</li>
+
+          <li>Remove <i>linkSet</i> from the <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref> <i>load</i>.[[LinkSets]].</li>
+
+          <li>If <i>load</i>.[[LinkSets]] is empty and <i>load</i> is an element of
+          <i>loader</i>.[[Loads]], then
+
+            <ol class="block">
+              <li>Remove <i>load</i> from the <es-xref target=
+              "sec-list-and-record-specification-type">List</es-xref> <i>loader</i>.[[Loads]].</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return the result of calling [[Call]] internal method of <i>linkSet</i>.[[Reject]]
+      passing <b>undefined</b> and (<i>exc</i>) as arguments.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: The call performed by step
+      4 completed normally.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="FinishLoad(loader, load) Abstract Operation" anchor="sec-finishload">
+    <p>The FinishLoad Abstract Operation removes a completed Load Record from all LinkSets and
+    commits the newly loaded Module to the registry. It performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>name</i> be <i>load</i>.[[Name]].</li>
+
+      <li>If <i>name</i> is not <b>undefined</b>, then
+
+        <ol class="block">
+          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: There is no Record
+          {[[key]], [[value]]} <i>p</i> that is an element of <i>loader</i>.[[ Modules]], such that
+          <es-xref target="sec-samevalue">SameValue</es-xref>(<i>p</i>.[[key]],
+          <i>load</i>.[[Name]]) is <b>true</b>.</li>
+
+          <li>Append the Record {[[key]]: <i>load</i>.[[Name]], [[value]]: <i>load</i>.[[Module]]}
+          as the last element of <i>loader</i>.[[ Modules]].</li>
+        </ol>
+      </li>
+
+      <li>If <i>load</i> is an element of the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> <i>loader</i>.[[Loads]], then
+
+        <ol class="block">
+          <li>Remove <i>load</i> from the <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref> <i>loader</i>.[[Loads]].</li>
+        </ol>
+      </li>
+
+      <li>For each <i>linkSet</i> in <i>load</i>.[[LinkSets]],
+
+        <ol class="block">
+          <li>Remove <i>load</i> from <i>linkSet</i>.[[Loads]].</li>
+        </ol>
+      </li>
+
+      <li>Remove all elements from the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> <i>load</i>.[[LinkSets]].</li>
+    </ol>
+  </es-clause>
+</es-clause>
