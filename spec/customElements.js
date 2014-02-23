@@ -126,19 +126,6 @@ document.registerElement('es-gann', {
     }
 });
 
-
-function previousClauseSibling(node) {
-    while(node !== null) {
-        node = node.previousSibling;
-
-        if(node && node.nodeType === 1 && node.localName === 'es-clause')
-            break;
-    }
-
-    return node;
-}
-
-
 document.registerElement('es-clause', {
     prototype: {
         __proto__: HTMLElement.prototype,
@@ -202,34 +189,56 @@ document.registerElement('es-clause', {
             return this.id;
         },
 
+        get previousClauseSibling() {
+            var node = this;
+
+            while(node !== null) {
+                node = node.previousSibling;
+
+                if(node && node.nodeType === 1 && node.localName === 'es-clause')
+                    break;
+            }
+
+            return node;
+        },
+
+        get hasParentClause() {
+            return this.parentNode.localName === 'es-clause';
+        },
+
+        get clauseIndex() {
+            if(!this.id) {
+                return null;
+            }
+
+            return parseFloat(this.id.split('.').reverse()[0]);
+        },
+
+        get nextClauseId() {
+            var parts = this.id.split('.').map(parseFloat);
+
+            parts[parts.length - 1]++;
+
+            return parts.join(".");
+        },
+
+        assignSectionNumber: function() {
+            var sectionNumber;
+
+            var sibling = this.previousClauseSibling;
+
+            if(sibling) {
+                this.sectionNumber = sibling.nextClauseId;
+            } else if(this.hasParentClause) {
+                this.sectionNumber = this.parentNode.id + '.1'
+            } else {
+                this.sectionNumber = '1';
+            }
+        },
+
         attachedCallback: function() {
-            var name = this.getAttribute('title');
-
-            if(name) {
-                var sectionNumber;
-
-                var sibling = previousClauseSibling(this);
-
-                if(this.parentNode.localName !== 'es-clause') {
-                    if(sibling) {
-                        sectionNumber = "" + (parseFloat(sibling.id) + 1);
-                    } else {
-                        sectionNumber = "1";
-                    }
-                } else {
-                    sectionNumber = this.parentNode.id;
-                    if(!sectionNumber) {
-                        return;
-                    }
-
-                    if(sibling) {
-                        sectionNumber += '.' + (parseFloat(sibling.id.split('.').reverse()[0]) + 1);
-                    } else {
-                        sectionNumber += '.1';
-                    }
-                }
-
-                this.sectionNumber = sectionNumber;
+            if(this.getAttribute('title')) {
+                this.assignSectionNumber();
             }
         }
     }
