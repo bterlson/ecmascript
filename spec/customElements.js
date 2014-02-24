@@ -172,7 +172,12 @@ document.registerElement('es-clause', {
                 var secnum = document.createElement('a');
                 secnum.name = anchor;
                 secnum.className = 'secnum';
-                secnum.textContent = sectionNumber;
+
+                if(sectionNumber.match(/^[A-Z]$/)) {
+                    secnum.textContent = 'Annex ' + sectionNumber;
+                } else {
+                    secnum.textContent = sectionNumber;
+                }
                 header.appendChild(secnum);
 
                 var text = document.createTextNode(name);
@@ -214,21 +219,22 @@ document.registerElement('es-clause', {
             return parseFloat(this.id.split('.').reverse()[0]);
         },
 
-        get nextClauseId() {
-            var parts = this.id.split('.').map(parseFloat);
-
-            parts[parts.length - 1]++;
-
-            return parts.join(".");
-        },
-
         assignSectionNumber: function() {
-            var sectionNumber;
-
             var sibling = this.previousClauseSibling;
 
             if(sibling) {
-                this.sectionNumber = sibling.nextClauseId;
+                var parts = sibling.id.split('.');
+                var lastPart = parts[parts.length - 1];
+
+                if(this.hasAttribute('annex') && !sibling.hasAttribute('annex')) {
+                    parts[parts.length - 1] = 'A';
+                } else if(parts[parts.length - 1].match(/^\d+$/)) {
+                    parts[parts.length - 1]++;
+                } else {
+                    parts[parts.length - 1] = String.fromCharCode(lastPart.charCodeAt(lastPart.length - 1) + 1);
+                }
+
+                this.sectionNumber = parts.join('.');
             } else if(this.hasParentClause) {
                 this.sectionNumber = this.parentNode.id + '.1'
             } else {
@@ -329,12 +335,18 @@ function generateToc(depth, current, level) {
 
     var markup = '<ol class="toc">';
     var c;
+    var secnum;
 
     for(var i = 0; i < current.children.length; i++) {
         c = current.children[i];
 
+        secnum = c.sectionNumber;
+        if(secnum && secnum.match(/^[A-Z]$/)) {
+            secnum = 'Annex ' + secnum;
+        }
+
         if(c.localName === 'es-clause' && level < depth) {
-          markup += '<li><span class="secnum">' + c.sectionNumber + '</span> <es-xref target="' + c.getAttribute('anchor') + '"></es-xref>';
+          markup += '<li><span class="secnum">' + secnum + '</span> <es-xref target="' + c.getAttribute('anchor') + '"></es-xref>';
           markup += generateToc(depth, c, level + 1);
           markup += '</li>'
         }

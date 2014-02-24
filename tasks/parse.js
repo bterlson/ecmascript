@@ -21,7 +21,7 @@ var tidyOptions = {
     wrap: 100,
     newline: 'LF',
     newInlineTags: 'es-xref es-t es-nt es-gann es-gmod es-gprose es-production-inline es-rhs-inline',
-    newBlocklevelTags: 'es-clause es-production es-rhs es-intro es-annex es-note',
+    newBlocklevelTags: 'es-clause es-production es-rhs es-intro es-note',
     verticalSpace: false
 };
 
@@ -139,7 +139,7 @@ function Section() {
     this.contents = '';
     this.title = '';
     this.id = null;
-    this.secnum = null;
+    this.type = 'clause';
     this.subsections = [];
 }
 
@@ -626,9 +626,23 @@ function emitSection(sectionNode) {
         }
 
         if(node.name === 'h1') {
-            node.skip = true;
+            walk(node, function(headerChild) {
+                if(headerChild.name === 'a' && innerText(headerChild).match(/Annex/)) {
+                    section.type = 'annex';
+                }
+
+                if(headerChild.name === 'span' && headerChild.attribs.class === 'section-status') {
+                    if(innerText(headerChild).match(/informative/)) {
+                        section.informative = true;
+                    }
+                }
+            });
+
+
             section.title = node.children.map(function(n) { return n.type === 'text' ? emitText(n).trim() : '' }).join('');
 
+
+            node.skip = true;
             return false;
         }
     });
@@ -682,7 +696,16 @@ function writeSection(section, currentPath) {
     var contents = '';
 
     if(section.id !== 'index') {
-        contents += '<es-clause title="' + section.title + '" anchor="' + section.id + '">\n'
+        contents += '<es-clause title="' + section.title + '" anchor="' + section.id + '"'
+            
+        if(section.type === 'annex') {
+            contents += ' annex';
+        }
+        if(section.informative) {
+            contents += ' informative';
+        }
+
+        contents += '>\n';
     }
 
     contents += section.contents + '\n\n';
