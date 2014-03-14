@@ -41,43 +41,9 @@
         </ol>
       </li>
 
-      <li>If IsAnonymousFunctionDefinition of <i>AssignmentExpression</i> is <b>true</b>, then
-
-        <ol class="block">
-          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>propValue</i> is an
-          <es-xref target="sec-ecmascript-function-objects">ECMAScript function
-          object</es-xref>.</li>
-
-          <li>Let <i>referencesSuper</i> be the value of <i>propValue</i>’s [[[NeedsSuper]]
-          <es-xref target="sec-object-internal-methods-and-internal-slots">internal
-          slot</es-xref>.</li>
-
-          <li>If <i>referencesSuper</i> is <b>true</b>, then
-
-            <ol class="block">
-              <li>Set the <i>propValue</i>’s [[HomeObject]] <es-xref target=
-              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
-              <i>object</i>.</li>
-
-              <li>Set the <i>propValue</i>’s [[MethodName]] <es-xref target=
-              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
-              <i>propKey</i>.</li>
-            </ol>
-          </li>
-
-          <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>propValue</i>,
-          <i>propKey</i>).</li>
-        </ol>
-      </li>
-
-      <li>Let <i>desc</i> be the <es-xref target=
-      "sec-property-descriptor-specification-type">Property Descriptor</es-xref>{[[Value]]:
+      <li>Return the Record{[[key]]: <i>propKey</i>, [[descriptor]]: PropertyDescriptor{[[Value]]:
       <i>propValue</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>, [[Configurable]]:
-      <b>true</b>}</li>
-
-      <li>Return the result of <es-xref target=
-      "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>object</i>, <i>propKey</i>,
-      <i>desc</i>).</li>
+      <b>true</b>}}).</li>
     </ol>
   </es-clause>
 

@@ -53,7 +53,8 @@
     </es-clause>
 
     <es-clause title="CloneArrayBuffer(srcBuffer, srcByteOffset)" anchor="sec-clonearraybuffer">
-      <p>The abstract operation CloneArrayBuffer takes two parameters, an ArrayBuffer
+      <p>The abstract operation CloneArrayBuffer <es-xref target=
+      "sec-clonearraybuffer">24.1.1.3</es-xref> takes two parameters, an ArrayBuffer
       <es-nt>srcBuffer</es-nt>, an integer <es-nt>srcByteOffset</es-nt>. It creates a new
       ArrayBufer whose data is a copy of <es-nt>srcBuffer’s</es-nt> data starting at
       <es-nt>srcByteOffset</es-nt>.This operation performs the follow steps:</p>
@@ -132,7 +133,7 @@
         exception.</li>
 
         <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in
-        <a href="#table-43">Table 43</a> for <i>valueType</i>.
+        <a href="#table-36">Table 36</a> for <i>valueType</i>.
         </li>
 
         <li>Let <i>rawValue</i> be a <es-xref target=
@@ -221,7 +222,7 @@
         exception.</li>
 
         <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in
-        <a href="#table-43">Table 43</a> for the row containing the value of <i>type</i> as its
+        <a href="#table-36">Table 36</a> for the row containing the value of <i>type</i> as its
         Element Type entry.
         </li>
 
@@ -260,12 +261,12 @@
         <li>Else,
 
           <ol class="block">
-            <li>Let <i>n</i> be the Size Element value in <a href="#table-43">Table 43</a> for the
+            <li>Let <i>n</i> be the Size Element value in <a href="#table-36">Table 36</a> for the
             row containing the value of <i>type</i> as its Element Type entry.
             </li>
 
             <li>Let <i>convOp</i> be the abstract operation named in the Conversion Operation
-            column in <a href="#table-43">Table 43</a> for the row containing the value of
+            column in <a href="#table-36">Table 36</a> for the row containing the value of
             <i>type</i> as its Element Type entry.
             </li>
 
@@ -367,7 +368,7 @@
         internal method that was invoked by the <code>new</code> operator.</li>
 
         <li>Return the result of <es-xref target=
-        "sec-construct-f-argumentslist">Construct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
+        "sec-ordinaryconstruct">OrdinaryConstruct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
       </ol>
 
       <p>If ArrayBuffer is implemented as an <es-xref target=
@@ -514,8 +515,7 @@
 
         <li>Let <i>newLen</i> be max(<i>final</i>-<i>first</i>,0).</li>
 
-        <li>Let <i>ctor</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>O</i>,
-        <b>"constructor"</b>).</li>
+        <li>Let <i>ctor</i> be the result of Get (<i>O</i>, <b>"constructor"</b>).</li>
 
         <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>ctor</i>).</li>
 

@@ -86,7 +86,7 @@
 
       <li>
         <p>It is a Syntax Error if <es-nt>IdentifierReference</es-nt> <es-nt>statically resolves to
-        a immutable binding.</es-nt></p>
+        a mutable binding.</es-nt></p>
       </li>
     </ul>
 
@@ -390,8 +390,10 @@
       "sec-iteratorstep">IteratorStep</es-xref>(<i>iterator</i>).</li>
     </ol>
 
-    <p><i>AssignmentElement<sub>[Yield]</sub></i> <b>:</b>
-    <es-nt>DestructuringAssignmentTarget</es-nt> <es-nt>Initialiser</es-nt><sub>opt</sub></p>
+    <es-production name="AssignmentElement" class="inline">
+      <es-rhs><es-nt>DestructuringAssignmentTarget</es-nt> <es-nt optional
+      >Initialiser</es-nt></es-rhs>
+    </es-production>
 
     <ol class="proc">
       <li>If <i>DestructuringAssignmentTarget</i> is neither an <i>ObjectLiteral nor an
@@ -439,9 +441,8 @@
 
         <ol class="block">
           <li>Let <i>nestedAssignmentPattern</i> be the parse of the source code corresponding to
-          <i>DestructuringAssignmentTarget</i> using either <i>AssignmentPattern</i> or
-          <i>AssignmentPattern</i><sub>[Yield]</sub> as the goal symbol depending upon whether this
-          <i>AssignmentElement</i> has the <sub>Yield</sub> parameter.</li>
+          <i>DestructuringAssignmentTarget</i> using <i>AssignmentPattern</i><sub>[?Yield]</sub> as
+          the goal symbol</li>
 
           <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>) is
           not Object, then throw a <b>TypeError</b> exception.</li>
@@ -518,8 +519,10 @@
   "sec-runtime-semantics-keyeddestructuringassignmentevaluation">
     <p>with parameters <es-nt>obj</es-nt> and <es-nt>propertyName</es-nt></p>
 
-    <p><es-nt>AssignmentElement</es-nt> <sub><i>[Yield]</i></sub> <b>:</b>
-    <es-nt>DestructuringAssignmentTarget</es-nt> <es-nt>Initialiser</es-nt> <sub>opt</sub></p>
+    <es-production name="AssignmentElement" class="inline">
+      <es-rhs><es-nt>DestructuringAssignmentTarget</es-nt> <es-nt optional
+      >Initialiser</es-nt></es-rhs>
+    </es-production>
 
     <ol class="proc">
       <li>Let <i>v</i> be the result of <es-xref target="sec-get-o-p">Get</es-xref>(<i>obj</i>,
@@ -544,9 +547,8 @@
 
         <ol class="block">
           <li>Let <i>AssignmentPattern</i> be the parse of the source code corresponding to
-          <i>DestructuringAssignmentTarget</i> using either <i>AssignmentPattern</i> or
-          <i>AssignmentPattern</i><sub>[?Yield]</sub> as the goal symbol depending upon whether
-          this <i>AssignmentElement</i> has the <sub>Yield</sub> parameter.</li>
+          <i>DestructuringAssignmentTarget</i> using <i>AssignmentPattern</i><sub>[?Yield]</sub> as
+          the goal symbol</li>
 
           <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>v</i>) is
           not Object, then throw a <b>TypeError</b> exception.</li>

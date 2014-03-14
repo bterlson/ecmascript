@@ -1,0 +1,34 @@
+<es-clause title="RebindSuper(function, newHome) Abstract Operation" anchor="sec-rebindsuper">
+  <p>The abstract operation RebindSuper is called with a function object <es-nt>function</es-nt>
+  and an object <es-nt>newHome</es-nt> as its argument. It performs the following steps:</p>
+
+  <ol class="proc">
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>function</i> is an
+    <es-xref target="sec-ecmascript-function-objects">ECMAScript function object</es-xref> that has
+    a [[HomeObject]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref>.</li>
+
+    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <es-xref target=
+    "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>newHome</i>) is Object.</li>
+
+    <li>Let <i>new</i> be a new <es-xref target="sec-ecmascript-function-objects">ECMAScript
+    function object</es-xref> that has all of the same internal methods and internal slots as
+    <i>function</i>.</li>
+
+    <li>Set the value of each of <i>new’s</i> internal slots, except for [[HomeObject]] to the
+    value of <i>function’s</i> corresponding <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
+
+    <li>Set the value of <i>new’s</i> [[HomeObject]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+    <i>newHome</i>.</li>
+
+    <li>Return <i>new</i>.</li>
+  </ol>
+
+  <es-note>
+    <p>The purpose of this abstract operation is to create a new function object that is identical
+    to the argument object in all aways except for its identity and the value of its [[HomeObject]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+  </es-note>
+</es-clause>

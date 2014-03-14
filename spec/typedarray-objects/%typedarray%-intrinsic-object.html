@@ -49,14 +49,12 @@
 
       <li>If the value of <i>O’s</i> [[ViewedArrayBuffer]] <es-xref target=
       "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not
-      <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
-
-      <li>Let <i>constructorName</i> be the string value <i>O</i>’s [[TypedArrayName]]
-      <es-xref target="sec-object-internal-methods-and-internal-slots">internal
-      slot</es-xref>.</li>
+      <b>undefined</b>, then throw a <b>TypeError</b> exception.Let <i>constructorName</i> be the
+      string value <i>O</i>’s [[TypedArrayName]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
 
       <li>Let <i>elementType</i> be the string value of the Element Type value in <a href=
-      "#table-43">Table 43</a> for <i>constructorName</i>.
+      "#table-36">Table 36</a> for <i>constructorName</i>.
       </li>
 
       <li>Let <i>numberLength</i> be <es-xref target=
@@ -75,7 +73,7 @@
 
       <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>data</i>).</li>
 
-      <li>Let <i>elementSize</i> be the Size Element value in <a href="#table-43">Table 43</a> for
+      <li>Let <i>elementSize</i> be the Size Element value in <a href="#table-36">Table 36</a> for
       <i>constructorName</i>.
       </li>
 
@@ -147,7 +145,7 @@
       slot</es-xref>.</li>
 
       <li>Let <i>elementType</i> be the string value of the Element Type value in <a href=
-      "#table-43">Table 43</a> for <i>constructorName</i>.
+      "#table-36">Table 36</a> for <i>constructorName</i>.
       </li>
 
       <li>Let <i>elementLength</i> be the value of <i>srcArray’s</i> [[ArrayLength]]
@@ -158,11 +156,11 @@
       <es-xref target="sec-object-internal-methods-and-internal-slots">internal
       slot</es-xref>.</li>
 
-      <li>Let <i>srcType</i> be the string value of the Element Type value in <a href="#table-43">
-        Table 43</a> for <i>srcName</i>.
+      <li>Let <i>srcType</i> be the string value of the Element Type value in <a href="#table-36">
+        Table 36</a> for <i>srcName</i>.
       </li>
 
-      <li>Let <i>srcElementSize</i> be the Size Element value in <a href="#table-43">Table 43</a>
+      <li>Let <i>srcElementSize</i> be the Size Element value in <a href="#table-36">Table 36</a>
       for <i>srcName</i>.
       </li>
 
@@ -174,7 +172,7 @@
       <es-xref target="sec-object-internal-methods-and-internal-slots">internal
       slot</es-xref>.</li>
 
-      <li>Let <i>elementSize</i> be the Size Element value in <a href="#table-43">Table 43</a> for
+      <li>Let <i>elementSize</i> be the Size Element value in <a href="#table-36">Table 36</a> for
       <i>constructorName</i>.
       </li>
 
@@ -219,7 +217,7 @@
 
           <li>Let <i>count</i> be <i>elementLength</i>.</li>
 
-          <li>Repeat,while <i>count</i> &gt;0
+          <li>Repeat, <i>count</i> &gt;0
 
             <ol class="block">
               <li>Let <i>value</i> be the result of <es-xref target=
@@ -245,7 +243,7 @@
       <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
 
       <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>O</i> has not been
-      reentrantly initialised.</li>
+      reentrantly initialized.</li>
 
       <li>Set <i>O’s</i> [[ViewedArrayBuffer]] <es-xref target=
       "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>data</i>.</li>
@@ -306,11 +304,11 @@
       slot</es-xref>.</li>
 
       <li>Let <i>elementType</i> be the string value of the Element Type value in <a href=
-      "#table-43">Table 43</a> for <i>constructorName</i>.
+      "#table-36">Table 36</a> for <i>constructorName</i>.
       </li>
 
       <li>Let <i>arrayLength</i> be the result of <es-xref target=
-      "sec-get-o-p">Get</es-xref>(<i>srcArray</i>, <code>"length"</code>).</li>
+      "sec-get-o-p">Get</es-xref>(<i>srcArray</i>, <b>"length"</b>).</li>
 
       <li>Let <i>elementLength</i> be <es-xref target=
       "sec-tolength">ToLength</es-xref>(<i>arrayLength</i> ).</li>
@@ -322,7 +320,7 @@
 
       <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>data</i>).</li>
 
-      <li>Let <i>elementSize</i> be the Size Element value in <a href="#table-43">Table 43</a> for
+      <li>Let <i>elementSize</i> be the Size Element value in <a href="#table-36">Table 36</a> for
       <i>constructorName</i>.
       </li>
 
@@ -423,11 +421,11 @@
       slot</es-xref>.</li>
 
       <li>Let <i>elementType</i> be the string value of the Element Type value in <a href=
-      "#table-43">Table 43</a> for <i>constructorName</i>.
+      "#table-36">Table 36</a> for <i>constructorName</i>.
       </li>
 
       <li>Let <i>elementSize</i> be the Number value of the Element Size value in <a href=
-      "#table-43">Table 43</a> for <i>constructorName</i>.
+      "#table-36">Table 36</a> for <i>constructorName</i>.
       </li>
 
       <li>Let <i>offset</i> be <es-xref target=

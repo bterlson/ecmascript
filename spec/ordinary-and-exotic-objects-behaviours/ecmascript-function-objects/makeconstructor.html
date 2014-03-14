@@ -11,16 +11,15 @@
 
     <li>Let <i>installNeeded</i> be <b>false</b>.</li>
 
-    <li>If the <i>prototype</i> argument was not provided, then
+    <li>If the <i>prototype</i> argument was not provided, then</li>
+  </ol>
 
-      <ol class="block">
-        <li>Let <i>installNeeded</i> be <b>true</b>.</li>
+  <p><span class="marker"></span>Let <i>installNeeded</i> be <b>true</b>.</p>
 
-        <li>Let <i>prototype</i> be the result of <es-xref target=
-        "sec-objectcreate">ObjectCreate</es-xref>(%ObjectPrototype%).</li>
-      </ol>
-    </li>
+  <p><span class="marker"></span>Let <i>prototype</i> be the result of <es-xref target=
+  "sec-objectcreate">ObjectCreate</es-xref>(%ObjectPrototype%).</p>
 
+  <ol class="proc">
     <li>If the <i>writablePrototype</i> argument was not provided, then
 
       <ol class="block">
@@ -29,7 +28,7 @@
     </li>
 
     <li>Set <i>F</i>’s essential internal method [[Construct]] to the definition specified in
-    <es-xref target="sec-construct-argumentslist">9.2.1</es-xref>.</li>
+    <es-xref target="sec-construct-argumentslist">9.2.2</es-xref>.</li>
 
     <li>If <i>installNeeded</i>, then
 
@@ -46,7 +45,7 @@
 
     <li>Let <i>status</i> be the result of <es-xref target=
     "sec-definepropertyorthrow">DefinePropertyOrThrow</es-xref>(<i>F</i>, <code>"prototype"</code>,
-    and PropertyDescriptor{[[Value]]: <i>prototype</i>, [[Writable]]: <i>writablePrototype</i>,
+    and PropertyDescriptor{[[Value]]: <i>prototype</i> , [[Writable]]: <i>writablePrototype</i> ,
     [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}.</li>
 
     <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>

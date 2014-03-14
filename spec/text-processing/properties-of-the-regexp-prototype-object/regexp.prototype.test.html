@@ -7,8 +7,21 @@
     <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>R)</i> is not
     Object, then throw a <b>TypeError</b> exception.</li>
 
-    <li>Let <i>match</i> be the result of Invoke(<i>R</i>, <code>"exec"</code>,
-    (<i>string</i>)).</li>
+    <li>If <i>R</i> does not have a [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+    <b>TypeError</b> exception.</li>
+
+    <li>If the value of <i>R’s</i> [[RegExpMatcher]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+    then throw a <b>TypeError</b> exception.</li>
+
+    <li>Let <i>S</i> be the value of <es-xref target=
+    "sec-tostring">ToString</es-xref>(<i>string</i>)</li>
+
+    <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>S</i>).</li>
+
+    <li>Let <i>match</i> be the result of the <es-xref target="sec-regexpexec">RegExpExec</es-xref>
+    abstract operation with arguments <i>R</i> and <i>S</i>.</li>
 
     <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>match</i>).</li>
 

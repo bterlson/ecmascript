@@ -26,21 +26,10 @@
     argument <es-nt>value</es-nt> performs the following steps:</p>
 
     <ol class="proc">
-      <li>If <i>value</i> was not passed, let <i>value</i> be <b>undefined</b>.
+      <li>If <i>value</i> was not passed, let <i>value</i> be <b>undefined</b>.</li>
 
-        <ol class="block">
-          <li>Let <i>result</i> be the result of Invoke(<i>iterator</i>, <code>"next"</code>, (
-          )).</li>
-        </ol>
-      </li>
-
-      <li>Else,
-
-        <ol class="block">
-          <li>Let <i>result</i> be the result of Invoke(<i>iterator</i>, <code>"next"</code>,
-          (<i>value</i>)).</li>
-        </ol>
-      </li>
+      <li>Let <i>result</i> be the result of Invoke(<i>iterator</i>, <code>"next"</code>,
+      (<i>value</i>)).</li>
 
       <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
 
@@ -79,15 +68,18 @@
     </ol>
   </es-clause>
 
-  <es-clause title="IteratorStep ( iterator)" anchor="sec-iteratorstep">
-    <p>The abstract operation IteratorStep with argument <es-nt>iterator</es-nt> requests the next
-    value from <es-nt>iterator</es-nt> and returns either <span class="value">false</span>
-    indicating that the iterator has reached its end or the IteratorResult object if a next value
-    is available. IteratorStep performs the following steps:</p>
+  <es-clause title="IteratorStep ( iterator, value )" anchor="sec-iteratorstep">
+    <p>The abstract operation IteratorStep with argument <es-nt>iterator</es-nt> and optional
+    argument <es-nt>value</es-nt> requests the next value from <es-nt>iterator</es-nt> and returns
+    either <span class="value">false</span> indicating that the iterator has reached its end or the
+    IteratorResult object if a next value is available. IteratorStep performs the following
+    steps:</p>
 
     <ol class="proc">
+      <li>If <i>value</i> was not passed, let <i>value</i> be <b>undefined</b>.</li>
+
       <li>Let <i>result</i> be the result of <es-xref target=
-      "sec-iteratornext">IteratorNext</es-xref>(<i>iterator</i>).</li>
+      "sec-iteratornext">IteratorNext</es-xref>(<i>iterator</i>, <i>value</i>).</li>
 
       <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
 

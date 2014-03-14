@@ -11,7 +11,7 @@
     <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
   </es-production>
 
-  <es-production name="ConciseBody" params="In">
+  <es-production name="ConciseBody" params="in">
     <es-rhs constraint="lookahead ∉ {{}"><es-nt params="?In">AssignmentExpression</es-nt></es-rhs>
 
     <es-rhs><es-t>{</es-t> <es-nt>FunctionBody</es-nt> <es-t>}</es-t></es-rhs>
@@ -70,15 +70,14 @@
     "sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</es-xref>,
     <es-xref target="sec-variable-statement-static-semantics-boundnames">13.2.2.1</es-xref>,
     <es-xref target=
-    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</es-xref>,
+    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.2</es-xref>,
     <es-xref target=
     "sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</es-xref>,
-    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.3</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.2</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-boundnames">14.4.2</es-xref>,
     <es-xref target="sec-class-definitions-static-semantics-boundnames">14.5.2</es-xref>,
-    <es-xref target="sec-imports-static-semantics-boundnames">15.2.1.2</es-xref>, <es-xref target=
-    "sec-exports-static-semantics-boundnames">15.2.2.1</es-xref>.</p>
+    <es-xref target="sec-imports-static-semantics-boundnames">15.1.1.2</es-xref>, 0.</p>
 
     <es-production name="ArrowParameters" class="inline">
       <es-rhs><es-nt>CoverParenthesisedExpressionAndArrowParameterList</es-nt></es-rhs>
@@ -99,7 +98,7 @@
     <p>See also: <es-xref target="sec-static-semantic-rules">5.3</es-xref>, <es-xref target=
     "sec-object-initialiser-static-semantics-contains">12.1.5.2</es-xref>, <es-xref target=
     "sec-static-semantics-static-semantics-contains">12.2.1.1</es-xref>, <es-xref target=
-    "sec-function-definitions-static-semantics-contains">14.1.4</es-xref>, <es-xref target=
+    "sec-function-definitions-static-semantics-contains">14.1.3</es-xref>, <es-xref target=
     "sec-generator-function-definitions-static-semantics-contains">14.4.3</es-xref>,
     <es-xref target="sec-class-definitions-static-semantics-contains">14.5.4</es-xref></p>
 
@@ -164,7 +163,7 @@
   <es-clause title="Static Semantics: ExpectedArgumentCount" anchor=
   "sec-arrow-function-definitions-static-semantics-expectedargumentcount">
     <p>See also: <es-xref target=
-    "sec-function-definitions-static-semantics-expectedargumentcount">14.1.5</es-xref>,
+    "sec-function-definitions-static-semantics-expectedargumentcount">14.1.4</es-xref>,
     <es-xref target=
     "sec-method-definitions-static-semantics-expectedargumentcount">14.3.2</es-xref>.</p>
 
@@ -216,14 +215,13 @@
     "sec-block-static-semantics-lexicallydeclarednames">13.1.3</es-xref>, <es-xref target=
     "sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</es-xref>,
     <es-xref target=
-    "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</es-xref>,
+    "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.10</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</es-xref>,
     <es-xref target=
     "sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</es-xref>,
-    <es-xref target="sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</es-xref>,
-    <es-xref target=
-    "sec-module-static-semantics-static-semantics-lexicallydeclarednames">15.2.0.10</es-xref>.</p>
+    <es-xref target="sec-static-semantics-knownexportentries">15.1.0.7</es-xref>, <es-xref target=
+    "sec-scripts-static-semantics-lexicallydeclarednames">15.2.3</es-xref>.</p>
 
     <es-production name="ConciseBody" class="inline">
       <es-rhs><es-nt>AssignmentExpression</es-nt></es-rhs>
@@ -242,9 +240,9 @@
     <p>See also: <es-xref target=
     "sec-array-comprehension-runtime-semantics-bindinginitialisation">12.1.4.2.2</es-xref>,
     <es-xref target=
-    "sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</es-xref>,<es-xref target="sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</es-xref>,<es-xref target="sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.3</es-xref>,<es-xref target="sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</es-xref>,
+    "sec-let-and-const-declarations-runtime-semantics-bindinginitialisation">13.2.1.5</es-xref>,<es-xref target="sec-variable-statement-runtime-semantics-bindinginitialisation">13.2.2.2</es-xref>,<es-xref target="sec-destructuring-binding-patterns-runtime-semantics-bindinginitialisation">13.2.3.4</es-xref>,<es-xref target="sec-try-statement-runtime-semantics-bindinginitialisation">13.14.3</es-xref>,
     <es-xref target=
-    "sec-function-definitions-runtime-semantics-iteratorbindinginitialisation">14.1.15</es-xref>.</p>
+    "sec-function-definitions-runtime-semantics-iteratorbindinginitialisation">14.1.13</es-xref>.</p>
 
     <es-note>
       <p>When <b>undefined</b> is passed for <es-nt>environment</es-nt> it indicates that a
@@ -298,7 +296,7 @@
     <p>With parameter <es-nt>functionObject</es-nt>.</p>
 
     <p>See also: <es-xref target=
-    "sec-function-definitions-runtime-semantics-evaluatebody">14.1.14</es-xref>, <es-xref target=
+    "sec-function-definitions-runtime-semantics-evaluatebody">14.1.12</es-xref>, <es-xref target=
     "sec-generator-function-definitions-runtime-semantics-evaluatebody">14.4.11</es-xref>.</p>
 
     <es-production name="ConciseBody" class="inline">
@@ -352,21 +350,19 @@
       "sec-execution-contexts">LexicalEnvironment</es-xref> of <es-xref target=
       "sec-execution-contexts">the running execution context</es-xref>.</li>
 
-      <li>Let <i>parameters</i> be CoveredFormalsList of <i>ArrowParameters</i>.</li>
+      <li>Let <i>parameters</i> be CoveredFormalsList of <es-nt>ArrowParameters</es-nt>.</li>
 
       <li>Let <i>closure</i> be the result of performing the <es-xref target=
       "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Arrow,
-      <i>parameters</i>, <i>ConciseBody, scope</i>, and <i>strict</i>.</li>
+      <es-nt>parameters</es-nt>, <i>ConciseBody, scope</i>, and <es-nt>strict</es-nt>.</li>
 
       <li>Return <i>closure</i>.</li>
     </ol>
 
     <es-note>
-      <p>Any reference to <code>arguments</code>, <code>super</code>, or <code>this</code> within
-      an <es-nt>ArrowFunction</es-nt> are resoved to their bindings in the lexically enclosing
-      function. Even though an <es-nt>ArrowFunction</es-nt> may contain references to
-      <code>super</code>, the function object created in step 4 is not made into a method by
-      performing <es-xref target="sec-makemethod">MakeMethod</es-xref>. An
+      <p>Even though an <es-nt>ArrowFunction</es-nt> may contain references to <code>super</code>,
+      the <es-xref target="sec-functioncreate">FunctionCreate</es-xref> call in step 4 is not
+      passed the optional <es-nt>homeObject</es-nt> and <es-nt>methodName</es-nt> parameters. An
       <es-nt>ArrowFunction</es-nt> that references <code>super</code> is always contained within a
       non-<es-nt>ArrowFunction</es-nt> and the necessary state to implement <code>super</code> is
       accessible via the <es-nt>scope</es-nt> that is captured by the function object of the

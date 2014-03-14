@@ -35,7 +35,8 @@
     <es-rhs><es-nt params="?Yield">FormalParameter</es-nt></es-rhs>
 
     <es-rhs><es-nt>FormalsList</es-nt> <es-gann>?Yield, ?GeneratorParameter</es-gann>,
-    <es-nt>FormalParameter</es-nt> <es-gann>?Yield,?GeneratorParameter</es-gann></es-rhs>
+    <es-nt>FormalParameter</es-nt> <es-gann>?Yield, ?GeneratorParameter,
+    ?GeneratorParameter</es-gann></es-rhs>
   </es-production>
 
   <es-production name="FunctionRestParameter" params="Yield">
@@ -67,38 +68,739 @@
     <es-rhs constraint="empty"></es-rhs>
   </es-production>
 
-  <link rel="import" href=
-  "function-definitions/directive-prologues-and-the-use-strict-directive.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-early-errors.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-boundnames.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-contains.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-expectedargumentcount.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-hasinitialiser.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-isanonymousfunctiondefinition.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-isconstantdeclaration.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-issimpleparameterlist.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-isstrict.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-lexicallydeclarednames.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-referencessuper.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-static-semantics-vardeclarednames.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-runtime-semantics-evaluatebody.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-runtime-semantics-iteratorbindinginitialisation.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-runtime-semantics-instantiatefunctionobject.html">
-  <link rel="import" href=
-  "function-definitions/function-definitions-runtime-semantics-evaluation.html">
+  <es-clause title="Static Semantics: Early Errors" anchor=
+  "sec-function-definitions-static-semantics-early-errors">
+    <p><es-production name="FunctionDeclaration" class="inline"><es-rhs>function
+    <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs></es-production><br>
+    and<br>
+    <es-production name="FunctionExpression" class="inline"><es-rhs>function
+    <es-nt optional>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+    <es-nt>FunctionBody</es-nt> }</es-rhs></es-production></p>
+
+    <ul>
+      <li>
+        <p>If the source code matching this production is <es-xref target=
+        "sec-strict-mode-code">strict code</es-xref>, the Early Error rules for
+        <es-production name="StrictFormalParameters" class=
+        "inline"><es-rhs><es-nt>FormalParameters</es-nt></es-rhs></es-production>
+        are applied.</p>
+      </li>
+    </ul>
+
+    <p>It is a Syntax Error if IsSimpleParameterList of <es-nt>FormalParameters</es-nt> is
+    <span class="value">false</span> and any element of the BoundNames of
+    <es-nt>FormalParameters</es-nt> also occurs in the VarDeclaredNames of
+    <es-nt>FunctionBody</es-nt>.</p>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if any element of the BoundNames of <es-nt>FormalParameters</es-nt>
+        also occurs in the LexicallyDeclaredNames of <es-nt>FunctionBody</es-nt>.</p>
+      </li>
+    </ul>
+
+    <es-note>
+      <p>The LexicallyDeclaredNames of a <es-nt>FunctionBody</es-nt> does not include identifiers
+      bound using var or function declarations. Simple parameter lists bind identifiers as
+      VarDeclaredNames. Parameter lists that contain destructuring patterns, default value
+      initialisers, or a rest parameter bind identifiers as LexicallyDeclaredNames.</p>
+    </es-note>
+
+    <es-production name="StrictFormalParameters" class="inline">
+      <es-rhs><es-nt>FormalParameters</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if BoundNames of <i>FormalParameters</i> contains any duplicate
+        elements.</p>
+      </li>
+    </ul>
+
+    <es-production name="FormalParameters" class="inline">
+      <es-rhs><es-nt>FormalParameterList</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if IsSimpleParameterList of <es-nt>FormalParameterList</es-nt> is
+        <span class="value">false</span> and BoundNames of <i>FormalParameterList</i> contains any
+        duplicate elements.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if IsSimpleParameterList of <es-nt>FormalParameterList</es-nt> is
+        <span class="value">false</span> and BoundNames of <i>FormalParameterList</i> contains
+        either <b>″eval″</b> or <b>″arguments″</b>.</p>
+      </li>
+    </ul>
+
+    <es-note>
+      <p>Multiple occurrences of the same <es-nt>Identifier</es-nt> in a
+      <es-nt>FormalParamterList</es-nt> is only allowed for non-strict functions and generator
+      functions that have simple parameter lists.</p>
+    </es-note>
+
+    <es-production name="FunctionStatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>
+        <p>It is a Syntax Error if the LexicallyDeclaredNames of <es-nt>StatementList</es-nt>
+        contains any duplicate entries.</p>
+      </li>
+
+      <li>
+        <p>It is a Syntax Error if any element of the LexicallyDeclaredNames of
+        <es-nt>StatementList</es-nt> also occurs in the VarDeclaredNames of
+        <es-nt>StatementList</es-nt>.</p>
+      </li>
+    </ul>
+  </es-clause>
+
+  <es-clause title="Static Semantics: BoundNames" anchor=
+  "sec-function-definitions-static-semantics-boundnames">
+    <p>See also: <es-xref target=
+    "sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</es-xref>,
+    <es-xref target="sec-variable-statement-static-semantics-boundnames">13.2.2.1</es-xref>,
+    <es-xref target=
+    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.2</es-xref>,
+    <es-xref target=
+    "sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</es-xref>,
+    <es-xref target="sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-boundnames">14.4.2</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-boundnames">14.5.2</es-xref>,
+    <es-xref target="sec-imports-static-semantics-boundnames">15.1.1.2</es-xref>, 0.</p>
+
+    <es-production name="FunctionDeclaration" class="inline">
+      <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+    </ol>
+
+    <es-production name="FormalParameters" class="inline">
+      <es-rhs constraint="empty"></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="FormalParameterList" class="inline">
+      <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FunctionRestParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be BoundNames of <i>FormalsList</i>.</li>
+
+      <li>Append to <i>names</i> the BoundNames of <i>FunctionRestParameter.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+
+    <es-production name="FormalsList" class="inline">
+      <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FormalParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>names</i> be BoundNames of <i>FormalsList</i>.</li>
+
+      <li>Append to <i>names</i> the elements of BoundNames of <i>FormalParameter.</i></li>
+
+      <li>Return <i>names</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: Contains" anchor=
+  "sec-function-definitions-static-semantics-contains">
+    <p>With parameter <es-nt>symbol</es-nt>.</p>
+
+    <p>See also: <es-xref target="sec-static-semantic-rules">5.3</es-xref>, <es-xref target=
+    "sec-object-initialiser-static-semantics-contains">12.1.5.2</es-xref>, <es-xref target=
+    "sec-static-semantics-static-semantics-contains">12.2.1.1</es-xref>, <es-xref target=
+    "sec-arrow-function-definitions-static-semantics-contains">14.2.3</es-xref>, <es-xref target=
+    "sec-generator-function-definitions-static-semantics-contains">14.4.3</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-contains">14.5.4</es-xref></p>
+
+    <es-production name="FunctionDeclaration" class="inline">
+      <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="FunctionExpression" class="inline">
+      <es-rhs>function <es-nt optional>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt>
+      ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-note>
+      <p>Static semantic rules that depend upon substructure generally do not look into function
+      definitions.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Static Semantics: ExpectedArgumentCount" anchor=
+  "sec-function-definitions-static-semantics-expectedargumentcount">
+    <p>See also: <es-xref target=
+    "sec-arrow-function-definitions-static-semantics-expectedargumentcount">14.2.5</es-xref>,
+    <es-xref target=
+    "sec-method-definitions-static-semantics-expectedargumentcount">14.3.2</es-xref>.</p>
+
+    <es-production name="FormalParameters" class="inline">
+      <es-rhs constraint="empty"></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return 0.</li>
+    </ol>
+
+    <es-production name="FormalParameterList" class="inline">
+      <es-rhs><es-nt>FunctionRestParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return 0.</li>
+    </ol>
+
+    <es-production name="FormalParameterList" class="inline">
+      <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FunctionRestParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the ExpectedArgumentCount of <i>FormalsList</i>.</li>
+    </ol>
+
+    <es-note>
+      <p>The ExpectedArgumentCount of a <es-nt>FormalParameterList</es-nt> is the number of
+      <es-nt>FormalParameters</es-nt> to the left of either the rest parameter or the first
+      <es-nt>FormalParameter</es-nt> with an Initialiser. A <es-nt>FormalParameter</es-nt> without
+      an initialiser is allowed after the first parameter with an initialiser but such parameters
+      are considered to be optional with <span class="value">undefined</span> as their default
+      value.</p>
+    </es-note>
+
+    <es-production name="FormalsList" class="inline">
+      <es-rhs><es-nt>FormalParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If HasInitialiser of <i>FormalParameter</i> is <b>false</b> return 0</li>
+
+      <li>Return 1.</li>
+    </ol>
+
+    <es-production name="FormalsList" class="inline">
+      <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FormalParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>count</i> be the ExpectedArgumentCount of <i>FormalsList.</i></li>
+
+      <li>If HasInitialiser of <i>FormalsList</i> is <b>true</b> or HasInitialiser of
+      <i>FormalParameter</i> is <b>true</b>, then return <i>count</i>.</li>
+
+      <li>Return <i>count</i>+1.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: HasInitialiser" anchor=
+  "sec-function-definitions-static-semantics-hasinitialiser">
+    <p>See also: <es-xref target=
+    "sec-destructuring-binding-patterns-static-semantics-hasinitialiser">13.2.3.3</es-xref>.</p>
+
+    <es-production name="FormalsList" class="inline">
+      <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FormalParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If HasInitialiser of <i>FormalsList</i> is <b>true</b>, then return <b>true</b>.</li>
+
+      <li>Return HasInitialiser of <i>FormalParameter</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: IsAnonymousFunctionDefinition" anchor=
+  "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">
+    <p>See also: <es-xref target=
+    "sec-semantics-static-semantics-isanonymousfunctiondefinition">12.1.0.2</es-xref>,
+    <es-xref target=
+    "sec-grouping-operator-static-semantics-isanonymousfunctiondefinition">12.1.10.2</es-xref>,
+    <es-xref target=
+    "sec-static-semantics-static-semantics-isanonymousfunctiondefinition">12.2.1.2</es-xref>,
+    <es-xref target=
+    "sec-postfix-expressions-static-semantics-isanonymousfunctiondefinition">12.3.2</es-xref>,
+    <es-xref target=
+    "sec-unary-operators-static-semantics-isanonymousfunctiondefinition">12.4.2</es-xref>,
+    <es-xref target=
+    "sec-multiplicative-operators-static-semantics-isanonymousfunctiondefinition">12.5.1</es-xref>,
+    <es-xref target=
+    "sec-additive-operators-static-semantics-isanonymousfunctiondefinition">12.6.1</es-xref>,
+    <es-xref target=
+    "sec-bitwise-shift-operators-static-semantics-isanonymousfunctiondefinition">12.7.1</es-xref>,
+    <es-xref target=
+    "sec-relational-operators-static-semantics-isanonymousfunctiondefinition">12.8.1</es-xref>,
+    <es-xref target=
+    "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">12.9.2</es-xref>,
+    <es-xref target=
+    "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget">12.10.2</es-xref>,
+    <es-xref target=
+    "sec-binary-logical-operators-static-semantics-isanonymousfunctiondefinition">12.11.1</es-xref>,
+    <es-xref target=
+    "sec-conditional-operator-static-semantics-isanonymousfunctiondefinition">12.12.1</es-xref>,
+    <es-xref target=
+    "sec-assignment-operators-static-semantics-isanonymousfunctiondefinition">12.13.2</es-xref>,
+    <es-xref target=
+    "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-isanonymousfunctiondefinition">14.4.5</es-xref>,
+    <es-xref target=
+    "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
+
+    <es-production name="FunctionExpression" class="inline">
+      <es-rhs>function ( <es-nt>FormalParameters</es-nt> ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>true</b>.</li>
+    </ol>
+
+    <es-production name="FunctionExpression" class="inline">
+      <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: IsConstantDeclaration" anchor=
+  "sec-function-definitions-static-semantics-isconstantdeclaration">
+    <p>See also: <es-xref target=
+    "sec-let-and-const-declarations-static-semantics-isconstantdeclaration">13.2.1.3</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</es-xref>,
+    <es-xref target=
+    "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
+
+    <es-production name="FunctionDeclaration" class="inline">
+      <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: IsSimpleParameterList" anchor=
+  "sec-function-definitions-static-semantics-issimpleparameterlist">
+    <es-production name="FormalParameters" class="inline">
+      <es-rhs constraint="empty"></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>true</b>.</li>
+    </ol>
+
+    <es-production name="FormalParameterList" class="inline">
+      <es-rhs><es-nt>FunctionRestParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="FormalParameterList" class="inline">
+      <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FunctionRestParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-production name="FormalsList" class="inline">
+      <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FormalParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If IsSimpleParameterList of <i>FormalsList</i> is <b>false</b>, return <b>false</b>.</li>
+
+      <li>Return IsSimpleParameterList of <i>FormalParameter</i>.</li>
+    </ol>
+
+    <es-production name="FormalParameter" class="inline">
+      <es-rhs><es-nt>BindingElement</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If HasInitialiser of <i>BindingElement</i> is <b>true</b>, return <b>false</b>.</li>
+
+      <li>If <i>FormalParameter</i> <i>Contains</i> <i>BindingPattern is <b>true</b>, return
+      <b>false</b>.</i></li>
+
+      <li>Return <b>true</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: IsStrict" anchor=
+  "sec-function-definitions-static-semantics-isstrict">
+    <p>See also: <es-xref target=
+    "sec-module-semantics-static-semantics-exportedbindings">15.1.0.2</es-xref>, <es-xref target=
+    "sec-scripts-static-semantics-isstrict">15.2.2</es-xref>.</p>
+
+    <es-production name="FunctionStatementList" class="inline">
+      <es-rhs><es-nt optional>StatementList</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If this <i>FunctionStatementList</i> is contained in <es-xref target=
+      "sec-strict-mode-code">strict code</es-xref> or if <i>StatementList</i> is <es-xref target=
+      "sec-strict-mode-code">strict code</es-xref>, then return <b>true</b>. Otherwise, return
+      <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: LexicallyDeclaredNames" anchor=
+  "sec-function-definitions-static-semantics-lexicallydeclarednames">
+    <p>See also: <es-xref target=
+    "sec-block-static-semantics-lexicallydeclarednames">13.1.3</es-xref>, <es-xref target=
+    "sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</es-xref>,
+    <es-xref target=
+    "sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</es-xref>,
+    <es-xref target=
+    "sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</es-xref>,
+    <es-xref target="sec-static-semantics-knownexportentries">15.1.0.7</es-xref>, <es-xref target=
+    "sec-scripts-static-semantics-lexicallydeclarednames">15.2.3</es-xref>.</p>
+
+    <es-production name="FunctionDeclaration" class="inline">
+      <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+    </ol>
+
+    <es-production name="FunctionStatementList" class="inline">
+      <es-rhs constraint="empty"></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="FunctionStatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return TopLevelLexicallyDeclaredNames of <i>StatementList</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Static Semantics: VarDeclaredNames" anchor=
+  "sec-function-definitions-static-semantics-vardeclarednames">
+    <p>See also: <es-xref target=
+    "sec-statement-semantics-static-semantics-vardeclarednames">13.0.1</es-xref>, <es-xref target=
+    "sec-block-static-semantics-vardeclarednames">13.1.8</es-xref>, <es-xref target=
+    "sec-if-statement-static-semantics-vardeclarednames">13.5.1</es-xref>, <es-xref target=
+    "sec-do-while-statement-static-semantics-vardeclarednames">13.6.1.1</es-xref>, <es-xref target=
+    "sec-while-statement-static-semantics-vardeclarednames">13.6.2.1</es-xref>, <es-xref target=
+    "sec-for-statement-static-semantics-vardeclarednames">13.6.3.1</es-xref>, <es-xref target=
+    "sec-for-in-and-for-of-statements-static-semantics-vardeclarednames">13.6.4.3</es-xref>,
+    <es-xref target="sec-with-statement-static-semantics-vardeclarednames">13.10.2</es-xref>,
+    <es-xref target="sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>,
+    <es-xref target="sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
+    <es-xref target="sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
+    <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
+    <es-xref target="sec-module-semantics-static-semantics-vardeclarednames">15.1.0.12</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.2.5</es-xref>.</p>
+
+    <es-production name="FunctionDeclaration" class="inline">
+      <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="FunctionStatementList" class="inline">
+      <es-rhs constraint="empty"></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return an empty <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref>.</li>
+    </ol>
+
+    <es-production name="FunctionStatementList" class="inline">
+      <es-rhs><es-nt>StatementList</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return TopLevelVarDeclaredNames of <i>StatementList</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: EvaluateBody" anchor=
+  "sec-function-definitions-runtime-semantics-evaluatebody">
+    <p>With parameter <es-nt>functionObject</es-nt>.</p>
+
+    <p>See also: <es-xref target=
+    "sec-arrow-function-definitions-runtime-semantics-evaluatebody">14.2.9</es-xref>,
+    <es-xref target=
+    "sec-generator-function-definitions-runtime-semantics-evaluatebody">14.4.11</es-xref>.</p>
+
+    <es-production name="FunctionBody" class="inline">
+      <es-rhs><es-nt>FunctionStatementList</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>The code of this <i>FunctionBody</i> is <es-xref target="sec-strict-mode-code">strict
+      mode code</es-xref> if it is contained in <es-xref target="sec-strict-mode-code">strict mode
+      code</es-xref> or if the <es-xref target=
+      "sec-directive-prologues-and-the-use-strict-directive">Directive Prologue</es-xref>
+      (<es-xref target="sec-directive-prologues-and-the-use-strict-directive">15.3</es-xref>) of
+      its <i>FunctionStatementList</i> contains a <es-xref target=
+      "sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</es-xref> or if
+      any of the conditions in <es-xref target="sec-strict-mode-code">10.2.1</es-xref> apply. If
+      the code of this <i>FunctionBody</i> is <es-xref target="sec-strict-mode-code">strict mode
+      code</es-xref>, <i>FunctionStatementList</i> is evaluated in the following steps as
+      <es-xref target="sec-strict-mode-code">strict mode code</es-xref>. Otherwise,
+      <i>StatementList</i> is evaluated in the following steps as non-<es-xref target=
+      "sec-strict-mode-code">strict mode code</es-xref>.</li>
+
+      <li>Let <i>result</i> be the result of evaluating <i>FunctionStatementList</i>.</li>
+
+      <li>If <i>result</i>.[[type]] is return then return <es-xref target=
+      "sec-normalcompletion">NormalCompletion</es-xref>(<i>result</i>.[[value]])</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>result</i>).</li>
+
+      <li>Return <es-xref target=
+      "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
+    </ol>
+
+    <es-production name="FunctionBody" class="inline">
+      <es-rhs><es-nt>ThrowTypeError</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Throw a <b>TypeError</b> exception.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: IteratorBindingInitialisation" anchor=
+  "sec-function-definitions-runtime-semantics-iteratorbindinginitialisation">
+    <p>With parameters <es-nt>iterator</es-nt> and <es-nt>environment</es-nt>.</p>
+
+    <es-note>
+      <p>When <b>undefined</b> is passed for <es-nt>environment</es-nt> it indicates that a
+      <es-xref target="sec-putvalue">PutValue</es-xref> operation should be used to assign the
+      initialisation value. This is the case for formal parameter lists of non-strict functions. In
+      that case the formal parameter bindings are preinitialised in order to deal with the
+      possibility of multiple parameters with the same name.</p>
+    </es-note>
+
+    <p>See also: <es-xref target=
+    "sec-destructuring-binding-patterns-runtime-semantics-iteratorbindinginitialisation">13.2.3.5</es-xref>,
+    .</p>
+
+    <es-production name="FormalParameters" class="inline">
+      <es-rhs constraint="empty"></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
+    </ol>
+
+    <es-production name="FormalParameterList" class="inline">
+      <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FunctionRestParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>restIndex</i> be the result of performing IteratorBindingInitialisation for
+      <i>FormalsList</i> using <i>iterator</i>, and <i>environment</i> as the arguments.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>restIndex</i>).</li>
+
+      <li>Return the result of performing IteratorBindingInitialisation for
+      <i>FunctionRestParameter</i> using <i>iterator</i> and <i>environment</i> as the
+      arguments.</li>
+    </ol>
+
+    <es-production name="FormalsList" class="inline">
+      <es-rhs><es-nt>FormalsList</es-nt> , <es-nt>FormalParameter</es-nt></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Let <i>status</i> be the result of performing IteratorBindingInitialisation for
+      <i>FormalsList</i> using <i>iterator</i> and <i>environment</i> as the arguments.</li>
+
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+
+      <li>Return the result of performing IteratorBindingInitialisation for <i>FormalParameter</i>
+      using <i>iterator</i> and <i>environment</i> as the arguments.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: InstantiateFunctionObject" anchor=
+  "sec-function-definitions-runtime-semantics-instantiatefunctionobject">
+    <p>With parameter <es-nt>scope</es-nt>.</p>
+
+    <p>See also: <es-xref target=
+    "sec-generator-function-definitions-runtime-semantics-instantiatefunctionobject">14.4.12</es-xref>.</p>
+
+    <es-production name="FunctionDeclaration" class="inline">
+      <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If the <i>FunctionDeclaration</i> is contained in <es-xref target=
+      "sec-strict-mode-code">strict code</es-xref> or if its <i>FunctionBody</i> is
+      <es-xref target="sec-strict-mode-code">strict code</es-xref>, then let <i>strict</i> be
+      <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+
+      <li>Let <i>name</i> be <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>BindingIdentifier.</i></li>
+
+      <li>Let <i>F</i> be the result of performing the <es-xref target=
+      "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Normal,
+      <es-nt>FormalParameters</es-nt>, <i>FunctionBody, scope</i>, <i>strict</i>.</li>
+
+      <li>Perform the abstract operation <es-xref target=
+      "sec-makeconstructor">MakeConstructor</es-xref> with argument <i>F</i>.</li>
+
+      <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>F</i>,
+      <i>name</i>).</li>
+
+      <li>Return <i>F</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Runtime Semantics: Evaluation" anchor=
+  "sec-function-definitions-runtime-semantics-evaluation">
+    <es-production name="FunctionDeclaration" class="inline">
+      <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty)</li>
+    </ol>
+
+    <es-production name="FunctionExpression" class="inline">
+      <es-rhs>function ( <es-nt>FormalParameters</es-nt> ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If the <i>FunctionExpression</i> is contained in <es-xref target=
+      "sec-strict-mode-code">strict code</es-xref> or if its <i>FunctionBody</i> is
+      <es-xref target="sec-strict-mode-code">strict code</es-xref>, then let <i>strict</i> be
+      <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+
+      <li>Let <i>scope</i> be the <es-xref target=
+      "sec-execution-contexts">LexicalEnvironment</es-xref> of <es-xref target=
+      "sec-execution-contexts">the running execution context</es-xref>.</li>
+
+      <li>Let <i>closure</i> be the result of performing the <es-xref target=
+      "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Normal,
+      <es-nt>FormalParameters</es-nt>, <i>FunctionBody, scope</i>, and <es-nt>strict</es-nt>.</li>
+
+      <li>Perform the abstract operation <es-xref target=
+      "sec-makeconstructor">MakeConstructor</es-xref> with argument <i>closure</i>.</li>
+
+      <li>Return <i>closure</i>.</li>
+    </ol>
+
+    <es-production name="FunctionExpression" class="inline">
+      <es-rhs>function <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
+      <es-nt>FunctionBody</es-nt> }</es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>If the <i>FunctionExpression</i> is contained in <es-xref target=
+      "sec-strict-mode-code">strict code</es-xref> or if its <i>FunctionBody</i> is
+      <es-xref target="sec-strict-mode-code">strict code</es-xref>, then let <i>strict</i> be
+      <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+
+      <li>Let <i>funcEnv</i> be the result of calling <es-xref target=
+      "sec-newdeclarativeenvironment">NewDeclarativeEnvironment</es-xref> passing <es-xref target=
+      "sec-execution-contexts">the running execution context</es-xref>’s <es-xref target=
+      "sec-lexical-environments">Lexical Environment</es-xref> as the argument</li>
+
+      <li>Let <i>envRec</i> be <i>funcEnv’s</i> environment record.</li>
+
+      <li>Let <i>name</i> be <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of
+      <i>BindingIdentifier</i>.</li>
+
+      <li>Call the CreateImmutableBinding concrete method of <i>envRec</i> passing <i>name</i> as
+      the argument.</li>
+
+      <li>Let <i>closure</i> be the result of performing the <es-xref target=
+      "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Normal,
+      <es-nt>FormalParameters</es-nt>, <i>FunctionBody, funcEnv</i>, <i>strict</i>.</li>
+
+      <li>Perform the abstract operation <es-xref target=
+      "sec-makeconstructor">MakeConstructor</es-xref> with argument <i>closure</i>.</li>
+
+      <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>closure</i>,
+      <i>name</i>).</li>
+
+      <li>Call the InitialiseBinding concrete method of <i>envRec</i> passing <i>name</i> and
+      <i>closure</i> as the arguments.</li>
+
+      <li>Return <es-xref target=
+      "sec-normalcompletion">NormalCompletion</es-xref>(<i>closure</i>).</li>
+    </ol>
+
+    <es-note>
+      <p>The <es-nt>BindingIdentifier</es-nt> in a <es-nt>FunctionExpression</es-nt> can be
+      referenced from inside the <es-nt>FunctionExpression's</es-nt> <es-nt>FunctionBody</es-nt> to
+      allow the function to call itself recursively. However, unlike in a
+      <es-nt>FunctionDeclaration</es-nt>, the <es-nt>BindingIdentifier</es-nt> in a
+      <es-nt>FunctionExpression</es-nt> cannot be referenced from and does not affect the scope
+      enclosing the <es-nt>FunctionExpression</es-nt>.</p>
+    </es-note>
+
+    <es-note>
+      <p>A <code>prototype</code> property is automatically created for every function defined
+      using a <es-nt>FunctionDeclaration</es-nt> or <es-nt>FunctionExpression</es-nt>, to allow for
+      the possibility that the function will be used as a constructor.</p>
+    </es-note>
+
+    <es-production name="FunctionStatementList" class="inline">
+      <es-rhs constraint="empty"></es-rhs>
+    </es-production>
+
+    <ol class="proc">
+      <li>Return <es-xref target=
+      "sec-normalcompletion">NormalCompletion</es-xref>(<b>undefined</b>).</li>
+    </ol>
+  </es-clause>
 </es-clause>

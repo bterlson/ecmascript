@@ -65,10 +65,10 @@
                 <li>Increase <i>k</i> by 1.</li>
               </ol>
             </li>
-
-            <li>Let <i>bodyText</i> be the <i>k</i>’th argument.</li>
           </ol>
         </li>
+
+        <li>Let <i>bodyText</i> be the <i>k</i>’th argument.</li>
 
         <li>Let <i>bodyText</i> be <es-xref target=
         "sec-tostring">ToString</es-xref>(<i>bodyText</i>).</li>
@@ -86,9 +86,9 @@
         <b>SyntaxError</b> exception if the parse fails or if any static semantics errors are
         detected.</li>
 
-        <li>If IsSimpleParameterList of <i>parameters</i> is <b>false</b> and any element of the
-        BoundNames of <i>parameters</i> also occurs in the VarDeclaredNames of <i>body</i>, then
-        throw a <b>SyntaxError</b> exception.</li>
+        <li>If <i>IsSimpleParameterList</i> of <i>parameters</i> is <b>false</b> and any element of
+        the BoundNames of <i>parameters</i> also occurs in the VarDeclaredNames of <i>body</i>,
+        then throw a <b>SyntaxError</b> exception.</li>
 
         <li>If any element of the BoundNames of <i>parameters</i> also occurs in the
         LexicallyDeclaredNames of <i>body</i>, then throw a <b>SyntaxError</b> exception.</li>
@@ -105,22 +105,11 @@
         <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>F</i>) is
         not Object or if <i>F</i> does not have a [[Code]] <es-xref target=
         "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> or if the value of
-        [[Code]] is not <b>undefined</b>, then
+        [[Code]] is not <b>undefined</b>, then</li>
 
-          <ol class="block">
-            <li>Let <i>C</i> be the function that is currently being evaluated.</li>
-
-            <li>Let <i>proto</i> be the result of <es-xref target=
-            "sec-getprototypefromconstructor">GetPrototypeFromConstructor</es-xref>(<i>C</i>,
-            <code>"%FunctionPrototype%"</code>).</li>
-
-            <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>proto</i>).</li>
-
-            <li>Let <i>F</i> be the result of calling <es-xref target=
-            "sec-functionallocate">FunctionAllocate</es-xref> with arguments <i>C</i> and
-            <i>strict</i>.</li>
-          </ol>
-        </li>
+        <li>Let <i>F</i> be the result of calling <es-xref target=
+        "sec-functionallocate">FunctionAllocate</es-xref> with arguments %FunctionPrototype% and
+        <i>strict</i>.</li>
 
         <li>Else, set <i>F’s</i> [[Strict]] <es-xref target=
         "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
@@ -134,19 +123,8 @@
         abstract operation with arguments <i>F</i>, Normal, <i>parameters</i>, <i>body,</i> and
         <i>scope</i>.</li>
 
-        <li>If ReferencesSuper of <i>body</i> is <b>true</b> or ReferencesSuper of
-        <i>parameters</i> is <b>true</b>, then
-
-          <ol class="block">
-            <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>F</i>,
-            <b>undefined</b>, <b>undefined</b>).</li>
-          </ol>
-        </li>
-
         <li>Let <i>status</i> be the result of <es-xref target=
-        "sec-makeconstructor">MakeConstructor</es-xref> with argument <i>F</i>.</li>
-
-        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+        "sec-makeconstructor">MakeConstructor</es-xref> <i>F</i>).</li>
 
         <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>F</i>,
         "<b>anonymous</b>").</li>
@@ -185,7 +163,7 @@ new Function("a,b", "c", "return a+b+c")
         internal method that was invoked by the <code>new</code> operator.</li>
 
         <li>Return the result of <es-xref target=
-        "sec-construct-f-argumentslist">Construct</es-xref> (<i>F</i>, <i>argumentsList</i>).</li>
+        "sec-ordinaryconstruct">OrdinaryConstruct</es-xref> (<i>F</i>, <i>argumentsList</i>).</li>
       </ol>
 
       <p>If <code>Function</code> is implemented as an <es-xref target=
@@ -425,38 +403,6 @@ new Function("a,b", "c", "return a+b+c")
       %Function%.</p>
     </es-clause>
 
-    <es-clause title="Function.prototype.toMethod (superBinding, methodName = undefined)" anchor=
-    "sec-function.prototype.tomethod">
-      <p>When the <code>toMethod</code> method is called on an object <es-nt>func</es-nt> with
-      argument <es-nt>superBinding</es-nt> and optional argument <es-nt>methodName</es-nt> the
-      following steps are taken:</p>
-
-      <ol class="proc">
-        <li>If <i>func</i> is not an <es-xref target="sec-ecmascript-function-objects">ECMAScript
-        function object</es-xref>, then throw a <b>TypeError</b> exception.</li>
-
-        <li>If <es-xref target=
-        "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>superBinding</i>) is not Object,
-        then throw a <b>TypeError</b> exception.</li>
-
-        <li>If <i>methodName</i> is not <b>undefined</b>, then
-
-          <ol class="block">
-            <li>Let <i>methodName</i> be <es-xref target=
-            "sec-topropertykey">ToPropertyKey</es-xref>(<i>methodName</i>).</li>
-
-            <li><es-xref target=
-            "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>methodName</i>).</li>
-          </ol>
-        </li>
-
-        <li>Return <es-xref target="sec-clonemethod">CloneMethod</es-xref>(<i>func</i>,
-        <i>superBinding</i>, <i>methodName</i>).</li>
-      </ol>
-
-      <p>The <code>length</code> property of the <code>toMethod</code> method is <b>1</b>.</p>
-    </es-clause>
-
     <es-clause title="Function.prototype.toString ( )" anchor="sec-function.prototype.tostring">
       <p>An implementation-dependent String source code representation of the <b>this</b> object is
       returned. This representation has the syntax of a <es-nt>FunctionDeclaration</es-nt>
@@ -549,7 +495,7 @@ F[@@hasInstance](v)
 
   <es-clause title="Function Instances" anchor="sec-function-instances">
     <p>Every function instance is an <es-xref target="sec-ecmascript-function-objects">ECMAScript
-    function object</es-xref> and has the internal slots listed in <a href="#table-26">Table 26</a>
+    function object</es-xref> and has the internal slots listed in <a href="#table-24">Table 24</a>
     .</p>
 
     <p>Function instances that correspond to strict mode functions and function instances created

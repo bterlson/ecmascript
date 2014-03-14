@@ -6,9 +6,9 @@
     <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>obj</i>) is not
     Object, then return <b>undefined</b>.</li>
 
-    <li>If the value of <i>obj</i>’s [[NeedsSuper]] <es-xref target=
-    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not <b>true</b>,
-    then return <b>undefined</b>.</li>
+    <li>If <i>obj</i> does not have a [[HomeObject]] <es-xref target=
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then return
+    <b>undefined</b>.</li>
 
     <li>Return the value of <i>obj’s</i> [[HomeObject]] <es-xref target=
     "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>

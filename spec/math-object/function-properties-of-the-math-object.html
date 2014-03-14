@@ -6,7 +6,7 @@
   <es-xref target="sec-completion-record-specification-type">abrupt completion</es-xref>, that
   <es-xref target="sec-completion-record-specification-type">Completion Record</es-xref> is
   immediately returned. Otherwise, the function performs a computation on the resulting Number
-  value(s). The value returned by each function is a Number.</p>
+  value(s).</p>
 
   <p>In the function descriptions below, the symbols NaN, −0, +0, −∞ and +∞ refer to the Number
   values described in <es-xref target=
@@ -391,15 +391,15 @@
       <li>If no argument is +∞ or −∞, and any argument is NaN, the result is NaN.</li>
 
       <li>If all arguments are either +0 or -0, the result is +0.</li>
+
+      <li>The implementation must avoid underlow.</li>
+
+      <li>The implementation must avoid overflow, where possible.</li>
+
+      <li>The implementation must minimise rounding errors.</li>
     </ul>
 
     <p>The length property of the <code>hypot</code> function is 2.</p>
-
-    <es-note>
-      <p>Implementations should take care to avoid the loss of precision from overflows and
-      underflows that are prone to occur in naive implementations when this function is called with
-      more than two arguments.</p>
-    </es-note>
   </es-clause>
 
   <es-clause title="Math.imul(x, y)" anchor="sec-math.imul">

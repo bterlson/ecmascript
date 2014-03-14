@@ -1,6 +1,6 @@
-<es-clause title="Module Static Semantics" anchor="sec-module-static-semantics">
+<es-clause title="Module Semantics" anchor="sec-module-semantics">
   <es-clause title="Static Semantics: Early Errors" anchor=
-  "sec-module-static-semantics-static-semantics-early-errors">
+  "sec-module-semantics-static-semantics-early-errors">
     <es-production name="ModuleBody" class="inline">
       <es-rhs><es-nt>ModuleItemList</es-nt></es-rhs>
     </es-production>
@@ -34,33 +34,10 @@
     </es-note>
   </es-clause>
 
-  <es-clause title="Static Semantics: DeclaredNames" anchor="sec-static-semantics-declarednames">
-    <es-production name="Module" class="inline">
-      <es-rhs constraint="empty"></es-rhs>
-    </es-production>
-
-    <ol class="proc">
-      <li>Return a new empty <es-xref target=
-      "sec-list-and-record-specification-type">List</es-xref>.</li>
-    </ol>
-
-    <es-production name="Module" class="inline">
-      <es-rhs><es-nt>ModuleBody</es-nt></es-rhs>
-    </es-production>
-
-    <ol class="proc">
-      <li>Let <i>names</i> be LexicallyDeclaredNames of <i>ModuleBody</i>.</li>
-
-      <li>Append to <i>names</i> the elements of the VarDeclaratedNames of <i>ModuleBody.</i></li>
-
-      <li>Return <i>names</i>.</li>
-    </ol>
-  </es-clause>
-
   <es-clause title="Static Semantics: ExportedBindings" anchor=
-  "sec-module-static-semantics-static-semantics-exportedbindings">
+  "sec-module-semantics-static-semantics-exportedbindings">
     <p>See also:<es-xref target=
-    "sec-exports-static-semantics-exportedbindings">15.2.2.2</es-xref>.</p>
+    "sec-exports-static-semantics-exportedbindings">15.1.2.2</es-xref>.</p>
 
     <es-production name="ModuleItemList" class="inline">
       <es-rhs constraint="empty"></es-rhs>
@@ -96,9 +73,9 @@
   </es-clause>
 
   <es-clause title="Static Semantics: ExportEntries" anchor=
-  "sec-module-static-semantics-static-semantics-exportentries">
+  "sec-module-semantics-static-semantics-exportentries">
     <p>See also:<es-xref target=
-    "sec-exports-static-semantics-exportentries">15.2.2.3</es-xref>.</p>
+    "sec-exports-static-semantics-exportentries">15.1.2.3</es-xref>.</p>
 
     <es-production name="ModuleItemList" class="inline">
       <es-rhs constraint="empty"></es-rhs>
@@ -177,9 +154,9 @@
   </es-clause>
 
   <es-clause title="Static Semantics: ImportEntries" anchor=
-  "sec-module-static-semantics-static-semantics-importentries">
+  "sec-module-semantics-static-semantics-importentries">
     <p>See also:<es-xref target=
-    "sec-imports-static-semantics-importentries">15.2.1.3</es-xref>.</p>
+    "sec-imports-static-semantics-importentries">15.1.1.3</es-xref>.</p>
 
     <es-production name="ModuleItemList" class="inline">
       <es-rhs constraint="empty"></es-rhs>
@@ -203,7 +180,7 @@
     </ol>
 
     <es-production name="ModuleItem">
-      <es-rhs><es-nt>ExportDeclaration</es-nt></es-rhs>
+      <es-rhs><es-nt>EzportDeclaration</es-nt></es-rhs>
 
       <es-rhs><es-nt>StatementListItem</es-nt></es-rhs>
     </es-production>
@@ -215,10 +192,10 @@
   </es-clause>
 
   <es-clause title="Static Semantics: IsStrict" anchor=
-  "sec-module-static-semantics-static-semantics-isstrict">
+  "sec-module-semantics-static-semantics-isstrict">
     <p>See also: <es-xref target=
-    "sec-function-definitions-static-semantics-isstrict">14.1.10</es-xref>, <es-xref target=
-    "sec-scripts-static-semantics-isstrict">15.1.2</es-xref>.</p>
+    "sec-function-definitions-static-semantics-isstrict">14.1.9</es-xref>, <es-xref target=
+    "sec-scripts-static-semantics-isstrict">15.2.2</es-xref>.</p>
 
     <es-production name="ModuleBody" class="inline">
       <es-rhs><es-nt>ModuleItemList</es-nt></es-rhs>
@@ -244,9 +221,9 @@
   </es-clause>
 
   <es-clause title="Static Semantics: ModuleRequests" anchor=
-  "sec-module-static-semantics-static-semantics-modulerequests">
-    <p>See also: <es-xref target="sec-imports-static-semantics-modulerequests">15.2.1.5</es-xref>,
-    <es-xref target="sec-exports-static-semantics-modulerequests">15.2.2.5</es-xref>.</p>
+  "sec-module-semantics-static-semantics-modulerequests">
+    <p>See also: <es-xref target="sec-imports-static-semantics-modulerequests">15.1.1.5</es-xref>,
+    <es-xref target="sec-exports-static-semantics-modulerequests">15.1.2.5</es-xref>.</p>
 
     <es-production name="ModuleItemList" class="inline">
       <es-rhs constraint="empty"></es-rhs>
@@ -262,7 +239,7 @@
     </es-production>
 
     <ol class="proc">
-      <li>Return ModuleRequests of <i>ModuleItem</i>.</li>
+      <li>Return ModuleRequests of <i>ModuleItemList</i>.</li>
     </ol>
 
     <es-production name="ModuleItemList" class="inline">
@@ -274,7 +251,7 @@
 
       <li>Let <i>additionalNames</i> be ModuleRequests of <i>ModuleItem.</i></li>
 
-      <li>Append to <i>moduleNames</i> each element of <i>additionalNames</i> that is not already
+      <li>Append to <i>moduleNames</i> each elements of <i>additionalNames</i> that is not already
       an element of <i>moduleNames.</i></li>
 
       <li>Return <i>moduleNames</i>.</li>
@@ -289,19 +266,19 @@
   </es-clause>
 
   <es-clause title="Static Semantics: LexicallyDeclaredNames" anchor=
-  "sec-module-static-semantics-static-semantics-lexicallydeclarednames">
+  "sec-module-semantics-static-semantics-lexicallydeclarednames">
     <p>See also: <es-xref target=
     "sec-block-static-semantics-lexicallydeclarednames">13.1.3</es-xref>, <es-xref target=
     "sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</es-xref>,
     <es-xref target=
-    "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</es-xref>,
+    "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.10</es-xref>,
     <es-xref target=
     "sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</es-xref>,
     <es-xref target=
     "sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</es-xref>,
-    <es-xref target="sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</es-xref>.</p>
+    <es-xref target="sec-scripts-static-semantics-lexicallydeclarednames">15.2.3</es-xref>.</p>
 
     <es-production name="ModuleItemList" class="inline">
       <es-rhs constraint="empty"></es-rhs>
@@ -356,7 +333,7 @@
   </es-clause>
 
   <es-clause title="Static Semantics: LexicalDeclarations" anchor=
-  "sec-module-static-semantics-static-semantics-lexicaldeclarations">
+  "sec-module-semantics-static-semantics-lexicaldeclarations">
     <p>See also: <es-xref target="sec-block-static-semantics-lexicaldeclarations">13.1.2</es-xref>,
     <es-xref target=
     "sec-switch-statement-static-semantics-lexicaldeclarations">13.11.2</es-xref>.</p>
@@ -424,7 +401,7 @@
   </es-clause>
 
   <es-clause title="Static Semantics: VarDeclaredNames" anchor=
-  "sec-module-static-semantics-static-semantics-vardeclarednames">
+  "sec-module-semantics-static-semantics-vardeclarednames">
     <p>See also: <es-xref target=
     "sec-statement-semantics-static-semantics-vardeclarednames">13.0.1</es-xref>, <es-xref target=
     "sec-block-static-semantics-vardeclarednames">13.1.8</es-xref>, <es-xref target=
@@ -437,11 +414,11 @@
     <es-xref target="sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>,
     <es-xref target="sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
     <es-xref target="sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>,
-    <es-xref target="sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-vardeclarednames">14.1.11</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
     <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
-    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.1.5</es-xref>.</p>
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.2.5</es-xref>.</p>
 
     <es-production name="ModuleItemList" class="inline">
       <es-rhs><es-nt>ModuleItemList</es-nt> <es-nt>ModuleItem</es-nt></es-rhs>
@@ -478,10 +455,10 @@
   </es-clause>
 
   <es-clause title="Static Semantics: VarScopedDeclarations" anchor=
-  "sec-module-static-semantics-static-semantics-varscopeddeclarations">
+  "sec-module-semantics-static-semantics-varscopeddeclarations">
     <p>See also: <es-xref target=
     "sec-block-static-semantics-varscopeddeclarations">13.1.9</es-xref>, <es-xref target=
-    "sec-scripts-static-semantics-varscopeddeclarations">15.1.6</es-xref>.</p>
+    "sec-scripts-static-semantics-varscopeddeclarations">15.2.6</es-xref>.</p>
 
     <es-production name="ModuleItemList" class="inline">
       <es-rhs constraint="empty"></es-rhs>
@@ -526,10 +503,5 @@
       <li>Return a new empty <es-xref target=
       "sec-list-and-record-specification-type">List</es-xref>.</li>
     </ol>
-  </es-clause>
-
-  <es-clause title="Runtime Semantics: ModuleDeclarationInstantiation" anchor=
-  "sec-runtime-semantics-moduledeclarationinstantiation">
-    <p style="background-color: #FFC000">TO DO</p>
   </es-clause>
 </es-clause>

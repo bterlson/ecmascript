@@ -3,7 +3,9 @@
   <es-nt>F</es-nt>, <es-nt>kind</es-nt> which is one of (Normal, Method, Arrow), a parameter list
   production specified by <es-nt>ParameterList</es-nt>, a body production specified by
   <es-nt>Body</es-nt>, a <es-xref target="sec-lexical-environments">Lexical Environment</es-xref>
-  specified by <i>Scope</i>. FunctionInitialise performs the following steps:</p>
+  specified by <es-nt>Scope</es-nt>, and optionally, a <es-xref target="sec-object-type">property
+  key</es-xref> <es-nt>methodName</es-nt> and an object <i>homeObject</i>. FunctionInitialise
+  performs the following steps:</p>
 
   <ol class="proc">
     <li>Let <i>len</i> be the ExpectedArgumentCount of <i>ParameterList</i>.</li>
@@ -29,9 +31,8 @@
       </ol>
     </li>
 
-    <li>Set the [[Environment]] <es-xref target=
-    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to the
-    value of <i>Scope</i>.</li>
+    <li>Set the [[Scope]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref> of <i>F</i> to the value of <i>Scope</i>.</li>
 
     <li>Set the [[FormalParameters]] <es-xref target=
     "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to
@@ -39,6 +40,19 @@
 
     <li>Set the [[Code]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
     slot</es-xref> of <i>F</i> to <i>Body</i>.</li>
+
+    <li>If the <i>homeObject</i> argument was provided, then
+
+      <ol class="block">
+        <li>Set the [[HomeObject]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to
+        <i>homeObject</i>.</li>
+
+        <li>Set the [[MethodName]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to
+        <i>methodName</i>.</li>
+      </ol>
+    </li>
 
     <li>If <i>kind</i> is Arrow, then set the [[ThisMode]] <es-xref target=
     "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to

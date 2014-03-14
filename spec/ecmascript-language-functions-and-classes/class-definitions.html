@@ -15,7 +15,7 @@
   </es-production>
 
   <es-production name="ClassHeritage">
-    <es-rhs><es-t>extends</es-t> <es-nt>LeftHandSideExpression</es-nt></es-rhs>
+    <es-rhs><es-t>extends</es-t> <es-nt>AssignmentExpression</es-nt></es-rhs>
   </es-production>
 
   <es-production name="ClassBody">
@@ -95,19 +95,18 @@
     "sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</es-xref>,
     <es-xref target="sec-variable-statement-static-semantics-boundnames">13.2.2.1</es-xref>,
     <es-xref target=
-    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</es-xref>,
+    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.2</es-xref>,
     <es-xref target=
     "sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</es-xref>,
-    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.3</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.2</es-xref>,
     <es-xref target="sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-boundnames">14.4.2</es-xref>,
-    <es-xref target="sec-imports-static-semantics-boundnames">15.2.1.2</es-xref>, <es-xref target=
-    "sec-exports-static-semantics-boundnames">15.2.2.1</es-xref>.</p>
+    <es-xref target="sec-imports-static-semantics-boundnames">15.1.1.2</es-xref>, 0.</p>
 
-    <es-production name="ClassDeclaration" class="inline">
-      <es-rhs>class <es-nt>BindingIdentifier</es-nt> <es-nt>ClassTail</es-nt></es-rhs>
-    </es-production>
+    <p><es-production name="ClassDeclaration" class="inline"><es-rhs>class
+    <es-nt>BindingIdentifier</es-nt>
+    <es-nt>ClassTail</es-nt></es-rhs></es-production></p>
 
     <ol class="proc">
       <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
@@ -152,7 +151,7 @@
 
     <es-note>
       <p>Early Error rules ensure that there is only one method definition named
-      <b>″constructor″</b> and that it is not an accessor property or generator definition.</p>
+      <b>″constructor″</b> and that it isn’t an accessor property or generator definition.</p>
     </es-note>
   </es-clause>
 
@@ -163,7 +162,7 @@
     <p>See also: <es-xref target="sec-static-semantic-rules">5.3</es-xref>, <es-xref target=
     "sec-object-initialiser-static-semantics-contains">12.1.5.2</es-xref>, <es-xref target=
     "sec-static-semantics-static-semantics-contains">12.2.1.1</es-xref>, <es-xref target=
-    "sec-function-definitions-static-semantics-contains">14.1.4</es-xref>, <es-xref target=
+    "sec-function-definitions-static-semantics-contains">14.1.3</es-xref>, <es-xref target=
     "sec-arrow-function-definitions-static-semantics-contains">14.2.3</es-xref>, <es-xref target=
     "sec-generator-function-definitions-static-semantics-contains">14.4.3</es-xref></p>
 
@@ -220,7 +219,7 @@
     <es-xref target=
     "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>,
     <es-xref target=
-    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.6</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-isanonymousfunctiondefinition">14.4.5</es-xref>.</p>
 
@@ -246,13 +245,13 @@
     <p>See also: <es-xref target=
     "sec-let-and-const-declarations-static-semantics-isconstantdeclaration">13.2.1.3</es-xref>,
     <es-xref target=
-    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.6</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-hascomputedpropertykey">14.4.4</es-xref>.</p>
 
-    <es-production name="ClassDeclaration" class="inline">
-      <es-rhs>class <es-nt>BindingIdentifier</es-nt> <es-nt>ClassTail</es-nt></es-rhs>
-    </es-production>
+    <p><es-production name="ClassDeclaration" class="inline"><es-rhs>class
+    <es-nt>BindingIdentifier</es-nt>
+    <es-nt>ClassTail</es-nt></es-rhs></es-production></p>
 
     <ol class="proc">
       <li>Return <b>false</b>.</li>
@@ -291,18 +290,17 @@
     "sec-block-static-semantics-lexicallydeclarednames">13.1.3</es-xref>, <es-xref target=
     "sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</es-xref>,
     <es-xref target=
-    "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</es-xref>,
+    "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.10</es-xref>,
     <es-xref target=
     "sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</es-xref>,
-    <es-xref target="sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</es-xref>,
-    <es-xref target=
-    "sec-module-static-semantics-static-semantics-lexicallydeclarednames">15.2.0.10</es-xref>.</p>
+    <es-xref target="sec-static-semantics-knownexportentries">15.1.0.7</es-xref>, <es-xref target=
+    "sec-scripts-static-semantics-lexicallydeclarednames">15.2.3</es-xref>.</p>
 
-    <es-production name="ClassDeclaration" class="inline">
-      <es-rhs>class <es-nt>BindingIdentifier</es-nt> <es-nt>ClassTail</es-nt></es-rhs>
-    </es-production>
+    <p><es-production name="ClassDeclaration" class="inline"><es-rhs>class
+    <es-nt>BindingIdentifier</es-nt>
+    <es-nt>ClassTail</es-nt></es-rhs></es-production></p>
 
     <ol class="proc">
       <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
@@ -485,12 +483,11 @@
     <es-xref target="sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>,
     <es-xref target="sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
     <es-xref target="sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>,
-    <es-xref target="sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-vardeclarednames">14.1.11</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
-    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.1.5</es-xref>,
-    <es-xref target=
-    "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+    <es-xref target="sec-module-semantics-static-semantics-vardeclarednames">15.1.0.12</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.2.5</es-xref>.</p>
 
     <p><es-production name="ClassDeclaration" class="inline"><es-rhs>class
     <es-nt>BindingIdentifier</es-nt>
@@ -514,7 +511,7 @@
       <li>If <i>ClassHeritage</i><sub>opt</sub> is not present, then
 
         <ol class="block">
-          <li>Let <i>protoParent</i> be the intrinsic object %ObjectPrototype%.</li>
+          <li>let <i>protoParent</i> be the intrinsic object %ObjectPrototype%.</li>
 
           <li>Let <i>constructorParent</i> be the intrinsic object %FunctionPrototype%.</li>
         </ol>
@@ -594,8 +591,8 @@
 
             <ol class="block">
               <li>Let <i>constructor</i> be the result of parsing the String <code>"constructor(...
-              args){return super</code> <code>(...args);}"</code> using the syntactic grammar with
-              the goal symbol <i>MethodDefinition.</i></li>
+              args){super</code> <code>(...args);}"</code> using the syntactic grammar with the
+              goal symbol <i>MethodDefinition.</i></li>
             </ol>
           </li>
 
@@ -670,40 +667,41 @@
 
   <es-clause title="Runtime Semantics: Evaluation" anchor=
   "sec-class-definitions-runtime-semantics-evaluation">
-    <es-production name="ClassDeclaration" class="inline">
-      <es-rhs>class <es-nt>BindingIdentifier</es-nt> <es-nt>ClassTail</es-nt></es-rhs>
-    </es-production>
+    <p><es-production name="ClassDeclaration" class="inline"><es-rhs>class
+    <es-nt>BindingIdentifier</es-nt>
+    <es-nt>ClassTail</es-nt></es-rhs></es-production></p>
 
     <ol class="proc">
-      <li>Let className be <es-xref target=
-      "sec-identifiers-and-identifier-names">StringValue</es-xref>(BindingIdentifier).</li>
+      <li>Let <i>className</i> be <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref>(<i>BindingIdentifier</i>).</li>
 
-      <li>Let value be the result of ClassDefinitionEvaluation of <i>ClassTail</i> with argument
-      className</li>
+      <li>Let <i>value</i> be the result of ClassDefinitionEvaluation of <i>ClassTail</i> with
+      argument <i>className</i></li>
 
-      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(value).</li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>value</i>).</li>
 
-      <li>Let hasNameProperty be the result of <es-xref target=
-      "sec-hasownproperty">HasOwnProperty</es-xref>(value, <code>"name"</code>).</li>
+      <li>Let <i>hasNameProperty</i> be the result of <es-xref target=
+      "sec-hasownproperty">HasOwnProperty</es-xref>(<i>value</i>, <code>"name"</code>).</li>
 
-      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(hasNameProperty).</li>
+      <li><es-xref target=
+      "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>hasNameProperty</i>).</li>
 
-      <li>If hasNameProperty is <b>false</b>, then
+      <li>If <i>hasNameProperty</i> is <b>false</b>, then
 
         <ol class="block">
-          <li>Perform <es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(value,
-          className).</li>
+          <li>Perform <es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>value</i>,
+          <i>className</i>).</li>
         </ol>
       </li>
 
-      <li>Let env be <es-xref target="sec-execution-contexts">the running execution
+      <li>Let <i>env</i> be <es-xref target="sec-execution-contexts">the running execution
       context</es-xref>’s <es-xref target=
       "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
 
-      <li>Let status be the result of performing BindingInitialisation for BindingIdentifier
-      passing value and env as the arguments.</li>
+      <li>Let <i>status</i> be the result of performing BindingInitialisation for
+      <i>BindingIdentifier</i> passing <i>value</i> and <i>env</i> as the arguments.</li>
 
-      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(status).</li>
+      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
 
       <li>Return <es-xref target="sec-normalcompletion">NormalCompletion</es-xref>(empty).</li>
     </ol>

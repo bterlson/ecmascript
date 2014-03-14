@@ -124,7 +124,7 @@
     stack</es-xref>; <i>evalCxt</i> is now <es-xref target="sec-execution-contexts">the running
     execution context</es-xref>.</li>
 
-    <li>Let <i>result</i> be the result of evaluating <i>script</i>..</li>
+    <li>Let <i>result</i> be the result of evaluating <i>script</i>.</li>
 
     <li><es-xref target="sec-execution-contexts">Suspend</es-xref> <i>evalCxt</i> and remove it
     from <es-xref target="sec-execution-contexts">the execution context stack</es-xref>.</li>
@@ -152,15 +152,16 @@
     <ul>
       <li>
         <p>The <es-xref target="sec-reference-specification-type">Reference</es-xref> that is the
-        result of evaluating the MemberExpression in the CallExpression has an environment record
-        as its base value and its reference name is "eval".</p>
+        result of evaluating the <es-nt>MemberExpression</es-nt> in the
+        <es-nt>CallExpression</es-nt> has an environment record as its base value and its reference
+        name is "<b>eval</b>".</p>
       </li>
 
       <li>
         <p>If the base value of the <es-xref target=
-        "sec-reference-specification-type">Reference</es-xref> has true acalls its withEnvironment
-        value, then its binding object is an object that uses the ordinary definition of the
-        [[Call]] internal method (<es-xref target=
+        "sec-reference-specification-type">Reference</es-xref> has <b>true</b> acalls its
+        <i>withEnvironment</i> value, then its binding object is an object that uses the ordinary
+        definition of the [[Call]] internal method (<es-xref target=
         "sec-built-in-function-objects-call-thisargument-argumentslist">9.3.1</es-xref>)</p>
       </li>
 

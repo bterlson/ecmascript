@@ -71,7 +71,7 @@
     <es-xref target=
     "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>,
     <es-xref target=
-    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.6</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-isanonymousfunctiondefinition">14.4.5</es-xref>,
     <es-xref target=
@@ -318,13 +318,13 @@
 
         <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>val</i>).</li>
 
-        <li>Return a String according to <a href="#table-32">Table 32</a> .
+        <li>Return a String according to <a href="#table-30">Table 30</a> .
         </li>
       </ol>
 
       <figure>
         <figcaption>
-          <span id="table-32">Table 32</span> — typeof Operator Results
+          <span id="table-30">Table 30</span> — typeof Operator Results
         </figcaption>
 
         <table class="real-table">
@@ -538,11 +538,10 @@
         signed 32-bit integer.</li>
       </ol>
     </es-clause>
-  </es-clause>
 
-  <es-clause title="Logical NOT Operator ()" anchor="sec-logical-not-operator">
-    <es-clause title="Runtime Semantics: Evaluation" anchor=
-    "sec-logical-not-operator-runtime-semantics-evaluation">
+    <es-clause title="Logical NOT Operator ()" anchor="sec-logical-not-operator">
+      <p><b>Runtime Semantics: Evaluation</b></p>
+
       <es-production name="UnaryExpression" class="inline">
         <es-rhs><es-t>!</es-t> <es-nt>UnaryExpression</es-nt></es-rhs>
       </es-production>

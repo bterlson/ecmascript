@@ -1,23 +1,24 @@
 <es-clause title="Tail Position Calls" anchor="sec-tail-position-calls">
-  <es-clause title="Static Semantics: InTailPosition(nonterminal) Abstract Operation" anchor=
-  "sec-intailposition">
+  <es-clause title="Static Semantics: Tail Position" anchor="sec-static-semantics-tail-position">
+    <p>With parameter <es-nt>nonTerminal</es-nt>.</p>
+
     <ol class="proc">
-      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>nonterminal</i> is a
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>nonTerminal</i> is a
       parsed grammar production.</li>
 
-      <li>If the source code matching <i>nonterminal</i> is not <es-xref target=
+      <li>If the source code match <i>nonterminal</i> is not <es-xref target=
       "sec-strict-mode-code">strict code</es-xref>, then return <b>false.</b></li>
 
-      <li>If <i>nonterminal</i> is not contained within a <i>FunctionBody</i> or
-      <i>ConciseBody</i>, then return <b>false</b>.</li>
+      <li>If <i>nonTerminal</i> is not contained within a <i>FunctionBody</i>, then return
+      <b>false</b>.</li>
 
-      <li>Let <i>body</i> be the <i>FunctionBody</i> or <i>ConciseBody</i> that most closely
-      contains <i>nonterminal</i>.</li>
+      <li>Let <i>body</i> be the <i>FunctionBody</i> that most closely contains
+      <i>nonTerminal</i>.</li>
 
       <li>If <i>body</i> is the <i>FunctionBody</i> of a <i>GeneratorMethod</i>,
       <i>GeneratorDeclaration</i>, or a <i>GeneratorExpression</i>, then return <b>false</b>.</li>
 
-      <li>Return the result of HasProductionInTailPosition of <i>body</i> with argument
+      <li>Let <i>has</i> be HasProductionInTailPosition of <i>body</i> with argument
       <i>nonterminal</i>.</li>
     </ol>
 
@@ -31,18 +32,9 @@
 
   <es-clause title="Static Semantics: HasProductionInTailPosition" anchor=
   "sec-static-semantics-hasproductionintailposition">
-    <p>With parameter <es-nt>nonterminal</es-nt>.</p>
+    <p>With parameter <es-nt>nonTerminal</es-nt>.</p>
 
     <es-clause title="Statement Rules" anchor="sec-statement-rules">
-      <es-production name="ConciseBody" class="inline">
-        <es-rhs><es-nt>AssignmentExpression</es-nt></es-rhs>
-      </es-production>
-
-      <ol class="proc">
-        <li>Return HasProductionInTailPosition of <i>AssignmentExpression</i> with argument
-        <i>nonterminal</i>.</li>
-      </ol>
-
       <es-production name="StatementList" class="inline">
         <es-rhs><es-nt>StatementList</es-nt> <es-nt>StatementListItem</es-nt></es-rhs>
       </es-production>
@@ -463,7 +455,8 @@
       </es-production>
 
       <ol class="proc">
-        <li>If this <i>CallExpression</i> is nonterminal<b>,</b> then return <b>true</b>.</li>
+        <li>If this <i>CallExpression</i> is <i>nonTerminal</i><b>,</b> then return
+        <b>true</b>.</li>
 
         <li>Return <b>undefined</b>.</li>
       </ol>
@@ -488,7 +481,7 @@
       </es-production>
 
       <ol class="proc">
-        <li>If this <i>NewExpression</i> is <i>nonterminal</i><b>,</b> then return
+        <li>If this <i>NewExpression</i> is <i>nonTerminal</i><b>,</b> then return
         <b>true</b>.</li>
 
         <li>Return <b>false</b>.</li>

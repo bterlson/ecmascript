@@ -1,17 +1,14 @@
 <es-clause title="Universal Resource Identifier Character Classes" anchor=
 "sec-universal-resource-identifier-character-classes">
-  <es-production name="uri" type="numeric" xref=
-  "sec-scripts-static-semantics-lexicallydeclarednames">
+  <es-production name="uri" type="numeric">
     <es-rhs><es-nt optional>uriCharacters</es-nt></es-rhs>
   </es-production>
 
-  <es-production name="uriCharacters" type="numeric" xref=
-  "sec-scripts-static-semantics-lexicallydeclarednames">
+  <es-production name="uriCharacters" type="numeric">
     <es-rhs><es-nt>uriCharacter</es-nt> <es-nt optional>uriCharacters</es-nt></es-rhs>
   </es-production>
 
-  <es-production name="uriCharacter" type="numeric" xref=
-  "sec-scripts-static-semantics-lexicallydeclarednames">
+  <es-production name="uriCharacter" type="numeric">
     <es-rhs><es-nt>uriReserved</es-nt></es-rhs>
 
     <es-rhs><es-nt>uriUnescaped</es-nt></es-rhs>
@@ -19,13 +16,11 @@
     <es-rhs><es-nt>uriEscaped</es-nt></es-rhs>
   </es-production>
 
-  <es-production name="uriReserved" type="numeric" xref=
-  "sec-scripts-static-semantics-lexicallydeclarednames" oneof>
+  <es-production name="uriReserved" type="numeric" oneof>
     <es-rhs>; / ? : @ &amp; = + $ ,</es-rhs>
   </es-production>
 
-  <es-production name="uriUnescaped" type="numeric" xref=
-  "sec-scripts-static-semantics-lexicallydeclarednames">
+  <es-production name="uriUnescaped" type="numeric">
     <es-rhs><es-nt>uriAlpha</es-nt></es-rhs>
 
     <es-rhs><es-nt>DecimalDigit</es-nt></es-rhs>
@@ -33,20 +28,17 @@
     <es-rhs><es-nt>uriMark</es-nt></es-rhs>
   </es-production>
 
-  <es-production name="uriEscaped" type="numeric" xref=
-  "sec-scripts-static-semantics-lexicallydeclarednames">
+  <es-production name="uriEscaped" type="numeric">
     <es-rhs>% <es-nt>HexDigit</es-nt> <es-nt>HexDigit</es-nt></es-rhs>
   </es-production>
 
-  <es-production name="uriAlpha" type="numeric" xref=
-  "sec-scripts-static-semantics-lexicallydeclarednames" oneof>
+  <es-production name="uriAlpha" type="numeric" oneof>
     <es-rhs>a b c d e f g h i j k l m n o p q r s t u v w x y z</es-rhs>
 
     <es-rhs>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</es-rhs>
   </es-production>
 
-  <es-production name="uriMark" type="numeric" xref=
-  "sec-scripts-static-semantics-lexicallydeclarednames" oneof>
+  <es-production name="uriMark" type="numeric" oneof>
     <es-rhs>- _ . ! ~ * ' ( )</es-rhs>
   </es-production>
 </es-clause>

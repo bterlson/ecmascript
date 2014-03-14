@@ -101,8 +101,10 @@
       <p>Terminal symbols of the lexical, RegExp, and numeric string grammars, and some of the
       terminal symbols of the other grammars, are shown in <code>fixed width</code> font, both in
       the productions of the grammars and throughout this specification whenever the text directly
-      refers to such a terminal symbol. These are to appear in a script either exactly as written.
-      All terminal symbol characters specified in this way are to be understood as the appropriate
+      refers to such a terminal symbol. These are to appear in a script either exactly as written
+      or using equalvant Unicode escape sequences (see <es-xref target=
+      "sec-source-text">10.1</es-xref><es-xref target="sec-proxycreate">9.5.15</es-xref>). All
+      terminal symbol characters specified in this way are to be understood as the appropriate
       Unicode code points from the Basic Latin range, as opposed to any similar-looking characters
       from other Unicode ranges.</p>
 
@@ -507,7 +509,7 @@
     </es-production>
 
     <ol class="proc">
-      <li>Return the result of evaluating StatementList.</li>
+      <li>Return the result of evaluating <i>StatementList</i></li>
     </ol>
 
     <p>For clarity of expression, algorithm steps may be subdivided into sequential substeps.
@@ -517,24 +519,29 @@
     roman numerals. If more than three levels are required these rules repeat with the fourth level
     using numeric labels. For example:</p>
 
-    <p><span class="marker"></span>Top-level step</p>
-
     <ol class="proc">
-      <li>Substep.</li>
-
-      <li>Substep.
+      <li>Top-level step
 
         <ol class="block">
-          <li>Subsubstep.
+          <li>Substep.</li>
+
+          <li>Substep.
 
             <ol class="block">
-              <li>Subsubsubstep
+              <li>Subsubstep.</li>
+
+              <li>Subsubstep.
 
                 <ol class="block">
-                  <li>Subsubsubsubstep
+                  <li>Subsubsubstep
 
                     <ol class="block">
-                      <li>Subsubsubsubsubstep</li>
+                      <li>Subsubsubsubstep
+
+                        <ol class="block">
+                          <li>Subsubsubsubsubstep</li>
+                        </ol>
+                      </li>
                     </ol>
                   </li>
                 </ol>
@@ -621,7 +628,7 @@
           <li>If <i>sym</i> is a nonterminal, then
 
             <ol class="block">
-              <li>Let contained be the result of Contains for <i>sym</i> with argument
+              <li>Let <i>contained</i> be the result of Contains for <i>sym</i> with argument
               <i>symbol</i>.</li>
 
               <li>If <i>contained</i> is <b>true</b>, return <b>true</b>.</li>
@@ -636,12 +643,12 @@
     <p>The above definition is explicitly over-ridden for specific productions.</p>
 
     <p>A special kind of static semantic rule is an Early Error Rule. Early error rules define
-    early error conditions (see <es-xref target=
-    "sec-ecmascript-language-modules-and-scripts">clause 15</es-xref>.2.3) that are associate with
-    specific grammar productions. Evaluation of most early error rules are not explicitly invoked
-    within the algorithms of this specification. A comforming implementation must, prior to the
-    first evaluation of a <es-nt>Script</es-nt>, validate all of the early error rules of the
-    productions used to parse that <es-nt>Script</es-nt>. If any of the early error rules are
-    violated the <es-nt>Script</es-nt> is invalid and cannot be evaluated.</p>
+    early error conditions (see <es-xref target="sec-error-handling-and-language-extensions">clause
+    16</es-xref>) that are associate with specific grammar productions. Evaluation of most early
+    error rules are not explicitly invoked within the algorithms of this specification. A
+    comforming implementation must, prior to the first evaluation of a <es-nt>Script</es-nt>,
+    validate all of the early error rules of the productions used to parse that
+    <es-nt>Script</es-nt>. If any of the early error rules are violated the <es-nt>Script</es-nt>
+    is invalid and cannot be evaluated.</p>
   </es-clause>
 </es-clause>

@@ -59,8 +59,7 @@
   </es-production>
 
   <es-production name="CoverInitialisedName" params="Yield">
-    <es-rhs><es-nt>IdentifierReference</es-nt> <es-nt params=
-    "In, ?Yield">Initialiser</es-nt></es-rhs>
+    <es-rhs><es-nt>IdentifierName</es-nt> <es-nt params="In, ?Yield">Initialiser</es-nt></es-rhs>
   </es-production>
 
   <es-production name="Initialiser" params="In, Yield">
@@ -120,6 +119,15 @@
     </ul>
 
     <es-production name="PropertyDefinition" class="inline">
+      <es-rhs><es-nt>MethodDefinition</es-nt></es-rhs>
+    </es-production>
+
+    <ul>
+      <li>It is a Syntax Error if ReferencesSuper of <es-nt>MethodDefinition</es-nt> is
+      <b>true</b><i>.</i></li>
+    </ul>
+
+    <es-production name="PropertyDefinition" class="inline">
       <es-rhs><es-nt>IdentifierReference</es-nt></es-rhs>
     </es-production>
 
@@ -160,7 +168,7 @@
 
     <p>See also: <es-xref target="sec-static-semantic-rules">5.3</es-xref>, <es-xref target=
     "sec-static-semantics-static-semantics-contains">12.2.1.1</es-xref>, <es-xref target=
-    "sec-function-definitions-static-semantics-contains">14.1.4</es-xref>, <es-xref target=
+    "sec-function-definitions-static-semantics-contains">14.1.3</es-xref>, <es-xref target=
     "sec-arrow-function-definitions-static-semantics-contains">14.2.3</es-xref>, <es-xref target=
     "sec-generator-function-definitions-static-semantics-contains">14.4.3</es-xref>,
     <es-xref target="sec-class-definitions-static-semantics-contains">14.5.4</es-xref></p>
@@ -462,7 +470,7 @@
     <ol class="proc">
       <li>Let <i>propName</i> be <es-xref target=
       "sec-identifiers-and-identifier-names">StringValue</es-xref> of
-      <i>IdentifierReference</i>.</li>
+      <i>IdentifierREference</i>.</li>
 
       <li>Let <i>exprValue</i> be the result of evaluating <i>IdentifierReference</i>.</li>
 
@@ -502,30 +510,6 @@
       <li>If IsAnonymousFunctionDefinition of <i>AssignmentExpression</i> is <b>true</b>, then
 
         <ol class="block">
-          <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>propValue</i> is an
-          <es-xref target="sec-ecmascript-function-objects">ECMAScript function
-          object</es-xref>.</li>
-
-          <li>Let <i>referencesSuper</i> be the value of <i>propValue</i>’s [[NeedsSuper]]
-          <es-xref target="sec-object-internal-methods-and-internal-slots">internal
-          slot</es-xref>.</li>
-
-          <li>Let <i>thisMode</i> be the value of <i>propValue</i>’s [[ThisMode]] <es-xref target=
-          "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
-
-          <li>If <i>thisMode</i> is not lexical and <i>referencesSuper</i> is <b>true</b>, then
-
-            <ol class="block">
-              <li>Set the <i>propValue</i>’s [[HomeObject]] <es-xref target=
-              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
-              <i>object</i>.</li>
-
-              <li>Set the <i>propValue</i>’s [[MethodName]] <es-xref target=
-              "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
-              <i>propKey</i>.</li>
-            </ol>
-          </li>
-
           <li><es-xref target="sec-setfunctionname">SetFunctionName</es-xref>(<i>propValue</i>,
           <i>propKey</i>).</li>
         </ol>

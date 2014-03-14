@@ -24,9 +24,12 @@
       <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>P</i>).</li>
 
       <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
-      passing the <b>this</b> value as the argument.</li>
+      passing the <b>this</b> value as the argument.
 
-      <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+        <ol class="block">
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>O</i>).</li>
+        </ol>
+      </li>
 
       <li>Return the result of <es-xref target=
       "sec-hasownproperty">HasOwnProperty</es-xref>(<i>O</i>, <i>P</i>).</li>
@@ -93,7 +96,7 @@
 
       <li>If <i>desc</i> is <b>undefined</b>, return <b>false</b>.</li>
 
-      <li>Return the value of <i>desc</i>.[[Enumerable]].</li>
+      <li>Return the value of desc.[[Enumerable]].</li>
     </ol>
 
     <es-note>
@@ -235,7 +238,7 @@
       <li>Let <i>O</i> be the result of calling <es-xref target="sec-toobject">ToObject</es-xref>
       passing the <b>this</b> value as the argument.</li>
 
-      <li>Return <i>O</i>.</li>
+      <li>Return O.</li>
     </ol>
   </es-clause>
 </es-clause>

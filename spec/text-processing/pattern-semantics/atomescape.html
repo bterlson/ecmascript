@@ -6,29 +6,23 @@
   <ol class="proc">
     <li>Evaluate <i>DecimalEscape</i> to obtain an EscapeValue <i>E</i>.</li>
 
-    <li>If <i>E</i> is a character, then
+    <li>If <i>E</i> is a character, then</li>
 
-      <ol class="block">
-        <li>Let <i>ch</i> be <i>E</i>'s character.</li>
+    <li>Let <i>ch</i> be <i>E</i>'s character.</li>
 
-        <li>Let <i>A</i> be a one-element CharSet containing the character <i>ch</i>.</li>
+    <li>Let <i>A</i> be a one-element CharSet containing the character <i>ch</i>.</li>
 
-        <li>Call CharacterSetMatcher(<i>A</i>, <b>false</b>) and return its Matcher result.</li>
-      </ol>
-    </li>
+    <li>Call CharacterSetMatcher(<i>A</i>, <b>false</b>) and return its Matcher result.</li>
 
-    <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>E</i> must be an
-    integer.</li>
-
-    <li>Let <i>n</i> be that integer.</li>
+    <li><i>E</i> must be an integer. Let <i>n</i> be that integer.</li>
 
     <li>If <i>n</i>=0 or <i>n</i>&gt;<i>NcapturingParens</i> then throw a <b>SyntaxError</b>
     exception.</li>
 
     <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a
-    Continuation <i>c</i>, and performs the following steps:
+    Continuation <i>c</i>, and performs the following:
 
-      <ol class="block">
+      <ol class="nested proc">
         <li>Let <i>cap</i> be <i>x</i>'s <i>captures</i> <es-xref target=
         "sec-list-and-record-specification-type">List</es-xref>.</li>
 

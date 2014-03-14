@@ -1,76 +1,83 @@
-<es-clause title="Loader Iterator Objects" anchor="sec-loader-iterator-objects">
-  <p>A Loader Iterator object represents a specific iteration over the module registry of some
-  specific Loader instance object. There is not a named constructor for Loader Iterator objects.
-  Instead, Loader iterator objects are created by calling certain methods of Loader instance
-  objects.</p>
+<es-clause title="Map Iterator Objects" anchor="sec-map-iterator-objects">
+  <p>A Map Iterator is an object, that represents a specific iteration over some specific Map
+  instance object. There is not a named constructor for Map Iterator objects. Instead, map iterator
+  objects are created by calling certain methods of Map instance objects.</p>
 
-  <es-clause title="CreateLoaderIterator Abstract Operation" anchor="sec-createloaderiterator">
-    <p>Several methods of Loader objects return Iterator objects. The abstract operation
-    CreateLoaderIterator with arguments <es-nt>loader</es-nt> and <es-nt>kind</es-nt> is used to
-    create such iterator objects. It performs the following steps:</p>
+  <es-clause title="CreateMapIterator Abstract Operation" anchor="sec-createmapiterator">
+    <p>Several methods of Map objects return Iterator objects. The abstract operation
+    CreateMapIterator with arguments <es-nt>map</es-nt> and <es-nt>kind</es-nt> is used to create
+    such iterator objects. It performs the following steps:</p>
 
     <ol class="proc">
-      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>loader</i> is an
-      initialized Loader instance object.</li>
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>map</i>) is
+      not Object, throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>map</i> does not have a [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+      <b>TypeError</b> exception.</li>
+
+      <li>Let <i>entries</i> be the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>map</i>’s
+      [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</li>
 
       <li>Let <i>iterator</i> be the result of <es-xref target=
-      "sec-objectcreate">ObjectCreate</es-xref>(%LoaderIteratorPrototype%, ([[Loader]],
-      [[LoaderNextIndex]], [[LoaderIterationKind]])).</li>
+      "sec-objectcreate">ObjectCreate</es-xref>(%MapIteratorPrototype%, ([[Map]], [[MapNextIndex]],
+      [[MapIterationKind]])).</li>
 
-      <li>Set <i>iterator’s</i> [[Loader]] <es-xref target=
-      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
-      <i>loader</i>.</li>
+      <li>Set <i>iterator’s</i> [[Map]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>map</i>.</li>
 
-      <li>Set <i>iterator’s</i> [[Loader NextIndex]] <es-xref target=
+      <li>Set <i>iterator’s</i> [[MapNextIndex]] <es-xref target=
       "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to 0.</li>
 
-      <li>Set <i>iterator’s</i> [[Loader IterationKind]] <es-xref target=
+      <li>Set <i>iterator’s</i> [[MapIterationKind]] <es-xref target=
       "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to <i>kind</i>.</li>
 
       <li>Return <i>iterator</i>.</li>
     </ol>
   </es-clause>
 
-  <es-clause title="The %LoaderteratorPrototype% Object" anchor=
-  "sec-%loaderteratorprototype%-object">
-    <p>All Loader Iterator Objects inherit properties from the %LoaderIteratorPrototype% intrinsic
-    object. The %LoaderIteratorPrototype% intrinsic object is an ordinary object and its
-    [[Prototype]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
-    slot</es-xref> is the %ObjectPrototype% intrinsic object. In addition,
-    %LoaderIteratorPrototype% has the following properties:</p>
+  <es-clause title="The %MapIteratorPrototype% Object" anchor="sec-%mapiteratorprototype%-object">
+    <p>All Map Iterator Objects inherit properties from the %MapIteratorPrototype% intrinsic
+    object. The %MapIteratorPrototype% intrinsic object is an ordinary object and its [[Prototype]]
+    <es-xref target="sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is the
+    %ObjectPrototype% intrinsic object. In addition, %MapIteratorPrototype% has the following
+    properties:</p>
 
-    <es-clause title="%LoaderIteratorPrototype%.next( )" anchor=
-    "sec-%loaderiteratorprototype%.next">
+    <es-clause title="%MapIteratorPrototype%.next( )" anchor="sec-%mapiteratorprototype%.next">
       <ol class="proc">
         <li>Let <i>O</i> be the <b>this</b> value.</li>
 
         <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>O</i>) is
         not Object, throw a <b>TypeError</b> exception.</li>
 
-        <li>If <i>O</i> does not have all of the internal slots of a Loader Iterator Instance
-        (<es-xref target="sec-properties-of-loader-iterator-instances">26.3.5.3</es-xref>), throw a
+        <li>If <i>O</i> does not have all of the internal slots of a Map Iterator Instance
+        (<es-xref target="sec-properties-of-map-iterator-instances">23.1.5.3</es-xref>), throw a
         <b>TypeError</b> exception.</li>
 
-        <li>Let <i>m</i> be the value of the [[Loader]] <es-xref target=
+        <li>Let <i>m</i> be the value of the [[Map]] <es-xref target=
         "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-        <li>Let <i>loaderRecord</i> be <i>m’s</i> [[LoaderRecord]] <es-xref target=
-        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</li>
-
-        <li>Let <i>index</i> be the value of the [[LoaderNextIndex]] <es-xref target=
+        <li>Let <i>index</i> be the value of the [[MapNextIndex]] <es-xref target=
         "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
-        <li>Let <i>itemKind</i> be the value of the [[LoaderIterationKind]] <es-xref target=
+        <li>Let <i>itemKind</i> be the value of the [[MapIterationKind]] <es-xref target=
         "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i>.</li>
 
         <li>If <i>m</i> is <b>undefined</b>, then return <es-xref target=
         "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
-        <b>true</b>).</li>
+        <b>true</b>)</li>
+
+        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>m</i> has a
+        [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref> and <i>m</i> has been initialised so the value of [[MapData]] is not
+        <b>undefined</b>.</li>
 
         <li>Let <i>entries</i> be the <es-xref target=
         "sec-list-and-record-specification-type">List</es-xref> that is the value of the
-        <i>loaderRecord</i>.[[Modules]] <es-xref target=
-        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>m</i>.</li>
+        [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref> of <i>m</i>.</li>
 
         <li>Repeat while <i>index</i> is less than the total number of elements of <i>entries</i>.
         The number of elements must be redetermined each time this method is evaluated.
@@ -81,7 +88,7 @@
 
             <li>Set <i>index</i> to <i>index</i>+1;</li>
 
-            <li>Set the [[LoaderNextIndex]] <es-xref target=
+            <li>Set the [[MapNextIndex]] <es-xref target=
             "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
             <i>index</i>.</li>
 
@@ -125,7 +132,7 @@
           </ol>
         </li>
 
-        <li>Set the [[Loader]] <es-xref target=
+        <li>Set the [[Map]] <es-xref target=
         "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>O</i> to
         <b>undefined</b>.</li>
 
@@ -133,17 +140,10 @@
         "sec-createiterresultobject">CreateIterResultObject</es-xref>(<b>undefined</b>,
         <b>true</b>).</li>
       </ol>
-
-      <es-note>
-        <p>Setting the [[Loader]] <es-xref target=
-        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to undefined when
-        the iterator is exhausted ensures that the same iterator can not restarted if new entries
-        are subsequently added. This condition is tested in step 7.</p>
-      </es-note>
     </es-clause>
 
-    <es-clause title="%LoaderIteratorPrototype% [ @@iterator ] ( )" anchor=
-    "sec-%loaderiteratorprototype%-@@iterator">
+    <es-clause title="%MapIteratorPrototype% [ @@iterator ] ( )" anchor=
+    "sec-%mapiteratorprototype%-@@iterator">
       <p>The following steps are taken:</p>
 
       <ol class="proc">
@@ -154,22 +154,22 @@
       <code>"[Symbol.iterator]"</code>.</p>
     </es-clause>
 
-    <es-clause title="%LoaderteratorPrototype% [ @@toStringTag ]" anchor=
-    "sec-%loaderteratorprototype%-@@tostringtag">
-      <p>The initial value of the @@toStringTag property is the string value <b>"Loader
+    <es-clause title="%MapIteratorPrototype% [ @@toStringTag ]" anchor=
+    "sec-%mapiteratorprototype%-@@tostringtag">
+      <p>The initial value of the @@toStringTag property is the string value <b>"Map
       Iterator"</b>.</p>
     </es-clause>
   </es-clause>
 
-  <es-clause title="Properties of Loader Iterator Instances" anchor=
-  "sec-properties-of-loader-iterator-instances">
-    <p>Loader Iterator instances are ordinary objects that inherit properties from the
-    %LoaderIteratorPrototype% intrinsic object. Loader Iterator instances are initially created
-    with the internal slots described in <a href="#table-50">Table 50</a> .</p>
+  <es-clause title="Properties of Map Iterator Instances" anchor=
+  "sec-properties-of-map-iterator-instances">
+    <p>Map Iterator instances are ordinary objects that inherit properties from the
+    %MapIteratorPrototype% intrinsic object. Map Iterator instances are initially created with the
+    internal slots described in <a href="#table-37">Table 37</a> .</p>
 
     <figure>
       <figcaption>
-        <span id="table-50">Table 50</span> — Internal Slots of Loader Iterator Instances
+        <span id="table-37">Table 37</span> — Internal Slots of Map Iterator Instances
       </figcaption>
 
       <table class="real-table">
@@ -184,20 +184,19 @@
         </tr>
 
         <tr>
-          <td>[[Loader]]</td>
+          <td>[[Map]]</td>
 
-          <td>The Loader object that is being iterated.</td>
+          <td>The Map object that is being iterated.</td>
         </tr>
 
         <tr>
-          <td>[[LoaderNextIndex]]</td>
+          <td>[[MapNextIndex]]</td>
 
-          <td>The integer index of the next Loader registry data element to be examined by this
-          iterator.</td>
+          <td>The integer index of the next Map data element to be examined by this iteration.</td>
         </tr>
 
         <tr>
-          <td>[[LoaderterationKind]]</td>
+          <td>[[MapIterationKind]]</td>
 
           <td>A string value that identifies what is to be returned for each element of the
           iteration. The possible values are: <b>"key"</b>, <b>"value"</b>,

@@ -58,8 +58,8 @@
         <b>true</b>, then
 
           <ol class="block">
-            <li>Let <i>thisRealm</i> be <es-xref target="sec-execution-contexts">the running
-            execution context</es-xref>’s <es-xref target="sec-code-realms">Realm</es-xref>.</li>
+            <li>Let <i>thisRealm</i> <es-xref target="sec-execution-contexts">the running execution
+            context</es-xref>’s <es-xref target="sec-code-realms">Realm</es-xref>.</li>
 
             <li>If <i>thisRealm</i> and the value of <i>A’s</i> [[Realm]] <es-xref target=
             "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> are the same
@@ -75,13 +75,10 @@
       </ol>
     </li>
 
-    <li>If <i>A</i> is <b>undefined</b>, then
+    <li>If <i>A</i> is <b>undefined</b>, then</li>
 
-      <ol class="block">
-        <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
-        "sec-arraycreate">ArrayCreate</es-xref> with argument <i>len</i>.</li>
-      </ol>
-    </li>
+    <li>Let <i>A</i> be the result of the abstract operation <es-xref target=
+    "sec-arraycreate">ArrayCreate</es-xref> with argument <i>len</i>.</li>
 
     <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>A</i>).</li>
 

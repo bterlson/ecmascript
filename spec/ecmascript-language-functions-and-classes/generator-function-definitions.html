@@ -2,9 +2,8 @@
   <h2>Syntax</h2>
 
   <es-production name="GeneratorMethod" params="Yield">
-    <es-rhs>* <es-nt params="?Yield">PropertyName</es-nt> ( <es-nt>StrictFormalParameters</es-nt>
-    <es-gann>Yield,GeneratorParameter</es-gann>) { <es-nt params="Yield">FunctionBody</es-nt>
-    }</es-rhs>
+    <es-rhs>* <es-nt params="?Yield">PropertyName</es-nt> ( <es-nt>StrictFormalParameters</es-nt> )
+    { <es-nt params="Yield">FunctionBody</es-nt> }</es-rhs>
   </es-production>
 
   <es-production name="GeneratorDeclaration" params="Default">
@@ -26,17 +25,10 @@
     here</es-gann><es-gann>Lexical goal <es-nt>InputElementRegExp</es-nt></es-gann><es-nt params=
     "?In, Yield">AssignmentExpression</es-nt></es-rhs>
 
-    <es-rhs><es-t>yield</es-t> <es-gann>no <es-nt>LineTerminator</es-nt>
-    here</es-gann><es-t>*</es-t> <es-gann>Lexical goal
+    <es-rhs><es-t>yield</es-t> <es-t>*</es-t> <es-gann>Lexical goal
     <es-nt>InputElementRegExp</es-nt></es-gann><es-nt params=
     "?In, Yield">AssignmentExpression</es-nt></es-rhs>
   </es-production>
-
-  <es-note>
-    <p><es-nt>YieldExpression</es-nt> cannot be used within the <es-nt>FormalParameters</es-nt> of
-    a generator function because any expressions that are part of <es-nt>FormalParameters</es-nt>
-    are evaluate before the resulting generator object is in a resumable state.</p>
-  </es-note>
 
   <h2>Supplemental Syntax</h2>
 
@@ -112,14 +104,13 @@
     "sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</es-xref>,
     <es-xref target="sec-variable-statement-static-semantics-boundnames">13.2.2.1</es-xref>,
     <es-xref target=
-    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</es-xref>,
+    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.2</es-xref>,
     <es-xref target=
     "sec-for-in-and-for-of-statements-static-semantics-boundnames">13.6.4.2</es-xref>,
-    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.3</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.2</es-xref>,
     <es-xref target="sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</es-xref>,
     <es-xref target="sec-class-definitions-static-semantics-boundnames">14.5.2</es-xref>,
-    <es-xref target="sec-imports-static-semantics-boundnames">15.2.1.2</es-xref>, <es-xref target=
-    "sec-exports-static-semantics-boundnames">15.2.2.1</es-xref>.</p>
+    <es-xref target="sec-imports-static-semantics-boundnames">15.1.1.2</es-xref>, 0.</p>
 
     <es-production name="GeneratorDeclaration" class="inline">
       <es-rhs>function * <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
@@ -138,7 +129,7 @@
     <p>See also: <es-xref target="sec-static-semantic-rules">5.3</es-xref>, <es-xref target=
     "sec-object-initialiser-static-semantics-contains">12.1.5.2</es-xref>, <es-xref target=
     "sec-static-semantics-static-semantics-contains">12.2.1.1</es-xref>, <es-xref target=
-    "sec-function-definitions-static-semantics-contains">14.1.4</es-xref>, <es-xref target=
+    "sec-function-definitions-static-semantics-contains">14.1.3</es-xref>, <es-xref target=
     "sec-arrow-function-definitions-static-semantics-contains">14.2.3</es-xref>, <es-xref target=
     "sec-class-definitions-static-semantics-contains">14.5.4</es-xref></p>
 
@@ -216,7 +207,7 @@
     <es-xref target=
     "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget">12.14.2</es-xref>,
     <es-xref target=
-    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.6</es-xref>,
     <es-xref target=
     "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
 
@@ -244,7 +235,7 @@
     <p>See also: <es-xref target=
     "sec-let-and-const-declarations-static-semantics-isconstantdeclaration">13.2.1.3</es-xref>,
     <es-xref target=
-    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.7</es-xref>,
+    "sec-function-definitions-static-semantics-isanonymousfunctiondefinition">14.1.6</es-xref>,
     <es-xref target=
     "sec-class-definitions-static-semantics-isanonymousfunctiondefinition">14.5.5</es-xref>.</p>
 
@@ -264,14 +255,13 @@
     "sec-block-static-semantics-lexicallydeclarednames">13.1.3</es-xref>, <es-xref target=
     "sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</es-xref>,
     <es-xref target=
-    "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</es-xref>,
+    "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.10</es-xref>,
     <es-xref target=
     "sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</es-xref>,
     <es-xref target=
     "sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</es-xref>,
-    <es-xref target="sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</es-xref>,
-    <es-xref target=
-    "sec-module-static-semantics-static-semantics-lexicallydeclarednames">15.2.0.10</es-xref>.</p>
+    <es-xref target="sec-static-semantics-knownexportentries">15.1.0.7</es-xref>, <es-xref target=
+    "sec-scripts-static-semantics-lexicallydeclarednames">15.2.3</es-xref>.</p>
 
     <es-production name="GeneratorDeclaration" class="inline">
       <es-rhs>function * <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
@@ -303,32 +293,7 @@
   <es-clause title="Static Semantics:" anchor=
   "sec-generator-function-definitions-static-semantics-referencessuper">
     <p>See also: <es-xref target=
-    "sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>, <es-xref target=
     "sec-method-definitions-static-semantics-referencessuper">14.3.6</es-xref>.</p>
-
-    <es-production name="GeneratorDeclaration" class="inline">
-      <es-rhs>function * <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
-      <es-nt>FunctionBody</es-nt> }</es-rhs>
-    </es-production>
-
-    <ol class="proc">
-      <li>If <i>FormalParameters</i> Contains <code>super</code> is <b>true</b>, then return
-      <b>true.</b></li>
-
-      <li>Return <i>FunctionBody</i> Contains <code>super</code>.</li>
-    </ol>
-
-    <es-production name="GeneratorExpression" class="inline">
-      <es-rhs>function * <es-nt optional>BindingIdentifier</es-nt> (
-      <es-nt>FormalParameters</es-nt> ) { <es-nt>FunctionBody</es-nt> }</es-rhs>
-    </es-production>
-
-    <ol class="proc">
-      <li>If <i>FormalParameters</i> Contains <code>super</code> is <b>true</b>, then return
-      <b>true.</b></li>
-
-      <li>Return <i>FunctionBody</i> Contains <code>super</code>.</li>
-    </ol>
 
     <es-production name="GeneratorMethod" class="inline">
       <es-rhs>* <es-nt>PropertyName</es-nt> ( <es-nt>StrictFormalParameters</es-nt> ) {
@@ -357,11 +322,10 @@
     <es-xref target="sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>,
     <es-xref target="sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
     <es-xref target="sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>,
-    <es-xref target="sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-vardeclarednames">14.1.11</es-xref>,
     <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
-    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.1.5</es-xref>,
-    <es-xref target=
-    "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+    <es-xref target="sec-module-semantics-static-semantics-vardeclarednames">15.1.0.12</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.2.5</es-xref>.</p>
 
     <es-production name="GeneratorDeclaration" class="inline">
       <es-rhs>function * <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
@@ -379,7 +343,7 @@
     <p>With parameter <es-nt>functionObject</es-nt>.</p>
 
     <p>See also: <es-xref target=
-    "sec-function-definitions-runtime-semantics-evaluatebody">14.1.14</es-xref>, <es-xref target=
+    "sec-function-definitions-runtime-semantics-evaluatebody">14.1.12</es-xref>, <es-xref target=
     "sec-arrow-function-definitions-runtime-semantics-evaluatebody">14.2.9</es-xref>.</p>
 
     <es-production name="GeneratorBody" class="inline">
@@ -452,7 +416,7 @@
     <p>With parameter <es-nt>scope</es-nt>.</p>
 
     <p>See also: <es-xref target=
-    "sec-function-definitions-runtime-semantics-instantiatefunctionobject">14.1.16</es-xref>.</p>
+    "sec-function-definitions-runtime-semantics-instantiatefunctionobject">14.1.14</es-xref>.</p>
 
     <es-production name="GeneratorDeclaration" class="inline">
       <es-rhs>function * <es-nt>BindingIdentifier</es-nt> ( <es-nt>FormalParameters</es-nt> ) {
@@ -477,15 +441,8 @@
 
       <li>Let <i>F</i> be the result of performing the <es-xref target=
       "sec-generatorfunctioncreate">GeneratorFunctionCreate</es-xref> abstract operation with
-      arguments Normal, <i>FormalParameters</i>, <i>body, scope</i>, and <i>strict</i>.</li>
-
-      <li>If ReferencesSuper of <i>GeneratorDeclaration</i> is <b>true</b>, then
-
-        <ol class="block">
-          <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>F</i>, <i>name</i>,
-          <b>undefined</b>).</li>
-        </ol>
-      </li>
+      arguments Normal, <es-nt>FormalParameters</es-nt>, <i>body, scope</i>, <i>strict</i>, and
+      <es-nt>name</es-nt>.</li>
 
       <li>Let <i>prototype</i> be the result of the abstract operation <es-xref target=
       "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %GeneratorPrototype% as
@@ -531,15 +488,24 @@
       "inline"><es-rhs><es-nt>FunctionBody</es-nt></es-rhs></es-production>
       .</li>
 
-      <li>Let <i>closure</i> be the result of performing the <es-xref target=
-      "sec-generatorfunctioncreate">GeneratorFunctionCreate</es-xref> abstract operation with
-      arguments Method, <i>StrictFormalParameters</i>, <i>body, scope</i>, and <i>strict</i>.</li>
-
       <li>If ReferencesSuper of <i>GeneratorMethod</i> is <b>true</b>, then
 
         <ol class="block">
-          <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>closure</i>,
-          <i>propKey</i>, <i>homeObject</i>).</li>
+          <li>Let <i>closure</i> be the result of performing the <es-xref target=
+          "sec-generatorfunctioncreate">GeneratorFunctionCreate</es-xref> abstract operation with
+          arguments Method, <es-nt>StrictFormalParameters</es-nt>, <i>body, scope</i>, and
+          <i>strict</i> and with <i>propKey</i> as the <es-nt>methodName</es-nt> optional argument
+          and <i>object</i> as the <i>homeObject</i> optional argument .</li>
+        </ol>
+      </li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>Let <i>closure</i> be the result of performing the <es-xref target=
+          "sec-generatorfunctioncreate">GeneratorFunctionCreate</es-xref> abstract operation with
+          arguments Method, <es-nt>StrictFormalParameters</es-nt>, <i>body, scope</i>, and
+          <es-nt>strict</es-nt>.</li>
         </ol>
       </li>
 
@@ -599,15 +565,8 @@
 
       <li>Let <i>closure</i> be the result of performing the <es-xref target=
       "sec-generatorfunctioncreate">GeneratorFunctionCreate</es-xref> abstract operation with
-      arguments Normal, <i>FormalParameters</i>, <i>body, scope</i>, and <i>strict</i>.</li>
-
-      <li>If ReferencesSuper of <i>GeneratorExpression</i> is <b>true</b>, then
-
-        <ol class="block">
-          <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>closure</i>,
-          <b>undefined</b>, <b>undefined</b>).</li>
-        </ol>
-      </li>
+      arguments Normal, <es-nt>FormalParameters</es-nt>, <i>body, scope</i>, and
+      <es-nt>strict</es-nt>.</li>
 
       <li>Let <i>prototype</i> be the result of the abstract operation <es-xref target=
       "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %GeneratorPrototype% as
@@ -653,15 +612,9 @@
 
       <li>Let <i>closure</i> be the result of performing the <es-xref target=
       "sec-generatorfunctioncreate">GeneratorFunctionCreate</es-xref> abstract operation with
-      arguments Normal, <i>FormalParameters</i>, <i>body, funcEnv</i>, and <i>strict</i>.</li>
-
-      <li>If ReferencesSuper of <i>GeneratorExpression</i> is <b>true</b>, then
-
-        <ol class="block">
-          <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>closure</i>,
-          <i>name</i>, <b>undefined</b>).</li>
-        </ol>
-      </li>
+      arguments Normal, <es-nt>FormalParameters</es-nt>, <i>body, funcEnv</i>, and
+      <es-nt>strict</es-nt> and with <i>name</i> as the <es-nt>methodName</es-nt> optional
+      argument.</li>
 
       <li>Let <i>prototype</i> be the result of the abstract operation <es-xref target=
       "sec-objectcreate">ObjectCreate</es-xref> with the intrinsic object %GeneratorPrototype% as
@@ -674,7 +627,8 @@
       <li>Call the InitialiseBinding concrete method of <i>envRec</i> passing <i>name</i> and
       <i>closure</i> as the arguments.</li>
 
-      <li>Return <i>closure</i>.</li>
+      <li>Return <es-xref target=
+      "sec-normalcompletion">NormalCompletion</es-xref>(<i>closure</i>).</li>
     </ol>
 
     <es-note>
@@ -754,8 +708,7 @@
           <li>Else
 
             <ol class="block">
-              <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>:
-              <i>received</i>.[[type]] is throw.</li>
+              <li>Asssert: <i>received</i>.[[type]] is throw.</li>
 
               <li>If <es-xref target="sec-hasproperty">HasProperty</es-xref>(<i>iterator</i>,
               <code>"throw"</code>) is <b>true</b>, then

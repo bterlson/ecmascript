@@ -1,11 +1,11 @@
 <es-clause title="CharacterEscape" anchor="sec-characterescape">
   <p>The production <es-production name="CharacterEscape" type="lexical" class=
   "inline"><es-rhs><es-nt>ControlEscape</es-nt></es-rhs></es-production>
-  evaluates by returning the character according to <a href="#table-41">Table 41</a> .</p>
+  evaluates by returning the character according to <a href="#table-34">Table 34</a> .</p>
 
   <figure>
     <figcaption>
-      <span id="table-41">Table 41</span> — ControlEscape Character Values
+      <span id="table-34">Table 34</span> — ControlEscape Character Values
     </figcaption>
 
     <table class="real-table">
@@ -128,8 +128,7 @@
   <p>The production <es-production name="RegExpUnicodeEscapeSequence" type="lexical" class=
   "inline"><es-rhs>u</es-rhs></es-production> <es-nt>Hex4Digits</es-nt>
   evaluates by evaluating the CV of <es-nt>Hex4Digits</es-nt> (see <es-xref target=
-  "sec-string-literals-static-semantics-stringvalue">11.8.4.2</es-xref>) and returning its
-  character result.</p>
+  "sec-static-semantics-sv-s-and-cv-s">11.8.4.2</es-xref>) and returning its character result.</p>
 
   <p>The production <es-production name="RegExpUnicodeEscapeSequence" type="lexical" class=
   "inline"><es-rhs><es-t>u{</es-t> <es-nt>HexDigits</es-nt>
@@ -140,12 +139,10 @@
   <p>The production <es-production name="LeadSurragate" type="lexical" class=
   "inline"><es-rhs></es-rhs></es-production> <es-nt>Hex4Digits</es-nt>
   evaluates by evaluating the CV of <es-nt>Hex4Digits</es-nt> (see <es-xref target=
-  "sec-string-literals-static-semantics-stringvalue">11.8.4.2</es-xref>) and returning its
-  character result.</p>
+  "sec-static-semantics-sv-s-and-cv-s">11.8.4.2</es-xref>) and returning its character result.</p>
 
   <p>The production <es-production name="TailSurragate" type="lexical" class=
   "inline"><es-rhs></es-rhs></es-production> <es-nt>Hex4Digits</es-nt>
   evaluates by evaluating the CV of <es-nt>Hex4Digits</es-nt> (see <es-xref target=
-  "sec-string-literals-static-semantics-stringvalue">11.8.4.2</es-xref>) and returning its
-  character result.</p>
+  "sec-static-semantics-sv-s-and-cv-s">11.8.4.2</es-xref>) and returning its character result.</p>
 </es-clause>

@@ -100,7 +100,7 @@
       <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a
       Continuation <i>c</i>, and performs the following steps:
 
-        <ol class="block">
+        <ol class="nested proc">
           <li>Let <i>e</i> be <i>x</i>'s <i>endIndex</i>.</li>
 
           <li>If <i>e</i> is <i>InputLength</i>, return <b>failure</b>.</li>
@@ -109,21 +109,15 @@
 
           <li>Let <i>cc</i> be the result of Canonicalize(<i>ch</i>).</li>
 
-          <li>If <i>invert</i> is <b>false</b>, then
+          <li>If <i>invert</i> is <b>false</b>, then</li>
 
-            <ol class="block">
-              <li>If there does not exist a member <i>a</i> of set <i>A</i> such that
-              Canonicalize(<i>a</i>) is <i>cc</i>, return <b>failure</b>.</li>
-            </ol>
-          </li>
+          <li>If there does not exist a member <i>a</i> of set <i>A</i> such that
+          Canonicalize(<i>a</i>) is <i>cc</i>, return <b>failure</b>.</li>
 
-          <li>Else <i>invert</i> is <b>true</b>,
+          <li>Else <i>invert</i> is <b>true</b>,</li>
 
-            <ol class="block">
-              <li>If there exists a member <i>a</i> of set <i>A</i> such that
-              Canonicalize(<i>a</i>) is <i>cc</i>, return <b>failure.</b></li>
-            </ol>
-          </li>
+          <li>If there exists a member <i>a</i> of set <i>A</i> such that Canonicalize(<i>a</i>) is
+          <i>cc</i>, return <b>failure.</b></li>
 
           <li>Let <i>cap</i> be <i>x</i>'s <i>captures</i> <es-xref target=
           "sec-list-and-record-specification-type">List</es-xref>.</li>

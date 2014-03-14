@@ -8,11 +8,9 @@
     <ol class="proc">
       <li>Let <i>ref</i> be the result of evaluating <i>MemberExpression</i>.</li>
 
-      <li>Let <i>thisCall</i> be this <i>CallExpression</i>.</li>
-
-      <li>Let <i>tailCall</i> be <es-xref target=
-      "sec-intailposition">InTailPosition</es-xref>(<i>thisCall</i>). (See <es-xref target=
-      "sec-intailposition">14.6.1</es-xref>)</li>
+      <li>If this <i>CallExpression</i> is in a tail position (<es-xref target=
+      "sec-tail-position-calls">14.6</es-xref>) then let <i>tailCall</i> be <b>true</b>, otherwise
+      let <i>tailCall</i> be <b>false</b>.</li>
 
       <li>Return the result of the abstract operation EvaluateCall with arguments <i>ref</i>,
       <i>Arguments</i>, and <i>tailCall</i>.</li>
@@ -25,11 +23,9 @@
     <ol class="proc">
       <li>Let <i>ref</i> be the result of evaluating <i>CallExpression</i>.</li>
 
-      <li>Let <i>thisCall</i> be this <i>CallExpression</i>.</li>
-
-      <li>Let <i>tailCall</i> be <es-xref target=
-      "sec-intailposition">InTailPosition</es-xref>(<i>thisCall</i>). (See <es-xref target=
-      "sec-intailposition">14.6.1</es-xref>)</li>
+      <li>If this <i>CallExpression</i> is in a tail position (<es-xref target=
+      "sec-tail-position-calls">14.6</es-xref>) then let <i>tailCall</i> be <b>true</b>, otherwise
+      let <i>tailCall</i> be <b>false</b>.</li>
 
       <li>Return the result of the abstract operation EvaluateCall with arguments <i>ref</i>,
       <i>Arguments</i>, and <i>tailCall</i>.</li>

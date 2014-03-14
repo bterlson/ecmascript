@@ -9,22 +9,22 @@
   mode code</es-xref>.</p>
 
   <p>ECMAScript function objects have the additional internal slots listed in <a href=
-  "#table-26">Table 26</a> .</p>
+  "#table-24">Table 24</a> .</p>
 
   <p>ECMAScript function objects whose code is not <es-xref target="sec-strict-mode-code">strict
-  mode code</es-xref> (<es-xref target="sec-strict-mode-code">10.2.1</es-xref>) provide an
-  alternative definition for the [[GetOwnProperty]] internal method. This alternative prevents the
-  value of strict mode function from being revealed as the value of a function object property
-  named "<code>caller</code>". The alternative definition exist solely to preclude a non-standard
-  legacy feature of some ECMAScript implementations from revealing information about strict mode
-  callers. If an implementation does not provide such a feature, it need not implement this
-  alternative internal method for ECMAScript function objects. ECMAScript function objects are
-  considered to be ordinary objects even though they may use the alternative definition of
+  mode code</es-xref> (<es-xref target="sec-strict-mode-code">10.2.1</es-xref>) provide alternative
+  definitions for the [[GetOwnProperty]] internal method. This alternatives prevents the value of
+  strict mode function from being revealed as the value of a function object property named
+  "<code>caller</code>". The alternative definition exist solely to preclude a non-standard legacy
+  feature of some ECMAScript implementations from revealing information about strict mode callers.
+  If an implementation does not provide such a feature, it need not implement these alternative
+  internal methods for ECMAScript function objects. ECMAScript function objects are considered to
+  be ordinary objects even though they may use the alternative definition of
   [[GetOwnProperty]].</p>
 
   <figure>
     <figcaption>
-      <span id="table-26">Table 26</span> -- Internal Slots of ECMAScript Function Objects
+      <span id="table-24">Table 24</span> -- Internal Slots of ECMAScript Function Objects
     </figcaption>
 
     <table class="real-table">
@@ -41,7 +41,7 @@
       </tr>
 
       <tr>
-        <td>[[Environment]]</td>
+        <td>[[Scope]]</td>
 
         <td><es-xref target="sec-lexical-environments">Lexical Environment</es-xref></td>
 
@@ -120,20 +120,13 @@
       </tr>
 
       <tr>
-        <td>[[NeedsSuper]]</td>
-
-        <td>Boolean</td>
-
-        <td><span class="value">true</span> if this functions uses <code>super</code>.</td>
-      </tr>
-
-      <tr>
         <td>[[HomeObject]]</td>
 
         <td>Object</td>
 
         <td>If the function uses <code>super</code>, this is the object whose [[GetPrototypeOf]]
-        provides the object where super property lookups begin.</td>
+        provides the object where super property lookups begin. Not present for functions that
+        don’t reference <code>super</code>.</td>
       </tr>
 
       <tr>
@@ -142,7 +135,8 @@
         <td>String or Symbol</td>
 
         <td>If the function uses <code>super</code>, this is the property keys that is used for
-        unqualified references to <code>super</code>.</td>
+        unqualified references to <code>super</code>. Not present for functions that don’t
+        reference <code>super</code>.</td>
       </tr>
     </table>
   </figure>
@@ -152,20 +146,19 @@
   ECMAScript function objects whose code is not <es-xref target="sec-strict-mode-code">strict mode
   code</es-xref> have the [[Get]] and [[GetOwnProperty]] internal methods defined here.</p>
 
+  <link rel="import" href=
+  "ecmascript-function-objects/ecmascript-function-objects-call-thisargument-argumentslist.html">
   <link rel="import" href="ecmascript-function-objects/construct-argumentslist.html">
   <link rel="import" href=
   "ecmascript-function-objects/ecmascript-function-objects-getownproperty-p.html">
   <link rel="import" href="ecmascript-function-objects/functionallocate.html">
-  <link rel="import" href=
-  "ecmascript-function-objects/ecmascript-function-objects-call-thisargument-argumentslist.html">
   <link rel="import" href="ecmascript-function-objects/functioninitialise.html">
   <link rel="import" href="ecmascript-function-objects/functioncreate.html">
   <link rel="import" href="ecmascript-function-objects/generatorfunctioncreate.html">
   <link rel="import" href="ecmascript-function-objects/addrestrictedfunctionproperties.html">
   <link rel="import" href="ecmascript-function-objects/makeconstructor.html">
-  <link rel="import" href="ecmascript-function-objects/makemethod.html">
   <link rel="import" href="ecmascript-function-objects/setfunctionname.html">
   <link rel="import" href="ecmascript-function-objects/getsuperbinding.html">
-  <link rel="import" href="ecmascript-function-objects/clonemethod.html">
+  <link rel="import" href="ecmascript-function-objects/rebindsuper.html">
   <link rel="import" href="ecmascript-function-objects/function-declaration-instantiation.html">
 </es-clause>

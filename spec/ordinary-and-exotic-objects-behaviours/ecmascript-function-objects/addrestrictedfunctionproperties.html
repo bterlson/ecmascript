@@ -30,8 +30,7 @@
     <li>Let <i>functionPrototype</i> be the intrinsic object %FunctionPrototype%.</li>
 
     <li>Let <i>scope</i> be <es-xref target="sec-global-environment-records">the Global
-    Environment</es-xref> of <es-xref target="sec-execution-contexts">the current
-    Realm</es-xref>.</li>
+    Environment</es-xref>.</li>
 
     <li>Let <i>formalParameters</i> be the syntactic production: <es-production name=
     "FormalParameters" class="inline"><es-rhs constraint=
@@ -50,7 +49,7 @@
 
     <li>Perform the abstract operation <es-xref target=
     "sec-functioninitialise">FunctionInitialise</es-xref> with arguments <i>F</i>, Normal,
-    <i>formalParameters</i>, <i>body,</i> and <i>scope</i>.</li>
+    <es-nt>formalParameters</es-nt>, <i>body,</i> and <es-nt>scope</es-nt>.</li>
 
     <li>Call the [[PreventExtensions]] internal method of <i>F</i>.</li>
 

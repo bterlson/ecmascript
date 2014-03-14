@@ -14,16 +14,17 @@
     <p>The Set constructor is the %Set% intrinsic object and the initial value of the
     <code>Set</code> property of the global object. When <code>Set</code> is called as a function
     rather than as a constructor, it initialises its <b>this</b> value with the internal state
-    necessary to support the <code>Set.prototype</code> built-in methods.</p>
+    necessary to support the <code>Set.prototype</code> internal methods.</p>
 
     <p>The <code>Set</code> constructor is designed to be subclassable. It may be used as the value
     in an <code>extends</code> clause of a class definition. Subclass constructors that intend to
     inherit the specified <code>Set</code> behaviour must include a <code>super</code> call to
     <code>Set</code>.</p>
 
-    <es-clause title="Set (iterable = undefined)" anchor="sec-set-iterable">
-      <p>When the <code>Set</code> function is called with optional argument
-      <es-nt>iterable</es-nt> the following steps are taken:</p>
+    <es-clause title="Set (iterable = undefined, comparator = undefined )" anchor=
+    "sec-set-iterable-comparator">
+      <p>When the <code>Set</code> function is called with optional arguments
+      <es-nt>iterable</es-nt> and <es-nt>comparator</es-nt> the following steps are taken:</p>
 
       <ol class="proc">
         <li>Let <i>set</i> be the <b>this</b> value.</li>
@@ -62,9 +63,23 @@
           </ol>
         </li>
 
+        <li>If <i>comparator</i> is not present, let <i>comparator</i> be <b>undefined</b>.</li>
+
+        <li>If <i>comparator</i> is not <b>undefined</b>, then
+
+          <ol class="block">
+            <li>If <i>comparator</i> is not <code>"is"</code>, then throw a <b>RangeError</b>
+            Exception.</li>
+          </ol>
+        </li>
+
         <li>Set <i>set’s</i> [[SetData]] <es-xref target=
         "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to a new empty
         <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
+
+        <li>Set <i>set’s</i> [[SetComparator]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+        <i>comparator</i>.</li>
 
         <li>If <i>iter</i> is <b>undefined</b>, then return <i>set</i>.</li>
 
@@ -97,8 +112,10 @@
 
     <es-clause title="new Set ( ... argumentsList )" anchor="sec-new-set-argumentslist">
       <p>When <code>Set</code> is called as part of a <code>new</code> expression it is a
-      constructor: it initialises a newly created object. Set called as part of a new expression
-      with argument list <i>argumentsList</i> performs the following steps:</p>
+      constructor: it initialises a newly created object.</p>
+
+      <p><code>Set</code> called as part of a new expression with argument list
+      <i>argumentsList</i> performs the following steps:</p>
 
       <ol class="proc">
         <li>Let <i>F</i> be the Set function object on which the <code>new</code> operator was
@@ -108,7 +125,7 @@
         internal method that was invoked by the <code>new</code> operator.</li>
 
         <li>Return the result of <es-xref target=
-        "sec-construct-f-argumentslist">Construct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
+        "sec-ordinaryconstruct">OrdinaryConstruct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
       </ol>
 
       <p>If Set is implemented as an <es-xref target="sec-ecmascript-function-objects">ECMAScript
@@ -163,7 +180,7 @@
     "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Set prototype
     object is the standard built-in Object prototype object (<es-xref target=
     "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>). The Set prototype object is
-    an ordinary object. It does not have a [[SetData]] <es-xref target=
+    an ordinary object. It does not have a [[SetData]] or a [[SetComparator]] <es-xref target=
     "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
 
     <es-clause title="Set.prototype.add (value )" anchor="sec-set.prototype.add">
@@ -188,12 +205,19 @@
         [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
         slot</es-xref>.</li>
 
+        <li>If <i>S’s</i> [[SetComparator]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then let <i>same</i> be the abstract operation <es-xref target=
+        "sec-samevaluezero">SameValueZero</es-xref>.</li>
+
+        <li>Else, let <i>same</i> be the abstract operation <es-xref target=
+        "sec-samevalue">SameValue</es-xref>.</li>
+
         <li>Repeat for each <i>e</i> that is an element of <i>entries,</i> in original insertion
         order
 
           <ol class="block">
-            <li>If <i>e</i> is not empty and <es-xref target=
-            "sec-samevaluezero">SameValueZero</es-xref>(<i>e</i>, <i>value</i>) is <b>true</b>,
+            <li>If <i>e</i> is not empty and <i>same</i>(<i>e</i>, <i>value</i>) is <b>true</b>,
             then
 
               <ol class="block">
@@ -270,12 +294,19 @@
         [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
         slot</es-xref>.</li>
 
+        <li>If <i>S’s</i> [[SetComparator]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then let <i>same</i> be the abstract operation <es-xref target=
+        "sec-samevaluezero">SameValueZero</es-xref>.</li>
+
+        <li>Else, let <i>same</i> be the abstract operation <es-xref target=
+        "sec-samevalue">SameValue</es-xref>.</li>
+
         <li>Repeat for each <i>e</i> that is an element of <i>entries</i>, in original insertion
         order
 
           <ol class="block">
-            <li>If <i>e</i> is not empty and <es-xref target=
-            "sec-samevaluezero">SameValueZero</es-xref>(<i>e</i>, <i>value</i>) is <b>true</b>,
+            <li>If <i>e</i> is not empty and <i>same</i>(<i>e</i>, <i>value</i>) is <b>true</b>,
             then
 
               <ol class="block">
@@ -428,11 +459,18 @@
         [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
         slot</es-xref>.</li>
 
+        <li>If <i>S’s</i> [[SetComparator]] <es-xref target=
+        "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
+        <b>undefined</b>, then let <i>same</i> be the abstract operation <es-xref target=
+        "sec-samevaluezero">SameValueZero</es-xref>.</li>
+
+        <li>Else, let <i>same</i> be the abstract operation <es-xref target=
+        "sec-samevalue">SameValue</es-xref>.</li>
+
         <li>Repeat for each <i>e</i> that is an element of <i>entries,</i>
 
           <ol class="block">
-            <li>If <i>e</i> is not empty and <es-xref target=
-            "sec-samevaluezero">SameValueZero</es-xref>(<i>e</i>, <i>value</i>), then return
+            <li>If <i>e</i> is not empty and <i>same</i>(<i>e</i>, <i>value</i>), then return
             <b>true</b><i>.</i></li>
           </ol>
         </li>
@@ -522,7 +560,9 @@
   <es-clause title="Properties of Set Instances" anchor="sec-properties-of-set-instances">
     <p>Set instances are ordinary objects that inherit properties from the Set prototype. After
     initialisation by the Set constructor, Set instances also have a [[SetData]] <es-xref target=
-    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+    "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> and a
+    [[SetComparator]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+    slot</es-xref>.</p>
   </es-clause>
 
   <es-clause title="Set Iterator Objects" anchor="sec-set-iterator-objects">
@@ -547,6 +587,11 @@
         <li>If <i>set’s</i> [[SetData]] <es-xref target=
         "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is
         <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+        <li>Let <i>entries</i> be the <es-xref target=
+        "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>set</i>’s
+        [[SetData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+        slot</es-xref>.</li>
 
         <li>Let <i>iterator</i> be the result of <es-xref target=
         "sec-objectcreate">ObjectCreate</es-xref>(%SetIteratorPrototype%, ([[IteratedSet]],
@@ -698,11 +743,11 @@
     "sec-properties-of-set-iterator-instances">
       <p>Set Iterator instances are ordinary objects that inherit properties from the
       %SetIteratorPrototype% intrinsic object. Set Iterator instances are initially created with
-      the internal slots specified <a href="#table-45">Table 45</a> .</p>
+      the internal slots specified <a href="#table-38">Table 38</a> .</p>
 
       <figure>
         <figcaption>
-          <span id="table-45">Table 45</span> — Internal Slots of Set Iterator Instances
+          <span id="table-38">Table 38</span> — Internal Slots of Set Iterator Instances
         </figcaption>
 
         <table class="real-table">
@@ -726,7 +771,7 @@
             <td style="border-bottom: 0px solid black">[[SetNextIndex]]</td>
 
             <td style="border-bottom: 0px solid black">The integer index of the next Set data
-            element to be examined by this iterator</td>
+            element to be examined by this iteration.</td>
           </tr>
 
           <tr>

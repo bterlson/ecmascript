@@ -1,9 +1,9 @@
 <es-clause title="Identifier Reference" anchor="sec-identifier-reference">
   <es-production name="IdentifierReference" params="Yield">
-    <es-rhs><es-nt params="?Yield">NonResolvedIdentifier</es-nt></es-rhs>
+    <es-rhs><es-nt params="Yield">UnresolvedIdentifier</es-nt></es-rhs>
   </es-production>
 
-  <es-production name="NonResolvedIdentifier" params="Yield">
+  <es-production name="UnresolvedIdentifier">
     <es-rhs><es-nt>Identifier</es-nt></es-rhs>
 
     <es-rhs constraint="~Yield">yield</es-rhs>
@@ -12,42 +12,34 @@
   <es-clause title="Static Semantics: Early Errors" anchor=
   "sec-identifier-reference-static-semantics-early-errors">
     <es-production name="IdentifierReference" class="inline">
-      <es-rhs><es-nt>NonResolvedIdentifier</es-nt></es-rhs>
+      <es-rhs><es-nt>UnresolvedIdentifier</es-nt></es-rhs>
     </es-production>
 
     <ul>
       <li>
         <p>It is a Syntax Error if <es-xref target=
-        "sec-identifiers-and-identifier-names">StringValue</es-xref> of
-        <es-nt>NonResolvedIdentifier</es-nt> <es-nt>does not statically resolve to a
-        <es-xref target="sec-declarative-environment-records">declarative environment
-        record</es-xref> binding.</es-nt></p>
+        "sec-identifiers-and-identifier-names">StringValue</es-xref> of <es-nt>UnresolvedIdentifier
+        does not statically resolve to a <es-xref target=
+        "sec-declarative-environment-records">declarative environment record</es-xref>
+        binding.</es-nt></p>
       </li>
     </ul>
 
-    <es-production name="NonResolvedIdentifier" class="inline">
+    <es-production name="UnresolvedIdentifier" class="inline">
       <es-rhs><es-nt>Identifier</es-nt></es-rhs>
     </es-production>
 
     <ul>
       <li>
-        <p>It is a Syntax Error if this <es-nt>NonResolvedIdentifier</es-nt> is contained in
-        <es-xref target="sec-strict-mode-code">strict code</es-xref> and if the <es-xref target=
-        "sec-identifiers-and-identifier-names">StringValue</es-xref> of <es-nt>Identifier</es-nt>
-        is: <code>"implements"</code>, <code>"interface"</code>, <code>"let"</code>,
-        <code>"package"</code>, <code>"private"</code>, <code>"protected"</code>,
-        <code>"public"</code>, <code>"static"</code>, or <code>"yield"</code>.</p>
-      </li>
-
-      <li>
-        <p>It is a Syntax Error if this <es-nt>NonResolvedIdentifier</es-nt> has a
-        <sub>[Yield]</sub> and the <es-xref target=
-        "sec-identifiers-and-identifier-names">StringValue</es-xref> of <es-nt>Identifier</es-nt>
-        is <code>"yield"</code>.</p>
+        <p>It is a Syntax Error if this <es-nt>UnresolvedIdentifier</es-nt> is contained in
+        <es-xref target="sec-strict-mode-code">strict code</es-xref> and if the
+        <es-nt>Identifier</es-nt> is: <code>implements</code>, <code>interface</code>,
+        <code>let</code>, <code>package</code>, <code>private</code>, <code>protected</code>,
+        <code>public</code>, or <code>static</code>.</p>
       </li>
     </ul>
 
-    <es-production name="NonResolvedIdentifier" class="inline">
+    <es-production name="UnresolvedIdentifier" class="inline">
       <es-rhs>yield</es-rhs>
     </es-production>
 
@@ -68,8 +60,7 @@
   <es-clause title="Static Semantics:" anchor=
   "sec-identifier-reference-static-semantics-stringvalue">
     <p>See also: <es-xref target=
-    "sec-identifiers-and-identifier-names-static-semantics-stringvalue">11.6.1.2</es-xref>,
-    <es-xref target="sec-string-literals-static-semantics-stringvalue">11.8.4.2</es-xref>,
+    "sec-identifiers-and-identifier-names-static-semantics-stringvalue">11.6.1.1</es-xref>,
     <es-xref target=
     "sec-let-and-const-declarations-static-semantics-stringvalue">13.2.1.4</es-xref>.</p>
 

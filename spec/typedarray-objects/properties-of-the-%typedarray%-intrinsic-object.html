@@ -39,7 +39,8 @@
         </ol>
       </li>
 
-      <li>Let <i>usingIterator</i> be IsIterable(<i>items</i>).</li>
+      <li>Let <i>usingIterator</i> be the result of <es-xref target=
+      "sec-hasproperty">HasProperty</es-xref>(<i>items</i>, @@iterator).</li>
 
       <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>usingIterator</i>).</li>
 

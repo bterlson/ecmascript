@@ -22,13 +22,13 @@
     </ul>
 
     <es-production name="ContinueStatement" class="inline">
-      <es-rhs><es-t>continue</es-t> <es-nt>NonResolvedIdentifier</es-nt> <es-t>;</es-t></es-rhs>
+      <es-rhs><es-t>continue</es-t> <es-nt>IdentifierReference</es-nt> <es-t>;</es-t></es-rhs>
     </es-production>
 
     <ul>
       <li>
         <p>It is a Syntax Error if <es-xref target=
-        "sec-identifiers-and-identifier-names">StringValue</es-xref>(<es-nt>NonResolvedIdentifier</es-nt>)
+        "sec-identifiers-and-identifier-names">StringValue</es-xref>(<es-nt>UnresolvedIdentifier</es-nt>)
         does not appear in the <es-nt>CurrentLabelSet</es-nt> of an enclosing (but not crossing
         function boundaries) <es-nt>IterationStatement</es-nt>.</p>
       </li>
@@ -48,13 +48,13 @@
     </ol>
 
     <es-production name="ContinueStatement" class="inline">
-      <es-rhs><es-t>continue</es-t> <es-nt>NonResolvedIdentifier</es-nt> <es-t>;</es-t></es-rhs>
+      <es-rhs><es-t>continue</es-t> <es-nt>UnresolvedIdentifier</es-nt> <es-t>;</es-t></es-rhs>
     </es-production>
 
     <ol class="proc">
       <li>Let <i>label</i> be the <es-xref target=
       "sec-identifiers-and-identifier-names">StringValue</es-xref> of
-      <i>NonResolvedIdentifier</i>.</li>
+      <i>UnresolvedIdentifier</i>.</li>
 
       <li>Return <es-xref target=
       "sec-completion-record-specification-type">Completion</es-xref>{[[type]]: continue,

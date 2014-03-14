@@ -1,0 +1,416 @@
+<es-clause title="Properties of the Map Prototype Object" anchor=
+"sec-properties-of-the-map-prototype-object">
+  <p>The value of the [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of the Map prototype
+  object is the standard built-in Object prototype object (<es-xref target=
+  "sec-properties-of-the-object-prototype-object">19.1.3</es-xref>). The Map prototype object is an
+  ordinary object. It does not have a [[MapData]] or a [[MapComparator]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
+
+  <es-clause title="Map.prototype.clear ()" anchor="sec-map.prototype.clear">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is not
+      Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>M</i> does not have a [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+      <b>TypeError</b> exception.</li>
+
+      <li>If <i>M’s</i> [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>entries</i> be the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+      [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</li>
+
+      <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+      <i>entries,</i>
+
+        <ol class="block">
+          <li>Set <i>p</i>.[[key]] to empty<i>.</i></li>
+
+          <li>Set <i>p</i>.[[value]] to empty<i>.</i></li>
+        </ol>
+      </li>
+
+      <li>Return <b>undefined</b>.</li>
+    </ol>
+
+    <es-note>
+      <p>The existing [[MapData]] <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> is preserved because there may be
+      existing MapIterator objects that are <es-xref target=
+      "sec-execution-contexts">suspended</es-xref> midway through iterating over that
+      <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Map.prototype.constructor" anchor="sec-map.prototype.constructor">
+    <p>The initial value of <code>Map.prototype.constructor</code> is the built-in <code>Map</code>
+    constructor.</p>
+  </es-clause>
+
+  <es-clause title="Map.prototype.delete ( key )" anchor="sec-map.prototype.delete">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is not
+      Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>M</i> does not have a [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+      <b>TypeError</b> exception.</li>
+
+      <li>If <i>M’s</i> [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>M’s</i> [[MapComparator]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then let <i>same</i> be the abstract operation <es-xref target=
+      "sec-samevaluezero">SameValueZero</es-xref>.</li>
+
+      <li>Else, let <i>same</i> be the abstract operation <es-xref target=
+      "sec-samevalue">SameValue</es-xref>.</li>
+
+      <li>Let <i>entries</i> be the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+      [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</li>
+
+      <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+      <i>entries,</i>
+
+        <ol class="block">
+          <li>If <i>same</i>(<i>p</i>.[[key]], <i>key</i>), then
+
+            <ol class="block">
+              <li>Set <i>p</i>.[[key]] to empty<i>.</i></li>
+
+              <li>Set <i>p</i>.[[value]] to empty<i>.</i></li>
+
+              <li>Return <b>true</b>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+
+    <es-note>
+      <p>The value <b>empty</b> is used as a specification device to indicate that an entry has
+      been deleted. Actual implementations may take other actions such as physically removing the
+      entry from internal data structures.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="Map.prototype.entries ( )" anchor="sec-map.prototype.entries">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is not
+      Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>Return the result of calling the <es-xref target=
+      "sec-createmapiterator">CreateMapIterator</es-xref> abstract operation with arguments
+      <i>M</i> and <b>"key+value"</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Map.prototype.forEach ( callbackfn , thisArg = undefined )" anchor=
+  "sec-map.prototype.foreach">
+    <p><es-nt>callbackfn</es-nt> should be a function that accepts three arguments.
+    <code>forEach</code> calls <es-nt>callbackfn</es-nt> once for each key/value pair present in
+    the map object, in key insertion order. <es-nt>callbackfn</es-nt> is called only for keys of
+    the map which actually exist; it is not called for keys that have been deleted from the
+    map.</p>
+
+    <p>If a <es-nt>thisArg</es-nt> parameter is provided, it will be used as the <b>this</b> value
+    for each invocation of <es-nt>callbackfn</es-nt>. If it is not provided, <b>undefined</b> is
+    used instead.</p>
+
+    <p><es-nt>callbackfn</es-nt> is called with three arguments: the value of the item, the key of
+    the item, and the Map object being traversed.</p>
+
+    <p><code>forEach</code> does not directly mutate the object on which it is called but the
+    object may be mutated by the calls to <es-nt>callbackfn</es-nt>.</p>
+
+    <p>When the <code>forEach</code> method is called with one or two arguments, the following
+    steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is not
+      Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>M</i> does not have a [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+      <b>TypeError</b> exception.</li>
+
+      <li>If <i>M’s</i> [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>callbackfn</i>) is
+      <b>false</b>, throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be
+      <b>undefined</b>.</li>
+
+      <li>Let <i>entries</i> be the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+      [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</li>
+
+      <li>Repeat for each Record {[[key]], [[value]]} <i>e</i> that is an element of
+      <i>entries,</i> in original key insertion order
+
+        <ol class="block">
+          <li>If <i>e</i>.[[key]] is not empty, then
+
+            <ol class="block">
+              <li>Let <i>funcResult</i> be the result of calling the [[Call]] internal method of
+              <i>callbackfn</i> with <i>T</i> as <i>thisArgument</i> and a <es-xref target=
+              "sec-list-and-record-specification-type">List</es-xref> containing
+              <i>e</i>.[[value]], <i>e</i>.[[key]], and <i>M</i> as <i>argumentsList</i>.</li>
+
+              <li><es-xref target=
+              "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>funcResult</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return <b>undefined</b>.</li>
+    </ol>
+
+    <p>The <code>length</code> property of the <code>forEach</code> method is <b>1</b>.</p>
+  </es-clause>
+
+  <es-clause title="Map.prototype.get ( key )" anchor="sec-map.prototype.get">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is not
+      Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>M</i> does not have a [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+      <b>TypeError</b> exception.</li>
+
+      <li>If <i>M’s</i> [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>entries</i> be the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+      [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</li>
+
+      <li>If <i>M’s</i> [[MapComparator]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then let <i>same</i> be the abstract operation <es-xref target=
+      "sec-samevaluezero">SameValueZero</es-xref>.</li>
+
+      <li>Else, let <i>same</i> be the abstract operation <es-xref target=
+      "sec-samevalue">SameValue</es-xref>.</li>
+
+      <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+      <i>entries,</i>
+
+        <ol class="block">
+          <li>If <i>same</i>(<i>p</i>.[[key]], <i>key</i>), then return <i>p</i>.[[value]].</li>
+        </ol>
+      </li>
+
+      <li>Return <b>undefined</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Map.prototype.has ( key )" anchor="sec-map.prototype.has">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is not
+      Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>M</i> does not have a [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+      <b>TypeError</b> exception.</li>
+
+      <li>If <i>M’s</i> [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>entries</i> be the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+      [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</li>
+
+      <li>If <i>M’s</i> [[MapComparator]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then let <i>same</i> be the abstract operation <es-xref target=
+      "sec-samevaluezero">SameValueZero</es-xref>.</li>
+
+      <li>Else, let <i>same</i> be the abstract operation <es-xref target=
+      "sec-samevalue">SameValue</es-xref>.</li>
+
+      <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+      <i>entries,</i>
+
+        <ol class="block">
+          <li>If <i>same</i>(<i>p</i>.[[key]], <i>key</i>), then return <b>true</b><i>.</i></li>
+        </ol>
+      </li>
+
+      <li>Return <b>false</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Map.prototype.keys ( )" anchor="sec-map.prototype.keys">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+      <li>Return the result of calling the <es-xref target=
+      "sec-createmapiterator">CreateMapIterator</es-xref> abstract operation with arguments
+      <i>M</i> and <b>"key"</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Map.prototype.set ( key , value )" anchor="sec-map.prototype.set">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is not
+      Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>M</i> does not have a [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+      <b>TypeError</b> exception.</li>
+
+      <li>If <i>M’s</i> [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>entries</i> be the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+      [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</li>
+
+      <li>If <i>M’s</i> [[MapComparator]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then let <i>same</i> be the abstract operation <es-xref target=
+      "sec-samevaluezero">SameValueZero</es-xref>.</li>
+
+      <li>Else, let <i>same</i> be the abstract operation <es-xref target=
+      "sec-samevalue">SameValue</es-xref>.</li>
+
+      <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of
+      <i>entries,</i>
+
+        <ol class="block">
+          <li>If <i>same</i>(<i>p</i>.[[key]], <i>key</i>), then
+
+            <ol class="block">
+              <li>Set <i>p</i>.[[value]] to <i>value.</i></li>
+
+              <li>Return <i>M</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Let <i>p</i> be the Record {[[key]]: <i>key</i>, [[value]]: <i>value</i>}.</li>
+
+      <li>Append <i>p</i> as the last element of <i>entries</i>.</li>
+
+      <li>Return <i>M</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="get Map.prototype.size" anchor="sec-get-map.prototype.size">
+    <p>Map.prototype.size is an accessor property whose set accessor function is <span class=
+    "value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>M)</i> is not
+      Object, then throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>M</i> does not have a [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> throw a
+      <b>TypeError</b> exception.</li>
+
+      <li>If <i>M’s</i> [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is <b>undefined</b>,
+      then throw a <b>TypeError</b> exception.</li>
+
+      <li>Let <i>entries</i> be the <es-xref target=
+      "sec-list-and-record-specification-type">List</es-xref> that is the value of <i>M</i>’s
+      [[MapData]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
+      slot</es-xref>.</li>
+
+      <li>Let <i>count</i> be 0.</li>
+
+      <li>For each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries</i>
+
+        <ol class="block">
+          <li>If <i>p</i>.[[key]] is not empty then
+
+            <ol class="block">
+              <li>Set <i>count</i> to <i>count</i>+1.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+
+      <li>Return <i>count</i>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Map.prototype.values ( )" anchor="sec-map.prototype.values">
+    <p>The following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>M</i> be the <b>this</b> value.</li>
+
+      <li>Return the result of calling the <es-xref target=
+      "sec-createmapiterator">CreateMapIterator</es-xref> abstract operation with arguments
+      <i>M</i> and <b>"value"</b>.</li>
+    </ol>
+  </es-clause>
+
+  <es-clause title="Map.prototype [ @@iterator ]( )" anchor="sec-map.prototype-@@iterator">
+    <p>The initial value of the @@iterator property is the same function object as the initial
+    value of the <b>entries</b> property.</p>
+  </es-clause>
+
+  <es-clause title="Map.prototype [ @@toStringTag ]" anchor="sec-map.prototype-@@tostringtag">
+    <p>The initial value of the @@toStringTag property is the string value <b>"Map"</b>.</p>
+
+    <p>This property has the attributes { [[Writable]]: <span class="value">false</span>,
+    [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class=
+    "value">true</span> }.</p>
+  </es-clause>
+</es-clause>

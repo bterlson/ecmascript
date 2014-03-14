@@ -27,7 +27,7 @@
 
       <li>
         <p>It is a Syntax Error if <es-nt>LeftHandSideExpression</es-nt> is a
-        <es-nt>IdentifierReference</es-nt> that can be statically determined to always resolve to a
+        <es-nt>BindingIdentifier</es-nt> that can be statically determined to always resolve to a
         <es-xref target="sec-declarative-environment-records">declarative environment
         record</es-xref> binding and the resolved binding is an immutable binding.</p>
       </li>
@@ -77,14 +77,13 @@
     "sec-let-and-const-declarations-static-semantics-boundnames">13.2.1.2</es-xref>,
     <es-xref target="sec-variable-statement-static-semantics-boundnames">13.2.2.1</es-xref>,
     <es-xref target=
-    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.1</es-xref>,
-    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.3</es-xref>,
+    "sec-destructuring-binding-patterns-static-semantics-boundnames">13.2.3.2</es-xref>,
+    <es-xref target="sec-function-definitions-static-semantics-boundnames">14.1.2</es-xref>,
     <es-xref target="sec-arrow-function-definitions-static-semantics-boundnames">14.2.2</es-xref>,
     <es-xref target=
     "sec-generator-function-definitions-static-semantics-boundnames">14.4.2</es-xref>,
     <es-xref target="sec-class-definitions-static-semantics-boundnames">14.5.2</es-xref>,
-    <es-xref target="sec-imports-static-semantics-boundnames">15.2.1.2</es-xref>, <es-xref target=
-    "sec-exports-static-semantics-boundnames">15.2.2.1</es-xref>.</p>
+    <es-xref target="sec-imports-static-semantics-boundnames">15.1.1.2</es-xref>, 0.</p>
 
     <es-production name="ForDeclaration" class="inline">
       <es-rhs><es-nt>LetOrConst</es-nt> <es-nt>ForBinding</es-nt></es-rhs>
@@ -108,12 +107,11 @@
     "sec-switch-statement-static-semantics-vardeclarednames">13.11.4</es-xref>, <es-xref target=
     "sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>, <es-xref target=
     "sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>, <es-xref target=
-    "sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>, <es-xref target=
-    "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
+    "sec-function-definitions-static-semantics-vardeclarednames">14.1.11</es-xref>,
+    <es-xref target="sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
     <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
-    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.1.5</es-xref>,
-    <es-xref target=
-    "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+    <es-xref target="sec-module-semantics-static-semantics-vardeclarednames">15.1.0.12</es-xref>,
+    <es-xref target="sec-scripts-static-semantics-vardeclarednames">15.2.5</es-xref>.</p>
 
     <es-production name="IterationStatement" class="inline">
       <es-rhs>for ( <es-nt>LeftHandSideExpression</es-nt> in <es-nt>Expression</es-nt> )

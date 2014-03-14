@@ -96,96 +96,79 @@
       <p>The encoding and escaping process is described by the abstract operation Encode taking two
       String arguments <es-nt>string</es-nt> and <es-nt>unescapedSet</es-nt>.</p>
 
-      <ol class="proc">
-        <li>Let <i>strLen</i> be the number of characters in <i>string</i>.</li>
+      <p><span class="marker"></span>Let <i>strLen</i> be the number of characters in
+      <i>string</i>.</p>
 
-        <li>Let <i>R</i> be the empty String.</li>
+      <p><span class="marker"></span>Let <i>R</i> be the empty String.</p>
 
-        <li>Let <i>k</i> be 0.</li>
+      <p><span class="marker"></span>Let <i>k</i> be 0.</p>
 
-        <li>Repeat
+      <p><span class="marker"></span>Repeat</p>
 
-          <ol class="block">
-            <li>If <i>k</i> equals <i>strLen</i>, return <i>R</i>.</li>
+      <p><span class="marker"></span>If <i>k</i> equals <i>strLen</i>, return <i>R</i>.</p>
 
-            <li>Let <i>C</i> be the character at position <i>k</i> within <i>string</i>.</li>
+      <p><span class="marker"></span>Let <i>C</i> be the character at position <i>k</i> within
+      <i>string</i>.</p>
 
-            <li>If <i>C</i> is in <i>unescapedSet</i>, then
+      <p><span class="marker"></span>If <i>C</i> is in <i>unescapedSet</i>, then</p>
 
-              <ol class="block">
-                <li>Let <i>S</i> be a String containing only the character <i>C</i>.</li>
+      <p><span class="marker"></span>Let <i>S</i> be a String containing only the character
+      <i>C</i>.</p>
 
-                <li>Let <i>R</i> be a new String value computed by concatenating the previous value
-                of <i>R</i> and <i>S</i>.</li>
-              </ol>
-            </li>
+      <p><span class="marker"></span>Let <i>R</i> be a new String value computed by concatenating
+      the previous value of <i>R</i> and <i>S</i>.</p>
 
-            <li>Else <i>C</i> is not in <i>unescapedSet</i>,
+      <p><span class="marker"></span>Else <i>C</i> is not in <i>unescapedSet</i>,</p>
 
-              <ol class="block">
-                <li>If the code unit value of <i>C</i> is not less than 0xDC00 and not greater than
-                0xDFFF, throw a <b><es-xref target=
-                "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
-                exception.</li>
+      <p><span class="marker"></span>If the code unit value of <i>C</i> is not less than 0xDC00 and
+      not greater than 0xDFFF, throw a <b><es-xref target=
+      "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+      exception.</p>
 
-                <li>If the code unit value of <i>C</i> is less than 0xD800 or greater than 0xDBFF,
-                then
+      <p><span class="marker"></span>If the code unit value of <i>C</i> is less than 0xD800 or
+      greater than 0xDBFF, then</p>
 
-                  <ol class="block">
-                    <li>Let <i>V</i> be the code unit value of <i>C</i>.</li>
-                  </ol>
-                </li>
+      <p><span class="marker"></span>Let <i>V</i> be the code unit value of <i>C</i>.</p>
 
-                <li>Else,
+      <p><span class="marker"></span>Else,</p>
 
-                  <ol class="block">
-                    <li>Increase <i>k</i> by 1.</li>
+      <p><span class="marker"></span>Increase <i>k</i> by 1.</p>
 
-                    <li>If <i>k</i> equals <i>strLen</i>, throw a <b><es-xref target=
-                    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
-                    exception.</li>
+      <p><span class="marker"></span>If <i>k</i> equals <i>strLen</i>, throw a <b><es-xref target=
+      "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+      exception.</p>
 
-                    <li>Let <i>kChar</i> be the code unit value of the character at position
-                    <i>k</i> within <i>string</i>.</li>
+      <p><span class="marker"></span>Let <i>kChar</i> be the code unit value of the character at
+      position <i>k</i> within <i>string</i>.</p>
 
-                    <li>If <i>kChar</i> is less than 0xDC00 or greater than 0xDFFF, throw a
-                    <b><es-xref target=
-                    "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
-                    exception.</li>
+      <p><span class="marker"></span>If <i>kChar</i> is less than 0xDC00 or greater than 0xDFFF,
+      throw a <b><es-xref target=
+      "sec-constructor-properties-of-the-global-object-urierror">URIError</es-xref></b>
+      exception.</p>
 
-                    <li>Let <i>V</i> be (((the code unit value of <i>C</i>) – 0xD800) × 0x400 +
-                    (<i>kChar</i> – 0xDC00) + 0x10000).</li>
-                  </ol>
-                </li>
+      <p><span class="marker"></span>Let <i>V</i> be (((the code unit value of <i>C</i>) – 0xD800)
+      × 0x400 + (<i>kChar</i> – 0xDC00) + 0x10000).</p>
 
-                <li>Let <i>Octets</i> be the array of octets resulting by applying the UTF-8
-                transformation to <i>V</i>, and let <i>L</i> be the array size.</li>
+      <p><span class="marker"></span>Let <i>Octets</i> be the array of octets resulting by applying
+      the UTF-8 transformation to <i>V</i>, and let <i>L</i> be the array size.</p>
 
-                <li>Let <i>j</i> be 0.</li>
+      <p><span class="marker"></span>Let <i>j</i> be 0.</p>
 
-                <li>Repeat, while <i>j</i> &lt; <i>L</i>
+      <p><span class="marker"></span>Repeat, while <i>j</i> &lt; <i>L</i></p>
 
-                  <ol class="block">
-                    <li>Let <i>jOctet</i> be the value at position <i>j</i> within
-                    <i>Octets</i>.</li>
+      <p><span class="marker"></span>Let <i>jOctet</i> be the value at position <i>j</i> within
+      <i>Octets</i>.</p>
 
-                    <li>Let <i>S</i> be a String containing three characters “<b>%</b><i>XY</i>”
-                    where <i>XY</i> are two uppercase hexadecimal digits encoding the value of
-                    <i>jOctet</i>.</li>
+      <p><span class="marker"></span>Let <i>S</i> be a String containing three characters
+      “<b>%</b><i>XY</i>” where <i>XY</i> are two uppercase hexadecimal digits encoding the value
+      of <i>jOctet</i>.</p>
 
-                    <li>Let <i>R</i> be a new String value computed by concatenating the previous
-                    value of <i>R</i> and <i>S</i>.</li>
+      <p><span class="marker"></span>Let <i>R</i> be a new String value computed by concatenating
+      the previous value of <i>R</i> and <i>S</i>.</p>
 
-                    <li>Increase <i>j</i> by 1.</li>
-                  </ol>
-                </li>
-              </ol>
-            </li>
+      <p><span class="marker"></span>Increase <i>j</i> by 1.</p>
 
-            <li>Increase <i>k</i> by 1.</li>
-          </ol>
-        </li>
-      </ol>
+      <p><span class="marker"></span>Increase <i>k</i> by 1.</p>
     </es-clause>
 
     <es-clause title="Runtime Semantics: Decode Abstract Operation" anchor="sec-decode">
@@ -377,11 +360,11 @@
       contain bits from the value of the character to be encoded. The following octets all have the
       higher-order bit set to 1 and the following bit set to 0, leaving 6 bits in each to contain
       bits from the character to be encoded. The possible UTF-8 encodings of ECMAScript characters
-      are specified in <a href="#table-37">Table 37</a> .</p>
+      are specified in <a href="#table-31">Table 31</a> .</p>
 
       <figure>
         <figcaption>
-          <span id="table-37">Table 37</span> — UTF-8 Encodings
+          <span id="table-31">Table 31</span> — UTF-8 Encodings
         </figcaption>
 
         <table class="real-table">

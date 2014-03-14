@@ -2,7 +2,7 @@
 anchor="sec-additions-and-changes-that-introduce-incompatibilities-with-prior-editions" annex
 informative>
   <es-clause title="In the 6Edition" anchor="sec-in-the-6th-edition">
-    <p>9: In Edition 6, Function calls are not allowed to return a <es-xref target=
+    <p>8: In Edition 6, Function calls are not allowed to return a <es-xref target=
     "sec-reference-specification-type">Reference</es-xref> value.</p>
 
     <p><es-xref target="sec-iteration-statements">13.6</es-xref>: In Edition 6, a terminating
@@ -84,13 +84,13 @@ informative>
     Edition 5, a non-object argument always causes a <span class="value">TypeError</span> to be
     thrown.</p>
 
-    <p><es-xref target="sec-object.preventextensions">19.1.2.15</es-xref>: In Edition 6, if the
+    <p><es-xref target="sec-object.preventextensions">19.1.2.16</es-xref>: In Edition 6, if the
     argument to <code><es-xref target=
     "sec-object.preventextensions">Object.preventExtensions</es-xref></code> is not an object it is
     treated as if it was a non-extensible ordinary object with no own properties. In Edition 5, a
     non-object argument always causes a <span class="value">TypeError</span> to be thrown.</p>
 
-    <p><es-xref target="sec-object.seal">19.1.2.17</es-xref>: In Edition 6, if the argument to
+    <p><es-xref target="sec-object.seal">19.1.2.18</es-xref>: In Edition 6, if the argument to
     <code><es-xref target="sec-object.seal">Object.seal</es-xref></code> is not an object it is
     treated as if it was a non-extensible ordinary object with no own properties. In Edition 5, a
     non-object argument always causes a <span class="value">TypeError</span> to be thrown.</p>
@@ -237,17 +237,18 @@ informative>
     unspecified and implementations were explicitly allowed to throw a <b>TypeError</b>
     exception.</p>
 
-    <p><es-xref target="sec-scripts-static-semantics-early-errors">15.1.1</es-xref>: The value
-    properties <b>NaN</b>, <b>Infinity</b>, and <b>undefined</b> of the Global Object have been
-    changed to be read-only properties.</p>
+    <p><es-xref target="sec-imports">15.1.1</es-xref>: The value properties <b>NaN</b>,
+    <b>Infinity</b>, and <b>undefined</b> of the Global Object have been changed to be read-only
+    properties.</p>
 
     <p>15.1.2.1. Implementations are no longer permitted to restrict the use of eval in ways that
     are not a direct call. In addition, any invocation of eval that is not a direct call uses
     <es-xref target="sec-global-environment-records">the global environment</es-xref> as its
     variable environment rather than the caller’s variable environment.</p>
 
-    <p>: The specification of the function <code>parseInt</code> no longer allows implementations
-    to treat Strings beginning with a <code>0</code> character as octal values.</p>
+    <p><es-xref target="sec-exports-static-semantics-exportedbindings">15.1.2.2</es-xref>: The
+    specification of the function <code>parseInt</code> no longer allows implementations to treat
+    Strings beginning with a <code>0</code> character as octal values.</p>
 
     <p>: In Edition 3, a <b>TypeError</b> is thrown if the second argument passed to
     <code><es-xref target="sec-function.prototype.apply">Function.prototype.apply</es-xref></code>

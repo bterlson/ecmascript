@@ -54,15 +54,16 @@
     </es-production>
 
     <ol class="proc">
-      <li>Let propertyKey be <es-xref target=
-      "sec-identifiers-and-identifier-names">StringValue</es-xref> of IdentifierName.</li>
+      <li>Let <i>propertyKey</i> be <es-xref target=
+      "sec-identifiers-and-identifier-names">StringValue</es-xref> of <i>IdentifierName</i>.</li>
 
       <li>If the code matched by the syntactic production that is being evaluated is
-      <es-xref target="sec-strict-mode-code">strict mode code</es-xref>, let strict be <b>true</b>,
-      else let strict be <b>false</b>.</li>
+      <es-xref target="sec-strict-mode-code">strict mode code</es-xref>, let <i>strict</i> be
+      <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
 
       <li>Return the result of <es-xref target=
-      "sec-makesuperreference">MakeSuperReference</es-xref>(propertyKey, strict).</li>
+      "sec-makesuperreference">MakeSuperReference</es-xref>(<i>propertyKey</i>,
+      <i>strict</i>).</li>
     </ol>
 
     <es-production name="MemberExpression" class="inline">
@@ -104,19 +105,17 @@
       <li>If <es-xref target="sec-isconstructor">IsConstructor</es-xref> (<i>constructor</i>) is
       <b>false</b>, throw a <b>TypeError</b> exception.</li>
 
-      <li>Let <i>thisCall</i> be this <i>MemberExpression</i>.</li>
+      <li>If this <i>MemberExpression</i> is in a tail position (<es-xref target=
+      "sec-tail-position-calls">14.6</es-xref>) then let <i>tailPosition</i> be <b>true</b>,
+      otherwise let <i>tailPosition</i> be <b>false</b>.</li>
 
-      <li>Let <i>tailCall</i> be <es-xref target=
-      "sec-intailposition">InTailPosition</es-xref>(<i>thisCall</i>). (See <es-xref target=
-      "sec-intailposition">14.6.1</es-xref>)</li>
-
-      <li>If <i>tailCall</i> is <b>true</b>, then perform the PrepareForTailCall abstract
+      <li>If <i>tailPosition</i> is <b>true</b>, then perform the PrepareForTailCall abstract
       operation.</li>
 
       <li>Let <i>result</i> be the result of calling the [[Construct]] internal method on
       <i>constructor</i>, passing <i>argList</i> as the argument.</li>
 
-      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: If <i>tailCall</i> is
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: If <i>tailPosition</i> is
       <b>true</b>, the above call of [[Construct]] will not return here, but instead evaluation
       will continue with the resumption of <i>leafCallerContext</i> as <es-xref target=
       "sec-execution-contexts">the running execution context</es-xref>.</li>
@@ -138,11 +137,9 @@
 
       <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>ref</i>).</li>
 
-      <li>Let <i>thisCall</i> be this <i>CallExpression</i>.</li>
-
-      <li>Let <i>tailCall</i> be <es-xref target=
-      "sec-intailposition">InTailPosition</es-xref>(<i>thisCall</i>). (See <es-xref target=
-      "sec-intailposition">14.6.1</es-xref>)</li>
+      <li>If this <i>CallExpression</i> is in a tail position (<es-xref target=
+      "sec-continue-statement">13.7</es-xref>) then let <i>tailCall</i> be <b>true</b>, otherwise
+      let <i>tailCall</i> be <b>false</b>.</li>
 
       <li>Return the result of the abstract operation EvaluateCall with arguments <i>ref</i>,
       <i>Arguments</i>, and <i>tailCall</i>.</li>
@@ -174,9 +171,6 @@
         <ol class="block">
           <li>Let <i>propertyKey</i> be the result of calling the <es-xref target=
           "sec-getmethodname">GetMethodName</es-xref> concrete method of <i>env</i>.</li>
-
-          <li>If <i>propertyKey</i> is <b>undefined</b>, then then throw a <b>ReferenceError</b>
-          exception.</li>
         </ol>
       </li>
 

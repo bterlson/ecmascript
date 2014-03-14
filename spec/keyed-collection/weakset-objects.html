@@ -28,7 +28,7 @@
     <code>WeakSet</code> property of the global object. When <code>WeakSet</code> is called as a
     function rather than as a constructor, it initialises its <b>this</b> value with the internal
     state necessary to support the <code><es-xref target=
-    "sec-weakset.prototype">WeakSet.prototype</es-xref></code> built-in methods.</p>
+    "sec-weakset.prototype">WeakSet.prototype</es-xref></code> internal methods.</p>
 
     <p>The <code>WeakSet</code> constructor is designed to be subclassable. It may be used as the
     value in an <code>extends</code> clause of a class definition. Subclass constructors that
@@ -125,7 +125,7 @@
         internal method that was invoked by the <code>new</code> operator.</li>
 
         <li>Return the result of <es-xref target=
-        "sec-construct-f-argumentslist">Construct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
+        "sec-ordinaryconstruct">OrdinaryConstruct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
       </ol>
 
       <p>If WeakSet is implemented as an <es-xref target=

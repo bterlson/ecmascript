@@ -9,23 +9,22 @@
   display. All format control characters may be used within comments, and within string literals,
   template literals, and regular expression literals.</p>
 
-  <p>U+200C (Zero width non-joiner) and U+200D (Zero width joiner) are format-control characters
-  that are used to make necessary distinctions when forming words or phrases in certain languages.
-  In ECMAScript source text, &lt;ZWNJ&gt; and &lt;ZWJ&gt; may also be used in an identifier after
-  the first character.</p>
+  <p>&lt;ZWNJ&gt; and &lt;ZWJ&gt; are format-control characters that are used to make necessary
+  distinctions when forming words or phrases in certain languages. In ECMAScript source text,
+  &lt;ZWNJ&gt; and &lt;ZWJ&gt; may also be used in an identifier after the first character.</p>
 
-  <p>U+FEFF (Byte Order Mark) is a format-control character used primarily at the start of a text
-  to mark it as Unicode and to allow detection of the text's encoding and byte order. &lt;BOM&gt;
-  characters intended for this purpose can sometimes also appear after the start of a text, for
-  example as a result of concatenating files. &lt;BOM&gt; characters are treated as white space
-  characters (see <es-xref target="sec-white-space">11.2</es-xref>).</p>
+  <p>&lt;BOM&gt; is a format-control character used primarily at the start of a text to mark it as
+  Unicode and to allow detection of the text's encoding and byte order. &lt;BOM&gt; characters
+  intended for this purpose can sometimes also appear after the start of a text, for example as a
+  result of concatenating files. &lt;BOM&gt; characters are treated as white space characters (see
+  <es-xref target="sec-white-space">11.2</es-xref>).</p>
 
   <p>The special treatment of certain format-control characters outside of comments, string
-  literals, and regular expression literals is summarised in <a href="#table-28">Table 28</a> .</p>
+  literals, and regular expression literals is summarised in <a href="#table-26">Table 26</a> .</p>
 
   <figure>
     <figcaption>
-      <span id="table-28">Table 28</span> — Format-Control Character Usage
+      <span id="table-26">Table 26</span> — Format-Control Character Usage
     </figcaption>
 
     <table class="real-table">
@@ -36,8 +35,8 @@
 
         <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">Name</th>
 
-        <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">
-        Abbreviation</th>
+        <th style="border-bottom: 1px solid #000000; border-top: 2px solid #000000">Formal
+        Name</th>
 
         <th style=
         "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">

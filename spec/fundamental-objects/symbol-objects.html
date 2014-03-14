@@ -38,7 +38,7 @@
         internal method that was invoked by the <code>new</code> operator.</li>
 
         <li>Return the result of <es-xref target=
-        "sec-construct-f-argumentslist">Construct</es-xref> (<i>F</i>, <i>argumentsList</i>).</li>
+        "sec-ordinaryconstruct">OrdinaryConstruct</es-xref> (<i>F</i>, <i>argumentsList</i>).</li>
       </ol>
 
       <p>If <code>Symbol</code> is implemented as an <es-xref target=
@@ -71,85 +71,6 @@
       <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
     </es-clause>
 
-    <es-clause title="Symbol.for (key)" anchor="sec-symbol.for">
-      <p>When <code>Symbol.for</code> is called with argument <es-nt>key</es-nt> it performs the
-      following steps:</p>
-
-      <ol class="proc">
-        <li>Let <i>stringKey</i> be <es-xref target=
-        "sec-tostring">ToString</es-xref>(<i>key</i>).</li>
-
-        <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>stringKey)</i>.</li>
-
-        <li>For each element <i>e</i> of the GlobalSymbolRegistry <es-xref target=
-        "sec-list-and-record-specification-type">List</es-xref>,
-
-          <ol class="block">
-            <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>e</i>.[[key]],
-            <i>stringKey</i>) is <b>true</b>, then return <i>e</i>.[[symbol]].</li>
-          </ol>
-        </li>
-
-        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: GlobalSymbolRegistry does
-        not current contain an entry for <i>stringKey</i>.</li>
-
-        <li>Let <i>newSymbol</i> be a new unique Symbol value whose [[Description]] is
-        <i>stringKey</i>.</li>
-
-        <li>Append the record { [[key]]: <i>stringKey</i>, [[symbol]]: <i>newSymbol</i>) to the
-        GlobalSymbolRegistry <es-xref target=
-        "sec-list-and-record-specification-type">List</es-xref>.</li>
-
-        <li>Return <i>newSumbol</i>.</li>
-      </ol>
-
-      <p>The GlobalSymbolRegistry is a <es-xref target=
-      "sec-list-and-record-specification-type">List</es-xref> that is globally available. It is
-      shared by all Code Realms. Prior to the evaluation of any ECMAScript code it is initialised
-      as an empty <es-xref target="sec-list-and-record-specification-type">List</es-xref>. Elements
-      of the GlobalSymbolRegistry are Records with the structure defined in <a href=
-      "#table-38">Table 38</a> .</p>
-
-      <figure>
-        <figcaption>
-          <span id="table-38">Table 38</span> — GlobalSymbolRegistry Record Fields
-        </figcaption>
-
-        <table class="real-table">
-          <tr>
-            <th style=
-            "border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 0px solid black; border-top: 2px solid #000000">
-            Field Name</th>
-
-            <th style=
-            "border-bottom: 1px solid #000000; border-left: 0px solid black; border-right: 1px solid #000000; border-top: 2px solid #000000">
-            Value</th>
-
-            <th style=
-            "border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-top: 2px solid #000000">
-            Usage</th>
-          </tr>
-
-          <tr>
-            <td>[[key]]</td>
-
-            <td>A String</td>
-
-            <td>A string key used to globally identify a Symbol.</td>
-          </tr>
-
-          <tr>
-            <td>[[symbol]]</td>
-
-            <td>A Symbol</td>
-
-            <td>A symbol that can be retrieved from any <es-xref target=
-            "sec-code-realms">Realm</es-xref>.</td>
-          </tr>
-        </table>
-      </figure>
-    </es-clause>
-
     <es-clause title="Symbol.hasInstance" anchor="sec-symbol.hasinstance">
       <p>The initial value of <code>Symbol.hasInstance</code> is the well known symbol
       @@hasInstance (<a href="#table-1">Table 1</a> ).</p>
@@ -167,8 +88,8 @@
     </es-clause>
 
     <es-clause title="Symbol.isRegExp" anchor="sec-symbol.isregexp">
-      <p>The initial value of <code>Symbol.isRegExp</code> is the well known symbol @@isRegExp
-      (<a href="#table-1">Table 1</a> ).</p>
+      <p>The initial value of <code>Symbol.isRegExp</code> is the well known symbol
+      @@isConcatSpreadableisRegExp (<a href="#table-1">Table 1</a> ).</p>
 
       <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
       <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
@@ -180,31 +101,6 @@
 
       <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
       <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
-    </es-clause>
-
-    <es-clause title="Symbol.keyFor (sym)" anchor="sec-symbol.keyfor">
-      <p>When <code>Symbol.keyFor</code> is called with argument <es-nt>sym</es-nt> it performs the
-      following steps:</p>
-
-      <ol class="proc">
-        <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>sym</i>) is
-        not Symbol, then throw a <b>TypeError</b> exception.</li>
-
-        <li>For each element <i>e</i> of the GlobalSymbolRegistry <es-xref target=
-        "sec-list-and-record-specification-type">List</es-xref> (see <es-xref target=
-        "sec-symbol.for">19.4.2.2</es-xref>),
-
-          <ol class="block">
-            <li>If <es-xref target="sec-samevalue">SameValue</es-xref>(<i>e</i>.[[symbol]],
-            <i>sym</i>) is <b>true</b>, then return <i>e</i>.[[key]].</li>
-          </ol>
-        </li>
-
-        <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: GlobalSymbolRegistry does
-        not current contain an entry for <i>sym</i>.</li>
-
-        <li>Return <b>undefined</b>.</li>
-      </ol>
     </es-clause>
 
     <es-clause title="Symbol.prototype" anchor="sec-symbol.prototype">
@@ -223,7 +119,15 @@
       <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
     </es-clause>
 
-    <es-clause title="Symbol.toStringTag" anchor="sec-symbol.tostringtag">
+    <es-clause title="Symbol.toStringTag" anchor="undefined">
+      <p>The initial value of <code>Symbol.toStringTag</code> is the well known symbol
+      @@toStringTag (<a href="#table-1">Table 1</a> ).</p>
+
+      <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]:
+      <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+    </es-clause>
+
+    <es-clause title="Symbol.toStringTag" anchor="undefined">
       <p>The initial value of <code>Symbol.toStringTag</code> is the well known symbol
       @@toStringTag (<a href="#table-1">Table 1</a> ).</p>
 

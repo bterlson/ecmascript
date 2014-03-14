@@ -1,29 +1,26 @@
 <es-clause title="Built-in Function Objects" anchor="sec-built-in-function-objects">
   <p>The built-in function objects defined in this specification may be implemented as either
-  ECMAScript function objects (<es-xref target=
-  "sec-ordinarycreatefromconstructor">9.1.14</es-xref>) whose behaviour is provided using
-  ECMAScript code or as implementation provided exotic function objects whose behaviour is provided
-  in some other manner. In either case, the effect of calling such functions must conform to their
-  specifications.</p>
+  ECMAScript function objects (<es-xref target="sec-ecmascript-function-objects">9.2</es-xref>)
+  whose behaviour is provided using ECMAScript code or as implementation provided exotic function
+  objects whose behaviour is provided in some other manner. In either case, the effect of calling
+  such functions must conform to their specifications.</p>
 
   <p>If a built-in function object is implemented as an exotic object it must have the ordinary
   object behaviour specified in <es-xref target=
   "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref> except [[GetOwnProperty]]
-  which must be as specified in <es-xref target=
-  "sec-ordinarycreatefromconstructor">9.1.14</es-xref>. All such exotic function objects also have
-  [[Prototype]] and [[Extensible]] internal slots.</p>
+  which must be as specified in <es-xref target="sec-ecmascript-function-objects">9.2</es-xref>.
+  All such exotic function objects also have [[Prototype]] and [[Extensible]] internal slots.</p>
 
-  <p>Unless otherwise specified every built-in function object initially has the
-  %FunctionPrototype% object (<es-xref target=
-  "sec-properties-of-the-function-prototype-object">19.2.3</es-xref>) as the initial value of its
-  [[Prototype]] <es-xref target="sec-object-internal-methods-and-internal-slots">internal
-  slot</es-xref>.</p>
+  <p>Unless otherwise specified every built-in function object initially has %FunctionPrototype%
+  object (<es-xref target="sec-properties-of-the-function-prototype-object">19.2.3</es-xref>) as
+  the initial value of its [[Prototype]] <es-xref target=
+  "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>.</p>
 
   <p>The behaviour specified for each built-in function via algorithm steps or other means is the
   specification of the [[Call]] behaviour for that function with the [[Call]]
   <es-nt>thisArgument</es-nt> providing the <span class="value">this</span> value and the [[Call]]
   <es-nt>argumentsList</es-nt> providing the named parameters for each built-in function. If the
-  built-in function is implemented as an <es-xref target=
+  bult-in function is implemented as an <es-xref target=
   "sec-ecmascript-function-objects">ECMAScript function object</es-xref> then this specified
   behaviour must be implemented by the ECMAScript code that is the body of the function. Built-in
   functions that are ECMAScript function objects must be strict mode functions.</p>
@@ -92,23 +89,15 @@
     </es-note>
   </es-clause>
 
-  <es-clause title="CreateBuiltinFunction(realm, steps) Abstract Operation" anchor=
-  "sec-createbuiltinfunction">
-    <p>The abstract operation CreateBuiltinFunction takes arguments <es-nt>realm</es-nt> and
-    <es-nt>steps</es-nt>. It returns a bult-in function object created by the following steps:</p>
+  <es-clause title="CreateBuiltinFunction Abstract Operation" anchor="sec-createbuiltinfunction">
+    <p>The abstract operation CreateBuiltinFunction takes a single argument, <es-nt>steps</es-nt>,
+    that is a list of algorithm steps. It returns a bult-in function object created by following
+    steps:</p>
 
     <ol class="proc">
-      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>realm</i> is a
-      <es-xref target="sec-code-realms">Realm</es-xref> Record.</li>
-
-      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>steps</i> is either a
-      set of algorithm steps or other definition of a functions behaviour provided in this
-      specification.</li>
-
-      <li>Let <i>func</i> be a new built-in function object that when called performs the action
-      described by <i>steps</i>. The [[Realm]] <es-xref target=
-      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>func</i> is
-      step to <i>realm</i>.</li>
+      <li>Let <i>func</i> be a new built-in function object, in <es-xref target=
+      "sec-execution-contexts">the current Realm</es-xref>, that when called performs the action
+      described by <i>steps</i>.</li>
 
       <li>Perform the <es-xref target=
       "sec-addrestrictedfunctionproperties">AddRestrictedFunctionProperties</es-xref>

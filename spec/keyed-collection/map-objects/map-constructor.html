@@ -1,0 +1,148 @@
+<es-clause title="The Map Constructor" anchor="sec-map-constructor">
+  <p>The Map constructor is the %Map% intrinsic object and the initial value of the
+  <code>Map</code> property of the global object. When <code>Map</code> is called as a function
+  rather than as a constructor, it initialises its <b>this</b> value with the internal state
+  necessary to support the <code>Map.prototype</code> internal methods.</p>
+
+  <p>The <code>Map</code> constructor is designed to be subclassable. It may be used as the value
+  in an <code>extends</code> clause of a class definition. Subclass constructors that intend to
+  inherit the specified <code>Map</code> behaviour must include a <code>super</code> call to
+  <code>Map</code>.</p>
+
+  <es-clause title="Map (iterable = undefined , comparator = undefined )" anchor=
+  "sec-map-iterable-comparator">
+    <p>When the <code>Map</code> function is called with optional arguments <es-nt>iterable</es-nt>
+    and <es-nt>comparator</es-nt> the following steps are taken:</p>
+
+    <ol class="proc">
+      <li>Let <i>map</i> be the <b>this</b> value.</li>
+
+      <li>If <es-xref target="sec-ecmascript-data-types-and-values">Type</es-xref>(<i>map</i>) is
+      not Object then, throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>map</i> does not have a [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref>, then throw a
+      <b>TypeError</b> exception.</li>
+
+      <li>If <i>map’s</i> [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not
+      <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+      <li>If <i>iterable</i> is not present, let <i>iterable</i> be <b>undefined</b>.</li>
+
+      <li>If <i>iterable</i> is either <b>undefined</b> or <b>null</b>, then let <i>iter</i> be
+      <b>undefined</b>.</li>
+
+      <li>Else,
+
+        <ol class="block">
+          <li>Let <i>iter</i> be the result of <es-xref target=
+          "sec-getiterator">GetIterator</es-xref>(<i>iterable</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>iter</i>).</li>
+
+          <li>Let <i>adder</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>map</i>, <code>"set"</code>)<b>.</b></li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>adder</i>).</li>
+
+          <li>If <es-xref target="sec-iscallable">IsCallable</es-xref>(<i>adder</i>) is
+          <b>false</b>, throw a <b>TypeError</b> Exception.</li>
+        </ol>
+      </li>
+
+      <li>If <i>comparator</i> is not <b>undefined</b>, then
+
+        <ol class="block">
+          <li>If <i>comparator</i> is not <code>"is"</code>, then throw a <b>RangeError</b>
+          Exception.</li>
+        </ol>
+      </li>
+
+      <li>If the value of <i>map’s</i> [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> is not
+      <b>undefined</b>, then throw a <b>TypeError</b> exception.</li>
+
+      <li><es-xref target="sec-algorithm-conventions">Assert</es-xref>: <i>map</i> has not been
+      reentrantly initialized.</li>
+
+      <li>Set <i>map’s</i> [[MapData]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to a new empty
+      <es-xref target="sec-list-and-record-specification-type">List</es-xref>.</li>
+
+      <li>Set <i>map’s</i> [[MapComparator]] <es-xref target=
+      "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> to
+      <i>comparator</i>.</li>
+
+      <li>If <i>iter</i> is <b>undefined</b>, then return <i>map</i>.</li>
+
+      <li>Repeat
+
+        <ol class="block">
+          <li>Let <i>next</i> be the result of <es-xref target=
+          "sec-iteratorstep">IteratorStep</es-xref>(<i>iter</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>next</i>).</li>
+
+          <li>If <i>next</i> is <b>false</b>, then return <es-xref target=
+          "sec-normalcompletion">NormalCompletion</es-xref>(<i>map</i>).</li>
+
+          <li>Let <i>nextItem</i> be <es-xref target=
+          "sec-iteratorvalue">IteratorValue</es-xref>(<i>next</i>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>nextItem</i>).</li>
+
+          <li>If <es-xref target=
+          "sec-ecmascript-data-types-and-values">Type</es-xref>(<i>nextItem</i>) is not Object,
+          then throw a <b>TypeError</b> exception.</li>
+
+          <li>Let <i>k</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>nextItem</i>, <code>"0"</code>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>k</i>).</li>
+
+          <li>Let <i>v</i> be the result of <es-xref target=
+          "sec-get-o-p">Get</es-xref>(<i>nextItem</i>, <code>"1"</code>).</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>v</i>).</li>
+
+          <li>Let <i>status</i> be the result of calling the [[Call]] internal method of
+          <i>adder</i> with <i>map</i> as <i>thisArgument</i> and a <es-xref target=
+          "sec-list-and-record-specification-type">List</es-xref> whose elements are <i>k</i> and
+          <i>v</i> as <i>argumentsList</i>.</li>
+
+          <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
+        </ol>
+      </li>
+    </ol>
+
+    <es-note>
+      <p>If the parameter <es-nt>iterable</es-nt> is present, it is expected to be an object that
+      implements an @@iterator method that returns an iterator object that produces a two element
+      array-like object whose first element is a value that will be used as an Map key and whose
+      second element is the value to associate with that key.</p>
+    </es-note>
+  </es-clause>
+
+  <es-clause title="new Map ( ... argumentsList )" anchor="sec-new-map-argumentslist">
+    <p>When <code>Map</code> is called as part of a <code>new</code> expression it is a
+    constructor: it initialises a newly created object.</p>
+
+    <p><code>Map</code> called as part of a new expression with argument list
+    <es-nt>argumentsList</es-nt> performs the following steps:</p>
+
+    <ol class="proc">
+      <li>Let <i>F</i> be the Map function object on which the <code>new</code> operator was
+      applied.</li>
+
+      <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]]
+      internal method that was invoked by the <code>new</code> operator.</li>
+
+      <li>Return the result of <es-xref target=
+      "sec-ordinaryconstruct">OrdinaryConstruct</es-xref>(<i>F</i>, <i>argumentsList</i>).</li>
+    </ol>
+
+    <p>If Map is implemented as an <es-xref target="sec-ecmascript-function-objects">ECMAScript
+    function object</es-xref>, its [[Construct]] internal method will perform the above steps.</p>
+  </es-clause>
+</es-clause>

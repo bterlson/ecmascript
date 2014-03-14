@@ -15,23 +15,23 @@
 
     <li>Let <i>F</i> be a newly created <es-xref target=
     "sec-ecmascript-function-objects">ECMAScript function object</es-xref> with the internal slots
-    listed in <a href="#table-26">Table 26</a> . All of those internal slots are initialised to <b>
+    listed in <a href="#table-24">Table 24</a> . All of those internal slots are initialised to <b>
       undefined</b>.
     </li>
 
-    <li>Set <i>F</i>’s essential internal methods except for [[GetOwnProperty]] to the default
-    ordinary object definitions specified in <es-xref target=
+    <li>Set F’s essential internal methods except for [[GetOwnProperty]] to the default ordinary
+    object definitions specified in <es-xref target=
     "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</li>
 
-    <li>If <i>strict</i> is <b>true</b>, set <i>F</i>’s [[GetOwnProperty]] internal method to the
+    <li>If <i>strict</i> is <b>true</b>, set <i>F</i>’s [[GetOwnProperty]] internal methods to the
     default ordinary object definitions specified in <es-xref target=
     "sec-ordinary-object-internal-methods-and-internal-slots">9.1</es-xref>.</li>
 
-    <li>Else, set <i>F</i>’s [[GetOwnProperty]] internal method to the definitions specified in
-    <es-xref target="sec-ecmascript-function-objects-getownproperty-p">9.2.2</es-xref>.</li>
+    <li>Else, set <i>F</i>’s [[GetOwnProperty]] internal methods to the definitions specified in
+    <es-xref target="sec-ecmascript-function-objects-getownproperty-p">9.2.3</es-xref>.</li>
 
     <li>Set <i>F</i>’s [[Call]] internal method to the definition specified in <es-xref target=
-    "sec-construct-argumentslist">9.2.1</es-xref>.</li>
+    "sec-ecmascript-function-objects-call-thisargument-argumentslist">9.2.1</es-xref>.</li>
 
     <li>Set the [[Strict]] <es-xref target=
     "sec-object-internal-methods-and-internal-slots">internal slot</es-xref> of <i>F</i> to

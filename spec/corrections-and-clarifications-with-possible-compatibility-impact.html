@@ -70,23 +70,23 @@
   algorithm 3 are corrected such that the value field of <es-nt>B</es-nt> is passed as a parameter
   rather than <es-nt>B</es-nt> itself.</p>
 
-  <p>: In step 2 of algorithm, clarify that <es-nt>S</es-nt> may be the empty string.</p>
+  <p><es-xref target="sec-exports-static-semantics-exportedbindings">15.1.2.2</es-xref>: In step 2
+  of algorithm, clarify that <es-nt>S</es-nt> may be the empty string.</p>
 
-  <p>: In step 2 of algorithm clarify that <es-nt>trimmedString</es-nt> may be the empty
-  string.</p>
+  <p><es-xref target="sec-exports-static-semantics-exportentries">15.1.2.3</es-xref>: In step 2 of
+  algorithm clarify that <es-nt>trimmedString</es-nt> may be the empty string.</p>
 
-  <p><es-xref target="sec-scripts-static-semantics-lexicallydeclarednames">15.1.3</es-xref>: Added
-  notes clarifying that ECMAScript’s URI syntax is based upon RFC 2396 and not the newer RFC 3986.
-  In the algorithm for <es-xref target="sec-decode">Decode</es-xref>, a step was removed that
-  immediately preceded the current step 4.d.vii.10.a because it tested for a condition that cannot
-  occur.</p>
+  <p>: Added notes clarifying that ECMAScript’s URI syntax is based upon RFC 2396 and not the newer
+  RFC 3986. In the algorithm for <es-xref target="sec-decode">Decode</es-xref>, a step was removed
+  that immediately preceded the current step 4.d.vii.10.a because it tested for a condition that
+  cannot occur.</p>
 
   <p>: Corrected use of variable <es-nt>P</es-nt> in steps 5 and 6 of algorithm.</p>
 
-  <p><es-xref target="sec-requestload">15.2.4.2</es-xref>: Edition 5 handling of <span class=
-  "value">undefined</span> and <span class="value">null</span> as <span class="value">this</span>
-  value caused existing code to fail. Specification modified to maintain compatibility with such
-  code. New steps 1 and 2 added to the algorithm.</p>
+  <p>: Edition 5 handling of <span class="value">undefined</span> and <span class=
+  "value">null</span> as <span class="value">this</span> value caused existing code to fail.
+  Specification modified to maintain compatibility with such code. New steps 1 and 2 added to the
+  algorithm.</p>
 
   <p>: Steps 5 and 7 of Edition 5 algorithm have been deleted because they imposed requirements
   upon the <es-nt>argArray</es-nt> argument that are inconsistent with other uses of generic

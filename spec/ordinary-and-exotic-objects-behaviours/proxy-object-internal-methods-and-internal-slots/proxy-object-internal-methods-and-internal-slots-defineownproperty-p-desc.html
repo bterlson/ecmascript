@@ -48,7 +48,7 @@
     <li><es-xref target=
     "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>booleanTrapResult</i>).</li>
 
-    <li>If <i>booleanTrapResult</i> is <b>false</b>, then return <b>false</b>.</li>
+    <li><i>booleanTrapResult</i> is <b>false</b>, then return <b>false</b>.</li>
 
     <li>Let <i>targetDesc</i> be the result of calling the [[GetOwnProperty]] internal method of
     <i>target</i> with argument <i>P</i>.</li>
@@ -60,6 +60,9 @@
 
     <li><es-xref target=
     "sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>extensibleTarget</i>).</li>
+
+    <li>Set <i>extensibleTarget</i> to <es-xref target=
+    "sec-toboolean">ToBoolean</es-xref>(<i>extensibleTarget</i>),</li>
 
     <li>If <i>Desc</i> has a [[Configurable]] field and if <i>Desc</i>.[[Configurable]] is
     <b>false,</b> then

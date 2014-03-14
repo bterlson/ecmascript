@@ -1,5 +1,35 @@
 <es-clause title="ECMAScript Language: Modules and Scripts" anchor=
 "sec-ecmascript-language-modules-and-scripts">
+  <p style="background-color: #FFC000">This section is incomplete</p>
+
+  <es-clause title="Modules" anchor="sec-modules">
+    <es-production name="Module">
+      <es-rhs><es-nt optional>ModuleBody</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ModuleBody">
+      <es-rhs><es-nt>ModuleItemList</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ModuleItemList">
+      <es-rhs><es-nt>ModuleItem</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ModuleItemList</es-nt> <es-nt>ModuleItem</es-nt></es-rhs>
+    </es-production>
+
+    <es-production name="ModuleItem">
+      <es-rhs><es-nt>ImportDeclaration</es-nt></es-rhs>
+
+      <es-rhs><es-nt>ExportDeclaration</es-nt></es-rhs>
+
+      <es-rhs><es-nt>StatementListItem</es-nt></es-rhs>
+    </es-production>
+
+    <link rel="import" href="modules/module-semantics.html">
+    <link rel="import" href="modules/imports.html">
+    <link rel="import" href="modules/exports.html">
+  </es-clause>
+
   <es-clause title="Scripts" anchor="sec-scripts">
     <h2>Syntax</h2>
 
@@ -26,11 +56,11 @@
         <li>
           <p>It is a Syntax Error if any element of the LexicallyDeclaredNames of
           <es-nt>StatementList</es-nt> also occurs in the VarDeclaredNames of
-          <es-nt>StatementList</es-nt>.</p>
+          <es-nt>ScriptItemList</es-nt>.</p>
         </li>
 
         <li>
-          <p>It is a Syntax Error if <es-nt>StatementList</es-nt> Contains <code>super</code>.</p>
+          <p>It is a Syntax Error if <es-nt>ScriptItemList</es-nt> Contains <code>super</code>.</p>
         </li>
       </ul>
 
@@ -43,8 +73,8 @@
 
     <es-clause title="Static Semantics: IsStrict" anchor="sec-scripts-static-semantics-isstrict">
       <p>See also: <es-xref target=
-      "sec-function-definitions-static-semantics-isstrict">14.1.10</es-xref>, <es-xref target=
-      "sec-static-semantics-declarednames">15.2.0.2</es-xref>.</p>
+      "sec-function-definitions-static-semantics-isstrict">14.1.9</es-xref>, <es-xref target=
+      "sec-module-semantics-static-semantics-exportedbindings">15.1.0.2</es-xref>.</p>
 
       <es-production name="ScriptBody" class="inline">
         <es-rhs><es-nt>StatementList</es-nt></es-rhs>
@@ -63,14 +93,14 @@
       "sec-block-static-semantics-lexicallydeclarednames">13.1.3</es-xref>, <es-xref target=
       "sec-switch-statement-static-semantics-lexicallydeclarednames">13.11.3</es-xref>,
       <es-xref target=
-      "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.11</es-xref>,
+      "sec-function-definitions-static-semantics-lexicallydeclarednames">14.1.10</es-xref>,
       <es-xref target=
       "sec-arrow-function-definitions-static-semantics-lexicallydeclarednames">14.2.7</es-xref>,
       <es-xref target=
       "sec-generator-function-definitions-static-semantics-lexicallydeclarednames">14.4.7</es-xref>,
       <es-xref target=
       "sec-class-definitions-static-semantics-lexicallydeclarednames">14.5.8</es-xref>,
-      <es-xref target="sec-static-semantics-knownexportentries">15.2.0.8</es-xref>.</p>
+      <es-xref target="sec-static-semantics-knownexportentries">15.1.0.7</es-xref>.</p>
 
       <es-production name="ScriptBody" class="inline">
         <es-rhs><es-nt>StatementList</es-nt></es-rhs>
@@ -115,12 +145,12 @@
       "sec-labelled-statements-static-semantics-vardeclarednames">13.12.2</es-xref>,
       <es-xref target="sec-try-statement-static-semantics-vardeclarednames">13.14.2</es-xref>,
       <es-xref target=
-      "sec-function-definitions-static-semantics-referencessuper">14.1.12</es-xref>,
+      "sec-function-definitions-static-semantics-vardeclarednames">14.1.11</es-xref>,
       <es-xref target=
       "sec-generator-function-definitions-static-semantics-vardeclarednames">14.4.10</es-xref>,
       <es-xref target="sec-class-definitions-static-semantics-vardeclarednames">14.5.14</es-xref>,
       <es-xref target=
-      "sec-module-static-semantics-static-semantics-vardeclarednames">15.2.0.13</es-xref>.</p>
+      "sec-module-semantics-static-semantics-vardeclarednames">15.1.0.12</es-xref>.</p>
 
       <es-production name="ScriptBody" class="inline">
         <es-rhs><es-nt>StatementList</es-nt></es-rhs>
@@ -133,10 +163,6 @@
 
     <es-clause title="Static Semantics: VarScopedDeclarations" anchor=
     "sec-scripts-static-semantics-varscopeddeclarations">
-      <p>See also: <es-xref target=
-      "sec-block-static-semantics-varscopeddeclarations">13.1.9</es-xref>, <es-xref target=
-      "sec-module-static-semantics-static-semantics-varscopeddeclarations">15.2.0.14</es-xref>.</p>
-
       <es-production name="ScriptBody" class="inline">
         <es-rhs><es-nt>StatementList</es-nt></es-rhs>
       </es-production>
@@ -158,8 +184,8 @@
         <li>The code of this <i>Script</i> is <es-xref target="sec-strict-mode-code">strict mode
         code</es-xref> if the <es-xref target=
         "sec-directive-prologues-and-the-use-strict-directive">Directive Prologue</es-xref>
-        (<es-xref target="sec-directive-prologues-and-the-use-strict-directive">14.1.1</es-xref>)
-        of its <i>ScriptBody</i> contains a <es-xref target=
+        (<es-xref target="sec-directive-prologues-and-the-use-strict-directive">15.3</es-xref>) of
+        its <i>ScriptBody</i> contains a <es-xref target=
         "sec-directive-prologues-and-the-use-strict-directive">Use Strict Directive</es-xref> or if
         any of the conditions of <es-xref target="sec-strict-mode-code">10.2.1</es-xref> apply. If
         the code of this <i>Script</i> is <es-xref target="sec-strict-mode-code">strict mode
@@ -175,7 +201,7 @@
 
         <li>Let <i>status</i> be the result of performing GlobalDeclarationInstantiation as
         described in <es-xref target=
-        "sec-runtime-semantics-globaldeclarationinstantiation">15.1.8</es-xref> using
+        "sec-runtime-semantics-globaldeclarationinstantiation">15.2.8</es-xref> using
         <i>ScriptBody</i>, <i>globalEnv</i>, and <i>deletableBindings</i> as arguments.</li>
 
         <li><es-xref target="sec-returnifabrupt">ReturnIfAbrupt</es-xref>(<i>status</i>).</li>
@@ -431,7 +457,7 @@
 
       <es-note>
         <p>Early errors specified in <es-xref target=
-        "sec-scripts-static-semantics-early-errors">15.1.1</es-xref> prevent name conflicts between
+        "sec-scripts-static-semantics-early-errors">15.2.1</es-xref> prevent name conflicts between
         function/var declarations and let/const/class/module declarations as well as redeclaration
         of let/const/class/module bindings for declaration contained within a single
         <es-nt>Script</es-nt>. However, such conflicts and redeclarations that span more than one
@@ -445,35 +471,33 @@
     </es-clause>
   </es-clause>
 
-  <es-clause title="Modules" anchor="sec-modules">
-    <es-production name="Module">
-      <es-rhs><es-nt optional>ModuleBody</es-nt></es-rhs>
-    </es-production>
+  <es-clause title="Directive Prologues and the Use Strict Directive" anchor=
+  "sec-directive-prologues-and-the-use-strict-directive">
+    <p>A Directive Prologue is the longest sequence of <es-nt>ExpressionStatement</es-nt>
+    productions occurring as the initial <es-nt>StatementListItem</es-nt> productions of a
+    <es-nt>ScriptBody</es-nt> or <es-nt>FunctionBody</es-nt> and where each
+    <es-nt>ExpressionStatement</es-nt> in the sequence consists entirely of a
+    <es-nt>StringLiteral</es-nt> token followed by a semicolon. The semicolon may appear explicitly
+    or may be inserted by <es-xref target="sec-automatic-semicolon-insertion">automatic semicolon
+    insertion</es-xref>. A Directive Prologue may be an empty sequence.</p>
 
-    <es-production name="ModuleBody">
-      <es-rhs><es-nt>ModuleItemList</es-nt></es-rhs>
-    </es-production>
+    <p>A Use Strict Directive is an <es-nt>ExpressionStatement</es-nt> in a Directive Prologue
+    whose <es-nt>StringLiteral</es-nt> is either the exact character sequences
+    <code>"use</code>&nbsp;<code>strict"</code> or <code>'use</code>&nbsp;<code>strict'</code>. A
+    Use Strict Directive may not contain an <es-nt>EscapeSequence</es-nt> or
+    <es-nt>LineContinuation</es-nt>.</p>
 
-    <es-production name="ModuleItemList">
-      <es-rhs><es-nt>ModuleItem</es-nt></es-rhs>
+    <p>A Directive Prologue may contain more than one Use Strict Directive. However, an
+    implementation may issue a warning if this occurs.</p>
 
-      <es-rhs><es-nt>ModuleItemList</es-nt> <es-nt>ModuleItem</es-nt></es-rhs>
-    </es-production>
-
-    <es-production name="ModuleItem">
-      <es-rhs><es-nt>ImportDeclaration</es-nt></es-rhs>
-
-      <es-rhs><es-nt>ExportDeclaration</es-nt></es-rhs>
-
-      <es-rhs><es-nt>StatementListItem</es-nt></es-rhs>
-    </es-production>
-
-    <link rel="import" href="modules/module-static-semantics.html">
-    <link rel="import" href="modules/imports.html">
-    <link rel="import" href="modules/exports.html">
-    <link rel="import" href="modules/runtime-semantics-loader-state.html">
-    <link rel="import" href="modules/runtime-semantics-module-loading.html">
-    <link rel="import" href="modules/runtime-semantics-module-linking.html">
-    <link rel="import" href="modules/runtime-semantics-module-evaluation.html">
+    <es-note>
+      <p>The <es-nt>ExpressionStatement</es-nt> productions of a Directive Prologue are evaluated
+      normally during evaluation of the containing production. Implementations may define
+      implementation specific meanings for <es-nt>ExpressionStatement</es-nt> productions which are
+      not a Use Strict Directive and which occur in a Directive Prologue. If an appropriate
+      notification mechanism exists, an implementation should issue a warning if it encounters in a
+      Directive Prologue an <es-nt>ExpressionStatement</es-nt> that is not a Use Strict Directive
+      or which does not have a meaning defined by the implementation.</p>
+    </es-note>
   </es-clause>
 </es-clause>

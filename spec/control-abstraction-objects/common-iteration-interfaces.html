@@ -73,9 +73,8 @@
 
     <es-note>
       <p>Arguments may be passed to the next function but their interpretation and validity is
-      dependent upon the target Iterator. The for-of statement and other common users of Iterators
-      do not pass any arguments, so Iterators that expect to be used in such a manner must be
-      prepared to deal with being called with no arguments..</p>
+      dependent upon the target Iterator. Generic use of Iterators should not pass any
+      arguments.</p>
     </es-note>
   </es-clause>
 
@@ -109,8 +108,7 @@
           result status of the an <i>iterator</i> <code>next</code> method call. If the end of the
           iterator was reached <code>done</code> is <span class="value">true</span>. If the end was
           not reached <code>done</code> is <span class="value">false</span> and a value is
-          available. If a <code>done</code> property (either own or inherited does not exist), it
-          is consider to have the value <span class="value">false</span>.</td>
+          available.</td>
         </tr>
 
         <tr>

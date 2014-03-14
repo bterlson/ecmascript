@@ -4,12 +4,12 @@
   method). Calling a bound function generally results in a call of its wrappered function.</p>
 
   <p>Bound function objects do not have the internal slots of ECMAScript function objects defined
-  in <a href="#table-26">Table 26</a> . Instead they have the internal slots defined in <a href=
-  "#table-27">Table 27</a> .</p>
+  in <a href="#table-24">Table 24</a> . Instead they have the internal slots defined in <a href=
+  "#table-25">Table 25</a> .</p>
 
   <figure>
     <figcaption>
-      <span id="table-27">Table 27</span> -- Internal Slots of Exotic Bound Function Objects
+      <span id="table-25">Table 25</span> -- Internal Slots of Exotic Bound Function Objects
     </figcaption>
 
     <table class="real-table">
@@ -91,7 +91,7 @@
     </ol>
   </es-clause>
 
-  <es-clause title="[[Construct]]" anchor="sec-bound-function-exotic-objects-construct">
+  <es-clause title="[[Construct]]" anchor="sec-construct">
     <p>When the [[Construct]] internal method of an exotic <es-xref target=
     "sec-bound-function-exotic-objects">bound function</es-xref> object, <es-nt>F</es-nt> that was
     created using the bind function is called with a list of arguments <es-nt>ExtraArgs</es-nt>,
@@ -140,7 +140,7 @@
 
         <ol class="block">
           <li>Set the [[Construct]] internal method of <i>obj</i> as described in <es-xref target=
-          "sec-bound-function-exotic-objects-construct">9.4.1.2</es-xref>.</li>
+          "sec-construct">9.4.1.2</es-xref>.</li>
         </ol>
       </li>
 

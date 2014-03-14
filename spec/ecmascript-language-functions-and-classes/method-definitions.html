@@ -82,7 +82,7 @@
   <es-clause title="Static Semantics: ExpectedArgumentCount" anchor=
   "sec-method-definitions-static-semantics-expectedargumentcount">
     <p>See also: <es-xref target=
-    "sec-function-definitions-static-semantics-expectedargumentcount">14.1.5</es-xref>,
+    "sec-function-definitions-static-semantics-expectedargumentcount">14.1.4</es-xref>,
     <es-xref target=
     "sec-arrow-function-definitions-static-semantics-expectedargumentcount">14.2.5</es-xref>.</p>
 
@@ -246,22 +246,32 @@
       context</es-xref>’s <es-xref target=
       "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
 
-      <li>Let <i>closure</i> be the result of performing the <es-xref target=
-      "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Method,
-      <i>StrictFormalParameters</i>, <i>FunctionBody, scope</i>, and <i>strict</i>. If
-      <i>functionPrototype</i> was passed as a parameter then pass its value as the
-      <i>functionPrototype</i> optional argument of <es-xref target=
-      "sec-functioncreate">FunctionCreate</es-xref>.</li>
-
       <li>If ReferencesSuper of <i>MethodDefinition</i> is <b>true</b>, then
 
         <ol class="block">
-          <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>closure</i>,
-          <i>propKey</i>, <i>object</i>).</li>
+          <li>Let <i>closure</i> be the result of performing the <es-xref target=
+          "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Method,
+          <i>StrictFormalParameters</i>, <i>FunctionBody, scope</i>, and <i>strict</i> and with
+          <i>propKey</i> as the <i>methodName</i> optional argument and <i>object</i> as the
+          <i>homeObject</i> optional argument . If <i>functionPrototype</i> was passed as a
+          parameter then also pass its value as the <i>functionPrototype</i> optional argument of
+          <es-xref target="sec-functioncreate">FunctionCreate</es-xref>.</li>
         </ol>
       </li>
 
-      <li>Return the Record{[[key]]: <i>propKey</i>, [[closure]]: <i>closure</i>}.</li>
+      <li>Else
+
+        <ol class="block">
+          <li>Let <i>closure</i> be the result of performing the <es-xref target=
+          "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Method,
+          <i>StrictFormalParameters</i>, <i>FunctionBody, scope</i>, and <i>strict</i>. If
+          <i>functionPrototype</i> was passed as a parameter then also pass its value as the
+          <i>functionPrototype</i> optional argument of <es-xref target=
+          "sec-functioncreate">FunctionCreate</es-xref>.</li>
+        </ol>
+      </li>
+
+      <li>Return the Record{[[key]]: <i>propKey</i>, [[closure]]: <i>closure</i>}).</li>
     </ol>
   </es-clause>
 
@@ -321,19 +331,27 @@
       context</es-xref>’s <es-xref target=
       "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
 
-      <li>Let <i>formalParameterList</i> be the production <es-production name=
-      "FormalParameters" class="inline"><es-rhs constraint=
-      "empty"></es-rhs></es-production></li>
-
-      <li>Let <i>closure</i> be the result of performing the <es-xref target=
-      "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Method,
-      <i>formalParameterList</i>, <i>FunctionBody, scope</i>, and <i>strict</i>.</li>
+      <li>Let <i>formalParameterList</i> be the production <i>FormalParameters</i> <b>:</b>
+      [empty]</li>
 
       <li>If ReferencesSuper of <i>MethodDefinition</i> is <b>true</b>, then
 
         <ol class="block">
-          <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>closure</i>,
-          <i>propKey</i>, <i>object</i>).</li>
+          <li>Let <i>closure</i> be the result of performing the <es-xref target=
+          "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Method,
+          <es-nt>formalParameterList</es-nt>, <i>FunctionBody, scope</i>, and <i>strict</i> and
+          with <i>propKey</i> as the <es-nt>methodName</es-nt> optional argument and <i>object</i>
+          as the <i>homeObject</i> optional argument .</li>
+        </ol>
+      </li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>Let <i>closure</i> be the result of performing the <es-xref target=
+          "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Method,
+          <es-nt>formalParameterList</es-nt>, <i>FunctionBody, scope</i>, and
+          <es-nt>strict</es-nt>.</li>
         </ol>
       </li>
 
@@ -364,15 +382,24 @@
       context</es-xref>’s <es-xref target=
       "sec-execution-contexts">LexicalEnvironment</es-xref>.</li>
 
-      <li>Let <i>closure</i> be the result of performing the <es-xref target=
-      "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Method,
-      <i>PropertySetParameterList</i>, <i>FunctionBody, scope</i>, and <i>strict</i>.</li>
-
       <li>If ReferencesSuper of <i>MethodDefinition</i> is <b>true</b>, then
 
         <ol class="block">
-          <li>Perform <es-xref target="sec-makemethod">MakeMethod</es-xref>(<i>closure</i>,
-          <i>propKey</i>, <i>object</i>).</li>
+          <li>Let <i>closure</i> be the result of performing the <es-xref target=
+          "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Method,
+          <es-nt>PropertySetParameterList</es-nt>, <i>FunctionBody, scope</i>, and <i>strict</i>
+          and with <i>propKey</i> as the <es-nt>methodName</es-nt> optional argument and
+          <i>object</i> as the <i>homeObject</i> optional argument .</li>
+        </ol>
+      </li>
+
+      <li>Else
+
+        <ol class="block">
+          <li>Let <i>closure</i> be the result of performing the <es-xref target=
+          "sec-functioncreate">FunctionCreate</es-xref> abstract operation with arguments Method,
+          <es-nt>PropertySetParameterList</es-nt>, <i>FunctionBody, scope</i>, and
+          <es-nt>strict</es-nt>.</li>
         </ol>
       </li>
 
